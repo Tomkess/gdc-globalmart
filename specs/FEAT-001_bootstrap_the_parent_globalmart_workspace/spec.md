@@ -18,7 +18,7 @@ name: Bootstrap the parent globalmart workspace into the repo as a gooddata-pyth
   native YAML layout tree, with a normalizer that makes the dump deterministic and
   diffable
 sources: []
-status: in-progress
+status: done
 tags: []
 updated: '2026-09-18'
 ---
