@@ -13,6 +13,12 @@ targets:
     datasource_id: globalmart-motherduck
     datasource_schema: globalmart
     parent_workspace_id: globalmart
+    warehouse_type: motherduck
+    datasource_name: GlobalMart MotherDuck
+    datasource_url: jdbc:duckdb:md:gd_demo
+    datasource_database: gd_demo
+    # The NAME of the env var holding the token — never the value.
+    datasource_secret_env: MOTHERDUCK_TOKEN
 
   # Local-inference host. Filled in by FEAT-002 when the Postgres datasource
   # fields (warehouse_type, url, username, secret env var) are added.

@@ -8,6 +8,7 @@ before that capture has happened, and so a shape can be constructed on demand.
 
 from __future__ import annotations
 
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -192,3 +193,84 @@ def synthetic_payload() -> dict[str, Any]:
 @pytest.fixture
 def synthetic_model(synthetic_payload: dict[str, Any]) -> CatalogDeclarativeWorkspaceModel:
     return CatalogDeclarativeWorkspaceModel.from_dict(synthetic_payload, camel_case=True)
+
+
+class FakeSdk:
+    """A hand-written SDK double that records what was sent to the host.
+
+    Not a mocking framework: the assertions read as "these calls, in this order, with these
+    arguments", which is what the tests actually care about. It also serves back whatever it
+    was given, so idempotency can be proven without a host.
+    """
+
+    def __init__(
+        self,
+        *,
+        organization_id: str = "petertomko",
+        existing_workspace: Any = None,
+        existing_datasource: bool = False,
+    ) -> None:
+        self.calls: list[tuple[str, dict[str, Any]]] = []
+        self._organization_id = organization_id
+        self._workspace = existing_workspace
+        self._datasource_exists = existing_datasource
+
+        outer = self
+
+        class _DataSource:
+            def get_data_source(self, data_source_id: str) -> Any:
+                outer.calls.append(("get_data_source", {"id": data_source_id}))
+                if not outer._datasource_exists:
+                    raise RuntimeError("404 not found")
+                return object()
+
+            def create_or_update_data_source(self, data_source: Any) -> None:
+                outer.calls.append(
+                    ("create_or_update_data_source", {"id": getattr(data_source, "id", None)})
+                )
+                outer._datasource_exists = True
+
+        class _Organization:
+            def get_organization(self) -> Any:
+                outer.calls.append(("get_organization", {}))
+                return SimpleNamespace(id=outer._organization_id)
+
+        class _Workspace:
+            def get_declarative_workspace(self, workspace_id: str) -> Any:
+                outer.calls.append(("get_declarative_workspace", {"id": workspace_id}))
+                if outer._workspace is None:
+                    raise RuntimeError("404 not found")
+                return outer._workspace
+
+            def create_or_update(self, workspace: Any) -> None:
+                outer.calls.append(
+                    ("create_or_update", {"id": workspace.workspace_id, "name": workspace.name})
+                )
+
+            def put_declarative_workspace(
+                self, workspace_id: str, workspace: Any, standalone_copy: bool = False
+            ) -> None:
+                outer.calls.append(
+                    (
+                        "put_declarative_workspace",
+                        {"id": workspace_id, "standalone_copy": standalone_copy},
+                    )
+                )
+                outer._workspace = workspace
+
+        self.catalog_data_source = _DataSource()
+        self.catalog_organization = _Organization()
+        self.catalog_workspace = _Workspace()
+
+    def call_names(self) -> list[str]:
+        return [name for name, _ in self.calls]
+
+    def writes(self) -> list[str]:
+        """Only the calls that change something on the host."""
+        writing = {"create_or_update_data_source", "create_or_update", "put_declarative_workspace"}
+        return [name for name in self.call_names() if name in writing]
+
+
+@pytest.fixture
+def fake_sdk() -> FakeSdk:
+    return FakeSdk()

@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from enum import StrEnum
 from pathlib import Path
 
 import yaml
@@ -63,6 +64,21 @@ class MissingTokenError(GlobalmartError):
     """No API token in the environment for this profile."""
 
 
+class MissingProfileKeyError(GlobalmartError):
+    """A profile lacks a value required for the operation being attempted."""
+
+
+class WarehouseType(StrEnum):
+    """Warehouses this repo can register a datasource for.
+
+    Any other value in the YAML raises at profile-load time rather than at publish time,
+    so an unsupported warehouse fails locally instead of halfway through a publish.
+    """
+
+    MOTHERDUCK = "motherduck"
+    POSTGRES = "postgres"
+
+
 def token_env_var(profile_name: str) -> str:
     """Per-target token variable, e.g. ``demo-cloud`` -> ``GLOBALMART_TOKEN__DEMO_CLOUD``."""
     suffix = profile_name.upper().replace("-", "_")
@@ -85,6 +101,25 @@ class TargetProfile:
     datasource_id: str
     datasource_schema: str
     parent_workspace_id: str = "globalmart"
+
+    # --- publish-side fields (FEAT-002) -----------------------------------
+    # Absent for a capture-only profile; validate_for_publish names what is missing.
+    warehouse_type: WarehouseType | None = None
+    datasource_name: str | None = None
+    datasource_url: str | None = None
+    datasource_database: str | None = None
+    datasource_username: str | None = None
+    #: The NAME of the env var holding the warehouse secret, never the value.
+    datasource_secret_env: str | None = None
+    #: Lets several GlobalMart copies coexist in one org for A/B eval runs.
+    workspace_id_prefix: str = ""
+    backup_dir: Path = Path("backups")
+
+    def warehouse_secret(self) -> str | None:
+        """Read the warehouse secret from the environment named by the profile."""
+        if not self.datasource_secret_env:
+            return None
+        return os.environ.get(self.datasource_secret_env)
 
 
 def _resolve_token(profile_name: str) -> str:
@@ -143,6 +178,18 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
             f"Profile {name!r} is missing required key(s): {', '.join(missing)}"
         )
 
+    raw_warehouse = field("warehouse_type", "GLOBALMART_WAREHOUSE_TYPE")
+    try:
+        warehouse_type = WarehouseType(raw_warehouse) if raw_warehouse else None
+    except ValueError as error:
+        supported = ", ".join(w.value for w in WarehouseType)
+        raise GlobalmartError(
+            f"Profile {name!r} has unsupported warehouse_type {raw_warehouse!r}. "
+            f"Supported: {supported}."
+        ) from error
+
+    backup_dir = field("backup_dir", "GLOBALMART_BACKUP_DIR") or "backups"
+
     return TargetProfile(
         name=name,
         host=host.rstrip("/"),
@@ -151,4 +198,38 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
         datasource_id=datasource_id,
         datasource_schema=datasource_schema,
         parent_workspace_id=parent_workspace_id,
+        warehouse_type=warehouse_type,
+        datasource_name=field("datasource_name", "GLOBALMART_DATASOURCE_NAME") or None,
+        datasource_url=field("datasource_url", "GLOBALMART_DATASOURCE_URL") or None,
+        datasource_database=field("datasource_database", "GLOBALMART_DATASOURCE_DATABASE") or None,
+        datasource_username=field("datasource_username", "GLOBALMART_DATASOURCE_USERNAME") or None,
+        datasource_secret_env=entry.get("datasource_secret_env") or None,
+        workspace_id_prefix=field("workspace_id_prefix", "GLOBALMART_WORKSPACE_ID_PREFIX"),
+        backup_dir=Path(backup_dir),
     )
+
+
+def validate_for_publish(profile: TargetProfile) -> list[str]:
+    """Names of every value required to publish that this profile lacks.
+
+    Returned rather than raised so the caller can report them all at once, and checked
+    before an SDK client is built — AC #7 requires a publish to fail before contacting the
+    host when the profile is incomplete.
+    """
+    missing: list[str] = []
+
+    if profile.warehouse_type is None:
+        missing.append("warehouse_type")
+    if not profile.datasource_name:
+        missing.append("datasource_name")
+    if not profile.datasource_url:
+        missing.append("datasource_url")
+    if not profile.datasource_secret_env:
+        missing.append("datasource_secret_env")
+    elif profile.warehouse_secret() is None:
+        missing.append(f"{profile.datasource_secret_env} (env var is unset)")
+
+    if profile.warehouse_type is WarehouseType.POSTGRES and not profile.datasource_username:
+        missing.append("datasource_username (required for postgres)")
+
+    return missing

@@ -11,6 +11,11 @@ Two subcommands today:
     Re-normalize an existing tree in place. ``--check`` writes nothing and exits 1 if
     normalization would change anything: the CI gate that stops a hand-edited layout file
     from being committed in a non-canonical form.
+
+``globalmart publish parent --target <name> [--apply]``
+    Publish the committed tree into a live org. Writes to a **remote** org, so per ADR 002
+    it is a read-only rehearsal by default and ``--apply`` is the only path to a write.
+    Never takes ``--dry-run``; no command has both.
 """
 
 from __future__ import annotations
@@ -26,6 +31,7 @@ from globalmart.config import GlobalmartError, load_profile
 from globalmart.counts import count_objects
 from globalmart.layout_io import read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
+from globalmart.publish import PARENT_WORKSPACE_NAME, publish_workspace
 from globalmart.sdk_client import make_sdk
 
 DEFAULT_LAYOUT_PATH = Path("layouts/workspaces/globalmart")
@@ -120,6 +126,44 @@ def cmd_normalize(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_publish_parent(args: argparse.Namespace) -> int:
+    profile = load_profile(args.target)
+    source = Path(args.source)
+    if not source.exists():
+        raise GlobalmartError(
+            f"No layout tree at {source}. Run `globalmart bootstrap --target <name>` first."
+        )
+
+    model = read_tree(source)
+    workspace_id = args.workspace_id or profile.parent_workspace_id
+
+    result = publish_workspace(
+        make_sdk(profile),
+        model,
+        profile,
+        workspace_id=workspace_id,
+        workspace_name=args.workspace_name,
+        apply=args.apply,
+        standalone_copy=args.standalone_copy,
+        take_backup=not args.no_backup,
+    )
+
+    if not args.apply:
+        print("REHEARSAL — no writes. Re-run with --apply to publish.\n")
+
+    _print_report("Publish", result.summary_lines())
+    _print_report("\nObject counts", _counts_lines(model))
+
+    if not args.apply and result.diff:
+        print("\nWould change:")
+        for line in result.diff[:20]:
+            print(f"  {line}")
+        if len(result.diff) > 20:
+            print(f"  ... ({len(result.diff) - 20} more)")
+
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="globalmart", description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -163,12 +207,46 @@ def build_parser() -> argparse.ArgumentParser:
     normalize.add_argument("--allow-unparameterized-sql", action="store_true")
     normalize.set_defaults(func=cmd_normalize)
 
+    publish = subparsers.add_parser("publish", help="publish into a live org")
+    publish_targets = publish.add_subparsers(dest="what", required=True)
+
+    parent = publish_targets.add_parser("parent", help="publish the parent workspace")
+    parent.add_argument("--target", required=True, help="profile name from config/targets.yaml")
+    parent.add_argument("--source", default=str(DEFAULT_LAYOUT_PATH), help="layout tree to publish")
+    parent.add_argument("--workspace-id", default=None)
+    parent.add_argument("--workspace-name", default=PARENT_WORKSPACE_NAME)
+    parent.add_argument(
+        "--apply",
+        action="store_true",
+        help="actually write to the org; without it this is a read-only rehearsal (ADR 002)",
+    )
+    parent.add_argument(
+        "--no-backup",
+        action="store_true",
+        help="skip the pre-publish backup; requires --apply, and the replaced layout is then unrecoverable",
+    )
+    parent.add_argument("--standalone-copy", action="store_true")
+    parent.set_defaults(func=cmd_publish_parent)
+
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+
+    # --no-backup is meaningless in a rehearsal, and someone reaching for it deserves to be
+    # told exactly what becomes unrecoverable.
+    if getattr(args, "no_backup", False):
+        if not getattr(args, "apply", False):
+            parser.error("--no-backup requires --apply (a rehearsal writes nothing to back up)")
+        print(
+            f"WARNING: --no-backup — the current content of workspace "
+            f"{getattr(args, 'workspace_id', None) or 'globalmart'!r} will be replaced with no "
+            "recoverable copy.",
+            file=sys.stderr,
+        )
+
     try:
         exit_code: int = args.func(args)
     except GlobalmartError as error:

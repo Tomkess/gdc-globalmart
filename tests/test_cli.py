@@ -128,3 +128,73 @@ def test_unknown_profile_exits_one(capsys: pytest.CaptureFixture[str]) -> None:
 
 def _unused(*_: Any) -> None:  # pragma: no cover - keeps the import list honest
     pass
+
+
+# --- publish (FEAT-002 task 34) ---------------------------------------------
+
+
+def test_publish_has_apply_and_no_dry_run() -> None:
+    """ADR 002's convention, pinned: --apply gates remote writes, and no command has both."""
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    parent = choices["publish"]._subparsers._group_actions[0].choices["parent"]  # type: ignore[union-attr]
+    dests = {a.dest for a in parent._actions}
+
+    assert "apply" in dests
+    assert "dry_run" not in dests
+
+
+def test_publish_rehearsal_writes_nothing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    import globalmart.cli as cli
+
+    from .conftest import FakeSdk
+
+    sdk = FakeSdk()
+    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
+    monkeypatch.setenv("MOTHERDUCK_TOKEN", "s")
+    monkeypatch.setattr(cli, "make_sdk", lambda profile: sdk)
+
+    tree = _normalized_tree(tmp_path / "tree")
+    exit_code = main(["publish", "parent", "--target", "demo-cloud", "--source", str(tree)])
+
+    assert exit_code == 0
+    assert sdk.writes() == []
+    assert "REHEARSAL" in capsys.readouterr().out
+
+
+def test_publish_apply_writes(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    import globalmart.cli as cli
+
+    from .conftest import FakeSdk
+
+    sdk = FakeSdk()
+    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
+    monkeypatch.setenv("MOTHERDUCK_TOKEN", "s")
+    monkeypatch.setattr(cli, "make_sdk", lambda profile: sdk)
+
+    tree = _normalized_tree(tmp_path / "tree")
+    exit_code = main(
+        ["publish", "parent", "--target", "demo-cloud", "--source", str(tree), "--apply"]
+    )
+
+    assert exit_code == 0
+    assert "put_declarative_workspace" in sdk.writes()
+
+
+def test_no_backup_without_apply_is_rejected(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Meaningless in a rehearsal — and a real foot-gun if silently accepted."""
+    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
+    tree = _normalized_tree(tmp_path / "tree")
+
+    with pytest.raises(SystemExit) as excinfo:
+        main(["publish", "parent", "--target", "demo-cloud", "--source", str(tree), "--no-backup"])
+    assert excinfo.value.code == 2
+
+
+def test_publish_without_a_tree_fails_clearly(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
+
+    assert main(["publish", "parent", "--target", "demo-cloud", "--source", "does/not/exist"]) == 1
