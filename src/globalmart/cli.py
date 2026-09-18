@@ -164,6 +164,38 @@ def cmd_publish_parent(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_targets_inspect(args: argparse.Namespace) -> int:
+    """Discover what a host reports, so a new profile can be filled in from fact.
+
+    Adding an org means knowing its organization id and its datasources — neither is
+    guessable, and guessing them is how `organization_id: petertomko` (inferred from a
+    hostname, actually `gm-ddebmti`) got into config during development.
+    """
+    profile = load_profile(args.target)
+    sdk = make_sdk(profile)
+
+    organization = sdk.catalog_organization.get_organization()
+    actual_org = getattr(organization, "id", None)
+
+    print(f"host                : {profile.host}")
+    print(f"organization_id     : {actual_org}")
+    if actual_org != profile.organization_id:
+        print(f"  MISMATCH — config/targets.yaml says {profile.organization_id!r}")
+
+    print("\ndatasources:")
+    for data_source in sdk.catalog_data_source.list_data_sources():
+        print(f"  id              : {data_source.id}")
+        print(f"    type          : {getattr(data_source, 'type', None)}")
+        print(f"    schema        : {getattr(data_source, 'schema', None)}")
+        print(f"    url           : {getattr(data_source, 'url', None)}")
+
+    print("\nworkspaces:")
+    for workspace in sdk.catalog_workspace.list_workspaces():
+        print(f"  {workspace.id}  [{workspace.name}]")
+
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="globalmart", description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -206,6 +238,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     normalize.add_argument("--allow-unparameterized-sql", action="store_true")
     normalize.set_defaults(func=cmd_normalize)
+
+    targets = subparsers.add_parser("targets", help="inspect configured targets")
+    targets_actions = targets.add_subparsers(dest="action", required=True)
+    inspect = targets_actions.add_parser(
+        "inspect", help="report what a host actually says — org id, datasources, workspaces"
+    )
+    inspect.add_argument("--target", required=True)
+    inspect.set_defaults(func=cmd_targets_inspect)
 
     publish = subparsers.add_parser("publish", help="publish into a live org")
     publish_targets = publish.add_subparsers(dest="what", required=True)

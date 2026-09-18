@@ -65,10 +65,37 @@ lines, all audit, zero real.
 
 ## Adding a target
 
-1. Add the profile to `config/targets.yaml`.
-2. Add `GLOBALMART_TOKEN__<NAME>` to `.env` (and document it in `.env.example` — a test
-   asserts every profile has its variable documented there).
-3. Rehearse. Read the report. Then `--apply`.
+1. **Put the token in `.env`**, named after the profile:
+
+   ```
+   GLOBALMART_TOKEN__USECASES_AI=<token for that org>
+   ```
+
+2. **Add a minimal profile** to `config/targets.yaml` — host is enough to start:
+
+   ```yaml
+   usecases-ai:
+     host: https://usecases-ai.demo.cloud.gooddata.com
+     organization_id: unknown          # filled in from step 3
+     datasource_id: unknown
+     datasource_schema: unknown
+   ```
+
+3. **Ask the host what it actually is**, rather than guessing:
+
+   ```bash
+   globalmart targets inspect --target usecases-ai
+   ```
+
+   It prints the organization id, every datasource with its type, schema and URL, and the
+   existing workspaces — and flags a mismatch against what the profile claims. Guessing
+   these is how `organization_id: petertomko`, inferred from a hostname, got into config
+   during development when the org is really `gm-ddebmti`.
+
+4. **Fill in the profile** from that output, and document the token variable in
+   `.env.example` — a test asserts every profile has its variable documented there.
+
+5. **Rehearse**, read the report, then `--apply`.
 
 The portability contract: publishing the same repo state into two orgs must yield layouts
 identical except for host, org, datasource id and schema. `tests/test_compare.py` asserts
