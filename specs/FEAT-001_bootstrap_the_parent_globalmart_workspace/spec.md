@@ -39,18 +39,20 @@ reads from this tree, so its fidelity and determinism are load-bearing.
 
 ## Acceptance Criteria
 
-- [ ] Given credentials for `petertomko.demo.cloud`, when the bootstrap command is run, then the
+- [x] Given credentials for `petertomko.demo.cloud`, when the bootstrap command is run, then the
       `globalmart` parent workspace is written to `layouts/workspaces/globalmart/` as a YAML tree
       with one file per object (datasets, date instances, metrics, visualization objects, dashboards,
       filter contexts).
-- [ ] Given that tree, when it is loaded with
+- [x] Given that tree, when it is loaded with
       `CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=...)`, then no organization
       id is required and no path segment contains one.
-- [ ] Given the captured tree, when it is searched for `createdBy` or `modifiedBy`, then zero
-      occurrences are found (the live export carries 420 and 1490 respectively).
-- [ ] Given the captured tree, when dataset datasource references are inspected, then every one of
+- [x] Given the captured tree, when it is searched for `createdBy` or `modifiedBy`, then zero
+      occurrences are found. *(Measured at capture: 4923 audit fields stripped across 1091 metrics,
+      384 visualizations, 32 dashboards and 32 filter contexts — far more than the 420 + 1490 the
+      stale 2026-06-25 export suggested, because that export covered fewer objects.)*
+- [x] Given the captured tree, when dataset datasource references are inspected, then every one of
       the 225 `dataSourceId` values is the placeholder token, not `globalmart-motherduck`.
-- [ ] Given the captured tree, when the 11 SQL-backed datasets are inspected, then every occurrence
+- [x] Given the captured tree, when the 11 SQL-backed datasets are inspected, then every occurrence
       of the target's literal schema has been **replaced by** the `{{ datasource_schema }}`
       placeholder, and no literal schema identifier survives in any statement.
       *(Corrected 2026-09-18 after the first live capture: zero of the 11 SQL datasets carry the
@@ -58,22 +60,23 @@ reads from this tree, so its fidelity and determinism are load-bearing.
       performed historically and written back to the live org. The normalizer therefore **introduces**
       the placeholder; it does not preserve one. A statement matching neither the placeholder nor the
       literal schema is an error, not a pass.)*
-- [ ] Given a normalized tree and a second capture from the same unchanged workspace, when both are
+- [x] Given a normalized tree and a second capture from the same unchanged workspace, when both are
       normalized, then `git diff` is empty (byte-stable: stable key order, stable list order, stable
       formatting).
-- [ ] Given the captured tree, when object counts are compared to the live workspace, then they
-      match exactly (expected order of magnitude: 225 datasets, 1075 metrics, 384 visualizations,
-      32 dashboards).
-- [ ] Given a round-trip (capture → normalize → load → compare against the live layout as fetched),
+- [x] Given the captured tree, when object counts are compared to the live workspace, then they
+      match exactly. *(Captured 2026-09-18: 225 datasets, 1091 metrics, 384 visualizations,
+      32 dashboards, 32 filter contexts, 2 date instances. The 1075 figure came from the
+      2026-06-25 export; live had drifted by 16 metrics.)*
+- [x] Given a round-trip (capture → normalize → load → compare against the live layout as fetched),
       then the two are semantically equal modulo the parameterized and stripped fields, and the
       comparison is asserted by a test rather than eyeballed.
 
 ## Scope
 
 - A `bootstrap` command that captures one workspace from a configured host into the repo tree.
-- A normalizer applied on capture: strip user references, replace datasource ids with a placeholder,
-  preserve schema placeholders, drop or resolve the 4 `workspaceDataFilter` references, stable-sort
-  every list and mapping, and write deterministic YAML.
+- A normalizer applied on capture: strip user references and timestamps, replace datasource ids
+  with a placeholder, parameterise the literal schema in SQL datasets, handle `workspaceDataFilter`
+  references, stable-sort every list, canonicalise empty collections, and write deterministic YAML.
 - A neutral on-disk layout that does not use the SDK's `gooddata_layouts/<organization_id>/` path.
 - A `normalize` entry point re-runnable over an existing tree (idempotent), so future captures and
   hand edits converge on the same form.
@@ -147,3 +150,27 @@ reads from this tree, so its fidelity and determinism are load-bearing.
   field the publisher fills?~~ **Resolved 2026-09-18: the literal `{{ datasource_id }}`** — symmetric
   with the existing schema placeholder, one substitution mechanism for both, and an unresolved token
   is greppable in a published layout.
+
+## Outcome (2026-09-18)
+
+Built and verified. `layouts/workspaces/globalmart/` holds 1766 YAML files, one per object.
+58 tests, ruff and mypy clean, CI gate running `globalmart normalize --check` offline.
+
+Four things the implementation contradicted in this spec, each corrected above or in the
+tasks:
+
+1. **The SDK version is a correctness constraint.** `memory_items` and `parameters` only
+   exist on the declarative analytics layer from gooddata-sdk 1.74. Older SDKs drop AI
+   memory silently on capture. Pinned to 1.75.0 with `tests/test_sdk_floor.py` asserting
+   every required channel is modelled — GlobalMart has zero memory items today, so the
+   failure would have stayed invisible until the first one was added.
+2. **No SQL dataset carried `{{ datasource_schema }}`.** All 11 carried a hardcoded
+   `globalmart.` prefix, so the normalizer introduces the placeholder rather than
+   preserving it. AC #5 was written backwards.
+3. **The datasource schema is `globalmart`, not `main`.** Taken from the live datasource
+   definition rather than assumed.
+4. **The LDM uses no labels at all** — zero across 225 datasets — so task 11's requirement
+   that the fixture carry nested labels was unsatisfiable against real data.
+
+Provenance is recorded in `docs/bootstrap-provenance.md`, and `tests/test_counts.py` parses
+that document back so it cannot drift from the committed tree.
