@@ -34,7 +34,7 @@ def _profile(tmp_path: Path, **overrides: object) -> TargetProfile:
         name="demo-cloud",
         host="https://example.gooddata.com",
         token="tok",
-        organization_id="petertomko",
+        organization_id="gm-ddebmti",
         datasource_id="globalmart-motherduck",
         datasource_schema="globalmart",
         warehouse_type=WarehouseType.MOTHERDUCK,

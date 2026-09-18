@@ -95,3 +95,36 @@ def test_masking_actually_masks_something() -> None:
     assert "globalmart-postgres" not in masked
     assert "public_gm" not in masked
     assert "{{ datasource_id }}" in masked
+
+
+def test_server_owned_audit_fields_are_ignored() -> None:
+    """Measured against the live parent: 6849 diff lines, all audit, zero real differences.
+
+    The server stamps createdAt/modifiedAt/createdBy/modifiedBy on every write, so a
+    normalized local model (which strips them) can never match a live workspace on those
+    fields. Comparing them makes `changed` permanently True and buries a real difference in
+    thousands of lines of noise.
+    """
+    live = read_tree(FIXTURE)  # carries audit fields, as a live capture does
+    ours = read_tree(FIXTURE)
+    normalize_workspace(ours, datasource_schema=SOURCE_SCHEMA)
+    resolve_and_assert(
+        ours, datasource_id="globalmart-motherduck", datasource_schema=SOURCE_SCHEMA
+    )
+
+    assert model_diff(live, ours) == []
+    assert model_digest(live) == model_digest(ours)
+
+
+def test_a_real_content_change_is_still_detected() -> None:
+    """Guard: ignoring audit fields must not make the comparison blind."""
+    live = read_tree(FIXTURE)
+    ours = read_tree(FIXTURE)
+    normalize_workspace(ours, datasource_schema=SOURCE_SCHEMA)
+    resolve_and_assert(
+        ours, datasource_id="globalmart-motherduck", datasource_schema=SOURCE_SCHEMA
+    )
+    ours.analytics.metrics[0].title = "Genuinely different"
+
+    assert model_diff(live, ours) != []
+    assert model_digest(live) != model_digest(ours)

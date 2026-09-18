@@ -9,7 +9,7 @@
 targets:
   demo-cloud:
     host: https://petertomko.demo.cloud.gooddata.com
-    organization_id: petertomko
+    organization_id: gm-ddebmti
     datasource_id: globalmart-motherduck
     datasource_schema: globalmart
     parent_workspace_id: globalmart

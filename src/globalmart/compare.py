@@ -17,9 +17,40 @@ from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import
 
 from globalmart.normalize import DATASOURCE_ID_TOKEN, DATASOURCE_SCHEMA_TOKEN
 
+#: Fields the *server* owns. It stamps them on every write, so they always differ between
+#: a normalized local model (which strips them) and a live workspace. Comparing them makes
+#: `changed` permanently True and buries a real difference in thousands of lines of noise —
+#: measured against the live parent: 6849 diff lines, all audit, zero real differences.
+SERVER_OWNED_FIELDS = frozenset({"createdAt", "modifiedAt", "createdBy", "modifiedBy"})
+
+
+def _strip_server_owned(node: Any) -> Any:
+    """Drop server-stamped fields, and treat absent and empty as the same thing.
+
+    The API omits some empty collections and returns others as ``[]``; the normalizer
+    canonicalises them to ``[]``. Neither form means anything different, so comparing them
+    would report a difference that no one can act on. Dropping an empty collection entirely
+    still detects a real change — a list going from ``[x]`` to empty shows up as the key
+    disappearing.
+    """
+    if isinstance(node, dict):
+        out = {}
+        for key, value in node.items():
+            if key in SERVER_OWNED_FIELDS:
+                continue
+            cleaned = _strip_server_owned(value)
+            if cleaned in (None, [], {}):
+                continue
+            out[key] = cleaned
+        return out
+    if isinstance(node, list):
+        return [_strip_server_owned(item) for item in node]
+    return node
+
 
 def _canonical(model: CatalogDeclarativeWorkspaceModel) -> Any:
-    return json.loads(json.dumps(model.to_dict(camel_case=True), sort_keys=True, default=str))
+    payload = json.loads(json.dumps(model.to_dict(camel_case=True), sort_keys=True, default=str))
+    return _strip_server_owned(payload)
 
 
 def model_digest(model: CatalogDeclarativeWorkspaceModel) -> str:
@@ -56,12 +87,22 @@ def model_diff(
 
 
 def _flatten(node: Any, path: str = "") -> list[tuple[str, Any]]:
+    """Flatten to ``(path, scalar)`` pairs.
+
+    An empty container yields a marker rather than nothing: without it a key whose value
+    became empty would vanish from both sides of the comparison and the diff would report
+    no change while the digest disagreed.
+    """
     if isinstance(node, dict):
+        if not node:
+            return [(path, "{}")]
         out: list[tuple[str, Any]] = []
         for key, value in node.items():
             out.extend(_flatten(value, f"{path}.{key}" if path else str(key)))
         return out
     if isinstance(node, list):
+        if not node:
+            return [(path, "[]")]
         out = []
         for index, item in enumerate(node):
             out.extend(_flatten(item, f"{path}[{index}]"))

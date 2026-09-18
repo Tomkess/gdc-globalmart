@@ -26,7 +26,7 @@ def _profile(**overrides: object) -> TargetProfile:
         name="demo-cloud",
         host="https://example.gooddata.com",
         token="tok",
-        organization_id="petertomko",
+        organization_id="gm-ddebmti",
         datasource_id="globalmart-motherduck",
         datasource_schema="globalmart",
         warehouse_type=WarehouseType.MOTHERDUCK,
@@ -87,7 +87,7 @@ def test_organization_mismatch_refuses(monkeypatch: pytest.MonkeyPatch) -> None:
 
     message = str(excinfo.value)
     assert "someone-else" in message
-    assert "petertomko" in message
+    assert "gm-ddebmti" in message
     assert sdk.writes() == []
 
 
