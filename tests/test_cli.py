@@ -198,3 +198,105 @@ def test_publish_without_a_tree_fails_clearly(monkeypatch: pytest.MonkeyPatch) -
     monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
 
     assert main(["publish", "parent", "--target", "demo-cloud", "--source", "does/not/exist"]) == 1
+
+
+# --- domains (FEAT-003 task 24) ----------------------------------------------
+
+DOMAIN_FIXTURES = Path(__file__).parent / "fixtures" / "domains"
+
+
+def test_domains_validate_passes_and_prints_the_table(capsys: pytest.CaptureFixture[str]) -> None:
+    exit_code = main(
+        [
+            "domains", "validate",
+            "--manifest", str(DOMAIN_FIXTURES / "valid.yaml"),
+            "--layout", str(FIXTURE),
+            "--strict",
+        ]
+    )
+    out = capsys.readouterr().out
+
+    assert exit_code == 0
+    assert "viz(via dash)" in out
+    assert "Coverage is complete (strict)" in out
+
+
+def test_domains_validate_names_the_uncovered_dashboard(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    exit_code = main(
+        [
+            "domains", "validate",
+            "--manifest", str(DOMAIN_FIXTURES / "missing_coverage.yaml"),
+            "--layout", str(FIXTURE),
+        ]
+    )
+
+    assert exit_code == 1
+    assert "dashboard_mixed" in capsys.readouterr().err
+
+
+def test_domains_validate_json_is_parseable(capsys: pytest.CaptureFixture[str]) -> None:
+    import json
+
+    main(
+        [
+            "domains", "validate",
+            "--manifest", str(DOMAIN_FIXTURES / "valid.yaml"),
+            "--layout", str(FIXTURE),
+            "--format", "json",
+        ]
+    )
+
+    report = json.loads(capsys.readouterr().out)
+    assert report["dashboards_total"] == 2
+    assert report["per_domain"]["sales"]["ldm_include"] == 1
+
+
+def test_domains_bootstrap_dry_run_writes_nothing(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    destination = tmp_path / "domains.yaml"
+
+    exit_code = main(
+        ["domains", "bootstrap", "--layout", str(FIXTURE), "--out", str(destination), "--dry-run"]
+    )
+
+    assert exit_code == 0
+    assert not destination.exists()
+    assert "REHEARSAL" in capsys.readouterr().out
+
+
+def test_domains_bootstrap_refuses_to_overwrite_a_reviewed_manifest(tmp_path: Path) -> None:
+    """The prefix convention may produce this file once, never overwrite a reviewed one."""
+    destination = tmp_path / "domains.yaml"
+    destination.write_text("version: 1\n", encoding="utf-8")
+
+    exit_code = main(
+        ["domains", "bootstrap", "--layout", str(FIXTURE), "--out", str(destination)]
+    )
+
+    assert exit_code == 1
+    assert destination.read_text(encoding="utf-8") == "version: 1\n"
+
+
+def test_domains_bootstrap_force_overwrites(tmp_path: Path) -> None:
+    destination = tmp_path / "domains.yaml"
+    destination.write_text("version: 1\n", encoding="utf-8")
+
+    exit_code = main(
+        ["domains", "bootstrap", "--layout", str(FIXTURE), "--out", str(destination), "--force"]
+    )
+
+    assert exit_code == 0
+    assert "parent_workspace_id" in destination.read_text(encoding="utf-8")
+
+
+def test_domains_commands_take_no_apply_flag() -> None:
+    """Offline and local-file-only, so ADR 002 gives them --dry-run, never --apply."""
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    actions = choices["domains"]._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+
+    assert "apply" not in {a.dest for a in actions["validate"]._actions}
+    assert "apply" not in {a.dest for a in actions["bootstrap"]._actions}
+    assert "dry_run" in {a.dest for a in actions["bootstrap"]._actions}

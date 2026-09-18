@@ -33,3 +33,10 @@ jobs:
       # Offline: reads the committed tree, never a live host.
       - name: Layout tree is canonical
         run: uv run globalmart normalize --check
+
+      # Coverage: every dashboard and visualization in the parent belongs to a domain, is
+      # declared shared, or is excluded with a written reason. A PR that adds a dashboard
+      # without assigning it fails here. --strict also rejects placeholder reasons, so a
+      # freshly bootstrapped manifest cannot go green unreviewed. Offline, no credentials.
+      - name: Domain manifest covers the parent
+        run: uv run globalmart domains validate --strict

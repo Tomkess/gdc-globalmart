@@ -87,6 +87,71 @@ def iter_sql_statements(model: CatalogDeclarativeWorkspaceModel) -> Iterator[Sql
         )
 
 
+def _dashboards(model: CatalogDeclarativeWorkspaceModel) -> list[Any]:
+    analytics = model.analytics
+    if analytics is None:
+        return []
+    return list(getattr(analytics, "analytical_dashboards", None) or [])
+
+
+def _as_dict(content: Any) -> Any:
+    """Dashboard ``content`` is an untyped blob; take it as a plain dict either way."""
+    if isinstance(content, (dict, list)):
+        return content
+    to_dict = getattr(content, "to_dict", None)
+    if callable(to_dict):
+        return to_dict()
+    return {}
+
+
+def iter_dashboard_insight_refs(
+    model: CatalogDeclarativeWorkspaceModel,
+) -> Iterator[tuple[str, str]]:
+    """Yield ``(dashboard_id, visualization_object_id)`` for every visualization a dashboard references.
+
+    A **generic** recursive walk collecting any ``{"identifier": {"id": ..., "type":
+    "visualizationObject"}}``, rather than an assumed ``layout.sections[].items[].widget``
+    shape. The dashboard ``content`` blob is the least regular part of the layout: a
+    reference can sit in a nested layout, a drill target or a rich-text widget, and a
+    shape-assuming extractor under-counts coverage while looking entirely correct. Coverage
+    is only as honest as this walk.
+
+    Duplicates are collapsed per dashboard; order is deterministic (dashboard order, then
+    id-sorted) so a report built on this does not churn.
+    """
+    for dashboard in _dashboards(model):
+        dashboard_id = str(getattr(dashboard, "id", ""))
+        found: set[str] = set()
+        _collect_visualization_refs(_as_dict(getattr(dashboard, "content", None)), found)
+        for ref_id in sorted(found):
+            yield dashboard_id, ref_id
+
+
+def _collect_visualization_refs(node: Any, found: set[str]) -> None:
+    if isinstance(node, dict):
+        identifier = node.get("identifier")
+        if isinstance(identifier, dict) and identifier.get("type") == "visualizationObject":
+            ref_id = identifier.get("id")
+            if isinstance(ref_id, str):
+                found.add(ref_id)
+        for value in node.values():
+            _collect_visualization_refs(value, found)
+    elif isinstance(node, list):
+        for item in node:
+            _collect_visualization_refs(item, found)
+
+
+def dashboard_visualization_ids(
+    model: CatalogDeclarativeWorkspaceModel, dashboard_id: str
+) -> set[str]:
+    """Every visualization one dashboard references."""
+    return {
+        viz_id
+        for owner, viz_id in iter_dashboard_insight_refs(model)
+        if owner == dashboard_id
+    }
+
+
 def iter_all_string_fields(model: CatalogDeclarativeWorkspaceModel) -> Iterator[tuple[str, str]]:
     """Walk the whole serialized model, yielding ``(path, value)`` for every string.
 

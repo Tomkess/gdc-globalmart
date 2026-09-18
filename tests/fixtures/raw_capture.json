@@ -1,1126 +1,1366 @@
 {
-  "analytics": {
-    "analyticalDashboardExtensions": [],
-    "analyticalDashboards": [
-      {
-        "content": {
-          "filterContextRef": {
+ "analytics": {
+  "analyticalDashboardExtensions": [],
+  "analyticalDashboards": [
+   {
+    "content": {
+     "filterContextRef": {
+      "identifier": {
+       "id": "filter_context_000",
+       "type": "filterContext"
+      }
+     },
+     "layout": {
+      "sections": [
+       {
+        "items": [
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
             "identifier": {
-              "id": "filter_context_000",
-              "type": "filterContext"
+             "id": "viz_sales_0000",
+             "type": "visualizationObject"
             }
+           },
+           "localIdentifier": "widget_000_00",
+           "title": "Discount Amount by Month",
+           "type": "insight"
+          }
+         },
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
           },
-          "layout": {
-            "sections": [
-              {
-                "items": [
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0000",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_00",
-                      "title": "Discount Amount by Month",
-                      "type": "insight"
-                    }
-                  },
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0001",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_01",
-                      "title": "Return Amount by Quarter",
-                      "type": "insight"
-                    }
-                  }
-                ],
-                "type": "IDashboardLayoutSection"
-              },
-              {
-                "items": [
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0002",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_02",
-                      "title": "Quantity Returned by Year",
-                      "type": "insight"
-                    }
-                  },
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0003",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_03",
-                      "title": "Sales Amount by Month",
-                      "type": "insight"
-                    }
-                  }
-                ],
-                "type": "IDashboardLayoutSection"
-              },
-              {
-                "items": [
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0004",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_04",
-                      "title": "Transaction Count by Quarter",
-                      "type": "insight"
-                    }
-                  },
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0005",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_05",
-                      "title": "Avg Transaction Value by Year",
-                      "type": "insight"
-                    }
-                  }
-                ],
-                "type": "IDashboardLayoutSection"
-              },
-              {
-                "items": [
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0006",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_06",
-                      "title": "Revenue by Month",
-                      "type": "insight"
-                    }
-                  },
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0007",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_07",
-                      "title": "Net Revenue by Quarter",
-                      "type": "insight"
-                    }
-                  }
-                ],
-                "type": "IDashboardLayoutSection"
-              },
-              {
-                "items": [
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0008",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_08",
-                      "title": "Transaction Count by Year",
-                      "type": "insight"
-                    }
-                  },
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0009",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_09",
-                      "title": "Price Change by Month",
-                      "type": "insight"
-                    }
-                  }
-                ],
-                "type": "IDashboardLayoutSection"
-              },
-              {
-                "items": [
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0010",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_10",
-                      "title": "Variance Amount by Quarter",
-                      "type": "insight"
-                    }
-                  },
-                  {
-                    "size": {
-                      "xl": {
-                        "gridHeight": 12,
-                        "gridWidth": 6
-                      }
-                    },
-                    "type": "IDashboardLayoutItem",
-                    "widget": {
-                      "description": "",
-                      "drills": [],
-                      "ignoreDashboardFilters": [],
-                      "insight": {
-                        "identifier": {
-                          "id": "viz_sales_0011",
-                          "type": "visualizationObject"
-                        }
-                      },
-                      "localIdentifier": "widget_000_11",
-                      "title": "Comment Count by Year",
-                      "type": "insight"
-                    }
-                  }
-                ],
-                "type": "IDashboardLayoutSection"
-              }
-            ],
-            "type": "IDashboardLayout"
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0001",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_01",
+           "title": "Return Amount by Quarter",
+           "type": "insight"
+          }
+         }
+        ],
+        "type": "IDashboardLayoutSection"
+       },
+       {
+        "items": [
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
           },
-          "version": "2"
-        },
-        "createdAt": "2026-06-20 07:03",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Dashboard bringing together key sales performance trends over time, including sales and revenue, net revenue, transaction volume and average transaction value, plus related drivers such as discounts, returns, price changes, till variance, and customer comments. It is designed for monitoring overall performance and spotting seasonal patterns, with default filters set to the last 12 months and optional store-related filtering (region/store).",
-        "id": "dashboard_000",
-        "modifiedAt": "2026-06-23 07:56",
-        "modifiedBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "title": "Sales Performance Overview"
-      }
-    ],
-    "attributeHierarchies": [],
-    "dashboardPlugins": [],
-    "exportDefinitions": [],
-    "filterContexts": [
-      {
-        "content": {
-          "filters": [
-            {
-              "dateFilter": {
-                "from": "-11",
-                "granularity": "GDC.time.month",
-                "to": "0",
-                "type": "relative"
-              }
-            },
-            {
-              "attributeFilter": {
-                "attributeElements": {
-                  "uris": []
-                },
-                "displayForm": {
-                  "identifier": {
-                    "id": "dim_store.store_id",
-                    "type": "label"
-                  }
-                },
-                "filterElementsBy": [],
-                "negativeSelection": true
-              }
-            },
-            {
-              "attributeFilter": {
-                "attributeElements": {
-                  "uris": []
-                },
-                "displayForm": {
-                  "identifier": {
-                    "id": "dim_store.store_name",
-                    "type": "label"
-                  }
-                },
-                "filterElementsBy": [],
-                "negativeSelection": true
-              }
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0002",
+             "type": "visualizationObject"
             }
-          ],
-          "version": "2"
-        },
-        "description": "Default filters: last 12 months + store region + channel",
-        "id": "filter_context_000",
-        "title": "Filters \u2014 Sales Performance Overview"
-      }
-    ],
-    "memoryItems": [],
-    "metrics": [
-      {
-        "content": {
-          "format": "#,##0.00",
-          "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
-        },
-        "createdAt": "2026-07-01 18:04",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Average of {metric/metric_l1_fact_bonus_event_bonus_cost} in the current reporting context.",
-        "id": "average_l1_bonus_cost",
-        "tags": [
-          "bonus",
-          "cost"
-        ],
-        "title": "Average L1 Bonus Cost"
-      },
-      {
-        "content": {
-          "format": "#,##0.00",
-          "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
-        },
-        "createdAt": "2026-07-01 20:07",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Average of {metric/metric_l1_fact_bonus_event_bonus_cost} in the current reporting context.",
-        "id": "average_l1_bonus_cost_duplicate",
-        "tags": [
-          "bonus",
-          "cost"
-        ],
-        "title": "Average L1 Bonus Cost (Duplicate)"
-      },
-      {
-        "content": {
-          "format": "$#,##0.00",
-          "maql": "SELECT AVG({fact/fact_daily_store_sales.sales_amount})"
-        },
-        "createdAt": "2026-07-01 11:28",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Average sales amount from the Daily Store Sales dataset, calculated by averaging Sales Amount values in the current report, dashboard, and filter context.",
-        "id": "average_sales_amount_daily_store_sales",
-        "tags": [
-          "average",
-          "daily_store_sales",
-          "sales"
-        ],
-        "title": "Average Sales Amount (Daily Store Sales)"
-      },
-      {
-        "content": {
-          "format": "$#,##0.00",
-          "maql": "SELECT AVG({fact/fact_bonus_event.bonus_cost})"
-        },
-        "createdAt": "2026-07-01 11:32",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Average bonus cost per bonus event, calculated from the Bonus Cost fact and respecting the current report filters and breakdowns.",
-        "id": "average_total_bonus_cost",
-        "tags": [
-          "average",
-          "bonus",
-          "cost"
-        ],
-        "title": "Average Total Bonus Cost"
-      },
-      {
-        "content": {
-          "format": "#,##0.00",
-          "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
-        },
-        "createdAt": "2026-07-01 22:27",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Average of the pre-aggregated Total Bonus Cost (Bonus Event), computing the average of summed bonus cost totals in the current reporting context.",
-        "id": "average_total_bonus_cost_variant",
-        "tags": [
-          "average",
-          "bonus",
-          "cost"
-        ],
-        "title": "Average Total Bonus Cost (Variant)"
-      },
-      {
-        "content": {
-          "format": "#,##0.00",
-          "maql": "SELECT AVG({fact/fact_nps_response.nps_score})"
-        },
-        "createdAt": "2026-07-01 16:25",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Average NPS score across NPS Response records in the current filter context, calculated directly from the underlying NPS score fact.",
-        "id": "average_total_nps_score",
-        "tags": [
-          "average",
-          "customer",
-          "nps"
-        ],
-        "title": "Average Total NPS Score"
-      },
-      {
-        "content": {
-          "format": "#,##0.00",
-          "maql": "SELECT AVG({metric/metric_l1_fact_daily_store_sales_sales_amount})"
-        },
-        "createdAt": "2026-07-01 11:28",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Average of Total Sales Amount (Daily Store Sales) in the current report, dashboard, and filter context.",
-        "id": "average_total_sales_amount_daily_store_sales",
-        "tags": [
-          "average",
-          "daily_store_sales",
-          "sales"
-        ],
-        "title": "Average Total Sales Amount (Daily Store Sales)"
-      },
-      {
-        "content": {
-          "format": "#,##0.00",
-          "maql": "SELECT AVG({metric/metric_l1_fact_daily_store_sales_sales_amount})"
-        },
-        "createdAt": "2026-07-01 18:00",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Average of Total Sales Amount (Daily Store Sales) in the current report, dashboard, and filter context.",
-        "id": "average_total_sales_amount_daily_store_sales_copy",
-        "tags": [
-          "average",
-          "daily_store_sales",
-          "sales"
-        ],
-        "title": "Average Total Sales Amount (Daily Store Sales) Copy"
-      }
-    ],
-    "parameters": [],
-    "visualizationObjects": [
-      {
-        "content": {
-          "buckets": [
-            {
-              "items": [
-                {
-                  "measure": {
-                    "definition": {
-                      "measureDefinition": {
-                        "filters": [],
-                        "item": {
-                          "identifier": {
-                            "id": "metric_l1_fact_loyalty_points_redeemed_points_redeemed",
-                            "type": "metric"
-                          }
-                        }
-                      }
-                    },
-                    "localIdentifier": "m1"
-                  }
-                }
-              ],
-              "localIdentifier": "measures"
-            },
-            {
-              "items": [
-                {
-                  "attribute": {
-                    "displayForm": {
-                      "identifier": {
-                        "id": "transaction_date.month",
-                        "type": "label"
-                      }
-                    },
-                    "localIdentifier": "a1"
-                  }
-                }
-              ],
-              "localIdentifier": "view"
+           },
+           "localIdentifier": "widget_000_02",
+           "title": "Quantity Returned by Year",
+           "type": "insight"
+          }
+         },
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0003",
+             "type": "visualizationObject"
             }
-          ],
-          "filters": [],
-          "properties": {},
-          "sorts": [],
-          "version": "2",
-          "visualizationUrl": "local:column"
-        },
-        "createdAt": "2026-06-20 07:03",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "description": "Column chart showing the total loyalty points redeemed by month/year to track redemption volume and its trend over time.",
-        "id": "viz_customer_0096",
-        "modifiedAt": "2026-06-23 07:32",
-        "modifiedBy": {
-          "id": "peter.tomko",
-          "type": "user"
-        },
-        "title": "Points Redeemed by Month"
+           },
+           "localIdentifier": "widget_000_03",
+           "title": "Sales Amount by Month",
+           "type": "insight"
+          }
+         }
+        ],
+        "type": "IDashboardLayoutSection"
+       },
+       {
+        "items": [
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0004",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_04",
+           "title": "Transaction Count by Quarter",
+           "type": "insight"
+          }
+         },
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0005",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_05",
+           "title": "Avg Transaction Value by Year",
+           "type": "insight"
+          }
+         }
+        ],
+        "type": "IDashboardLayoutSection"
+       },
+       {
+        "items": [
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0006",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_06",
+           "title": "Revenue by Month",
+           "type": "insight"
+          }
+         },
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0007",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_07",
+           "title": "Net Revenue by Quarter",
+           "type": "insight"
+          }
+         }
+        ],
+        "type": "IDashboardLayoutSection"
+       },
+       {
+        "items": [
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0008",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_08",
+           "title": "Transaction Count by Year",
+           "type": "insight"
+          }
+         },
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0009",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_09",
+           "title": "Price Change by Month",
+           "type": "insight"
+          }
+         }
+        ],
+        "type": "IDashboardLayoutSection"
+       },
+       {
+        "items": [
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0010",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_10",
+           "title": "Variance Amount by Quarter",
+           "type": "insight"
+          }
+         },
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 6
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [],
+           "ignoreDashboardFilters": [],
+           "insight": {
+            "identifier": {
+             "id": "viz_sales_0011",
+             "type": "visualizationObject"
+            }
+           },
+           "localIdentifier": "widget_000_11",
+           "title": "Comment Count by Year",
+           "type": "insight"
+          }
+         }
+        ],
+        "type": "IDashboardLayoutSection"
+       }
+      ],
+      "type": "IDashboardLayout"
+     },
+     "version": "2"
+    },
+    "createdAt": "2026-06-20 07:03",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Dashboard bringing together key sales performance trends over time, including sales and revenue, net revenue, transaction volume and average transaction value, plus related drivers such as discounts, returns, price changes, till variance, and customer comments. It is designed for monitoring overall performance and spotting seasonal patterns, with default filters set to the last 12 months and optional store-related filtering (region/store).",
+    "id": "dashboard_000",
+    "modifiedAt": "2026-06-23 07:56",
+    "modifiedBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "title": "Sales Performance Overview"
+   },
+   {
+    "content": {
+     "layout": {
+      "sections": [
+       {
+        "items": [
+         {
+          "size": {
+           "xl": {
+            "gridHeight": 12,
+            "gridWidth": 12
+           }
+          },
+          "type": "IDashboardLayoutItem",
+          "widget": {
+           "description": "",
+           "drills": [
+            {
+             "target": {
+              "identifier": {
+               "id": "viz_finance_0216",
+               "type": "visualizationObject"
+              }
+             },
+             "type": "drillToInsight"
+            }
+           ],
+           "ignoreDashboardFilters": [],
+           "localIdentifier": "widget_mixed_00",
+           "sections": [
+            {
+             "items": [
+              {
+               "size": {
+                "xl": {
+                 "gridHeight": 12,
+                 "gridWidth": 6
+                }
+               },
+               "type": "IDashboardLayoutItem",
+               "widget": {
+                "description": "",
+                "drills": [],
+                "ignoreDashboardFilters": [],
+                "insight": {
+                 "identifier": {
+                  "id": "viz_sales_0000",
+                  "type": "visualizationObject"
+                 }
+                },
+                "localIdentifier": "widget_mixed_00_00",
+                "title": "Discount Amount by Month",
+                "type": "insight"
+               }
+              }
+             ],
+             "type": "IDashboardLayoutSection"
+            }
+           ],
+           "title": "Nested container",
+           "type": "IDashboardLayout"
+          }
+         }
+        ],
+        "type": "IDashboardLayoutSection"
+       }
+      ],
+      "type": "IDashboardLayout"
+     },
+     "version": "2"
+    },
+    "createdAt": "2026-06-20 07:03",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Tiles from two business areas on one dashboard. The sales tile sits inside a nested layout and the finance tile is reachable only through a drill target, so a shape-assuming extractor finds neither. The predecessor's all-tiles-must-match rule dropped this dashboard everywhere without reporting it.",
+    "id": "dashboard_mixed",
+    "modifiedAt": "2026-06-23 07:32",
+    "modifiedBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "title": "Executive Revenue & Margin"
+   }
+  ],
+  "attributeHierarchies": [],
+  "dashboardPlugins": [],
+  "exportDefinitions": [],
+  "filterContexts": [
+   {
+    "content": {
+     "filters": [
+      {
+       "dateFilter": {
+        "from": "-11",
+        "granularity": "GDC.time.month",
+        "to": "0",
+        "type": "relative"
+       }
       },
       {
-        "content": {
-          "buckets": [
-            {
-              "items": [
-                {
-                  "measure": {
-                    "definition": {
-                      "measureDefinition": {
-                        "filters": [],
-                        "item": {
-                          "identifier": {
-                            "id": "metric_l1_fact_customer_event_event_count",
-                            "type": "metric"
-                          }
-                        }
-                      }
-                    },
-                    "localIdentifier": "m1"
-                  }
-                }
-              ],
-              "localIdentifier": "measures"
-            },
-            {
-              "items": [
-                {
-                  "attribute": {
-                    "displayForm": {
-                      "identifier": {
-                        "id": "transaction_date.quarter",
-                        "type": "label"
-                      }
-                    },
-                    "localIdentifier": "a1"
-                  }
-                }
-              ],
-              "localIdentifier": "view"
-            }
-          ],
-          "filters": [],
-          "properties": {},
-          "sorts": [],
-          "version": "2",
-          "visualizationUrl": "local:column"
+       "attributeFilter": {
+        "attributeElements": {
+         "uris": []
         },
-        "createdAt": "2026-06-20 07:03",
-        "createdBy": {
-          "id": "peter.tomko",
-          "type": "user"
+        "displayForm": {
+         "identifier": {
+          "id": "dim_store.store_id",
+          "type": "label"
+         }
         },
-        "description": "Column chart showing the total number of customer events by quarter/year, using Total Event Count (Customer Event) to track how event volume changes over time.",
-        "id": "viz_customer_0097",
-        "modifiedAt": "2026-06-23 07:32",
-        "modifiedBy": {
-          "id": "peter.tomko",
-          "type": "user"
+        "filterElementsBy": [],
+        "negativeSelection": true
+       }
+      },
+      {
+       "attributeFilter": {
+        "attributeElements": {
+         "uris": []
         },
-        "title": "Event Count by Quarter"
+        "displayForm": {
+         "identifier": {
+          "id": "dim_store.store_name",
+          "type": "label"
+         }
+        },
+        "filterElementsBy": [],
+        "negativeSelection": true
+       }
       }
+     ],
+     "version": "2"
+    },
+    "description": "Default filters: last 12 months + store region + channel",
+    "id": "filter_context_000",
+    "title": "Filters \u2014 Sales Performance Overview"
+   }
+  ],
+  "memoryItems": [
+   {
+    "createdAt": "2026-06-20 07:03",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "id": "mem_sales_definitions",
+    "instruction": "Net revenue excludes returns and refunds; always state the currency.",
+    "modifiedAt": "2026-06-23 07:32",
+    "modifiedBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "strategy": "ALWAYS",
+    "tags": [
+     "area/sales"
+    ],
+    "title": "Sales metric definitions"
+   }
+  ],
+  "metrics": [
+   {
+    "content": {
+     "format": "#,##0.00",
+     "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
+    },
+    "createdAt": "2026-07-01 18:04",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Average of {metric/metric_l1_fact_bonus_event_bonus_cost} in the current reporting context.",
+    "id": "average_l1_bonus_cost",
+    "tags": [
+     "bonus",
+     "cost"
+    ],
+    "title": "Average L1 Bonus Cost"
+   },
+   {
+    "content": {
+     "format": "#,##0.00",
+     "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
+    },
+    "createdAt": "2026-07-01 20:07",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Average of {metric/metric_l1_fact_bonus_event_bonus_cost} in the current reporting context.",
+    "id": "average_l1_bonus_cost_duplicate",
+    "tags": [
+     "bonus",
+     "cost"
+    ],
+    "title": "Average L1 Bonus Cost (Duplicate)"
+   },
+   {
+    "content": {
+     "format": "$#,##0.00",
+     "maql": "SELECT AVG({fact/fact_daily_store_sales.sales_amount})"
+    },
+    "createdAt": "2026-07-01 11:28",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Average sales amount from the Daily Store Sales dataset, calculated by averaging Sales Amount values in the current report, dashboard, and filter context.",
+    "id": "average_sales_amount_daily_store_sales",
+    "tags": [
+     "average",
+     "daily_store_sales",
+     "sales"
+    ],
+    "title": "Average Sales Amount (Daily Store Sales)"
+   },
+   {
+    "content": {
+     "format": "$#,##0.00",
+     "maql": "SELECT AVG({fact/fact_bonus_event.bonus_cost})"
+    },
+    "createdAt": "2026-07-01 11:32",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Average bonus cost per bonus event, calculated from the Bonus Cost fact and respecting the current report filters and breakdowns.",
+    "id": "average_total_bonus_cost",
+    "tags": [
+     "average",
+     "bonus",
+     "cost"
+    ],
+    "title": "Average Total Bonus Cost"
+   },
+   {
+    "content": {
+     "format": "#,##0.00",
+     "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
+    },
+    "createdAt": "2026-07-01 22:27",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Average of the pre-aggregated Total Bonus Cost (Bonus Event), computing the average of summed bonus cost totals in the current reporting context.",
+    "id": "average_total_bonus_cost_variant",
+    "tags": [
+     "average",
+     "bonus",
+     "cost"
+    ],
+    "title": "Average Total Bonus Cost (Variant)"
+   },
+   {
+    "content": {
+     "format": "#,##0.00",
+     "maql": "SELECT AVG({fact/fact_nps_response.nps_score})"
+    },
+    "createdAt": "2026-07-01 16:25",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Average NPS score across NPS Response records in the current filter context, calculated directly from the underlying NPS score fact.",
+    "id": "average_total_nps_score",
+    "tags": [
+     "average",
+     "customer",
+     "nps"
+    ],
+    "title": "Average Total NPS Score"
+   },
+   {
+    "content": {
+     "format": "#,##0.00",
+     "maql": "SELECT AVG({metric/metric_l1_fact_daily_store_sales_sales_amount})"
+    },
+    "createdAt": "2026-07-01 11:28",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Average of Total Sales Amount (Daily Store Sales) in the current report, dashboard, and filter context.",
+    "id": "average_total_sales_amount_daily_store_sales",
+    "tags": [
+     "average",
+     "daily_store_sales",
+     "sales"
+    ],
+    "title": "Average Total Sales Amount (Daily Store Sales)"
+   },
+   {
+    "content": {
+     "format": "#,##0.00",
+     "maql": "SELECT AVG({metric/metric_l1_fact_daily_store_sales_sales_amount})"
+    },
+    "createdAt": "2026-07-01 18:00",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Average of Total Sales Amount (Daily Store Sales) in the current report, dashboard, and filter context.",
+    "id": "average_total_sales_amount_daily_store_sales_copy",
+    "tags": [
+     "average",
+     "daily_store_sales",
+     "sales"
+    ],
+    "title": "Average Total Sales Amount (Daily Store Sales) Copy"
+   }
+  ],
+  "parameters": [],
+  "visualizationObjects": [
+   {
+    "content": {
+     "buckets": [
+      {
+       "items": [
+        {
+         "measure": {
+          "definition": {
+           "measureDefinition": {
+            "filters": [],
+            "item": {
+             "identifier": {
+              "id": "metric_l1_fact_loyalty_points_redeemed_points_redeemed",
+              "type": "metric"
+             }
+            }
+           }
+          },
+          "localIdentifier": "m1"
+         }
+        }
+       ],
+       "localIdentifier": "measures"
+      },
+      {
+       "items": [
+        {
+         "attribute": {
+          "displayForm": {
+           "identifier": {
+            "id": "transaction_date.month",
+            "type": "label"
+           }
+          },
+          "localIdentifier": "a1"
+         }
+        }
+       ],
+       "localIdentifier": "view"
+      }
+     ],
+     "filters": [],
+     "properties": {},
+     "sorts": [],
+     "version": "2",
+     "visualizationUrl": "local:column"
+    },
+    "createdAt": "2026-06-20 07:03",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Column chart showing the total loyalty points redeemed by month/year to track redemption volume and its trend over time.",
+    "id": "viz_customer_0096",
+    "modifiedAt": "2026-06-23 07:32",
+    "modifiedBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "title": "Points Redeemed by Month"
+   },
+   {
+    "content": {
+     "buckets": [
+      {
+       "items": [
+        {
+         "measure": {
+          "definition": {
+           "measureDefinition": {
+            "filters": [],
+            "item": {
+             "identifier": {
+              "id": "metric_l1_fact_customer_event_event_count",
+              "type": "metric"
+             }
+            }
+           }
+          },
+          "localIdentifier": "m1"
+         }
+        }
+       ],
+       "localIdentifier": "measures"
+      },
+      {
+       "items": [
+        {
+         "attribute": {
+          "displayForm": {
+           "identifier": {
+            "id": "transaction_date.quarter",
+            "type": "label"
+           }
+          },
+          "localIdentifier": "a1"
+         }
+        }
+       ],
+       "localIdentifier": "view"
+      }
+     ],
+     "filters": [],
+     "properties": {},
+     "sorts": [],
+     "version": "2",
+     "visualizationUrl": "local:column"
+    },
+    "createdAt": "2026-06-20 07:03",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Column chart showing the total number of customer events by quarter/year, using Total Event Count (Customer Event) to track how event volume changes over time.",
+    "id": "viz_customer_0097",
+    "modifiedAt": "2026-06-23 07:32",
+    "modifiedBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "title": "Event Count by Quarter"
+   },
+   {
+    "content": {
+     "buckets": [
+      {
+       "items": [
+        {
+         "measure": {
+          "definition": {
+           "measureDefinition": {
+            "filters": [],
+            "item": {
+             "identifier": {
+              "id": "average_total_bonus_cost",
+              "type": "metric"
+             }
+            }
+           }
+          },
+          "localIdentifier": "m1"
+         }
+        }
+       ],
+       "localIdentifier": "measures"
+      }
+     ],
+     "filters": [],
+     "properties": {},
+     "sorts": [],
+     "version": "2",
+     "visualizationUrl": "local:column"
+    },
+    "createdAt": "2026-06-20 07:03",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Gross margin by month. Shares a dashboard with a sales tile, which is the shape the predecessor dropped silently.",
+    "id": "viz_finance_0216",
+    "modifiedAt": "2026-06-23 07:32",
+    "modifiedBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "title": "Gross Margin by Month"
+   },
+   {
+    "content": {
+     "buckets": [
+      {
+       "items": [
+        {
+         "measure": {
+          "definition": {
+           "measureDefinition": {
+            "filters": [],
+            "item": {
+             "identifier": {
+              "id": "average_total_nps_score",
+              "type": "metric"
+             }
+            }
+           }
+          },
+          "localIdentifier": "m1"
+         }
+        }
+       ],
+       "localIdentifier": "measures"
+      }
+     ],
+     "filters": [],
+     "properties": {},
+     "sorts": [],
+     "version": "2",
+     "visualizationUrl": "local:headline"
+    },
+    "createdAt": "2026-06-20 07:03",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Id matches no viz_ prefix the seed knows and no dashboard references it \u2014 the residue shape the coverage check exists to surface.",
+    "id": "viz_orphan_0001",
+    "modifiedAt": "2026-06-23 07:32",
+    "modifiedBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "title": "Untitled Copy"
+   },
+   {
+    "content": {
+     "buckets": [
+      {
+       "items": [
+        {
+         "measure": {
+          "definition": {
+           "measureDefinition": {
+            "filters": [],
+            "item": {
+             "identifier": {
+              "id": "average_sales_amount_daily_store_sales",
+              "type": "metric"
+             }
+            }
+           }
+          },
+          "localIdentifier": "m1"
+         }
+        }
+       ],
+       "localIdentifier": "measures"
+      }
+     ],
+     "filters": [],
+     "properties": {},
+     "sorts": [],
+     "version": "2",
+     "visualizationUrl": "local:column"
+    },
+    "createdAt": "2026-06-20 07:03",
+    "createdBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "description": "Discount amount by month, on the sales overview dashboard.",
+    "id": "viz_sales_0000",
+    "modifiedAt": "2026-06-23 07:32",
+    "modifiedBy": {
+     "id": "peter.tomko",
+     "type": "user"
+    },
+    "title": "Discount Amount by Month"
+   }
+  ]
+ },
+ "ldm": {
+  "datasets": [
+   {
+    "aggregatedFacts": [],
+    "attributes": [
+     {
+      "description": "Unique identifier for a product in the Assortment Efficiency dataset. Use it to group, filter, or drill into metrics at the individual product level.",
+      "id": "sql_assortment_efficiency.product_id",
+      "labels": [],
+      "sourceColumn": "product_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Assortment Efficiency"
+      ],
+      "title": "Product ID (Assortment Efficiency)"
+     }
+    ],
+    "description": "Assortment Efficiency",
+    "facts": [
+     {
+      "description": "Average inventory level recorded in the Assortment Efficiency dataset, used to analyze typical stock levels across products, locations, or time periods.",
+      "id": "sql_assortment_efficiency.avg_inventory",
+      "sourceColumn": "avg_inventory",
+      "sourceColumnDataType": "INT",
+      "tags": [
+       "Assortment Efficiency"
+      ],
+      "title": "Avg Inventory"
+     },
+     {
+      "description": "Sell-Through Rate is a measure in the Assortment Efficiency dataset that indicates how much of available inventory has been sold over a given period, helping assess product assortment performance.",
+      "id": "sql_assortment_efficiency.sell_through_rate",
+      "sourceColumn": "sell_through_rate",
+      "sourceColumnDataType": "NUMERIC",
+      "tags": [
+       "Assortment Efficiency"
+      ],
+      "title": "Sell-Through Rate"
+     },
+     {
+      "description": "Number of units sold captured in the Assortment Efficiency dataset, typically used to quantify sales volume across products, stores, or time periods.",
+      "id": "sql_assortment_efficiency.units_sold",
+      "sourceColumn": "units_sold",
+      "sourceColumnDataType": "INT",
+      "tags": [
+       "Assortment Efficiency"
+      ],
+      "title": "Units Sold (Assortment Efficiency)"
+     }
+    ],
+    "grain": [
+     {
+      "id": "sql_assortment_efficiency.product_id",
+      "type": "attribute"
+     }
+    ],
+    "id": "sql_assortment_efficiency",
+    "references": [],
+    "sql": {
+     "dataSourceId": "globalmart-motherduck",
+     "statement": "\nSELECT\n    p.product_id,\n    p.category_id,\n    SUM(ol.quantity) AS units_sold,\n    SUM(inv.on_hand_units) AS avg_inventory,\n    SUM(ol.quantity) / NULLIF(SUM(inv.on_hand_units), 0) AS sell_through_rate\nFROM globalmart.dim_product p\nLEFT JOIN globalmart.fact_order_line ol ON p.product_id = ol.product_id\nLEFT JOIN globalmart.fact_inventory_snapshot_daily inv ON p.product_id = inv.product_id\nGROUP BY 1, 2\n"
+    },
+    "tags": [
+     "Assortment Efficiency"
+    ],
+    "title": "Assortment Efficiency"
+   },
+   {
+    "aggregatedFacts": [],
+    "attributes": [
+     {
+      "description": "Unique identifier for each sales order in the Sales Order dataset, used to look up, group, or filter reporting at the individual order level.",
+      "id": "fact_order_header.order_id",
+      "labels": [],
+      "sourceColumn": "order_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Sales Order"
+      ],
+      "title": "Order ID (Sales Order)"
+     },
+     {
+      "description": "Identifies the sales region associated with each Sales Order record. Use this field to group, segment, or filter order metrics by region.",
+      "id": "fact_order_header.region_id",
+      "labels": [],
+      "sourceColumn": "region_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Sales Order"
+      ],
+      "title": "Region ID (Sales Order)"
+     }
+    ],
+    "dataSourceTableId": {
+     "dataSourceId": "globalmart-motherduck",
+     "id": "fact_order_header",
+     "path": [
+      "globalmart",
+      "fact_order_header"
+     ],
+     "type": "dataSource"
+    },
+    "description": "Sales Order",
+    "facts": [
+     {
+      "description": "The amount of discount applied to a sales order in the Sales Order dataset. Use it to analyze discounting levels across orders, customers, products, or time.",
+      "id": "fact_order_header.discount_amount",
+      "sourceColumn": "discount_amount",
+      "sourceColumnDataType": "NUMERIC",
+      "tags": [
+       "Sales Order"
+      ],
+      "title": "Discount Amount (Sales Order)"
+     },
+     {
+      "description": "Number of sales orders recorded in the Sales Order dataset, typically used to count orders for reporting and analysis.",
+      "id": "fact_order_header.order_count",
+      "sourceColumn": "order_count",
+      "sourceColumnDataType": "INT",
+      "tags": [
+       "Sales Order"
+      ],
+      "title": "Order Count (Sales Order)"
+     },
+     {
+      "description": "Revenue amount recorded on the Sales Order dataset. Use it to measure sales value, typically summed across orders and segmented by time, customer, product, or region.",
+      "id": "fact_order_header.revenue",
+      "sourceColumn": "revenue",
+      "sourceColumnDataType": "NUMERIC",
+      "tags": [
+       "Sales Order"
+      ],
+      "title": "Revenue (Sales Order)"
+     }
+    ],
+    "grain": [
+     {
+      "id": "fact_order_header.order_id",
+      "type": "attribute"
+     }
+    ],
+    "id": "fact_order_header",
+    "references": [
+     {
+      "identifier": {
+       "id": "dim_channel_master",
+       "type": "dataset"
+      },
+      "multivalue": false,
+      "sources": [
+       {
+        "column": "channel_id",
+        "dataType": "STRING",
+        "target": {
+         "id": "dim_channel_master.channel_id",
+         "type": "attribute"
+        }
+       }
+      ]
+     },
+     {
+      "identifier": {
+       "id": "dim_customer",
+       "type": "dataset"
+      },
+      "multivalue": false,
+      "sources": [
+       {
+        "column": "customer_id",
+        "dataType": "STRING",
+        "target": {
+         "id": "dim_customer.customer_id",
+         "type": "attribute"
+        }
+       }
+      ]
+     },
+     {
+      "identifier": {
+       "id": "dim_store",
+       "type": "dataset"
+      },
+      "multivalue": false,
+      "sources": [
+       {
+        "column": "store_id",
+        "dataType": "STRING",
+        "target": {
+         "id": "dim_store.store_id",
+         "type": "attribute"
+        }
+       }
+      ]
+     }
+    ],
+    "tags": [
+     "Sales Order"
+    ],
+    "title": "Sales Order",
+    "workspaceDataFilterColumns": [
+     {
+      "dataType": "STRING",
+      "name": "region_id"
+     }
     ]
-  },
-  "ldm": {
-    "datasets": [
-      {
-        "aggregatedFacts": [],
-        "attributes": [
-          {
-            "description": "Unique identifier for a product in the Assortment Efficiency dataset. Use it to group, filter, or drill into metrics at the individual product level.",
-            "id": "sql_assortment_efficiency.product_id",
-            "labels": [],
-            "sourceColumn": "product_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Assortment Efficiency"
-            ],
-            "title": "Product ID (Assortment Efficiency)"
-          }
-        ],
-        "description": "Assortment Efficiency",
-        "facts": [
-          {
-            "description": "Average inventory level recorded in the Assortment Efficiency dataset, used to analyze typical stock levels across products, locations, or time periods.",
-            "id": "sql_assortment_efficiency.avg_inventory",
-            "sourceColumn": "avg_inventory",
-            "sourceColumnDataType": "INT",
-            "tags": [
-              "Assortment Efficiency"
-            ],
-            "title": "Avg Inventory"
-          },
-          {
-            "description": "Sell-Through Rate is a measure in the Assortment Efficiency dataset that indicates how much of available inventory has been sold over a given period, helping assess product assortment performance.",
-            "id": "sql_assortment_efficiency.sell_through_rate",
-            "sourceColumn": "sell_through_rate",
-            "sourceColumnDataType": "NUMERIC",
-            "tags": [
-              "Assortment Efficiency"
-            ],
-            "title": "Sell-Through Rate"
-          },
-          {
-            "description": "Number of units sold captured in the Assortment Efficiency dataset, typically used to quantify sales volume across products, stores, or time periods.",
-            "id": "sql_assortment_efficiency.units_sold",
-            "sourceColumn": "units_sold",
-            "sourceColumnDataType": "INT",
-            "tags": [
-              "Assortment Efficiency"
-            ],
-            "title": "Units Sold (Assortment Efficiency)"
-          }
-        ],
-        "grain": [
-          {
-            "id": "sql_assortment_efficiency.product_id",
-            "type": "attribute"
-          }
-        ],
-        "id": "sql_assortment_efficiency",
-        "references": [],
-        "sql": {
-          "dataSourceId": "globalmart-motherduck",
-          "statement": "\nSELECT\n    p.product_id,\n    p.category_id,\n    SUM(ol.quantity) AS units_sold,\n    SUM(inv.on_hand_units) AS avg_inventory,\n    SUM(ol.quantity) / NULLIF(SUM(inv.on_hand_units), 0) AS sell_through_rate\nFROM globalmart.dim_product p\nLEFT JOIN globalmart.fact_order_line ol ON p.product_id = ol.product_id\nLEFT JOIN globalmart.fact_inventory_snapshot_daily inv ON p.product_id = inv.product_id\nGROUP BY 1, 2\n"
-        },
-        "tags": [
-          "Assortment Efficiency"
-        ],
-        "title": "Assortment Efficiency"
-      },
-      {
-        "aggregatedFacts": [],
-        "attributes": [
-          {
-            "description": "Unique identifier for each sales order in the Sales Order dataset, used to look up, group, or filter reporting at the individual order level.",
-            "id": "fact_order_header.order_id",
-            "labels": [],
-            "sourceColumn": "order_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Sales Order"
-            ],
-            "title": "Order ID (Sales Order)"
-          },
-          {
-            "description": "Identifies the sales region associated with each Sales Order record. Use this field to group, segment, or filter order metrics by region.",
-            "id": "fact_order_header.region_id",
-            "labels": [],
-            "sourceColumn": "region_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Sales Order"
-            ],
-            "title": "Region ID (Sales Order)"
-          }
-        ],
-        "dataSourceTableId": {
-          "dataSourceId": "globalmart-motherduck",
-          "id": "fact_order_header",
-          "path": [
-            "globalmart",
-            "fact_order_header"
-          ],
-          "type": "dataSource"
-        },
-        "description": "Sales Order",
-        "facts": [
-          {
-            "description": "The amount of discount applied to a sales order in the Sales Order dataset. Use it to analyze discounting levels across orders, customers, products, or time.",
-            "id": "fact_order_header.discount_amount",
-            "sourceColumn": "discount_amount",
-            "sourceColumnDataType": "NUMERIC",
-            "tags": [
-              "Sales Order"
-            ],
-            "title": "Discount Amount (Sales Order)"
-          },
-          {
-            "description": "Number of sales orders recorded in the Sales Order dataset, typically used to count orders for reporting and analysis.",
-            "id": "fact_order_header.order_count",
-            "sourceColumn": "order_count",
-            "sourceColumnDataType": "INT",
-            "tags": [
-              "Sales Order"
-            ],
-            "title": "Order Count (Sales Order)"
-          },
-          {
-            "description": "Revenue amount recorded on the Sales Order dataset. Use it to measure sales value, typically summed across orders and segmented by time, customer, product, or region.",
-            "id": "fact_order_header.revenue",
-            "sourceColumn": "revenue",
-            "sourceColumnDataType": "NUMERIC",
-            "tags": [
-              "Sales Order"
-            ],
-            "title": "Revenue (Sales Order)"
-          }
-        ],
-        "grain": [
-          {
-            "id": "fact_order_header.order_id",
-            "type": "attribute"
-          }
-        ],
-        "id": "fact_order_header",
-        "references": [
-          {
-            "identifier": {
-              "id": "dim_channel_master",
-              "type": "dataset"
-            },
-            "multivalue": false,
-            "sources": [
-              {
-                "column": "channel_id",
-                "dataType": "STRING",
-                "target": {
-                  "id": "dim_channel_master.channel_id",
-                  "type": "attribute"
-                }
-              }
-            ]
-          },
-          {
-            "identifier": {
-              "id": "dim_customer",
-              "type": "dataset"
-            },
-            "multivalue": false,
-            "sources": [
-              {
-                "column": "customer_id",
-                "dataType": "STRING",
-                "target": {
-                  "id": "dim_customer.customer_id",
-                  "type": "attribute"
-                }
-              }
-            ]
-          },
-          {
-            "identifier": {
-              "id": "dim_store",
-              "type": "dataset"
-            },
-            "multivalue": false,
-            "sources": [
-              {
-                "column": "store_id",
-                "dataType": "STRING",
-                "target": {
-                  "id": "dim_store.store_id",
-                  "type": "attribute"
-                }
-              }
-            ]
-          }
-        ],
-        "tags": [
-          "Sales Order"
-        ],
-        "title": "Sales Order",
-        "workspaceDataFilterColumns": [
-          {
-            "dataType": "STRING",
-            "name": "region_id"
-          }
-        ]
-      },
-      {
-        "aggregatedFacts": [],
-        "attributes": [
-          {
-            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
-            "id": "dim_channel_master.channel_id",
-            "labels": [],
-            "sourceColumn": "channel_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Sales Channel"
-            ],
-            "title": "Channel ID (Sales Channel)"
-          },
-          {
-            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
-            "id": "dim_channel_master.channel_name",
-            "labels": [],
-            "sourceColumn": "channel_name",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Sales Channel"
-            ],
-            "title": "Channel Name (Sales Channel)"
-          },
-          {
-            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
-            "id": "dim_channel_master.channel_type",
-            "labels": [],
-            "sourceColumn": "channel_type",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Sales Channel"
-            ],
-            "title": "Channel Type (Sales Channel)"
-          }
-        ],
-        "dataSourceTableId": {
-          "dataSourceId": "globalmart-motherduck",
-          "id": "dim_channel_master",
-          "path": [
-            "globalmart",
-            "dim_channel_master"
-          ],
-          "type": "dataSource"
-        },
-        "description": "Sales Channel",
-        "facts": [],
-        "grain": [
-          {
-            "id": "dim_channel_master.channel_id",
-            "type": "attribute"
-          }
-        ],
-        "id": "dim_channel_master",
-        "references": [],
-        "tags": [
-          "Sales Channel"
-        ],
-        "title": "Sales Channel"
-      },
-      {
-        "aggregatedFacts": [],
-        "attributes": [
-          {
-            "description": "Identifier for the customer\u2019s acquisition channel in the Customer dataset. Use it to group or filter customers by the channel they were acquired through.",
-            "id": "dim_customer.acquisition_channel_id",
-            "labels": [],
-            "sourceColumn": "acquisition_channel_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Customer"
-            ],
-            "title": "Acquisition Channel ID"
-          },
-          {
-            "description": "Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into metrics at the individual customer level.",
-            "id": "dim_customer.customer_id",
-            "labels": [],
-            "sourceColumn": "customer_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Customer"
-            ],
-            "title": "Customer ID (Customer)"
-          },
-          {
-            "description": "Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.",
-            "id": "dim_customer.customer_name",
-            "labels": [],
-            "sourceColumn": "customer_name",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Customer"
-            ],
-            "title": "Customer Name (Customer)"
-          },
-          {
-            "description": "Identifier for the customer\u2019s lifecycle stage in the Customer dataset, used to group or filter customers by lifecycle stage.",
-            "id": "dim_customer.lifecycle_stage_id",
-            "labels": [],
-            "sourceColumn": "lifecycle_stage_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Customer"
-            ],
-            "title": "Lifecycle Stage ID"
-          },
-          {
-            "description": "Identifier for a customer\u2019s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty tier.",
-            "id": "dim_customer.loyalty_tier_id",
-            "labels": [],
-            "sourceColumn": "loyalty_tier_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Customer"
-            ],
-            "title": "Loyalty Tier ID"
-          }
-        ],
-        "dataSourceTableId": {
-          "dataSourceId": "globalmart-motherduck",
-          "id": "dim_customer",
-          "path": [
-            "globalmart",
-            "dim_customer"
-          ],
-          "type": "dataSource"
-        },
-        "description": "Customer",
-        "facts": [],
-        "grain": [
-          {
-            "id": "dim_customer.customer_id",
-            "type": "attribute"
-          }
-        ],
-        "id": "dim_customer",
-        "references": [],
-        "tags": [
-          "Customer"
-        ],
-        "title": "Customer"
-      },
-      {
-        "aggregatedFacts": [],
-        "attributes": [
-          {
-            "description": "Identifier for the store\u2019s region in the Store dataset, used to group, segment, or filter store-related reporting by region.",
-            "id": "dim_store.region_id",
-            "labels": [],
-            "sourceColumn": "region_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Store"
-            ],
-            "title": "Region ID (Store)"
-          },
-          {
-            "description": "Store square footage (size) for each store, used to group, compare, or filter stores by their physical footprint.",
-            "id": "dim_store.sqft",
-            "labels": [],
-            "sourceColumn": "sqft",
-            "sourceColumnDataType": "INT",
-            "tags": [
-              "Store"
-            ],
-            "title": "Store Size (Sq Ft)"
-          },
-          {
-            "description": "Store Format is a Store attribute that categorizes each store by its format/type (for example, different store concepts). It\u2019s typically used to filter or break down metrics by store format in analyses and dashboards.",
-            "id": "dim_store.store_format",
-            "labels": [],
-            "sourceColumn": "store_format",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Store"
-            ],
-            "title": "Store Format"
-          },
-          {
-            "description": "Unique identifier for each store in the Store dataset, used to group, filter, or join reporting by individual store.",
-            "id": "dim_store.store_id",
-            "labels": [],
-            "sourceColumn": "store_id",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Store"
-            ],
-            "title": "Store ID (Store)"
-          },
-          {
-            "description": "The name of the store, used to group and filter reporting by individual store in the Store dataset.",
-            "id": "dim_store.store_name",
-            "labels": [],
-            "sourceColumn": "store_name",
-            "sourceColumnDataType": "STRING",
-            "tags": [
-              "Store"
-            ],
-            "title": "Store Name"
-          }
-        ],
-        "dataSourceTableId": {
-          "dataSourceId": "globalmart-motherduck",
-          "id": "dim_store",
-          "path": [
-            "globalmart",
-            "dim_store"
-          ],
-          "type": "dataSource"
-        },
-        "description": "Store",
-        "facts": [],
-        "grain": [
-          {
-            "id": "dim_store.store_id",
-            "type": "attribute"
-          }
-        ],
-        "id": "dim_store",
-        "references": [],
-        "tags": [
-          "Store"
-        ],
-        "title": "Store"
-      }
+   },
+   {
+    "aggregatedFacts": [],
+    "attributes": [
+     {
+      "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+      "id": "dim_channel_master.channel_id",
+      "labels": [],
+      "sourceColumn": "channel_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Sales Channel"
+      ],
+      "title": "Channel ID (Sales Channel)"
+     },
+     {
+      "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+      "id": "dim_channel_master.channel_name",
+      "labels": [],
+      "sourceColumn": "channel_name",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Sales Channel"
+      ],
+      "title": "Channel Name (Sales Channel)"
+     },
+     {
+      "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+      "id": "dim_channel_master.channel_type",
+      "labels": [],
+      "sourceColumn": "channel_type",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Sales Channel"
+      ],
+      "title": "Channel Type (Sales Channel)"
+     }
     ],
-    "dateInstances": [
-      {
-        "description": "",
-        "granularities": [
-          "DAY",
-          "WEEK",
-          "MONTH",
-          "QUARTER",
-          "YEAR"
-        ],
-        "granularitiesFormatting": {
-          "titleBase": "",
-          "titlePattern": "%granularityTitle"
-        },
-        "id": "fiscal_date",
-        "title": "Fiscal Date"
-      }
-    ]
-  }
+    "dataSourceTableId": {
+     "dataSourceId": "globalmart-motherduck",
+     "id": "dim_channel_master",
+     "path": [
+      "globalmart",
+      "dim_channel_master"
+     ],
+     "type": "dataSource"
+    },
+    "description": "Sales Channel",
+    "facts": [],
+    "grain": [
+     {
+      "id": "dim_channel_master.channel_id",
+      "type": "attribute"
+     }
+    ],
+    "id": "dim_channel_master",
+    "references": [],
+    "tags": [
+     "Sales Channel"
+    ],
+    "title": "Sales Channel"
+   },
+   {
+    "aggregatedFacts": [],
+    "attributes": [
+     {
+      "description": "Identifier for the customer\u2019s acquisition channel in the Customer dataset. Use it to group or filter customers by the channel they were acquired through.",
+      "id": "dim_customer.acquisition_channel_id",
+      "labels": [],
+      "sourceColumn": "acquisition_channel_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Customer"
+      ],
+      "title": "Acquisition Channel ID"
+     },
+     {
+      "description": "Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into metrics at the individual customer level.",
+      "id": "dim_customer.customer_id",
+      "labels": [],
+      "sourceColumn": "customer_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Customer"
+      ],
+      "title": "Customer ID (Customer)"
+     },
+     {
+      "description": "Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.",
+      "id": "dim_customer.customer_name",
+      "labels": [],
+      "sourceColumn": "customer_name",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Customer"
+      ],
+      "title": "Customer Name (Customer)"
+     },
+     {
+      "description": "Identifier for the customer\u2019s lifecycle stage in the Customer dataset, used to group or filter customers by lifecycle stage.",
+      "id": "dim_customer.lifecycle_stage_id",
+      "labels": [],
+      "sourceColumn": "lifecycle_stage_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Customer"
+      ],
+      "title": "Lifecycle Stage ID"
+     },
+     {
+      "description": "Identifier for a customer\u2019s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty tier.",
+      "id": "dim_customer.loyalty_tier_id",
+      "labels": [],
+      "sourceColumn": "loyalty_tier_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Customer"
+      ],
+      "title": "Loyalty Tier ID"
+     }
+    ],
+    "dataSourceTableId": {
+     "dataSourceId": "globalmart-motherduck",
+     "id": "dim_customer",
+     "path": [
+      "globalmart",
+      "dim_customer"
+     ],
+     "type": "dataSource"
+    },
+    "description": "Customer",
+    "facts": [],
+    "grain": [
+     {
+      "id": "dim_customer.customer_id",
+      "type": "attribute"
+     }
+    ],
+    "id": "dim_customer",
+    "references": [],
+    "tags": [
+     "Customer"
+    ],
+    "title": "Customer"
+   },
+   {
+    "aggregatedFacts": [],
+    "attributes": [
+     {
+      "description": "Identifier for the store\u2019s region in the Store dataset, used to group, segment, or filter store-related reporting by region.",
+      "id": "dim_store.region_id",
+      "labels": [],
+      "sourceColumn": "region_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Store"
+      ],
+      "title": "Region ID (Store)"
+     },
+     {
+      "description": "Store square footage (size) for each store, used to group, compare, or filter stores by their physical footprint.",
+      "id": "dim_store.sqft",
+      "labels": [],
+      "sourceColumn": "sqft",
+      "sourceColumnDataType": "INT",
+      "tags": [
+       "Store"
+      ],
+      "title": "Store Size (Sq Ft)"
+     },
+     {
+      "description": "Store Format is a Store attribute that categorizes each store by its format/type (for example, different store concepts). It\u2019s typically used to filter or break down metrics by store format in analyses and dashboards.",
+      "id": "dim_store.store_format",
+      "labels": [],
+      "sourceColumn": "store_format",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Store"
+      ],
+      "title": "Store Format"
+     },
+     {
+      "description": "Unique identifier for each store in the Store dataset, used to group, filter, or join reporting by individual store.",
+      "id": "dim_store.store_id",
+      "labels": [],
+      "sourceColumn": "store_id",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Store"
+      ],
+      "title": "Store ID (Store)"
+     },
+     {
+      "description": "The name of the store, used to group and filter reporting by individual store in the Store dataset.",
+      "id": "dim_store.store_name",
+      "labels": [],
+      "sourceColumn": "store_name",
+      "sourceColumnDataType": "STRING",
+      "tags": [
+       "Store"
+      ],
+      "title": "Store Name"
+     }
+    ],
+    "dataSourceTableId": {
+     "dataSourceId": "globalmart-motherduck",
+     "id": "dim_store",
+     "path": [
+      "globalmart",
+      "dim_store"
+     ],
+     "type": "dataSource"
+    },
+    "description": "Store",
+    "facts": [],
+    "grain": [
+     {
+      "id": "dim_store.store_id",
+      "type": "attribute"
+     }
+    ],
+    "id": "dim_store",
+    "references": [],
+    "tags": [
+     "Store"
+    ],
+    "title": "Store"
+   }
+  ],
+  "dateInstances": [
+   {
+    "description": "",
+    "granularities": [
+     "DAY",
+     "WEEK",
+     "MONTH",
+     "QUARTER",
+     "YEAR"
+    ],
+    "granularitiesFormatting": {
+     "titleBase": "",
+     "titlePattern": "%granularityTitle"
+    },
+    "id": "fiscal_date",
+    "title": "Fiscal Date"
+   }
+  ]
+ }
 }

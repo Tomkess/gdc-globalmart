@@ -21,6 +21,7 @@ Two subcommands today:
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 import tempfile
 from collections.abc import Sequence
@@ -29,12 +30,16 @@ from pathlib import Path
 from globalmart.capture import capture_workspace
 from globalmart.config import GlobalmartError, load_profile
 from globalmart.counts import count_objects
+from globalmart.coverage import check_coverage, raise_for_report
+from globalmart.domain_bootstrap import bootstrap_manifest
+from globalmart.domains import dump_domains, load_domains
 from globalmart.layout_io import read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_workspace
 from globalmart.sdk_client import make_sdk
 
 DEFAULT_LAYOUT_PATH = Path("layouts/workspaces/globalmart")
+DEFAULT_DOMAINS_PATH = Path("config/domains.yaml")
 
 
 def _print_report(title: str, lines: Sequence[str]) -> None:
@@ -164,6 +169,78 @@ def cmd_publish_parent(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_domains_validate(args: argparse.Namespace) -> int:
+    """Offline coverage gate. Reads the repo, contacts nothing, writes nothing."""
+    layout = Path(args.layout)
+    if not layout.exists():
+        raise GlobalmartError(f"No layout tree at {layout}")
+
+    model = read_tree(layout)
+    manifest = load_domains(Path(args.manifest))
+    report = check_coverage(model, manifest)
+
+    if args.format == "json":
+        print(json.dumps(report.as_dict(), indent=2, sort_keys=True))
+    else:
+        _print_report(f"Coverage — {args.manifest} against {layout}", report.summary_lines())
+        print()
+        for line in report.table_lines():
+            print(f"  {line}")
+        if report.multi_homed:
+            _print_report(
+                "\nMulti-homed (in more than one domain — reported, not an error)",
+                [f"{i}: {', '.join(keys)}" for i, keys in report.multi_homed.items()],
+            )
+        if report.cross_domain_tiles:
+            _print_report(
+                "\nCross-domain tiles (copied into more than one child)",
+                [f"{k}: {len(v)} tile(s)" for k, v in report.cross_domain_tiles.items()],
+            )
+        if report.redundant_visualizations:
+            _print_report(
+                "\nRedundant listings (already covered by one of the domain's dashboards)",
+                [f"{k}: {', '.join(v)}" for k, v in report.redundant_visualizations.items()],
+            )
+
+    try:
+        raise_for_report(report, strict=args.strict)
+    except GlobalmartError as error:
+        print(f"\nerror: {error}", file=sys.stderr)
+        return 1
+
+    if args.format != "json":
+        print(f"\nCoverage is complete{' (strict)' if args.strict else ''}.")
+    return 0
+
+
+def cmd_domains_bootstrap(args: argparse.Namespace) -> int:
+    """Generate the first manifest from the prefix convention. Local file write only."""
+    layout = Path(args.layout)
+    if not layout.exists():
+        raise GlobalmartError(f"No layout tree at {layout}")
+
+    destination = Path(args.out)
+    if destination.exists() and not args.force and not args.dry_run:
+        raise GlobalmartError(
+            f"{destination} already exists. The prefix convention may produce this file once, "
+            "never overwrite a reviewed one — pass --force if that is really what you want."
+        )
+
+    model = read_tree(layout)
+    manifest, report = bootstrap_manifest(model)
+
+    _print_report(f"Bootstrap — {layout}", report.summary_lines())
+
+    if args.dry_run:
+        print(f"\nREHEARSAL — nothing written. Re-run without --dry-run to write {destination}.")
+        return 0
+
+    dump_domains(manifest, destination)
+    print(f"\nWrote {destination}")
+    print("Every TODO: reason must be replaced before `domains validate --strict` passes.")
+    return 0
+
+
 def cmd_targets_inspect(args: argparse.Namespace) -> int:
     """Discover what a host reports, so a new profile can be filled in from fact.
 
@@ -238,6 +315,35 @@ def build_parser() -> argparse.ArgumentParser:
     )
     normalize.add_argument("--allow-unparameterized-sql", action="store_true")
     normalize.set_defaults(func=cmd_normalize)
+
+    domains = subparsers.add_parser("domains", help="the domain membership manifest")
+    domains_actions = domains.add_subparsers(dest="action", required=True)
+
+    validate = domains_actions.add_parser(
+        "validate", help="check the manifest accounts for everything in the parent"
+    )
+    validate.add_argument("--manifest", default=str(DEFAULT_DOMAINS_PATH))
+    validate.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    validate.add_argument(
+        "--strict",
+        action="store_true",
+        help="also fail on placeholder exclusion reasons (the CI gate)",
+    )
+    validate.add_argument("--format", choices=["table", "json"], default="table")
+    validate.set_defaults(func=cmd_domains_validate)
+
+    domains_bootstrap = domains_actions.add_parser(
+        "bootstrap", help="generate the first manifest from the viz_<domain>_ prefix convention"
+    )
+    domains_bootstrap.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    domains_bootstrap.add_argument("--out", default=str(DEFAULT_DOMAINS_PATH))
+    domains_bootstrap.add_argument(
+        "--dry-run", action="store_true", help="report only; write no file"
+    )
+    domains_bootstrap.add_argument(
+        "--force", action="store_true", help="overwrite an existing manifest"
+    )
+    domains_bootstrap.set_defaults(func=cmd_domains_bootstrap)
 
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)

@@ -1,0 +1,55 @@
+# Loader-only fixture: exercises every schema key, including the ones the mini parent has no
+# objects for. Never passed to check_coverage — store_ops exists here to pin the snake/kebab
+# mapping (store_ops -> globalmart-store-ops), which is the one place the naming convention
+# can silently break.
+version: 1
+parent_workspace_id: globalmart
+workspace_id_template: globalmart-{key_kebab}
+workspace_name_template: GlobalMart — {label}
+domains:
+- key: sales
+  label: Sales
+  description: Revenue, orders and margin across channels and regions.
+  workspace_id: globalmart-sales
+  dashboards:
+  - dashboard_000
+  visualizations:
+  - viz_sales_0000
+  ai:
+    memory_item_ids:
+    - mem_sales_definitions
+    memory_item_tags:
+    - area/sales
+    parameter_ids:
+    - param_sales_fiscal_year_start
+    agent_ids:
+    - agent_sales_analyst
+    knowledge_ids:
+    - know_sales_playbook
+- key: store_ops
+  label: Store Operations
+  description: Store staffing, footfall and per-location operational KPIs.
+  workspace_id: globalmart-store-ops
+  workspace_name: GlobalMart Store Ops (pilot)
+  dashboards:
+  - dashboard_012
+  visualizations: []
+  ldm_include:
+  - dim_store
+  - dim_geo
+shared:
+  dashboards: []
+  visualizations: []
+  ai:
+    parameter_ids:
+    - param_default_currency
+unassigned:
+  dashboards:
+  - id: dashboard_eval_scratch
+    reason: Eval harness scratch dashboard left in the parent; belongs to no business domain.
+  visualizations:
+  - id: viz_orphan_0001
+    reason: Duplicate of viz_sales_0000 created during an LLM description pass.
+  ai:
+  - id: mem_org_onboarding_notes
+    reason: Org-specific onboarding text with no analytical content; must not reach any child.

@@ -1,0 +1,39 @@
+# valid.yaml with the sales tag rule removed, so the memory item is classified nowhere.
+# Deny-by-default means that is fatal, not a quiet absence.
+version: 1
+parent_workspace_id: globalmart
+workspace_id_template: globalmart-{key_kebab}
+workspace_name_template: GlobalMart — {label}
+domains:
+- key: customer
+  label: Customers
+  description: Customer segmentation and feedback.
+  workspace_id: globalmart-customer
+  dashboards: []
+  visualizations:
+  - viz_customer_0096
+  - viz_customer_0097
+- key: finance
+  label: Finance
+  description: Margin and profitability.
+  workspace_id: globalmart-finance
+  dashboards:
+  - dashboard_mixed
+  visualizations: []
+- key: sales
+  label: Sales
+  description: Revenue, discounts and returns.
+  workspace_id: globalmart-sales
+  dashboards:
+  - dashboard_000
+  - dashboard_mixed
+  visualizations: []
+shared:
+  dashboards: []
+  visualizations: []
+unassigned:
+  dashboards: []
+  visualizations:
+  - id: viz_orphan_0001
+    reason: Duplicate created during an LLM description pass.
+  ai: []

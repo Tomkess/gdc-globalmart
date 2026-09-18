@@ -1,0 +1,21 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: average_sales_amount_daily_store_sales
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Discount amount by month, on the sales overview dashboard.
+id: viz_sales_0000
+title: Discount Amount by Month

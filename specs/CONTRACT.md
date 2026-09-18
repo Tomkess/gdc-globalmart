@@ -173,11 +173,17 @@ class DomainManifest:
     def unassigned_ids(self) -> frozenset[str]: ...               # flattened exclusion ids
 
 def load_domains(path: Path) -> DomainManifest: ...
+def dump_domains(manifest: DomainManifest, path: Path) -> Path: ...
+def key_kebab(key: str) -> str: ...        # store_ops -> store-ops
 class DomainManifestError(GlobalmartError): ...
 ```
 
 Consumers use the accessor methods; do not re-derive name resolution or flatten exclusions
 by hand. `domain.label` is never passed as a workspace name — call `resolve_workspace_name`.
+
+`resolve_workspace_id` and `resolve_workspace_name` are **methods on `DomainManifest` only**
+(built 2026-09-18) — there are no module-level twins. Two spellings of one operation is how a
+caller ends up using the one that skips the per-domain override.
 
 ## CLI surface
 

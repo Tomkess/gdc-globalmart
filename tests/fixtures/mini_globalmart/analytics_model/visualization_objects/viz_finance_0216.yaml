@@ -1,0 +1,21 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: average_total_bonus_cost
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Gross margin by month. Shares a dashboard with a sales tile, which is the shape the predecessor dropped silently.
+id: viz_finance_0216
+title: Gross Margin by Month

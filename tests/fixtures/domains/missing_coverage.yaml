@@ -1,0 +1,22 @@
+# dashboard_mixed, viz_finance_0216 and viz_orphan_0001 are in no domain, no shared: block and
+# no unassigned: entry. Fatal.
+version: 1
+parent_workspace_id: globalmart
+workspace_id_template: globalmart-{key_kebab}
+workspace_name_template: GlobalMart — {label}
+domains:
+- key: customer
+  label: Customers
+  description: Customer segmentation and feedback.
+  workspace_id: globalmart-customer
+  dashboards: []
+  visualizations:
+  - viz_customer_0096
+  - viz_customer_0097
+- key: sales
+  label: Sales
+  description: Revenue, discounts and returns.
+  workspace_id: globalmart-sales
+  dashboards:
+  - dashboard_000
+  visualizations: []

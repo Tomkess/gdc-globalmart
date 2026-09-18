@@ -1,0 +1,43 @@
+# Two secondary reports in one fixture: viz_customer_0096 reaches every child through shared:,
+# and sales lists viz_sales_0000 explicitly although dashboard_000 already covers it.
+version: 1
+parent_workspace_id: globalmart
+workspace_id_template: globalmart-{key_kebab}
+workspace_name_template: GlobalMart — {label}
+domains:
+- key: customer
+  label: Customers
+  description: Customer feedback.
+  workspace_id: globalmart-customer
+  dashboards: []
+  visualizations:
+  - viz_customer_0097
+- key: finance
+  label: Finance
+  description: Margin and profitability.
+  workspace_id: globalmart-finance
+  dashboards:
+  - dashboard_mixed
+  visualizations: []
+- key: sales
+  label: Sales
+  description: Revenue, discounts and returns.
+  workspace_id: globalmart-sales
+  dashboards:
+  - dashboard_000
+  - dashboard_mixed
+  visualizations:
+  - viz_sales_0000
+  ai:
+    memory_item_ids:
+    - mem_sales_definitions
+shared:
+  dashboards: []
+  visualizations:
+  - viz_customer_0096
+unassigned:
+  dashboards: []
+  visualizations:
+  - id: viz_orphan_0001
+    reason: Duplicate created during an LLM description pass.
+  ai: []

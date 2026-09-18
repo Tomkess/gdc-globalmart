@@ -73,3 +73,43 @@ def test_all_string_fields_yields_usable_paths() -> None:
 
     assert any(path.startswith("ldm.") for path in paths)
     assert any(path.startswith("analytics.") for path in paths)
+
+
+# --- FEAT-003 task 9: dashboard -> visualization references -------------------
+
+
+def test_dashboard_insight_refs_finds_the_known_pairs() -> None:
+    from globalmart.traversal import iter_dashboard_insight_refs
+
+    pairs = set(iter_dashboard_insight_refs(read_tree(FIXTURE)))
+
+    assert ("dashboard_000", "viz_sales_0000") in pairs
+    assert ("dashboard_mixed", "viz_sales_0000") in pairs
+
+
+def test_dashboard_insight_refs_sees_into_a_nested_layout() -> None:
+    """The reason the walk is generic: a shape-assuming extractor silently under-counts."""
+    from globalmart.traversal import dashboard_visualization_ids
+
+    found = dashboard_visualization_ids(read_tree(FIXTURE), "dashboard_mixed")
+
+    # Nested two layouts deep, not at sections[].items[].widget.insight.
+    assert "viz_sales_0000" in found
+
+
+def test_dashboard_insight_refs_sees_a_drill_target() -> None:
+    from globalmart.traversal import dashboard_visualization_ids
+
+    found = dashboard_visualization_ids(read_tree(FIXTURE), "dashboard_mixed")
+
+    # Reachable only through drills[].target.identifier.
+    assert "viz_finance_0216" in found
+
+
+def test_a_dashboard_with_no_references_yields_nothing() -> None:
+    from globalmart.traversal import dashboard_visualization_ids
+
+    model = read_tree(FIXTURE)
+    model.analytics.analytical_dashboards[0].content = {}
+
+    assert dashboard_visualization_ids(model, model.analytics.analytical_dashboards[0].id) == set()

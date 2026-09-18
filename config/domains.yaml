@@ -1,0 +1,116 @@
+version: 1
+parent_workspace_id: globalmart
+workspace_id_template: globalmart-{key_kebab}
+workspace_name_template: GlobalMart — {label}
+domains:
+- key: customer
+  label: Customers
+  description: Customer segmentation, lifetime value, acquisition and churn, plus NPS and feedback.
+  workspace_id: globalmart-customer
+  dashboards:
+  - dashboard_004
+  - dashboard_017
+  - dashboard_027
+  visualizations: []
+- key: ecommerce
+  label: E-commerce
+  description: Online sales, the e-commerce funnel, and seasonal demand across digital channels.
+  workspace_id: globalmart-ecommerce
+  dashboards:
+  - dashboard_002
+  - dashboard_024
+  visualizations: []
+- key: finance
+  label: Finance
+  description: Profit and loss, budget versus actual, and the gross margin bridge.
+  workspace_id: globalmart-finance
+  dashboards:
+  - dashboard_010
+  - dashboard_011
+  - dashboard_025
+  visualizations: []
+- key: hr
+  label: HR
+  description: Headcount, employee performance, payroll and absence, and workforce productivity.
+  workspace_id: globalmart-hr
+  dashboards:
+  - dashboard_014
+  - dashboard_015
+  - dashboard_030
+  visualizations: []
+- key: inventory
+  label: Inventory & Supply Chain
+  description: Stock levels and inventory health, and the purchase-order side of the supply chain.
+  workspace_id: globalmart-inventory
+  dashboards:
+  - dashboard_006
+  - dashboard_007
+  visualizations: []
+- key: loyalty
+  label: Loyalty
+  description: Loyalty programme membership, retention and the return on programme spend.
+  workspace_id: globalmart-loyalty
+  dashboards:
+  - dashboard_005
+  - dashboard_016
+  visualizations: []
+- key: marketing
+  label: Marketing
+  description: Campaign ROI, email and digital performance, and multi-touch attribution and media mix.
+  workspace_id: globalmart-marketing
+  dashboards:
+  - dashboard_008
+  - dashboard_009
+  - dashboard_029
+  visualizations: []
+- key: product
+  label: Products
+  description: Product performance and margins, competitor pricing, and cross-sell affinity.
+  workspace_id: globalmart-product
+  dashboards:
+  - dashboard_003
+  - dashboard_023
+  - dashboard_028
+  visualizations: []
+- key: real_estate
+  label: Real Estate & Facilities
+  description: Property and facilities costs, energy consumption and maintenance across the estate.
+  workspace_id: globalmart-real-estate
+  dashboards:
+  - dashboard_020
+  - dashboard_021
+  visualizations: []
+- key: risk
+  label: Risk & Compliance
+  description: Fraud risk, audit findings, and compliance benchmarking by cost centre.
+  workspace_id: globalmart-risk
+  dashboards:
+  - dashboard_018
+  - dashboard_019
+  - dashboard_031
+  visualizations: []
+- key: sales
+  label: Sales
+  description: Revenue, orders and margin across channels and regions, including returns and refunds.
+  workspace_id: globalmart-sales
+  dashboards:
+  - dashboard_000
+  - dashboard_001
+  - dashboard_022
+  visualizations: []
+- key: store_ops
+  label: Store Operations
+  description: Store-level operational efficiency, staff scheduling and productivity, and footfall.
+  workspace_id: globalmart-store-ops
+  dashboards:
+  - dashboard_012
+  - dashboard_013
+  - dashboard_026
+  visualizations: []
+shared:
+  dashboards: []
+  visualizations: []
+unassigned:
+  dashboards: []
+  visualizations: []
+  ai: []

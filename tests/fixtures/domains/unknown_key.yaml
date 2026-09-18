@@ -1,0 +1,13 @@
+# A single typo: `dashboard:` instead of `dashboards:`. Parsed leniently this silently means
+# "sales has no dashboards" — the same invisible drop the whole feature exists to prevent.
+version: 1
+parent_workspace_id: globalmart
+workspace_id_template: globalmart-{key_kebab}
+workspace_name_template: GlobalMart — {label}
+domains:
+- key: sales
+  label: Sales
+  description: Revenue and orders.
+  workspace_id: globalmart-sales
+  dashboard:
+  - dashboard_000

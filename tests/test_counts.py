@@ -21,8 +21,9 @@ def test_fixture_counts_are_known() -> None:
 
     assert counts.datasets == 5
     assert counts.metrics == 8
-    assert counts.visualization_objects == 2
-    assert counts.analytical_dashboards == 1
+    assert counts.visualization_objects == 5
+    assert counts.analytical_dashboards == 2
+    assert counts.memory_items == 1
     assert counts.filter_contexts == 1
     assert counts.date_instances == 1
 
@@ -30,8 +31,8 @@ def test_fixture_counts_are_known() -> None:
 def test_non_zero_hides_empty_channels() -> None:
     counts = count_objects(read_tree(FIXTURE))
 
-    assert "memory_items" in counts.as_dict()
-    assert "memory_items" not in counts.non_zero()
+    assert "parameters" in counts.as_dict()
+    assert "parameters" not in counts.non_zero()
 
 
 @pytest.mark.skipif(not LAYOUT.exists(), reason="real layout tree not captured yet")

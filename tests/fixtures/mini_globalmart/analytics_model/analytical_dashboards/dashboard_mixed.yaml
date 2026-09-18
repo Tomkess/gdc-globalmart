@@ -1,0 +1,48 @@
+content:
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 12
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills:
+          - target:
+              identifier:
+                id: viz_finance_0216
+                type: visualizationObject
+            type: drillToInsight
+          ignoreDashboardFilters: []
+          localIdentifier: widget_mixed_00
+          title: Nested container
+          type: IDashboardLayout
+          sections:
+          - items:
+            - size:
+                xl:
+                  gridHeight: 12
+                  gridWidth: 6
+              type: IDashboardLayoutItem
+              widget:
+                description: ''
+                drills: []
+                ignoreDashboardFilters: []
+                insight:
+                  identifier:
+                    id: viz_sales_0000
+                    type: visualizationObject
+                localIdentifier: widget_mixed_00_00
+                title: Discount Amount by Month
+                type: insight
+            type: IDashboardLayoutSection
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Tiles from two business areas on one dashboard. The sales tile sits inside a nested layout and the
+  finance tile is reachable only through a drill target, so a shape-assuming extractor finds neither.
+  The predecessor's all-tiles-must-match rule dropped this dashboard everywhere without reporting it.
+id: dashboard_mixed
+title: Executive Revenue & Margin

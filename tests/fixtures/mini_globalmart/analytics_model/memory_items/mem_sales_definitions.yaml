@@ -1,0 +1,6 @@
+id: mem_sales_definitions
+instruction: Net revenue excludes returns and refunds; always state the currency.
+strategy: ALWAYS
+tags:
+- area/sales
+title: Sales metric definitions

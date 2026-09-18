@@ -1,0 +1,21 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: average_total_nps_score
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Id matches no viz_ prefix the seed knows and no dashboard references it — the residue shape the coverage check exists to surface.
+id: viz_orphan_0001
+title: Untitled Copy
