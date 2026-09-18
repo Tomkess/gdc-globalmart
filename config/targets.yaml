@@ -1,0 +1,32 @@
+# Publish/capture target profiles.
+#
+# NO SECRETS IN THIS FILE. Tokens come from the environment only:
+#   GLOBALMART_TOKEN__<PROFILE_NAME_UPPER_SNAKE>   (e.g. GLOBALMART_TOKEN__DEMO_CLOUD)
+#   GLOBALMART_TOKEN                               (generic fallback)
+#
+# Adding a target is an entry here, never a code change (STEERING § Portability Contract).
+
+targets:
+  demo-cloud:
+    host: https://petertomko.demo.cloud
+    organization_id: petertomko
+    datasource_id: globalmart-motherduck
+    datasource_schema: main
+    parent_workspace_id: globalmart
+
+  # Local-inference host. Filled in by FEAT-002 when the Postgres datasource
+  # fields (warehouse_type, url, username, secret env var) are added.
+  # local-inference:
+  #   host: https://<li-host>
+  #   organization_id: default
+  #   datasource_id: globalmart-postgres
+  #   datasource_schema: globalmart
+  #   parent_workspace_id: globalmart
+
+  # Any empty org, for proving the cold rebuild (goal-01's measurable outcome).
+  # fresh-org:
+  #   host: https://<fresh-host>
+  #   organization_id: <org>
+  #   datasource_id: globalmart-motherduck
+  #   datasource_schema: main
+  #   parent_workspace_id: globalmart

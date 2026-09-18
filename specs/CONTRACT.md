@@ -54,8 +54,9 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `report.py` | FEAT-006 | The only module that knows about presentation |
 | `cli.py` | all | Subcommand registration only; no logic |
 
-`data/` submodule (FEAT-005, sole owner): `ddl.py`, `registry.py`, `seeds.py`, `signal.py`,
-`keyspace.py`, `generate.py`, `writer.py`, `load.py`, `census.py`, `verify_sql.py`.
+FEAT-005 (sole owner): `registry.py`, `archive.py`, `dataload.py`, `sqlcheck.py`,
+`search_event.py`, and the `loaders/` submodule (`base.py`, `motherduck.py`, `postgres.py`).
+Plus the one-shot `scripts/take_custody.py`, which is not part of the runtime CLI.
 
 > **`verify.py` collision — resolve before building either feature.** FEAT-004 specifies
 > `verify_child(child_model, domain_key) -> None` (the two-directional split gate, pure, offline);
@@ -190,8 +191,8 @@ Single entry point `globalmart`, subcommands registered in `cli.py`:
 | `globalmart domains validate \| bootstrap [--manifest config/domains.yaml]` | FEAT-003 |
 | `globalmart split [--domains-file ...] [--from <layout>] [--check]` | FEAT-004 |
 | `globalmart publish domains --target <profile> [--apply]` | FEAT-004 |
-| `globalmart generate data [--seed N] [--scale F] [--as-of DATE]` | FEAT-005 |
-| `globalmart load ...` | FEAT-005 |
+| `globalmart data fetch [--manifest data/archive-manifest.json] [--force] [--dry-run]` | FEAT-005 |
+| `globalmart data load --target <profile> [--apply] [--only <table>]` | FEAT-005 |
 | `globalmart verify --target <profile> [--workspace <id> ...] [--max-workers N]` | FEAT-006 |
 | `globalmart rebuild` | FEAT-006 |
 
@@ -206,11 +207,11 @@ exit non-zero otherwise" and is the CI gate form.
 |---|---|---|
 | `layouts/workspaces/globalmart/` | Parent workspace, SDK native YAML tree, one file per object. Neutral path — **no org id** | yes |
 | `generated/workspaces/globalmart-<domain>.json` | The 12 derived children, declarative JSON | yes (ADR 003) |
-| `generated/data/**` | Generated CSV/Parquet | **no** — gitignored, reproduced from seed |
+| `.cache/globalmart-data/` | Fetched + extracted CSVs | **no** — gitignored, re-fetched from the pinned archive |
 | `config/targets.yaml` | Publish target profiles. Zero secrets | yes |
 | `config/domains.yaml` | Domain membership manifest | yes |
 | `data/ddl/globalmart.sql` | 214-table DDL, schema-only, `{schema_name}` templated | yes |
-| `data/generation_rules.yaml` | Per-table class and row counts | yes |
+| `data/archive-manifest.json` | Archive version, URL, sha256, per-table row counts and checksums | yes |
 | `backups/`, `reports/` | Runtime output | no |
 
 Layout I/O goes through `get_declarative_workspace(...).store_to_disk(workspace_folder=...)` and

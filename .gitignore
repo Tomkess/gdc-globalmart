@@ -26,3 +26,16 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Runtime output
+backups/
+reports/
+.cache/globalmart-data/

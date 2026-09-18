@@ -11,15 +11,19 @@
 - **`generated/workspaces/*.json` — committed.** The 12 derived domain layouts are reviewable
   semantic content. A diff there says "this metric left the HR child" or "this dataset is no longer
   pruned", which is exactly the review surface ADR 001 was created to produce.
-- **`generated/data/**` — gitignored.** Generated warehouse rows are ~900 MB per scale factor and
-  have no meaningful git delta between regenerations. Committing them would make the repo unusable
-  within a few iterations and would add nothing to recoverability, because the reproducibility
-  guarantee for data is *the generator plus the seed*, not the bytes.
+- **The warehouse rows — never committed.** Hundreds of megabytes of CSV with no meaningful git
+  delta. Committing them would make the repo unusable within a few iterations.
 
-What is committed for data instead: the generator source, `data/generation_rules.yaml`,
-`data/vocab/*.txt`, the DDL, and a small golden **manifest** (row counts and per-table checksums at
-a tiny scale) that CI diffs across platforms. The manifest is a sharper review surface than a CSV
-diff nobody reads.
+What is committed for data instead: the DDL and `data/archive-manifest.json`, which pins the archive
+version, its URL, its sha256 and every table's row count and checksum. The manifest is a sharper
+review surface than a CSV diff nobody reads — a change to it is a deliberate data change.
+
+> **Amended 2026-09-18.** This ADR originally said data is "reproduced from the generator plus its
+> recorded seed". The generator was descoped to FEAT-007 and FEAT-005 now takes custody of the
+> existing bytes instead, so data is **fetched and verified against a committed manifest** rather
+> than regenerated. The principle is unchanged and the split by reviewability still holds; only the
+> recovery mechanism differs — re-fetch the pinned archive rather than re-run a seed. The local
+> cache (`.cache/globalmart-data/`) is gitignored exactly as `generated/data/**` was.
 
 The rule in one line: **commit what a human reviews, regenerate what a machine consumes.**
 

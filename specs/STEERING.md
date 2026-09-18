@@ -24,9 +24,10 @@ are pinned there and are binding. Read it instead of reading other features' `sp
 - **Domain workspaces are derived, never authored.** They are generated from the parent by the
   splitter and committed as declarative JSON under `generated/workspaces/`. Hand-editing a
   generated file is a defect; fix the parent or `domains.yaml` and regenerate.
-- **Commit what a human reviews, regenerate what a machine consumes.** `generated/workspaces/*.json`
-  is committed; `generated/data/**` is gitignored and reproduced from the generator plus its
-  recorded seed. See ADR 003.
+- **Commit what a human reviews, not what a machine consumes.** `generated/workspaces/*.json` is
+  committed because its diffs carry meaning. Warehouse rows are not: they are fetched from a
+  project-owned archive and verified against the committed `data/archive-manifest.json`, with the
+  local cache gitignored. See ADR 003.
 - **No UI authoring.** Changes are made in the repo and published. An export-from-live step is not
   part of any routine workflow (only a one-time bootstrap).
 - **Domain membership is explicit** — declared in `domains.yaml`, not inferred from object-id
