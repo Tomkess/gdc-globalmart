@@ -66,7 +66,7 @@
        Pre: task 13 complete (tokens defined)
        AC: #4
 
-- [ ] 17. Implement normalizer pass 3 (schema placeholder preservation): for each dataset with `sql is not None`, keep `{{ datasource_schema }}` if present; if the statement carries the literal `profile.datasource_schema` identifier instead, replace that occurrence with the token; if neither is present, append the dataset id to `NormalizeResult.unparameterized_sql`. Never strip the placeholder.
+- [ ] 17. Implement normalizer pass 3 (schema parameterisation): for each dataset with `sql is not None`, keep `{{ datasource_schema }}` if present; if the statement carries the literal `profile.datasource_schema` identifier instead, replace **every** occurrence with the token; if neither is present, append the dataset id to `NormalizeResult.unparameterized_sql`. Never strip the placeholder. **Measured on the live org 2026-09-18: all 11 SQL datasets take the literal-replacement path — zero carry a placeholder today (they read `FROM globalmart.…`), and the datasource reports `schema: globalmart`. So this pass is the one that introduces the placeholder, and the replacement branch is the hot path, not the fallback.** Match the schema as a whole dotted identifier prefix (`globalmart.`), never as a bare substring, so a column or alias containing the word is untouched.
        Pre: task 16 complete (dataset traversal in place)
        AC: #5
 

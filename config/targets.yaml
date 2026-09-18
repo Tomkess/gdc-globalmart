@@ -8,10 +8,10 @@
 
 targets:
   demo-cloud:
-    host: https://petertomko.demo.cloud
+    host: https://petertomko.demo.cloud.gooddata.com
     organization_id: petertomko
     datasource_id: globalmart-motherduck
-    datasource_schema: main
+    datasource_schema: globalmart
     parent_workspace_id: globalmart
 
   # Local-inference host. Filled in by FEAT-002 when the Postgres datasource

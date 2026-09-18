@@ -3,6 +3,18 @@
 Everything that identifies an org lives here or in ``config/targets.yaml`` — never in
 code (STEERING § Portability Contract). Tokens are resolved from the environment only
 and are never read from the YAML file.
+
+Multi-host credentials
+----------------------
+One token variable per target, named from the profile: ``demo-cloud`` reads
+``GLOBALMART_TOKEN__DEMO_CLOUD``, ``local-inference`` reads
+``GLOBALMART_TOKEN__LOCAL_INFERENCE``. That way several orgs coexist in one ``.env``
+with nothing to edit between runs, and a mistyped ``--target`` fails with "no token"
+rather than quietly authenticating against the wrong org with a shared one.
+
+``.env`` at the repo root is loaded automatically if present (see ``.env.example``).
+Real environment variables always win over it, so CI and one-off overrides work without
+touching the file.
 """
 
 from __future__ import annotations
@@ -12,11 +24,31 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
+from dotenv import load_dotenv
 
 DEFAULT_TARGETS_PATH = Path("config/targets.yaml")
+DEFAULT_ENV_PATH = Path(".env")
 
 #: Generic token fallback, used when the per-target variable is unset.
 GENERIC_TOKEN_ENV = "GLOBALMART_TOKEN"
+
+_env_loaded = False
+
+
+def load_env(env_path: Path | None = None) -> None:
+    """Load ``.env`` once, without overriding anything already in the environment.
+
+    ``override=False`` is the important part: a real environment variable (CI secret, a
+    one-off `GLOBALMART_TOKEN__X=... globalmart ...`) must beat the file, not the reverse.
+    """
+    global _env_loaded
+    if _env_loaded and env_path is None:
+        return
+    path = env_path or DEFAULT_ENV_PATH
+    if path.exists():
+        load_dotenv(path, override=False)
+    if env_path is None:
+        _env_loaded = True
 
 
 class GlobalmartError(Exception):
@@ -72,6 +104,8 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
     Raises before any network call when a required value is missing, so a typo fails
     locally rather than against a host.
     """
+    load_env()
+
     path = targets_path or DEFAULT_TARGETS_PATH
     if not path.exists():
         raise ProfileNotFoundError(f"Targets file not found: {path}")

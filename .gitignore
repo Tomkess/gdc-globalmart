@@ -39,3 +39,6 @@ __pycache__/
 backups/
 reports/
 .cache/globalmart-data/
+
+# Secrets
+.env

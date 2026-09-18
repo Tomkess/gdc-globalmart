@@ -13,6 +13,7 @@ dependencies = [
     # silently drop every AI-memory object, which STEERING § Portability Contract calls
     # a defect ("AI context travels"). tests/test_sdk_floor.py asserts this.
     "gooddata-sdk==1.75.0",
+    "python-dotenv>=1.2.3",
     "pyyaml>=6.0.2",
 ]
 

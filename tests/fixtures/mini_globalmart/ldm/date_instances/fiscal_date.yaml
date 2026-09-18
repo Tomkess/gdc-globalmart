@@ -1,0 +1,12 @@
+description: ''
+granularities:
+- DAY
+- WEEK
+- MONTH
+- QUARTER
+- YEAR
+granularitiesFormatting:
+  titleBase: ''
+  titlePattern: '%granularityTitle'
+id: fiscal_date
+title: Fiscal Date

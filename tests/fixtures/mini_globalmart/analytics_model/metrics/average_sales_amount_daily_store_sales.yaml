@@ -1,0 +1,15 @@
+content:
+  format: $#,##0.00
+  maql: SELECT AVG({fact/fact_daily_store_sales.sales_amount})
+createdAt: 2026-07-01 11:28
+createdBy:
+  id: peter.tomko
+  type: user
+description: Average sales amount from the Daily Store Sales dataset, calculated by averaging Sales Amount values in the current
+  report, dashboard, and filter context.
+id: average_sales_amount_daily_store_sales
+tags:
+- average
+- daily_store_sales
+- sales
+title: Average Sales Amount (Daily Store Sales)

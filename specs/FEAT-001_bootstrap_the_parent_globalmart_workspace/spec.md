@@ -50,8 +50,14 @@ reads from this tree, so its fidelity and determinism are load-bearing.
       occurrences are found (the live export carries 420 and 1490 respectively).
 - [ ] Given the captured tree, when dataset datasource references are inspected, then every one of
       the 225 `dataSourceId` values is the placeholder token, not `globalmart-motherduck`.
-- [ ] Given the captured tree, when SQL-backed datasets are inspected, then the schema appears as
-      the `{{ datasource_schema }}` placeholder — present and unresolved, never stripped.
+- [ ] Given the captured tree, when the 11 SQL-backed datasets are inspected, then every occurrence
+      of the target's literal schema has been **replaced by** the `{{ datasource_schema }}`
+      placeholder, and no literal schema identifier survives in any statement.
+      *(Corrected 2026-09-18 after the first live capture: zero of the 11 SQL datasets carry the
+      placeholder today — they carry a hardcoded `globalmart.` prefix, because the substitution was
+      performed historically and written back to the live org. The normalizer therefore **introduces**
+      the placeholder; it does not preserve one. A statement matching neither the placeholder nor the
+      literal schema is an error, not a pass.)*
 - [ ] Given a normalized tree and a second capture from the same unchanged workspace, when both are
       normalized, then `git diff` is empty (byte-stable: stable key order, stable list order, stable
       formatting).

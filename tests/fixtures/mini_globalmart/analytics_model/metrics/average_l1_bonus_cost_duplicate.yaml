@@ -1,0 +1,13 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})
+createdAt: 2026-07-01 20:07
+createdBy:
+  id: peter.tomko
+  type: user
+description: Average of {metric/metric_l1_fact_bonus_event_bonus_cost} in the current reporting context.
+id: average_l1_bonus_cost_duplicate
+tags:
+- bonus
+- cost
+title: Average L1 Bonus Cost (Duplicate)

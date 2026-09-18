@@ -25,10 +25,10 @@ def test_loads_demo_cloud_profile(monkeypatch: pytest.MonkeyPatch) -> None:
     profile = load_profile("demo-cloud", targets_path=TARGETS)
 
     assert profile.name == "demo-cloud"
-    assert profile.host == "https://petertomko.demo.cloud"
+    assert profile.host == "https://petertomko.demo.cloud.gooddata.com"
     assert profile.organization_id == "petertomko"
     assert profile.datasource_id == "globalmart-motherduck"
-    assert profile.datasource_schema == "main"
+    assert profile.datasource_schema == "globalmart"
     assert profile.parent_workspace_id == "globalmart"
     assert profile.token == "tok-specific"
 
@@ -110,3 +110,34 @@ def test_targets_file_contains_no_token_at_any_depth() -> None:
 def test_token_env_var_naming() -> None:
     assert token_env_var("demo-cloud") == "GLOBALMART_TOKEN__DEMO_CLOUD"
     assert token_env_var("local-inference") == "GLOBALMART_TOKEN__LOCAL_INFERENCE"
+
+
+def test_dotenv_is_loaded_but_never_overrides_real_env(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A CI secret or a one-off `VAR=... globalmart ...` must beat the committed-adjacent file."""
+    from globalmart.config import load_env
+
+    env_file = tmp_path / ".env"
+    env_file.write_text("GLOBALMART_TOKEN__DEMO_CLOUD=from-file\nGLOBALMART_FROM_FILE_ONLY=yes\n")
+
+    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "from-real-env")
+    monkeypatch.delenv("GLOBALMART_FROM_FILE_ONLY", raising=False)
+
+    load_env(env_file)
+
+    import os
+
+    assert os.environ["GLOBALMART_TOKEN__DEMO_CLOUD"] == "from-real-env"
+    assert os.environ["GLOBALMART_FROM_FILE_ONLY"] == "yes"
+
+
+def test_env_example_documents_every_profile_in_targets() -> None:
+    """A new target with no documented token variable is a setup trap. Catch it here."""
+    example = (REPO_ROOT / ".env.example").read_text()
+    document = yaml.safe_load(TARGETS.read_text())
+
+    for profile_name in document["targets"]:
+        assert token_env_var(profile_name) in example, (
+            f"{token_env_var(profile_name)} missing from .env.example"
+        )

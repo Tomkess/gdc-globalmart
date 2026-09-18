@@ -1,0 +1,63 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for the customer’s acquisition channel in the Customer dataset. Use it to group or filter customers
+    by the channel they were acquired through.
+  id: dim_customer.acquisition_channel_id
+  labels: []
+  sourceColumn: acquisition_channel_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Acquisition Channel ID
+- description: Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into
+    metrics at the individual customer level.
+  id: dim_customer.customer_id
+  labels: []
+  sourceColumn: customer_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Customer ID (Customer)
+- description: Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.
+  id: dim_customer.customer_name
+  labels: []
+  sourceColumn: customer_name
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Customer Name (Customer)
+- description: Identifier for the customer’s lifecycle stage in the Customer dataset, used to group or filter customers by
+    lifecycle stage.
+  id: dim_customer.lifecycle_stage_id
+  labels: []
+  sourceColumn: lifecycle_stage_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Lifecycle Stage ID
+- description: Identifier for a customer’s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty
+    tier.
+  id: dim_customer.loyalty_tier_id
+  labels: []
+  sourceColumn: loyalty_tier_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Loyalty Tier ID
+dataSourceTableId:
+  dataSourceId: globalmart-motherduck
+  id: dim_customer
+  path:
+  - globalmart
+  - dim_customer
+  type: dataSource
+description: Customer
+facts: []
+grain:
+- id: dim_customer.customer_id
+  type: attribute
+id: dim_customer
+references: []
+tags:
+- Customer
+title: Customer

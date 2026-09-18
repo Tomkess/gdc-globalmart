@@ -1,0 +1,15 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT AVG({fact/fact_nps_response.nps_score})
+createdAt: 2026-07-01 16:25
+createdBy:
+  id: peter.tomko
+  type: user
+description: Average NPS score across NPS Response records in the current filter context, calculated directly from the underlying
+  NPS score fact.
+id: average_total_nps_score
+tags:
+- average
+- customer
+- nps
+title: Average Total NPS Score

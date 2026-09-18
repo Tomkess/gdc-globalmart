@@ -1,0 +1,62 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for the store’s region in the Store dataset, used to group, segment, or filter store-related reporting
+    by region.
+  id: dim_store.region_id
+  labels: []
+  sourceColumn: region_id
+  sourceColumnDataType: STRING
+  tags:
+  - Store
+  title: Region ID (Store)
+- description: Store square footage (size) for each store, used to group, compare, or filter stores by their physical footprint.
+  id: dim_store.sqft
+  labels: []
+  sourceColumn: sqft
+  sourceColumnDataType: INT
+  tags:
+  - Store
+  title: Store Size (Sq Ft)
+- description: Store Format is a Store attribute that categorizes each store by its format/type (for example, different store
+    concepts). It’s typically used to filter or break down metrics by store format in analyses and dashboards.
+  id: dim_store.store_format
+  labels: []
+  sourceColumn: store_format
+  sourceColumnDataType: STRING
+  tags:
+  - Store
+  title: Store Format
+- description: Unique identifier for each store in the Store dataset, used to group, filter, or join reporting by individual
+    store.
+  id: dim_store.store_id
+  labels: []
+  sourceColumn: store_id
+  sourceColumnDataType: STRING
+  tags:
+  - Store
+  title: Store ID (Store)
+- description: The name of the store, used to group and filter reporting by individual store in the Store dataset.
+  id: dim_store.store_name
+  labels: []
+  sourceColumn: store_name
+  sourceColumnDataType: STRING
+  tags:
+  - Store
+  title: Store Name
+dataSourceTableId:
+  dataSourceId: globalmart-motherduck
+  id: dim_store
+  path:
+  - globalmart
+  - dim_store
+  type: dataSource
+description: Store
+facts: []
+grain:
+- id: dim_store.store_id
+  type: attribute
+id: dim_store
+references: []
+tags:
+- Store
+title: Store

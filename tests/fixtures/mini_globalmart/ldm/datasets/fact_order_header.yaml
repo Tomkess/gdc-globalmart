@@ -1,0 +1,94 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each sales order in the Sales Order dataset, used to look up, group, or filter reporting
+    at the individual order level.
+  id: fact_order_header.order_id
+  labels: []
+  sourceColumn: order_id
+  sourceColumnDataType: STRING
+  tags:
+  - Sales Order
+  title: Order ID (Sales Order)
+- description: Identifies the sales region associated with each Sales Order record. Use this field to group, segment, or filter
+    order metrics by region.
+  id: fact_order_header.region_id
+  labels: []
+  sourceColumn: region_id
+  sourceColumnDataType: STRING
+  tags:
+  - Sales Order
+  title: Region ID (Sales Order)
+dataSourceTableId:
+  dataSourceId: globalmart-motherduck
+  id: fact_order_header
+  path:
+  - globalmart
+  - fact_order_header
+  type: dataSource
+description: Sales Order
+facts:
+- description: The amount of discount applied to a sales order in the Sales Order dataset. Use it to analyze discounting levels
+    across orders, customers, products, or time.
+  id: fact_order_header.discount_amount
+  sourceColumn: discount_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Sales Order
+  title: Discount Amount (Sales Order)
+- description: Number of sales orders recorded in the Sales Order dataset, typically used to count orders for reporting and
+    analysis.
+  id: fact_order_header.order_count
+  sourceColumn: order_count
+  sourceColumnDataType: INT
+  tags:
+  - Sales Order
+  title: Order Count (Sales Order)
+- description: Revenue amount recorded on the Sales Order dataset. Use it to measure sales value, typically summed across
+    orders and segmented by time, customer, product, or region.
+  id: fact_order_header.revenue
+  sourceColumn: revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Sales Order
+  title: Revenue (Sales Order)
+grain:
+- id: fact_order_header.order_id
+  type: attribute
+id: fact_order_header
+references:
+- identifier:
+    id: dim_channel_master
+    type: dataset
+  multivalue: false
+  sources:
+  - column: channel_id
+    dataType: STRING
+    target:
+      id: dim_channel_master.channel_id
+      type: attribute
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+tags:
+- Sales Order
+title: Sales Order
+workspaceDataFilterColumns:
+- dataType: STRING
+  name: region_id

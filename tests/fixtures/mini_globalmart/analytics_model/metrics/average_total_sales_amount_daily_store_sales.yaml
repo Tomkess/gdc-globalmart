@@ -1,0 +1,14 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT AVG({metric/metric_l1_fact_daily_store_sales_sales_amount})
+createdAt: 2026-07-01 11:28
+createdBy:
+  id: peter.tomko
+  type: user
+description: Average of Total Sales Amount (Daily Store Sales) in the current report, dashboard, and filter context.
+id: average_total_sales_amount_daily_store_sales
+tags:
+- average
+- daily_store_sales
+- sales
+title: Average Total Sales Amount (Daily Store Sales)
