@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis
+    by region.
+  id: dim_geography_region.region_id
+  labels: []
+  sourceColumn: region_id
+  sourceColumnDataType: STRING
+  tags:
+  - Region
+  title: Region ID (Region)
+- description: Name of the geographic region in the Region dataset, used to group and filter reporting by region.
+  id: dim_geography_region.region_name
+  labels: []
+  sourceColumn: region_name
+  sourceColumnDataType: STRING
+  tags:
+  - Region
+  title: Region Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_geography_region
+  path:
+  - globalmart
+  - dim_geography_region
+  type: dataSource
+description: Region
+facts: []
+grain:
+- id: dim_geography_region.region_id
+  type: attribute
+id: dim_geography_region
+references:
+- identifier:
+    id: dim_geography_country
+    type: dataset
+  multivalue: false
+  sources:
+  - column: country_id
+    dataType: STRING
+    target:
+      id: dim_geography_country.country_id
+      type: attribute
+tags:
+- Region
+title: Region
+workspaceDataFilterReferences: []

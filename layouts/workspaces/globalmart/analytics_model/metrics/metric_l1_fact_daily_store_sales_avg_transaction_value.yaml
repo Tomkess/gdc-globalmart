@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_daily_store_sales.avg_transaction_value})
+description: Shows the total average transaction value by summing the Avg Transaction Value from the Daily Store Sales data
+  across the selected records. Use it to track overall transaction value trends over time or compare totals across stores,
+  regions, or other groupings.
+id: metric_l1_fact_daily_store_sales_avg_transaction_value
+tags:
+- L1
+title: Total Avg Transaction Value (Daily Store Sales)

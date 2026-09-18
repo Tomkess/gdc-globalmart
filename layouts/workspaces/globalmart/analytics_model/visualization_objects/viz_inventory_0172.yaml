@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_inventory_health_days_of_cover
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the Total Days of Cover, summarizing how many days current inventory is expected to last across
+  the selected scope. Use it to monitor overall inventory health and coverage at a glance.
+id: viz_inventory_0172
+title: Days of Cover

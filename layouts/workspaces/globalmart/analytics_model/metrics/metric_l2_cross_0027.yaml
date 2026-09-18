@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} / {metric/metric_l1_fact_nps_response_nps_score}
+description: Shows the inventory value on hand per point of NPS score by dividing Total Inventory Value by the total NPS Score
+  in the current reporting context. Use it to relate inventory levels to overall customer sentiment and compare this ratio
+  across time periods, locations, or segments.
+id: metric_l2_cross_0027
+tags:
+- L2
+title: Inventory Value per NPS Score (NPS Response)

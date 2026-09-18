@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_staffing_daily_staff_hours} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total staff hours for the In-Store sales channel, summed over the selected time period and any other applied
+  filters. Use this metric to track labor hours specifically for in-store operations and staffing needs.
+id: metric_l3_0082_0
+tags:
+- L3
+title: Staff Hours (Daily Store Staffing) — In-Store Channel

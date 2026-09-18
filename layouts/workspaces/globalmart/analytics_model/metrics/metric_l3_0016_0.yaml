@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_till_reconciliation_variance_amount} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Shows the total till reconciliation variance amount (cash over/short) filtered to the In-Store sales channel.
+  Use it to monitor and compare in-store reconciliation discrepancies over time, by store, or alongside other business dimensions.
+id: metric_l3_0016_0
+tags:
+- L3
+title: Variance Amount (Till Reconciliation) — In-Store Channel

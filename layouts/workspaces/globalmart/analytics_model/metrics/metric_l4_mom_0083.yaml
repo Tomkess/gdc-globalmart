@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0027_2} - (SELECT {metric/metric_l3_0027_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in Net Promoter Score (NPS) for the North region by comparing the current
+  month’s NPS Score (based on NPS Response records) to the prior month. Use it to monitor whether customer sentiment in the
+  North is improving or declining over time within the current report filters.
+id: metric_l4_mom_0083
+tags:
+- L4
+title: 'MoM: NPS Score (NPS Response) — North Region'

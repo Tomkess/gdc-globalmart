@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_product_performance_daily.margin})
+description: Shows the total margin by summing Margin from the Daily Product Performance data, so you can track profitability
+  across the selected dates, products, or other applied filters.
+id: metric_l1_fact_product_performance_daily_margin
+tags:
+- L1
+title: Total Margin (Daily Product Performance)

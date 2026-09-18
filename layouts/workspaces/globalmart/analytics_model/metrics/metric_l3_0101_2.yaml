@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_recruitment_recruitment_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts the total number of recruitments for the North region only. Use this metric to monitor and compare North’s
+  recruitment volume against other regions or across time. Recruitment refers to the process of sourcing and hiring new employees.
+id: metric_l3_0101_2
+tags:
+- L3
+title: Recruitment Count (Recruitment) — North Region

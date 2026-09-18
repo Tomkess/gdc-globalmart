@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_redeemed_points_redeemed} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Measures the total loyalty points redeemed from transactions in the North region. Use it to monitor redemption
+  volume and trends for North and compare performance against other segments or time periods.
+id: metric_l3_0014_2
+tags:
+- L3
+title: Points Redeemed (Loyalty Points Redeemed) — North Region

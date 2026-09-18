@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_gross_margin} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total gross margin from the Margin Bridge dataset, restricted to the North region. Use this metric to track profitability
+  for North and support margin-bridge analysis by other business dimensions and time selections.
+id: metric_l3_0080_2
+tags:
+- L3
+title: Gross Margin (Margin Bridge) — North Region

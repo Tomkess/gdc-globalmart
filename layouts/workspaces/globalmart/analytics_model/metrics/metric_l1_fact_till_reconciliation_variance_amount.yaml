@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_till_reconciliation.variance_amount})
+description: Totals the variance amount from Till Reconciliation to quantify the overall cash over/short (discrepancy) across
+  the selected records. Use it to monitor reconciliation variances and analyze them by time, store, cashier, or other relevant
+  dimensions.
+id: metric_l1_fact_till_reconciliation_variance_amount
+tags:
+- L1
+title: Total Variance Amount (Till Reconciliation)

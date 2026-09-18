@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_absence_absence_hours} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total number of employee absence hours, filtered to the North region. Use it to monitor absence volume
+  in North and compare it across time periods or other breakdowns.
+id: metric_l3_0097_2
+tags:
+- L3
+title: Absence Hours (Absence) — North Region

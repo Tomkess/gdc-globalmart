@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_assortment_efficiency.avg_inventory})
+description: Shows the total average inventory by summing Avg Inventory from the Assortment Efficiency data for the current
+  analysis context (such as selected time period, products, or locations). Use it to monitor overall inventory levels when
+  evaluating assortment efficiency.
+id: metric_l1_sql_assortment_efficiency_avg_inventory
+tags:
+- L1
+title: Total Avg Inventory (Assortment Efficiency)

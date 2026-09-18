@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Product Cross-sell Score dataset. Use it to distinguish or drill into
+    individual cross-sell score entries when analyzing or troubleshooting the underlying data.
+  id: fact_product_attr_06.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product Cross-sell Score
+  title: Record ID (Product Cross-sell Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_product_attr_06
+  path:
+  - globalmart
+  - fact_product_attr_06
+  type: dataSource
+description: Product Cross-sell Score
+facts:
+- description: Value of the product cross-sell attribute recorded in the Product Cross-sell Score dataset, typically used
+    as the numeric input for cross-sell scoring and related analysis.
+  id: fact_product_attr_06.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Product Cross-sell Score
+  title: Product Cross-sell Score
+grain:
+- id: fact_product_attr_06.attr_id
+  type: attribute
+id: fact_product_attr_06
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Product Cross-sell Score
+title: Product Cross-sell Score
+workspaceDataFilterReferences: []

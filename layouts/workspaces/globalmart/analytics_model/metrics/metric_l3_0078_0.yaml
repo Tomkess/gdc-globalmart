@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_budget_plan_budget_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Planned budget amount restricted to the In-Store sales channel, based on the Budget Plan data. Use this metric
+  to report and compare in-store budget allocations across the filters and breakdowns in your analysis.
+id: metric_l3_0078_0
+tags:
+- L3
+title: Budget Amount (Budget Plan) — In-Store Channel

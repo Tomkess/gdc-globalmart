@@ -1,0 +1,86 @@
+aggregatedFacts: []
+attributes:
+- description: Identifies the type of sales or marketing channel associated with each record in the Blended Daily Revenue
+    dataset. Use it to group, compare, or filter revenue by channel type.
+  id: sql_blended_daily_revenue.channel_type
+  labels: []
+  sourceColumn: channel_type
+  sourceColumnDataType: STRING
+  tags:
+  - Blended Daily Revenue
+  title: Channel Type (Blended Daily Revenue)
+- description: Date when an order was placed in the Blended Daily Revenue dataset. Use it to filter, group, and trend revenue
+    and related measures over time.
+  id: sql_blended_daily_revenue.order_date
+  labels: []
+  sourceColumn: order_date
+  sourceColumnDataType: DATE
+  tags:
+  - Blended Daily Revenue
+  title: Order Date (Blended Daily Revenue)
+description: Blended Daily Revenue
+facts:
+- description: Number of orders recorded in the Blended Daily Revenue dataset, typically used to track order volume and trend
+    it over time or segment it by other dimensions.
+  id: sql_blended_daily_revenue.order_count
+  sourceColumn: order_count
+  sourceColumnDataType: INT
+  tags:
+  - Blended Daily Revenue
+  title: Order Count (Blended Daily Revenue)
+- description: Total revenue amount recorded in the Blended Daily Revenue dataset, used as the base measure for analyzing
+    revenue over time or by other business dimensions.
+  id: sql_blended_daily_revenue.total_revenue
+  sourceColumn: total_revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Blended Daily Revenue
+  title: Revenue (Blended Daily Revenue)
+grain:
+- id: sql_blended_daily_revenue.order_date
+  type: attribute
+id: sql_blended_daily_revenue
+references:
+- identifier:
+    id: dim_channel_master
+    type: dataset
+  multivalue: false
+  sources:
+  - column: channel_id
+    dataType: STRING
+    target:
+      id: dim_channel_master.channel_id
+      type: attribute
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: order_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    COALESCE(oh.order_date, woh.order_date) AS order_date,\n    oh.store_id AS store_id,\n    cm.channel_type,\n\
+    \    SUM(COALESCE(ol.revenue, wol.revenue)) AS total_revenue,\n    COUNT(DISTINCT COALESCE(oh.order_id, woh.order_id))\
+    \ AS order_count\nFROM {{ datasource_schema }}.fact_order_header oh\nLEFT JOIN {{ datasource_schema }}.fact_order_line\
+    \ ol ON oh.order_id = ol.order_id\nLEFT JOIN {{ datasource_schema }}.dim_channel_master cm ON oh.channel_id = cm.channel_id\n\
+    FULL OUTER JOIN {{ datasource_schema }}.fact_web_order_header woh ON oh.order_date = woh.order_date\nLEFT JOIN {{ datasource_schema\
+    \ }}.fact_web_order_line wol ON woh.order_id = wol.order_id\nWHERE COALESCE(oh.order_date, woh.order_date) IS NOT NULL\n\
+    GROUP BY 1, 2, 3\n"
+tags:
+- Blended Daily Revenue
+title: Blended Daily Revenue
+workspaceDataFilterReferences: []

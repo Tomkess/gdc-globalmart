@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_028
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0084
+              type: visualizationObject
+          localIdentifier: widget_028_00
+          title: Out of Stock Days by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0085
+              type: visualizationObject
+          localIdentifier: widget_028_01
+          title: Decision Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0086
+              type: visualizationObject
+          localIdentifier: widget_028_02
+          title: Decision Count by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0087
+              type: visualizationObject
+          localIdentifier: widget_028_03
+          title: Decision Count by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0088
+              type: visualizationObject
+          localIdentifier: widget_028_04
+          title: Avg Rating by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0089
+              type: visualizationObject
+          localIdentifier: widget_028_05
+          title: Avg Rating by Year
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0090
+              type: visualizationObject
+          localIdentifier: widget_028_06
+          title: Avg Rating by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0091
+              type: visualizationObject
+          localIdentifier: widget_028_07
+          title: Review Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0092
+              type: visualizationObject
+          localIdentifier: widget_028_08
+          title: Review Count
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0093
+              type: visualizationObject
+          localIdentifier: widget_028_09
+          title: Review Count
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0094
+              type: visualizationObject
+          localIdentifier: widget_028_10
+          title: Avg Inventory
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0095
+              type: visualizationObject
+          localIdentifier: widget_028_11
+          title: Avg Inventory
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard bringing together key signals for cross-sell and product affinity decisions, including out-of-stock
+  days, range review decision volumes, product review counts, average ratings, and average inventory across channels/regions.
+  By default it focuses on the last 12 months and allows analysis by fiscal period (year/month) and transaction date trends
+  (month/quarter/year).
+id: dashboard_028
+title: Cross-sell & Product Affinity

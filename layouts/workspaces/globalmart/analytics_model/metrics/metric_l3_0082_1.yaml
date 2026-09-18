@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_staffing_daily_staff_hours} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total staff hours from the Daily Store Staffing data, filtered to the Online sales channel. Use this metric to
+  track labor hours attributable to online operations over the selected time period and any other applied filters.
+id: metric_l3_0082_1
+tags:
+- L3
+title: Staff Hours (Daily Store Staffing) — Online Channel

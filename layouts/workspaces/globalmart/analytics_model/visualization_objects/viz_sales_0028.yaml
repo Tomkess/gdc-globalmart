@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0013
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the net difference between gift card transaction count and loyalty points redeemed for the current
+  selection, highlighting whether gift card activity is outpacing or lagging redemption activity.
+id: viz_sales_0028
+title: Transaction Count (Gift Card Transaction) vs Points Redeemed

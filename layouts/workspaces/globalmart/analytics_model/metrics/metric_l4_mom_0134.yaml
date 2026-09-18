@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0044_2} - (SELECT {metric/metric_l3_0044_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of Range Review Outcome decisions in the North region by comparing
+  the current month’s decision count to the prior month.
+id: metric_l4_mom_0134
+tags:
+- L4
+title: 'MoM: Decision Count (Range Review Outcome) — North Region'

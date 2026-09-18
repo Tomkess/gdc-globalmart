@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unit of Measure indicates the measurement unit used for a given utility type (e.g., how usage is quantified).
+    Use it to group or filter utility-related metrics by their reporting unit within the Utility Type dataset.
+  id: dim_utility_type.unit_of_measure
+  labels: []
+  sourceColumn: unit_of_measure
+  sourceColumnDataType: STRING
+  tags:
+  - Utility Type
+  title: Unit of Measure
+- description: Unique identifier for each utility type record. Use this attribute to group, join, or filter reporting by a
+    specific Utility ID within the Utility Type dataset.
+  id: dim_utility_type.utility_id
+  labels: []
+  sourceColumn: utility_id
+  sourceColumnDataType: STRING
+  tags:
+  - Utility Type
+  title: Utility ID
+- description: Represents the name of the utility type (e.g., the utility’s category/name) in the Utility Type dataset. Use
+    it to group, filter, or segment analyses by utility name.
+  id: dim_utility_type.utility_name
+  labels: []
+  sourceColumn: utility_name
+  sourceColumnDataType: STRING
+  tags:
+  - Utility Type
+  title: Utility Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_utility_type
+  path:
+  - globalmart
+  - dim_utility_type
+  type: dataSource
+description: Utility Type
+facts: []
+grain:
+- id: dim_utility_type.utility_id
+  type: attribute
+id: dim_utility_type
+references: []
+tags:
+- Utility Type
+title: Utility Type
+workspaceDataFilterReferences: []

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_write_off_writeoff_cost} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Tracks the total write-off cost for online sales transactions only, reflecting the amount written off within
+  the Online channel under the current time period and any other applied filters.
+id: metric_l3_0059_1
+tags:
+- L3
+title: Write-Off Cost (Write Off) — Online Channel

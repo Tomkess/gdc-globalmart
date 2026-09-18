@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0026_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total monetary value of rewards redeemed using loyalty points for customers in the North
+  region. Use it to monitor overall redemption value for North, for example over time or when comparing customer segments.
+id: viz_customer_0130
+title: Reward Value

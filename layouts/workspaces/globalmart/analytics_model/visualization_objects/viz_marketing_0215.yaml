@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_email_open_open_count
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of email opens (Total Open Count), based on summing the Open Count from the
+  Email Open data.
+id: viz_marketing_0215
+title: Open Count

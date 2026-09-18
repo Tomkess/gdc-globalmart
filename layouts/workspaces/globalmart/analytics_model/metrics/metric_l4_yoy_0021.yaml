@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0007_0} - (SELECT {metric/metric_l3_0007_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0007_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Sales Amount for the In-Store channel, comparing the current period to the
+  same period in the prior year. Use it to monitor how in-store sales are growing or declining over time, typically summarized
+  at the year level.
+id: metric_l4_yoy_0021
+tags:
+- L4
+title: 'YoY: Sales Amount (Daily Store Sales) — In-Store Channel'

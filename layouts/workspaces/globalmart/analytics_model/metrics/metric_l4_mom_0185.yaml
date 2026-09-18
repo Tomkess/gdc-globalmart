@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0061_2} - (SELECT {metric/metric_l3_0061_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the Supplier Scorecard Delivery Score for the North region by comparing
+  the current month’s score to the previous month. Use it to see whether North-region delivery performance is improving or
+  declining over time.
+id: metric_l4_mom_0185
+tags:
+- L4
+title: 'MoM: Delivery Score (Supplier Scorecard) — North Region'

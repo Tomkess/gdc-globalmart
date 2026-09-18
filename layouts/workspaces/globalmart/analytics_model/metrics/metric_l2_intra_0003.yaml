@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_line_quantity} - {metric/metric_l1_fact_energy_consumption_cost}
+description: Compares purchasing volume to energy spending by calculating the difference between total purchase order line
+  item quantity and total energy consumption cost for the current filters and time period. Use it to assess whether ordered
+  units are increasing faster or slower than energy cost levels when analyzing by supplier, product, or time.
+id: metric_l2_intra_0003
+tags:
+- L2
+title: Quantity (Purchase Order Line Items) vs Cost (Energy Consumption) Change

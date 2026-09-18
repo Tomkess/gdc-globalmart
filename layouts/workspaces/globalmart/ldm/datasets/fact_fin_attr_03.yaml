@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Gross Margin Trend Score dataset, used to distinguish individual entries
+    and support filtering or grouping when analyzing gross margin trend scores.
+  id: fact_fin_attr_03.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Gross Margin Trend Score
+  title: Record ID (Gross Margin Trend Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_fin_attr_03
+  path:
+  - globalmart
+  - fact_fin_attr_03
+  type: dataSource
+description: Gross Margin Trend Score
+facts:
+- description: Numeric value recorded for each row in the Gross Margin Trend Score dataset, used as the underlying amount
+    for calculations and aggregations.
+  id: fact_fin_attr_03.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Gross Margin Trend Score
+  title: Gross Margin Trend Score
+grain:
+- id: fact_fin_attr_03.attr_id
+  type: attribute
+id: fact_fin_attr_03
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Gross Margin Trend Score
+title: Gross Margin Trend Score
+workspaceDataFilterReferences: []

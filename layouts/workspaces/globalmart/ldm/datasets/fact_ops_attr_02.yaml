@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Store Conversion Rate Score dataset, used to distinguish and reference
+    individual entries when filtering or drilling into details.
+  id: fact_ops_attr_02.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Store Conversion Rate Score
+  title: Record ID (Store Conversion Rate Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ops_attr_02
+  path:
+  - globalmart
+  - fact_ops_attr_02
+  type: dataSource
+description: Store Conversion Rate Score
+facts:
+- description: Value used to quantify the Store Conversion Rate Score dataset, typically aggregated to analyze and compare
+    store conversion performance.
+  id: fact_ops_attr_02.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Store Conversion Rate Score
+  title: Store Conversion Rate Score
+grain:
+- id: fact_ops_attr_02.attr_id
+  type: attribute
+id: fact_ops_attr_02
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Store Conversion Rate Score
+title: Store Conversion Rate Score
+workspaceDataFilterReferences: []

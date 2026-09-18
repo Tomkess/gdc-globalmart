@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_planogram_compliance_out_of_stock_days} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Measures the total number of out-of-stock days from Planogram (a diagram specifying exact product placement on
+  retail shelves) Compliance data, filtered to the Online sales channel. Use it to track online availability issues and compare
+  stock-outs over time or across products and locations within the online channel.
+id: metric_l3_0043_1
+tags:
+- L3
+title: Out of Stock Days (Planogram Compliance) — Online Channel

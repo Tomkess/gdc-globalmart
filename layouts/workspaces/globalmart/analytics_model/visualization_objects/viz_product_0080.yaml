@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0042_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.year
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing the Online Channel Planogram Compliance Score broken out by year, to track how overall compliance
+  performance changes over time.
+id: viz_product_0080
+title: Compliance Score by Year

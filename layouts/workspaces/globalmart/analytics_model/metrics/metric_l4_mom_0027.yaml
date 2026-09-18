@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0009_0} - (SELECT {metric/metric_l3_0009_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in average transaction value for Daily Store Sales in the In-Store channel,
+  comparing the current month to the prior month using the Month/Year grouping. Use this to track whether typical in-store
+  basket size is increasing or decreasing over time.
+id: metric_l4_mom_0027
+tags:
+- L4
+title: 'MoM: Avg Transaction Value (Daily Store Sales) — In-Store Channel'

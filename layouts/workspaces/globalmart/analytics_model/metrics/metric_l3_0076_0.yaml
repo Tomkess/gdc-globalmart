@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_capex_project_spent_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Measures total capital expenditure project spending for the In-Store sales channel only. Use it to track and
+  compare in-store CapEx spend across time, projects, or other breakdowns while excluding all other channel types.
+id: metric_l3_0076_0
+tags:
+- L3
+title: Spent Amount (Capital Expenditure Project) — In-Store Channel

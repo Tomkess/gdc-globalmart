@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Customer Churn Risk Score dataset. Use it to reference or drill into
+    individual churn-score rows when analyzing or troubleshooting specific records.
+  id: fact_customer_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Churn Risk Score
+  title: Record ID (Customer Churn Risk Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_customer_attr_01
+  path:
+  - globalmart
+  - fact_customer_attr_01
+  type: dataSource
+description: Customer Churn Risk Score
+facts:
+- description: Stores the numeric value captured for the Customer Churn Risk Score dataset, typically used as the underlying
+    measure in analyses and aggregations.
+  id: fact_customer_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Churn Risk Score
+  title: Customer Churn Risk Score
+grain:
+- id: fact_customer_attr_01.attr_id
+  type: attribute
+id: fact_customer_attr_01
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Customer Churn Risk Score
+title: Customer Churn Risk Score
+workspaceDataFilterReferences: []

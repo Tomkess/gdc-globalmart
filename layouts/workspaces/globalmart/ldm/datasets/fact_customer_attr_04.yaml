@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Customer Channel Preference dataset. Use this mainly for record-level
+    tracing or joins rather than for business reporting and grouping.
+  id: fact_customer_attr_04.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Channel Preference
+  title: Record ID (Customer Channel Preference)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_customer_attr_04
+  path:
+  - globalmart
+  - fact_customer_attr_04
+  type: dataSource
+description: Customer Channel Preference
+facts:
+- description: Value associated with a customer’s channel preference record, used as the underlying number/text value for
+    analysis and reporting in the Customer Channel Preference dataset.
+  id: fact_customer_attr_04.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Channel Preference
+  title: Customer Channel Preference
+grain:
+- id: fact_customer_attr_04.attr_id
+  type: attribute
+id: fact_customer_attr_04
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Customer Channel Preference
+title: Customer Channel Preference
+workspaceDataFilterReferences: []

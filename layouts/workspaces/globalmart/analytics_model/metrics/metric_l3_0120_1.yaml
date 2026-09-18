@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_chargeback_chargeback_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total monetary value of chargebacks limited to the Online sales channel. Use this to monitor and compare chargeback
+  exposure for online transactions across time periods or other business dimensions. A chargeback is a disputed payment transaction
+  reversed by the card issuer.
+id: metric_l3_0120_1
+tags:
+- L3
+title: Chargeback Amount (Chargeback) — Online Channel

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0051_1} - (SELECT {metric/metric_l3_0051_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0051_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Movement Quantity for stock movements in the Online sales channel,
+  comparing the selected period to the same period in the prior year. Use it to track how online unit movement is trending
+  versus last year under the same filters.
+id: metric_l4_yoy_0154
+tags:
+- L4
+title: 'YoY: Movement Quantity (Stock Movement) — Online Channel'

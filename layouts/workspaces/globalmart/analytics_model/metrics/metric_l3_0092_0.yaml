@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_sqft} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Shows total revenue generated per square foot for the In-Store sales channel to assess space productivity and
+  operational efficiency. Use it to compare in-store performance across locations, time periods, or other segments in reports
+  and dashboards.
+id: metric_l3_0092_0
+tags:
+- L3
+title: Revenue per Sq Ft (Operations Efficiency Summary) — In-Store Channel

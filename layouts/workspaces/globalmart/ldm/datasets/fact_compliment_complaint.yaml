@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each compliment or complaint comment in the Compliment Complaint dataset, used to look
+    up, group, or filter analyses at the individual comment level.
+  id: fact_compliment_complaint.comment_id
+  labels: []
+  sourceColumn: comment_id
+  sourceColumnDataType: STRING
+  tags:
+  - Compliment Complaint
+  title: Comment ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_compliment_complaint
+  path:
+  - globalmart
+  - fact_compliment_complaint
+  type: dataSource
+description: Compliment Complaint
+facts:
+- description: Number of comments associated with each record in the Compliment Complaint dataset, used to quantify and compare
+    comment volume across complaints or compliments.
+  id: fact_compliment_complaint.comment_count
+  sourceColumn: comment_count
+  sourceColumnDataType: INT
+  tags:
+  - Compliment Complaint
+  title: Comment Count
+grain:
+- id: fact_compliment_complaint.comment_id
+  type: attribute
+id: fact_compliment_complaint
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: comment_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Compliment Complaint
+title: Compliment Complaint
+workspaceDataFilterReferences: []

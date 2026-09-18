@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0103_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Shows the total number of loyalty enrollments for the North region as a single headline value, reflecting any
+  time period or other report filters applied. Use it to monitor enrollment volume in the North and compare it against other
+  regions or overall totals.
+id: viz_loyalty_0147
+title: Enrollment Count

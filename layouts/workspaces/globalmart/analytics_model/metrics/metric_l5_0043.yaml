@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0021} + ({metric/metric_l1_fact_planogram_compliance_out_of_stock_days} / {metric/metric_l1_fact_range_review_outcome_decision_count})
+description: Shows the month-over-month change in in-store Sales Amount, adjusted by adding an out-of-stock impact factor
+  calculated as Total Out of Stock Days divided by Total Decision Count. Use it to evaluate how in-store sales performance
+  is shifting versus last month while also accounting for stock availability relative to range review decision activity.
+id: metric_l5_0043
+tags:
+- L5
+title: 'MoM: Sales Amount (Daily Store Sales) — In-Store Channel (+Out of Stock Days (Planogram Compliance)/Decision Count
+  (Range Review Outcome))'

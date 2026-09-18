@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_inventory_health_current_stock} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total on-hand inventory (current stock) for the North region using Inventory Health data. Use it to
+  monitor inventory availability in North-focused reports and dashboards within the current reporting filters and context.
+id: metric_l3_0063_2
+tags:
+- L3
+title: Current Stock (Inventory Health) — North Region

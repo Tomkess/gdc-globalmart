@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_absence_absence_hours} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total employee absence hours, filtered to the In-Store sales channel. Use this metric to track and compare in-store
+  absence volume over time or across other business breakdowns.
+id: metric_l3_0097_0
+tags:
+- L3
+title: Absence Hours (Absence) — In-Store Channel

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_purchase_order_line.quantity})
+description: Shows the total number of units ordered by summing Quantity across all purchase order line items. Use it to track
+  overall purchasing volume and compare ordered quantities across dimensions such as supplier, product, or time.
+id: metric_l1_fact_purchase_order_line_quantity
+tags:
+- L1
+title: Total Quantity (Purchase Order Line Items)

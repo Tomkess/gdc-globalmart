@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0006_1} - (SELECT {metric/metric_l3_0006_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0006_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the total number of units returned for the Online sales channel, comparing
+  the current period to the same period last year. Use it to monitor whether online return volume is trending up or down versus
+  last year.
+id: metric_l4_yoy_0019
+tags:
+- L4
+title: 'YoY: Quantity Returned (Returns) — Online Channel'

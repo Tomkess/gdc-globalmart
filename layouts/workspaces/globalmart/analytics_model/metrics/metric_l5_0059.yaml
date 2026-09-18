@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0029} + ({metric/metric_l1_fact_write_off_writeoff_cost} / {metric/metric_l1_fact_supplier_scorecard_quality_score})
+description: Combines the month-over-month change in average transaction value for North-region daily store sales with an
+  adjustment based on write-off cost relative to supplier quality score. Use it to monitor how transaction value is trending
+  month to month while factoring in quality-related write-off impact.
+id: metric_l5_0059
+tags:
+- L5
+title: 'MoM: Avg Transaction Value (Daily Store Sales) — North Region (+Write-Off Cost (Write Off)/Quality Score (Supplier
+  Scorecard))'

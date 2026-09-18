@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_performance_daily_margin} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Shows total margin from the Daily Product Performance data, filtered to the North region. Use it to track and
+  compare profitability for North across the selected products, dates, and other report filters.
+id: metric_l3_0040_2
+tags:
+- L3
+title: Margin (Daily Product Performance) — North Region

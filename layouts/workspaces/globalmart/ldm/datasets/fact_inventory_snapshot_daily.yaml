@@ -1,0 +1,75 @@
+aggregatedFacts: []
+attributes:
+- description: Represents the calendar day for each record in the Daily Inventory Snapshot dataset. Use it to filter or group
+    inventory snapshot metrics by specific day or over time.
+  id: fact_inventory_snapshot_daily.day
+  labels: []
+  sourceColumn: day
+  sourceColumnDataType: DATE
+  tags:
+  - Daily Inventory Snapshot
+  title: Day (Daily Inventory Snapshot)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_inventory_snapshot_daily
+  path:
+  - globalmart
+  - fact_inventory_snapshot_daily
+  type: dataSource
+description: Daily Inventory Snapshot
+facts:
+- description: Inventory Value is the monetary value of inventory captured in the Daily Inventory Snapshot dataset. It’s typically
+    used to total or compare inventory value across time periods, locations, or products in reporting.
+  id: fact_inventory_snapshot_daily.inventory_value
+  sourceColumn: inventory_value
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Inventory Snapshot
+  title: Inventory Value
+- description: Number of inventory units currently on hand in the Daily Inventory Snapshot dataset. Typically used to track
+    stock levels over time and break them down by product, location, or other dimensions.
+  id: fact_inventory_snapshot_daily.on_hand_units
+  sourceColumn: on_hand_units
+  sourceColumnDataType: INT
+  tags:
+  - Daily Inventory Snapshot
+  title: Units on Hand
+grain:
+- id: fact_inventory_snapshot_daily.day
+  type: attribute
+id: fact_inventory_snapshot_daily
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_warehouse
+    type: dataset
+  multivalue: false
+  sources:
+  - column: warehouse_id
+    dataType: STRING
+    target:
+      id: dim_warehouse.warehouse_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: day
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Daily Inventory Snapshot
+title: Daily Inventory Snapshot
+workspaceDataFilterReferences: []

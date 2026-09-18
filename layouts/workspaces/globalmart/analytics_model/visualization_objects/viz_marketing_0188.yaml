@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0065_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.year
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing total marketing campaign spend for the In-Store sales channel, broken down by year. Use
+  it to track how in-store campaign investment changes over time and to compare year-over-year spending levels.
+id: viz_marketing_0188
+title: Campaign Spend — In-Store Channel by Year

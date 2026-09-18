@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total net revenue generated through the Online sales channel within the current reporting scope (respecting any
+  filters such as the selected time period). Use this metric to monitor online revenue trends or compare online performance
+  against other sales channels.
+id: metric_l3_0001_1
+tags:
+- L3
+title: Net Revenue — Online Channel

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_earned_points} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total loyalty points earned from the Online sales channel only. Use this metric to track and compare points accrual
+  specifically for online activity versus other channels.
+id: metric_l3_0024_1
+tags:
+- L3
+title: Points (Loyalty Points Earned) — Online Channel

@@ -1,0 +1,74 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each supplier scorecard record in the Supplier Scorecard dataset. Use it to look up,
+    group, or filter results by a specific scorecard.
+  id: fact_supplier_scorecard.scorecard_id
+  labels: []
+  sourceColumn: scorecard_id
+  sourceColumnDataType: STRING
+  tags:
+  - Supplier Scorecard
+  title: Scorecard ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_supplier_scorecard
+  path:
+  - globalmart
+  - fact_supplier_scorecard
+  type: dataSource
+description: Supplier Scorecard
+facts:
+- description: Cost Score is a numeric measure from the Supplier Scorecard dataset used to evaluate supplier performance from
+    a cost perspective. It can be aggregated (for example, summed or averaged) to compare cost performance across suppliers,
+    time periods, or other scorecard dimensions.
+  id: fact_supplier_scorecard.cost_score
+  sourceColumn: cost_score
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Supplier Scorecard
+  title: Cost Score
+- description: Delivery Score is the numeric measure used to track supplier delivery performance in the Supplier Scorecard
+    dataset, typically aggregated to compare delivery results across suppliers or time periods.
+  id: fact_supplier_scorecard.delivery_score
+  sourceColumn: delivery_score
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Supplier Scorecard
+  title: Delivery Score
+- description: A numeric measure of supplier quality performance captured in the Supplier Scorecard dataset, used to summarize
+    and compare quality levels across suppliers or time periods.
+  id: fact_supplier_scorecard.quality_score
+  sourceColumn: quality_score
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Supplier Scorecard
+  title: Quality Score
+grain:
+- id: fact_supplier_scorecard.scorecard_id
+  type: attribute
+id: fact_supplier_scorecard
+references:
+- identifier:
+    id: dim_supplier
+    type: dataset
+  multivalue: false
+  sources:
+  - column: supplier_id
+    dataType: STRING
+    target:
+      id: dim_supplier.supplier_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: scorecard_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Supplier Scorecard
+title: Supplier Scorecard
+workspaceDataFilterReferences: []

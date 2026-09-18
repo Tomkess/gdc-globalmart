@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0046_1} - (SELECT {metric/metric_l3_0046_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of product rating reviews coming from the Online channel, calculated
+  as this month’s review count minus last month’s. Use it to monitor whether online review volume is increasing or decreasing
+  over time at a Month/Year level.
+id: metric_l4_mom_0139
+tags:
+- L4
+title: 'MoM: Review Count (Product Rating) — Online Channel'

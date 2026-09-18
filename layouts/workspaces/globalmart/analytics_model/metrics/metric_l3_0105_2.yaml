@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_referral_referral_bonus} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total referral bonus earned for the North region only, based on the total referral bonus measure and
+  respecting any current date and report filters. Use it to monitor referral bonus performance specifically for North Region.
+id: metric_l3_0105_2
+tags:
+- L3
+title: Referral Bonus (Referral) — North Region

@@ -1,0 +1,68 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Supplier Reliability Score dataset. Use it to distinguish or drill
+    into individual score records, rather than for business grouping or reporting rollups (aggregated or summarised data across
+    one or more dimensions).
+  id: fact_inv_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Supplier Reliability Score
+  title: Record ID (Supplier Reliability Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_inv_attr_01
+  path:
+  - globalmart
+  - fact_inv_attr_01
+  type: dataSource
+description: Supplier Reliability Score
+facts:
+- description: Numeric value associated with an attribute in the Supplier Reliability Score dataset, used as an input for
+    calculations and analysis.
+  id: fact_inv_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: INT
+  tags:
+  - Supplier Reliability Score
+  title: Supplier Reliability Score
+grain:
+- id: fact_inv_attr_01.attr_id
+  type: attribute
+id: fact_inv_attr_01
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_warehouse
+    type: dataset
+  multivalue: false
+  sources:
+  - column: warehouse_id
+    dataType: STRING
+    target:
+      id: dim_warehouse.warehouse_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Supplier Reliability Score
+title: Supplier Reliability Score
+workspaceDataFilterReferences: []

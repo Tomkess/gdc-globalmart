@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} / {metric/metric_l1_fact_customer_event_event_value}
+description: Shows how much marketing campaign spend is required for each unit of customer event value, calculated as Total
+  Campaign Spend divided by Total Event Value (Customer Event). Use it to assess campaign spend efficiency when comparing
+  performance across time periods or different segments.
+id: metric_l2_cross_0023
+tags:
+- L2
+title: Campaign Spend per Event Value (Customer Event)

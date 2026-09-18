@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_campaign_spend_daily_spend_count
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of campaign spend records (Spend Count) over the currently selected filters
+  and time period, based on the Daily Campaign Spend data.
+id: viz_marketing_0213
+title: Spend Count

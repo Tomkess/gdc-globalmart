@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_029
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0204
+              type: visualizationObject
+          localIdentifier: widget_029_00
+          title: Impression Count by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0205
+              type: visualizationObject
+          localIdentifier: widget_029_01
+          title: Impression Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0206
+              type: visualizationObject
+          localIdentifier: widget_029_02
+          title: Click Cost by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0207
+              type: visualizationObject
+          localIdentifier: widget_029_03
+          title: Click Cost by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0208
+              type: visualizationObject
+          localIdentifier: widget_029_04
+          title: Click Cost by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0209
+              type: visualizationObject
+          localIdentifier: widget_029_05
+          title: Spend by Year
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0210
+              type: visualizationObject
+          localIdentifier: widget_029_06
+          title: Spend by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0211
+              type: visualizationObject
+          localIdentifier: widget_029_07
+          title: Spend by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0212
+              type: visualizationObject
+          localIdentifier: widget_029_08
+          title: Campaign Spend
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0213
+              type: visualizationObject
+          localIdentifier: widget_029_09
+          title: Spend Count
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0214
+              type: visualizationObject
+          localIdentifier: widget_029_10
+          title: Send Count
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_marketing_0215
+              type: visualizationObject
+          localIdentifier: widget_029_11
+          title: Open Count
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Brings together key marketing performance and spend views to support campaign attribution and media-mix reporting,
+  including impressions, paid search click cost, total campaign spend, and email engagement (sends and opens) over time. The
+  dashboard is designed to review monthly, quarterly, and yearly trends for the selected reporting scope, with default filtering
+  set to the last 12 months.
+id: dashboard_029
+title: Campaign Attribution & Media Mix

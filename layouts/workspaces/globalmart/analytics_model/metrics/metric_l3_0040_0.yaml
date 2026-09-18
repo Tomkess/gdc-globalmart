@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_performance_daily_margin} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total margin from the Daily Product Performance data, filtered to the In-Store sales channel. Use this metric
+  to track and compare in-store profitability across products, dates, and other report filters.
+id: metric_l3_0040_0
+tags:
+- L3
+title: Margin (Daily Product Performance) — In-Store Channel

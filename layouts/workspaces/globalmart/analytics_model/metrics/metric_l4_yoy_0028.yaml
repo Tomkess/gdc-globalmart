@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0009_1} - (SELECT {metric/metric_l3_0009_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0009_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in average online transaction value, comparing the current period
+  to the same period last year. Use it to track whether online basket size is increasing or decreasing over time and across
+  business segments.
+id: metric_l4_yoy_0028
+tags:
+- L4
+title: 'YoY: Avg Transaction Value (Daily Store Sales) — Online Channel'

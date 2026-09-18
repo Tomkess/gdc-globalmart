@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_risk_attr_01.metric})
+description: Totals the Compliance Adherence Score by summing its underlying numeric values, giving the overall compliance
+  adherence across whatever scope is currently selected (such as applied filters, time period, or segments).
+id: metric_l1_fact_risk_attr_01_metric
+tags:
+- L1
+title: Total Attribute Value (Compliance Adherence Score)

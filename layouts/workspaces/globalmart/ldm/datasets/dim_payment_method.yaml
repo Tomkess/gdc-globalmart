@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each payment method in the Payment Method dataset, used to group or filter reporting
+    by specific method records.
+  id: dim_payment_method.method_id
+  labels: []
+  sourceColumn: method_id
+  sourceColumnDataType: STRING
+  tags:
+  - Payment Method
+  title: Method ID
+- description: Name of the payment method (e.g., credit card, PayPal) from the Payment Method dataset, used to group and filter
+    analysis by how customers paid.
+  id: dim_payment_method.method_name
+  labels: []
+  sourceColumn: method_name
+  sourceColumnDataType: STRING
+  tags:
+  - Payment Method
+  title: Method Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_payment_method
+  path:
+  - globalmart
+  - dim_payment_method
+  type: dataSource
+description: Payment Method
+facts: []
+grain:
+- id: dim_payment_method.method_id
+  type: attribute
+id: dim_payment_method
+references: []
+tags:
+- Payment Method
+title: Payment Method
+workspaceDataFilterReferences: []

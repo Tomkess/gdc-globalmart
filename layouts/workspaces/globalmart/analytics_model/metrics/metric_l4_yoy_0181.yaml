@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0060_1} - (SELECT {metric/metric_l3_0060_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0060_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the Supplier Scorecard Quality Score for the Online sales channel,
+  comparing the current year’s result to the prior year. Use it to monitor whether online supplier quality performance is
+  improving or declining over time and within any applied breakdowns or filters.
+id: metric_l4_yoy_0181
+tags:
+- L4
+title: 'YoY: Quality Score (Supplier Scorecard) — Online Channel'

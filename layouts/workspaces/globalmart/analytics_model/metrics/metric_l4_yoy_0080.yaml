@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0026_2} - (SELECT {metric/metric_l3_0026_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0026_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the monetary value of rewards redeemed using loyalty points for customers in
+  the North region, compared with the same period last year. Use this to monitor whether redemption value is trending up or
+  down versus last year.
+id: metric_l4_yoy_0080
+tags:
+- L4
+title: 'YoY: Reward Value (Loyalty Points Redeemed) — North Region'

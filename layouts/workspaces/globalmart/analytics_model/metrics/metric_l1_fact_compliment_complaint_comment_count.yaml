@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_compliment_complaint.comment_count})
+description: Counts the total number of comments recorded across compliment/complaint entries by summing the Comment Count
+  from the Compliment Complaint data. Use it to track and compare overall comment volume for customer compliments and complaints.
+id: metric_l1_fact_compliment_complaint_comment_count
+tags:
+- L1
+title: Total Comment Count (Compliment Complaint)

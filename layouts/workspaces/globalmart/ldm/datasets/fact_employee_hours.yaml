@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Employee Hours dataset, used to distinguish individual time entries
+    and support filtering or drilling into specific records.
+  id: fact_employee_hours.record_id
+  labels: []
+  sourceColumn: record_id
+  sourceColumnDataType: STRING
+  tags:
+  - Employee Hours
+  title: Record ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_employee_hours
+  path:
+  - globalmart
+  - fact_employee_hours
+  type: dataSource
+description: Employee Hours
+facts:
+- description: Total hours worked recorded in the Employee Hours dataset, used to measure and analyze labor time across employees
+    or periods.
+  id: fact_employee_hours.hours_worked
+  sourceColumn: hours_worked
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Employee Hours
+  title: Hours Worked
+grain:
+- id: fact_employee_hours.record_id
+  type: attribute
+id: fact_employee_hours
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: hours_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Employee Hours
+title: Employee Hours
+workspaceDataFilterReferences: []

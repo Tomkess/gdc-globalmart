@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0118_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total value tied to fraud alerts for the In-Store sales channel. Use it to monitor or compare
+  the financial impact of in-store fraud alerts under the current report filters.
+id: viz_risk_0336
+title: Alert Value

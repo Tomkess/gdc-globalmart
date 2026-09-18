@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_ops_efficiency_summary.revenue_per_staff_hour})
+description: Shows the total Revenue per Staff Hour by summing this value across the selected slice of the Operations Efficiency
+  Summary data. Use it to assess overall labor productivity and operational efficiency in the current view.
+id: metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour
+tags:
+- L1
+title: Total Revenue per Staff Hour (Operations Efficiency Summary)

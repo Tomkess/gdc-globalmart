@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0020_1} - (SELECT {metric/metric_l3_0020_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in average checkout time for the Online channel, expressed in seconds as this
+  month’s average minus the prior month’s. Use it to see whether the online checkout experience is getting faster or slower
+  over time.
+id: metric_l4_mom_0061
+tags:
+- L4
+title: 'MoM: Avg Checkout Time (sec) (Checkout Time) — Online Channel'

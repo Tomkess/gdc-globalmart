@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_chargeback.chargeback_count})
+description: Tracks the total number of chargebacks (a disputed payment transaction reversed by the card issuer) by summing
+  Chargeback Count records from the Chargeback dataset. Use it to monitor overall chargeback volume and compare it across
+  time periods, products, or other business dimensions.
+id: metric_l1_fact_chargeback_chargeback_count
+tags:
+- L1
+title: Total Chargeback Count (Chargeback)

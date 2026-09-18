@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_daily_store_sales.transaction_count})
+description: Total number of store sales transactions, calculated by summing Transaction Count from the Daily Store Sales
+  data. Use it to track store activity volume and compare performance across time, stores, or other business dimensions.
+id: metric_l1_fact_daily_store_sales_transaction_count
+tags:
+- L1
+title: Total Transaction Count (Daily Store Sales)

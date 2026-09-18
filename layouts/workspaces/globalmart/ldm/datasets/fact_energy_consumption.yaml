@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each energy consumption record in the Energy Consumption dataset. Use it to distinguish
+    or look up individual consumption entries and to group or filter analyses at the record level.
+  id: fact_energy_consumption.consumption_id
+  labels: []
+  sourceColumn: consumption_id
+  sourceColumnDataType: STRING
+  tags:
+  - Energy Consumption
+  title: Consumption ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_energy_consumption
+  path:
+  - globalmart
+  - fact_energy_consumption
+  type: dataSource
+description: Energy Consumption
+facts:
+- description: Cost associated with energy consumption records in the Energy Consumption dataset, typically used to analyze
+    and aggregate spending across periods, locations, or other dimensions.
+  id: fact_energy_consumption.cost
+  sourceColumn: cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Energy Consumption
+  title: Cost (Energy Consumption)
+- description: Energy consumption measured in kilowatt-hours (kWh) from the Energy Consumption dataset, typically used to
+    aggregate and analyze total usage over time or by other dimensions.
+  id: fact_energy_consumption.kwh
+  sourceColumn: kwh
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Energy Consumption
+  title: kWh
+grain:
+- id: fact_energy_consumption.consumption_id
+  type: attribute
+id: fact_energy_consumption
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: consumption_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Energy Consumption
+title: Energy Consumption
+workspaceDataFilterReferences: []

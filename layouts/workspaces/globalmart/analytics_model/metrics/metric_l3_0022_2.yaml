@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_event_event_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts the total number of customer events restricted to the North region. Use it to monitor and compare event
+  volume for North versus other regions or across time periods.
+id: metric_l3_0022_2
+tags:
+- L3
+title: Event Count (Customer Event) — North Region

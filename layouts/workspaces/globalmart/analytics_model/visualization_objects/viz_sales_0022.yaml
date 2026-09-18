@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0007
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the change between total Sales Amount and total Transaction Count based on Daily Store Sales,
+  helping you see whether sales value is running above or below transaction volume for the current selection.
+id: viz_sales_0022
+title: Sales Amount (Daily Store Sales) vs Transaction Count

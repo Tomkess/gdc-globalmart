@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_inventory_snapshot_daily_on_hand_units} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Total inventory units on hand from the Daily Inventory Snapshot, filtered to the Online sales channel. Use it
+  to monitor day-by-day available inventory for online fulfillment and planning.
+id: metric_l3_0049_1
+tags:
+- L3
+title: Units on Hand (Daily Inventory Snapshot) — Online Channel

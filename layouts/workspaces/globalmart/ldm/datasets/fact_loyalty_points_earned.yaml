@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each loyalty points earning transaction in the Loyalty Points Earned dataset. Use it
+    to look up, group, or filter metrics and records at the individual transaction level.
+  id: fact_loyalty_points_earned.transaction_id
+  labels: []
+  sourceColumn: transaction_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Points Earned
+  title: Transaction ID (Loyalty Points Earned)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_loyalty_points_earned
+  path:
+  - globalmart
+  - fact_loyalty_points_earned
+  type: dataSource
+description: Loyalty Points Earned
+facts:
+- description: Monetary value of an order recorded in the Loyalty Points Earned dataset, typically used to sum or analyze
+    spend when calculating or reporting loyalty points earned.
+  id: fact_loyalty_points_earned.order_amount
+  sourceColumn: order_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Loyalty Points Earned
+  title: Order Amount
+- description: Number of loyalty points earned, used to measure and analyze points accrual within the Loyalty Points Earned
+    dataset.
+  id: fact_loyalty_points_earned.points
+  sourceColumn: points
+  sourceColumnDataType: INT
+  tags:
+  - Loyalty Points Earned
+  title: Points
+grain:
+- id: fact_loyalty_points_earned.transaction_id
+  type: attribute
+id: fact_loyalty_points_earned
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: earn_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Loyalty Points Earned
+title: Loyalty Points Earned
+workspaceDataFilterReferences: []

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0063_1} - (SELECT {metric/metric_l3_0063_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in on-hand inventory for the Online sales channel by comparing the current
+  month’s stock to the previous month. Use it to see whether online inventory levels are rising or falling over time, typically
+  grouped by Month/Year.
+id: metric_l4_mom_0190
+tags:
+- L4
+title: 'MoM: Current Stock (Inventory Health) — Online Channel'

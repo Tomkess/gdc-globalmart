@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_fraud_alert.alert_value})
+description: Shows the total monetary value associated with fraud alerts by summing Alert Value, respecting any filters or
+  segments applied in the current analysis.
+id: metric_l1_fact_fraud_alert_alert_value
+tags:
+- L1
+title: Total Alert Value (Fraud Alert)

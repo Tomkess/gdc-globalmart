@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_header_po_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total purchase order amount limited to the In-Store sales channel. Use it to monitor and compare in-store purchasing
+  spend across time, suppliers, or other reporting dimensions.
+id: metric_l3_0053_0
+tags:
+- L3
+title: PO Amount (Purchase Order) — In-Store Channel

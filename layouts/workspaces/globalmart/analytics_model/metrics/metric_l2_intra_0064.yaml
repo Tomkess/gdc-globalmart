@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_inventory_health_days_of_cover} - {metric/metric_l1_total_campaign_spend}
+description: Compares overall inventory coverage (total days of cover) against total marketing campaign spend within the selected
+  reporting scope by taking the difference between the two. Use it to gauge how inventory health is shifting relative to changes
+  in campaign investment.
+id: metric_l2_intra_0064
+tags:
+- L2
+title: Days of Cover (Inventory Health) vs Campaign Spend Change

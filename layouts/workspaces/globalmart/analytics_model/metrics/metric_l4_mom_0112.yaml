@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0037_1} - (SELECT {metric/metric_l3_0037_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in customers’ total Monetary Quartile (Recency, Frequency, Monetary (RFM))
+  score for the Online sales channel, comparing the current month to the prior month. Use it to track whether the overall
+  monetary-value segment strength of online customers is improving or declining over time and across any selected breakdowns.
+id: metric_l4_mom_0112
+tags:
+- L4
+title: 'MoM: Monetary Quartile (RFM) (Customer RFM Segments) — Online Channel'

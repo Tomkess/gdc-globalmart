@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0050_1} - (SELECT {metric/metric_l3_0050_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in inventory value for the Online sales channel by comparing the current month’s
+  Online Inventory Value to the prior month. Use it to monitor whether online inventory levels are increasing or decreasing
+  over time when reporting by Month/Year.
+id: metric_l4_mom_0151
+tags:
+- L4
+title: 'MoM: Inventory Value — Online Channel'

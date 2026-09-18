@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_planogram_compliance_compliance_score} - {metric/metric_l1_fact_planogram_compliance_out_of_stock_days}
+description: Compares overall Planogram (a diagram specifying exact product placement on retail shelves) Compliance performance
+  against availability issues by subtracting Total Out of Stock Days from the Total Compliance Score for the current selection.
+  Use it to see the net change and whether compliance improvements are being offset by stockouts (A stockout occurs when inventory
+  reaches zero and demand cannot be fulfilled) across the same filters, time period, or business dimensions.
+id: metric_l2_intra_0042
+tags:
+- L2
+title: Compliance Score (Planogram Compliance) vs Out of Stock Days (Planogram Compliance) Change

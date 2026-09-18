@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for an advertising network in the Ad Network dataset, used to group, filter, or join reporting
+    by network.
+  id: dim_ad_network.network_id
+  labels: []
+  sourceColumn: network_id
+  sourceColumnDataType: STRING
+  tags:
+  - Ad Network
+  title: Network ID
+- description: Name of the advertising network in the Ad Network dataset, used to group and filter performance metrics by
+    network.
+  id: dim_ad_network.network_name
+  labels: []
+  sourceColumn: network_name
+  sourceColumnDataType: STRING
+  tags:
+  - Ad Network
+  title: Network Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_ad_network
+  path:
+  - globalmart
+  - dim_ad_network
+  type: dataSource
+description: Ad Network
+facts: []
+grain:
+- id: dim_ad_network.network_id
+  type: attribute
+id: dim_ad_network
+references: []
+tags:
+- Ad Network
+title: Ad Network
+workspaceDataFilterReferences: []

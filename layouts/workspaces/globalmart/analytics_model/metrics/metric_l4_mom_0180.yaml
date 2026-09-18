@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0060_0} - (SELECT {metric/metric_l3_0060_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the Supplier Scorecard Quality Score for the In-Store sales channel by
+  comparing the current month to the prior month. Use it to monitor whether in-store supplier quality performance is improving
+  or declining over time.
+id: metric_l4_mom_0180
+tags:
+- L4
+title: 'MoM: Quality Score (Supplier Scorecard) — In-Store Channel'

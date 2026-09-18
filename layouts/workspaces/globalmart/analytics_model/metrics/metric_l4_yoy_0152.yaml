@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0050_2} - (SELECT {metric/metric_l3_0050_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0050_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Inventory Value for the North region by comparing the current
+  year’s inventory value to the prior year. Use it to track how North’s inventory value is trending over time and to assess
+  growth or decline between years.
+id: metric_l4_yoy_0152
+tags:
+- L4
+title: 'YoY: Inventory Value — North Region'

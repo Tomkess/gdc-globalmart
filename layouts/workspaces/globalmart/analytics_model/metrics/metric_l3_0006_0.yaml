@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_returns_quantity_returned} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Measures the total number of units returned for transactions in the In-Store sales channel. Use it to monitor
+  and compare in-store return volume over time or across other business breakdowns.
+id: metric_l3_0006_0
+tags:
+- L3
+title: Quantity Returned (Returns) — In-Store Channel

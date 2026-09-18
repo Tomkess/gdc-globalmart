@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0064_1} - (SELECT {metric/metric_l3_0064_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Days of Cover for the Online sales channel, showing how online inventory
+  coverage has shifted versus the prior month. Use it to quickly identify whether online inventory health is improving or
+  worsening over time.
+id: metric_l4_mom_0193
+tags:
+- L4
+title: 'MoM: Days of Cover (Inventory Health) — Online Channel'

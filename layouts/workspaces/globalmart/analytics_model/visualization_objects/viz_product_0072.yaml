@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0039_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline KPI showing the total number of units sold, based on Assortment Efficiency data and limited to the North
+  region. Use it to monitor sales volume (in units) for North and compare it across the available Assortment Efficiency breakdowns.
+id: viz_product_0072
+title: Units Sold

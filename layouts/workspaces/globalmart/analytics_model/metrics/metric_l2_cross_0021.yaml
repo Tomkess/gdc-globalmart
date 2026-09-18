@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} / {metric/metric_l1_sql_loyalty_roi_attributed_revenue}
+description: Compares overall net revenue to the revenue attributed to the loyalty program by expressing how much net revenue
+  is generated for each unit of loyalty-attributed revenue under the current filters. Use it to gauge loyalty program ROI
+  in context—higher values indicate more net revenue relative to what is credited to the program.
+id: metric_l2_cross_0021
+tags:
+- L2
+title: Net Revenue per Attributed Revenue (Loyalty Program ROI)

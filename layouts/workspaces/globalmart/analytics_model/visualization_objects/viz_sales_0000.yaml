@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_loyalty_redemption_at_pos_discount_amount
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.month
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing the total value of loyalty redemption discounts applied at the point of sale, broken down
+  by Month/Year. Use it to track how discount redemptions trend over time and compare periods.
+id: viz_sales_0000
+title: Discount Amount by Month

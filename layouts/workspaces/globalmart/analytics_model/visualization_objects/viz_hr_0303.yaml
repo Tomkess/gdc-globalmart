@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0096_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total payroll transaction deductions for the In-Store channel, based on the “Deductions (Payroll
+  Transaction) — In-Store Channel” metric. Use it to monitor the level of deductions tied to in-store activity under the current
+  report filters and time period.
+id: viz_hr_0303
+title: Deductions

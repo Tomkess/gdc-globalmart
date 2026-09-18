@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0114_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.year
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing total renovation spend for the In-Store sales channel, broken out by year. Use it to track
+  how in-store renovation costs change over time and compare yearly spending.
+id: viz_real_estate_0371
+title: Renovation Cost by Year

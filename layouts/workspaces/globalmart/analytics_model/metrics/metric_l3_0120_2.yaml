@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_chargeback_chargeback_amount} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total monetary value of chargebacks, limited to the North region. Use this metric to track and compare
+  North’s chargeback exposure across time periods or other business dimensions. A chargeback is a disputed payment transaction
+  reversed by the card issuer.
+id: metric_l3_0120_2
+tags:
+- L3
+title: Chargeback Amount (Chargeback) — North Region

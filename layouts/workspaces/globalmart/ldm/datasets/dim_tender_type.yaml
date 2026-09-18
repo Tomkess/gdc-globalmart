@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each tender type, used to group, filter, or join tender-related reporting in the Tender
+    Type dataset.
+  id: dim_tender_type.tender_id
+  labels: []
+  sourceColumn: tender_id
+  sourceColumnDataType: STRING
+  tags:
+  - Tender Type
+  title: Tender ID
+- description: The Tender Name attribute identifies the type of payment tender (for example, specific tender names) and is
+    used to group or filter reporting by tender type within the Tender Type dataset.
+  id: dim_tender_type.tender_name
+  labels: []
+  sourceColumn: tender_name
+  sourceColumnDataType: STRING
+  tags:
+  - Tender Type
+  title: Tender Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_tender_type
+  path:
+  - globalmart
+  - dim_tender_type
+  type: dataSource
+description: Tender Type
+facts: []
+grain:
+- id: dim_tender_type.tender_id
+  type: attribute
+id: dim_tender_type
+references: []
+tags:
+- Tender Type
+title: Tender Type
+workspaceDataFilterReferences: []

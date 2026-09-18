@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0006_1} - (SELECT {metric/metric_l3_0006_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in units returned through the Online sales channel by subtracting last month’s
+  returned quantity from the current month.
+id: metric_l4_mom_0019
+tags:
+- L4
+title: 'MoM: Quantity Returned (Returns) — Online Channel'

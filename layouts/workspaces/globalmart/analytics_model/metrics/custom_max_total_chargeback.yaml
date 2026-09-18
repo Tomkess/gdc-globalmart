@@ -1,0 +1,10 @@
+content:
+  format: $#,##0.00
+  maql: SELECT MAX({metric/metric_l1_fact_chargeback_chargeback_amount})
+description: Maximum value of total chargeback amount across the current context (max over grouped totals when broken down
+  by an attribute), while respecting all report filters.
+id: custom_max_total_chargeback
+tags:
+- chargeback
+- risk
+title: custom_max_total_chargeback

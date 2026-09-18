@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_transaction_count} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Counts the total number of store sales transactions in the In-Store sales channel, based on the Daily Store Sales
+  transaction counts. Use this metric to monitor in-store transaction volume over time or to compare in-store activity with
+  other sales channels.
+id: metric_l3_0008_0
+tags:
+- L3
+title: Transaction Count (Daily Store Sales) — In-Store Channel

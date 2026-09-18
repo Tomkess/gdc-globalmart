@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0021} + ({metric/metric_l1_fact_planogram_compliance_compliance_score} / {metric/metric_l1_fact_planogram_compliance_out_of_stock_days})
+description: Composite metric that adjusts the year-over-year change in in-store Sales Amount by adding a planogram compliance
+  factor (total Compliance Score divided by total Out of Stock Days). Use it to view sales growth alongside execution/availability
+  performance in a single indicator.
+id: metric_l5_0042
+tags:
+- L5
+title: 'YoY: Sales Amount (Daily Store Sales) — In-Store Channel (+Compliance Score (Planogram Compliance)/Out of Stock Days
+  (Planogram Compliance))'

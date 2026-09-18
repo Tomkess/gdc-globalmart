@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0007_1} - (SELECT {metric/metric_l3_0007_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0007_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Online Sales Amount by comparing the current period’s online sales
+  to the same period last year, respecting any report filters. Use it to quickly assess whether online sales are growing or
+  declining versus last year for the selected time frame and context.
+id: metric_l4_yoy_0022
+tags:
+- L4
+title: 'YoY: Sales Amount (Daily Store Sales) — Online Channel'

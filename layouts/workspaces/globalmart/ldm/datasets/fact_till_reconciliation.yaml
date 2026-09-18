@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each till reconciliation record in the Till Reconciliation dataset. Use it to filter
+    or group reconciliation results at the individual reconciliation level.
+  id: fact_till_reconciliation.recon_id
+  labels: []
+  sourceColumn: recon_id
+  sourceColumnDataType: STRING
+  tags:
+  - Till Reconciliation
+  title: Reconciliation ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_till_reconciliation
+  path:
+  - globalmart
+  - fact_till_reconciliation
+  type: dataSource
+description: Till Reconciliation
+facts:
+- description: Variance Amount records the value of the variance identified during till reconciliation. It is typically used
+    to quantify and analyze cash overages/shortages by store, date, cashier, or other reconciliation dimensions.
+  id: fact_till_reconciliation.variance_amount
+  sourceColumn: variance_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Till Reconciliation
+  title: Variance Amount
+grain:
+- id: fact_till_reconciliation.recon_id
+  type: attribute
+id: fact_till_reconciliation
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: recon_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Till Reconciliation
+title: Till Reconciliation
+workspaceDataFilterReferences: []

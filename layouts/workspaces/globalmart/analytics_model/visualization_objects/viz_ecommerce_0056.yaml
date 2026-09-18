@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_total_order_count
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.year
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing the total number of online orders broken out by year, using the Total Order Count metric.
+  Use it to track year-over-year changes in overall order volume.
+id: viz_ecommerce_0056
+title: Order Count by Year

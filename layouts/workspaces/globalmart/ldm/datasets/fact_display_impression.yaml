@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each display ad impression record in the Display Impression dataset. Use it to look up,
+    filter, or de-duplicate individual impressions rather than to summarize performance.
+  id: fact_display_impression.impression_id
+  labels: []
+  sourceColumn: impression_id
+  sourceColumnDataType: STRING
+  tags:
+  - Display Impression
+  title: Impression ID (Display Impression)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_display_impression
+  path:
+  - globalmart
+  - fact_display_impression
+  type: dataSource
+description: Display Impression
+facts:
+- description: Number of ad impressions recorded in the Display Impression dataset. Use it to quantify impression volume when
+    analyzing performance by campaign, site, or time.
+  id: fact_display_impression.impression_count
+  sourceColumn: impression_count
+  sourceColumnDataType: INT
+  tags:
+  - Display Impression
+  title: Impression Count (Display Impression)
+grain:
+- id: fact_display_impression.impression_id
+  type: attribute
+id: fact_display_impression
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: impression_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Display Impression
+title: Display Impression
+workspaceDataFilterReferences: []

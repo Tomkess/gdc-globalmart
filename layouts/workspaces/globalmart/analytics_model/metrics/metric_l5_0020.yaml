@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0010} + ({metric/metric_l1_fact_checkout_time_avg_checkout_sec} / {metric/metric_l1_sql_loyalty_roi_attributed_revenue})
+description: Combines the year-over-year change in online purchase order line-item quantity with a checkout-efficiency-to-loyalty-revenue
+  factor, adding average checkout time (in seconds) relative to total loyalty program attributed revenue. Use it as a composite
+  indicator to assess how online volume trends relate to checkout performance and loyalty-driven revenue over the same reporting
+  scope.
+id: metric_l5_0020
+tags:
+- L5
+title: 'YoY: Quantity (Purchase Order Line Items) — Online Channel (+Avg Checkout Time (sec) (Checkout Time)/Attributed Revenue
+  (Loyalty Program ROI))'

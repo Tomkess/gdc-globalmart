@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_shrinkage_event_shrinkage_amount} - {metric/metric_l1_fact_shrinkage_event_unit_count}
+description: Compares the overall change in shrinkage by subtracting total unit count from total shrinkage amount within the
+  selected reporting scope. Use it to see how shrinkage value is shifting relative to the volume of units involved in shrinkage
+  events.
+id: metric_l2_intra_0084
+tags:
+- L2
+title: Shrinkage Amount (Shrinkage Event) vs Unit Count (Shrinkage Event) Change

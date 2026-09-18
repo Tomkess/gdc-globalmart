@@ -1,0 +1,72 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each customer in the Customer Lifetime Value dataset, used to group, filter, and look
+    up lifetime value results by individual customer.
+  id: sql_customer_ltv_snapshot.customer_id
+  labels: []
+  sourceColumn: customer_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Lifetime Value
+  title: Customer ID (Customer Lifetime Value)
+- description: Identifies the customer by name in the Customer Lifetime Value dataset. Use it to group, filter, and break
+    down lifetime value metrics by individual customer.
+  id: sql_customer_ltv_snapshot.customer_name
+  labels: []
+  sourceColumn: customer_name
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Lifetime Value
+  title: Customer Name (Customer Lifetime Value)
+description: Customer Lifetime Value
+facts:
+- description: Average value of customer orders in the Customer Lifetime Value dataset, used to compare typical order size
+    across customers or time periods.
+  id: sql_customer_ltv_snapshot.avg_order_value
+  sourceColumn: avg_order_value
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Lifetime Value
+  title: Avg Order Value (LTV Snapshot)
+- description: Count of orders a customer has placed over their lifetime, as recorded in the Customer Lifetime Value dataset.
+    Useful for segmenting customers and analyzing engagement by purchase frequency.
+  id: sql_customer_ltv_snapshot.lifetime_order_count
+  sourceColumn: lifetime_order_count
+  sourceColumnDataType: INT
+  tags:
+  - Customer Lifetime Value
+  title: Lifetime Order Count
+- description: Total revenue generated over a customer’s lifetime, from the Customer Lifetime Value dataset. Use it to analyze
+    and compare long-term customer value across segments.
+  id: sql_customer_ltv_snapshot.lifetime_revenue
+  sourceColumn: lifetime_revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Lifetime Value
+  title: Lifetime Revenue
+grain:
+- id: sql_customer_ltv_snapshot.customer_id
+  type: attribute
+id: sql_customer_ltv_snapshot
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    c.customer_id,\n    c.customer_name,\n    COUNT(DISTINCT oh.order_id) AS lifetime_order_count,\n\
+    \    SUM(ol.revenue) AS lifetime_revenue,\n    AVG(ol.revenue) AS avg_order_value,\n    MAX(oh.order_date) AS last_order_date,\n\
+    \    (EXTRACT(DAY FROM MAX(oh.order_date)) - EXTRACT(DAY FROM MIN(oh.order_date))) / 365.0 AS customer_age_years\nFROM\
+    \ {{ datasource_schema }}.dim_customer c\nLEFT JOIN {{ datasource_schema }}.fact_order_header oh ON c.customer_id = oh.customer_id\n\
+    LEFT JOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nGROUP BY 1, 2\n"
+tags:
+- Customer Lifetime Value
+title: Customer Lifetime Value
+workspaceDataFilterReferences: []

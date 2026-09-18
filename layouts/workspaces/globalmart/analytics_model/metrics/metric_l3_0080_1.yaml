@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_gross_margin} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Tracks total gross margin specifically for the Online sales channel by summing gross margin amounts from the
+  Margin Bridge data, while respecting any other selected filters and the chosen time period. Use it to monitor online profitability
+  and compare performance against other sales channels.
+id: metric_l3_0080_1
+tags:
+- L3
+title: Gross Margin (Margin Bridge) — Online Channel

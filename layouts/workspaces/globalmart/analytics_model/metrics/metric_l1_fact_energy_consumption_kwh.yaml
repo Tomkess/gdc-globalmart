@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_energy_consumption.kwh})
+description: Sums energy consumption in kilowatt-hours (kWh) to show the total amount of electricity used. Use this metric
+  to track overall energy usage and compare consumption across different slices of the Energy Consumption data.
+id: metric_l1_fact_energy_consumption_kwh
+tags:
+- L1
+title: Total kWh (Energy Consumption)

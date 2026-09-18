@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_intercompany_recharge_recharge_amount} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Total intercompany (transactions between entities within the same organisation) recharge amount restricted to
+  the Online sales channel. Use this metric to track the value of intercompany recharges attributable to online activity,
+  while still respecting any other report filters and the selected time period.
+id: metric_l3_0077_1
+tags:
+- L3
+title: Recharge Amount (Intercompany Recharge) — Online Channel

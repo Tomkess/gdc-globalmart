@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_net_sales_summary_net_revenue
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing total net revenue broken out by quarter/year, based on the Net Sales Summary net revenue
+  measure. Use it to track how net revenue trends over time at a quarterly level.
+id: viz_sales_0007
+title: Net Revenue by Quarter

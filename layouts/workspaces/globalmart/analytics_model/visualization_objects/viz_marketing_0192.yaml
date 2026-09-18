@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0066_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the count of daily campaign spend records for the Online channel. Use it to monitor how many
+  Online spend entries are captured for the selected time period and filters.
+id: viz_marketing_0192
+title: Spend Count (Online channel)

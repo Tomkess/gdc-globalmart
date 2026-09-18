@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0005
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline indicator showing the change between total return amount and total quantity of units returned, to compare
+  the dollar impact of returns versus return volume in the current analysis scope.
+id: viz_sales_0020
+title: Return Amount (Returns) vs Quantity Returned

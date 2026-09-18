@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0002_1} - (SELECT {metric/metric_l3_0002_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0002_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the Discount Amount (Loyalty Redemption at POS) for the Online sales channel,
+  comparing the selected period to the same period last year. Use it to monitor how online loyalty redemption discounts are
+  trending versus the prior year.
+id: metric_l4_yoy_0007
+tags:
+- L4
+title: 'YoY: Discount Amount (Loyalty Redemption at POS) — Online Channel'

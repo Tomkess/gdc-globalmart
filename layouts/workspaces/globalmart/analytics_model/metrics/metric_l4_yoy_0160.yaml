@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0053_1} - (SELECT {metric/metric_l3_0053_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0053_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Purchase Order Amount for the Online sales channel, comparing the current
+  period to the same period in the previous year. Use it to track how online PO spend is growing or declining over time.
+id: metric_l4_yoy_0160
+tags:
+- L4
+title: 'YoY: PO Amount (Purchase Order) — Online Channel'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_gross_revenue} - {metric/metric_l1_sql_margin_bridge_gross_margin}
+description: Calculates the absolute gap between Total Gross Revenue and Total Gross Margin in the Margin Bridge context (revenue
+  minus margin). Use it to quantify how much revenue does not translate into margin for the current filters and time period.
+id: metric_l2_intra_0079
+tags:
+- L2
+title: Gross Revenue (Margin Bridge) vs Gross Margin (Margin Bridge) Change

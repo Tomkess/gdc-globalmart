@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_line_line_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total purchase order line spend for items tied to the Online sales channel. Use it to monitor and compare online-related
+  purchasing amount across time periods, suppliers, products, or other business dimensions.
+id: metric_l3_0054_1
+tags:
+- L3
+title: Line Amount (Purchase Order Line Items) — Online Channel

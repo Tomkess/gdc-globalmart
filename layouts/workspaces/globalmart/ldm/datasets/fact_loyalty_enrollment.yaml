@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each loyalty program enrollment record in the Loyalty Enrollment dataset. Use it to look
+    up, filter, or deduplicate (the process of identifying and removing duplicate records) specific enrollments.
+  id: fact_loyalty_enrollment.enrollment_id
+  labels: []
+  sourceColumn: enrollment_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Enrollment
+  title: Enrollment ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_loyalty_enrollment
+  path:
+  - globalmart
+  - fact_loyalty_enrollment
+  type: dataSource
+description: Loyalty Enrollment
+facts:
+- description: Number of loyalty program enrollments recorded in the Loyalty Enrollment dataset, typically used to sum enrollments
+    over time, store, channel, or other dimensions.
+  id: fact_loyalty_enrollment.enrollment_count
+  sourceColumn: enrollment_count
+  sourceColumnDataType: INT
+  tags:
+  - Loyalty Enrollment
+  title: Enrollment Count
+grain:
+- id: fact_loyalty_enrollment.enrollment_id
+  type: attribute
+id: fact_loyalty_enrollment
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: enrollment_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Loyalty Enrollment
+title: Loyalty Enrollment
+workspaceDataFilterReferences: []

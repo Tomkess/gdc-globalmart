@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} / {metric/metric_l1_fact_loyalty_points_earned_order_amount}
+description: Average number of online orders per unit of order amount associated with earned loyalty points. Use this ratio
+  to assess order frequency relative to loyalty-attributed sales value and to compare ordering patterns across time periods
+  or customer segments.
+id: metric_l2_cross_0025
+tags:
+- L2
+title: Order Count per Order Amount (Loyalty Points Earned)

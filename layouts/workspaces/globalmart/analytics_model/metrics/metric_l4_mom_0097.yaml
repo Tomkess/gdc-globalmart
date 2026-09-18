@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0032_1} - (SELECT {metric/metric_l3_0032_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Lifetime Order Count from the Customer Lifetime Value snapshot for the Online
+  sales channel, calculated as the current month’s value minus the prior month. Use it to track whether online customers’
+  lifetime purchase frequency is increasing or decreasing over time (by Month/Year).
+id: metric_l4_mom_0097
+tags:
+- L4
+title: 'MoM: Lifetime Order Count (Customer Lifetime Value) — Online Channel'

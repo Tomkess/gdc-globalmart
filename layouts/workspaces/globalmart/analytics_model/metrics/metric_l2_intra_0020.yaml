@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_checkout_time_avg_checkout_sec} - {metric/metric_l1_sql_loyalty_roi_attributed_revenue}
+description: Compares checkout speed to loyalty-program performance by subtracting total loyalty-program-attributed revenue
+  from the overall checkout time in seconds for the current filters and scope. Use it to look at how changes in operational
+  checkout efficiency move alongside loyalty-program ROI in the same analysis.
+id: metric_l2_intra_0020
+tags:
+- L2
+title: Avg Checkout Time (sec) (Checkout Time) vs Attributed Revenue (Loyalty Program ROI) Change

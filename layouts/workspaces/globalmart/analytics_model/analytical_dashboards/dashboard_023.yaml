@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_023
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0072
+              type: visualizationObject
+          localIdentifier: widget_023_00
+          title: Units Sold
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0073
+              type: visualizationObject
+          localIdentifier: widget_023_01
+          title: Margin
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0074
+              type: visualizationObject
+          localIdentifier: widget_023_02
+          title: Margin
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0075
+              type: visualizationObject
+          localIdentifier: widget_023_03
+          title: Margin
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0076
+              type: visualizationObject
+          localIdentifier: widget_023_04
+          title: Markdown Amount Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0077
+              type: visualizationObject
+          localIdentifier: widget_023_05
+          title: Markdown Amount Over Time
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0078
+              type: visualizationObject
+          localIdentifier: widget_023_06
+          title: Markdown Amount Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0079
+              type: visualizationObject
+          localIdentifier: widget_023_07
+          title: Compliance Score and Compliance Score by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0080
+              type: visualizationObject
+          localIdentifier: widget_023_08
+          title: Compliance Score by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0081
+              type: visualizationObject
+          localIdentifier: widget_023_09
+          title: Compliance Score by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0082
+              type: visualizationObject
+          localIdentifier: widget_023_10
+          title: Out of Stock Days by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_product_0083
+              type: visualizationObject
+          localIdentifier: widget_023_11
+          title: Out of Stock Days by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for monitoring pricing and related commercial performance over time, bringing together KPIs for units
+  sold and margin plus trend views for markdown amounts, planogram compliance scores, and out-of-stock days across in-store
+  and online channels (including North region views). It defaults to the last 12 months and includes currency filters to keep
+  reporting consistent.
+id: dashboard_023
+title: Competitor Pricing Intelligence

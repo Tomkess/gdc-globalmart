@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_customer_ltv_snapshot.lifetime_revenue})
+description: Shows the total revenue generated across customers over their lifetime by summing the Lifetime Revenue measure
+  from the Customer Lifetime Value dataset. Use it to quantify overall customer lifetime value revenue for the current selection
+  (such as a customer segment or time filter).
+id: metric_l1_sql_customer_ltv_snapshot_lifetime_revenue
+tags:
+- L1
+title: Total Lifetime Revenue (Customer Lifetime Value)

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_header_po_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts the total number of purchase orders for the North region only (based on Region Name = North). Use this
+  metric to monitor PO volume in North and compare it across time periods or against other regions.
+id: metric_l3_0052_2
+tags:
+- L3
+title: PO Count (Purchase Order) — North Region

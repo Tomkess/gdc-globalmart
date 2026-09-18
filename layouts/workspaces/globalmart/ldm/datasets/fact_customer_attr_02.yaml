@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Customer Purchase Propensity dataset, used to distinguish and reference
+    individual propensity entries.
+  id: fact_customer_attr_02.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Purchase Propensity
+  title: Record ID (Customer Purchase Propensity)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_customer_attr_02
+  path:
+  - globalmart
+  - fact_customer_attr_02
+  type: dataSource
+description: Customer Purchase Propensity
+facts:
+- description: Captures the underlying value for a customer attribute used in the Customer Purchase Propensity dataset, supporting
+    analyses that compare or summarize propensity-related attribute values across customers.
+  id: fact_customer_attr_02.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Purchase Propensity
+  title: Customer Purchase Propensity
+grain:
+- id: fact_customer_attr_02.attr_id
+  type: attribute
+id: fact_customer_attr_02
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Customer Purchase Propensity
+title: Customer Purchase Propensity
+workspaceDataFilterReferences: []

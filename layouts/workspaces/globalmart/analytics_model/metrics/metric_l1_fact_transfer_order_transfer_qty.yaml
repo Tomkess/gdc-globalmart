@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_transfer_order.transfer_qty})
+description: Shows the total number of units transferred by summing Transfer Quantity from Transfer Orders, within the current
+  reporting scope (such as selected time period, location, or other filters).
+id: metric_l1_fact_transfer_order_transfer_qty
+tags:
+- L1
+title: Total Transfer Quantity (Transfer Order)

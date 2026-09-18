@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_till_reconciliation_variance_amount} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Shows the total till reconciliation variance amount (over/short) limited to the Online sales channel. Use it
+  to monitor and analyze reconciliation discrepancies for online transactions, and slice results by time, store, or other
+  reporting dimensions.
+id: metric_l3_0016_1
+tags:
+- L3
+title: Variance Amount (Till Reconciliation) — Online Channel

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0063_0} - (SELECT {metric/metric_l3_0063_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in current on-hand inventory for the In-Store sales channel by comparing the
+  current month’s stock level to the previous month. Use it to see whether in-store inventory is increasing or decreasing
+  over time and to support trend analysis when slicing by other dimensions.
+id: metric_l4_mom_0189
+tags:
+- L4
+title: 'MoM: Current Stock (Inventory Health) — In-Store Channel'

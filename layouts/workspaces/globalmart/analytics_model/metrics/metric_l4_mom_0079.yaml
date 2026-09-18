@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0026_1} - (SELECT {metric/metric_l3_0026_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the total reward value of loyalty points redeemed through the Online sales
+  channel, comparing the current month to the previous month. Use it to monitor whether online reward redemptions are increasing
+  or decreasing over time.
+id: metric_l4_mom_0079
+tags:
+- L4
+title: 'MoM: Reward Value (Loyalty Points Redeemed) — Online Channel'

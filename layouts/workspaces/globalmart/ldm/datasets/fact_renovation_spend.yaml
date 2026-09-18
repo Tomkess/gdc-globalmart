@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each renovation project in the Renovation Spend dataset. Use it to group, filter, or
+    drill into renovation spending by individual project.
+  id: fact_renovation_spend.project_id
+  labels: []
+  sourceColumn: project_id
+  sourceColumnDataType: STRING
+  tags:
+  - Renovation Spend
+  title: Project ID (Renovation Spend)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_renovation_spend
+  path:
+  - globalmart
+  - fact_renovation_spend
+  type: dataSource
+description: Renovation Spend
+facts:
+- description: Renovation Cost is the monetary amount spent on renovation activities in the Renovation Spend dataset, typically
+    used to total and compare renovation spending across projects, locations, or time periods.
+  id: fact_renovation_spend.renovation_cost
+  sourceColumn: renovation_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Renovation Spend
+  title: Renovation Cost
+grain:
+- id: fact_renovation_spend.project_id
+  type: attribute
+id: fact_renovation_spend
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: spend_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Renovation Spend
+title: Renovation Spend
+workspaceDataFilterReferences: []

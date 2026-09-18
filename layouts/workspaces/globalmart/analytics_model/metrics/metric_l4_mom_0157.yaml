@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0052_1} - (SELECT {metric/metric_l3_0052_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in Online-channel purchase order volume by subtracting last month’s Online
+  PO count from the current month’s count. Use it to monitor whether Online purchasing activity is increasing or declining
+  over time.
+id: metric_l4_mom_0157
+tags:
+- L4
+title: 'MoM: PO Count (Purchase Order) — Online Channel'

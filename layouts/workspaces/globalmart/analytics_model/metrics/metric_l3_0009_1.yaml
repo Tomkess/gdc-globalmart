@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_avg_transaction_value} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Shows the average transaction value for Daily Store Sales restricted to the Online sales channel. Use it to monitor
+  or compare how online transaction values perform over time or across other business dimensions.
+id: metric_l3_0009_1
+tags:
+- L3
+title: Avg Transaction Value (Daily Store Sales) — Online Channel

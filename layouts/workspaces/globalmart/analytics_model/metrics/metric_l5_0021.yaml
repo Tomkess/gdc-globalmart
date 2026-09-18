@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0010} + ({metric/metric_l1_sql_loyalty_roi_attributed_revenue} / {metric/metric_l1_fact_customer_event_event_count})
+description: Combines the month-over-month change in online purchase order line-item quantity with an average loyalty ROI
+  component, calculated as total attributed revenue from the loyalty program divided by total customer event count. Use it
+  to see how online purchasing volume is shifting from last month while factoring in loyalty-attributed revenue per event
+  in the same reporting slice.
+id: metric_l5_0021
+tags:
+- L5
+title: 'MoM: Quantity (Purchase Order Line Items) — Online Channel (+Attributed Revenue (Loyalty Program ROI)/Event Count
+  (Customer Event))'

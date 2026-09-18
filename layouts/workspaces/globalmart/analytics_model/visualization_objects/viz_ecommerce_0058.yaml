@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0000_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Shows the number of orders from the Online sales channel, broken out by Quarter/Year in a column chart. Use it
+  to track online order volume over time and spot quarter-to-quarter trends.
+id: viz_ecommerce_0058
+title: Order Count — Online Channel by Quarter

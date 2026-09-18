@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_nps_response.nps_score})
+description: Totals the NPS Score values from NPS Response records for the current filter context (such as a time period or
+  segment). Use it to understand the overall volume of NPS scoring across the selected responses and to compare totals across
+  slices of the data.
+id: metric_l1_fact_nps_response_nps_score
+tags:
+- L1
+title: Total NPS Score (NPS Response)

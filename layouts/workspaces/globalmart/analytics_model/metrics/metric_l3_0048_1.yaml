@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_sell_through_rate} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Sell-Through Rate (Assortment Efficiency) specifically for the Online sales channel, reflecting how efficiently
+  online inventory is converting into sales within the current report or dashboard context. Use it to monitor and compare
+  online sell-through performance across time periods or versus other channels when used alongside similar channel-specific
+  metrics.
+id: metric_l3_0048_1
+tags:
+- L3
+title: Sell-Through Rate (Assortment Efficiency) — Online Channel

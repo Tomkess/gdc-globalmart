@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0008} + ({metric/metric_l1_fact_compliment_complaint_comment_count} / {metric/metric_l1_fact_aged_inventory_age_days})
+description: Combines the North Region month-over-month change in loyalty redemption discount amount at the point of sale
+  with a normalized customer-feedback component, calculated as total compliment/complaint comment count divided by total aged-inventory
+  days. Use it as a composite indicator to track changes in redemption discounts while factoring in comment volume relative
+  to overall inventory aging.
+id: metric_l5_0017
+tags:
+- L5
+title: 'MoM: Discount Amount (Loyalty Redemption at POS) — North Region (+Comment Count (Compliment Complaint)/Age Days (Aged
+  Inventory))'

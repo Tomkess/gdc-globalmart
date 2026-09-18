@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0000} + ({metric/metric_l1_total_net_revenue} / {metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount})
+description: Combines the month-over-month change in In-Store order count with a revenue-to-loyalty-redemption discount ratio
+  (Total Net Revenue divided by Total Discount Amount from Loyalty Redemption at POS). Use it to track in-store order momentum
+  alongside how revenue compares to loyalty discounts redeemed at the point of sale over the same reporting scope.
+id: metric_l5_0001
+tags:
+- L5
+title: 'MoM: Order Count — In-Store Channel (+Net Revenue/Discount Amount (Loyalty Redemption at POS))'

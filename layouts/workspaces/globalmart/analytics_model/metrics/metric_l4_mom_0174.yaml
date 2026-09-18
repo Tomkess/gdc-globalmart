@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0058_0} - (SELECT {metric/metric_l3_0058_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the quantity of items written off for the In-Store sales channel, calculated
+  as the current month’s write-off quantity minus the previous month’s. Use it to track whether in-store write-offs are increasing
+  or decreasing over time by Month/Year.
+id: metric_l4_mom_0174
+tags:
+- L4
+title: 'MoM: Write-Off Quantity (Write Off) — In-Store Channel'

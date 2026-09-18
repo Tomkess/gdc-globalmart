@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_partner_redemption_partner_discount} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Shows the total value of partner-funded discounts provided through partner redemptions, filtered to the North
+  region. Use it to monitor discount impact in North and compare it with the same measure for other regions.
+id: metric_l3_0109_2
+tags:
+- L3
+title: Partner Discount (Partner Redemption) — North Region

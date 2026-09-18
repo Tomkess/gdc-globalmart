@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_write_off_writeoff_qty} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Measures the total quantity of items written off, restricted to activity in the Online sales channel. Use it
+  to monitor and compare Online write-off volume over time or across dimensions like location and product.
+id: metric_l3_0058_1
+tags:
+- L3
+title: Write-Off Quantity (Write Off) — Online Channel

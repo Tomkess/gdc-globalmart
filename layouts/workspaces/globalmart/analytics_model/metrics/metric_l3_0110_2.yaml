@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_expiry_points_expired} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Tracks the total number of loyalty points that expired, limited to the North region. Use it to monitor and compare
+  expired points volume for North across different reporting cuts such as time periods or customer segments.
+id: metric_l3_0110_2
+tags:
+- L3
+title: Points Expired (Loyalty Expiry) — North Region

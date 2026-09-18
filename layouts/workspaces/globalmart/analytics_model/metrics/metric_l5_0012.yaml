@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0006} + ({metric/metric_l1_fact_opex_transaction_amount} / {metric/metric_l1_fact_gift_card_txn_txn_count})
+description: Composite metric that adjusts the year-over-year change in in-store loyalty redemption discount amounts by adding
+  the average operating expense transaction amount per gift card transaction. Use it to evaluate YoY discount performance
+  alongside an expense-per-gift-card-transaction factor in a single view.
+id: metric_l5_0012
+tags:
+- L5
+title: 'YoY: Discount Amount (Loyalty Redemption at POS) — In-Store Channel (+Amount (Operating Expense Transaction)/Transaction
+  Count (Gift Card Transaction))'

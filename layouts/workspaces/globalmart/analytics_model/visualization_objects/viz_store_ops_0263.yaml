@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_ops_efficiency_summary_revenue_per_sqft
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline KPI showing total revenue generated per square foot for the selected scope, based on the Operations
+  Efficiency Summary metric. Use it to quickly assess and compare space productivity across the current filters or segments.
+id: viz_store_ops_0263
+title: Revenue per Sq Ft

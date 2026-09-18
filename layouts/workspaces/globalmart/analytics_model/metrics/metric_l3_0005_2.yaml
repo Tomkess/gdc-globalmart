@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_returns_return_amount} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total monetary value of returned items, restricted to the North region. Use it to monitor and compare return
+  amounts for North across different report slices such as time period, product, or customer.
+id: metric_l3_0005_2
+tags:
+- L3
+title: Return Amount (Returns) — North Region

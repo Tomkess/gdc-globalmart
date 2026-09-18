@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_004
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0096
+              type: visualizationObject
+          localIdentifier: widget_004_00
+          title: Points Redeemed by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0097
+              type: visualizationObject
+          localIdentifier: widget_004_01
+          title: Event Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0098
+              type: visualizationObject
+          localIdentifier: widget_004_02
+          title: Event Value by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0099
+              type: visualizationObject
+          localIdentifier: widget_004_03
+          title: Points by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0100
+              type: visualizationObject
+          localIdentifier: widget_004_04
+          title: Order Amount by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0101
+              type: visualizationObject
+          localIdentifier: widget_004_05
+          title: Reward Value by Year
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0102
+              type: visualizationObject
+          localIdentifier: widget_004_06
+          title: NPS Score by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0103
+              type: visualizationObject
+          localIdentifier: widget_004_07
+          title: Response Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0104
+              type: visualizationObject
+          localIdentifier: widget_004_08
+          title: Sentiment Score by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0105
+              type: visualizationObject
+          localIdentifier: widget_004_09
+          title: Feedback Count by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0106
+              type: visualizationObject
+          localIdentifier: widget_004_10
+          title: Change Count by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0107
+              type: visualizationObject
+          localIdentifier: widget_004_11
+          title: Lifetime Order Count
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for analyzing customer segmentation and lifetime value through loyalty activity, events, feedback,
+  and NPS trends over time. It brings together key time-series views such as points earned/redeemed, reward and order value,
+  event volume/value, feedback volume/sentiment, and response counts, plus a lifetime order count headline. By default it
+  is filtered to the last 12 months, with optional store region and product filtering available.
+id: dashboard_004
+title: Customer Segmentation & Lifetime Value

@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_012
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0252
+              type: visualizationObject
+          localIdentifier: widget_012_00
+          title: Cost by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0253
+              type: visualizationObject
+          localIdentifier: widget_012_01
+          title: Staff Hours by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0254
+              type: visualizationObject
+          localIdentifier: widget_012_02
+          title: Staff Count by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0255
+              type: visualizationObject
+          localIdentifier: widget_012_03
+          title: Shrinkage Amount by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0256
+              type: visualizationObject
+          localIdentifier: widget_012_04
+          title: Unit Count by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0257
+              type: visualizationObject
+          localIdentifier: widget_012_05
+          title: Maintenance Cost by Year
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0258
+              type: visualizationObject
+          localIdentifier: widget_012_06
+          title: Downtime Hours by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0259
+              type: visualizationObject
+          localIdentifier: widget_012_07
+          title: Visitor Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0260
+              type: visualizationObject
+          localIdentifier: widget_012_08
+          title: kWh by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0261
+              type: visualizationObject
+          localIdentifier: widget_012_09
+          title: Sq Ft by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0262
+              type: visualizationObject
+          localIdentifier: widget_012_10
+          title: Store Revenue
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0263
+              type: visualizationObject
+          localIdentifier: widget_012_11
+          title: Revenue per Sq Ft
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for monitoring store operations efficiency over time, combining key KPIs and trends such as store revenue,
+  revenue per square foot, energy cost and kWh usage, staffing levels and hours, visitor counts, maintenance downtime and
+  costs, and shrinkage impact. By default it focuses on the last 12 months and can be segmented using acquisition channel
+  and loyalty tier filters.
+id: dashboard_012
+title: Store Operations Efficiency

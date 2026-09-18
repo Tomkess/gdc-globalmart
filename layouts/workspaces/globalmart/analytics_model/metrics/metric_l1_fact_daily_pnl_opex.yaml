@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_daily_pnl.opex})
+description: Shows total operating expenses (Operating Expenses (OpEx) by summing Operating Expenses (OpEx) from the Daily
+  Profit & Loss data for the current reporting context, such as the selected date range, business unit, or other applied filters.
+id: metric_l1_fact_daily_pnl_opex
+tags:
+- L1
+title: Total OpEx (Daily Profit & Loss)

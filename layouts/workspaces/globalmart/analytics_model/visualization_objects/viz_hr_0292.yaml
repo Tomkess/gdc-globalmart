@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_training_completion_training_cost
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Shows total training spend over time by quarter/year, using Total Training Cost from Training Completion data.
+  Use it to compare quarterly training costs and spot trends or spikes in training investment.
+id: viz_hr_0292
+title: Training Cost by Quarter

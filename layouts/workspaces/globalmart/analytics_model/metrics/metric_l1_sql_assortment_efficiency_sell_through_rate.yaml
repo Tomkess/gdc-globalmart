@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_assortment_efficiency.sell_through_rate})
+description: Overall sell-through rate for the selected scope, calculated by summing Sell-Through Rate values from the Assortment
+  Efficiency dataset. Use it to assess how effectively inventory is being sold under the current filters and grouping.
+id: metric_l1_sql_assortment_efficiency_sell_through_rate
+tags:
+- L1
+title: Total Sell-Through Rate (Assortment Efficiency)

@@ -1,0 +1,218 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_018
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0324
+              type: visualizationObject
+          localIdentifier: widget_018_00
+          title: Attribute Value by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0325
+              type: visualizationObject
+          localIdentifier: widget_018_01
+          title: Alert Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0326
+              type: visualizationObject
+          localIdentifier: widget_018_02
+          title: Alert Value by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0327
+              type: visualizationObject
+          localIdentifier: widget_018_03
+          title: Chargeback Count by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0328
+              type: visualizationObject
+          localIdentifier: widget_018_04
+          title: Chargeback Amount by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0329
+              type: visualizationObject
+          localIdentifier: widget_018_05
+          title: Finding Count by Year
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0330
+              type: visualizationObject
+          localIdentifier: widget_018_06
+          title: Attribute Value by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0331
+              type: visualizationObject
+          localIdentifier: widget_018_07
+          title: Attribute Value by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0332
+              type: visualizationObject
+          localIdentifier: widget_018_08
+          title: Attribute Value by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0333
+              type: visualizationObject
+          localIdentifier: widget_018_09
+          title: Alert Count by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0334
+              type: visualizationObject
+          localIdentifier: widget_018_10
+          title: Alert Count by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0335
+              type: visualizationObject
+          localIdentifier: widget_018_11
+          title: Alert Count by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for monitoring fraud risk and compliance performance over time. It brings together trends for fraud
+  alerts (count and value), chargebacks (count and amount), audit finding volume, and compliance adherence scores by month/quarter/year.
+  By default it is scoped to the last 12 months, with region and country filters available to narrow the view.
+id: dashboard_018
+title: Fraud Risk & Compliance

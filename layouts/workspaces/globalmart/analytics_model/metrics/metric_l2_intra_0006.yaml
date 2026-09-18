@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_returns_quantity_returned} - {metric/metric_l1_fact_daily_store_sales_sales_amount}
+description: Net change indicator comparing return volume to sales value for the selected scope, calculated as total units
+  returned minus total sales amount. Use it to spot periods or segments where returns outweigh sales value (or vice versa)
+  alongside the underlying returns and sales totals.
+id: metric_l2_intra_0006
+tags:
+- L2
+title: Quantity Returned (Returns) vs Sales Amount (Daily Store Sales) Change

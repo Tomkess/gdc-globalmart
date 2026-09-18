@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0026} + ({metric/metric_l1_fact_purchase_order_header_po_count} / {metric/metric_l1_fact_purchase_order_header_po_amount})
+description: Combines North-region year-over-year change in daily store sales transaction count with a purchase order value
+  indicator calculated as total PO count divided by total PO amount. Use it to view sales-transaction growth alongside purchasing
+  activity efficiency in a single metric for comparative analysis over time.
+id: metric_l5_0052
+tags:
+- L5
+title: 'YoY: Transaction Count (Daily Store Sales) — North Region (+PO Count (Purchase Order)/PO Amount (Purchase Order))'

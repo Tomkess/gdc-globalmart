@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each return reason in the Return Reason dataset. Use it to group, filter, or join return-related
+    analysis by specific reason codes.
+  id: dim_return_reason.reason_id
+  labels: []
+  sourceColumn: reason_id
+  sourceColumnDataType: STRING
+  tags:
+  - Return Reason
+  title: Reason ID (Return Reason)
+- description: Return reason name used to categorize and filter returned items by the stated reason for return. Use it to
+    group return metrics by reason in the Return Reason dataset.
+  id: dim_return_reason.reason_name
+  labels: []
+  sourceColumn: reason_name
+  sourceColumnDataType: STRING
+  tags:
+  - Return Reason
+  title: Reason Name (Return Reason)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_return_reason
+  path:
+  - globalmart
+  - dim_return_reason
+  type: dataSource
+description: Return Reason
+facts: []
+grain:
+- id: dim_return_reason.reason_id
+  type: attribute
+id: dim_return_reason
+references: []
+tags:
+- Return Reason
+title: Return Reason
+workspaceDataFilterReferences: []

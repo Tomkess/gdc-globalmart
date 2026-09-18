@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_monetary_quartile} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Sums customers’ Monetary Quartile (Recency, Frequency, Monetary (RFM)) scores, restricted to the Online sales
+  channel. Use it to compare the overall monetary-value segment strength of online customers across your chosen filters or
+  groupings.
+id: metric_l3_0037_1
+tags:
+- L3
+title: Monetary Quartile (RFM) (Customer RFM Segments) — Online Channel

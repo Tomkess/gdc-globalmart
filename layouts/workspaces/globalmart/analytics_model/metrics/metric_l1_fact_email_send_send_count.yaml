@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_email_send.send_count})
+description: Total number of emails sent, calculated by summing the Send Count measure from the Email Send data. Use this
+  metric to track overall send volume and to break it down by time, campaign, or audience segments.
+id: metric_l1_fact_email_send_send_count
+tags:
+- L1
+title: Total Send Count (Email Send)

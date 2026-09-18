@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_expiry_points_expired} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total loyalty points that expired for the Online sales channel within the current reporting context (such as
+  the selected time period or customer segments). Use it to monitor expired-points volume specifically for online activity.
+id: metric_l3_0110_1
+tags:
+- L3
+title: Points Expired (Loyalty Expiry) — Online Channel

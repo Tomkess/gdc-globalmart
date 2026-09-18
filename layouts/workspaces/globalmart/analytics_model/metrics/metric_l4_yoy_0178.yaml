@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0059_1} - (SELECT {metric/metric_l3_0059_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0059_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Write-Off Cost for the Online sales channel by comparing the
+  current period’s online write-off cost to the same measure in the prior year. Use it to track whether online write-off costs
+  are increasing or decreasing versus last year under the same filters and time context.
+id: metric_l4_yoy_0178
+tags:
+- L4
+title: 'YoY: Write-Off Cost (Write Off) — Online Channel'

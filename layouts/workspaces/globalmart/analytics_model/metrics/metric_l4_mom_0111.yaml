@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0037_0} - (SELECT {metric/metric_l3_0037_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in customers’ Monetary Quartile (Recency, Frequency, Monetary (RFM)) score
+  for the In-Store sales channel, comparing the current month to the previous month. Use it to monitor whether in-store customer
+  monetary segment strength is improving or declining over time within the current report filters and groupings.
+id: metric_l4_mom_0111
+tags:
+- L4
+title: 'MoM: Monetary Quartile (RFM) (Customer RFM Segments) — In-Store Channel'

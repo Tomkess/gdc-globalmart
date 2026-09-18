@@ -1,0 +1,64 @@
+aggregatedFacts: []
+attributes:
+- description: Date when the order was placed in the Margin Bridge dataset. Use it to filter or group margin-bridge metrics
+    by day, month, or other time periods.
+  id: sql_margin_bridge.order_date
+  labels: []
+  sourceColumn: order_date
+  sourceColumnDataType: DATE
+  tags:
+  - Margin Bridge
+  title: Order Date (Margin Bridge)
+description: Margin Bridge
+facts:
+- description: Earnings Before Interest, Taxes, Depreciation, and Amortization (EBITDA) measure in the Margin Bridge dataset,
+    used to analyze operating profitability and its drivers.
+  id: sql_margin_bridge.ebitda
+  sourceColumn: ebitda
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Margin Bridge
+  title: EBITDA
+- description: Gross Margin for records in the Margin Bridge dataset, used to quantify profitability and support analysis
+    of margin drivers over time or across business dimensions.
+  id: sql_margin_bridge.gross_margin
+  sourceColumn: gross_margin
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Margin Bridge
+  title: Gross Margin
+- description: Gross Revenue is the total sales revenue before any discounts, returns, or cost adjustments, used as a base
+    measure for margin and revenue analysis in the Margin Bridge dataset.
+  id: sql_margin_bridge.gross_revenue
+  sourceColumn: gross_revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Margin Bridge
+  title: Gross Revenue
+grain:
+- id: sql_margin_bridge.order_date
+  type: attribute
+id: sql_margin_bridge
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: order_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    oh.order_date,\n    SUM(ol.revenue) AS gross_revenue,\n    SUM(ol.revenue) - SUM(COALESCE(cogs.cost,\
+    \ 0)) AS gross_margin,\n    (SUM(ol.revenue) - SUM(COALESCE(cogs.cost, 0))) / NULLIF(SUM(ol.revenue), 0) AS gross_margin_pct,\n\
+    \    (SUM(ol.revenue) - SUM(COALESCE(cogs.cost, 0))) - SUM(COALESCE(opex.amount, 0)) AS ebitda\nFROM {{ datasource_schema\
+    \ }}.fact_order_header oh\nJOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN {{\
+    \ datasource_schema }}.fact_cogs_detail cogs ON ol.product_id = cogs.product_id\nLEFT JOIN {{ datasource_schema }}.fact_opex_transaction\
+    \ opex ON oh.order_date = opex.transaction_date\nGROUP BY 1\n"
+tags:
+- Margin Bridge
+title: Margin Bridge
+workspaceDataFilterReferences: []

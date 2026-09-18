@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each purchase order line item in the Purchase Order Line Items dataset. Use it to distinguish,
+    group, or filter analyses at the individual line level.
+  id: fact_purchase_order_line.po_line_id
+  labels: []
+  sourceColumn: po_line_id
+  sourceColumnDataType: STRING
+  tags:
+  - Purchase Order Line Items
+  title: Purchase Order Line ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_purchase_order_line
+  path:
+  - globalmart
+  - fact_purchase_order_line
+  type: dataSource
+description: Purchase Order Line Items
+facts:
+- description: Monetary amount for each purchase order line item in the Purchase Order Line Items dataset. Typically used
+    to sum line values when analyzing purchase spend by order, supplier, product, or time.
+  id: fact_purchase_order_line.line_amount
+  sourceColumn: line_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Purchase Order Line Items
+  title: Line Amount
+- description: Number of units on each purchase order line item. Use it to quantify ordered amounts and to aggregate volumes
+    across products, suppliers, or time.
+  id: fact_purchase_order_line.quantity
+  sourceColumn: quantity
+  sourceColumnDataType: INT
+  tags:
+  - Purchase Order Line Items
+  title: Quantity (Purchase Order Line Items)
+grain:
+- id: fact_purchase_order_line.po_line_id
+  type: attribute
+id: fact_purchase_order_line
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: fact_purchase_order_header
+    type: dataset
+  multivalue: false
+  sources:
+  - column: po_id
+    dataType: STRING
+    target:
+      id: fact_purchase_order_header.po_id
+      type: attribute
+tags:
+- Purchase Order Line Items
+title: Purchase Order Line Items
+workspaceDataFilterReferences: []

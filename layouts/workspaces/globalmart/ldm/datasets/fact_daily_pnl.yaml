@@ -1,0 +1,73 @@
+aggregatedFacts: []
+attributes:
+- description: Represents the calendar day for each record in the Daily Profit & Loss dataset. Use it to group, trend, or
+    filter profit and loss measures at a daily level of detail.
+  id: fact_daily_pnl.day
+  labels: []
+  sourceColumn: day
+  sourceColumnDataType: DATE
+  tags:
+  - Daily Profit & Loss
+  title: Day (Daily Profit & Loss)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_daily_pnl
+  path:
+  - globalmart
+  - fact_daily_pnl
+  type: dataSource
+description: Daily Profit & Loss
+facts:
+- description: Cost of goods sold (COGS) amount recorded in the Daily Profit & Loss dataset, used to analyze direct costs
+    and profitability over time or across other business dimensions.
+  id: fact_daily_pnl.cogs
+  sourceColumn: cogs
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Profit & Loss
+  title: COGS
+- description: Operating expenses captured in the Daily Profit & Loss dataset, used to analyze cost levels and trends over
+    time and across reporting dimensions.
+  id: fact_daily_pnl.opex
+  sourceColumn: opex
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Profit & Loss
+  title: OpEx
+- description: Revenue represents the sales income recorded in the Daily Profit & Loss dataset. It is typically used as a
+    core measure to analyze topline performance over time or by other business dimensions.
+  id: fact_daily_pnl.revenue
+  sourceColumn: revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Profit & Loss
+  title: Revenue (Daily Profit & Loss)
+grain:
+- id: fact_daily_pnl.day
+  type: attribute
+id: fact_daily_pnl
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: day
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Daily Profit & Loss
+title: Daily Profit & Loss
+workspaceDataFilterReferences: []

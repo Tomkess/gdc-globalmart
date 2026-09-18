@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_budget_plan_budget_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total planned budget amount limited to the Online sales channel. Use this metric to analyze and break down Online
+  budget plan values across your selected filters and reporting dimensions.
+id: metric_l3_0078_1
+tags:
+- L3
+title: Budget Amount (Budget Plan) — Online Channel

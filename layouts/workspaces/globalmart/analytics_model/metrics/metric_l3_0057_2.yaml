@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_transfer_order_transfer_qty} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Totals the number of units transferred on transfer orders, restricted to the North region. Use it to track and
+  compare transfer volumes for North within the current reporting context (for example by time period, location, or other
+  dashboard filters).
+id: metric_l3_0057_2
+tags:
+- L3
+title: Transfer Quantity (Transfer Order) — North Region

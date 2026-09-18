@@ -1,0 +1,67 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Demand Forecast Accuracy dataset, used to distinguish and reference
+    individual rows when filtering or drilling into details.
+  id: fact_inv_attr_06.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Demand Forecast Accuracy
+  title: Record ID (Demand Forecast Accuracy)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_inv_attr_06
+  path:
+  - globalmart
+  - fact_inv_attr_06
+  type: dataSource
+description: Demand Forecast Accuracy
+facts:
+- description: Represents the stored value for an attribute in the Demand Forecast Accuracy dataset, used as the underlying
+    measure when analyzing or aggregating attribute-driven results.
+  id: fact_inv_attr_06.metric
+  sourceColumn: metric
+  sourceColumnDataType: INT
+  tags:
+  - Demand Forecast Accuracy
+  title: Demand Forecast Accuracy
+grain:
+- id: fact_inv_attr_06.attr_id
+  type: attribute
+id: fact_inv_attr_06
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_warehouse
+    type: dataset
+  multivalue: false
+  sources:
+  - column: warehouse_id
+    dataType: STRING
+    target:
+      id: dim_warehouse.warehouse_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Demand Forecast Accuracy
+title: Demand Forecast Accuracy
+workspaceDataFilterReferences: []

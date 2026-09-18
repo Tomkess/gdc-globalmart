@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_purchase_order_line_line_amount
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total line amount across purchase order line items, representing the overall monetary value
+  of purchased items. Use it to monitor total purchase order spend and compare it across time, suppliers, or other dimensions.
+id: viz_inventory_0162
+title: Line Amount

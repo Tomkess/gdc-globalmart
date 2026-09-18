@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0061_2} - (SELECT {metric/metric_l3_0061_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0061_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the North Region Delivery Score from the Supplier Scorecard, comparing the current
+  period to the previous year. Use it to track whether delivery performance in the North region is improving or declining
+  versus last year.
+id: metric_l4_yoy_0185
+tags:
+- L4
+title: 'YoY: Delivery Score (Supplier Scorecard) — North Region'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_store_visit_census.sqft})
+description: Sums square footage from the Store Visit Census data to show total space across the selected records. Use it
+  to quantify overall Sq Ft in reports and dashboards, and break it down by other dimensions as needed.
+id: metric_l1_fact_store_visit_census_sqft
+tags:
+- L1
+title: Total Sq Ft (Store Visit Census)

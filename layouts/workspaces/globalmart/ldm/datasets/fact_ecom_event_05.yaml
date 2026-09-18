@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each site search event in the E-commerce Site Search dataset. Use it to filter or drill
+    into a specific event when investigating detailed search activity.
+  id: fact_ecom_event_05.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Site Search
+  title: Event ID (E-commerce Site Search)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_05
+  path:
+  - globalmart
+  - fact_ecom_event_05
+  type: dataSource
+description: E-commerce Site Search
+facts:
+- description: Counts the number of recorded e-commerce site search events in the E-commerce Site Search dataset, typically
+    used to measure search activity volume.
+  id: fact_ecom_event_05.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Site Search
+  title: Event Count (E-commerce Site Search)
+grain:
+- id: fact_ecom_event_05.event_id
+  type: attribute
+id: fact_ecom_event_05
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Site Search
+title: E-commerce Site Search
+workspaceDataFilterReferences: []

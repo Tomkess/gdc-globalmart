@@ -1,0 +1,64 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each online order in the Online Order dataset, used to group, filter, and drill into
+    order-level analysis.
+  id: fact_web_order_header.order_id
+  labels: []
+  sourceColumn: order_id
+  sourceColumnDataType: STRING
+  tags:
+  - Online Order
+  title: Order ID (Online Order)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_web_order_header
+  path:
+  - globalmart
+  - fact_web_order_header
+  type: dataSource
+description: Online Order
+facts:
+- description: Number of online orders, used to count order volume and trend it over time or by business dimensions.
+  id: fact_web_order_header.order_count
+  sourceColumn: order_count
+  sourceColumnDataType: INT
+  tags:
+  - Online Order
+  title: Order Count (Online Order)
+- description: Total revenue amount recorded for each online order in the Online Order dataset, used to analyze sales performance
+    and trends.
+  id: fact_web_order_header.revenue
+  sourceColumn: revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Online Order
+  title: Revenue (Online Order)
+grain:
+- id: fact_web_order_header.order_id
+  type: attribute
+id: fact_web_order_header
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: order_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Online Order
+title: Online Order
+workspaceDataFilterReferences: []

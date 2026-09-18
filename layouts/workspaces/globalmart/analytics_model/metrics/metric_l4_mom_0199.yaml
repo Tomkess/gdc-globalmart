@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0066_1} - (SELECT {metric/metric_l3_0066_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the number of daily campaign spend records for the Online channel by
+  subtracting last month’s count from the current month’s count. Use it to track whether the volume of Online spend entries
+  is increasing or decreasing from one month to the next.
+id: metric_l4_mom_0199
+tags:
+- L4
+title: 'MoM: Spend Count (Daily Campaign Spend) — Online Channel'

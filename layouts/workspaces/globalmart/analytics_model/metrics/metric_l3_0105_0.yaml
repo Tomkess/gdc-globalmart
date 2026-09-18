@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_referral_referral_bonus} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total referral bonus earned, filtered to the In-Store sales channel. Use this metric to monitor in-store referral
+  bonus performance within the current report filters and selected date range.
+id: metric_l3_0105_0
+tags:
+- L3
+title: Referral Bonus (Referral) — In-Store Channel

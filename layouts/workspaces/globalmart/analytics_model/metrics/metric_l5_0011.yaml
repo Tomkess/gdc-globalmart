@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0005} + ({metric/metric_l1_sql_net_sales_summary_net_revenue} / {metric/metric_l1_fact_opex_transaction_amount})
+description: Combines the month-over-month change in Net Revenue for the North region with an adjustment based on the ratio
+  of total Net Revenue (from Net Sales Summary) to total Operating Expense Transaction Amount. Use it to monitor North-region
+  revenue momentum while normalizing or scaling the change against operating expense activity in the current report or dashboard
+  context.
+id: metric_l5_0011
+tags:
+- L5
+title: 'MoM: Net Revenue — North Region (+Net Revenue (Net Sales Summary)/Amount (Operating Expense Transaction))'

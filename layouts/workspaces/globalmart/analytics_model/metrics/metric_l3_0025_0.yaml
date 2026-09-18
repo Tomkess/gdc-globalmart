@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_earned_order_amount} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Total monetary value of orders that earned loyalty points, restricted to the In-Store sales channel. Use this
+  metric to evaluate the revenue contribution of loyalty-point-earning purchases specifically from in-store transactions.
+id: metric_l3_0025_0
+tags:
+- L3
+title: Order Amount (Loyalty Points Earned) — In-Store Channel

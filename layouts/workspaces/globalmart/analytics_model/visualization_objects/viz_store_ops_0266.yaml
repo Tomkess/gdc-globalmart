@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0004_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total energy consumption cost for the Online sales channel, based on the selected filters and
+  time period. Use it to monitor and compare online energy-related spending at a glance.
+id: viz_store_ops_0266
+title: Cost (Online sales channel)

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0008_0} - (SELECT {metric/metric_l3_0008_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the number of in-store sales transactions by comparing the current period’s
+  in-store transaction count to the prior month. Use it to monitor whether in-store transaction volume is rising or falling
+  versus last month.
+id: metric_l4_mom_0024
+tags:
+- L4
+title: 'MoM: Transaction Count (Daily Store Sales) — In-Store Channel'

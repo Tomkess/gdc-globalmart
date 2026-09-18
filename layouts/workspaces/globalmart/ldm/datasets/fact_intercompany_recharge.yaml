@@ -1,0 +1,77 @@
+aggregatedFacts: []
+attributes:
+- description: Identifies the source entity in an intercompany (transactions between entities within the same organisation)
+    recharge transaction (the entity the charge is coming from). Use this attribute from the Intercompany Recharge dataset
+    to group or filter analyses by originating entity.
+  id: fact_intercompany_recharge.from_entity_id
+  labels: []
+  sourceColumn: from_entity_id
+  sourceColumnDataType: STRING
+  tags:
+  - Intercompany Recharge
+  title: From Entity ID
+- description: Unique identifier for each intercompany (transactions between entities within the same organisation) recharge
+    record in the Intercompany Recharge dataset. Use it to look up, group, or filter analyses by a specific recharge transaction.
+  id: fact_intercompany_recharge.recharge_id
+  labels: []
+  sourceColumn: recharge_id
+  sourceColumnDataType: STRING
+  tags:
+  - Intercompany Recharge
+  title: Recharge ID
+- description: Identifier of the receiving ("to") entity in an intercompany (transactions between entities within the same
+    organisation) recharge transaction, used to group, filter, or join recharges by the destination entity within the Intercompany
+    Recharge dataset.
+  id: fact_intercompany_recharge.to_entity_id
+  labels: []
+  sourceColumn: to_entity_id
+  sourceColumnDataType: STRING
+  tags:
+  - Intercompany Recharge
+  title: To Entity ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_intercompany_recharge
+  path:
+  - globalmart
+  - fact_intercompany_recharge
+  type: dataSource
+description: Intercompany Recharge
+facts:
+- description: Monetary value of the intercompany (transactions between entities within the same organisation) recharge, used
+    to analyze and aggregate recharge costs or amounts within the Intercompany Recharge dataset.
+  id: fact_intercompany_recharge.recharge_amount
+  sourceColumn: recharge_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Intercompany Recharge
+  title: Recharge Amount
+grain:
+- id: fact_intercompany_recharge.recharge_id
+  type: attribute
+id: fact_intercompany_recharge
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: from_entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: recharge_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Intercompany Recharge
+title: Intercompany Recharge
+workspaceDataFilterReferences: []

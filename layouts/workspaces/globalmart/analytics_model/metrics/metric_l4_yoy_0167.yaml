@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0055_2} - (SELECT {metric/metric_l3_0055_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0055_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in Goods Receipt receipt quantity for the North region, comparing
+  the current period to the same measure in the previous year. Use it to track whether inbound receipt volumes in the North
+  are growing or declining over time.
+id: metric_l4_yoy_0167
+tags:
+- L4
+title: 'YoY: Receipt Quantity (Goods Receipt) — North Region'

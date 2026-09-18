@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0057_2} - (SELECT {metric/metric_l3_0057_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0057_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in Transfer Quantity for transfer orders in the North region, comparing the current
+  period to the same period in the previous year. Use this metric to track whether North transfer volumes are growing or declining
+  over time.
+id: metric_l4_yoy_0173
+tags:
+- L4
+title: 'YoY: Transfer Quantity (Transfer Order) — North Region'

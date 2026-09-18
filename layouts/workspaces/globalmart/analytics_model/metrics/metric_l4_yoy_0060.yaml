@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0020_0} - (SELECT {metric/metric_l3_0020_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0020_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the average in-store checkout time (in seconds) compared to the
+  same measure in the prior year. Use it to monitor whether checkout speed in the In-Store channel is improving or worsening
+  over time.
+id: metric_l4_yoy_0060
+tags:
+- L4
+title: 'YoY: Avg Checkout Time (sec) (Checkout Time) — In-Store Channel'

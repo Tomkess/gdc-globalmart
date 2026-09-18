@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_stock_movement_movement_qty} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total quantity of stock moved, filtered to the Online sales channel. Use it to track how many units were transferred
+  in or out through online activity for the selected time period and any other applied filters.
+id: metric_l3_0051_1
+tags:
+- L3
+title: Movement Quantity (Stock Movement) — Online Channel

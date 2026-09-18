@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_delivery_score} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total delivery performance score from the Supplier Scorecard, limited to records in the North region. Use it
+  to monitor and compare overall delivery performance for North-region suppliers across time periods or other business dimensions.
+id: metric_l3_0061_2
+tags:
+- L3
+title: Delivery Score (Supplier Scorecard) — North Region

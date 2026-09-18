@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0023} + ({metric/metric_l1_fact_product_rating_review_count} / {metric/metric_l1_sql_assortment_efficiency_avg_inventory})
+description: Composite metric that adjusts the North Region year-over-year change in Sales Amount (from Daily Store Sales)
+  by adding an inventory efficiency factor based on total product review count divided by total average inventory. Use it
+  to evaluate sales growth in North while accounting for demand signals (reviews) relative to inventory levels.
+id: metric_l5_0046
+tags:
+- L5
+title: 'YoY: Sales Amount (Daily Store Sales) — North Region (+Review Count (Product Rating)/Avg Inventory (Assortment Efficiency))'

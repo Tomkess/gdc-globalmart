@@ -1,0 +1,64 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for each aged inventory record in the Aged Inventory dataset, used to uniquely distinguish and filter
+    individual aged inventory entries.
+  id: fact_aged_inventory.aged_id
+  labels: []
+  sourceColumn: aged_id
+  sourceColumnDataType: STRING
+  tags:
+  - Aged Inventory
+  title: Aged ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_aged_inventory
+  path:
+  - globalmart
+  - fact_aged_inventory
+  type: dataSource
+description: Aged Inventory
+facts:
+- description: Number of days an inventory item has been in stock (its age in days) in the Aged Inventory dataset. Typically
+    used to analyze or group inventory by aging buckets and highlight older stock.
+  id: fact_aged_inventory.age_days
+  sourceColumn: age_days
+  sourceColumnDataType: INT
+  tags:
+  - Aged Inventory
+  title: Age Days
+- description: Number of units in the Aged Inventory dataset, used to quantify inventory amounts for reporting and analysis.
+  id: fact_aged_inventory.quantity
+  sourceColumn: quantity
+  sourceColumnDataType: INT
+  tags:
+  - Aged Inventory
+  title: Quantity (Aged Inventory)
+grain:
+- id: fact_aged_inventory.aged_id
+  type: attribute
+id: fact_aged_inventory
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+tags:
+- Aged Inventory
+title: Aged Inventory
+workspaceDataFilterReferences: []

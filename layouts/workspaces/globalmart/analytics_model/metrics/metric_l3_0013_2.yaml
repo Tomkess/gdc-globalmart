@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_gift_card_txn_txn_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts the total number of gift card transactions for the North region only. Use it to track North’s gift card
+  transaction volume and compare it with other time periods or regions in reports and dashboards.
+id: metric_l3_0013_2
+tags:
+- L3
+title: Transaction Count (Gift Card Transaction) — North Region

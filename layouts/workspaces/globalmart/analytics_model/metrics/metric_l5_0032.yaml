@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0016} + ({metric/metric_l1_sql_customer_ltv_snapshot_lifetime_order_count} / {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_revenue})
+description: Combines the year-over-year change in Online Channel Return Amount with an adjustment based on customer lifetime
+  behavior, calculated as Total Lifetime Order Count divided by Total Lifetime Revenue. Use it to evaluate whether online
+  returns are trending up or down versus last year while factoring in how frequently and how much customers spend over their
+  lifetime.
+id: metric_l5_0032
+tags:
+- L5
+title: 'YoY: Return Amount (Returns) — Online Channel (+Lifetime Order Count (Customer Lifetime Value)/Lifetime Revenue (Customer
+  Lifetime Value))'

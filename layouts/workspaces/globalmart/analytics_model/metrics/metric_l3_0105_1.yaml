@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_referral_referral_bonus} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total referral bonus earned from referrals attributed to the Online sales channel. Use this metric to monitor
+  online-channel referral bonus performance over the currently selected filters and time period.
+id: metric_l3_0105_1
+tags:
+- L3
+title: Referral Bonus (Referral) — Online Channel

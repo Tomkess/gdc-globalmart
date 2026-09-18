@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_ebitda} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total EBITDA from the Margin Bridge scoped to the North region. Use this metric to monitor North’s operating
+  profitability in reports or dashboards, and combine it with other filters or breakdowns to compare performance within North.
+id: metric_l3_0081_2
+tags:
+- L3
+title: EBITDA (Margin Bridge) — North Region

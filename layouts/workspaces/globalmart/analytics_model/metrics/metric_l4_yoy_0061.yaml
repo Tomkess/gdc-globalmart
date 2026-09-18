@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0020_1} - (SELECT {metric/metric_l3_0020_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0020_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in average online checkout time (in seconds), comparing the current
+  period with the same period last year. Use it to monitor whether checkout speed for the Online sales channel is improving
+  or worsening over time.
+id: metric_l4_yoy_0061
+tags:
+- L4
+title: 'YoY: Avg Checkout Time (sec) (Checkout Time) — Online Channel'

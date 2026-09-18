@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_headcount_snapshot.active_count})
+description: Shows the total number of active people by summing the Active Count from the Headcount Snapshot data, within
+  the current reporting context (such as the selected time period or applied filters). Use it to track active headcount across
+  organizational or time breakdowns.
+id: metric_l1_fact_headcount_snapshot_active_count
+tags:
+- L1
+title: Total Active Count (Headcount Snapshot)

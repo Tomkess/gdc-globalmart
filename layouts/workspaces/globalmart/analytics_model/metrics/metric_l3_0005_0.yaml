@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_returns_return_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total value of return amounts, limited to returns processed through the In-Store sales channel. Use this metric
+  to analyze in-store returns trends and compare them with other channels when breaking down by time, product, or customer.
+id: metric_l3_0005_0
+tags:
+- L3
+title: Return Amount (Returns) — In-Store Channel

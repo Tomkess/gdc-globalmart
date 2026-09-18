@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each add-to-cart event in the E-commerce Add to Cart dataset, used to distinguish and
+    drill into individual event records.
+  id: fact_ecom_event_02.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Add to Cart
+  title: Event ID (E-commerce Add to Cart)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_02
+  path:
+  - globalmart
+  - fact_ecom_event_02
+  type: dataSource
+description: E-commerce Add to Cart
+facts:
+- description: Number of e-commerce add-to-cart events recorded. Use it to quantify activity volume and aggregate totals by
+    time, product, or other dimensions.
+  id: fact_ecom_event_02.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Add to Cart
+  title: Event Count (E-commerce Add to Cart)
+grain:
+- id: fact_ecom_event_02.event_id
+  type: attribute
+id: fact_ecom_event_02
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Add to Cart
+title: E-commerce Add to Cart
+workspaceDataFilterReferences: []

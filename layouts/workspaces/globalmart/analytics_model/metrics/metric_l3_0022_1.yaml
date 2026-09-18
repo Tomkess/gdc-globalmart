@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_event_event_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts customer events that occurred in the Online sales channel, providing a focused view of online activity
+  volume. Use it to track and compare online event levels over time or across other business segments.
+id: metric_l3_0022_1
+tags:
+- L3
+title: Event Count (Customer Event) — Online Channel

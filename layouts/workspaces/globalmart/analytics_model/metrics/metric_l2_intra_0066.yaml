@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_campaign_spend_daily_spend_count} - {metric/metric_l1_fact_email_send_send_count}
+description: Compares activity volume by calculating the difference between the count of Daily Campaign Spend records and
+  the total Email Send count for the current filters and time period. Use it to see whether spend record volume is higher
+  or lower than email sending volume, and by how much.
+id: metric_l2_intra_0066
+tags:
+- L2
+title: Spend Count (Daily Campaign Spend) vs Send Count (Email Send) Change

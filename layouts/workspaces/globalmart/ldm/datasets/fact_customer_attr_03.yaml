@@ -1,0 +1,58 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Customer Product Affinity dataset, used to reference or deduplicate
+    (the process of identifying and removing duplicate records) individual affinity entries rather than for business analysis
+    grouping.
+  id: fact_customer_attr_03.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Product Affinity
+  title: Record ID (Customer Product Affinity)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_customer_attr_03
+  path:
+  - globalmart
+  - fact_customer_attr_03
+  type: dataSource
+description: Customer Product Affinity
+facts:
+- description: A numeric value associated with the Customer Product Affinity dataset, used to quantify a specific customer-related
+    attribute for reporting and analysis.
+  id: fact_customer_attr_03.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Product Affinity
+  title: Customer Product Affinity
+grain:
+- id: fact_customer_attr_03.attr_id
+  type: attribute
+id: fact_customer_attr_03
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Customer Product Affinity
+title: Customer Product Affinity
+workspaceDataFilterReferences: []

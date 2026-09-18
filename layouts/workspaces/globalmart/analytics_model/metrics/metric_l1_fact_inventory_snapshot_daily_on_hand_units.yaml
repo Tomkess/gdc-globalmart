@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_inventory_snapshot_daily.on_hand_units})
+description: Shows the total inventory units available on a given day by summing the Units on Hand from the Daily Inventory
+  Snapshot dataset across all included items and locations.
+id: metric_l1_fact_inventory_snapshot_daily_on_hand_units
+tags:
+- L1
+title: Total Units on Hand (Daily Inventory Snapshot)

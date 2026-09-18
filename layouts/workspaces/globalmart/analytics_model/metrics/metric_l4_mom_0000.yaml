@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0000_0} - (SELECT {metric/metric_l3_0000_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the number of orders placed through the In-Store sales channel by comparing
+  this month’s order count to the previous month. Use it to track whether in-store order volume is rising or falling over
+  time.
+id: metric_l4_mom_0000
+tags:
+- L4
+title: 'MoM: Order Count — In-Store Channel'

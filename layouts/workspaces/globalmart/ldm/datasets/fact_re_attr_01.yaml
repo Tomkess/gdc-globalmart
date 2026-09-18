@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Lease Efficiency Score dataset, used to distinguish, group, or filter
+    individual lease efficiency score entries.
+  id: fact_re_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Lease Efficiency Score
+  title: Record ID (Lease Efficiency Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_re_attr_01
+  path:
+  - globalmart
+  - fact_re_attr_01
+  type: dataSource
+description: Lease Efficiency Score
+facts:
+- description: Represents the value recorded for a Lease Efficiency Score attribute, used as a numeric input for reporting
+    and calculations within this dataset.
+  id: fact_re_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Lease Efficiency Score
+  title: Lease Efficiency Score
+grain:
+- id: fact_re_attr_01.attr_id
+  type: attribute
+id: fact_re_attr_01
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Lease Efficiency Score
+title: Lease Efficiency Score
+workspaceDataFilterReferences: []

@@ -1,0 +1,12 @@
+content:
+  format: $#,##0.00
+  maql: SELECT SUM({fact/fact_web_order_header.revenue}) / SUM({fact/fact_web_order_header.order_count})
+description: Average revenue generated per online order, calculated as total online order revenue divided by the number of
+  online orders. Use this metric to track typical order size and compare purchasing behavior across time periods or business
+  segments.
+id: avg_order_value_online
+tags:
+- aov
+- orders
+- revenue
+title: Average Order Value (Online Orders)

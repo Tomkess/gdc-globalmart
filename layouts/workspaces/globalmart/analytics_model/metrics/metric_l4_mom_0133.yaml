@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0044_1} - (SELECT {metric/metric_l3_0044_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of Range Review Outcome decisions for the Online sales channel,
+  calculated as the current month’s decision count minus the prior month’s count.
+id: metric_l4_mom_0133
+tags:
+- L4
+title: 'MoM: Decision Count (Range Review Outcome) — Online Channel'

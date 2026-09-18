@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_partner_redemption_partner_discount
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing the total Partner Discount value from Partner Redemption transactions, broken out by Quarter/Year.
+  Use it to track how partner-provided discount amounts change over time on a quarterly basis.
+id: viz_loyalty_0139
+title: Partner Discount by Quarter

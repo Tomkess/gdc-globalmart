@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_monetary_quartile} - {metric/metric_l1_fact_risk_attr_01_metric}
+description: Shows the net difference between customers’ total Monetary Quartile (Recency, Frequency, Monetary (RFM)) score
+  and the total Compliance Adherence Score in the current report context. Use it to compare whether the monetary quartile
+  contribution is higher or lower than compliance adherence for the same filters or segments.
+id: metric_l2_intra_0037
+tags:
+- L2
+title: Monetary Quartile (RFM) (Customer RFM Segments) vs Attribute Value (Compliance Adherence Score) Change

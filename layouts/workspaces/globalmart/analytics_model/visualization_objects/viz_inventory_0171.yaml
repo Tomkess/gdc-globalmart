@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_inventory_health_current_stock
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total current on-hand inventory, using the “Total Current Stock (Inventory Health)” metric
+  and reflecting any selected filters and reporting context.
+id: viz_inventory_0171
+title: Current Stock

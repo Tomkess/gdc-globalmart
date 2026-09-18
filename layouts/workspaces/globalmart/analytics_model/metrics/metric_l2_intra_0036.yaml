@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_frequency_quartile} - {metric/metric_l1_sql_rfm_segments_monetary_quartile}
+description: Shows whether customers’ Recency, Frequency, Monetary (RFM) frequency quartile score is higher or lower than
+  their Recency, Frequency, Monetary (RFM) monetary quartile score by calculating the difference between the two totals for
+  the currently selected customer set. Use it in Recency, Frequency, Monetary (RFM) segmentation (the process of dividing
+  customers or data into groups by shared characteristics) analysis to compare frequency-driven value versus spend-driven
+  value across segments or filters.
+id: metric_l2_intra_0036
+tags:
+- L2
+title: Frequency Quartile (RFM) (Customer RFM Segments) vs Monetary Quartile (RFM) (Customer RFM Segments) Change

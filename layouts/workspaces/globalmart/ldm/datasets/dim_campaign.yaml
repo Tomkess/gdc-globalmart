@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each marketing campaign in the Campaign dataset. Use it to group, filter, or join reporting
+    by a specific campaign.
+  id: dim_campaign.campaign_id
+  labels: []
+  sourceColumn: campaign_id
+  sourceColumnDataType: STRING
+  tags:
+  - Campaign
+  title: Campaign ID (Campaign)
+- description: Name of the marketing campaign in the Campaign dataset. Use it to group, filter, and compare results by individual
+    campaign.
+  id: dim_campaign.campaign_name
+  labels: []
+  sourceColumn: campaign_name
+  sourceColumnDataType: STRING
+  tags:
+  - Campaign
+  title: Campaign Name (Campaign)
+- description: Type or category of the campaign (e.g., used to distinguish different campaign formats). Use this attribute
+    to group, segment, or filter campaign reporting within the Campaign dataset.
+  id: dim_campaign.campaign_type
+  labels: []
+  sourceColumn: campaign_type
+  sourceColumnDataType: STRING
+  tags:
+  - Campaign
+  title: Campaign Type
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_campaign
+  path:
+  - globalmart
+  - dim_campaign
+  type: dataSource
+description: Campaign
+facts: []
+grain:
+- id: dim_campaign.campaign_id
+  type: attribute
+id: dim_campaign
+references:
+- identifier:
+    id: dim_channel_master
+    type: dataset
+  multivalue: false
+  sources:
+  - column: channel_id
+    dataType: STRING
+    target:
+      id: dim_channel_master.channel_id
+      type: attribute
+tags:
+- Campaign
+title: Campaign
+workspaceDataFilterReferences: []

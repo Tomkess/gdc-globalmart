@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_purchase_order_header.po_count})
+description: Tracks the total number of purchase orders by summing the PO Count from the Purchase Order dataset. Use it to
+  monitor overall PO volume and compare it across time periods or other business dimensions.
+id: metric_l1_fact_purchase_order_header_po_count
+tags:
+- L1
+title: Total PO Count (Purchase Order)

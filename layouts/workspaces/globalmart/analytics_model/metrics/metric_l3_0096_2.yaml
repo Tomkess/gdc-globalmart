@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_payroll_transaction_deductions} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total payroll transaction deductions restricted to the North region. Use this metric to track and compare North’s
+  deduction totals within whatever time period and other reporting filters are applied.
+id: metric_l3_0096_2
+tags:
+- L3
+title: Deductions (Payroll Transaction) — North Region

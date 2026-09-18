@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_goods_receipt.variance_qty})
+description: Shows the total quantity variance recorded at goods receipt by summing the Variance Quantity across goods receipt
+  transactions. Use it to track and analyze discrepancies between expected and received quantities.
+id: metric_l1_fact_goods_receipt_variance_qty
+tags:
+- L1
+title: Total Variance Quantity (Goods Receipt)

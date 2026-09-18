@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0004_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total energy consumption cost for the North region. Use it to monitor overall energy-related
+  spending for North within the current reporting context (such as the selected time period and any dashboard filters).
+id: viz_store_ops_0267
+title: Cost (North region)

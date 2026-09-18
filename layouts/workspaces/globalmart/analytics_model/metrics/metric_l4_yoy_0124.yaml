@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0041_1} - (SELECT {metric/metric_l3_0041_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0041_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Online Channel Markdown Amount from Markdown Event data. Use it to track
+  how online markdown value is trending versus the prior year and to compare performance across time or other breakdowns.
+id: metric_l4_yoy_0124
+tags:
+- L4
+title: 'YoY: Markdown Amount (Markdown Event) — Online Channel'

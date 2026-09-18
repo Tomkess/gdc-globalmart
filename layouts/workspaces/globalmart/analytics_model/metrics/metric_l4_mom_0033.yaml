@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0011_0} - (SELECT {metric/metric_l3_0011_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in in-store net revenue by comparing the current month’s net revenue to the
+  prior month on the Month/Year timeline. Use it to monitor whether in-store sales are increasing or declining from one month
+  to the next.
+id: metric_l4_mom_0033
+tags:
+- L4
+title: 'MoM: Net Revenue (Net Sales Summary) — In-Store Channel'

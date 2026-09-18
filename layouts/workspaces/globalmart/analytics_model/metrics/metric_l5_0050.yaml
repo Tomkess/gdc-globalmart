@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0025} + ({metric/metric_l1_total_inventory_value} / {metric/metric_l1_fact_stock_movement_movement_qty})
+description: Composite metric that combines the year-over-year percent change in Online Channel transaction count with an
+  inventory value per unit moved indicator (total inventory value divided by total stock movement quantity). Use it to view
+  online sales activity trends alongside a normalized inventory/movement efficiency signal for the selected time period and
+  filters.
+id: metric_l5_0050
+tags:
+- L5
+title: 'YoY: Transaction Count (Daily Store Sales) — Online Channel (+Inventory Value/Movement Quantity (Stock Movement))'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_fraud_alert_alert_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total number of fraud alerts restricted to the North region. Use this metric to monitor fraud alert volume for
+  North and compare it with other regions or across different reporting periods.
+id: metric_l3_0117_2
+tags:
+- L3
+title: Alert Count (Fraud Alert) — North Region

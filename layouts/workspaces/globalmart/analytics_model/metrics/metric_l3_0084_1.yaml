@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_shrinkage_event_shrinkage_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Tracks the total monetary value of shrinkage recorded in shrinkage events, limited to the Online sales channel.
+  Use it to monitor the financial impact of shrinkage for online activity within the current report context (for example,
+  selected time period or location).
+id: metric_l3_0084_1
+tags:
+- L3
+title: Shrinkage Amount (Shrinkage Event) — Online Channel

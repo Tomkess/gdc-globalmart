@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_feedback_sentiment_score} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Sums customer feedback sentiment scores for the In-Store sales channel only, providing an overall view of in-store
+  customer sentiment based on feedback records. Use it to monitor and compare in-store sentiment over time or across other
+  selected filters.
+id: metric_l3_0029_0
+tags:
+- L3
+title: Sentiment Score (Customer Feedback) — In-Store Channel

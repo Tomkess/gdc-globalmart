@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_planogram_compliance_out_of_stock_days} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Total out-of-stock days from the Planogram (a diagram specifying exact product placement on retail shelves) Compliance
+  data, filtered to the In-Store sales channel. Use this metric to track and compare in-store availability issues over time
+  or across stores, products, and other business dimensions.
+id: metric_l3_0043_0
+tags:
+- L3
+title: Out of Stock Days (Planogram Compliance) — In-Store Channel

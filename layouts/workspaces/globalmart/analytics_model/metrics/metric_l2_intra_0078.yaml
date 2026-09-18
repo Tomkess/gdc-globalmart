@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_budget_plan_budget_amount} - {metric/metric_l1_sql_margin_bridge_gross_revenue}
+description: Shows the variance between the planned budget and actual gross revenue by subtracting Total Gross Revenue (Margin
+  Bridge) from the Total Budget Amount (Budget Plan). Use it to quantify how much the budget is over or under gross revenue
+  for the current filters and breakdowns.
+id: metric_l2_intra_0078
+tags:
+- L2
+title: Budget Amount (Budget Plan) vs Gross Revenue (Margin Bridge) Change

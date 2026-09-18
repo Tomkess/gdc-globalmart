@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_goods_receipt_receipt_qty} - {metric/metric_l1_fact_goods_receipt_variance_qty}
+description: Shows the net received quantity at goods receipt after subtracting recorded receipt variances (Receipt Quantity
+  minus Variance Quantity) for the selected scope. Use it to see how much received volume remains after discrepancies and
+  to compare this adjusted receipt quantity across time periods, suppliers, or products.
+id: metric_l2_intra_0055
+tags:
+- L2
+title: Receipt Quantity (Goods Receipt) vs Variance Quantity (Goods Receipt) Change

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_transaction_count} - {metric/metric_l1_fact_daily_store_sales_avg_transaction_value}
+description: Compares transaction volume to average transaction value by calculating the difference between Total Transaction
+  Count and Total Avg Transaction Value using Daily Store Sales data. Use it to see whether transaction activity is increasing
+  or decreasing relative to changes in average transaction value across the selected stores, regions, or time period.
+id: metric_l2_intra_0008
+tags:
+- L2
+title: Transaction Count (Daily Store Sales) vs Avg Transaction Value (Daily Store Sales) Change

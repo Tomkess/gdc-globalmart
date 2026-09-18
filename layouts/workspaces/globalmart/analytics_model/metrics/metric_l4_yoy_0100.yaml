@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0033_1} - (SELECT {metric/metric_l3_0033_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0033_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Lifetime Revenue (Customer Lifetime Value) for sales attributed
+  to the Online channel, comparing the current year to the previous year. Use it to monitor whether online customer lifetime
+  value is growing or declining over time.
+id: metric_l4_yoy_0100
+tags:
+- L4
+title: 'YoY: Lifetime Revenue (Customer Lifetime Value) — Online Channel'

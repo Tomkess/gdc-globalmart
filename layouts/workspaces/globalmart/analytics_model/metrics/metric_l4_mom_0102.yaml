@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0034_0} - (SELECT {metric/metric_l3_0034_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Average Order Value used for Customer Lifetime Value reporting, limited
+  to the In-Store sales channel. Use it to see whether typical in-store order value is rising or falling compared with the
+  previous month.
+id: metric_l4_mom_0102
+tags:
+- L4
+title: 'MoM: Average Order Value (Customer Lifetime Value) — In-Store Channel'

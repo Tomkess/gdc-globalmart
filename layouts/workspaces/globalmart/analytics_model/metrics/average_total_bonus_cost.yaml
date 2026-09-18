@@ -1,0 +1,11 @@
+content:
+  format: $#,##0.00
+  maql: SELECT AVG({fact/fact_bonus_event.bonus_cost})
+description: Average bonus cost per bonus event, calculated from the Bonus Cost fact and respecting the current report filters
+  and breakdowns.
+id: average_total_bonus_cost
+tags:
+- average
+- bonus
+- cost
+title: Average Total Bonus Cost

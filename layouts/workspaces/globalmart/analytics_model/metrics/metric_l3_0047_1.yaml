@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_avg_inventory} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Average inventory level from the Assortment Efficiency data, filtered to the Online sales channel. Use this metric
+  to monitor and compare the inventory held for online assortments across the current analysis context (such as time period,
+  products, or locations).
+id: metric_l3_0047_1
+tags:
+- L3
+title: Avg Inventory (Assortment Efficiency) — Online Channel

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_performance_daily_margin} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total margin from the Daily Product Performance data for sales made through the Online channel. Use it to monitor
+  profitability of online sales across the selected products, dates, and other report filters.
+id: metric_l3_0040_1
+tags:
+- L3
+title: Margin (Daily Product Performance) — Online Channel

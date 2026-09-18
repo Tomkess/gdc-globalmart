@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0020
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline insight showing the change between average checkout time (in seconds) and revenue attributed to the
+  loyalty program, to help evaluate operational speed alongside loyalty-program ROI for the current analysis scope and filters.
+id: viz_sales_0035
+title: Avg Checkout Time (sec) (Checkout Time) vs Attributed Revenue

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0065_0} - (SELECT {metric/metric_l3_0065_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0065_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Campaign Spend for the In-Store sales channel, comparing the current period
+  to the prior year. Use this metric to understand how in-store campaign investment is trending annually.
+id: metric_l4_yoy_0195
+tags:
+- L4
+title: 'YoY: Campaign Spend — In-Store Channel'

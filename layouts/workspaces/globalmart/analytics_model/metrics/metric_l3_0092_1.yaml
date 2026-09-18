@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_sqft} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Shows revenue generated per square foot for the Online sales channel only, so you can assess space productivity
+  for online operations. Use it to compare operational efficiency across time periods, locations, or other segments while
+  keeping the channel fixed to Online.
+id: metric_l3_0092_1
+tags:
+- L3
+title: Revenue per Sq Ft (Operations Efficiency Summary) — Online Channel

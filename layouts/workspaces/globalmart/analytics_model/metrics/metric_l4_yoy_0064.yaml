@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0021_1} - (SELECT {metric/metric_l3_0021_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0021_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in loyalty program–attributed revenue for the Online sales channel,
+  comparing the current period to the same period last year. Use it to understand whether online loyalty-driven revenue is
+  growing or declining versus last year under the current report filters.
+id: metric_l4_yoy_0064
+tags:
+- L4
+title: 'YoY: Attributed Revenue (Loyalty Program ROI) — Online Channel'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0051_2} - (SELECT {metric/metric_l3_0051_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in stock movement quantity for the North region by subtracting the previous
+  month’s movement quantity from the current month. Use it to monitor whether inventory movement volume in North is trending
+  up or down over time.
+id: metric_l4_mom_0155
+tags:
+- L4
+title: 'MoM: Movement Quantity (Stock Movement) — North Region'

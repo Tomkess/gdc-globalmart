@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0057_2} - (SELECT {metric/metric_l3_0057_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the number of units transferred on transfer orders in the North region
+  by comparing the current month to the prior month. Use it to see whether North transfer volumes are rising or falling over
+  time (positive values indicate an increase, negative values a decrease).
+id: metric_l4_mom_0173
+tags:
+- L4
+title: 'MoM: Transfer Quantity (Transfer Order) — North Region'

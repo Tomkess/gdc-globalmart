@@ -1,0 +1,56 @@
+aggregatedFacts: []
+attributes:
+- description: Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group,
+    filter, or segment measures by currency.
+  id: dim_currency.currency_code
+  labels: []
+  sourceColumn: currency_code
+  sourceColumnDataType: STRING
+  tags:
+  - Currency
+  title: Currency Code
+- description: Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering
+    or grouping analyses.
+  id: dim_currency.currency_id
+  labels: []
+  sourceColumn: currency_id
+  sourceColumnDataType: STRING
+  tags:
+  - Currency
+  title: Currency ID
+- description: Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and
+    reports by currency.
+  id: dim_currency.currency_name
+  labels: []
+  sourceColumn: currency_name
+  sourceColumnDataType: STRING
+  tags:
+  - Currency
+  title: Currency Name
+- description: The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter
+    or break down analyses by the applicable USD conversion rate.
+  id: dim_currency.exchange_rate_to_usd
+  labels: []
+  sourceColumn: exchange_rate_to_usd
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Currency
+  title: Exchange Rate to Usd
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_currency
+  path:
+  - globalmart
+  - dim_currency
+  type: dataSource
+description: Currency
+facts: []
+grain:
+- id: dim_currency.currency_id
+  type: attribute
+id: dim_currency
+references: []
+tags:
+- Currency
+title: Currency
+workspaceDataFilterReferences: []

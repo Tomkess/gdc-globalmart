@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_energy_consumption_cost} - {metric/metric_l1_fact_returns_return_amount}
+description: Calculates the net change between total Energy Consumption cost and the total Return Amount by subtracting returns
+  from energy spending within the current filters and time period. Use it to see whether energy-related costs outweigh returns
+  and to compare that balance across groups or over time.
+id: metric_l2_intra_0004
+tags:
+- L2
+title: Cost (Energy Consumption) vs Return Amount (Returns) Change

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_visit_census_visitor_count} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total Store Visit Census visitor count filtered to the North region. Use it to monitor and compare foot traffic
+  volume for North-only reporting across time or other dimensions.
+id: metric_l3_0088_2
+tags:
+- L3
+title: Visitor Count (Store Visit Census) — North Region

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_gross_margin} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total gross margin from the Margin Bridge dataset, filtered to sales made through the In-Store channel. Use this
+  metric to track and compare in-store profitability across the current time period and any other applied filters.
+id: metric_l3_0080_0
+tags:
+- L3
+title: Gross Margin (Margin Bridge) — In-Store Channel

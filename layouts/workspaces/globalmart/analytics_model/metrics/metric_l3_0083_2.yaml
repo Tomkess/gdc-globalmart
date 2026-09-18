@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_staffing_daily_staff_count} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total staff count from the Daily Store Staffing data, filtered to stores in the North region. Use this metric
+  to monitor overall staffing levels in the North over the selected time period and any other report filters.
+id: metric_l3_0083_2
+tags:
+- L3
+title: Staff Count (Daily Store Staffing) — North Region

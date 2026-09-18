@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0008_1} - (SELECT {metric/metric_l3_0008_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0008_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Online Channel transaction volume by comparing the current period’s
+  transaction count to the same period last year. Use it to track growth or decline in online sales activity over time.
+id: metric_l4_yoy_0025
+tags:
+- L4
+title: 'YoY: Transaction Count (Daily Store Sales) — Online Channel'

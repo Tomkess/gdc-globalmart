@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_staffing_daily_staff_count} - {metric/metric_l1_fact_shrinkage_event_shrinkage_amount}
+description: Shows the net difference between total staff count (from Daily Store Staffing) and total shrinkage amount (from
+  Shrinkage Event) within the selected time period and filters. Use it to monitor how changes in staffing levels compare to
+  shrinkage impact in the same reporting scope.
+id: metric_l2_intra_0083
+tags:
+- L2
+title: Staff Count (Daily Store Staffing) vs Shrinkage Amount (Shrinkage Event) Change

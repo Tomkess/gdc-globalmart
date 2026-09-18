@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_price_adjustment.price_change})
+description: Sums the Price Change amounts from Price Adjustment records to show the total net impact of price adjustments
+  for the current analysis slice (such as by time, product, or customer). Use this metric to quantify how much pricing actions
+  increased or decreased prices in aggregate.
+id: metric_l1_fact_price_adjustment_price_change
+tags:
+- L1
+title: Total Price Change (Price Adjustment)

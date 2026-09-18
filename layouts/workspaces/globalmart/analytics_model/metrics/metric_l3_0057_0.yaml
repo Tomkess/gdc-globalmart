@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_transfer_order_transfer_qty} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total number of units transferred on Transfer Orders, filtered to the In‑Store sales channel. Use this metric
+  to track, compare, or trend in‑store transfer volume across your selected reporting scope (such as time period or location).
+id: metric_l3_0057_0
+tags:
+- L3
+title: Transfer Quantity (Transfer Order) — In-Store Channel

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_write_off_writeoff_cost} - {metric/metric_l1_fact_supplier_scorecard_quality_score}
+description: Compares write-off costs to supplier quality performance by showing the difference between Total Write-Off Cost
+  and Total Quality Score for the current selection. Use it to see whether write-off costs are trending higher or lower relative
+  to supplier quality within the same reporting scope.
+id: metric_l2_intra_0059
+tags:
+- L2
+title: Write-Off Cost (Write Off) vs Quality Score (Supplier Scorecard) Change

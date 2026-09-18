@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0047_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the average inventory for the In-Store channel, based on the Assortment Efficiency metric. Use
+  it to monitor and compare in-store inventory levels across the selected time period, products, or locations.
+id: viz_product_0094
+title: Avg Inventory

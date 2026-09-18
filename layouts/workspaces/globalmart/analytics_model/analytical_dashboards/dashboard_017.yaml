@@ -1,0 +1,218 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_017
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0108
+              type: visualizationObject
+          localIdentifier: widget_017_00
+          title: Lifetime Revenue
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0109
+              type: visualizationObject
+          localIdentifier: widget_017_01
+          title: Average Order Value
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0110
+              type: visualizationObject
+          localIdentifier: widget_017_02
+          title: Recency Quartile (RFM)
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0111
+              type: visualizationObject
+          localIdentifier: widget_017_03
+          title: Frequency Quartile (RFM)
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0112
+              type: visualizationObject
+          localIdentifier: widget_017_04
+          title: Monetary Quartile (RFM)
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0113
+              type: visualizationObject
+          localIdentifier: widget_017_05
+          title: Points Redeemed Over Time
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0114
+              type: visualizationObject
+          localIdentifier: widget_017_06
+          title: Points Redeemed Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0115
+              type: visualizationObject
+          localIdentifier: widget_017_07
+          title: Points Redeemed and Event Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0116
+              type: visualizationObject
+          localIdentifier: widget_017_08
+          title: Event Count by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0117
+              type: visualizationObject
+          localIdentifier: widget_017_09
+          title: Event Count by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0118
+              type: visualizationObject
+          localIdentifier: widget_017_10
+          title: Event Count by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_customer_0119
+              type: visualizationObject
+          localIdentifier: widget_017_11
+          title: Event Value by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard that brings together key customer value and engagement indicators, including lifetime revenue, average
+  order value, RFM quartile scores (recency, frequency, monetary), and trends in loyalty points redeemed and customer events
+  over time. By default it is filtered to the last 12 months, with city and country filters available to narrow the view.
+id: dashboard_017
+title: Customer Feedback & NPS

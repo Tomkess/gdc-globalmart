@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0013} + ({metric/metric_l1_fact_nps_response_nps_score} / {metric/metric_l1_fact_nps_response_response_count})
+description: Measures the month-over-month change in energy consumption cost for the Online channel, adjusted by adding the
+  average NPS score (total NPS score divided by total response count) for the same filter context. Use it to compare how online
+  energy cost trends from one month to the next while factoring in customer sentiment captured through NPS responses.
+id: metric_l5_0027
+tags:
+- L5
+title: 'MoM: Cost (Energy Consumption) — Online Channel (+NPS Score (NPS Response)/Response Count (NPS Response))'

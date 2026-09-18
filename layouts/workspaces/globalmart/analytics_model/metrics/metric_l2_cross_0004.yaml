@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} / {metric/metric_l1_fact_energy_consumption_cost}
+description: Shows how large your Cost of Goods Sold (COGS) is relative to energy consumption spending by dividing total COGS
+  by total energy consumption cost for the current filters and time period. Use it to compare this cost relationship across
+  groups or over time.
+id: metric_l2_cross_0004
+tags:
+- L2
+title: COGS per Cost (Energy Consumption)

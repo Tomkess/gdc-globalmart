@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0030_1} - (SELECT {metric/metric_l3_0030_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of customer feedback items submitted through the Online sales
+  channel, comparing the current month with the previous month. Use it to monitor whether online feedback volume is increasing
+  or decreasing over time.
+id: metric_l4_mom_0091
+tags:
+- L4
+title: 'MoM: Feedback Count (Customer Feedback) — Online Channel'

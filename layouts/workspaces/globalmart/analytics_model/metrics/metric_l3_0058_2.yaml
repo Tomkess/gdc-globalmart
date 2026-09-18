@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_write_off_writeoff_qty} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Measures the total quantity of items written off, filtered to the North region. Use it to track and compare write-off
+  volume for North against other regions or overall totals when analyzing write-off trends.
+id: metric_l3_0058_2
+tags:
+- L3
+title: Write-Off Quantity (Write Off) — North Region

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Points Burn Rate Score dataset. Use it to distinguish or drill into
+    individual burn rate score records.
+  id: fact_loyalty_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Points Burn Rate Score
+  title: Record ID (Points Burn Rate Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_loyalty_attr_01
+  path:
+  - globalmart
+  - fact_loyalty_attr_01
+  type: dataSource
+description: Points Burn Rate Score
+facts:
+- description: Represents the numeric attribute value used in the Points Burn Rate Score dataset, typically used as the underlying
+    measure to calculate or score points burn rate.
+  id: fact_loyalty_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Points Burn Rate Score
+  title: Points Burn Rate Score
+grain:
+- id: fact_loyalty_attr_01.attr_id
+  type: attribute
+id: fact_loyalty_attr_01
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Points Burn Rate Score
+title: Points Burn Rate Score
+workspaceDataFilterReferences: []

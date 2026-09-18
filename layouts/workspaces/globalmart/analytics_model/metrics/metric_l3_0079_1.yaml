@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_gross_revenue} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Tracks total gross revenue from the Margin Bridge for sales in the Online channel type, respecting any current
+  report or dashboard filters. Use it to monitor and compare online gross revenue performance in your analysis.
+id: metric_l3_0079_1
+tags:
+- L3
+title: Gross Revenue (Margin Bridge) — Online Channel

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_opex_transaction_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total operating expense transaction amount limited to the In-Store sales channel. Use this metric to track and
+  compare in-store operating expenses across the current time period and any other report filters.
+id: metric_l3_0012_0
+tags:
+- L3
+title: Amount (Operating Expense Transaction) — In-Store Channel

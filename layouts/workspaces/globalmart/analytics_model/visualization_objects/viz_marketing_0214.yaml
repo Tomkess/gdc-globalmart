@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_email_send_send_count
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline KPI showing the total number of emails sent, based on the “Total Send Count (Email Send)” metric summed
+  from the Email Send data.
+id: viz_marketing_0214
+title: Send Count

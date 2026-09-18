@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each survey recorded in the NPS Response dataset, used to group or filter NPS responses
+    by survey.
+  id: fact_nps_response.survey_id
+  labels: []
+  sourceColumn: survey_id
+  sourceColumnDataType: STRING
+  tags:
+  - NPS Response
+  title: Survey ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_nps_response
+  path:
+  - globalmart
+  - fact_nps_response
+  type: dataSource
+description: NPS Response
+facts:
+- description: Net Promoter Score value recorded for each response in the NPS Response dataset, used to analyze customer loyalty
+    and satisfaction trends when aggregated or segmented.
+  id: fact_nps_response.nps_score
+  sourceColumn: nps_score
+  sourceColumnDataType: INT
+  tags:
+  - NPS Response
+  title: NPS Score
+- description: Counts the number of NPS responses recorded in the NPS Response dataset. Typically used to report total response
+    volume and to support response-based breakouts by attributes such as time or customer segments.
+  id: fact_nps_response.response_count
+  sourceColumn: response_count
+  sourceColumnDataType: INT
+  tags:
+  - NPS Response
+  title: Response Count
+grain:
+- id: fact_nps_response.survey_id
+  type: attribute
+id: fact_nps_response
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: survey_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- NPS Response
+title: NPS Response
+workspaceDataFilterReferences: []

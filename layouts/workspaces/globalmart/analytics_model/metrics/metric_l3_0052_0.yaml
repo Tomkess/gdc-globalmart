@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_header_po_count} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Counts purchase orders for the In-Store sales channel only, using Channel Type to limit results to in-store activity.
+  Use it to track and compare in-store purchase order volume across time periods or other business dimensions.
+id: metric_l3_0052_0
+tags:
+- L3
+title: PO Count (Purchase Order) — In-Store Channel

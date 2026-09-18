@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0011_1} - (SELECT {metric/metric_l3_0011_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in net revenue for the Online sales channel by comparing the current month’s
+  online net revenue to the prior month. Use it to monitor how online revenue is trending and quickly spot increases or declines
+  from one month to the next.
+id: metric_l4_mom_0034
+tags:
+- L4
+title: 'MoM: Net Revenue (Net Sales Summary) — Online Channel'

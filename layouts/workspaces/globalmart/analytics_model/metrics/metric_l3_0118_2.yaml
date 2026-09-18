@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_fraud_alert_alert_value} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Totals the monetary value tied to fraud alerts, restricted to the North region. Use it to monitor the financial
+  impact of fraud alerts in North while still respecting any other filters applied in the analysis.
+id: metric_l3_0118_2
+tags:
+- L3
+title: Alert Value (Fraud Alert) — North Region

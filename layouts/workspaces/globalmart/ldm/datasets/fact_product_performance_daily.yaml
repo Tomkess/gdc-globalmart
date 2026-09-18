@@ -1,0 +1,73 @@
+aggregatedFacts: []
+attributes:
+- description: Calendar day associated with each record in the Daily Product Performance dataset. Use it to filter or group
+    daily product performance metrics by specific day.
+  id: fact_product_performance_daily.day
+  labels: []
+  sourceColumn: day
+  sourceColumnDataType: DATE
+  tags:
+  - Daily Product Performance
+  title: Day (Daily Product Performance)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_product_performance_daily
+  path:
+  - globalmart
+  - fact_product_performance_daily
+  type: dataSource
+description: Daily Product Performance
+facts:
+- description: Margin amount recorded in the Daily Product Performance dataset, used to analyze profitability over time or
+    by product dimensions.
+  id: fact_product_performance_daily.margin
+  sourceColumn: margin
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Product Performance
+  title: Margin (Daily Product Performance)
+- description: Revenue generated in the Daily Product Performance dataset, typically used to analyze sales value by product
+    and over time.
+  id: fact_product_performance_daily.revenue
+  sourceColumn: revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Product Performance
+  title: Revenue (Daily Product Performance)
+- description: Number of product units sold, captured in the Daily Product Performance dataset. Typically used to sum or analyze
+    sales volume over time, by product, or other business dimensions.
+  id: fact_product_performance_daily.units_sold
+  sourceColumn: units_sold
+  sourceColumnDataType: INT
+  tags:
+  - Daily Product Performance
+  title: Units Sold (Daily Product Performance)
+grain:
+- id: fact_product_performance_daily.day
+  type: attribute
+id: fact_product_performance_daily
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: day
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Daily Product Performance
+title: Daily Product Performance
+workspaceDataFilterReferences: []

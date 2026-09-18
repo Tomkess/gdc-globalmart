@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_compliment_complaint_comment_count} - {metric/metric_l1_fact_aged_inventory_age_days}
+description: Shows the net change between total compliment/complaint comment volume and total aged inventory days. Use it
+  as a directional indicator to see whether customer feedback activity is rising or falling relative to overall inventory
+  aging when slicing by dimensions like product or location.
+id: metric_l2_intra_0017
+tags:
+- L2
+title: Comment Count (Compliment Complaint) vs Age Days (Aged Inventory) Change

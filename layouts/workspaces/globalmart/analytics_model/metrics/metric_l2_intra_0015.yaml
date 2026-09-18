@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_price_adjustment_price_change} - {metric/metric_l1_fact_till_reconciliation_variance_amount}
+description: Shows the net difference between total price changes from price adjustments and total till-reconciliation variance
+  for the selected slice. Use it to compare the overall impact of pricing actions against cash over/short discrepancies and
+  see which is larger.
+id: metric_l2_intra_0015
+tags:
+- L2
+title: Price Change (Price Adjustment) vs Variance Amount (Till Reconciliation) Change

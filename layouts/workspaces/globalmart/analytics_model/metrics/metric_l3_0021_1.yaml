@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_loyalty_roi_attributed_revenue} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total revenue attributed to the loyalty program for the Online sales channel. Use this metric to assess loyalty-program
+  ROI for online activity within the current report filters.
+id: metric_l3_0021_1
+tags:
+- L3
+title: Attributed Revenue (Loyalty Program ROI) — Online Channel

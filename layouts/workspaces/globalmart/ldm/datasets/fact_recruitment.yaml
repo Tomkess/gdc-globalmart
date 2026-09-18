@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each job position in the Recruitment (the process of sourcing and hiring new employees)
+    dataset. Use it to filter, group, or drill into hiring and recruitment metrics at the individual position level.
+  id: fact_recruitment.position_id
+  labels: []
+  sourceColumn: position_id
+  sourceColumnDataType: STRING
+  tags:
+  - Recruitment
+  title: Position ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_recruitment
+  path:
+  - globalmart
+  - fact_recruitment
+  type: dataSource
+description: Recruitment
+facts:
+- description: Total cost associated with recruitment (the process of sourcing and hiring new employees) activities, used
+    to track and analyze hiring spend. Sourced from the Recruitment dataset.
+  id: fact_recruitment.recruitment_cost
+  sourceColumn: recruitment_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Recruitment
+  title: Recruitment Cost
+- description: Count of recruitment (the process of sourcing and hiring new employees) records in the Recruitment dataset,
+    used to measure overall recruitment volume and aggregate totals across different dimensions.
+  id: fact_recruitment.recruitment_count
+  sourceColumn: recruitment_count
+  sourceColumnDataType: INT
+  tags:
+  - Recruitment
+  title: Recruitment Count
+grain:
+- id: fact_recruitment.position_id
+  type: attribute
+id: fact_recruitment
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: open_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Recruitment
+title: Recruitment
+workspaceDataFilterReferences: []

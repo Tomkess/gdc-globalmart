@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_renovation_spend_renovation_cost} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total renovation spending for projects in the North region. Use this metric to trend or compare renovation costs
+  for North within the current report context (for example by time period, project, or other applied filters).
+id: metric_l3_0114_2
+tags:
+- L3
+title: Renovation Cost (Renovation Spend) — North Region

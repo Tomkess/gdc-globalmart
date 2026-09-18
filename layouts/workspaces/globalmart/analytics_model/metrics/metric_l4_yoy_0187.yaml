@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0062_1} - (SELECT {metric/metric_l3_0062_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0062_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the Supplier Scorecard Cost Score for the Online sales channel, comparing the
+  current period to the same period in the prior year. Use it to track whether online cost performance is improving or deteriorating
+  over time or across scorecard dimensions.
+id: metric_l4_yoy_0187
+tags:
+- L4
+title: 'YoY: Cost Score (Supplier Scorecard) — Online Channel'

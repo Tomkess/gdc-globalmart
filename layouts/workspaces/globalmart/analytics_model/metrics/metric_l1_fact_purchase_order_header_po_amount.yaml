@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_purchase_order_header.po_amount})
+description: Sums the PO Amount to show the total value of purchase orders. Use it to track and compare overall purchasing
+  spend across time, suppliers, or other reporting dimensions.
+id: metric_l1_fact_purchase_order_header_po_amount
+tags:
+- L1
+title: Total PO Amount (Purchase Order)

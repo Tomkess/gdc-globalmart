@@ -1,0 +1,66 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each range review outcome record. Use it to look up, filter, or group outcomes within
+    the Range Review Outcome dataset.
+  id: fact_range_review_outcome.outcome_id
+  labels: []
+  sourceColumn: outcome_id
+  sourceColumnDataType: STRING
+  tags:
+  - Range Review Outcome
+  title: Outcome ID
+- description: Unique identifier for each review in the Range Review Outcome dataset, used to group or filter outcomes by
+    individual review.
+  id: fact_range_review_outcome.review_id
+  labels: []
+  sourceColumn: review_id
+  sourceColumnDataType: STRING
+  tags:
+  - Range Review Outcome
+  title: Review ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_range_review_outcome
+  path:
+  - globalmart
+  - fact_range_review_outcome
+  type: dataSource
+description: Range Review Outcome
+facts:
+- description: Number of decisions recorded for each Range Review Outcome record. Typically used to sum up decisions across
+    products, periods, or other dimensions in range review reporting.
+  id: fact_range_review_outcome.decision_count
+  sourceColumn: decision_count
+  sourceColumnDataType: INT
+  tags:
+  - Range Review Outcome
+  title: Decision Count
+grain:
+- id: fact_range_review_outcome.review_id
+  type: attribute
+id: fact_range_review_outcome
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: review_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Range Review Outcome
+title: Range Review Outcome
+workspaceDataFilterReferences: []

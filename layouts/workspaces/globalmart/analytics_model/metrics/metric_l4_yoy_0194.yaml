@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0064_2} - (SELECT {metric/metric_l3_0064_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0064_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Days of Cover for inventory in the North region, comparing the
+  current period to the same measure in the previous year. Use it to track whether inventory coverage (days of stock on hand)
+  is improving or worsening over time in North.
+id: metric_l4_yoy_0194
+tags:
+- L4
+title: 'YoY: Days of Cover (Inventory Health) — North Region'

@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0018} + ({metric/metric_l1_sql_rfm_segments_frequency_quartile} / {metric/metric_l1_sql_rfm_segments_monetary_quartile})
+description: Combines the year-over-year change in in-store return quantity with an adjustment based on customers’ Recency,
+  Frequency, Monetary (RFM) segmentation, using the ratio of total Frequency Quartile to total Monetary Quartile. Use it to
+  compare how in-store returns are trending year over year while factoring in differences in customer purchase frequency versus
+  spending level.
+id: metric_l5_0036
+tags:
+- L5
+title: 'YoY: Quantity Returned (Returns) — In-Store Channel (+Frequency Quartile (RFM) (Customer RFM Segments)/Monetary Quartile
+  (RFM) (Customer RFM Segments))'

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0066_0} - (SELECT {metric/metric_l3_0066_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0066_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the number of daily campaign spend records for the In-Store
+  channel, comparing the current period against the same metric in the prior year. Use it to see whether In-Store spend activity
+  volume is trending up or down versus last year.
+id: metric_l4_yoy_0198
+tags:
+- L4
+title: 'YoY: Spend Count (Daily Campaign Spend) — In-Store Channel'

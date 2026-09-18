@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0006_2} - (SELECT {metric/metric_l3_0006_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in units returned in the North region, calculated as this month’s total quantity
+  returned minus the previous month’s total. Use it to monitor whether return volume in North is rising or falling over time.
+id: metric_l4_mom_0020
+tags:
+- L4
+title: 'MoM: Quantity Returned (Returns) — North Region'

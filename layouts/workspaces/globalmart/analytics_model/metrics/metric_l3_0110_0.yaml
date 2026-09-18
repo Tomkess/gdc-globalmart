@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_expiry_points_expired} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Tracks the total number of loyalty points that expired for the In-Store sales channel. Use it to monitor the
+  volume of expired points in physical locations within the current reporting context (such as the selected time period or
+  customer segment).
+id: metric_l3_0110_0
+tags:
+- L3
+title: Points Expired (Loyalty Expiry) — In-Store Channel

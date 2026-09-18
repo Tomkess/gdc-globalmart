@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0044_0} - (SELECT {metric/metric_l3_0044_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of Range Review Outcome decisions for the In-Store sales channel
+  by comparing the current month’s decision count to the previous month. Use it to monitor whether in-store decision volume
+  is trending up or down over time.
+id: metric_l4_mom_0132
+tags:
+- L4
+title: 'MoM: Decision Count (Range Review Outcome) — In-Store Channel'

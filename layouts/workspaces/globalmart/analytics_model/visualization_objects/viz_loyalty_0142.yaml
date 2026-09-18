@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0021_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Shows loyalty-program attributed revenue for the In-Store channel, broken out by quarter/year to track performance
+  trends over time. Use it to monitor quarterly changes in revenue credited to the loyalty program for in-store purchases.
+id: viz_loyalty_0142
+title: Attributed Revenue by Quarter

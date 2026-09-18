@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_daily_pnl.revenue})
+description: Totals the Revenue from the Daily Profit & Loss dataset to show net revenue for the current reporting scope,
+  such as the selected time period and any applied filters.
+id: metric_l1_total_net_revenue
+tags:
+- L1
+title: Total Net Revenue

@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each line item on an online order in the Online Order Line Items dataset. Use it to look
+    up, group, or filter analyses at the individual order-line level.
+  id: fact_web_order_line.order_line_id
+  labels: []
+  sourceColumn: order_line_id
+  sourceColumnDataType: STRING
+  tags:
+  - Online Order Line Items
+  title: Order Line ID (Online Order Line Items)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_web_order_line
+  path:
+  - globalmart
+  - fact_web_order_line
+  type: dataSource
+description: Online Order Line Items
+facts:
+- description: Number of units for each online order line item in the Online Order Line Items dataset, typically used to sum
+    volumes across products, orders, or time.
+  id: fact_web_order_line.quantity
+  sourceColumn: quantity
+  sourceColumnDataType: INT
+  tags:
+  - Online Order Line Items
+  title: Quantity (Online Order Line Items)
+- description: Revenue amount generated from online order line items, used to analyze sales performance across products, customers,
+    and time.
+  id: fact_web_order_line.revenue
+  sourceColumn: revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Online Order Line Items
+  title: Revenue (Online Order Line Items)
+grain:
+- id: fact_web_order_line.order_line_id
+  type: attribute
+id: fact_web_order_line
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: fact_web_order_header
+    type: dataset
+  multivalue: false
+  sources:
+  - column: order_id
+    dataType: STRING
+    target:
+      id: fact_web_order_header.order_id
+      type: attribute
+tags:
+- Online Order Line Items
+title: Online Order Line Items
+workspaceDataFilterReferences: []

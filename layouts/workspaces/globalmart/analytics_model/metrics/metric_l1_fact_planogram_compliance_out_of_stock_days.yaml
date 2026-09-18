@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_planogram_compliance.out_of_stock_days})
+description: Shows the total number of days items were out of stock based on the Planogram (a diagram specifying exact product
+  placement on retail shelves) Compliance data. Use it to quantify stock-out impact and compare availability issues over time
+  or across stores, products, and other business dimensions.
+id: metric_l1_fact_planogram_compliance_out_of_stock_days
+tags:
+- L1
+title: Total Out of Stock Days (Planogram Compliance)

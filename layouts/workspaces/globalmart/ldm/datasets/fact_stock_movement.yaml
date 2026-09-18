@@ -1,0 +1,67 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each stock movement record in the Stock Movement dataset. Use it to look up, filter,
+    or drill into a specific movement transaction.
+  id: fact_stock_movement.movement_id
+  labels: []
+  sourceColumn: movement_id
+  sourceColumnDataType: STRING
+  tags:
+  - Stock Movement
+  title: Movement ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_stock_movement
+  path:
+  - globalmart
+  - fact_stock_movement
+  type: dataSource
+description: Stock Movement
+facts:
+- description: Quantity of stock moved in each stock movement record, used to measure how many units were transferred in or
+    out.
+  id: fact_stock_movement.movement_qty
+  sourceColumn: movement_qty
+  sourceColumnDataType: INT
+  tags:
+  - Stock Movement
+  title: Movement Quantity
+grain:
+- id: fact_stock_movement.movement_id
+  type: attribute
+id: fact_stock_movement
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_warehouse
+    type: dataset
+  multivalue: false
+  sources:
+  - column: warehouse_id
+    dataType: STRING
+    target:
+      id: dim_warehouse.warehouse_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: movement_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Stock Movement
+title: Stock Movement
+workspaceDataFilterReferences: []

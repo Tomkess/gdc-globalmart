@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_goods_receipt_variance_qty} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total quantity variance recorded at goods receipt for the North region, highlighting how received quantities
+  differ from expected quantities. Use this metric to monitor and analyze goods-receipt discrepancies specifically within
+  North.
+id: metric_l3_0056_2
+tags:
+- L3
+title: Variance Quantity (Goods Receipt) — North Region

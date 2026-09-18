@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0016} + ({metric/metric_l1_sql_customer_ltv_snapshot_lifetime_revenue} / {metric/metric_l1_sql_customer_ltv_snapshot_avg_order_value})
+description: Combines the month-over-month change in online return amount with a customer value factor calculated as total
+  lifetime revenue divided by total average order value. Use it to relate changes in online returns to overall customer lifetime
+  value context within the same reporting scope.
+id: metric_l5_0033
+tags:
+- L5
+title: 'MoM: Return Amount (Returns) — Online Channel (+Lifetime Revenue (Customer Lifetime Value)/Average Order Value (Customer
+  Lifetime Value))'

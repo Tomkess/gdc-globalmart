@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_gift_card_txn_txn_count} - {metric/metric_l1_fact_loyalty_points_redeemed_points_redeemed}
+description: Shows the net difference between total gift card transaction count and total loyalty points redeemed for the
+  selected slices and time period. Use it to see whether gift card activity is outpacing or lagging loyalty redemption activity
+  in the same view.
+id: metric_l2_intra_0013
+tags:
+- L2
+title: Transaction Count (Gift Card Transaction) vs Points Redeemed (Loyalty Points Redeemed) Change

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_cost_score} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total supplier scorecard cost performance score filtered to the North region. Use it to compare overall cost
+  scoring in North across suppliers, time periods, or other scorecard dimensions.
+id: metric_l3_0062_2
+tags:
+- L3
+title: Cost Score (Supplier Scorecard) — North Region

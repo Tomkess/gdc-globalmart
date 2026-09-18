@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0029} + ({metric/metric_l1_fact_write_off_writeoff_qty} / {metric/metric_l1_fact_write_off_writeoff_cost})
+description: Combines the year-over-year change in Avg Transaction Value for Daily Store Sales in the North region with a
+  write-off efficiency component based on Total Write-Off Quantity divided by Total Write-Off Cost. Use it to monitor how
+  transaction value performance versus last year shifts when viewed alongside the relationship between write-off volumes and
+  write-off cost.
+id: metric_l5_0058
+tags:
+- L5
+title: 'YoY: Avg Transaction Value (Daily Store Sales) — North Region (+Write-Off Quantity (Write Off)/Write-Off Cost (Write
+  Off))'

@@ -1,0 +1,218 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_019
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0336
+              type: visualizationObject
+          localIdentifier: widget_019_00
+          title: Alert Value
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0337
+              type: visualizationObject
+          localIdentifier: widget_019_01
+          title: Alert Value
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0338
+              type: visualizationObject
+          localIdentifier: widget_019_02
+          title: Alert Value
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0339
+              type: visualizationObject
+          localIdentifier: widget_019_03
+          title: Chargeback Count
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0340
+              type: visualizationObject
+          localIdentifier: widget_019_04
+          title: Chargeback Count Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0341
+              type: visualizationObject
+          localIdentifier: widget_019_05
+          title: Chargeback Count Over Time
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0342
+              type: visualizationObject
+          localIdentifier: widget_019_06
+          title: Chargeback Amount Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0343
+              type: visualizationObject
+          localIdentifier: widget_019_07
+          title: Chargeback Amount and Chargeback Amount by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0344
+              type: visualizationObject
+          localIdentifier: widget_019_08
+          title: Chargeback Amount by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0345
+              type: visualizationObject
+          localIdentifier: widget_019_09
+          title: Finding Count by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0346
+              type: visualizationObject
+          localIdentifier: widget_019_10
+          title: Finding Count by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_risk_0347
+              type: visualizationObject
+          localIdentifier: widget_019_11
+          title: Finding Count by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for monitoring audit findings and fraud/chargeback risk over time, combining headline KPIs (alert value,
+  chargeback count) with monthly/quarterly/yearly trends and comparisons by channel and region. By default it is filtered
+  to the last 12 months, with additional dashboard filters available for store region and sales channel.
+id: dashboard_019
+title: Audit Findings & Risk

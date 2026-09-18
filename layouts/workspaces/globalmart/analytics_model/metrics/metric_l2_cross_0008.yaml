@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} / {metric/metric_l1_fact_daily_store_sales_transaction_count}
+description: Average marketing campaign spend per store sales transaction, calculated as total campaign spend divided by total
+  transaction count from Daily Store Sales. Use it to monitor spend efficiency over time or compare efficiency across segments.
+id: metric_l2_cross_0008
+tags:
+- L2
+title: Campaign Spend per Transaction Count (Daily Store Sales)

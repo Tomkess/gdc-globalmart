@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_till_reconciliation_variance_amount} - {metric/metric_l1_fact_compliment_complaint_comment_count}
+description: Shows the net difference between the total till reconciliation variance amount (cash over/short) and the total
+  number of compliment/complaint comments for the current selection. Use it to see whether reconciliation discrepancies are
+  rising or falling relative to customer feedback volume when analyzing by time, store, or other dimensions.
+id: metric_l2_intra_0016
+tags:
+- L2
+title: Variance Amount (Till Reconciliation) vs Comment Count (Compliment Complaint) Change

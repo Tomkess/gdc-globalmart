@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} / {metric/metric_l1_fact_returns_quantity_returned}
+description: Shows the average net revenue per unit returned by dividing Total Net Revenue by Total Quantity Returned. Use
+  it to assess the revenue impact of returns and compare this ratio across time periods or business segments.
+id: metric_l2_cross_0006
+tags:
+- L2
+title: Net Revenue per Quantity Returned (Returns)

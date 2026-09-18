@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0018} + ({metric/metric_l1_sql_rfm_segments_monetary_quartile} / {metric/metric_l1_fact_risk_attr_01_metric})
+description: Measures the month-over-month change in in-store returned quantity, adjusted by customer monetary quartile totals
+  and overall Compliance Adherence Score. It’s intended to track how returns are trending month to month while factoring in
+  customer value segmentation and compliance performance within the selected reporting scope. Segmentation is the process
+  of dividing customers or data into groups by shared characteristics.
+id: metric_l5_0037
+tags:
+- L5
+title: 'MoM: Quantity Returned (Returns) — In-Store Channel (+Monetary Quartile (RFM) (Customer RFM Segments)/Attribute Value
+  (Compliance Adherence Score))'

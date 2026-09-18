@@ -1,0 +1,31 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0075_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.year
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing the total approved budget for capital expenditure projects in the In-Store sales channel,
+  broken out by year. Use it to track year-over-year changes in approved in-store CapEx funding within the current reporting
+  scope.
+id: viz_finance_0239
+title: Approved Budget by Year

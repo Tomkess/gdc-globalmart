@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_training_completion_training_cost} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Shows the total Training Cost from Training Completion records, filtered to the Online sales channel. Use it
+  to monitor online-only training spend within the current reporting context (such as time period, course, or other applied
+  filters).
+id: metric_l3_0098_1
+tags:
+- L3
+title: Training Cost (Training Completion) — Online Channel

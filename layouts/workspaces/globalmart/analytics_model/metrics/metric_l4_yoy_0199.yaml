@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0066_1} - (SELECT {metric/metric_l3_0066_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0066_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the count of daily campaign spend records for the Online channel. Use it to
+  see how the volume of Online spend entries is trending versus the same period in the prior year.
+id: metric_l4_yoy_0199
+tags:
+- L4
+title: 'YoY: Spend Count (Daily Campaign Spend) — Online Channel'

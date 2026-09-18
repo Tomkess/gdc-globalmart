@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_campaign_roi_total_spend} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total campaign spend limited to the Online sales channel. Use it to track and compare online campaign spending
+  across time periods, campaigns, or other Campaign ROI breakdowns.
+id: metric_l3_0072_1
+tags:
+- L3
+title: Spend (Campaign ROI) — Online Channel

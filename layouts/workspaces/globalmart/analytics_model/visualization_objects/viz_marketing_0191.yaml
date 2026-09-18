@@ -1,0 +1,31 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0066_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.year
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing the yearly count of Daily Campaign Spend records for the In-Store sales channel, based on
+  the Spend Count (Daily Campaign Spend) — In-Store Channel metric. Use it to monitor how the volume of In-Store spend activity
+  changes year over year.
+id: viz_marketing_0191
+title: Spend Count by Year

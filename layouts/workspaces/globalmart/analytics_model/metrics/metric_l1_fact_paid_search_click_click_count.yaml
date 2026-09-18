@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_paid_search_click.click_count})
+description: Tracks total paid search click volume by summing the Click Count from the Paid Search Click dataset. Use it to
+  monitor overall click trends and performance in paid search reporting.
+id: metric_l1_fact_paid_search_click_click_count
+tags:
+- L1
+title: Total Click Count (Paid Search Click)

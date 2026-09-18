@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_tier_change.change_count})
+description: Tracks the total number of tier change events by summing the Change Count from the Tier Change dataset. Use it
+  to monitor overall tier change volume for the selected time period or business segment.
+id: metric_l1_fact_tier_change_change_count
+tags:
+- L1
+title: Total Change Count (Tier Change)

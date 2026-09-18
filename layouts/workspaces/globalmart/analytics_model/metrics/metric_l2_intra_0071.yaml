@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_paid_search_click_click_cost} - {metric/metric_l1_sql_campaign_roi_total_spend}
+description: Shows the net difference between total paid search click costs and total campaign spend for the current analysis
+  scope (such as selected campaigns or time periods). Use it to identify whether click-level costs are running above or below
+  overall budget/spend and by how much.
+id: metric_l2_intra_0071
+tags:
+- L2
+title: Click Cost (Paid Search Click) vs Spend (Campaign ROI) Change

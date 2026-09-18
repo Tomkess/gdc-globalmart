@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount} - {metric/metric_l1_fact_purchase_order_line_quantity}
+description: Compares loyalty discount value redeemed at the point of sale against overall purchasing volume by calculating
+  the difference between total loyalty redemption discount amount and total purchase order line item quantity. Use it to understand
+  how loyalty discount impact shifts relative to ordered units within the same selected filters (for example, time period
+  or business segment).
+id: metric_l2_intra_0002
+tags:
+- L2
+title: Discount Amount (Loyalty Redemption at POS) vs Quantity (Purchase Order Line Items) Change

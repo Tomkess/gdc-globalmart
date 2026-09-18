@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0000_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the number of orders placed through the In-Store sales channel. Use it to monitor in-store order
+  volume and compare performance over time or against other channels.
+id: viz_ecommerce_0049
+title: Order Count — In-Store Channel

@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_fraud_alert_alert_count
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing the total number of fraud alerts by quarter/year, using Total Alert Count (Fraud Alert)
+  grouped by the Quarter/Year date label. Use it to spot quarterly trends and changes in alert volume over time.
+id: viz_risk_0325
+title: Alert Count by Quarter

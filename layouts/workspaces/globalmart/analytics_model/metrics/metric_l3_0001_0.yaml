@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Net revenue filtered to the In-Store sales channel, built on the Total Net Revenue metric. Use it to report and
+  compare brick-and-mortar revenue performance within the current reporting scope (such as the selected time period and any
+  other applied filters).
+id: metric_l3_0001_0
+tags:
+- L3
+title: Net Revenue — In-Store Channel

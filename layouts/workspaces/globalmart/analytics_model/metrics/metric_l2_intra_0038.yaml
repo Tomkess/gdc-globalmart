@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_risk_attr_01_metric} - {metric/metric_l1_sql_assortment_efficiency_units_sold}
+description: Net change between the total Compliance Adherence Score (Attribute Value) and total Units Sold from Assortment
+  Efficiency for the current selection of data. Use it to compare whether compliance adherence totals are moving up or down
+  relative to unit sales volume under the same filters or segments.
+id: metric_l2_intra_0038
+tags:
+- L2
+title: Attribute Value (Compliance Adherence Score) vs Units Sold (Assortment Efficiency) Change

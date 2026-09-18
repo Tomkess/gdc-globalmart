@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0024} + ({metric/metric_l1_sql_assortment_efficiency_sell_through_rate} / {metric/metric_l1_fact_inventory_snapshot_daily_on_hand_units})
+description: Composite metric that combines the year-over-year change in in-store transaction count with a normalized sell-through
+  component, calculated as total sell-through rate divided by total units on hand. Use it to view in-store transaction growth
+  versus last year alongside inventory-backed assortment efficiency in a single value.
+id: metric_l5_0048
+tags:
+- L5
+title: 'YoY: Transaction Count (Daily Store Sales) — In-Store Channel (+Sell-Through Rate (Assortment Efficiency)/Units on
+  Hand (Daily Inventory Snapshot))'

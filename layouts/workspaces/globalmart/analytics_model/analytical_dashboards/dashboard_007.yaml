@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_007
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0168
+              type: visualizationObject
+          localIdentifier: widget_007_00
+          title: Quality Score
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0169
+              type: visualizationObject
+          localIdentifier: widget_007_01
+          title: Delivery Score
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0170
+              type: visualizationObject
+          localIdentifier: widget_007_02
+          title: Cost Score
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0171
+              type: visualizationObject
+          localIdentifier: widget_007_03
+          title: Current Stock
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0172
+              type: visualizationObject
+          localIdentifier: widget_007_04
+          title: Days of Cover
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0173
+              type: visualizationObject
+          localIdentifier: widget_007_05
+          title: Quantity
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0174
+              type: visualizationObject
+          localIdentifier: widget_007_06
+          title: Quantity
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0175
+              type: visualizationObject
+          localIdentifier: widget_007_07
+          title: Quantity
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0176
+              type: visualizationObject
+          localIdentifier: widget_007_08
+          title: Units on Hand by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0177
+              type: visualizationObject
+          localIdentifier: widget_007_09
+          title: Units on Hand by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0178
+              type: visualizationObject
+          localIdentifier: widget_007_10
+          title: Units on Hand by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0179
+              type: visualizationObject
+          localIdentifier: widget_007_11
+          title: Inventory Value — In-Store Channel by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard that monitors supply chain performance and purchase order activity, combining supplier scorecard KPIs
+  (quality, delivery, cost) with inventory health and stock/value trends over time. It highlights purchasing quantities by
+  channel (in-store, online, and North region) and inventory units/value on hand by month, quarter, and year. By default it
+  focuses on the last 12 months, with additional predefined attribute filters applied.
+id: dashboard_007
+title: Supply Chain & Purchase Orders

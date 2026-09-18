@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0017} + ({metric/metric_l1_sql_rfm_segments_recency_quartile} / {metric/metric_l1_sql_rfm_segments_frequency_quartile})
+description: Measures the month-over-month change in Return Amount for the North region, adjusted by the ratio of total Recency,
+  Frequency, Monetary (RFM) recency quartile to total RFM frequency quartile for the selected customers/segments. Use it to
+  track whether North-region return amounts are rising or falling over time while factoring in how recent and frequent the
+  customer base is.
+id: metric_l5_0035
+tags:
+- L5
+title: 'MoM: Return Amount (Returns) — North Region (+Recency Quartile (RFM) (Customer RFM Segments)/Frequency Quartile (RFM)
+  (Customer RFM Segments))'

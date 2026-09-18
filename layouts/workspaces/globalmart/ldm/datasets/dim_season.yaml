@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each season in the Season dataset, used to group, join, or filter analyses by season
+    record.
+  id: dim_season.season_id
+  labels: []
+  sourceColumn: season_id
+  sourceColumnDataType: STRING
+  tags:
+  - Season
+  title: Season ID
+- description: Represents the name of the season (e.g., Spring, Summer) from the Season dataset. Use it to group, segment,
+    or filter analyses by season.
+  id: dim_season.season_name
+  labels: []
+  sourceColumn: season_name
+  sourceColumnDataType: STRING
+  tags:
+  - Season
+  title: Season Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_season
+  path:
+  - globalmart
+  - dim_season
+  type: dataSource
+description: Season
+facts: []
+grain:
+- id: dim_season.season_id
+  type: attribute
+id: dim_season
+references: []
+tags:
+- Season
+title: Season
+workspaceDataFilterReferences: []

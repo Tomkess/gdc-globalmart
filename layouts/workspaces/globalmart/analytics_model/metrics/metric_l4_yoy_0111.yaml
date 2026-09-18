@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0037_0} - (SELECT {metric/metric_l3_0037_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0037_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in the total Monetary Quartile (Recency, Frequency, Monetary
+  (RFM)) score for customers in the In-Store sales channel. Use it to see how the overall in-store customer monetary segment
+  strength is trending versus the prior year under the same report filters and breakdowns.
+id: metric_l4_yoy_0111
+tags:
+- L4
+title: 'YoY: Monetary Quartile (RFM) (Customer RFM Segments) — In-Store Channel'

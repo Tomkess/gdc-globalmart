@@ -1,0 +1,62 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for a product in the Assortment Efficiency dataset. Use it to group, filter, or drill into
+    metrics at the individual product level.
+  id: sql_assortment_efficiency.product_id
+  labels: []
+  sourceColumn: product_id
+  sourceColumnDataType: STRING
+  tags:
+  - Assortment Efficiency
+  title: Product ID (Assortment Efficiency)
+description: Assortment Efficiency
+facts:
+- description: Average inventory level recorded in the Assortment Efficiency dataset, used to analyze typical stock levels
+    across products, locations, or time periods.
+  id: sql_assortment_efficiency.avg_inventory
+  sourceColumn: avg_inventory
+  sourceColumnDataType: INT
+  tags:
+  - Assortment Efficiency
+  title: Avg Inventory
+- description: Sell-Through Rate is a measure in the Assortment Efficiency dataset that indicates how much of available inventory
+    has been sold over a given period, helping assess product assortment performance.
+  id: sql_assortment_efficiency.sell_through_rate
+  sourceColumn: sell_through_rate
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Assortment Efficiency
+  title: Sell-Through Rate
+- description: Number of units sold captured in the Assortment Efficiency dataset, typically used to quantify sales volume
+    across products, stores, or time periods.
+  id: sql_assortment_efficiency.units_sold
+  sourceColumn: units_sold
+  sourceColumnDataType: INT
+  tags:
+  - Assortment Efficiency
+  title: Units Sold (Assortment Efficiency)
+grain:
+- id: sql_assortment_efficiency.product_id
+  type: attribute
+id: sql_assortment_efficiency
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    p.product_id,\n    p.category_id,\n    SUM(ol.quantity) AS units_sold,\n    SUM(inv.on_hand_units)\
+    \ AS avg_inventory,\n    SUM(ol.quantity) / NULLIF(SUM(inv.on_hand_units), 0) AS sell_through_rate\nFROM {{ datasource_schema\
+    \ }}.dim_product p\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON p.product_id = ol.product_id\nLEFT JOIN {{\
+    \ datasource_schema }}.fact_inventory_snapshot_daily inv ON p.product_id = inv.product_id\nGROUP BY 1, 2\n"
+tags:
+- Assortment Efficiency
+title: Assortment Efficiency
+workspaceDataFilterReferences: []

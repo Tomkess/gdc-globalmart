@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_write_off_writeoff_cost} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total write-off cost restricted to the North region. Use this metric to monitor the amount written off in North
+  under the current report filters and selected time period.
+id: metric_l3_0059_2
+tags:
+- L3
+title: Write-Off Cost (Write Off) — North Region

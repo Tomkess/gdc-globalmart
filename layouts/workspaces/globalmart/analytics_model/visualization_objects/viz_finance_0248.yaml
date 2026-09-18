@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0078_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the planned Budget Amount for the In-Store sales channel, based on the Budget Plan data. Use
+  it to monitor or compare in-store budget allocations within the current dashboard or report filters.
+id: viz_finance_0248
+title: Budget Amount

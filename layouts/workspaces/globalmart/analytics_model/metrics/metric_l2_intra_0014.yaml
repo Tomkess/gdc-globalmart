@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_redeemed_points_redeemed} - {metric/metric_l1_fact_price_adjustment_price_change}
+description: Shows the net difference between loyalty points redeemed and the total impact of price adjustments for the selected
+  slice (for example by time, product, or customer). Use it to compare redemption volume against pricing adjustment impact
+  and understand which effect is larger.
+id: metric_l2_intra_0014
+tags:
+- L2
+title: Points Redeemed (Loyalty Points Redeemed) vs Price Change (Price Adjustment) Change

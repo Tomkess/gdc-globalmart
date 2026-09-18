@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Product Sales Velocity dataset. Use it to reference or drill into
+    individual rows rather than for business grouping or analysis.
+  id: fact_product_attr_00.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product Sales Velocity
+  title: Record ID (Product Sales Velocity)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_product_attr_00
+  path:
+  - globalmart
+  - fact_product_attr_00
+  type: dataSource
+description: Product Sales Velocity
+facts:
+- description: A numeric value captured in the Product Sales Velocity dataset, representing the recorded attribute value for
+    each relevant record. Typically used as a measurable field in analyses alongside other product sales velocity metrics.
+  id: fact_product_attr_00.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Product Sales Velocity
+  title: Product Sales Velocity
+grain:
+- id: fact_product_attr_00.attr_id
+  type: attribute
+id: fact_product_attr_00
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Product Sales Velocity
+title: Product Sales Velocity
+workspaceDataFilterReferences: []

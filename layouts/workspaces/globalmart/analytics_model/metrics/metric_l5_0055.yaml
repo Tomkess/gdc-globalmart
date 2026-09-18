@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0027} + ({metric/metric_l1_fact_goods_receipt_receipt_qty} / {metric/metric_l1_fact_goods_receipt_variance_qty})
+description: Measures the month-over-month change in average in-store transaction value, then adjusts it by adding the ratio
+  of total goods receipt quantity to total goods receipt variance quantity for the selected scope. Use it to track how in-store
+  basket value is changing month to month while factoring in inbound receiving volumes versus receipt variances.
+id: metric_l5_0055
+tags:
+- L5
+title: 'MoM: Avg Transaction Value (Daily Store Sales) — In-Store Channel (+Receipt Quantity (Goods Receipt)/Variance Quantity
+  (Goods Receipt))'

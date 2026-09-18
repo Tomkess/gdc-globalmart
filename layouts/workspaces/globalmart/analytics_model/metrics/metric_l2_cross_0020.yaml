@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} / {metric/metric_l1_fact_checkout_time_avg_checkout_sec}
+description: Measures order throughput relative to checkout speed by dividing Total Order Count by the total average checkout
+  time (in seconds). Use it to compare how efficiently orders are placed across time periods or customer segments under the
+  current filters.
+id: metric_l2_cross_0020
+tags:
+- L2
+title: Order Count per Avg Checkout Time (sec) (Checkout Time)

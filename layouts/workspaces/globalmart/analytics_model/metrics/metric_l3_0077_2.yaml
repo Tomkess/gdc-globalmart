@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_intercompany_recharge_recharge_amount} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Total monetary value of intercompany (transactions between entities within the same organisation) recharges restricted
+  to the North region. Use this metric to monitor recharge value for North under the current report filters and selected time
+  period.
+id: metric_l3_0077_2
+tags:
+- L3
+title: Recharge Amount (Intercompany Recharge) — North Region

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0001_1} - (SELECT {metric/metric_l3_0001_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0001_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Net Revenue for the Online sales channel by comparing the current
+  period’s online net revenue with the same period last year. Use it to track whether online revenue is growing or declining
+  over time, especially when applying a reporting-period filter.
+id: metric_l4_yoy_0004
+tags:
+- L4
+title: 'YoY: Net Revenue — Online Channel'

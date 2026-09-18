@@ -1,0 +1,67 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for a layaway record in the Layaway dataset, used to look up, group, or filter reporting
+    by individual layaway transactions.
+  id: fact_layaway.layaway_id
+  labels: []
+  sourceColumn: layaway_id
+  sourceColumnDataType: STRING
+  tags:
+  - Layaway
+  title: Layaway ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_layaway
+  path:
+  - globalmart
+  - fact_layaway
+  type: dataSource
+description: Layaway
+facts:
+- description: Monetary amount associated with each layaway record in the Layaway dataset, typically used for summing or analyzing
+    layaway value across dimensions.
+  id: fact_layaway.amount
+  sourceColumn: amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Layaway
+  title: Amount (Layaway)
+grain:
+- id: fact_layaway.layaway_id
+  type: attribute
+id: fact_layaway
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: layaway_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Layaway
+title: Layaway
+workspaceDataFilterReferences: []

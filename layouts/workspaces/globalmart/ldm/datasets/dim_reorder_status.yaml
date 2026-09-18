@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each reorder status in the Reorder Status dataset, used to group or filter records by
+    status.
+  id: dim_reorder_status.status_id
+  labels: []
+  sourceColumn: status_id
+  sourceColumnDataType: STRING
+  tags:
+  - Reorder Status
+  title: Status ID
+- description: Represents the name of the reorder status for an item or order. Use this attribute from the Reorder Status
+    dataset to group, segment, or filter analyses by status.
+  id: dim_reorder_status.status_name
+  labels: []
+  sourceColumn: status_name
+  sourceColumnDataType: STRING
+  tags:
+  - Reorder Status
+  title: Status Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_reorder_status
+  path:
+  - globalmart
+  - dim_reorder_status
+  type: dataSource
+description: Reorder Status
+facts: []
+grain:
+- id: dim_reorder_status.status_id
+  type: attribute
+id: dim_reorder_status
+references: []
+tags:
+- Reorder Status
+title: Reorder Status
+workspaceDataFilterReferences: []

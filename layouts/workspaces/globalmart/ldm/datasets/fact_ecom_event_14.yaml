@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each e-commerce push notification event in the E-commerce Push Notification dataset,
+    used to look up, group, or filter analyses to specific events.
+  id: fact_ecom_event_14.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Push Notification
+  title: Event ID (E-commerce Push Notification)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_14
+  path:
+  - globalmart
+  - fact_ecom_event_14
+  type: dataSource
+description: E-commerce Push Notification
+facts:
+- description: Count of e-commerce push notification events. Use this fact to sum or trend total event volume, or to compare
+    activity across segments in the E-commerce Push Notification dataset.
+  id: fact_ecom_event_14.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Push Notification
+  title: Event Count (E-commerce Push Notification)
+grain:
+- id: fact_ecom_event_14.event_id
+  type: attribute
+id: fact_ecom_event_14
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Push Notification
+title: E-commerce Push Notification
+workspaceDataFilterReferences: []

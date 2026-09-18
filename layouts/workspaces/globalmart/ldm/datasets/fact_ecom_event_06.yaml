@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each “E-commerce Checkout Start” event record. Use it to distinguish, group, or filter
+    individual checkout-start events within the E-commerce Checkout Start dataset.
+  id: fact_ecom_event_06.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Checkout Start
+  title: Event ID (E-commerce Checkout Start)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_06
+  path:
+  - globalmart
+  - fact_ecom_event_06
+  type: dataSource
+description: E-commerce Checkout Start
+facts:
+- description: Counts the number of checkout-start events in the E-commerce Checkout Start dataset. Use it to measure event
+    volume and aggregate it (typically as a sum) by dimensions like time, channel, or customer segments.
+  id: fact_ecom_event_06.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Checkout Start
+  title: Event Count (E-commerce Checkout Start)
+grain:
+- id: fact_ecom_event_06.event_id
+  type: attribute
+id: fact_ecom_event_06
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Checkout Start
+title: E-commerce Checkout Start
+workspaceDataFilterReferences: []

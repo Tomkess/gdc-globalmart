@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0030_2} - (SELECT {metric/metric_l3_0030_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the number of customer feedback items in the North region, calculated as
+  the current month’s feedback count minus the prior month’s count. Use it to monitor whether feedback volume is rising or
+  falling over time when reporting by Month/Year.
+id: metric_l4_mom_0092
+tags:
+- L4
+title: 'MoM: Feedback Count (Customer Feedback) — North Region'

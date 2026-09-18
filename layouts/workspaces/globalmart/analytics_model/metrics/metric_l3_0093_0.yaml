@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Shows total revenue generated per staff hour for the In-Store sales channel, based on the Operations Efficiency
+  Summary data. Use it to compare labor productivity and operational efficiency when focusing specifically on in-store performance.
+id: metric_l3_0093_0
+tags:
+- L3
+title: Revenue per Staff Hour (Operations Efficiency Summary) — In-Store Channel

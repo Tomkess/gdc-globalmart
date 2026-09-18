@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each maintenance request in the Maintenance Request dataset, used to look up, group,
+    or filter records by a specific request.
+  id: fact_maintenance_request.request_id
+  labels: []
+  sourceColumn: request_id
+  sourceColumnDataType: STRING
+  tags:
+  - Maintenance Request
+  title: Request ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_maintenance_request
+  path:
+  - globalmart
+  - fact_maintenance_request
+  type: dataSource
+description: Maintenance Request
+facts:
+- description: Total downtime duration recorded for a maintenance request, expressed in hours. Use it to quantify and compare
+    equipment or service interruptions across requests in the Maintenance Request dataset.
+  id: fact_maintenance_request.downtime_hours
+  sourceColumn: downtime_hours
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Maintenance Request
+  title: Downtime Hours
+- description: Cost amount associated with a maintenance request, used to analyze and aggregate maintenance spending within
+    the Maintenance Request dataset.
+  id: fact_maintenance_request.maintenance_cost
+  sourceColumn: maintenance_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Maintenance Request
+  title: Maintenance Cost
+grain:
+- id: fact_maintenance_request.request_id
+  type: attribute
+id: fact_maintenance_request
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: request_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Maintenance Request
+title: Maintenance Request
+workspaceDataFilterReferences: []

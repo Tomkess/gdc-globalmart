@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0049_1} - (SELECT {metric/metric_l3_0049_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in inventory units on hand for the Online Channel, based on the Daily Inventory
+  Snapshot. Use it to track how online-available inventory has increased or decreased compared with the prior month.
+id: metric_l4_mom_0148
+tags:
+- L4
+title: 'MoM: Units on Hand (Daily Inventory Snapshot) — Online Channel'

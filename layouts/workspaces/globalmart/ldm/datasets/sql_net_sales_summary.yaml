@@ -1,0 +1,66 @@
+aggregatedFacts: []
+attributes:
+- description: Order Date used in the Net Sales Summary dataset to group and filter sales results by the date an order was
+    placed.
+  id: sql_net_sales_summary.order_date
+  labels: []
+  sourceColumn: order_date
+  sourceColumnDataType: DATE
+  tags:
+  - Net Sales Summary
+  title: Order Date (Net Sales Summary)
+description: Net Sales Summary
+facts:
+- description: Net Revenue represents the net sales amount recorded in the Net Sales Summary dataset. It is typically used
+    to aggregate and analyze sales performance after accounting for offsets such as returns, discounts, or other adjustments
+    reflected in the source data.
+  id: sql_net_sales_summary.net_revenue
+  sourceColumn: net_revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Net Sales Summary
+  title: Net Revenue
+- description: Number of orders recorded in the Net Sales Summary dataset. Use it to quantify order volume and aggregate counts
+    across time periods, customers, products, or other dimensions.
+  id: sql_net_sales_summary.order_count
+  sourceColumn: order_count
+  sourceColumnDataType: INT
+  tags:
+  - Net Sales Summary
+  title: Order Count (Net Sales Summary)
+grain:
+- id: sql_net_sales_summary.order_date
+  type: attribute
+id: sql_net_sales_summary
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: order_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    oh.order_date,\n    oh.store_id,\n    SUM(ol.revenue) - SUM(COALESCE(ret.return_amount, 0)) -\
+    \ SUM(COALESCE(md.markdown_amount, 0)) AS net_revenue,\n    COUNT(DISTINCT oh.order_id) AS order_count\nFROM {{ datasource_schema\
+    \ }}.fact_order_header oh\nJOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN {{\
+    \ datasource_schema }}.fact_returns ret ON ol.order_id = ret.order_id\nLEFT JOIN {{ datasource_schema }}.fact_markdown_event\
+    \ md ON ol.product_id = md.product_id\nGROUP BY 1, 2\n"
+tags:
+- Net Sales Summary
+title: Net Sales Summary
+workspaceDataFilterReferences: []

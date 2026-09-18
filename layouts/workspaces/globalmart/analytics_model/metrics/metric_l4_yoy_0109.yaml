@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0036_1} - (SELECT {metric/metric_l3_0036_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0036_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Frequency Quartile (Recency, Frequency, Monetary (RFM)) score for customers
+  in the Online sales channel, comparing the current year to the previous year. Use it to track how online customer purchase-frequency
+  segmentation is trending over time.
+id: metric_l4_yoy_0109
+tags:
+- L4
+title: 'YoY: Frequency Quartile (RFM) (Customer RFM Segments) — Online Channel'

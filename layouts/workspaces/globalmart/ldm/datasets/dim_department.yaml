@@ -1,0 +1,56 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each department in the Department dataset, used to group, join, and filter reporting
+    by department.
+  id: dim_department.department_id
+  labels: []
+  sourceColumn: department_id
+  sourceColumnDataType: STRING
+  tags:
+  - Department
+  title: Department ID (Department)
+- description: Name of the department in the Department dataset, used to group and filter reports and analyses by department.
+  id: dim_department.department_name
+  labels: []
+  sourceColumn: department_name
+  sourceColumnDataType: STRING
+  tags:
+  - Department
+  title: Department Name
+- description: Identifies the manager associated with each department. Use it to group or filter department-level reporting
+    by manager in the Department dataset.
+  id: dim_department.manager_id
+  labels: []
+  sourceColumn: manager_id
+  sourceColumnDataType: STRING
+  tags:
+  - Department
+  title: Manager ID (Department)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_department
+  path:
+  - globalmart
+  - dim_department
+  type: dataSource
+description: Department
+facts: []
+grain:
+- id: dim_department.department_id
+  type: attribute
+id: dim_department
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: manager_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+tags:
+- Department
+title: Department
+workspaceDataFilterReferences: []

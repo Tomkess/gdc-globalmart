@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} / {metric/metric_l1_fact_till_reconciliation_variance_amount}
+description: Shows how much net revenue corresponds to each unit of till reconciliation variance by dividing Total Net Revenue
+  by the Total Variance Amount (Till Reconciliation). Use it to put cash over/short discrepancies in context and compare reconciliation
+  performance across time periods, stores, or other slices.
+id: metric_l2_cross_0016
+tags:
+- L2
+title: Net Revenue per Variance Amount (Till Reconciliation)

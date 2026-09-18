@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_bonus_event.bonus_points})
+description: Shows the total number of bonus points awarded by summing Bonus Points across Bonus Event records within the
+  current reporting scope (such as the selected filters or time period).
+id: metric_l1_fact_bonus_event_bonus_points
+tags:
+- L1
+title: Total Bonus Points (Bonus Event)

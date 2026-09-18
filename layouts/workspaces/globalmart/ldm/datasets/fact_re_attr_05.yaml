@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each Facilities Compliance Score record. Use it to distinguish, group, or filter individual
+    compliance score entries when analyzing results.
+  id: fact_re_attr_05.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Facilities Compliance Score
+  title: Record ID (Facilities Compliance Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_re_attr_05
+  path:
+  - globalmart
+  - fact_re_attr_05
+  type: dataSource
+description: Facilities Compliance Score
+facts:
+- description: Stores the numeric “Attribute Value” used in the Facilities Compliance Score dataset for calculating and analyzing
+    compliance performance.
+  id: fact_re_attr_05.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Facilities Compliance Score
+  title: Facilities Compliance Score
+grain:
+- id: fact_re_attr_05.attr_id
+  type: attribute
+id: fact_re_attr_05
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Facilities Compliance Score
+title: Facilities Compliance Score
+workspaceDataFilterReferences: []

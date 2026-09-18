@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} / {metric/metric_l1_fact_loyalty_points_redeemed_points_redeemed}
+description: Measures the cost of goods sold per loyalty point redeemed by dividing Total COGS by Total Points Redeemed. Use
+  it to assess the direct cost efficiency of redemption activity and compare performance across time periods or business segments.
+id: metric_l2_cross_0014
+tags:
+- L2
+title: COGS per Points Redeemed (Loyalty Points Redeemed)

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_chargeback_chargeback_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the number of chargebacks for transactions in the Online sales channel (Channel Type = Online). Use this
+  metric to monitor and compare online chargeback volume over time or across other business dimensions. A chargeback is a
+  disputed payment transaction reversed by the card issuer.
+id: metric_l3_0119_1
+tags:
+- L3
+title: Chargeback Count (Chargeback) — Online Channel

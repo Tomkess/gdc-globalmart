@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each customer feedback record in the Customer Feedback dataset. Use it to distinguish,
+    group, or drill into individual feedback entries.
+  id: fact_customer_feedback.feedback_id
+  labels: []
+  sourceColumn: feedback_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Feedback
+  title: Feedback ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_customer_feedback
+  path:
+  - globalmart
+  - fact_customer_feedback
+  type: dataSource
+description: Customer Feedback
+facts:
+- description: Number of customer feedback entries recorded in the Customer Feedback dataset, typically used to count feedback
+    volume across time, products, or other breakdowns.
+  id: fact_customer_feedback.feedback_count
+  sourceColumn: feedback_count
+  sourceColumnDataType: INT
+  tags:
+  - Customer Feedback
+  title: Feedback Count
+- description: Numeric score representing the sentiment captured in customer feedback records. Use it to measure and compare
+    feedback tone across different segments or time periods within the Customer Feedback dataset.
+  id: fact_customer_feedback.sentiment_score
+  sourceColumn: sentiment_score
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Feedback
+  title: Sentiment Score
+grain:
+- id: fact_customer_feedback.feedback_id
+  type: attribute
+id: fact_customer_feedback
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: feedback_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Customer Feedback
+title: Customer Feedback
+workspaceDataFilterReferences: []

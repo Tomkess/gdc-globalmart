@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0000
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the difference between Total Order Count and Total Net Revenue for the current reporting scope.
+  Use it as a quick indicator of whether changes in order volume are keeping pace with changes in revenue under the same filters
+  and time period.
+id: viz_sales_0015
+title: Order Count vs Net Revenue Change

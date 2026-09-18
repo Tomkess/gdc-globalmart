@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Property Utilization Score dataset, used to distinguish and filter
+    individual utilization score entries.
+  id: fact_re_attr_02.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Property Utilization Score
+  title: Record ID (Property Utilization Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_re_attr_02
+  path:
+  - globalmart
+  - fact_re_attr_02
+  type: dataSource
+description: Property Utilization Score
+facts:
+- description: Numeric attribute value stored in the Property Utilization Score dataset, used as an underlying measure for
+    analysis and calculations.
+  id: fact_re_attr_02.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Property Utilization Score
+  title: Property Utilization Score
+grain:
+- id: fact_re_attr_02.attr_id
+  type: attribute
+id: fact_re_attr_02
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Property Utilization Score
+title: Property Utilization Score
+workspaceDataFilterReferences: []

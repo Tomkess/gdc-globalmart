@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0050_2} - (SELECT {metric/metric_l3_0050_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Inventory Value for the North region by comparing the current month’s inventory
+  value to the prior month. Use it to see whether North’s inventory value is rising or falling over time when you analyze
+  results by Month/Year.
+id: metric_l4_mom_0152
+tags:
+- L4
+title: 'MoM: Inventory Value — North Region'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_renovation_spend.renovation_cost})
+description: Shows the total amount spent on renovations by summing the Renovation Cost from the Renovation Spend data. Use
+  it to track and compare renovation spending across the current report scope, such as by time period, project, or other applied
+  filters.
+id: metric_l1_fact_renovation_spend_renovation_cost
+tags:
+- L1
+title: Total Renovation Cost (Renovation Spend)

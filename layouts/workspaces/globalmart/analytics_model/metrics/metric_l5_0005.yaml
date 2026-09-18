@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0002} + ({metric/metric_l1_fact_returns_return_amount} / {metric/metric_l1_fact_returns_quantity_returned})
+description: Combines the month-over-month change in online order count for the North region with the average value per returned
+  unit (total return amount divided by total quantity returned). Use it to monitor how North’s order-volume trend relates
+  to return value intensity over the selected reporting period.
+id: metric_l5_0005
+tags:
+- L5
+title: 'MoM: Order Count — North Region (+Return Amount (Returns)/Quantity Returned (Returns))'

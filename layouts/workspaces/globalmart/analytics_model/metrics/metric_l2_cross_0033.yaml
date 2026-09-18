@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} / {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_revenue}
+description: Marketing efficiency metric that shows how much campaign spend is required for each unit of customer lifetime
+  revenue. It is calculated by dividing Total Campaign Spend by Total Lifetime Revenue (Customer Lifetime Value) and is useful
+  for comparing spend effectiveness across segments or time periods.
+id: metric_l2_cross_0033
+tags:
+- L2
+title: Campaign Spend per Lifetime Revenue (Customer Lifetime Value)

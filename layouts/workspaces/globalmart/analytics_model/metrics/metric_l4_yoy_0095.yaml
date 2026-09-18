@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0031_2} - (SELECT {metric/metric_l3_0031_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0031_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the number of tier change events in the North region, comparing the current
+  year to the prior year. Use this to monitor whether North’s tier change activity is increasing or decreasing over time.
+id: metric_l4_yoy_0095
+tags:
+- L4
+title: 'YoY: Change Count (Tier Change) — North Region'

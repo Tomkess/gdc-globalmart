@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0057_0} - (SELECT {metric/metric_l3_0057_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0057_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Transfer Quantity for Transfer Orders in the In-Store channel, comparing
+  the current period to the same period in the prior year. Use it to track growth or decline in in-store transfer volume over
+  time.
+id: metric_l4_yoy_0171
+tags:
+- L4
+title: 'YoY: Transfer Quantity (Transfer Order) — In-Store Channel'

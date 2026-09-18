@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_rfm_segments.monetary_quartile})
+description: Totals the Monetary Quartile (Recency, Frequency, Monetary (RFM)) scores from the Customer RFM Segments dataset,
+  letting you see the overall monetary quartile value for customers within the current filters or grouping. Useful for comparing
+  relative customer monetary contribution across segments.
+id: metric_l1_sql_rfm_segments_monetary_quartile
+tags:
+- L1
+title: Total Monetary Quartile (RFM) (Customer RFM Segments)

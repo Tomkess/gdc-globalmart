@@ -1,0 +1,67 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Inventory Shrinkage Risk dataset, used to reference, group, or filter
+    specific shrinkage risk entries.
+  id: fact_inv_attr_03.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Inventory Shrinkage Risk
+  title: Record ID (Inventory Shrinkage Risk)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_inv_attr_03
+  path:
+  - globalmart
+  - fact_inv_attr_03
+  type: dataSource
+description: Inventory Shrinkage Risk
+facts:
+- description: Numeric value associated with an inventory shrinkage risk attribute in the Inventory Shrinkage Risk dataset,
+    used for reporting and aggregating those attribute values.
+  id: fact_inv_attr_03.metric
+  sourceColumn: metric
+  sourceColumnDataType: INT
+  tags:
+  - Inventory Shrinkage Risk
+  title: Inventory Shrinkage Risk
+grain:
+- id: fact_inv_attr_03.attr_id
+  type: attribute
+id: fact_inv_attr_03
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_warehouse
+    type: dataset
+  multivalue: false
+  sources:
+  - column: warehouse_id
+    dataType: STRING
+    target:
+      id: dim_warehouse.warehouse_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Inventory Shrinkage Risk
+title: Inventory Shrinkage Risk
+workspaceDataFilterReferences: []

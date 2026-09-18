@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0044_1} - (SELECT {metric/metric_l3_0044_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0044_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the number of Range Review Outcome decisions recorded for the Online sales channel,
+  comparing the current year to the previous year. Use it to track whether online decision volume is growing or declining
+  over time.
+id: metric_l4_yoy_0133
+tags:
+- L4
+title: 'YoY: Decision Count (Range Review Outcome) — Online Channel'

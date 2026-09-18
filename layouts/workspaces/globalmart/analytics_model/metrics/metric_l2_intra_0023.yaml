@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_event_event_value} - {metric/metric_l1_fact_loyalty_points_earned_points}
+description: Shows the net difference between total Customer Event Event Value and total Loyalty Points Earned for the same
+  selection of data. Use it to quickly see whether event value is higher or lower than points earned when analyzing by time
+  period, segment, or other breakdowns.
+id: metric_l2_intra_0023
+tags:
+- L2
+title: Event Value (Customer Event) vs Points (Loyalty Points Earned) Change

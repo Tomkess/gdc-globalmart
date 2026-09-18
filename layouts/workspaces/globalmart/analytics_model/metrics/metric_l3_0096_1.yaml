@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_payroll_transaction_deductions} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the total amount deducted from payroll transactions for the Online sales channel only. Use it to monitor
+  and report payroll deductions tied to Online activity within the current time period and any other report filters.
+id: metric_l3_0096_1
+tags:
+- L3
+title: Deductions (Payroll Transaction) — Online Channel

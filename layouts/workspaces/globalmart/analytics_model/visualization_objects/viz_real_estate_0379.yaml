@@ -1,0 +1,39 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0116_2
+                type: metric
+        localIdentifier: m1
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_lease_payment_lease_payment
+                type: metric
+        localIdentifier: m2
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: attribute
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:table
+description: Table showing quarterly trends in Waste Tons (North Region only) alongside Total Lease Payment, using the Quarter/Year
+  time period. Use it to compare how waste disposal volume and lease payment amounts move over time on a quarterly basis.
+id: viz_real_estate_0379
+title: Waste Tons and Lease Payment by Quarter

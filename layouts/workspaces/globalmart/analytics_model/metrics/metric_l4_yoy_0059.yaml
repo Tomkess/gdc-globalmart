@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0019_2} - (SELECT {metric/metric_l3_0019_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0019_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the total Competitor Price amount for the North region, comparing the current
+  year to the previous year. Use it to monitor whether competitor pricing totals in North are rising or falling versus last
+  year within the same report filters and breakdowns.
+id: metric_l4_yoy_0059
+tags:
+- L4
+title: 'YoY: Competitor Price (Competitor Pricing) — North Region'

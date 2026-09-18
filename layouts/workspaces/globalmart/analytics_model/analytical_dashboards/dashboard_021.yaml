@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_021
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0372
+              type: visualizationObject
+          localIdentifier: widget_021_00
+          title: Renovation Cost
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0373
+              type: visualizationObject
+          localIdentifier: widget_021_01
+          title: Renovation Cost
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0374
+              type: visualizationObject
+          localIdentifier: widget_021_02
+          title: Disposal Cost
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0375
+              type: visualizationObject
+          localIdentifier: widget_021_03
+          title: Disposal Cost
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0376
+              type: visualizationObject
+          localIdentifier: widget_021_04
+          title: Disposal Cost Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0377
+              type: visualizationObject
+          localIdentifier: widget_021_05
+          title: Waste Tons Over Time
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0378
+              type: visualizationObject
+          localIdentifier: widget_021_06
+          title: Waste Tons Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0379
+              type: visualizationObject
+          localIdentifier: widget_021_07
+          title: Waste Tons and Lease Payment by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0380
+              type: visualizationObject
+          localIdentifier: widget_021_08
+          title: Lease Payment by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0381
+              type: visualizationObject
+          localIdentifier: widget_021_09
+          title: Utility Cost by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0382
+              type: visualizationObject
+          localIdentifier: widget_021_10
+          title: Renovation Cost by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_real_estate_0383
+              type: visualizationObject
+          localIdentifier: widget_021_11
+          title: Disposal Cost by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard that provides an at-a-glance view of energy and facilities maintenance performance, including renovation
+  spend, waste disposal cost and volume, lease payments, and utility costs over time. It is set up with default filters for
+  the last 12 months and includes channel and store-region filter controls so users can monitor trends and compare key cost
+  drivers across the selected scope.
+id: dashboard_021
+title: Energy & Maintenance Overview

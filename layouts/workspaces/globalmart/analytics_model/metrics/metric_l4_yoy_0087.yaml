@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0029_0} - (SELECT {metric/metric_l3_0029_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0029_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the In-Store customer feedback sentiment score by comparing the
+  current year to the prior year. Use it to track whether in-store customer sentiment is improving or declining over time.
+id: metric_l4_yoy_0087
+tags:
+- L4
+title: 'YoY: Sentiment Score (Customer Feedback) — In-Store Channel'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_recency_quartile} - {metric/metric_l1_sql_rfm_segments_frequency_quartile}
+description: Shows the net difference between customers’ total Recency quartile score and total Frequency quartile score within
+  the current filters or Recency, Frequency, Monetary (RFM) segment. Use it to gauge whether the selected customer group skews
+  more toward recency (higher values) or frequency (lower values) overall.
+id: metric_l2_intra_0035
+tags:
+- L2
+title: Recency Quartile (RFM) (Customer RFM Segments) vs Frequency Quartile (RFM) (Customer RFM Segments) Change

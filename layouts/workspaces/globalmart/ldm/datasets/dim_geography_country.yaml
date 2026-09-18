@@ -1,0 +1,48 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and
+    grouping in analysis.
+  id: dim_geography_country.country_id
+  labels: []
+  sourceColumn: country_id
+  sourceColumnDataType: STRING
+  tags:
+  - Country
+  title: Country ID
+- description: Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by
+    country.
+  id: dim_geography_country.country_name
+  labels: []
+  sourceColumn: country_name
+  sourceColumnDataType: STRING
+  tags:
+  - Country
+  title: Country Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_geography_country
+  path:
+  - globalmart
+  - dim_geography_country
+  type: dataSource
+description: Country
+facts: []
+grain:
+- id: dim_geography_country.country_id
+  type: attribute
+id: dim_geography_country
+references:
+- identifier:
+    id: dim_currency
+    type: dataset
+  multivalue: false
+  sources:
+  - column: currency_id
+    dataType: STRING
+    target:
+      id: dim_currency.currency_id
+      type: attribute
+tags:
+- Country
+title: Country
+workspaceDataFilterReferences: []

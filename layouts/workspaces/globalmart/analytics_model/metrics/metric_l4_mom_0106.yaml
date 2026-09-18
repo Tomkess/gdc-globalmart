@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0035_1} - (SELECT {metric/metric_l3_0035_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in customers’ Recency Quartile (Recency, Frequency, Monetary (RFM)) score
+  for the Online sales channel. Use it to see whether online customers are becoming more or less recent purchasers compared
+  with the prior month when analyzing by segment or other breakdowns.
+id: metric_l4_mom_0106
+tags:
+- L4
+title: 'MoM: Recency Quartile (RFM) (Customer RFM Segments) — Online Channel'

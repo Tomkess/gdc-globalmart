@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_earned_points} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total loyalty points earned, restricted to customers or activity in the North region. Use this metric to track
+  and compare points accumulation for the North region across different breakdowns such as time or customer segments.
+id: metric_l3_0024_2
+tags:
+- L3
+title: Points (Loyalty Points Earned) — North Region

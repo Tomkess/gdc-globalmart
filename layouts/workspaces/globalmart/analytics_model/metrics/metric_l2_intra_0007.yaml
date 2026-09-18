@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_sales_amount} - {metric/metric_l1_fact_daily_store_sales_transaction_count}
+description: Shows the difference between total sales value and total number of transactions from the Daily Store Sales data
+  for the current selection (such as time period or store). Use it to see whether sales dollars are running ahead of—or behind—transaction
+  volume in the filtered context.
+id: metric_l2_intra_0007
+tags:
+- L2
+title: Sales Amount (Daily Store Sales) vs Transaction Count (Daily Store Sales) Change

@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0003
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: This headline shows the change between total purchase order line item quantity and total energy consumption cost
+  for the current context, highlighting whether ordered units are outpacing or lagging energy spending. Use it to quickly
+  compare purchasing volume versus energy cost across suppliers, products, or time when you apply different filters.
+id: viz_sales_0018
+title: Quantity (Purchase Order Line Items) vs Cost

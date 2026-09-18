@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Content Engagement Score dataset. Use it to reference or drill into
+    individual engagement score records rather than to group results for reporting.
+  id: fact_mkt_attr_03.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Content Engagement Score
+  title: Record ID (Content Engagement Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_mkt_attr_03
+  path:
+  - globalmart
+  - fact_mkt_attr_03
+  type: dataSource
+description: Content Engagement Score
+facts:
+- description: Numeric value that captures the measured “Attribute Value” in the Content Engagement Score dataset, typically
+    used in calculations and aggregations (such as sums or averages) in reports.
+  id: fact_mkt_attr_03.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Content Engagement Score
+  title: Content Engagement Score
+grain:
+- id: fact_mkt_attr_03.attr_id
+  type: attribute
+id: fact_mkt_attr_03
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Content Engagement Score
+title: Content Engagement Score
+workspaceDataFilterReferences: []

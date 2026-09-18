@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0008_2} - (SELECT {metric/metric_l3_0008_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of store sales transactions in the North region by comparing
+  the current month’s transaction count with the previous month.
+id: metric_l4_mom_0026
+tags:
+- L4
+title: 'MoM: Transaction Count (Daily Store Sales) — North Region'

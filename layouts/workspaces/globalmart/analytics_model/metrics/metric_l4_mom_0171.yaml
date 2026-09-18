@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0057_0} - (SELECT {metric/metric_l3_0057_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of units transferred on Transfer Orders for the In-Store sales
+  channel, comparing the current month’s transfer quantity to the previous month. Use it to track how in-store transfer volume
+  is trending over time.
+id: metric_l4_mom_0171
+tags:
+- L4
+title: 'MoM: Transfer Quantity (Transfer Order) — In-Store Channel'

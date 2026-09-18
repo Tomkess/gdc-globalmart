@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0022_0} - (SELECT {metric/metric_l3_0022_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of customer events in the In-Store sales channel by subtracting
+  last month’s event count from the current month’s. Use it to monitor whether in-store customer event volume is increasing
+  or decreasing over time when viewed by Month/Year.
+id: metric_l4_mom_0066
+tags:
+- L4
+title: 'MoM: Event Count (Customer Event) — In-Store Channel'

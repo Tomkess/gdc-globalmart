@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_purchase_order_line_quantity
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total quantity of units ordered across all purchase order line items, using the “Total Quantity
+  (Purchase Order Line Items)” metric. Use it to monitor overall purchasing volume and compare quantities across suppliers,
+  products, or time when combined with filters or breakdowns.
+id: viz_inventory_0156
+title: Quantity

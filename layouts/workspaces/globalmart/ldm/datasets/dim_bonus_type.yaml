@@ -1,0 +1,46 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each bonus type in the Bonus Type dataset. Use it to group, filter, or join bonus-related
+    records at the individual bonus level.
+  id: dim_bonus_type.bonus_id
+  labels: []
+  sourceColumn: bonus_id
+  sourceColumnDataType: STRING
+  tags:
+  - Bonus Type
+  title: Bonus ID
+- description: Indicates the multiplier value associated with a bonus type in the Bonus Type dataset. Use it to group or filter
+    analyses by the bonus multiplier applied when calculating bonus amounts.
+  id: dim_bonus_type.bonus_multiplier
+  labels: []
+  sourceColumn: bonus_multiplier
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Bonus Type
+  title: Bonus Multiplier
+- description: Name of the bonus type, used to group and filter analyses by specific bonus programs in the Bonus Type dataset.
+  id: dim_bonus_type.bonus_name
+  labels: []
+  sourceColumn: bonus_name
+  sourceColumnDataType: STRING
+  tags:
+  - Bonus Type
+  title: Bonus Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_bonus_type
+  path:
+  - globalmart
+  - dim_bonus_type
+  type: dataSource
+description: Bonus Type
+facts: []
+grain:
+- id: dim_bonus_type.bonus_id
+  type: attribute
+id: dim_bonus_type
+references: []
+tags:
+- Bonus Type
+title: Bonus Type
+workspaceDataFilterReferences: []

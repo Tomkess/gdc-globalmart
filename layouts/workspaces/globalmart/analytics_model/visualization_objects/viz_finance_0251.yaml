@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0079_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total gross revenue for the In-Store sales channel, based on Margin Bridge data. Use it to track
+  and compare in-store revenue performance within the current reporting context and time period.
+id: viz_finance_0251
+title: Gross Revenue

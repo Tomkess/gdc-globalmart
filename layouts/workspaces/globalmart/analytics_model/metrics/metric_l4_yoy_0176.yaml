@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0058_2} - (SELECT {metric/metric_l3_0058_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0058_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Write-Off Quantity for the North region, comparing the current
+  year’s write-off volume to the previous year. Use it to track whether North’s write-offs are increasing or decreasing over
+  time.
+id: metric_l4_yoy_0176
+tags:
+- L4
+title: 'YoY: Write-Off Quantity (Write Off) — North Region'

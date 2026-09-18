@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0019} + ({metric/metric_l1_sql_assortment_efficiency_units_sold} / {metric/metric_l1_fact_product_performance_daily_margin})
+description: Combines the month-over-month change in online returned units with an efficiency adjustment based on units sold
+  relative to total margin. Use it to monitor return trends in the Online channel while factoring in sales volume and profitability
+  context from the Assortment Efficiency and Daily Product Performance metrics.
+id: metric_l5_0039
+tags:
+- L5
+title: 'MoM: Quantity Returned (Returns) — Online Channel (+Units Sold (Assortment Efficiency)/Margin (Daily Product Performance))'

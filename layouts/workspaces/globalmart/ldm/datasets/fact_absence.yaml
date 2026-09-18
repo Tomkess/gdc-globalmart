@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each absence record in the Absence dataset. Use it to look up, group, or filter analyses
+    by a specific absence entry.
+  id: fact_absence.absence_id
+  labels: []
+  sourceColumn: absence_id
+  sourceColumnDataType: STRING
+  tags:
+  - Absence
+  title: Absence ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_absence
+  path:
+  - globalmart
+  - fact_absence
+  type: dataSource
+description: Absence
+facts:
+- description: Total number of hours recorded as absence. Use this measure from the Absence dataset to analyze and aggregate
+    absence time across employees, periods, or other dimensions.
+  id: fact_absence.absence_hours
+  sourceColumn: absence_hours
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Absence
+  title: Absence Hours
+grain:
+- id: fact_absence.absence_id
+  type: attribute
+id: fact_absence
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: absence_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Absence
+title: Absence
+workspaceDataFilterReferences: []

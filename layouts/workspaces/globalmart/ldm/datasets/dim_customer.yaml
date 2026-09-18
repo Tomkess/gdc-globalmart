@@ -1,0 +1,114 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for the customer’s acquisition channel in the Customer dataset. Use it to group or filter customers
+    by the channel they were acquired through.
+  id: dim_customer.acquisition_channel_id
+  labels: []
+  sourceColumn: acquisition_channel_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Acquisition Channel ID
+- description: Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into
+    metrics at the individual customer level.
+  id: dim_customer.customer_id
+  labels: []
+  sourceColumn: customer_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Customer ID (Customer)
+- description: Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.
+  id: dim_customer.customer_name
+  labels: []
+  sourceColumn: customer_name
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Customer Name (Customer)
+- description: Identifier for the customer’s lifecycle stage in the Customer dataset, used to group or filter customers by
+    lifecycle stage.
+  id: dim_customer.lifecycle_stage_id
+  labels: []
+  sourceColumn: lifecycle_stage_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Lifecycle Stage ID
+- description: Identifier for a customer’s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty
+    tier.
+  id: dim_customer.loyalty_tier_id
+  labels: []
+  sourceColumn: loyalty_tier_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer
+  title: Loyalty Tier ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_customer
+  path:
+  - globalmart
+  - dim_customer
+  type: dataSource
+description: Customer
+facts: []
+grain:
+- id: dim_customer.customer_id
+  type: attribute
+id: dim_customer
+references:
+- identifier:
+    id: dim_acquisition_channel
+    type: dataset
+  multivalue: false
+  sources:
+  - column: acquisition_channel_id
+    dataType: STRING
+    target:
+      id: dim_acquisition_channel.channel_id
+      type: attribute
+- identifier:
+    id: dim_customer_segment
+    type: dataset
+  multivalue: false
+  sources:
+  - column: segment_id
+    dataType: STRING
+    target:
+      id: dim_customer_segment.segment_id
+      type: attribute
+- identifier:
+    id: dim_geography_country
+    type: dataset
+  multivalue: false
+  sources:
+  - column: country_id
+    dataType: STRING
+    target:
+      id: dim_geography_country.country_id
+      type: attribute
+- identifier:
+    id: dim_lifecycle_stage
+    type: dataset
+  multivalue: false
+  sources:
+  - column: lifecycle_stage_id
+    dataType: STRING
+    target:
+      id: dim_lifecycle_stage.stage_id
+      type: attribute
+- identifier:
+    id: dim_loyalty_tier
+    type: dataset
+  multivalue: false
+  sources:
+  - column: loyalty_tier_id
+    dataType: STRING
+    target:
+      id: dim_loyalty_tier.tier_id
+      type: attribute
+tags:
+- Customer
+title: Customer
+workspaceDataFilterReferences: []

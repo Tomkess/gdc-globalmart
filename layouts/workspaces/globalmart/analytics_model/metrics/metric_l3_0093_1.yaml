@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Shows total revenue generated per staff hour for the Online sales channel. Use it to track online operational
+  efficiency and labor productivity and compare performance across time or other business segments.
+id: metric_l3_0093_1
+tags:
+- L3
+title: Revenue per Staff Hour (Operations Efficiency Summary) — Online Channel

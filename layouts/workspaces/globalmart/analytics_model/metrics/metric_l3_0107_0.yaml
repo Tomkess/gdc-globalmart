@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_bonus_event_bonus_cost} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total bonus cost from Bonus Event records filtered to the In-Store sales channel. Use this metric to monitor
+  and compare in-store bonus spend across time periods or other business dimensions.
+id: metric_l3_0107_0
+tags:
+- L3
+title: Bonus Cost (Bonus Event) — In-Store Channel

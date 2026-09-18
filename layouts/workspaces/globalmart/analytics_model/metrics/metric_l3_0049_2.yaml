@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_inventory_snapshot_daily_on_hand_units} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Total inventory units on hand from the Daily Inventory Snapshot, restricted to locations in the North region.
+  Use this metric to monitor daily available stock levels for the North region across all included items and locations.
+id: metric_l3_0049_2
+tags:
+- L3
+title: Units on Hand (Daily Inventory Snapshot) — North Region

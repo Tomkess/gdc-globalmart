@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_maintenance_request_maintenance_cost} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Total maintenance cost from Maintenance Request records, filtered to the North region. Use it to monitor and
+  report maintenance spend for North, while still respecting any currently selected date range and other report/dashboard
+  filters.
+id: metric_l3_0086_2
+tags:
+- L3
+title: Maintenance Cost (Maintenance Request) — North Region

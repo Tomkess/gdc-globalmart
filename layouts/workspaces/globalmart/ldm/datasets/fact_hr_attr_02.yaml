@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Training Effectiveness Score dataset. Use it to reference or drill
+    into individual training effectiveness score entries rather than for business grouping.
+  id: fact_hr_attr_02.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Training Effectiveness Score
+  title: Record ID (Training Effectiveness Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_hr_attr_02
+  path:
+  - globalmart
+  - fact_hr_attr_02
+  type: dataSource
+description: Training Effectiveness Score
+facts:
+- description: Numeric value used to quantify the Training Effectiveness Score, typically aggregated to analyze overall training
+    impact.
+  id: fact_hr_attr_02.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Training Effectiveness Score
+  title: Training Effectiveness Score
+grain:
+- id: fact_hr_attr_02.attr_id
+  type: attribute
+id: fact_hr_attr_02
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Training Effectiveness Score
+title: Training Effectiveness Score
+workspaceDataFilterReferences: []

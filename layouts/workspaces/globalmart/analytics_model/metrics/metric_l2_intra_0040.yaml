@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_performance_daily_margin} - {metric/metric_l1_fact_markdown_event_markdown_amount}
+description: Shows the net impact of markdowns on profitability by subtracting total markdown amount from total margin. Use
+  it to understand how much margin remains (or is eroded) after markdown events for the currently selected products, dates,
+  stores, or other filters.
+id: metric_l2_intra_0040
+tags:
+- L2
+title: Margin (Daily Product Performance) vs Markdown Amount (Markdown Event) Change

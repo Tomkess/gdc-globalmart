@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_net_sales_summary_net_revenue} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Measures total net revenue from the Net Sales Summary data for the In-Store sales channel only. Use it to track
+  and report in-store performance and compare it against other sales channels within the same report or dashboard context.
+id: metric_l3_0011_0
+tags:
+- L3
+title: Net Revenue (Net Sales Summary) — In-Store Channel

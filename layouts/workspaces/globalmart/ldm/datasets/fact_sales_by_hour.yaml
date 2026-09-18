@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Identifies the hour within the Hourly Sales dataset, used to group and filter sales results at an hourly level
+    (e.g., comparing performance across hours of the day).
+  id: fact_sales_by_hour.hour_id
+  labels: []
+  sourceColumn: hour_id
+  sourceColumnDataType: STRING
+  tags:
+  - Hourly Sales
+  title: Hour ID (Hourly Sales)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_sales_by_hour
+  path:
+  - globalmart
+  - fact_sales_by_hour
+  type: dataSource
+description: Hourly Sales
+facts:
+- description: Total sales revenue recorded in the Hourly Sales dataset, typically used to measure and compare revenue across
+    hours or other business dimensions.
+  id: fact_sales_by_hour.revenue
+  sourceColumn: revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Hourly Sales
+  title: Revenue (Hourly Sales)
+grain:
+- id: fact_sales_by_hour.hour_id
+  type: attribute
+id: fact_sales_by_hour
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: sales_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Hourly Sales
+title: Hourly Sales
+workspaceDataFilterReferences: []

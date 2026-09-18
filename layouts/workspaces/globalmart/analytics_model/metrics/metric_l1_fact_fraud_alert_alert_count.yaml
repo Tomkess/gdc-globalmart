@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_fraud_alert.alert_count})
+description: Shows the total number of fraud alerts by summing Alert Count from the Fraud Alert data, within the current reporting
+  scope (such as the selected time period or applied filters). Use it to track overall alert volume and compare trends across
+  dimensions like time or alert type.
+id: metric_l1_fact_fraud_alert_alert_count
+tags:
+- L1
+title: Total Alert Count (Fraud Alert)

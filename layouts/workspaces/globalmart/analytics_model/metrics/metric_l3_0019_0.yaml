@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_competitor_pricing_competitor_price} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Shows the total competitor price for sales activity limited to the In-Store channel. Use this metric to compare
+  competitor pricing specifically for brick-and-mortar performance across products, time periods, or other breakdowns in reports
+  and dashboards.
+id: metric_l3_0019_0
+tags:
+- L3
+title: Competitor Price (Competitor Pricing) — In-Store Channel

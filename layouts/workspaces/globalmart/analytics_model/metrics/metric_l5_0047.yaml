@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0023} + ({metric/metric_l1_sql_assortment_efficiency_avg_inventory} / {metric/metric_l1_sql_assortment_efficiency_sell_through_rate})
+description: Combines the North region month-over-month change in Sales Amount with an inventory efficiency adjustment based
+  on average inventory divided by sell-through rate. Use it to review monthly sales momentum in the North while factoring
+  in how inventory levels and sell-through are affecting performance.
+id: metric_l5_0047
+tags:
+- L5
+title: 'MoM: Sales Amount (Daily Store Sales) — North Region (+Avg Inventory (Assortment Efficiency)/Sell-Through Rate (Assortment
+  Efficiency))'

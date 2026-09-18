@@ -1,0 +1,218 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_011
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0228
+              type: visualizationObject
+          localIdentifier: widget_011_00
+          title: Net Revenue — Online Channel
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0229
+              type: visualizationObject
+          localIdentifier: widget_011_01
+          title: Net Revenue — North Region
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0230
+              type: visualizationObject
+          localIdentifier: widget_011_02
+          title: Amount
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0231
+              type: visualizationObject
+          localIdentifier: widget_011_03
+          title: Amount
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0232
+              type: visualizationObject
+          localIdentifier: widget_011_04
+          title: Amount Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0233
+              type: visualizationObject
+          localIdentifier: widget_011_05
+          title: COGS — In-Store Channel Over Time
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0234
+              type: visualizationObject
+          localIdentifier: widget_011_06
+          title: COGS — Online Channel Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0235
+              type: visualizationObject
+          localIdentifier: widget_011_07
+          title: COGS — North Region and OpEx by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0236
+              type: visualizationObject
+          localIdentifier: widget_011_08
+          title: OpEx by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0237
+              type: visualizationObject
+          localIdentifier: widget_011_09
+          title: OpEx by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0238
+              type: visualizationObject
+          localIdentifier: widget_011_10
+          title: OpEx by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_finance_0239
+              type: visualizationObject
+          localIdentifier: widget_011_11
+          title: Approved Budget by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for monitoring budget vs. actual financial performance, bringing together net revenue, COGS, operating
+  expenses, and approved budget trends across time and key segments (e.g., Online vs In-Store and North region). By default,
+  it focuses on the last 12 months and supports narrowing results by customer lifecycle stage and acquisition channel.
+id: dashboard_011
+title: Budget vs Actual Financials

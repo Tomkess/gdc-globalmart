@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_pnl_opex} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total operating expenses (Operating Expenses (OpEx) from the Daily Profit & Loss data, filtered to the In-Store
+  sales channel. Use this metric to monitor and compare in-store operating costs across the current reporting context (for
+  example, the selected time period or business unit).
+id: metric_l3_0074_0
+tags:
+- L3
+title: OpEx (Daily Profit & Loss) — In-Store Channel

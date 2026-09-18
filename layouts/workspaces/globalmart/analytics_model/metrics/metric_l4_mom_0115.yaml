@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0038_1} - (SELECT {metric/metric_l3_0038_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the Compliance Adherence Score for the Online sales channel by comparing
+  the current month to the prior month (based on Month/Year). Use it to see whether Online compliance performance is improving
+  or declining over time under the current report filters.
+id: metric_l4_mom_0115
+tags:
+- L4
+title: 'MoM: Attribute Value (Compliance Adherence Score) — Online Channel'

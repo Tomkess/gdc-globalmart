@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0102_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total recruitment spending for the North region, based on the “Recruitment Cost (Recruitment)
+  — North Region” metric. Use it to monitor and compare recruiting costs in the North against other regions or over time.
+id: viz_hr_0323
+title: Recruitment Cost

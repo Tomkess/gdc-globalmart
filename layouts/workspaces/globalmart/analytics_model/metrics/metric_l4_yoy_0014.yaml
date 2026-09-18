@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0004_2} - (SELECT {metric/metric_l3_0004_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0004_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Energy Consumption Cost for the North region by comparing the current
+  year’s cost to the previous year. Use it to track whether North’s energy spending is rising or falling over time, within
+  the current report filters and selected time period.
+id: metric_l4_yoy_0014
+tags:
+- L4
+title: 'YoY: Cost (Energy Consumption) — North Region'

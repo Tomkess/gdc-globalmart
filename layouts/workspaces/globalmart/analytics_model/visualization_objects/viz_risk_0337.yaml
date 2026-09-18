@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0118_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total value associated with fraud alerts for the Online sales channel, based on the “Alert
+  Value (Fraud Alert) — Online Channel” metric.
+id: viz_risk_0337
+title: Alert Value

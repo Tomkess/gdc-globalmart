@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0047_0} - (SELECT {metric/metric_l3_0047_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0047_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in Avg Inventory (Assortment Efficiency) for the In-Store sales
+  channel by comparing the current period’s average inventory to the same measure in the prior year. Use it to track how in-store
+  inventory levels are trending versus last year across the selected time period, products, or locations.
+id: metric_l4_yoy_0141
+tags:
+- L4
+title: 'YoY: Avg Inventory (Assortment Efficiency) — In-Store Channel'

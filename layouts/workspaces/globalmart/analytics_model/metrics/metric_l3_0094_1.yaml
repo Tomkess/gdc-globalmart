@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_employee_hours_hours_worked} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows total employee labor hours worked, filtered to the Online sales channel. Use it to monitor labor effort
+  attributable to Online activity and compare it with hours in other channels under the same reporting context.
+id: metric_l3_0094_1
+tags:
+- L3
+title: Hours Worked (Employee Hours) — Online Channel

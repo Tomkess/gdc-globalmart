@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_daily_pnl.cogs})
+description: Totals Cost of Goods Sold (COGS) from the Daily Profit & Loss data to show overall direct costs for the currently
+  selected period and any applied filters.
+id: metric_l1_total_cogs
+tags:
+- L1
+title: Total COGS

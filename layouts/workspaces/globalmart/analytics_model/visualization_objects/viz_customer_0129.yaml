@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0026_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total Reward Value from loyalty points redeemed in the Online sales channel. Use it to monitor
+  the value of customer reward redemptions online over time or across segments.
+id: viz_customer_0129
+title: Reward Value

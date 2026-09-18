@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0019_0} - (SELECT {metric/metric_l3_0019_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Competitor Price for the In-Store channel by comparing the current month’s
+  value to the prior month. Use it to monitor how competitor pricing in brick-and-mortar locations is trending over time by
+  Month/Year.
+id: metric_l4_mom_0057
+tags:
+- L4
+title: 'MoM: Competitor Price (Competitor Pricing) — In-Store Channel'

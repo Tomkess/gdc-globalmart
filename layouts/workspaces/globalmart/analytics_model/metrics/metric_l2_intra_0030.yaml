@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_feedback_feedback_count} - {metric/metric_l1_fact_tier_change_change_count}
+description: Net difference between the total number of customer feedback items and the total number of tier change events
+  for the selected slice of data. Use it to see whether feedback volume is higher or lower than tier changes over a given
+  time period or business segment.
+id: metric_l2_intra_0030
+tags:
+- L2
+title: Feedback Count (Customer Feedback) vs Change Count (Tier Change) Change

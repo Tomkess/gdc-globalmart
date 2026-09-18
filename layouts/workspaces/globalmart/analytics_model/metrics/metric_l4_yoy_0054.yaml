@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0018_0} - (SELECT {metric/metric_l3_0018_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0018_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in aged inventory age days for the In-Store channel by comparing the
+  current value to the same metric in the prior year. Use it to see whether in-store inventory is aging faster or slower than
+  last year and to monitor improvements or deterioration over time.
+id: metric_l4_yoy_0054
+tags:
+- L4
+title: 'YoY: Age Days (Aged Inventory) — In-Store Channel'

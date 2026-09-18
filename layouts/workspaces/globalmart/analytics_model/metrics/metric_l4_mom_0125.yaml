@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0041_2} - (SELECT {metric/metric_l3_0041_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Markdown Amount from markdown events for the North region by comparing
+  the current month to the prior month. Use it to see whether markdown impact in North is increasing or decreasing over time.
+id: metric_l4_mom_0125
+tags:
+- L4
+title: 'MoM: Markdown Amount (Markdown Event) — North Region'

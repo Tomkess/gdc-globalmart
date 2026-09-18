@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_employee_hours_hours_worked} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total employee labor hours worked, restricted to the In-Store sales channel. Use this metric to monitor in-store
+  staffing effort while applying other filters such as time period or location.
+id: metric_l3_0094_0
+tags:
+- L3
+title: Hours Worked (Employee Hours) — In-Store Channel

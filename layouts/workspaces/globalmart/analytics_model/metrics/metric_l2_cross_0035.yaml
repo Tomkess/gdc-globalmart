@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} / {metric/metric_l1_sql_rfm_segments_recency_quartile}
+description: Measures average order volume per recency-quartile score for the selected customers or Recency, Frequency, Monetary
+  (RFM) segment by dividing Total Order Count by the total Recency Quartile (Recency, Frequency, Monetary (RFM)) value. Use
+  it to compare order activity across customer recency segments while normalizing for differences in overall recency-quartile
+  scoring.
+id: metric_l2_cross_0035
+tags:
+- L2
+title: Order Count per Recency Quartile (RFM) (Customer RFM Segments)

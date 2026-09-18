@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0011
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the net difference between Net Revenue (Net Sales Summary) and Operating Expense Transaction
+  Amount for the current reporting context. Use it to quickly see whether revenue exceeds operating expense transaction amounts
+  under the selected filters and time period.
+id: viz_sales_0026
+title: Net Revenue (Net Sales Summary) vs Amount

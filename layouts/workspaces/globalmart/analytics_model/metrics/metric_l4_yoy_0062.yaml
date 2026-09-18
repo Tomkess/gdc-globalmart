@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0020_2} - (SELECT {metric/metric_l3_0020_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0020_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the average checkout time (in seconds) for the North region, comparing the current
+  period to the same period last year. Use it to monitor whether checkout speed in the North is improving or worsening versus
+  the prior year.
+id: metric_l4_yoy_0062
+tags:
+- L4
+title: 'YoY: Avg Checkout Time (sec) (Checkout Time) — North Region'

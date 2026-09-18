@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_energy_consumption_cost} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total energy consumption cost limited to the In-Store sales channel. Use this metric to monitor and compare in-store
+  energy spending across time periods or other breakdowns while excluding other channel types.
+id: metric_l3_0004_0
+tags:
+- L3
+title: Cost (Energy Consumption) — In-Store Channel

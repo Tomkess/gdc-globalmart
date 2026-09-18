@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_pnl_opex} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total operating expenses from the Daily Profit & Loss data, filtered to the North region. Use this metric to
+  monitor and compare Operating Expenses (OpEx) performance for North within the current reporting context (for example, the
+  selected date range or business unit filters).
+id: metric_l3_0074_2
+tags:
+- L3
+title: OpEx (Daily Profit & Loss) — North Region

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_recency_quartile} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Totals customers’ Recency, Frequency, Monetary (RFM) Recency Quartile score, restricted to the In-Store sales
+  channel. Use it to compare how recently in-store customers have purchased across segments or time periods.
+id: metric_l3_0035_0
+tags:
+- L3
+title: Recency Quartile (RFM) (Customer RFM Segments) — In-Store Channel

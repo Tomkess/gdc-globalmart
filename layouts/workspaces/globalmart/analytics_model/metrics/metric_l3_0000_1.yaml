@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the number of orders restricted to the Online sales channel. Use it to track online order volume and compare
+  performance over time or across segments versus other channels.
+id: metric_l3_0000_1
+tags:
+- L3
+title: Order Count — Online Channel

@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Indicates the ending hour associated with a given shift type in the Shift Type dataset. Use it to group or
+    filter reporting by when shifts finish (e.g., to compare activity across different shift end times).
+  id: dim_shift_type.hour_end
+  labels: []
+  sourceColumn: hour_end
+  sourceColumnDataType: INT
+  tags:
+  - Shift Type
+  title: Hour End (Shift Type)
+- description: Start hour for a shift type in the Shift Type dataset. Use it to group or filter analyses by when a shift begins.
+  id: dim_shift_type.hour_start
+  labels: []
+  sourceColumn: hour_start
+  sourceColumnDataType: INT
+  tags:
+  - Shift Type
+  title: Hour Start (Shift Type)
+- description: Unique identifier for each shift type record in the Shift Type dataset. Use it to group, filter, or join analyses
+    by a specific shift.
+  id: dim_shift_type.shift_id
+  labels: []
+  sourceColumn: shift_id
+  sourceColumnDataType: STRING
+  tags:
+  - Shift Type
+  title: Shift ID
+- description: Name of the shift type (e.g., the label used to identify different shifts) from the Shift Type dataset, used
+    to group and filter reporting by shift.
+  id: dim_shift_type.shift_name
+  labels: []
+  sourceColumn: shift_name
+  sourceColumnDataType: STRING
+  tags:
+  - Shift Type
+  title: Shift Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_shift_type
+  path:
+  - globalmart
+  - dim_shift_type
+  type: dataSource
+description: Shift Type
+facts: []
+grain:
+- id: dim_shift_type.shift_id
+  type: attribute
+id: dim_shift_type
+references: []
+tags:
+- Shift Type
+title: Shift Type
+workspaceDataFilterReferences: []

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_paid_search_click.click_cost})
+description: Shows total spend on paid search clicks by summing Click Cost across all Paid Search Click records, within the
+  current report scope (such as selected time period or campaign filters).
+id: metric_l1_fact_paid_search_click_click_cost
+tags:
+- L1
+title: Total Click Cost (Paid Search Click)

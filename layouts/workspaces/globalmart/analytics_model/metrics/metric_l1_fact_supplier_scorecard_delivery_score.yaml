@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_supplier_scorecard.delivery_score})
+description: Totals the Delivery Score from the Supplier Scorecard data to show overall supplier delivery performance for
+  the currently selected records. Use it to track and compare delivery performance totals by supplier, time period, or other
+  relevant dimensions.
+id: metric_l1_fact_supplier_scorecard_delivery_score
+tags:
+- L1
+title: Total Delivery Score (Supplier Scorecard)

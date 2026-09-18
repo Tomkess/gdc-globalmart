@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_renovation_spend_renovation_cost} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the total amount spent on renovations, filtered to the Online sales channel. Use it to monitor and compare
+  renovation spending for Online activity across the current reporting scope (such as time periods, projects, or other applied
+  filters).
+id: metric_l3_0114_1
+tags:
+- L3
+title: Renovation Cost (Renovation Spend) — Online Channel

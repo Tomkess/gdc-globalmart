@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_avg_order_value} - {metric/metric_l1_sql_rfm_segments_recency_quartile}
+description: Shows the net difference between customers’ Average Order Value (from the Customer Lifetime Value snapshot) and
+  their Recency Quartile score from Recency, Frequency, Monetary (RFM) segmentation (the process of dividing customers or
+  data into groups by shared characteristics). Use it to compare order value against recency-based customer segments and see
+  whether value trends higher or lower relative to recency ranking.
+id: metric_l2_intra_0034
+tags:
+- L2
+title: Average Order Value (Customer Lifetime Value) vs Recency Quartile (RFM) (Customer RFM Segments) Change

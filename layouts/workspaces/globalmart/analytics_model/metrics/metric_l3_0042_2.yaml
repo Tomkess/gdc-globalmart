@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_planogram_compliance_compliance_score} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Total planogram (a diagram specifying exact product placement on retail shelves) compliance score for locations
+  in the North region. Use this metric to track overall planogram compliance performance for North, respecting any additional
+  report filters such as time period or location scope.
+id: metric_l3_0042_2
+tags:
+- L3
+title: Compliance Score (Planogram Compliance) — North Region

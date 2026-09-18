@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0025_2} - (SELECT {metric/metric_l3_0025_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0025_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in order amount tied to earned loyalty points for the North region,
+  comparing the current period to the same period last year. Use it to monitor whether loyalty-linked order value in the North
+  is growing or declining over time.
+id: metric_l4_yoy_0077
+tags:
+- L4
+title: 'YoY: Order Amount (Loyalty Points Earned) — North Region'

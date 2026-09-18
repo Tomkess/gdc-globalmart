@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_customer_feedback.sentiment_score})
+description: Shows the overall sentiment captured in customer feedback by summing the Sentiment Score across feedback records.
+  Use it to compare total feedback tone across segments or time periods based on the filters applied.
+id: metric_l1_fact_customer_feedback_sentiment_score
+tags:
+- L1
+title: Total Sentiment Score (Customer Feedback)

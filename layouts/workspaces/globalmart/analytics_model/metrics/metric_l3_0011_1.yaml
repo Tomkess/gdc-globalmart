@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_net_sales_summary_net_revenue} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows total net revenue for the Online sales channel, based on the Net Sales Summary data. Use it to compare
+  online performance across any selected time periods, products, or other breakdowns in a report or dashboard.
+id: metric_l3_0011_1
+tags:
+- L3
+title: Net Revenue (Net Sales Summary) — Online Channel

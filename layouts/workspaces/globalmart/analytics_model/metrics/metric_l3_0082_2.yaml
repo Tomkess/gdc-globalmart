@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_staffing_daily_staff_hours} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total staff hours from the Daily Store Staffing data, filtered to stores in the North region. Use this metric
+  to monitor overall labor hours for North-region staffing across the selected reporting period and any other applied filters.
+id: metric_l3_0082_2
+tags:
+- L3
+title: Staff Hours (Daily Store Staffing) — North Region

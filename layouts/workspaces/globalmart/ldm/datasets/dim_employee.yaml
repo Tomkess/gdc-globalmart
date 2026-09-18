@@ -1,0 +1,75 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each employee in the Employee dataset, used to distinguish, group, or filter records
+    at the individual employee level.
+  id: dim_employee.employee_id
+  labels: []
+  sourceColumn: employee_id
+  sourceColumnDataType: STRING
+  tags:
+  - Employee
+  title: Employee ID
+- description: Employee Name identifies individual employees in the Employee dataset and is used to group, filter, or break
+    down metrics by employee.
+  id: dim_employee.employee_name
+  labels: []
+  sourceColumn: employee_name
+  sourceColumnDataType: STRING
+  tags:
+  - Employee
+  title: Employee Name
+- description: Identifier for an employee’s job role in the Employee dataset, used to group or filter reporting by job role.
+  id: dim_employee.job_role_id
+  labels: []
+  sourceColumn: job_role_id
+  sourceColumnDataType: STRING
+  tags:
+  - Employee
+  title: Job Role ID
+- description: Identifies the manager associated with each employee record in the Employee dataset. Use it to group or filter
+    employee-related metrics by manager.
+  id: dim_employee.manager_id
+  labels: []
+  sourceColumn: manager_id
+  sourceColumnDataType: STRING
+  tags:
+  - Employee
+  title: Manager ID (Employee)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_employee
+  path:
+  - globalmart
+  - dim_employee
+  type: dataSource
+description: Employee
+facts: []
+grain:
+- id: dim_employee.employee_id
+  type: attribute
+id: dim_employee
+references:
+- identifier:
+    id: dim_department
+    type: dataset
+  multivalue: false
+  sources:
+  - column: department_id
+    dataType: STRING
+    target:
+      id: dim_department.department_id
+      type: attribute
+- identifier:
+    id: dim_job_role
+    type: dataset
+  multivalue: false
+  sources:
+  - column: job_role_id
+    dataType: STRING
+    target:
+      id: dim_job_role.role_id
+      type: attribute
+tags:
+- Employee
+title: Employee
+workspaceDataFilterReferences: []

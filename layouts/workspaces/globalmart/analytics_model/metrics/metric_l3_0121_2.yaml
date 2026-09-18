@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_audit_finding_finding_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts the total number of audit findings for the North region only (filtered to Region Name = North). Use this
+  metric to monitor and compare audit finding volume for North across time periods, audits, or other breakdowns.
+id: metric_l3_0121_2
+tags:
+- L3
+title: Finding Count (Audit Finding) — North Region

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0041_0} - (SELECT {metric/metric_l3_0041_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0041_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in the In-Store Markdown Amount from Markdown Events by comparing
+  the current period to the previous year. Use it to see whether in-store markdown value is increasing or decreasing versus
+  last year.
+id: metric_l4_yoy_0123
+tags:
+- L4
+title: 'YoY: Markdown Amount (Markdown Event) — In-Store Channel'

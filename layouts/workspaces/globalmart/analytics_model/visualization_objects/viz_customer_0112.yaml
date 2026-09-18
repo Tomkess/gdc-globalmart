@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_rfm_segments_monetary_quartile
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total Monetary Quartile (RFM) score summed across customers, based on the Customer RFM Segments
+  data and any currently applied report filters.
+id: viz_customer_0112
+title: Monetary Quartile (RFM)

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_returns_quantity_returned} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Measures the total number of units returned, filtered to the North region. Use it to track and compare return
+  volume for North across time periods or other business breakdowns.
+id: metric_l3_0006_2
+tags:
+- L3
+title: Quantity Returned (Returns) — North Region

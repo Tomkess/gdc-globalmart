@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_opex_transaction_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total operating expense transaction amount restricted to the Online sales channel. Use this metric to track and
+  compare operating expenses attributable to online activity across the selected time period and any other applied report
+  filters.
+id: metric_l3_0012_1
+tags:
+- L3
+title: Amount (Operating Expense Transaction) — Online Channel

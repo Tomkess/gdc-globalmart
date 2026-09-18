@@ -1,0 +1,13 @@
+content:
+  format: '#,##0'
+  maql: SELECT MIN((SELECT {metric/metric_l1_fact_headcount_snapshot_total_headcount} BY {label/transaction_date.week})) BY
+    ALL {label/transaction_date.week}
+description: Returns the minimum weekly value of Total Headcount (Headcount Snapshot) across the selected date range (weekly
+  grain = Transaction Date Week/Year). Respects all applied filters (e.g., region) and computes the minimum over weeks within
+  the remaining analysis context.
+id: minimum_weekly_total_headcount
+tags:
+- headcount
+- min
+- weekly
+title: Minimum Weekly Total Headcount

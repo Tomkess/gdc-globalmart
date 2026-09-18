@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each checkout event in the Checkout Time dataset, used to group or filter analysis at
+    the individual checkout level.
+  id: fact_checkout_time.checkout_id
+  labels: []
+  sourceColumn: checkout_id
+  sourceColumnDataType: STRING
+  tags:
+  - Checkout Time
+  title: Checkout ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_checkout_time
+  path:
+  - globalmart
+  - fact_checkout_time
+  type: dataSource
+description: Checkout Time
+facts:
+- description: Average time taken to complete checkout, measured in seconds, from the Checkout Time dataset. Use this to track
+    checkout efficiency and compare performance across customer segments, channels, or time periods.
+  id: fact_checkout_time.avg_checkout_sec
+  sourceColumn: avg_checkout_sec
+  sourceColumnDataType: INT
+  tags:
+  - Checkout Time
+  title: Avg Checkout Time (sec)
+grain:
+- id: fact_checkout_time.checkout_id
+  type: attribute
+id: fact_checkout_time
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: checkout_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Checkout Time
+title: Checkout Time
+workspaceDataFilterReferences: []

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0045_1} - (SELECT {metric/metric_l3_0045_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0045_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the average product rating for the Online sales channel, comparing
+  the current period’s rating to the same period in the prior year. Use it to track whether online product ratings are improving
+  or declining over time.
+id: metric_l4_yoy_0136
+tags:
+- L4
+title: 'YoY: Avg Rating (Product Rating) — Online Channel'

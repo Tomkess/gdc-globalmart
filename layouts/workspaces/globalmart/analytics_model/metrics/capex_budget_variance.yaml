@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_capex_project_approved_budget} - {metric/metric_l1_fact_capex_project_spent_amount}
+description: Shows remaining (or overrun) capital budget by subtracting total spent amount from the total approved CapEx budget
+  for the current selection (such as chosen filters and time period). Use it to monitor whether capital expenditure projects
+  are under or over their approved budgets.
+id: capex_budget_variance
+tags:
+- budget
+- capex
+- variance
+title: CapEx Budget Variance

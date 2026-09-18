@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} / {metric/metric_l1_fact_opex_transaction_amount}
+description: Measures how much inventory value you hold relative to operating expense spending by dividing Total Inventory
+  Value by the Total Amount of Operating Expense Transactions. Use it to assess whether inventory levels are high or low compared
+  with operating expense activity for the selected filters and time period.
+id: metric_l2_cross_0012
+tags:
+- L2
+title: Inventory Value per Amount (Operating Expense Transaction)

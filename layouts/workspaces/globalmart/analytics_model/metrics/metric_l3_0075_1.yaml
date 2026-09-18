@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_capex_project_approved_budget} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total approved budget for capital expenditure projects, restricted to initiatives tied to the Online sales channel
+  type. Use this metric to monitor and compare approved capex funding specifically for online-channel projects within the
+  current reporting scope.
+id: metric_l3_0075_1
+tags:
+- L3
+title: Approved Budget (Capital Expenditure Project) — Online Channel

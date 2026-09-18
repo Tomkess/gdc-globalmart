@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_assortment_efficiency_units_sold
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of units sold, using the “Total Units Sold (Assortment Efficiency)” metric
+  to summarize overall sales volume in units.
+id: viz_product_0060
+title: Units Sold

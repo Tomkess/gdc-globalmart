@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_headcount_snapshot_total_headcount} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total employee headcount from the Headcount Snapshot data, restricted to the North region. Use this metric to
+  monitor workforce size for North and analyze it over time or by other organizational dimensions.
+id: metric_l3_0099_2
+tags:
+- L3
+title: Headcount (Headcount Snapshot) — North Region

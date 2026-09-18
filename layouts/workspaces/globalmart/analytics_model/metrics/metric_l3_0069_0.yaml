@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_paid_search_click_click_count} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Counts paid search clicks limited to the In-Store sales channel, so you can track click volume specifically attributable
+  to in-store activity. Use it to compare In-Store paid search performance against overall paid search click totals.
+id: metric_l3_0069_0
+tags:
+- L3
+title: Click Count (Paid Search Click) — In-Store Channel

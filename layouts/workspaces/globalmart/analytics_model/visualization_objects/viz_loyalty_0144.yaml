@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0021_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total revenue attributed to the loyalty program for the North region, based on the “Attributed
+  Revenue (Loyalty Program ROI) — North Region” metric. Use it to monitor loyalty-driven revenue performance in North and
+  compare it with other time periods or regions.
+id: viz_loyalty_0144
+title: Attributed Revenue (North region)

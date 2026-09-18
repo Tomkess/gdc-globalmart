@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_header_po_amount} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total purchase order spend (sum of PO Amount) filtered to the North region. Use this metric to track and compare
+  purchasing value for North across time or other reporting dimensions.
+id: metric_l3_0053_2
+tags:
+- L3
+title: PO Amount (Purchase Order) — North Region

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_till_reconciliation_variance_amount} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Totals the till reconciliation variance amount for the North region to quantify cash over/short discrepancies.
+  Use it to monitor reconciliation performance in North and compare results across time, store, or other operational breakdowns.
+id: metric_l3_0016_2
+tags:
+- L3
+title: Variance Amount (Till Reconciliation) — North Region

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_gift_card_txn_txn_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts gift card transactions for the Online sales channel only. Use this metric to track online gift card transaction
+  volume and compare it across time periods or other business dimensions.
+id: metric_l3_0013_1
+tags:
+- L3
+title: Transaction Count (Gift Card Transaction) — Online Channel

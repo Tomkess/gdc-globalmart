@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_sell_through_rate} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Shows the overall assortment sell-through rate, specifically filtered to the In-Store sales channel. Use this
+  metric to assess how effectively in-store assortments are selling through under the current report filters and grouping.
+id: metric_l3_0048_0
+tags:
+- L3
+title: Sell-Through Rate (Assortment Efficiency) — In-Store Channel

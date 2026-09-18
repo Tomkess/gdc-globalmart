@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_006
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0156
+              type: visualizationObject
+          localIdentifier: widget_006_00
+          title: Quantity
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0157
+              type: visualizationObject
+          localIdentifier: widget_006_01
+          title: Units on Hand by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0158
+              type: visualizationObject
+          localIdentifier: widget_006_02
+          title: Inventory Value by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0159
+              type: visualizationObject
+          localIdentifier: widget_006_03
+          title: Movement Quantity by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0160
+              type: visualizationObject
+          localIdentifier: widget_006_04
+          title: PO Count by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0161
+              type: visualizationObject
+          localIdentifier: widget_006_05
+          title: PO Amount by Year
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0162
+              type: visualizationObject
+          localIdentifier: widget_006_06
+          title: Line Amount
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0163
+              type: visualizationObject
+          localIdentifier: widget_006_07
+          title: Receipt Quantity by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0164
+              type: visualizationObject
+          localIdentifier: widget_006_08
+          title: Variance Quantity by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0165
+              type: visualizationObject
+          localIdentifier: widget_006_09
+          title: Transfer Quantity by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0166
+              type: visualizationObject
+          localIdentifier: widget_006_10
+          title: Write-Off Quantity by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_inventory_0167
+              type: visualizationObject
+          localIdentifier: widget_006_11
+          title: Write-Off Cost by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for monitoring overall inventory health by combining key trends in units on hand and inventory value
+  with purchasing, receiving, transfers, stock movements, and write-offs over time. It helps teams spot changes in stock levels
+  and the operational drivers behind them (e.g., PO volume/amount, receipt and variance quantities, transfer volumes, and
+  write-off costs). By default, it is scoped to the last 12 months, with additional product-related filters applied.
+id: dashboard_006
+title: Inventory Health & Stock Levels

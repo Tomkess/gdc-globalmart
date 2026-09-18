@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0047_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the average inventory level for the Online sales channel, using the Assortment Efficiency data.
+  Use it to monitor and compare how much inventory is held for online assortments within the current analysis context (e.g.,
+  by time period, product, or location).
+id: viz_product_0095
+title: Avg Inventory

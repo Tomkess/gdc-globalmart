@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_inventory_health_current_stock} - {metric/metric_l1_sql_inventory_health_days_of_cover}
+description: Compares on-hand inventory to inventory coverage by calculating the net difference between Total Current Stock
+  and Total Days of Cover within the same Inventory Health filtering context. Use it to identify situations where stock levels
+  are running ahead of, or behind, the expected days of coverage in the selected scope.
+id: metric_l2_intra_0063
+tags:
+- L2
+title: Current Stock (Inventory Health) vs Days of Cover (Inventory Health) Change

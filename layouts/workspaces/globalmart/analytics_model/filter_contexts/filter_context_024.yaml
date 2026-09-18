@@ -1,0 +1,29 @@
+content:
+  filters:
+  - dateFilter:
+      from: '-11'
+      granularity: GDC.time.month
+      to: '0'
+      type: relative
+  - attributeFilter:
+      attributeElements:
+        uris: []
+      displayForm:
+        identifier:
+          id: dim_currency.currency_code
+          type: label
+      filterElementsBy: []
+      negativeSelection: true
+  - attributeFilter:
+      attributeElements:
+        uris: []
+      displayForm:
+        identifier:
+          id: dim_currency.currency_name
+          type: label
+      filterElementsBy: []
+      negativeSelection: true
+  version: '2'
+description: 'Default filters: last 12 months + store region + channel'
+id: filter_context_024
+title: Filters — Seasonal Demand & Trends

@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_022
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0024
+              type: visualizationObject
+          localIdentifier: widget_022_00
+          title: Avg Transaction Value (Daily Store Sales) vs Revenue
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0025
+              type: visualizationObject
+          localIdentifier: widget_022_01
+          title: Revenue (Blended Daily Revenue) vs Net Revenue
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0026
+              type: visualizationObject
+          localIdentifier: widget_022_02
+          title: Net Revenue (Net Sales Summary) vs Amount
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0027
+              type: visualizationObject
+          localIdentifier: widget_022_03
+          title: Amount (Operating Expense Transaction) vs Transaction Count
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0028
+              type: visualizationObject
+          localIdentifier: widget_022_04
+          title: Transaction Count (Gift Card Transaction) vs Points Redeemed
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0029
+              type: visualizationObject
+          localIdentifier: widget_022_05
+          title: Points Redeemed (Loyalty Points Redeemed) vs Price Change
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0030
+              type: visualizationObject
+          localIdentifier: widget_022_06
+          title: Price Change (Price Adjustment) vs Variance Amount
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0031
+              type: visualizationObject
+          localIdentifier: widget_022_07
+          title: Variance Amount (Till Reconciliation) vs Comment Count
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0032
+              type: visualizationObject
+          localIdentifier: widget_022_08
+          title: Comment Count (Compliment Complaint) vs Age Days
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0033
+              type: visualizationObject
+          localIdentifier: widget_022_09
+          title: Age Days (Aged Inventory) vs Competitor Price
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0034
+              type: visualizationObject
+          localIdentifier: widget_022_10
+          title: Competitor Price (Competitor Pricing) vs Avg Checkout Time (sec)
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0035
+              type: visualizationObject
+          localIdentifier: widget_022_11
+          title: Avg Checkout Time (sec) (Checkout Time) vs Attributed Revenue
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for analyzing returns and refunds performance through a set of headline KPIs that compare key measures
+  (e.g., revenue vs net revenue, net revenue vs operating expense amount, price changes vs till variance, and loyalty/operational
+  indicators like points redeemed and checkout time). It is pre-filtered to the last 12 months, with optional filtering by
+  channel and currency (no default selections).
+id: dashboard_022
+title: Returns & Refunds Analysis

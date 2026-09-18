@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_compliment_complaint_comment_count} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Counts the total number of comments on compliment/complaint records for the In-Store sales channel. Use this
+  to monitor in-store customer feedback volume and compare it across time periods or against other channels.
+id: metric_l3_0017_0
+tags:
+- L3
+title: Comment Count (Compliment Complaint) — In-Store Channel

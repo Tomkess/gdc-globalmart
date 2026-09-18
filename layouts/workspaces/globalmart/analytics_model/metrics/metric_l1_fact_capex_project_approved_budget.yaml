@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_capex_project.approved_budget})
+description: Shows the total approved capital budget by summing the Approved Budget amounts across Capital Expenditure Projects
+  for the current reporting scope (such as applied filters or time period). Use it to understand overall approved funding
+  and compare totals across different project selections.
+id: metric_l1_fact_capex_project_approved_budget
+tags:
+- L1
+title: Total Approved Budget (Capital Expenditure Project)

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0060_0} - (SELECT {metric/metric_l3_0060_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0060_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the Supplier Scorecard Quality Score for the In‑Store sales channel,
+  comparing the current period to the same measure in the prior year. Use it to track whether in‑store supplier quality performance
+  is improving or declining over time and when slicing by supplier or other dimensions.
+id: metric_l4_yoy_0180
+tags:
+- L4
+title: 'YoY: Quality Score (Supplier Scorecard) — In-Store Channel'

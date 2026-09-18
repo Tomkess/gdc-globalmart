@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_goods_receipt_variance_qty} - {metric/metric_l1_fact_transfer_order_transfer_qty}
+description: Shows the net difference between total variance quantity recorded at goods receipt and the total transfer quantity
+  on transfer orders within the selected reporting scope. Use it to understand whether receipt variances are being offset
+  by transfers, or whether variances exceed the volume being moved.
+id: metric_l2_intra_0056
+tags:
+- L2
+title: Variance Quantity (Goods Receipt) vs Transfer Quantity (Transfer Order) Change

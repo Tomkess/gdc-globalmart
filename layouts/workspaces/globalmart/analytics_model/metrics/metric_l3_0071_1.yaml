@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_paid_search_click_click_cost} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total paid search click spend attributable to the Online sales channel, calculated by summing click costs within
+  the current reporting scope (for example, selected time periods or campaign filters). Use this metric to monitor and compare
+  online paid search costs across segments and over time.
+id: metric_l3_0071_1
+tags:
+- L3
+title: Click Cost (Paid Search Click) — Online Channel

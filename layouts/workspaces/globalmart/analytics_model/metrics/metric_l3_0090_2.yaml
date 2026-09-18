@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_visit_census_sqft} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total store square footage from the Store Visit Census, filtered to locations in the North region. Use it to
+  compare the amount of space represented by North-region records when slicing by other business dimensions.
+id: metric_l3_0090_2
+tags:
+- L3
+title: Sq Ft (Store Visit Census) — North Region

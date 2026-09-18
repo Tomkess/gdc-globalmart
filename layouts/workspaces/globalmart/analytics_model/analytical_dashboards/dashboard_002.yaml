@@ -1,0 +1,218 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_002
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0036
+              type: visualizationObject
+          localIdentifier: widget_002_00
+          title: Order Count by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0037
+              type: visualizationObject
+          localIdentifier: widget_002_01
+          title: Order Count — In-Store Channel by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0038
+              type: visualizationObject
+          localIdentifier: widget_002_02
+          title: Order Count — Online Channel by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0039
+              type: visualizationObject
+          localIdentifier: widget_002_03
+          title: Order Count — North Region by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0040
+              type: visualizationObject
+          localIdentifier: widget_002_04
+          title: Order Count by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0041
+              type: visualizationObject
+          localIdentifier: widget_002_05
+          title: Order Count — In-Store Channel by Year
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0042
+              type: visualizationObject
+          localIdentifier: widget_002_06
+          title: Order Count — Online Channel by Month
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0043
+              type: visualizationObject
+          localIdentifier: widget_002_07
+          title: Order Count — North Region by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0044
+              type: visualizationObject
+          localIdentifier: widget_002_08
+          title: Order Count by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0045
+              type: visualizationObject
+          localIdentifier: widget_002_09
+          title: Order Count — In-Store Channel by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0046
+              type: visualizationObject
+          localIdentifier: widget_002_10
+          title: Order Count — Online Channel by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_ecommerce_0047
+              type: visualizationObject
+          localIdentifier: widget_002_11
+          title: Order Count — North Region by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for monitoring online sales ordering trends over time, with views of total order count and breakouts
+  by channel (Online vs In-Store) and by region (North) across month, quarter, and year. By default it is filtered to the
+  last 12 months and can be further narrowed by store region and store format.
+id: dashboard_002
+title: Online Sales & E-commerce Funnel

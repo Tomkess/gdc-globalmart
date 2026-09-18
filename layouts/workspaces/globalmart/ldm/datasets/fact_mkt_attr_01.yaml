@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Marketing Attribution Score dataset, used to distinguish and trace
+    individual attribution score entries when grouping or filtering analyses.
+  id: fact_mkt_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Marketing Attribution Score
+  title: Record ID (Marketing Attribution Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_mkt_attr_01
+  path:
+  - globalmart
+  - fact_mkt_attr_01
+  type: dataSource
+description: Marketing Attribution Score
+facts:
+- description: Captures the raw marketing attribution value (score) for each record in the Marketing Attribution Score dataset,
+    used to quantify attribution results in reporting and analysis.
+  id: fact_mkt_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Marketing Attribution Score
+  title: Marketing Attribution Score
+grain:
+- id: fact_mkt_attr_01.attr_id
+  type: attribute
+id: fact_mkt_attr_01
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Marketing Attribution Score
+title: Marketing Attribution Score
+workspaceDataFilterReferences: []

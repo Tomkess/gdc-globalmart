@@ -1,0 +1,68 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each customer in the Customer RFM Segments dataset. Use it to group, filter, or drill
+    into Recency, Frequency, Monetary (RFM) segment metrics at the individual customer level.
+  id: sql_rfm_segments.customer_id
+  labels: []
+  sourceColumn: customer_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer RFM Segments
+  title: Customer ID (Customer RFM Segments)
+description: Customer RFM Segments
+facts:
+- description: Indicates which frequency quartile a customer falls into for Recency, Frequency, Monetary (RFM) segmentation
+    (the process of dividing customers or data into groups by shared characteristics), based on how often they purchase. Use
+    it from the Customer RFM Segments dataset to compare and segment customers by relative purchase frequency (e.g., lowest
+    to highest quartile).
+  id: sql_rfm_segments.frequency_quartile
+  sourceColumn: frequency_quartile
+  sourceColumnDataType: INT
+  tags:
+  - Customer RFM Segments
+  title: Frequency Quartile (RFM)
+- description: Customer’s Recency, Frequency, Monetary (RFM) monetary quartile, ranking them into one of four groups based
+    on their monetary value (e.g., spend) within the Customer RFM Segments dataset. Use it to segment and compare customers
+    by relative monetary contribution.
+  id: sql_rfm_segments.monetary_quartile
+  sourceColumn: monetary_quartile
+  sourceColumnDataType: INT
+  tags:
+  - Customer RFM Segments
+  title: Monetary Quartile (RFM)
+- description: A numeric quartile score that buckets each customer’s recency into four groups as part of the Recency, Frequency,
+    Monetary (RFM) segmentation (the process of dividing customers or data into groups by shared characteristics). Use it
+    from the Customer RFM Segments dataset to compare or filter customers by how recently they engaged or purchased (e.g.,
+    most vs. least recent).
+  id: sql_rfm_segments.recency_quartile
+  sourceColumn: recency_quartile
+  sourceColumnDataType: INT
+  tags:
+  - Customer RFM Segments
+  title: Recency Quartile (RFM)
+grain:
+- id: sql_rfm_segments.customer_id
+  type: attribute
+id: sql_rfm_segments
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    c.customer_id,\n    NTILE(4) OVER (ORDER BY MAX(oh.order_date)) AS recency_quartile,\n    NTILE(4)\
+    \ OVER (ORDER BY COUNT(DISTINCT oh.order_id)) AS frequency_quartile,\n    NTILE(4) OVER (ORDER BY SUM(ol.revenue)) AS\
+    \ monetary_quartile\nFROM {{ datasource_schema }}.dim_customer c\nLEFT JOIN {{ datasource_schema }}.fact_order_header\
+    \ oh ON c.customer_id = oh.customer_id\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\n\
+    GROUP BY 1\n"
+tags:
+- Customer RFM Segments
+title: Customer RFM Segments
+workspaceDataFilterReferences: []

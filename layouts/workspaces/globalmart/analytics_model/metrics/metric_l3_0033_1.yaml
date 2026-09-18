@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_revenue} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Measures total customer lifetime revenue (customer lifetime value) for sales attributed to the Online channel
+  only. Use it to assess and compare the lifetime value generated through online sales within the current customer or report
+  selection.
+id: metric_l3_0033_1
+tags:
+- L3
+title: Lifetime Revenue (Customer Lifetime Value) — Online Channel

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0001} + ({metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount} / {metric/metric_l1_fact_purchase_order_line_quantity})
+description: Combines the year-over-year change in Online Channel order count with the average loyalty redemption discount
+  per purchased unit (total POS loyalty discount amount divided by total purchase-order quantity). Use it as a composite indicator
+  to relate online order growth/decline to how much discount value is being redeemed per unit over the same slice of data.
+id: metric_l5_0002
+tags:
+- L5
+title: 'YoY: Order Count — Online Channel (+Discount Amount (Loyalty Redemption at POS)/Quantity (Purchase Order Line Items))'

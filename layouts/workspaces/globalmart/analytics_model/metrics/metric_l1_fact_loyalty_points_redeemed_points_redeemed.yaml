@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_loyalty_points_redeemed.points_redeemed})
+description: Sums all loyalty points redeemed across transactions to show overall redemption volume. Use it to monitor redemption
+  trends over time or break down redeemed points by customer, program, or other available dimensions.
+id: metric_l1_fact_loyalty_points_redeemed_points_redeemed
+tags:
+- L1
+title: Total Points Redeemed (Loyalty Points Redeemed)

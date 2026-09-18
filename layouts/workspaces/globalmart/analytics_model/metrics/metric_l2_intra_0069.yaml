@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_paid_search_click_click_count} - {metric/metric_l1_fact_display_impression_impression_count}
+description: Shows the difference between total paid search clicks and total display ad impressions. Use it to compare click
+  volume against impression volume and monitor shifts in performance between these two channels over time or across segments.
+id: metric_l2_intra_0069
+tags:
+- L2
+title: Click Count (Paid Search Click) vs Impression Count (Display Impression) Change

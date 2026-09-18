@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_margin_bridge.gross_revenue})
+description: Shows total gross sales revenue by summing Gross Revenue from the Margin Bridge dataset, reflecting the current
+  filters or reporting context in a report or dashboard. Useful as a baseline measure for revenue and margin bridge analysis.
+id: metric_l1_sql_margin_bridge_gross_revenue
+tags:
+- L1
+title: Total Gross Revenue (Margin Bridge)

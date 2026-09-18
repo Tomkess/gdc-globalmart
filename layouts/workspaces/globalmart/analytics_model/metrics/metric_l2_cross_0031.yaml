@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} / {metric/metric_l1_fact_tier_change_change_count}
+description: Shows the average net revenue generated per tier change by dividing Total Net Revenue by the Total Change Count
+  (Tier Change). Use it to assess revenue impact relative to the volume of tier change events for the selected time period
+  or segment.
+id: metric_l2_cross_0031
+tags:
+- L2
+title: Net Revenue per Change Count (Tier Change)

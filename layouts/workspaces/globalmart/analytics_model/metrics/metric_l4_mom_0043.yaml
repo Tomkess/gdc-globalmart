@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0014_1} - (SELECT {metric/metric_l3_0014_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in loyalty points redeemed in the Online sales channel by comparing the current
+  month’s redeemed points to the prior month. Use it to monitor whether online redemption volume is increasing or decreasing
+  over time.
+id: metric_l4_mom_0043
+tags:
+- L4
+title: 'MoM: Points Redeemed (Loyalty Points Redeemed) — Online Channel'

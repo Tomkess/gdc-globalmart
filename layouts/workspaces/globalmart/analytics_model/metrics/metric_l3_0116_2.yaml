@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_waste_disposal_waste_tons} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total waste disposed (in tons) for the North region only. Use this metric to track North’s waste volume over
+  time and to compare it against other segments or dimensions.
+id: metric_l3_0116_2
+tags:
+- L3
+title: Waste Tons (Waste Disposal) — North Region

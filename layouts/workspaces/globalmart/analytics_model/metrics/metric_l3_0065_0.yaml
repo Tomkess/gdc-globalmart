@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total marketing campaign spend filtered to the In-Store sales channel. Use this metric to track and compare in-store
+  campaign investment over time or alongside spend from other channels.
+id: metric_l3_0065_0
+tags:
+- L3
+title: Campaign Spend — In-Store Channel

@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0003_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total quantity of units ordered from purchase order line items for the North region. Use
+  it to quickly monitor purchasing volume in North and compare it across dimensions like supplier, product, or time in the
+  surrounding analysis.
+id: viz_inventory_0175
+title: Quantity (North region)

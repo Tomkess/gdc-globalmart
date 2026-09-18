@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_lease_payment_lease_payment} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total lease payment amount for the North region only. Use it to report on or compare lease payments
+  specifically within the North region, while still respecting any other filters applied in a dashboard or report.
+id: metric_l3_0112_2
+tags:
+- L3
+title: Lease Payment (Lease Payment) — North Region

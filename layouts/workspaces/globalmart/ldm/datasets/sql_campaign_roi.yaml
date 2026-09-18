@@ -1,0 +1,54 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each marketing campaign in the Campaign ROI dataset, used to group, filter, and drill
+    into ROI and performance metrics by campaign.
+  id: sql_campaign_roi.campaign_id
+  labels: []
+  sourceColumn: campaign_id
+  sourceColumnDataType: STRING
+  tags:
+  - Campaign ROI
+  title: Campaign ID (Campaign ROI)
+description: Campaign ROI
+facts:
+- description: Revenue amount attributed to a campaign, used to analyze campaign return on investment in the Campaign ROI
+    dataset.
+  id: sql_campaign_roi.attributed_revenue
+  sourceColumn: attributed_revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Campaign ROI
+  title: Attributed Revenue (Campaign ROI)
+- description: Total campaign spend recorded in the Campaign ROI dataset, used to analyze and aggregate marketing costs across
+    campaigns.
+  id: sql_campaign_roi.total_spend
+  sourceColumn: total_spend
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Campaign ROI
+  title: Spend (Campaign ROI)
+grain:
+- id: sql_campaign_roi.campaign_id
+  type: attribute
+id: sql_campaign_roi
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: campaign_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    csd.campaign_id,\n    csd.day AS campaign_date,\n    SUM(csd.spend) AS total_spend,\n    SUM(COALESCE(wol.revenue,\
+    \ 0)) AS attributed_revenue\nFROM {{ datasource_schema }}.fact_campaign_spend_daily csd\nLEFT JOIN {{ datasource_schema\
+    \ }}.fact_web_order_header woh ON csd.day = woh.order_date\nLEFT JOIN {{ datasource_schema }}.fact_web_order_line wol\
+    \ ON woh.order_id = wol.order_id\nGROUP BY 1, 2\n"
+tags:
+- Campaign ROI
+title: Campaign ROI
+workspaceDataFilterReferences: []

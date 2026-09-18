@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT MAX({metric/metric_l1_fact_energy_consumption_kwh})
+description: Returns the maximum value of total kWh consumed within the selected data and filters.
+id: maximum_total_kwh_consumed
+tags:
+- consumption
+- energy
+- kwh
+title: Maximum Total kWh Consumed

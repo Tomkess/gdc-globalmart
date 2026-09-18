@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_paid_search_click_click_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts total paid search clicks for the North region only. Use it to track paid search click volume and trends
+  for North in regional performance reporting.
+id: metric_l3_0069_2
+tags:
+- L3
+title: Click Count (Paid Search Click) — North Region

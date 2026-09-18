@@ -1,0 +1,11 @@
+content:
+  format: $#,##0.00
+  maql: SELECT SUM({fact/fact_order_header.revenue}) / SUM({fact/fact_order_header.order_count})
+description: Measures the average revenue generated per sales order, calculated as total Revenue divided by total Order Count.
+  Use it to track typical order size and compare performance across time periods, customers, products, or regions.
+id: avg_order_value
+tags:
+- kpi
+- orders
+- revenue
+title: Average Order Value

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0062_2} - (SELECT {metric/metric_l3_0062_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0062_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Supplier Scorecard Cost Score for the North region, comparing the current
+  year to the previous year. Use it to track whether North’s cost performance score is improving or declining over time.
+id: metric_l4_yoy_0188
+tags:
+- L4
+title: 'YoY: Cost Score (Supplier Scorecard) — North Region'

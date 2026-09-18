@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each recorded store visit in the Store Visit Census dataset. Use it to distinguish, group,
+    or filter analyses down to individual visits.
+  id: fact_store_visit_census.visit_id
+  labels: []
+  sourceColumn: visit_id
+  sourceColumnDataType: STRING
+  tags:
+  - Store Visit Census
+  title: Visit ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_store_visit_census
+  path:
+  - globalmart
+  - fact_store_visit_census
+  type: dataSource
+description: Store Visit Census
+facts:
+- description: Square footage associated with each record in the Store Visit Census dataset, typically used to compare or
+    normalize store visits by store size.
+  id: fact_store_visit_census.sqft
+  sourceColumn: sqft
+  sourceColumnDataType: INT
+  tags:
+  - Store Visit Census
+  title: Census Area (Sq Ft)
+- description: Number of visitors recorded in the Store Visit Census dataset, used to quantify foot traffic and support totals
+    or averages by location, date, or other dimensions.
+  id: fact_store_visit_census.visitor_count
+  sourceColumn: visitor_count
+  sourceColumnDataType: INT
+  tags:
+  - Store Visit Census
+  title: Visitor Count (Store Visit Census)
+grain:
+- id: fact_store_visit_census.visit_id
+  type: attribute
+id: fact_store_visit_census
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: visit_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Store Visit Census
+title: Store Visit Census
+workspaceDataFilterReferences: []

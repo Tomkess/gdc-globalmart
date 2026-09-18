@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_checkout_time_avg_checkout_sec} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Average checkout time in seconds for North region activity. Use it to track checkout speed specifically in the
+  North and compare it with other regions or overall performance trends.
+id: metric_l3_0020_2
+tags:
+- L3
+title: Avg Checkout Time (sec) (Checkout Time) — North Region

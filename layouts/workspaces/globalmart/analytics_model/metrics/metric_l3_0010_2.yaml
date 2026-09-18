@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_blended_daily_revenue_total_revenue} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total revenue from the Blended Daily Revenue data limited to the North region. Use this metric to report North-only
+  revenue while still honoring the currently selected dashboard/report filters and time period.
+id: metric_l3_0010_2
+tags:
+- L3
+title: Revenue (Blended Daily Revenue) — North Region

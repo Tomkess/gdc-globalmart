@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0018_0} - (SELECT {metric/metric_l3_0018_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in in-store Aged Inventory Age Days by comparing the current month to the
+  prior month. Use it to see whether physical-store inventory is aging faster or improving over time, typically when analyzed
+  by Month/Year.
+id: metric_l4_mom_0054
+tags:
+- L4
+title: 'MoM: Age Days (Aged Inventory) — In-Store Channel'

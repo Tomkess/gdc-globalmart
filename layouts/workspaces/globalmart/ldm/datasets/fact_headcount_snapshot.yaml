@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each headcount snapshot record in the Headcount Snapshot dataset. Use it to distinguish
+    and filter specific snapshot instances when analyzing headcount over time.
+  id: fact_headcount_snapshot.snapshot_id
+  labels: []
+  sourceColumn: snapshot_id
+  sourceColumnDataType: STRING
+  tags:
+  - Headcount Snapshot
+  title: Snapshot ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_headcount_snapshot
+  path:
+  - globalmart
+  - fact_headcount_snapshot
+  type: dataSource
+description: Headcount Snapshot
+facts:
+- description: Number of active people recorded in the Headcount Snapshot dataset, typically used to track and aggregate active
+    headcount across time or organizational breakdowns.
+  id: fact_headcount_snapshot.active_count
+  sourceColumn: active_count
+  sourceColumnDataType: INT
+  tags:
+  - Headcount Snapshot
+  title: Active Count
+- description: Total number of employees in the Headcount Snapshot dataset, used to track workforce size over time and across
+    organizational breakdowns.
+  id: fact_headcount_snapshot.total_headcount
+  sourceColumn: total_headcount
+  sourceColumnDataType: INT
+  tags:
+  - Headcount Snapshot
+  title: Headcount
+grain:
+- id: fact_headcount_snapshot.snapshot_id
+  type: attribute
+id: fact_headcount_snapshot
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: snapshot_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Headcount Snapshot
+title: Headcount Snapshot
+workspaceDataFilterReferences: []

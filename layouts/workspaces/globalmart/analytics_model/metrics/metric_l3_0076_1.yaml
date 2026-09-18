@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_capex_project_spent_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Tracks total spending on capital expenditure projects for the Online sales channel only. Use it to monitor and
+  compare CapEx project spend for online activity across time, projects, or other business dimensions.
+id: metric_l3_0076_1
+tags:
+- L3
+title: Spent Amount (Capital Expenditure Project) — Online Channel

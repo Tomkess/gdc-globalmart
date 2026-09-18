@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0045_2} - (SELECT {metric/metric_l3_0045_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the North region’s average product rating by subtracting last month’s average
+  rating from the current month’s value. Use it to track whether product ratings in the North are improving or declining over
+  time at a monthly granularity.
+id: metric_l4_mom_0137
+tags:
+- L4
+title: 'MoM: Avg Rating (Product Rating) — North Region'

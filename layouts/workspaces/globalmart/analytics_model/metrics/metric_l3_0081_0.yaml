@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_ebitda} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Shows total EBITDA for the In-Store sales channel using the Margin Bridge EBITDA measure. Use it to monitor operating
+  profitability from in-store activity across the current report or dashboard filters and breakdowns.
+id: metric_l3_0081_0
+tags:
+- L3
+title: EBITDA (Margin Bridge) — In-Store Channel

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_nps_response.response_count})
+description: Shows the total number of NPS survey responses by summing the Response Count from the NPS Response data. Use
+  it to track overall response volume and to provide context when interpreting other NPS metrics.
+id: metric_l1_fact_nps_response_response_count
+tags:
+- L1
+title: Total Response Count (NPS Response)

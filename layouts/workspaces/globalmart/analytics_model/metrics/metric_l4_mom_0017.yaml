@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0005_2} - (SELECT {metric/metric_l3_0005_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the total Return Amount for the North region by comparing the current month’s
+  returns value to the previous month. Use it to track whether return amounts in North are increasing or decreasing over time
+  at a monthly level.
+id: metric_l4_mom_0017
+tags:
+- L4
+title: 'MoM: Return Amount (Returns) — North Region'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0007_0} - (SELECT {metric/metric_l3_0007_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in in-store Sales Amount by comparing the current month’s in-store sales to
+  the prior month. Use it to understand how in-store daily store sales are trending versus last month across your chosen filters
+  (such as store and time period).
+id: metric_l4_mom_0021
+tags:
+- L4
+title: 'MoM: Sales Amount (Daily Store Sales) — In-Store Channel'

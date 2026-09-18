@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_ops_efficiency_summary_store_revenue
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total store revenue for the selected reporting period and any applied filters, based on the
+  Operations Efficiency Summary data.
+id: viz_store_ops_0262
+title: Store Revenue

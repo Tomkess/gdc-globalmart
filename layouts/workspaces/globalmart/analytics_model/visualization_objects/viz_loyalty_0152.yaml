@@ -1,0 +1,31 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0105_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.year
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing total Referral Bonus earned from referrals attributed to the Online sales channel, broken
+  out by transaction year. Use it to track how online-channel referral bonus performance changes year over year under the
+  current filters and time period.
+id: viz_loyalty_0152
+title: Referral Bonus by Year

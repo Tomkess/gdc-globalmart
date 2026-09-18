@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} / {metric/metric_l1_sql_net_sales_summary_net_revenue}
+description: Shows how net revenue from the Daily Profit & Loss source compares to net revenue from the Net Sales Summary
+  source by expressing the former as a ratio of the latter. Use it to validate that the two sources align in the current reporting
+  context and to spot differences caused by filters or scope.
+id: metric_l2_cross_0011
+tags:
+- L2
+title: Net Revenue per Net Revenue (Net Sales Summary)

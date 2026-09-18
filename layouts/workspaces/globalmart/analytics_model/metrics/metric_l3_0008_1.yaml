@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_transaction_count} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Counts the total number of store sales transactions for the Online sales channel, using the Daily Store Sales
+  transaction count as the underlying source. Use this metric to monitor online transaction volume and compare trends over
+  time or against other channels.
+id: metric_l3_0008_1
+tags:
+- L3
+title: Transaction Count (Daily Store Sales) — Online Channel

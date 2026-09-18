@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0022_1} - (SELECT {metric/metric_l3_0022_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Online-channel customer event volume by subtracting last month’s Event Count
+  from the current month, using the Month/Year period.
+id: metric_l4_mom_0067
+tags:
+- L4
+title: 'MoM: Event Count (Customer Event) — Online Channel'

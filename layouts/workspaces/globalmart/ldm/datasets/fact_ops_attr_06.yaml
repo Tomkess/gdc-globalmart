@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Store Customer Satisfaction Score dataset. Use it to reference or
+    drill into individual satisfaction score entries rather than for business-level grouping.
+  id: fact_ops_attr_06.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Store Customer Satisfaction Score
+  title: Record ID (Store Customer Satisfaction Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ops_attr_06
+  path:
+  - globalmart
+  - fact_ops_attr_06
+  type: dataSource
+description: Store Customer Satisfaction Score
+facts:
+- description: Stores the underlying numeric value for the Store Customer Satisfaction Score records, used as the base measure
+    for aggregations and calculations.
+  id: fact_ops_attr_06.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Store Customer Satisfaction Score
+  title: Store Customer Satisfaction Score
+grain:
+- id: fact_ops_attr_06.attr_id
+  type: attribute
+id: fact_ops_attr_06
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Store Customer Satisfaction Score
+title: Store Customer Satisfaction Score
+workspaceDataFilterReferences: []

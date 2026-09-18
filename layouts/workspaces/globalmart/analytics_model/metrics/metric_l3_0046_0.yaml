@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_rating_review_count} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Counts the total number of product rating reviews for the In-Store sales channel. Use this metric to monitor
+  in-store review volume and compare it against other time periods or segments.
+id: metric_l3_0046_0
+tags:
+- L3
+title: Review Count (Product Rating) — In-Store Channel

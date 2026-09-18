@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_delivery_score} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Total delivery performance score from the Supplier Scorecard, filtered to the In-Store sales channel. Use this
+  metric to monitor and compare in-store delivery performance totals by supplier, time period, or other relevant dimensions.
+id: metric_l3_0061_0
+tags:
+- L3
+title: Delivery Score (Supplier Scorecard) — In-Store Channel

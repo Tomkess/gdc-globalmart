@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_campaign_spend_daily_spend_count} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Counts the number of daily campaign spend records for the In-Store sales channel. Use it to monitor how much
+  In-Store spend activity is being logged over the selected time period and any applied filters.
+id: metric_l3_0066_0
+tags:
+- L3
+title: Spend Count (Daily Campaign Spend) — In-Store Channel

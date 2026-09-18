@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_goods_receipt_receipt_qty} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total quantity of goods received, limited to receipts in the North region. Use this metric to monitor inbound
+  receipt volume for the North and compare it across time periods or against other segments.
+id: metric_l3_0055_2
+tags:
+- L3
+title: Receipt Quantity (Goods Receipt) — North Region

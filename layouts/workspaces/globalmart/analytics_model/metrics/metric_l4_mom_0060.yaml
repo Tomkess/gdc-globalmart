@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0020_0} - (SELECT {metric/metric_l3_0020_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in average in-store checkout time, measured in seconds. It compares the current
+  month’s in-store average checkout duration to the previous month to indicate whether checkout speed is improving or worsening
+  over time.
+id: metric_l4_mom_0060
+tags:
+- L4
+title: 'MoM: Avg Checkout Time (sec) (Checkout Time) — In-Store Channel'

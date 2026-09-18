@@ -1,0 +1,29 @@
+content:
+  filters:
+  - dateFilter:
+      from: '-11'
+      granularity: GDC.time.month
+      to: '0'
+      type: relative
+  - attributeFilter:
+      attributeElements:
+        uris: []
+      displayForm:
+        identifier:
+          id: dim_customer.customer_name
+          type: label
+      filterElementsBy: []
+      negativeSelection: true
+  - attributeFilter:
+      attributeElements:
+        uris: []
+      displayForm:
+        identifier:
+          id: dim_customer.lifecycle_stage_id
+          type: label
+      filterElementsBy: []
+      negativeSelection: true
+  version: '2'
+description: 'Default filters: last 12 months + store region + channel'
+id: filter_context_010
+title: Filters — Daily Profit & Loss Summary

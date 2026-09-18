@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each fraud type in the Fraud Type dataset. Use it to group, filter, or look up specific
+    fraud types in analysis and reporting.
+  id: dim_fraud_type.fraud_id
+  labels: []
+  sourceColumn: fraud_id
+  sourceColumnDataType: STRING
+  tags:
+  - Fraud Type
+  title: Fraud ID
+- description: Name of the fraud category used to classify transactions or cases. Use this attribute to group, slice, or filter
+    analyses by fraud type within the Fraud Type dataset.
+  id: dim_fraud_type.fraud_type_name
+  labels: []
+  sourceColumn: fraud_type_name
+  sourceColumnDataType: STRING
+  tags:
+  - Fraud Type
+  title: Fraud Type Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_fraud_type
+  path:
+  - globalmart
+  - dim_fraud_type
+  type: dataSource
+description: Fraud Type
+facts: []
+grain:
+- id: dim_fraud_type.fraud_id
+  type: attribute
+id: dim_fraud_type
+references: []
+tags:
+- Fraud Type
+title: Fraud Type
+workspaceDataFilterReferences: []

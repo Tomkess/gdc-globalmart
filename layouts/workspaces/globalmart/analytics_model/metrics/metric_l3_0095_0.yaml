@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_payroll_transaction_gross_pay} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total gross pay from payroll transactions, filtered to activity associated with the In-Store sales channel. Use
+  this metric to analyze payroll costs specifically for in-store operations within the current reporting context (for example,
+  the selected time period or employee filters).
+id: metric_l3_0095_0
+tags:
+- L3
+title: Gross Pay (Payroll Transaction) — In-Store Channel

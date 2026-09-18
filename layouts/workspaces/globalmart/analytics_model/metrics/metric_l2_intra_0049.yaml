@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_inventory_snapshot_daily_on_hand_units} - {metric/metric_l1_total_inventory_value}
+description: Calculates the difference between Total Units on Hand (from the daily inventory snapshot) and Total Inventory
+  Value within the same reporting scope. Use it to compare changes in unit counts versus value movement under the selected
+  date, location, or other filters.
+id: metric_l2_intra_0049
+tags:
+- L2
+title: Units on Hand (Daily Inventory Snapshot) vs Inventory Value Change

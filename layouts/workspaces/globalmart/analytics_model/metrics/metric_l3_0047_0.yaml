@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_avg_inventory} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Shows the average inventory from the Assortment Efficiency data filtered to the In-Store sales channel. Use it
+  to monitor and compare in-store inventory levels for assortment efficiency across the selected time period, products, or
+  locations.
+id: metric_l3_0047_0
+tags:
+- L3
+title: Avg Inventory (Assortment Efficiency) — In-Store Channel

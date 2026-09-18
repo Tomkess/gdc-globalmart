@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_campaign_spend_daily_spend_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the number of daily campaign spend records for the Online sales channel, showing how many Online spend
+  entries are captured within the selected time period and filters. Use it to monitor record volume/completeness for Online
+  campaign spend activity.
+id: metric_l3_0066_1
+tags:
+- L3
+title: Spend Count (Daily Campaign Spend) — Online Channel

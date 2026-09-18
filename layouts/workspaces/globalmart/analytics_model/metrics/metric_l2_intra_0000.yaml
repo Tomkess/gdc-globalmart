@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} - {metric/metric_l1_total_net_revenue}
+description: Compares order volume to net revenue within the same reporting scope by taking the difference between Total Order
+  Count and Total Net Revenue under the current time period and filters. Use it as a quick directional check on whether changes
+  in orders are tracking alongside changes in revenue.
+id: metric_l2_intra_0000
+tags:
+- L2
+title: Order Count vs Net Revenue Change

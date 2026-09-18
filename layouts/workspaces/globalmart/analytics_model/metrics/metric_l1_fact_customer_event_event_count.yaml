@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_customer_event.event_count})
+description: Tracks the total number of customer events by summing the Event Count from the Customer Event dataset. Use it
+  to monitor overall event volume and compare activity across time periods, segments, or other breakdowns.
+id: metric_l1_fact_customer_event_event_count
+tags:
+- L1
+title: Total Event Count (Customer Event)

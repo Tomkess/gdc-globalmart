@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_units_sold} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total units sold from the Assortment Efficiency dataset, filtered to the In-Store sales channel. Use this metric
+  to monitor and compare in-store unit volume across Assortment Efficiency dimensions such as product, location, or time.
+id: metric_l3_0039_0
+tags:
+- L3
+title: Units Sold (Assortment Efficiency) — In-Store Channel

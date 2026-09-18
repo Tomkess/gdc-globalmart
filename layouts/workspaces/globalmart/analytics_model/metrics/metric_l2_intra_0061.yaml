@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_delivery_score} - {metric/metric_l1_fact_supplier_scorecard_cost_score}
+description: Shows the difference between total Delivery Score and total Cost Score in the Supplier Scorecard for the selected
+  data, indicating whether delivery performance is scoring higher or lower than cost performance. Use it to compare the balance
+  between delivery and cost outcomes by supplier, time period, or other scorecard dimensions.
+id: metric_l2_intra_0061
+tags:
+- L2
+title: Delivery Score (Supplier Scorecard) vs Cost Score (Supplier Scorecard) Change

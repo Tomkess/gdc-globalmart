@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_headcount_snapshot_active_count} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Counts the total number of active people from the Headcount Snapshot data, filtered to the In-Store sales channel.
+  Use this metric to monitor in-store headcount levels over time or when slicing by other report filters.
+id: metric_l3_0100_0
+tags:
+- L3
+title: Active Count (Headcount Snapshot) — In-Store Channel

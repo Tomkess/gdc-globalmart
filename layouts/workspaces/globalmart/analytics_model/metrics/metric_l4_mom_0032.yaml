@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0010_2} - (SELECT {metric/metric_l3_0010_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in revenue for the North Region, based on the Blended Daily Revenue measure.
+  Use it to compare the current month’s North revenue to the previous month while respecting the same report or dashboard
+  filters and time settings.
+id: metric_l4_mom_0032
+tags:
+- L4
+title: 'MoM: Revenue (Blended Daily Revenue) — North Region'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0002} + ({metric/metric_l1_fact_energy_consumption_cost} / {metric/metric_l1_fact_returns_return_amount})
+description: Combines the year-over-year growth rate of Order Count in the North region with a cost-to-returns ratio (Total
+  Energy Consumption Cost divided by Total Return Amount). Use it as a composite indicator to view North’s order momentum
+  alongside operational cost pressure relative to returns within the current filters and time period.
+id: metric_l5_0004
+tags:
+- L5
+title: 'YoY: Order Count — North Region (+Cost (Energy Consumption)/Return Amount (Returns))'

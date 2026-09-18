@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Revenue Growth Score dataset, used to distinguish and look up individual
+    entries and to support filtering or drilling into record-level details.
+  id: fact_fin_attr_02.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Revenue Growth Score
+  title: Record ID (Revenue Growth Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_fin_attr_02
+  path:
+  - globalmart
+  - fact_fin_attr_02
+  type: dataSource
+description: Revenue Growth Score
+facts:
+- description: Stores the numeric attribute value used in the Revenue Growth Score dataset, typically aggregated to support
+    reporting and comparisons.
+  id: fact_fin_attr_02.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Revenue Growth Score
+  title: Revenue Growth Score
+grain:
+- id: fact_fin_attr_02.attr_id
+  type: attribute
+id: fact_fin_attr_02
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Revenue Growth Score
+title: Revenue Growth Score
+workspaceDataFilterReferences: []

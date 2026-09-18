@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0012} + ({metric/metric_l1_fact_loyalty_points_earned_order_amount} / {metric/metric_l1_fact_loyalty_points_redeemed_reward_value})
+description: Combines the month-over-month change in in-store energy consumption cost with a loyalty ratio based on total
+  order amount tied to points earned divided by the total reward value of points redeemed. Use it to track how in-store energy
+  cost movements align with loyalty program value dynamics over time (typically month by month).
+id: metric_l5_0025
+tags:
+- L5
+title: 'MoM: Cost (Energy Consumption) — In-Store Channel (+Order Amount (Loyalty Points Earned)/Reward Value (Loyalty Points
+  Redeemed))'

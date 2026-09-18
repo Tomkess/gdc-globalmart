@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_blended_daily_revenue_total_revenue
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.month
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Shows total revenue trended by month/year, helping you monitor how revenue changes over time. It uses Total Revenue
+  from the Blended Daily Revenue dataset and groups results by the Month/Year of the transaction date.
+id: viz_sales_0006
+title: Revenue by Month

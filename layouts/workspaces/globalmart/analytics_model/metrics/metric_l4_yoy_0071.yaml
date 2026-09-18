@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0023_2} - (SELECT {metric/metric_l3_0023_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0023_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Customer Event Value for the North region by comparing the current
+  year’s value to the prior year. Use it to monitor North region performance trends over time and quickly spot growth or decline
+  versus last year.
+id: metric_l4_yoy_0071
+tags:
+- L4
+title: 'YoY: Event Value (Customer Event) — North Region'

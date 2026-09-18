@@ -1,0 +1,58 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each utility cost record in the Utility Cost dataset, used to distinguish, group, or
+    filter individual cost entries.
+  id: fact_utility_cost.cost_id
+  labels: []
+  sourceColumn: cost_id
+  sourceColumnDataType: STRING
+  tags:
+  - Utility Cost
+  title: Cost ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_utility_cost
+  path:
+  - globalmart
+  - fact_utility_cost
+  type: dataSource
+description: Utility Cost
+facts:
+- description: The Utility Cost fact captures the cost amount associated with utility expenses in the Utility Cost dataset.
+    It is typically used to aggregate and analyze utility spending across different slices such as time, location, or other
+    related dimensions.
+  id: fact_utility_cost.utility_cost
+  sourceColumn: utility_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Utility Cost
+  title: Utility Cost
+grain:
+- id: fact_utility_cost.cost_id
+  type: attribute
+id: fact_utility_cost
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: cost_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Utility Cost
+title: Utility Cost
+workspaceDataFilterReferences: []

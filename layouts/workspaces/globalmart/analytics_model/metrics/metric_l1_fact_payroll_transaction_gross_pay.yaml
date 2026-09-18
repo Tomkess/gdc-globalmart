@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_payroll_transaction.gross_pay})
+description: Shows the total gross pay amount by summing Gross Pay across all payroll transactions within the current reporting
+  context (such as selected dates, employees, or other filters). Use it as a core payroll cost measure when analyzing Payroll
+  Transaction data.
+id: metric_l1_fact_payroll_transaction_gross_pay
+tags:
+- L1
+title: Total Gross Pay (Payroll Transaction)

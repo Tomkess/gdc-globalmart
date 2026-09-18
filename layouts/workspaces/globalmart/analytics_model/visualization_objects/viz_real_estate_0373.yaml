@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0114_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total renovation spending for North-region projects (Renovation Cost). Use it as a quick KPI
+  to monitor or compare renovation costs for the North under the current report filters and time period.
+id: viz_real_estate_0373
+title: Renovation Cost

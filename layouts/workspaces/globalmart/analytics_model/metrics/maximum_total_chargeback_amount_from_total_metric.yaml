@@ -1,0 +1,9 @@
+content:
+  format: $#,##0.00
+  maql: SELECT MAX({metric/metric_l1_fact_chargeback_chargeback_amount})
+description: Returns the maximum value of the total chargeback amount metric within the selected data and filters.
+id: maximum_total_chargeback_amount_from_total_metric
+tags:
+- chargeback
+- financial
+title: Maximum Total Chargeback Amount From Total Metric

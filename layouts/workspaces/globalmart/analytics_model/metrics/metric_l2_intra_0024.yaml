@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_earned_points} - {metric/metric_l1_fact_loyalty_points_earned_order_amount}
+description: Calculates the difference between total loyalty points earned and the total order amount tied to those earned
+  points. Use it to compare points accrual against the underlying order value and spot gaps between points issued and the
+  purchase volume generating them.
+id: metric_l2_intra_0024
+tags:
+- L2
+title: Points (Loyalty Points Earned) vs Order Amount (Loyalty Points Earned) Change

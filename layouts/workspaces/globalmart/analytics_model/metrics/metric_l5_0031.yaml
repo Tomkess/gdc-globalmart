@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0015} + ({metric/metric_l1_fact_tier_change_change_count} / {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_order_count})
+description: Combines the month-over-month change in in-store return amount with a normalization factor based on tier-change
+  activity per customer lifetime orders. Use it to view MoM return movement while accounting for how frequently tier changes
+  occur relative to overall lifetime purchasing volume.
+id: metric_l5_0031
+tags:
+- L5
+title: 'MoM: Return Amount (Returns) — In-Store Channel (+Change Count (Tier Change)/Lifetime Order Count (Customer Lifetime
+  Value))'

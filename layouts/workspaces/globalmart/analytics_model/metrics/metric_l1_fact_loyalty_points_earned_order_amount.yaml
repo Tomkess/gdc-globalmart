@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_loyalty_points_earned.order_amount})
+description: Shows the total monetary value of orders that are associated with earned loyalty points by summing Order Amount
+  from the Loyalty Points Earned dataset. Use it to track overall order value/volume in loyalty-focused analyses and reporting.
+id: metric_l1_fact_loyalty_points_earned_order_amount
+tags:
+- L1
+title: Total Order Amount (Loyalty Points Earned)

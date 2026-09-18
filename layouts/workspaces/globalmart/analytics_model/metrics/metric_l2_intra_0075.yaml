@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_capex_project_approved_budget} - {metric/metric_l1_fact_capex_project_spent_amount}
+description: Shows the variance between the total approved budget for capital expenditure projects and the total amount spent,
+  indicating how much budget remains or whether there is an overspend (if negative) for the current selection.
+id: metric_l2_intra_0075
+tags:
+- L2
+title: Approved Budget (Capital Expenditure Project) vs Spent Amount (Capital Expenditure Project) Change

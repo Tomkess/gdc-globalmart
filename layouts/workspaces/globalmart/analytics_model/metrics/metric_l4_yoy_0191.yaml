@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0063_2} - (SELECT {metric/metric_l3_0063_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0063_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Current Stock for the North region, comparing the current year’s on-hand
+  inventory to the previous year. Use it to track whether North’s inventory availability is increasing or declining versus
+  last year in the current reporting context.
+id: metric_l4_yoy_0191
+tags:
+- L4
+title: 'YoY: Current Stock (Inventory Health) — North Region'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts the total number of online orders limited to the North region. Use this metric to track order volume for
+  North and compare its performance across time periods or against other segments.
+id: metric_l3_0000_2
+tags:
+- L3
+title: Order Count — North Region

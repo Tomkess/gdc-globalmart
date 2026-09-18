@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_training_completion.training_cost})
+description: Shows total training spend by summing Training Cost from the Training Completion data, within the current reporting
+  context (for example by time period, course, or other applied filters).
+id: metric_l1_fact_training_completion_training_cost
+tags:
+- L1
+title: Total Training Cost (Training Completion)

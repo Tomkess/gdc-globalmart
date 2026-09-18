@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_sell_through_rate} - {metric/metric_l1_fact_inventory_snapshot_daily_on_hand_units}
+description: Shows the gap between overall sell-through performance and the total units currently on hand for the selected
+  scope. Use it to monitor how assortment efficiency is changing relative to available inventory in the daily inventory snapshot.
+id: metric_l2_intra_0048
+tags:
+- L2
+title: Sell-Through Rate (Assortment Efficiency) vs Units on Hand (Daily Inventory Snapshot) Change

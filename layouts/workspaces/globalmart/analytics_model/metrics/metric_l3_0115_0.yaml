@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_waste_disposal_disposal_cost} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total waste disposal cost for the In-Store sales channel only. Use this metric to track and compare in-store
+  spending on waste disposal across the current reporting scope (for example by time period, site, or vendor).
+id: metric_l3_0115_0
+tags:
+- L3
+title: Disposal Cost (Waste Disposal) — In-Store Channel

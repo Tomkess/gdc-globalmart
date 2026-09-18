@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_monetary_quartile} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Sums customers’ Monetary Quartile (Recency, Frequency, Monetary (RFM)) scores, restricted to the In-Store sales
+  channel. Use it to assess the strength of customers’ monetary segment specifically for in-store activity within the current
+  report’s filters and groupings.
+id: metric_l3_0037_0
+tags:
+- L3
+title: Monetary Quartile (RFM) (Customer RFM Segments) — In-Store Channel

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each email click event in the Email Click dataset. Use it to distinguish, group, or drill
+    into individual clicks when analyzing email engagement.
+  id: fact_email_click.click_id
+  labels: []
+  sourceColumn: click_id
+  sourceColumnDataType: STRING
+  tags:
+  - Email Click
+  title: Click ID (Email Click)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_email_click
+  path:
+  - globalmart
+  - fact_email_click
+  type: dataSource
+description: Email Click
+facts:
+- description: Number of clicks recorded for email click events in the Email Click dataset, used to quantify and aggregate
+    email engagement.
+  id: fact_email_click.click_count
+  sourceColumn: click_count
+  sourceColumnDataType: INT
+  tags:
+  - Email Click
+  title: Click Count (Email Click)
+grain:
+- id: fact_email_click.click_id
+  type: attribute
+id: fact_email_click
+references:
+- identifier:
+    id: fact_email_send
+    type: dataset
+  multivalue: false
+  sources:
+  - column: send_id
+    dataType: STRING
+    target:
+      id: fact_email_send.send_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: click_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Email Click
+title: Email Click
+workspaceDataFilterReferences: []

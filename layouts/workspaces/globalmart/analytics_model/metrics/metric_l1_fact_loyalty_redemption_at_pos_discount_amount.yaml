@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_loyalty_redemption_at_pos.discount_amount})
+description: Shows the total monetary value of discounts redeemed through loyalty redemptions at the point of sale by summing
+  the Discount Amount across Loyalty Redemption at POS transactions. Use it to monitor the overall impact of loyalty redemption
+  discounts over a selected period, store set, or customer segment.
+id: metric_l1_fact_loyalty_redemption_at_pos_discount_amount
+tags:
+- L1
+title: Total Discount Amount (Loyalty Redemption at POS)

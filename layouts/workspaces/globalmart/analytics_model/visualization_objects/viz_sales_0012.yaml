@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_aged_inventory_age_days
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total inventory age in days, based on the “Total Age Days (Aged Inventory)” metric. Use
+  it to quantify overall inventory aging and pair it with product or location breakdowns to identify where aging is concentrated.
+id: viz_sales_0012
+title: Age Days

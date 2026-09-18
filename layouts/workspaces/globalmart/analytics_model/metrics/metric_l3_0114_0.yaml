@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_renovation_spend_renovation_cost} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Totals renovation spending for the In-Store sales channel only, so you can track and compare in-store renovation
+  costs across whatever time period, projects, or other filters are applied in the current analysis.
+id: metric_l3_0114_0
+tags:
+- L3
+title: Renovation Cost (Renovation Spend) — In-Store Channel

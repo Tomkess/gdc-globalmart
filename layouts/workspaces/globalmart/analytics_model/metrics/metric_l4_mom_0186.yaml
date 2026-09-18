@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0062_0} - (SELECT {metric/metric_l3_0062_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the Supplier Scorecard Cost Score for the In-Store sales channel by comparing
+  the current month to the prior month. Use it to monitor whether in-store cost performance is improving or worsening over
+  time or when slicing by scorecard dimensions.
+id: metric_l4_mom_0186
+tags:
+- L4
+title: 'MoM: Cost Score (Supplier Scorecard) — In-Store Channel'

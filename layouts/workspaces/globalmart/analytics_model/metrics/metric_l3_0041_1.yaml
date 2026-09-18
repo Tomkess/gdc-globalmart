@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_markdown_event_markdown_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the total value of markdowns from Markdown Event data, filtered to the Online sales channel. Use it to
+  monitor markdown impact in online sales and compare results over time, by product, or across other business dimensions.
+id: metric_l3_0041_1
+tags:
+- L3
+title: Markdown Amount (Markdown Event) — Online Channel

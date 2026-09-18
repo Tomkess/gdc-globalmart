@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0017_2} - (SELECT {metric/metric_l3_0017_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0017_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of compliment/complaint comments for the North region,
+  comparing the current year to the previous year. Use it to evaluate whether comment volume in North is increasing or decreasing
+  versus last year.
+id: metric_l4_yoy_0053
+tags:
+- L4
+title: 'YoY: Comment Count (Compliment Complaint) — North Region'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_risk_attr_01_metric} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total Compliance Adherence Score filtered to the Online sales channel. Use this metric to track and compare compliance
+  performance specifically for Online activity within the current report filters and time period.
+id: metric_l3_0038_1
+tags:
+- L3
+title: Attribute Value (Compliance Adherence Score) — Online Channel

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0019_0} - (SELECT {metric/metric_l3_0019_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0019_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in total competitor price for the In-Store channel by comparing
+  the current year to the prior year. Use it to monitor how brick-and-mortar competitor pricing is trending over time.
+id: metric_l4_yoy_0057
+tags:
+- L4
+title: 'YoY: Competitor Price (Competitor Pricing) — In-Store Channel'

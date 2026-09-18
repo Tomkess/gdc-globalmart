@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_inventory_health_current_stock} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the total on-hand inventory (current stock) restricted to the Online sales channel. Use this metric to
+  monitor inventory availability for online sales, while still respecting any other filters applied in the report.
+id: metric_l3_0063_1
+tags:
+- L3
+title: Current Stock (Inventory Health) — Online Channel

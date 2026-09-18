@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each loyalty points redemption transaction in the Loyalty Points Redeemed dataset. Use
+    it to look up, filter, or break down reporting to the individual redemption level.
+  id: fact_loyalty_points_redeemed.redemption_id
+  labels: []
+  sourceColumn: redemption_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Points Redeemed
+  title: Redemption ID (Loyalty Points Redeemed)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_loyalty_points_redeemed
+  path:
+  - globalmart
+  - fact_loyalty_points_redeemed
+  type: dataSource
+description: Loyalty Points Redeemed
+facts:
+- description: Total number of loyalty points redeemed, captured in the Loyalty Points Redeemed dataset. Typically used to
+    sum redeemed points across customers, time periods, or other business dimensions.
+  id: fact_loyalty_points_redeemed.points_redeemed
+  sourceColumn: points_redeemed
+  sourceColumnDataType: INT
+  tags:
+  - Loyalty Points Redeemed
+  title: Points Redeemed (Loyalty Points Redeemed)
+- description: The monetary value of rewards redeemed in the Loyalty Points Redeemed dataset. Use this fact to sum or analyze
+    the total value of redeemed rewards across customers, time periods, or other dimensions.
+  id: fact_loyalty_points_redeemed.reward_value
+  sourceColumn: reward_value
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Loyalty Points Redeemed
+  title: Reward Value
+grain:
+- id: fact_loyalty_points_redeemed.redemption_id
+  type: attribute
+id: fact_loyalty_points_redeemed
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: redemption_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Loyalty Points Redeemed
+title: Loyalty Points Redeemed
+workspaceDataFilterReferences: []

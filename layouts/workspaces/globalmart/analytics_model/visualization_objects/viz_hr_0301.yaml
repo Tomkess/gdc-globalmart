@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0095_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total Gross Pay from payroll transactions for activity associated with the Online sales channel.
+  Use it to monitor payroll cost for online-channel operations within the current dashboard/report filters.
+id: viz_hr_0301
+title: Gross Pay

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_net_sales_summary_net_revenue} - {metric/metric_l1_fact_opex_transaction_amount}
+description: Shows the net difference between Total Net Revenue (Net Sales Summary) and Total Amount (Operating Expense Transaction)
+  in the current report or dashboard context. Use it to see whether net revenue is higher or lower than operating expense
+  transaction amounts for the selected filters and time period.
+id: metric_l2_intra_0011
+tags:
+- L2
+title: Net Revenue (Net Sales Summary) vs Amount (Operating Expense Transaction) Change

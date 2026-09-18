@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0031_2} - (SELECT {metric/metric_l3_0031_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the number of tier change events in the North region by comparing the current
+  month’s Change Count to the prior month. Use it to see whether tier change activity in North is increasing or decreasing
+  over time.
+id: metric_l4_mom_0095
+tags:
+- L4
+title: 'MoM: Change Count (Tier Change) — North Region'

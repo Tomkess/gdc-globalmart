@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} / {metric/metric_l1_fact_daily_store_sales_avg_transaction_value}
+description: Shows Cost of Goods Sold (COGS) relative to average transaction value by dividing total COGS by the summed average
+  transaction value across the current selection. Use this to compare how direct product costs scale with transaction value
+  over time or across stores and regions.
+id: metric_l2_cross_0009
+tags:
+- L2
+title: COGS per Avg Transaction Value (Daily Store Sales)

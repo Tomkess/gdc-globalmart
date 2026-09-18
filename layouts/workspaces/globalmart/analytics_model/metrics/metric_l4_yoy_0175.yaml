@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0058_1} - (SELECT {metric/metric_l3_0058_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0058_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the Online Channel write-off quantity, comparing the current period to the same
+  metric in the previous year. Use it to track whether online write-off volume is increasing or decreasing versus last year.
+id: metric_l4_yoy_0175
+tags:
+- L4
+title: 'YoY: Write-Off Quantity (Write Off) — Online Channel'

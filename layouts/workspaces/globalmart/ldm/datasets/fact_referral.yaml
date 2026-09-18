@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each referral record in the Referral dataset, used to distinguish and filter individual
+    referrals.
+  id: fact_referral.referral_id
+  labels: []
+  sourceColumn: referral_id
+  sourceColumnDataType: STRING
+  tags:
+  - Referral
+  title: Referral ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_referral
+  path:
+  - globalmart
+  - fact_referral
+  type: dataSource
+description: Referral
+facts:
+- description: Amount of referral bonus recorded for each referral in the Referral dataset, typically used to sum or analyze
+    bonus payouts across referrals.
+  id: fact_referral.referral_bonus
+  sourceColumn: referral_bonus
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Referral
+  title: Referral Bonus
+- description: Counts the number of referrals recorded in the Referral dataset. Use it to track referral volume and aggregate
+    totals across time, channels, or other business dimensions.
+  id: fact_referral.referral_count
+  sourceColumn: referral_count
+  sourceColumnDataType: INT
+  tags:
+  - Referral
+  title: Referral Count
+grain:
+- id: fact_referral.referral_id
+  type: attribute
+id: fact_referral
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: referral_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Referral
+title: Referral
+workspaceDataFilterReferences: []

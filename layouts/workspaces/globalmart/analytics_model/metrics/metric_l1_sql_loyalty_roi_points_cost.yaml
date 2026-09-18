@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_loyalty_roi.points_cost})
+description: Tracks the total cost associated with loyalty points by summing the Points Cost from the Loyalty Program ROI
+  dataset. Use it to monitor the overall expense of points issued or redeemed as part of the loyalty program.
+id: metric_l1_sql_loyalty_roi_points_cost
+tags:
+- L1
+title: Total Points Cost (Loyalty Program ROI)

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0013} + ({metric/metric_l1_fact_loyalty_points_redeemed_reward_value} / {metric/metric_l1_fact_nps_response_nps_score})
+description: Combines the year-over-year change in Online Channel energy consumption cost with an adjustment based on loyalty
+  reward value redeemed relative to total NPS score. Use it as a composite indicator that blends cost trend performance with
+  customer reward redemption and sentiment context under the same filters.
+id: metric_l5_0026
+tags:
+- L5
+title: 'YoY: Cost (Energy Consumption) — Online Channel (+Reward Value (Loyalty Points Redeemed)/NPS Score (NPS Response))'

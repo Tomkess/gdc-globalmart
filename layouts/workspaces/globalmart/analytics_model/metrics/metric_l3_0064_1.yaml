@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_inventory_health_days_of_cover} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the total inventory Days of Cover for the Online sales channel, indicating how many days current stock
+  is expected to last within the selected scope. Use it to monitor inventory health specifically for online operations.
+id: metric_l3_0064_1
+tags:
+- L3
+title: Days of Cover (Inventory Health) — Online Channel

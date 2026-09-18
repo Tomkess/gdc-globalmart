@@ -1,0 +1,77 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for a planogram (a diagram specifying exact product placement on retail shelves) compliance
+    record in the Planogram Compliance dataset, used to find, group, or filter individual compliance checks.
+  id: fact_planogram_compliance.compliance_id
+  labels: []
+  sourceColumn: compliance_id
+  sourceColumnDataType: STRING
+  tags:
+  - Planogram Compliance
+  title: Compliance ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_planogram_compliance
+  path:
+  - globalmart
+  - fact_planogram_compliance
+  type: dataSource
+description: Planogram Compliance
+facts:
+- description: Numeric score that quantifies planogram (a diagram specifying exact product placement on retail shelves) compliance
+    for records in the Planogram Compliance dataset. Typically used to aggregate or compare compliance levels across stores,
+    products, or time.
+  id: fact_planogram_compliance.compliance_score
+  sourceColumn: compliance_score
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Planogram Compliance
+  title: Compliance Score
+- description: Number of days a product or shelf location was out of stock, based on the Planogram (a diagram specifying exact
+    product placement on retail shelves) Compliance dataset. Use this fact to track and aggregate stock-out duration across
+    stores, products, or time periods.
+  id: fact_planogram_compliance.out_of_stock_days
+  sourceColumn: out_of_stock_days
+  sourceColumnDataType: INT
+  tags:
+  - Planogram Compliance
+  title: Out of Stock Days
+grain:
+- id: fact_planogram_compliance.compliance_id
+  type: attribute
+id: fact_planogram_compliance
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: check_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Planogram Compliance
+title: Planogram Compliance
+workspaceDataFilterReferences: []

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_returns.quantity_returned})
+description: Tracks the total number of units returned by summing the “Quantity Returned” values from the Returns dataset.
+  Use it to monitor overall return volume and compare returns across time periods or other business breakdowns.
+id: metric_l1_fact_returns_quantity_returned
+tags:
+- L1
+title: Total Quantity Returned (Returns)

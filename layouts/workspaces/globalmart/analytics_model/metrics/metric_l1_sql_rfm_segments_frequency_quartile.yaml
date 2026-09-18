@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_rfm_segments.frequency_quartile})
+description: Sums customers’ Frequency Quartile (Recency, Frequency, Monetary (RFM)) values from the Customer RFM Segments
+  dataset to produce a total frequency-quartile score for the currently selected customer set. Use it to quantify and compare
+  overall purchase-frequency quartile levels across segments or filters in Recency, Frequency, Monetary (RFM) analysis.
+id: metric_l1_sql_rfm_segments_frequency_quartile
+tags:
+- L1
+title: Total Frequency Quartile (RFM) (Customer RFM Segments)

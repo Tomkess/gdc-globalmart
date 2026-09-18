@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_shrinkage_event_shrinkage_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total monetary value of shrinkage recorded in the Shrinkage Event data, filtered to the In-Store sales channel.
+  Use this metric to monitor and report in-store shrinkage value across the current analysis scope (for example, selected
+  time period or location).
+id: metric_l3_0084_0
+tags:
+- L3
+title: Shrinkage Amount (Shrinkage Event) — In-Store Channel

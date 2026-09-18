@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting
+    by channel.
+  id: dim_channel_master.channel_id
+  labels: []
+  sourceColumn: channel_id
+  sourceColumnDataType: STRING
+  tags:
+  - Sales Channel
+  title: Channel ID (Sales Channel)
+- description: Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner)
+    within the Sales Channel dataset.
+  id: dim_channel_master.channel_name
+  labels: []
+  sourceColumn: channel_name
+  sourceColumnDataType: STRING
+  tags:
+  - Sales Channel
+  title: Channel Name (Sales Channel)
+- description: Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline)
+    within the Sales Channel dataset.
+  id: dim_channel_master.channel_type
+  labels: []
+  sourceColumn: channel_type
+  sourceColumnDataType: STRING
+  tags:
+  - Sales Channel
+  title: Channel Type (Sales Channel)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_channel_master
+  path:
+  - globalmart
+  - dim_channel_master
+  type: dataSource
+description: Sales Channel
+facts: []
+grain:
+- id: dim_channel_master.channel_id
+  type: attribute
+id: dim_channel_master
+references: []
+tags:
+- Sales Channel
+title: Sales Channel
+workspaceDataFilterReferences: []

@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0117_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of fraud alerts for the North region, using the “Alert Count (Fraud Alert)
+  — North Region” metric. Use it to monitor fraud alert volume in North and compare it with other regions or time periods
+  in related analyses.
+id: viz_risk_0359
+title: Alert Count

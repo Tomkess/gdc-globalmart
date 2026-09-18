@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each facilities category in the Facilities Category dataset. Use it to group, join, or
+    filter reporting by category when you need the underlying ID value.
+  id: dim_facilities_category.category_id
+  labels: []
+  sourceColumn: category_id
+  sourceColumnDataType: STRING
+  tags:
+  - Facilities Category
+  title: Category ID (Facilities Category)
+- description: Facility category name used to group and filter facilities by their category (e.g., type of facility category)
+    in reports. Sourced from the Facilities Category dataset.
+  id: dim_facilities_category.category_name
+  labels: []
+  sourceColumn: category_name
+  sourceColumnDataType: STRING
+  tags:
+  - Facilities Category
+  title: Category Name (Facilities Category)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_facilities_category
+  path:
+  - globalmart
+  - dim_facilities_category
+  type: dataSource
+description: Facilities Category
+facts: []
+grain:
+- id: dim_facilities_category.category_id
+  type: attribute
+id: dim_facilities_category
+references: []
+tags:
+- Facilities Category
+title: Facilities Category
+workspaceDataFilterReferences: []

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Employee Performance Score dataset. Use it to distinguish, look up,
+    or filter individual performance score entries.
+  id: fact_hr_attr_00.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Employee Performance Score
+  title: Record ID (Employee Performance Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_hr_attr_00
+  path:
+  - globalmart
+  - fact_hr_attr_00
+  type: dataSource
+description: Employee Performance Score
+facts:
+- description: Stores the numeric value used in the Employee Performance Score dataset, representing the recorded performance
+    score for an employee or related record.
+  id: fact_hr_attr_00.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Employee Performance Score
+  title: Employee Performance Score
+grain:
+- id: fact_hr_attr_00.attr_id
+  type: attribute
+id: fact_hr_attr_00
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Employee Performance Score
+title: Employee Performance Score
+workspaceDataFilterReferences: []

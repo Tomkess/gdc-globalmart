@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_web_order_header.order_count})
+description: Tracks the total number of online orders by summing the Order Count from the Online Order dataset. Use it to
+  monitor overall order volume and compare order activity across time periods, channels, or customer segments.
+id: metric_l1_total_order_count
+tags:
+- L1
+title: Total Order Count

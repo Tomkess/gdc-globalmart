@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0101_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of recruitments in the North region, using the “Recruitment Count (Recruitment)
+  — North Region” metric. Use it to quickly monitor recruitment volume for North and compare it against other regions or time
+  periods in surrounding analysis.
+id: viz_hr_0320
+title: Recruitment Count

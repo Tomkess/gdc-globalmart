@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} / {metric/metric_l1_fact_nps_response_response_count}
+description: Average marketing spend per NPS survey response, calculated as total campaign spend divided by total NPS response
+  count. Use this to understand how much budget it takes to generate one customer feedback response and to compare campaign
+  efficiency across time periods or segments.
+id: metric_l2_cross_0028
+tags:
+- L2
+title: Campaign Spend per Response Count (NPS Response)

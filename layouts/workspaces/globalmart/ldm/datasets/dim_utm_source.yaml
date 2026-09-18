@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for the UTM Source value used in marketing attribution. Use it to group or filter reporting by traffic
+    source at the ID level within the UTM Source dataset.
+  id: dim_utm_source.source_id
+  labels: []
+  sourceColumn: source_id
+  sourceColumnDataType: STRING
+  tags:
+  - UTM Source
+  title: Source ID (UTM Source)
+- description: Identifies the UTM Source (traffic source) name used to attribute visits or conversions to a marketing source.
+    Use it to group and filter reporting by source in the UTM Source dataset.
+  id: dim_utm_source.source_name
+  labels: []
+  sourceColumn: source_name
+  sourceColumnDataType: STRING
+  tags:
+  - UTM Source
+  title: Source Name (UTM Source)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_utm_source
+  path:
+  - globalmart
+  - dim_utm_source
+  type: dataSource
+description: UTM Source
+facts: []
+grain:
+- id: dim_utm_source.source_id
+  type: attribute
+id: dim_utm_source
+references: []
+tags:
+- UTM Source
+title: UTM Source
+workspaceDataFilterReferences: []

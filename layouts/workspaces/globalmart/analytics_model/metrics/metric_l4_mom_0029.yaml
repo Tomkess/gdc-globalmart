@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0009_2} - (SELECT {metric/metric_l3_0009_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in average transaction value for Daily Store Sales in the North region, comparing
+  the current month to the prior month. Use it to track whether North-region stores are increasing or decreasing transaction
+  value over time.
+id: metric_l4_mom_0029
+tags:
+- L4
+title: 'MoM: Avg Transaction Value (Daily Store Sales) — North Region'

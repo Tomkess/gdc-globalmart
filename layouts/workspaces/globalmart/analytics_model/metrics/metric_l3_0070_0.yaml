@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_display_impression_impression_count} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Counts total display ad impressions specifically for the In-Store sales channel. Use this metric to monitor in-store
+  impression volume and compare it to impression counts for other channels over the same period.
+id: metric_l3_0070_0
+tags:
+- L3
+title: Impression Count (Display Impression) — In-Store Channel

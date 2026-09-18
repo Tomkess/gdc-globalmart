@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Training Cost is a Training Type attribute that represents the cost category or amount associated with each
+    training type. Use it to group, filter, or compare training-related metrics by cost.
+  id: dim_training_type.training_cost
+  labels: []
+  sourceColumn: training_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Training Type
+  title: Training Cost Category
+- description: Unique identifier for each training type in the Training Type dataset. Use it to group, join, or filter reporting
+    by a specific training record.
+  id: dim_training_type.training_id
+  labels: []
+  sourceColumn: training_id
+  sourceColumnDataType: STRING
+  tags:
+  - Training Type
+  title: Training ID
+- description: Name of the training type, used to label, group, and filter training-related reporting in the Training Type
+    dataset.
+  id: dim_training_type.training_name
+  labels: []
+  sourceColumn: training_name
+  sourceColumnDataType: STRING
+  tags:
+  - Training Type
+  title: Training Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_training_type
+  path:
+  - globalmart
+  - dim_training_type
+  type: dataSource
+description: Training Type
+facts: []
+grain:
+- id: dim_training_type.training_id
+  type: attribute
+id: dim_training_type
+references: []
+tags:
+- Training Type
+title: Training Type
+workspaceDataFilterReferences: []

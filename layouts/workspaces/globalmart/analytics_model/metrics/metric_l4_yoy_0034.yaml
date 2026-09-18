@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0011_1} - (SELECT {metric/metric_l3_0011_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0011_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in net revenue for the Online sales channel, comparing the selected period to the
+  same period in the prior year. Use this metric to assess whether online net sales are growing or declining year over year
+  across any chosen time frame and breakdowns (e.g., product).
+id: metric_l4_yoy_0034
+tags:
+- L4
+title: 'YoY: Net Revenue (Net Sales Summary) — Online Channel'

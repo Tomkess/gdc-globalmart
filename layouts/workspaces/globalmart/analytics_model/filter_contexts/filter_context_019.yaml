@@ -1,0 +1,29 @@
+content:
+  filters:
+  - dateFilter:
+      from: '-11'
+      granularity: GDC.time.month
+      to: '0'
+      type: relative
+  - attributeFilter:
+      attributeElements:
+        uris: []
+      displayForm:
+        identifier:
+          id: dim_geography_country.country_name
+          type: label
+      filterElementsBy: []
+      negativeSelection: true
+  - attributeFilter:
+      attributeElements:
+        uris: []
+      displayForm:
+        identifier:
+          id: dim_channel_master.channel_id
+          type: label
+      filterElementsBy: []
+      negativeSelection: true
+  version: '2'
+description: 'Default filters: last 12 months + store region + channel'
+id: filter_context_019
+title: Filters — Audit Findings & Risk

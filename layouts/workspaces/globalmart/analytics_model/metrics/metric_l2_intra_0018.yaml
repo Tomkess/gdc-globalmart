@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_aged_inventory_age_days} - {metric/metric_l1_fact_competitor_pricing_competitor_price}
+description: Calculates the difference between total inventory age days and total competitor price for the current selection.
+  Use it to compare where inventory is aging more heavily relative to the competitive price environment and to spot mismatches
+  between aging stock and competitor pricing levels.
+id: metric_l2_intra_0018
+tags:
+- L2
+title: Age Days (Aged Inventory) vs Competitor Price (Competitor Pricing) Change

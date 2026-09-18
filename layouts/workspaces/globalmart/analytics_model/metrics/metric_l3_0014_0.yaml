@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_redeemed_points_redeemed} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Total loyalty points redeemed from transactions in the In-Store sales channel. Use it to track and compare in-store
+  redemption volume over time or across other business dimensions.
+id: metric_l3_0014_0
+tags:
+- L3
+title: Points Redeemed (Loyalty Points Redeemed) — In-Store Channel

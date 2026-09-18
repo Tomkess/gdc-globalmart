@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0028} + ({metric/metric_l1_fact_goods_receipt_variance_qty} / {metric/metric_l1_fact_transfer_order_transfer_qty})
+description: Combines the year-over-year % change in average online transaction value (from Daily Store Sales) with an operational
+  adjustment based on goods receipt quantity variance relative to total transfer quantity. Use it to view online basket-size
+  trend alongside inventory/transfer discrepancies over the same reporting scope.
+id: metric_l5_0056
+tags:
+- L5
+title: 'YoY: Avg Transaction Value (Daily Store Sales) — Online Channel (+Variance Quantity (Goods Receipt)/Transfer Quantity
+  (Transfer Order))'

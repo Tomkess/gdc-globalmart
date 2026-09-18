@@ -1,0 +1,219 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_013
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0264
+              type: visualizationObject
+          localIdentifier: widget_013_00
+          title: Revenue per Staff Hour
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0265
+              type: visualizationObject
+          localIdentifier: widget_013_01
+          title: Cost
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0266
+              type: visualizationObject
+          localIdentifier: widget_013_02
+          title: Cost
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0267
+              type: visualizationObject
+          localIdentifier: widget_013_03
+          title: Cost
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0268
+              type: visualizationObject
+          localIdentifier: widget_013_04
+          title: Staff Hours Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0269
+              type: visualizationObject
+          localIdentifier: widget_013_05
+          title: Staff Hours Over Time
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0270
+              type: visualizationObject
+          localIdentifier: widget_013_06
+          title: Staff Hours Over Time
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0271
+              type: visualizationObject
+          localIdentifier: widget_013_07
+          title: Staff Count and Staff Count by Quarter
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0272
+              type: visualizationObject
+          localIdentifier: widget_013_08
+          title: Staff Count by Year
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0273
+              type: visualizationObject
+          localIdentifier: widget_013_09
+          title: Staff Count by Month
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0274
+              type: visualizationObject
+          localIdentifier: widget_013_10
+          title: Shrinkage Amount by Quarter
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_store_ops_0275
+              type: visualizationObject
+          localIdentifier: widget_013_11
+          title: Shrinkage Amount by Year
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard for monitoring staff productivity and scheduling by linking labor (staff hours and staff counts) to
+  operational outcomes such as revenue per staff hour, energy cost, and shrinkage trends. It brings together time-series views
+  by month/quarter/year and comparisons across channels (In-Store vs Online) and regions to help spot staffing and cost changes
+  over time. By default it is scoped to the last 12 months and can be further narrowed by store region and loyalty tier selections.
+id: dashboard_013
+title: Staff Productivity & Scheduling

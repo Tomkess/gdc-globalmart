@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_risk_attr_01_metric} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: This metric totals the Compliance Adherence Score, restricted to activity in the In-Store sales channel. Use
+  it to track overall in-store compliance adherence performance within the current report’s filters and scope.
+id: metric_l3_0038_0
+tags:
+- L3
+title: Attribute Value (Compliance Adherence Score) — In-Store Channel

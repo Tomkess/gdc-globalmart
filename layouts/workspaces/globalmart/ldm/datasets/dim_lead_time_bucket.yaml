@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for each lead time bucket in the Lead Time Bucket dataset, used to group or filter records by bucket.
+  id: dim_lead_time_bucket.bucket_id
+  labels: []
+  sourceColumn: bucket_id
+  sourceColumnDataType: STRING
+  tags:
+  - Lead Time Bucket
+  title: Bucket ID
+- description: Lead Time Bucket name used to categorize records into lead-time ranges for grouping and filtering in analysis.
+    Sourced from the Lead Time Bucket dataset.
+  id: dim_lead_time_bucket.bucket_name
+  labels: []
+  sourceColumn: bucket_name
+  sourceColumnDataType: STRING
+  tags:
+  - Lead Time Bucket
+  title: Bucket Name (Lead Time Bucket)
+- description: Maximum number of days in the lead time bucket from the Lead Time Bucket dataset. Use it to group or filter
+    analysis by the upper bound of each lead time range.
+  id: dim_lead_time_bucket.days_max
+  labels: []
+  sourceColumn: days_max
+  sourceColumnDataType: INT
+  tags:
+  - Lead Time Bucket
+  title: Days Max
+- description: Minimum number of days that defines the lower bound of a Lead Time Bucket. Use it to group or filter reporting
+    by lead-time ranges.
+  id: dim_lead_time_bucket.days_min
+  labels: []
+  sourceColumn: days_min
+  sourceColumnDataType: INT
+  tags:
+  - Lead Time Bucket
+  title: Days Min
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_lead_time_bucket
+  path:
+  - globalmart
+  - dim_lead_time_bucket
+  type: dataSource
+description: Lead Time Bucket
+facts: []
+grain:
+- id: dim_lead_time_bucket.bucket_id
+  type: attribute
+id: dim_lead_time_bucket
+references: []
+tags:
+- Lead Time Bucket
+title: Lead Time Bucket
+workspaceDataFilterReferences: []

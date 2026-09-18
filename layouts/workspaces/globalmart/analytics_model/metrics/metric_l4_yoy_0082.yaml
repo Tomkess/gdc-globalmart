@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0027_1} - (SELECT {metric/metric_l3_0027_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0027_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the Online Channel NPS Score (based on NPS Response records) compared
+  with the same metric in the prior year. Use it to see whether online NPS performance is improving or declining versus last
+  year within the current reporting filters and cuts.
+id: metric_l4_yoy_0082
+tags:
+- L4
+title: 'YoY: NPS Score (NPS Response) — Online Channel'

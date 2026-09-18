@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} / {metric/metric_l1_fact_aged_inventory_age_days}
+description: Shows the average marketing campaign spend per inventory age day by dividing Total Campaign Spend by Total Age
+  Days from the Aged Inventory data. Use it to gauge spend intensity relative to how long inventory has been aging and to
+  compare this ratio across products, locations, or time periods.
+id: metric_l2_cross_0018
+tags:
+- L2
+title: Campaign Spend per Age Days (Aged Inventory)

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0022} + ({metric/metric_l1_fact_range_review_outcome_decision_count} / {metric/metric_l1_fact_product_rating_avg_rating})
+description: Composite metric that adjusts the year-over-year change in Online Sales Amount by adding a ratio of total decision
+  volume (Range Review Outcome) to total average product rating (Product Rating). Use it to view YoY online sales performance
+  with an added signal reflecting how decision activity compares to product ratings under the same report filters.
+id: metric_l5_0044
+tags:
+- L5
+title: 'YoY: Sales Amount (Daily Store Sales) — Online Channel (+Decision Count (Range Review Outcome)/Avg Rating (Product
+  Rating))'

@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each chargeback (a disputed payment transaction reversed by the card issuer) record in
+    the Chargeback dataset, used to look up, group, or filter chargeback details at the individual case level.
+  id: fact_chargeback.chargeback_id
+  labels: []
+  sourceColumn: chargeback_id
+  sourceColumnDataType: STRING
+  tags:
+  - Chargeback
+  title: Chargeback ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_chargeback
+  path:
+  - globalmart
+  - fact_chargeback
+  type: dataSource
+description: Chargeback
+facts:
+- description: Monetary value of a chargeback (a disputed payment transaction reversed by the card issuer) recorded in the
+    Chargeback dataset. Use it to quantify chargebacks and aggregate totals or averages for reporting and analysis.
+  id: fact_chargeback.chargeback_amount
+  sourceColumn: chargeback_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Chargeback
+  title: Chargeback Amount
+- description: Number of chargebacks (a disputed payment transaction reversed by the card issuer) recorded in the Chargeback
+    dataset, typically used to track and compare chargeback volume across time periods or business dimensions.
+  id: fact_chargeback.chargeback_count
+  sourceColumn: chargeback_count
+  sourceColumnDataType: INT
+  tags:
+  - Chargeback
+  title: Chargeback Count
+grain:
+- id: fact_chargeback.chargeback_id
+  type: attribute
+id: fact_chargeback
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: chargeback_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Chargeback
+title: Chargeback
+workspaceDataFilterReferences: []

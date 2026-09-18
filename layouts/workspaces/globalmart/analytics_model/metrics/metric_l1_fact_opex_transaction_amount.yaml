@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_opex_transaction.amount})
+description: Shows the total value of operating expense transactions by summing the Amount from Operating Expense Transaction
+  records for the current report filters and time period.
+id: metric_l1_fact_opex_transaction_amount
+tags:
+- L1
+title: Total Amount (Operating Expense Transaction)

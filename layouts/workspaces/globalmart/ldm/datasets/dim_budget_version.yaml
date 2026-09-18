@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Represents the fiscal year associated with a budget version in the Budget Version dataset. Use it to group
+    or filter budget version data by fiscal year for planning and comparison.
+  id: dim_budget_version.fiscal_year
+  labels: []
+  sourceColumn: fiscal_year
+  sourceColumnDataType: INT
+  tags:
+  - Budget Version
+  title: Fiscal Year (Budget Version)
+- description: Unique identifier for each budget version in the Budget Version dataset, used to group, filter, or join records
+    by specific version.
+  id: dim_budget_version.version_id
+  labels: []
+  sourceColumn: version_id
+  sourceColumnDataType: STRING
+  tags:
+  - Budget Version
+  title: Version ID
+- description: Identifies the name of the budget version in the Budget Version dataset. Use it to group, compare, or filter
+    budget measures by specific version (for example, different plan or forecast versions).
+  id: dim_budget_version.version_name
+  labels: []
+  sourceColumn: version_name
+  sourceColumnDataType: STRING
+  tags:
+  - Budget Version
+  title: Version Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_budget_version
+  path:
+  - globalmart
+  - dim_budget_version
+  type: dataSource
+description: Budget Version
+facts: []
+grain:
+- id: dim_budget_version.version_id
+  type: attribute
+id: dim_budget_version
+references: []
+tags:
+- Budget Version
+title: Budget Version
+workspaceDataFilterReferences: []

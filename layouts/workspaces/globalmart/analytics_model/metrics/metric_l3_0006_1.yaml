@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_returns_quantity_returned} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total number of units returned for the Online sales channel. Use this metric to track return volume from online
+  orders and compare it against other periods or channel results.
+id: metric_l3_0006_1
+tags:
+- L3
+title: Quantity Returned (Returns) — Online Channel

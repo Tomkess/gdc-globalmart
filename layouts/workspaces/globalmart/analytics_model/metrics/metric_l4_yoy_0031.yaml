@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0010_1} - (SELECT {metric/metric_l3_0010_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0010_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in blended daily revenue for the Online sales channel, comparing the
+  current reporting period to the same period last year. Use it to assess how online revenue performance is trending over
+  time within the active filters and date context.
+id: metric_l4_yoy_0031
+tags:
+- L4
+title: 'YoY: Revenue (Blended Daily Revenue) — Online Channel'

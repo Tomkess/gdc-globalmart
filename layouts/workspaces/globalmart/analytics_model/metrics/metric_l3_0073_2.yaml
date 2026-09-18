@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total cost of goods sold (COGS) filtered to the North region. Use this to track direct product costs for North-only
+  performance over the selected reporting period alongside any other report filters.
+id: metric_l3_0073_2
+tags:
+- L3
+title: COGS — North Region

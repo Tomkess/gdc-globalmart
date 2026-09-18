@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Queue Time Score dataset. Use it to look up, filter, or drill into
+    a specific Queue Time Score record rather than to summarize results.
+  id: fact_ops_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Queue Time Score
+  title: Record ID (Queue Time Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ops_attr_01
+  path:
+  - globalmart
+  - fact_ops_attr_01
+  type: dataSource
+description: Queue Time Score
+facts:
+- description: Numeric value used as the underlying measure for the Queue Time Score dataset, typically aggregated to analyze
+    overall queue time performance.
+  id: fact_ops_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Queue Time Score
+  title: Queue Time Score
+grain:
+- id: fact_ops_attr_01.attr_id
+  type: attribute
+id: fact_ops_attr_01
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Queue Time Score
+title: Queue Time Score
+workspaceDataFilterReferences: []

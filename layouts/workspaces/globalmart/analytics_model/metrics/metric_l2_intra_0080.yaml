@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_gross_margin} - {metric/metric_l1_sql_margin_bridge_ebitda}
+description: Calculates the gap between Total Gross Margin and Total EBITDA in the Margin Bridge context. Use it to quantify
+  how much gross margin exceeds (or falls short of) EBITDA and to see how that difference shifts across filters, time periods,
+  and breakdowns.
+id: metric_l2_intra_0080
+tags:
+- L2
+title: Gross Margin (Margin Bridge) vs EBITDA (Margin Bridge) Change

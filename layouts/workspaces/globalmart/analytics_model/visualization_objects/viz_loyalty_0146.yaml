@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0103_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Shows the number of loyalty program enrollments coming from the Online sales channel, based on the “Enrollment
+  Count (Loyalty Enrollment) — Online Channel” metric. Use this headline to quickly track how many customers enrolled online
+  for the currently selected period and any applied filters.
+id: viz_loyalty_0146
+title: Enrollment Count

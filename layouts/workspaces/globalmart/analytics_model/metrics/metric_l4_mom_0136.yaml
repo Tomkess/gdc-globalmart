@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0045_1} - (SELECT {metric/metric_l3_0045_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in average product rating for the Online sales channel by comparing the current
+  month’s average rating to the previous month. Use it to track whether online customer ratings are improving or declining
+  over time under the currently applied filters.
+id: metric_l4_mom_0136
+tags:
+- L4
+title: 'MoM: Avg Rating (Product Rating) — Online Channel'

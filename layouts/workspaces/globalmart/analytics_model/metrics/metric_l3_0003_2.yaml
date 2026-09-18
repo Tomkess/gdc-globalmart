@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_line_quantity} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total units ordered from purchase order line items, filtered to the North region. Use this metric to track and
+  compare purchasing volume in the North by dimensions like supplier, product, or time.
+id: metric_l3_0003_2
+tags:
+- L3
+title: Quantity (Purchase Order Line Items) — North Region

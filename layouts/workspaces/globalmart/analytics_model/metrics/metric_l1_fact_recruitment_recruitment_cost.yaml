@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_recruitment.recruitment_cost})
+description: Tracks total recruiting spend by summing the Recruitment (the process of sourcing and hiring new employees) Cost
+  values from the Recruitment dataset. Use this metric to monitor overall recruitment costs and compare spending across time
+  periods, teams, or other recruitment dimensions.
+id: metric_l1_fact_recruitment_recruitment_cost
+tags:
+- L1
+title: Total Recruitment Cost (Recruitment)

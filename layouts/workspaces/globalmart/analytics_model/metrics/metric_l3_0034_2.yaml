@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_avg_order_value} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Average order value as part of customer lifetime value, limited to customers in the North region. Use it to monitor
+  and compare typical order size for North versus other regions or the overall customer base.
+id: metric_l3_0034_2
+tags:
+- L3
+title: Average Order Value (Customer Lifetime Value) — North Region

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_rating_review_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the total number of product rating reviews for the Online sales channel only. Use it to track online review
+  volume and compare online performance against other channels or segments.
+id: metric_l3_0046_1
+tags:
+- L3
+title: Review Count (Product Rating) — Online Channel

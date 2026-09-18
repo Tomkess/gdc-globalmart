@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0000_2} - (SELECT {metric/metric_l3_0000_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0000_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in order count for the North region by comparing the current year’s
+  orders with the prior year. Use it to monitor whether North’s order volume is growing or declining over time.
+id: metric_l4_yoy_0002
+tags:
+- L4
+title: 'YoY: Order Count — North Region'

@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each lifecycle stage in the Lifecycle Stage dataset. Use it to group, join, or filter
+    records by specific stage.
+  id: dim_lifecycle_stage.stage_id
+  labels: []
+  sourceColumn: stage_id
+  sourceColumnDataType: STRING
+  tags:
+  - Lifecycle Stage
+  title: Stage ID (Lifecycle Stage)
+- description: Identifies the name of a lifecycle stage (e.g., a step in an entity’s progression) from the Lifecycle Stage
+    dataset. Use it to group, segment, or filter analyses by lifecycle stage.
+  id: dim_lifecycle_stage.stage_name
+  labels: []
+  sourceColumn: stage_name
+  sourceColumnDataType: STRING
+  tags:
+  - Lifecycle Stage
+  title: Stage Name (Lifecycle Stage)
+- description: Indicates the numeric/order position of a lifecycle stage within the Lifecycle Stage dataset. Use it to sort
+    or sequence lifecycle stages consistently in reports and dashboards.
+  id: dim_lifecycle_stage.stage_order
+  labels: []
+  sourceColumn: stage_order
+  sourceColumnDataType: INT
+  tags:
+  - Lifecycle Stage
+  title: Stage Order (Lifecycle Stage)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_lifecycle_stage
+  path:
+  - globalmart
+  - dim_lifecycle_stage
+  type: dataSource
+description: Lifecycle Stage
+facts: []
+grain:
+- id: dim_lifecycle_stage.stage_id
+  type: attribute
+id: dim_lifecycle_stage
+references: []
+tags:
+- Lifecycle Stage
+title: Lifecycle Stage
+workspaceDataFilterReferences: []

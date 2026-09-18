@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0056_2} - (SELECT {metric/metric_l3_0056_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Goods Receipt variance quantity for the North region by comparing the current
+  month’s variance against the prior month. Use it to monitor whether receipt quantity discrepancies in North are improving
+  or worsening over time.
+id: metric_l4_mom_0170
+tags:
+- L4
+title: 'MoM: Variance Quantity (Goods Receipt) — North Region'

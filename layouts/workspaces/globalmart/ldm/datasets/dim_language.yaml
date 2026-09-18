@@ -1,0 +1,45 @@
+aggregatedFacts: []
+attributes:
+- description: A code that identifies the language (for example, an ISO-style abbreviation). Use it to group or filter analyses
+    by language in the Language dataset.
+  id: dim_language.language_code
+  labels: []
+  sourceColumn: language_code
+  sourceColumnDataType: STRING
+  tags:
+  - Language
+  title: Language Code
+- description: Unique identifier for each language in the Language dataset, used to group, filter, or join records by language.
+  id: dim_language.language_id
+  labels: []
+  sourceColumn: language_id
+  sourceColumnDataType: STRING
+  tags:
+  - Language
+  title: Language ID
+- description: The name of the language, used to group or filter analyses by language in the Language dataset.
+  id: dim_language.language_name
+  labels: []
+  sourceColumn: language_name
+  sourceColumnDataType: STRING
+  tags:
+  - Language
+  title: Language Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_language
+  path:
+  - globalmart
+  - dim_language
+  type: dataSource
+description: Language
+facts: []
+grain:
+- id: dim_language.language_id
+  type: attribute
+id: dim_language
+references: []
+tags:
+- Language
+title: Language
+workspaceDataFilterReferences: []

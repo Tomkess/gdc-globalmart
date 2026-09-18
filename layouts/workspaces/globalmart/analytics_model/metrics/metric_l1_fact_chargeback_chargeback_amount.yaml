@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_chargeback.chargeback_amount})
+description: Shows the total monetary value of chargebacks (a disputed payment transaction reversed by the card issuer) by
+  summing Chargeback Amount across the selected data and filters. Use it to monitor overall chargeback exposure and compare
+  totals across time periods or other business dimensions.
+id: metric_l1_fact_chargeback_chargeback_amount
+tags:
+- L1
+title: Total Chargeback Amount (Chargeback)

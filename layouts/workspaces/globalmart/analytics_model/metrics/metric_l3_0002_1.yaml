@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Total value of loyalty redemption discount amounts applied at the point of sale, restricted to the Online sales
+  channel. Use it to track the impact of loyalty redemptions on online transactions over a selected time period or when slicing
+  by customer or store.
+id: metric_l3_0002_1
+tags:
+- L3
+title: Discount Amount (Loyalty Redemption at POS) — Online Channel

@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0012_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total operating expense transaction amount for the In-Store channel. Use it to track in-store
+  operating expenses for the currently selected time period and any other report filters.
+id: viz_finance_0230
+title: Amount (In-Store channel)

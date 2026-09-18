@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_bonus_event_bonus_cost} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total bonus cost from Bonus Event records limited to the North region. Use this metric to track and compare bonus
+  spending for North against other time periods or business slices.
+id: metric_l3_0107_2
+tags:
+- L3
+title: Bonus Cost (Bonus Event) — North Region

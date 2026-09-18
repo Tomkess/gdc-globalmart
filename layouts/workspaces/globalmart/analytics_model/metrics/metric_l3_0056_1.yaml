@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_goods_receipt_variance_qty} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total goods-receipt quantity variance for transactions in the Online sales channel, showing how received quantities
+  differ from expected quantities. Use this metric to monitor and investigate receiving discrepancies specifically for Online
+  orders.
+id: metric_l3_0056_1
+tags:
+- L3
+title: Variance Quantity (Goods Receipt) — Online Channel

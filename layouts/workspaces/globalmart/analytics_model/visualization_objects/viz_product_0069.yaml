@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_assortment_efficiency_sell_through_rate
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the overall Sell-Through Rate for the current selection, based on the Total Sell-Through Rate
+  (Assortment Efficiency) metric. Use it to quickly gauge how much of the assortment is selling through within the applied
+  filters or grouping.
+id: viz_product_0069
+title: Sell-Through Rate

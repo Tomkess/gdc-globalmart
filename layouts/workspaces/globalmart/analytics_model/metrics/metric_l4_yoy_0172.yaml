@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0057_1} - (SELECT {metric/metric_l3_0057_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0057_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the Transfer Quantity (Transfer Order) for the Online channel, comparing the
+  current period to the same period in the prior year. Use it to assess whether online transfer volume is increasing or decreasing
+  versus last year within the selected reporting scope.
+id: metric_l4_yoy_0172
+tags:
+- L4
+title: 'YoY: Transfer Quantity (Transfer Order) — Online Channel'

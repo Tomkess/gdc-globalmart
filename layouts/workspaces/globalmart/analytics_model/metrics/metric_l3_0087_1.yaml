@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_maintenance_request_downtime_hours} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Totals the downtime hours logged on maintenance requests, restricted to the Online sales channel. Use it to monitor
+  and report disruption time specifically attributable to online-channel maintenance activity.
+id: metric_l3_0087_1
+tags:
+- L3
+title: Downtime Hours (Maintenance Request) — Online Channel

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0023_0} - (SELECT {metric/metric_l3_0023_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in customer event value for the In-Store sales channel by comparing the current
+  month to the prior month. Use it to monitor whether in-store event value is increasing or decreasing over time (e.g., by
+  Month/Year or other business breakdowns).
+id: metric_l4_mom_0069
+tags:
+- L4
+title: 'MoM: Event Value (Customer Event) — In-Store Channel'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_redeemed_reward_value} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Tracks the total monetary value of rewards redeemed using loyalty points, filtered to the In-Store sales channel.
+  Use it to monitor in-store redemption value over time or compare it across customer and product segments.
+id: metric_l3_0026_0
+tags:
+- L3
+title: Reward Value (Loyalty Points Redeemed) — In-Store Channel

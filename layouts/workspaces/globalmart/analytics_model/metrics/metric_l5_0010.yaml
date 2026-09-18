@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0005} + ({metric/metric_l1_sql_blended_daily_revenue_total_revenue} / {metric/metric_l1_sql_net_sales_summary_net_revenue})
+description: Calculates the year-over-year change in Net Revenue for the North region, then adjusts it by adding the ratio
+  of Total Revenue (from Blended Daily Revenue) to Total Net Revenue (from Net Sales Summary) for the same reporting context.
+  Use this metric to monitor North-region Net Revenue growth while factoring in how gross revenue compares to net revenue
+  in the period being analyzed.
+id: metric_l5_0010
+tags:
+- L5
+title: 'YoY: Net Revenue — North Region (+Revenue (Blended Daily Revenue)/Net Revenue (Net Sales Summary))'

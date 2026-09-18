@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Shows the total value of inventory on hand for the In-Store sales channel only. Use this metric to track and
+  compare store inventory value over time or across locations while excluding other sales channels.
+id: metric_l3_0050_0
+tags:
+- L3
+title: Inventory Value — In-Store Channel

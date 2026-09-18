@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0035_2} - (SELECT {metric/metric_l3_0035_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0035_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Recency Quartile (Recency, Frequency, Monetary (RFM)) score for customers
+  in the North region, comparing the current period to the prior year. Use it to track whether customer recency in the North
+  segment is improving or declining over time.
+id: metric_l4_yoy_0107
+tags:
+- L4
+title: 'YoY: Recency Quartile (RFM) (Customer RFM Segments) — North Region'

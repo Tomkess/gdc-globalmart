@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_capex_project_approved_budget} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total approved capital expenditure project budget limited to projects in the North region. Use it to track and
+  compare the size of approved CapEx funding for the North within the current report scope (including any additional filters
+  or time period).
+id: metric_l3_0075_2
+tags:
+- L3
+title: Approved Budget (Capital Expenditure Project) — North Region

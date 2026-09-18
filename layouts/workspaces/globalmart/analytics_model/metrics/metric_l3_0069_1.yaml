@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_paid_search_click_click_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts paid search clicks limited to the Online sales channel, helping you monitor click volume and trends specifically
+  for online performance. Use it in reports and dashboards when you need online-only paid search click activity rather than
+  total clicks across all channels.
+id: metric_l3_0069_1
+tags:
+- L3
+title: Click Count (Paid Search Click) — Online Channel

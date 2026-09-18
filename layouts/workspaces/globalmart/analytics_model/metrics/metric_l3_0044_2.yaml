@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_range_review_outcome_decision_count} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Counts the total number of Range Review Outcome decisions for the North region. Use it to track decision volume
+  in North and slice or trend it by other dimensions (such as time or category) in reports.
+id: metric_l3_0044_2
+tags:
+- L3
+title: Decision Count (Range Review Outcome) — North Region

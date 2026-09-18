@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_utility_cost_utility_cost} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total utility cost restricted to the Online sales channel. Use this metric to monitor and compare utility spending
+  for online operations within whatever other report filters are applied.
+id: metric_l3_0113_1
+tags:
+- L3
+title: Utility Cost (Utility Cost) — Online Channel

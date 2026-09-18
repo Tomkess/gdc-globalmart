@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0007} + ({metric/metric_l1_fact_loyalty_points_redeemed_points_redeemed} / {metric/metric_l1_fact_price_adjustment_price_change})
+description: Combines the year-over-year change in online loyalty redemption discount amount with an adjustment based on the
+  ratio of total loyalty points redeemed to total price change from price adjustments. Use it to assess how online loyalty
+  discount performance versus last year shifts when considering redemption volume and pricing adjustment impact.
+id: metric_l5_0014
+tags:
+- L5
+title: 'YoY: Discount Amount (Loyalty Redemption at POS) — Online Channel (+Points Redeemed (Loyalty Points Redeemed)/Price
+  Change (Price Adjustment))'

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0009_2} - (SELECT {metric/metric_l3_0009_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0009_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Tracks the year-over-year percentage change in average transaction value for Daily Store Sales in the North region
+  by comparing the current result to the same metric last year. Use it to see whether North’s average transaction value is
+  improving or declining versus the prior year.
+id: metric_l4_yoy_0029
+tags:
+- L4
+title: 'YoY: Avg Transaction Value (Daily Store Sales) — North Region'

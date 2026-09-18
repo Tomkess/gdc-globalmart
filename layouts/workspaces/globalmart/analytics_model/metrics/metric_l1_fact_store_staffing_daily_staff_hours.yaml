@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_store_staffing_daily.staff_hours})
+description: Tracks the total number of staff hours recorded in the Daily Store Staffing data, summed over the selected time
+  period and any applied filters. Use it to monitor overall labor hours and support store staffing and workforce analysis.
+id: metric_l1_fact_store_staffing_daily_staff_hours
+tags:
+- L1
+title: Total Staff Hours (Daily Store Staffing)

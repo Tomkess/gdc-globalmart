@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_line_quantity} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total number of units ordered on purchase order line items, filtered to the In-Store sales channel. Use it to
+  track and compare in-store purchasing volume across dimensions such as supplier, product, or time.
+id: metric_l3_0003_0
+tags:
+- L3
+title: Quantity (Purchase Order Line Items) — In-Store Channel

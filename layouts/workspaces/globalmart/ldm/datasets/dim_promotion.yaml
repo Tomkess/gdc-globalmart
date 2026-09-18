@@ -1,0 +1,46 @@
+aggregatedFacts: []
+attributes:
+- description: Indicates whether a given promotion is marked as promoted or not in the Promotion dataset. Use it to segment,
+    group, or filter analyses by promoted vs. non-promoted promotions.
+  id: dim_promotion.is_promoted
+  labels: []
+  sourceColumn: is_promoted
+  sourceColumnDataType: STRING
+  tags:
+  - Promotion
+  title: Is Promoted
+- description: Unique identifier for each promotion in the Promotion dataset, used to group, filter, and drill into promotion-level
+    results.
+  id: dim_promotion.promo_id
+  labels: []
+  sourceColumn: promo_id
+  sourceColumnDataType: STRING
+  tags:
+  - Promotion
+  title: Promo ID
+- description: Name of the promotion in the Promotion dataset, used to segment and filter reporting by specific promo campaigns.
+  id: dim_promotion.promo_name
+  labels: []
+  sourceColumn: promo_name
+  sourceColumnDataType: STRING
+  tags:
+  - Promotion
+  title: Promo Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_promotion
+  path:
+  - globalmart
+  - dim_promotion
+  type: dataSource
+description: Promotion
+facts: []
+grain:
+- id: dim_promotion.promo_id
+  type: attribute
+id: dim_promotion
+references: []
+tags:
+- Promotion
+title: Promotion
+workspaceDataFilterReferences: []

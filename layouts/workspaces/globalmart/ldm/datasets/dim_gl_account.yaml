@@ -1,0 +1,45 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each General Ledger Account, used to group, filter, or join reporting by specific account.
+  id: dim_gl_account.account_id
+  labels: []
+  sourceColumn: account_id
+  sourceColumnDataType: STRING
+  tags:
+  - General Ledger Account
+  title: Account ID
+- description: Name of the general ledger account, used to group and filter financial reporting by account.
+  id: dim_gl_account.account_name
+  labels: []
+  sourceColumn: account_name
+  sourceColumnDataType: STRING
+  tags:
+  - General Ledger Account
+  title: Account Name
+- description: Classifies each general ledger account by its account type, used to group and filter financial reporting by
+    categories of accounts.
+  id: dim_gl_account.account_type
+  labels: []
+  sourceColumn: account_type
+  sourceColumnDataType: STRING
+  tags:
+  - General Ledger Account
+  title: Account Type
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_gl_account
+  path:
+  - globalmart
+  - dim_gl_account
+  type: dataSource
+description: General Ledger Account
+facts: []
+grain:
+- id: dim_gl_account.account_id
+  type: attribute
+id: dim_gl_account
+references: []
+tags:
+- General Ledger Account
+title: General Ledger Account
+workspaceDataFilterReferences: []

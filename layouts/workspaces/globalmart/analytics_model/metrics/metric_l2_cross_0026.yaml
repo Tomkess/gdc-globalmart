@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} / {metric/metric_l1_fact_loyalty_points_redeemed_reward_value}
+description: Measures how much net revenue is generated for each unit of reward value redeemed through loyalty points, helping
+  assess the efficiency of redemptions. Use it to compare revenue return on redeemed value across time periods, customer segments,
+  or other reporting cuts.
+id: metric_l2_cross_0026
+tags:
+- L2
+title: Net Revenue per Reward Value (Loyalty Points Redeemed)

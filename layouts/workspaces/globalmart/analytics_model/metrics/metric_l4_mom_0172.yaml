@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0057_1} - (SELECT {metric/metric_l3_0057_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in Transfer Quantity for Transfer Orders in the Online channel, showing
+  how many more or fewer units were transferred compared with the prior month. Use it to track shifts in online transfer volume
+  over time within your current reporting scope (for example by month, location, or other filters).
+id: metric_l4_mom_0172
+tags:
+- L4
+title: 'MoM: Transfer Quantity (Transfer Order) — Online Channel'

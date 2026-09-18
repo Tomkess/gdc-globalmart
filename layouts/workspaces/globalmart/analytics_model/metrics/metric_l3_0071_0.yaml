@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_paid_search_click_click_cost} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total spend on paid search clicks, limited to the In-Store sales channel. Use this metric to track click cost
+  for in-store activity within the currently selected time period or campaign scope.
+id: metric_l3_0071_0
+tags:
+- L3
+title: Click Cost (Paid Search Click) — In-Store Channel

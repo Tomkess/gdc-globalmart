@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each property in the Property dataset, used to group, join, or filter analyses by specific
+    property.
+  id: dim_property.property_id
+  labels: []
+  sourceColumn: property_id
+  sourceColumnDataType: STRING
+  tags:
+  - Property
+  title: Property ID
+- description: Name of the property in the Property dataset, used to identify, group, and filter analyses by individual properties.
+  id: dim_property.property_name
+  labels: []
+  sourceColumn: property_name
+  sourceColumnDataType: STRING
+  tags:
+  - Property
+  title: Property Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_property
+  path:
+  - globalmart
+  - dim_property
+  type: dataSource
+description: Property
+facts: []
+grain:
+- id: dim_property.property_id
+  type: attribute
+id: dim_property
+references:
+- identifier:
+    id: dim_geography_city
+    type: dataset
+  multivalue: false
+  sources:
+  - column: city_id
+    dataType: STRING
+    target:
+      id: dim_geography_city.city_id
+      type: attribute
+tags:
+- Property
+title: Property
+workspaceDataFilterReferences: []

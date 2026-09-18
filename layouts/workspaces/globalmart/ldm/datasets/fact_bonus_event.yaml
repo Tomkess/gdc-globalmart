@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each bonus event record in the Bonus Event dataset. Use it to look up, group, or filter
+    analyses at the individual event level.
+  id: fact_bonus_event.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - Bonus Event
+  title: Event ID (Bonus Event)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_bonus_event
+  path:
+  - globalmart
+  - fact_bonus_event
+  type: dataSource
+description: Bonus Event
+facts:
+- description: Cost amount associated with each bonus event, used to quantify and analyze the expense of bonuses (for example
+    by summing costs) within the Bonus Event dataset.
+  id: fact_bonus_event.bonus_cost
+  sourceColumn: bonus_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Bonus Event
+  title: Bonus Cost
+- description: Number of bonus points awarded for each Bonus Event record. Use this fact to total or analyze earned bonus
+    points by different dimensions in the Bonus Event dataset.
+  id: fact_bonus_event.bonus_points
+  sourceColumn: bonus_points
+  sourceColumnDataType: INT
+  tags:
+  - Bonus Event
+  title: Bonus Points
+grain:
+- id: fact_bonus_event.event_id
+  type: attribute
+id: fact_bonus_event
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Bonus Event
+title: Bonus Event
+workspaceDataFilterReferences: []

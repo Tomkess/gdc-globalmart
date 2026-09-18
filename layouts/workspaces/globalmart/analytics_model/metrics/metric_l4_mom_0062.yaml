@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0020_2} - (SELECT {metric/metric_l3_0020_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in average checkout time (in seconds) for the North region by comparing
+  the current month’s average to the previous month. Use it to monitor whether checkout speed in the North is improving or
+  worsening over time at a monthly level.
+id: metric_l4_mom_0062
+tags:
+- L4
+title: 'MoM: Avg Checkout Time (sec) (Checkout Time) — North Region'

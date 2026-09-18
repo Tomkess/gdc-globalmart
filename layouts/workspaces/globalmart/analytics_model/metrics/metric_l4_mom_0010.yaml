@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0003_1} - (SELECT {metric/metric_l3_0003_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the total quantity of purchase order line items for the Online sales channel.
+  Use it to understand how this month’s online purchasing volume differs from the previous month when trending over time or
+  breaking down by dimensions such as product or supplier.
+id: metric_l4_mom_0010
+tags:
+- L4
+title: 'MoM: Quantity (Purchase Order Line Items) — Online Channel'

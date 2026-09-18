@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} / {metric/metric_l1_fact_loyalty_points_earned_points}
+description: Calculates cost of goods sold (COGS) per loyalty point earned by dividing Total COGS by total points earned in
+  the current filter context. Use it to assess the direct cost efficiency of the loyalty program over time or across segments.
+id: metric_l2_cross_0024
+tags:
+- L2
+title: COGS per Points (Loyalty Points Earned)

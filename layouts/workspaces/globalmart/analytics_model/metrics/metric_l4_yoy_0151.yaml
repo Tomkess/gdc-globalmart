@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0050_1} - (SELECT {metric/metric_l3_0050_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0050_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Inventory Value for the Online channel by comparing the current
+  year to the prior year. Use it to monitor how online inventory value is growing or declining over time.
+id: metric_l4_yoy_0151
+tags:
+- L4
+title: 'YoY: Inventory Value — Online Channel'

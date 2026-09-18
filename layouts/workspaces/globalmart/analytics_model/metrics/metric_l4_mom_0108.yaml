@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0036_0} - (SELECT {metric/metric_l3_0036_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in customers’ Frequency Quartile (Recency, Frequency, Monetary (RFM)) score
+  for the In-Store sales channel by comparing the selected month to the previous month. Use it to see whether the frequency-based
+  RFM quartile contribution from in-store customer activity is trending up or down over time.
+id: metric_l4_mom_0108
+tags:
+- L4
+title: 'MoM: Frequency Quartile (RFM) (Customer RFM Segments) — In-Store Channel'

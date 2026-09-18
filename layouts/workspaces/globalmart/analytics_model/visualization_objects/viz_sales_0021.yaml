@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0006
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: This headline shows the net difference between Quantity Returned (Returns) and Sales Amount, highlighting when
+  returns outweigh sales value or vice versa within the selected scope. Use it as a quick change indicator alongside the underlying
+  returns and sales totals.
+id: viz_sales_0021
+title: Quantity Returned (Returns) vs Sales Amount

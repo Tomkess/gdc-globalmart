@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_partner_redemption_points_used} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total loyalty points used in partner redemption transactions, filtered to the In-Store sales channel. Use it
+  to monitor in-store partner redemption points consumption and to analyze performance across other business dimensions.
+id: metric_l3_0108_0
+tags:
+- L3
+title: Points Used (Partner Redemption) — In-Store Channel

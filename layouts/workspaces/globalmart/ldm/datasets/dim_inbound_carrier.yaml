@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each inbound carrier, used to group or filter inbound carrier records in reporting.
+  id: dim_inbound_carrier.carrier_id
+  labels: []
+  sourceColumn: carrier_id
+  sourceColumnDataType: STRING
+  tags:
+  - Inbound Carrier
+  title: Carrier ID
+- description: Name of the inbound carrier (shipping/transport provider). Use it to group, filter, or compare inbound activity
+    by carrier in the Inbound Carrier dataset.
+  id: dim_inbound_carrier.carrier_name
+  labels: []
+  sourceColumn: carrier_name
+  sourceColumnDataType: STRING
+  tags:
+  - Inbound Carrier
+  title: Carrier Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_inbound_carrier
+  path:
+  - globalmart
+  - dim_inbound_carrier
+  type: dataSource
+description: Inbound Carrier
+facts: []
+grain:
+- id: dim_inbound_carrier.carrier_id
+  type: attribute
+id: dim_inbound_carrier
+references:
+- identifier:
+    id: dim_geography_country
+    type: dataset
+  multivalue: false
+  sources:
+  - column: country_id
+    dataType: STRING
+    target:
+      id: dim_geography_country.country_id
+      type: attribute
+tags:
+- Inbound Carrier
+title: Inbound Carrier
+workspaceDataFilterReferences: []

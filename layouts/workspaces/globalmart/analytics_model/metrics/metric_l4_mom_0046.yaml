@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0015_1} - (SELECT {metric/metric_l3_0015_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in total net price adjustments for the Online sales channel by comparing the
+  current month to the prior month. Use this metric to monitor whether the impact of online pricing actions is increasing
+  or decreasing over time.
+id: metric_l4_mom_0046
+tags:
+- L4
+title: 'MoM: Price Change (Price Adjustment) — Online Channel'

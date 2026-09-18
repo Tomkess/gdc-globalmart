@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0066_0} - (SELECT {metric/metric_l3_0066_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the count of daily campaign spend records for the In-Store sales channel
+  by comparing the current month to the previous month. Use it to monitor whether the volume of logged In-Store spend activity
+  is trending up or down over time.
+id: metric_l4_mom_0198
+tags:
+- L4
+title: 'MoM: Spend Count (Daily Campaign Spend) — In-Store Channel'

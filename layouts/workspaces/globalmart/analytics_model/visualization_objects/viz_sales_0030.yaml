@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0015
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Shows the net difference between total Price Change from price adjustments and total Variance Amount from till
+  reconciliation for the current selection, highlighting whether pricing actions outweigh over/short variances. Use it to
+  quickly assess the overall impact of price adjustments versus reconciliation discrepancies.
+id: viz_sales_0030
+title: Price Change (Price Adjustment) vs Variance Amount

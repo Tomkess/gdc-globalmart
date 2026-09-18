@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_range_review_outcome_decision_count} - {metric/metric_l1_fact_product_rating_avg_rating}
+description: Compares decision volume to product rating levels by subtracting the total of average product ratings from the
+  total decision count. Use it to see whether the number of range review decisions is higher or lower relative to overall
+  ratings for the current product, time, and other report filters.
+id: metric_l2_intra_0044
+tags:
+- L2
+title: Decision Count (Range Review Outcome) vs Avg Rating (Product Rating) Change

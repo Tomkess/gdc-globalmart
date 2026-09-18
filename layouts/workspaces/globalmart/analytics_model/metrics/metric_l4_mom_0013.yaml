@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0004_1} - (SELECT {metric/metric_l3_0004_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in energy consumption cost for the Online sales channel, comparing the current
+  month’s cost to the prior month. Use it to monitor whether online energy-related spending is rising or falling over time.
+id: metric_l4_mom_0013
+tags:
+- L4
+title: 'MoM: Cost (Energy Consumption) — Online Channel'

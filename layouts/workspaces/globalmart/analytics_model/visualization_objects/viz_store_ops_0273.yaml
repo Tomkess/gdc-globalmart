@@ -1,0 +1,31 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0083_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.month
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing how total daily store staff counts trend over time by Month/Year, limited to stores in the
+  North region. Use it to monitor overall staffing levels month to month and spot increases or decreases over the selected
+  period.
+id: viz_store_ops_0273
+title: Staff Count by Month

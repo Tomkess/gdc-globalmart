@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0015} + ({metric/metric_l1_fact_customer_feedback_feedback_count} / {metric/metric_l1_fact_tier_change_change_count})
+description: Composite metric that combines the year-over-year change in in-store return amount with a ratio of overall customer
+  feedback volume to tier-change volume. Use it as a blended indicator to view in-store returns performance alongside customer
+  engagement and account movement trends in a single number.
+id: metric_l5_0030
+tags:
+- L5
+title: 'YoY: Return Amount (Returns) — In-Store Channel (+Feedback Count (Customer Feedback)/Change Count (Tier Change))'

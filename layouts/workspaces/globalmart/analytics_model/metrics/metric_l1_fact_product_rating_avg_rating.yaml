@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_product_rating.avg_rating})
+description: Sums the Avg Rating values from the Product Rating dataset to show the overall total rating across the currently
+  selected products and any applied time or other filters.
+id: metric_l1_fact_product_rating_avg_rating
+tags:
+- L1
+title: Total Avg Rating (Product Rating)

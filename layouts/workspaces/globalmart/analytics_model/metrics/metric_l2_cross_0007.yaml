@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} / {metric/metric_l1_fact_daily_store_sales_sales_amount}
+description: Compares inventory on hand to sales by calculating total inventory value divided by total sales amount. Use it
+  to assess inventory intensity (stock levels relative to sales) for the selected time period, store, or other filters.
+id: metric_l2_cross_0007
+tags:
+- L2
+title: Inventory Value per Sales Amount (Daily Store Sales)

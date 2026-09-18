@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0047_2} - (SELECT {metric/metric_l3_0047_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in average inventory for locations in the North region within the Assortment
+  Efficiency analysis. Use it to compare this month’s average inventory level to the prior month when monitoring inventory
+  trends over time.
+id: metric_l4_mom_0143
+tags:
+- L4
+title: 'MoM: Avg Inventory (Assortment Efficiency) — North Region'

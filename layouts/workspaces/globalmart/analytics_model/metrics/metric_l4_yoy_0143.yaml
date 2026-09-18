@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0047_2} - (SELECT {metric/metric_l3_0047_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0047_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the North Region’s average inventory (from the Assortment Efficiency data),
+  comparing the current period to the same period in the prior year. Use it to track whether inventory levels are rising or
+  falling versus last year when analyzing assortment efficiency.
+id: metric_l4_yoy_0143
+tags:
+- L4
+title: 'YoY: Avg Inventory (Assortment Efficiency) — North Region'

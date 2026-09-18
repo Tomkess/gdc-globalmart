@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0003_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline KPI showing the total quantity of units ordered on purchase order line items for the Online sales channel.
+  Use it to monitor overall online purchasing volume at a glance and compare it over time or across dimensions like product
+  or supplier.
+id: viz_inventory_0174
+title: Quantity (Online sales channel)

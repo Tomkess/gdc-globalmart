@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} / {metric/metric_l1_total_net_revenue}
+description: Calculates the number of orders per unit of net revenue in the current reporting scope, showing how order volume
+  scales relative to revenue. Useful for comparing order-to-revenue intensity across time periods or filtered segments.
+id: metric_l2_cross_0000
+tags:
+- L2
+title: Order Count per Net Revenue

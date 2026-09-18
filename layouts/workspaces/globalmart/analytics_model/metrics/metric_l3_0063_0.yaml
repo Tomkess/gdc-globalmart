@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_inventory_health_current_stock} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Shows the total on-hand inventory (current stock) for the In-Store sales channel, based on Inventory Health data.
+  Use it to monitor in-store inventory levels and compare or break them down by other report filters and attributes.
+id: metric_l3_0063_0
+tags:
+- L3
+title: Current Stock (Inventory Health) — In-Store Channel

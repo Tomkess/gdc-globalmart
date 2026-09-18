@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_campaign_roi.total_spend})
+description: Sums Spend to show total marketing/campaign spend in the Campaign ROI data. Use it to track and compare overall
+  spending across campaigns, time periods, or other business segments.
+id: metric_l1_sql_campaign_roi_total_spend
+tags:
+- L1
+title: Total Spend (Campaign ROI)

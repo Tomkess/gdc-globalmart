@@ -1,0 +1,48 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for each cost center in the Cost Center dataset, used to uniquely distinguish and filter cost centers
+    in reporting.
+  id: dim_cost_center.cost_center_id
+  labels: []
+  sourceColumn: cost_center_id
+  sourceColumnDataType: STRING
+  tags:
+  - Cost Center
+  title: Cost Center ID
+- description: Name of the cost center, used to categorize, group, and filter reporting by cost center within the Cost Center
+    dataset.
+  id: dim_cost_center.cost_center_name
+  labels: []
+  sourceColumn: cost_center_name
+  sourceColumnDataType: STRING
+  tags:
+  - Cost Center
+  title: Cost Center Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_cost_center
+  path:
+  - globalmart
+  - dim_cost_center
+  type: dataSource
+description: Cost Center
+facts: []
+grain:
+- id: dim_cost_center.cost_center_id
+  type: attribute
+id: dim_cost_center
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+tags:
+- Cost Center
+title: Cost Center
+workspaceDataFilterReferences: []

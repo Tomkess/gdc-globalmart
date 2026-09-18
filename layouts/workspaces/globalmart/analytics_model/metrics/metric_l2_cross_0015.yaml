@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} / {metric/metric_l1_fact_price_adjustment_price_change}
+description: Shows how many orders occur per unit of net price change by dividing Total Order Count by Total Price Change
+  from price adjustments. Use it to relate order volume to the overall impact of pricing actions when analyzing by time, product,
+  customer, or other slices.
+id: metric_l2_cross_0015
+tags:
+- L2
+title: Order Count per Price Change (Price Adjustment)

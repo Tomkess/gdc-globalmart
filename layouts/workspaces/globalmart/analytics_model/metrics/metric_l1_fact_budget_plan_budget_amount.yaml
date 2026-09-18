@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_budget_plan.budget_amount})
+description: Shows the total planned budget value by summing Budget Amount from the Budget Plan dataset, respecting any selected
+  filters and breakdowns.
+id: metric_l1_fact_budget_plan_budget_amount
+tags:
+- L1
+title: Total Budget Amount (Budget Plan)

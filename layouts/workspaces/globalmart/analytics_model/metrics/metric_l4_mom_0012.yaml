@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0004_0} - (SELECT {metric/metric_l3_0004_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in energy consumption cost for the In-Store channel by comparing the current
+  month’s cost to the prior month. Use it to see whether in-store energy spending is rising or falling over time, typically
+  broken down by Month/Year.
+id: metric_l4_mom_0012
+tags:
+- L4
+title: 'MoM: Cost (Energy Consumption) — In-Store Channel'

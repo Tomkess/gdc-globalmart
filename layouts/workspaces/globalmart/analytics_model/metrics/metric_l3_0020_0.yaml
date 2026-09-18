@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_checkout_time_avg_checkout_sec} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Average checkout time in seconds, limited to the In-Store sales channel. Use this metric to track in-store checkout
+  speed and compare it across periods or other segments when combined with additional filters.
+id: metric_l3_0020_0
+tags:
+- L3
+title: Avg Checkout Time (sec) (Checkout Time) — In-Store Channel

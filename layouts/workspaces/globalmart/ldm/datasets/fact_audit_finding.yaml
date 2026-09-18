@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each audit finding record in the Audit Finding dataset, used to reference, group, or
+    filter specific findings.
+  id: fact_audit_finding.finding_id
+  labels: []
+  sourceColumn: finding_id
+  sourceColumnDataType: STRING
+  tags:
+  - Audit Finding
+  title: Finding ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_audit_finding
+  path:
+  - globalmart
+  - fact_audit_finding
+  type: dataSource
+description: Audit Finding
+facts:
+- description: Number of audit findings recorded in the Audit Finding dataset, typically used to count findings and summarize
+    volumes across time, audits, or other dimensions.
+  id: fact_audit_finding.finding_count
+  sourceColumn: finding_count
+  sourceColumnDataType: INT
+  tags:
+  - Audit Finding
+  title: Finding Count
+grain:
+- id: fact_audit_finding.finding_id
+  type: attribute
+id: fact_audit_finding
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: finding_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Audit Finding
+title: Audit Finding
+workspaceDataFilterReferences: []

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_quality_score} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the total Supplier Scorecard Quality Score, limited to the Online sales channel. Use it to monitor or compare
+  supplier quality performance for Online activity within the current report filters and breakdowns.
+id: metric_l3_0060_1
+tags:
+- L3
+title: Quality Score (Supplier Scorecard) — Online Channel

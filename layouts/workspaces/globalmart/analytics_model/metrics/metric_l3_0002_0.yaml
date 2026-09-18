@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Total value of loyalty redemption discounts applied at the point of sale, filtered to the In-Store sales channel.
+  Use this metric to track the in-store impact of loyalty discount redemptions across the selected time period, stores, or
+  customer segments.
+id: metric_l3_0002_0
+tags:
+- L3
+title: Discount Amount (Loyalty Redemption at POS) — In-Store Channel

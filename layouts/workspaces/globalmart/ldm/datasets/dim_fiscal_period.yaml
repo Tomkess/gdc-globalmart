@@ -1,0 +1,66 @@
+aggregatedFacts: []
+attributes:
+- description: Represents the fiscal month in the Fiscal Period dataset. Use it to group, filter, and compare results by month
+    within your organization’s fiscal calendar.
+  id: dim_fiscal_period.fiscal_month
+  labels: []
+  sourceColumn: fiscal_month
+  sourceColumnDataType: INT
+  tags:
+  - Fiscal Period
+  title: Fiscal Month
+- description: Unique identifier for each fiscal period in the Fiscal Period dataset, used to group and filter reporting by
+    specific fiscal periods.
+  id: dim_fiscal_period.fiscal_period_id
+  labels: []
+  sourceColumn: fiscal_period_id
+  sourceColumnDataType: STRING
+  tags:
+  - Fiscal Period
+  title: Fiscal Period ID
+- description: Represents the fiscal quarter within the Fiscal Period calendar. Use it to group, compare, or filter metrics
+    by quarter (e.g., Q1–Q4) in reports and dashboards.
+  id: dim_fiscal_period.fiscal_quarter
+  labels: []
+  sourceColumn: fiscal_quarter
+  sourceColumnDataType: INT
+  tags:
+  - Fiscal Period
+  title: Fiscal Quarter
+- description: Represents the fiscal year associated with each fiscal period. Use it to group, filter, and compare measures
+    by fiscal year in reporting based on the Fiscal Period dataset.
+  id: dim_fiscal_period.fiscal_year
+  labels: []
+  sourceColumn: fiscal_year
+  sourceColumnDataType: INT
+  tags:
+  - Fiscal Period
+  title: Fiscal Year (Fiscal Period)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_fiscal_period
+  path:
+  - globalmart
+  - dim_fiscal_period
+  type: dataSource
+description: Fiscal Period
+facts: []
+grain:
+- id: dim_fiscal_period.fiscal_period_id
+  type: attribute
+id: dim_fiscal_period
+references:
+- identifier:
+    id: fiscal_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: calendar_date
+    dataType: DATE
+    target:
+      id: fiscal_date
+      type: date
+tags:
+- Fiscal Period
+title: Fiscal Period
+workspaceDataFilterReferences: []

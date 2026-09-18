@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_loyalty_points_redeemed.reward_value})
+description: Shows the total monetary value of rewards customers have redeemed by summing Reward Value from the Loyalty Points
+  Redeemed data. Use it to monitor overall redemption value over time or compare redemption value across customer segments.
+id: metric_l1_fact_loyalty_points_redeemed_reward_value
+tags:
+- L1
+title: Total Reward Value (Loyalty Points Redeemed)

@@ -1,0 +1,67 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each price adjustment record in the Price Adjustment dataset. Use it to look up, group,
+    or filter analyses to a specific adjustment.
+  id: fact_price_adjustment.adjustment_id
+  labels: []
+  sourceColumn: adjustment_id
+  sourceColumnDataType: STRING
+  tags:
+  - Price Adjustment
+  title: Adjustment ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_price_adjustment
+  path:
+  - globalmart
+  - fact_price_adjustment
+  type: dataSource
+description: Price Adjustment
+facts:
+- description: Change in price recorded on each Price Adjustment entry, used to measure how much prices increased or decreased
+    over time or across items.
+  id: fact_price_adjustment.price_change
+  sourceColumn: price_change
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Price Adjustment
+  title: Price Change
+grain:
+- id: fact_price_adjustment.adjustment_id
+  type: attribute
+id: fact_price_adjustment
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: adjustment_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Price Adjustment
+title: Price Adjustment
+workspaceDataFilterReferences: []

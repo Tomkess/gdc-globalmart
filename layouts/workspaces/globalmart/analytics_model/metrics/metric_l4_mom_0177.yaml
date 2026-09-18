@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0059_0} - (SELECT {metric/metric_l3_0059_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Write-Off Cost for the In-Store sales channel by comparing the current
+  month’s value to the prior month. Use it to monitor whether in-store write-off costs are rising or falling over time.
+id: metric_l4_mom_0177
+tags:
+- L4
+title: 'MoM: Write-Off Cost (Write Off) — In-Store Channel'

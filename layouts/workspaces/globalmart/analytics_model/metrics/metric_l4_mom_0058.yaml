@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0019_1} - (SELECT {metric/metric_l3_0019_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Competitor Price for the Online sales channel, calculated as the current
+  month’s value minus the prior month’s value. Use it to see whether competitor pricing for online activity is increasing
+  or decreasing over time under your selected filters and breakdowns.
+id: metric_l4_mom_0058
+tags:
+- L4
+title: 'MoM: Competitor Price (Competitor Pricing) — Online Channel'

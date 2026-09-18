@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0051_0} - (SELECT {metric/metric_l3_0051_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0051_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in Movement Quantity for stock movements in the In-Store channel, comparing the
+  current period to the same measure in the prior year. Use it to track how in-store inventory movement is trending versus
+  last year within the report’s active filters.
+id: metric_l4_yoy_0153
+tags:
+- L4
+title: 'YoY: Movement Quantity (Stock Movement) — In-Store Channel'

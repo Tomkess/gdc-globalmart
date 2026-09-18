@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_loyalty_roi_attributed_revenue} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total revenue attributed to the loyalty program for the In-Store sales channel only. Use this metric to evaluate
+  loyalty program ROI performance specifically for in-store purchases within the current report filters.
+id: metric_l3_0021_0
+tags:
+- L3
+title: Attributed Revenue (Loyalty Program ROI) — In-Store Channel

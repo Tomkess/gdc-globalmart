@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0021_1} - (SELECT {metric/metric_l3_0021_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in loyalty-program attributed revenue for the Online sales channel by comparing
+  the current month’s value to the previous month.
+id: metric_l4_mom_0064
+tags:
+- L4
+title: 'MoM: Attributed Revenue (Loyalty Program ROI) — Online Channel'

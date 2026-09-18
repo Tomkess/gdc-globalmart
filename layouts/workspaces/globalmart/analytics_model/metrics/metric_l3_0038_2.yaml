@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_risk_attr_01_metric} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: This metric returns the total Compliance Adherence Score for the North region. Use it to report an overall adherence
+  score for North while still honoring any other filters applied in the report or dashboard.
+id: metric_l3_0038_2
+tags:
+- L3
+title: Attribute Value (Compliance Adherence Score) — North Region

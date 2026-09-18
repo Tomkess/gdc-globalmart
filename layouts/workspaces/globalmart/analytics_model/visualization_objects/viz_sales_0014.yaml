@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_checkout_time_avg_checkout_sec
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the overall average checkout time in seconds, based on the “Total Avg Checkout Time (sec) (Checkout
+  Time)” metric. Use it to monitor checkout speed at a glance under the current dashboard filters.
+id: viz_sales_0014
+title: Avg Checkout Time (sec)

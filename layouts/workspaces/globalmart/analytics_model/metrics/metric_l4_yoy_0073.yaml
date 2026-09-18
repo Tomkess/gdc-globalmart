@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0024_1} - (SELECT {metric/metric_l3_0024_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0024_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in loyalty points earned from the Online sales channel. Use this metric to compare
+  current-year vs prior-year online points accrual and monitor growth or decline over time.
+id: metric_l4_yoy_0073
+tags:
+- L4
+title: 'YoY: Points (Loyalty Points Earned) — Online Channel'

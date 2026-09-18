@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each budget record in the Budget Plan dataset. Use it to filter or group analyses at
+    the individual budget level.
+  id: fact_budget_plan.budget_id
+  labels: []
+  sourceColumn: budget_id
+  sourceColumnDataType: STRING
+  tags:
+  - Budget Plan
+  title: Budget ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_budget_plan
+  path:
+  - globalmart
+  - fact_budget_plan
+  type: dataSource
+description: Budget Plan
+facts:
+- description: Budget Amount is the monetary value allocated in the Budget Plan dataset, used to analyze and compare planned
+    budget figures across relevant business dimensions.
+  id: fact_budget_plan.budget_amount
+  sourceColumn: budget_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Budget Plan
+  title: Budget Amount
+grain:
+- id: fact_budget_plan.budget_id
+  type: attribute
+id: fact_budget_plan
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: budget_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Budget Plan
+title: Budget Plan
+workspaceDataFilterReferences: []

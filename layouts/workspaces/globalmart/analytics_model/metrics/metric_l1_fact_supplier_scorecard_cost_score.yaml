@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_supplier_scorecard.cost_score})
+description: Total Cost Score (Supplier Scorecard) sums Cost Score values to show overall cost performance across the currently
+  selected supplier scorecard records. Use it to compare total cost scoring by supplier, time period, or other scorecard dimensions.
+id: metric_l1_fact_supplier_scorecard_cost_score
+tags:
+- L1
+title: Total Cost Score (Supplier Scorecard)

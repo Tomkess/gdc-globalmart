@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0046_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of product rating reviews for the North region, using the “Review Count (Product
+  Rating) — North Region” metric. Use it to monitor review volume in North and compare it with other regions or overall totals.
+id: viz_product_0093
+title: Review Count

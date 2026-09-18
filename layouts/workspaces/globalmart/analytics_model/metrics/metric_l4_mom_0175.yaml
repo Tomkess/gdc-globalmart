@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0058_1} - (SELECT {metric/metric_l3_0058_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Online-channel write-off quantity by comparing the current month’s written-off
+  item count to the prior month. Use it to see whether Online write-offs are rising or falling over time when reporting by
+  Month/Year.
+id: metric_l4_mom_0175
+tags:
+- L4
+title: 'MoM: Write-Off Quantity (Write Off) — Online Channel'

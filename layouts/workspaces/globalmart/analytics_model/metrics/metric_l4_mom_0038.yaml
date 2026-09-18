@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0012_2} - (SELECT {metric/metric_l3_0012_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in total operating expense transaction amount for the North region by comparing
+  the current month to the previous month. Use it to monitor how North’s operating expense spending is trending over time,
+  while still respecting any other report filters and the selected time period.
+id: metric_l4_mom_0038
+tags:
+- L4
+title: 'MoM: Amount (Operating Expense Transaction) — North Region'

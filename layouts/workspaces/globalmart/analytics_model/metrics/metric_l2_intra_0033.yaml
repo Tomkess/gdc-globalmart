@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_revenue} - {metric/metric_l1_sql_customer_ltv_snapshot_avg_order_value}
+description: Calculates the difference between Total Lifetime Revenue and Total Average Order Value for the currently selected
+  customers and any applied filters. Use it to quantify how overall customer lifetime value revenue compares with typical
+  order size within the current reporting scope.
+id: metric_l2_intra_0033
+tags:
+- L2
+title: Lifetime Revenue (Customer Lifetime Value) vs Average Order Value (Customer Lifetime Value) Change

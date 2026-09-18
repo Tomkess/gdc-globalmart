@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0049_2} - (SELECT {metric/metric_l3_0049_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in North-region inventory units on hand by comparing the current month’s daily
+  inventory snapshot total to the prior month. Use it to track whether North-region stock levels are rising or falling over
+  time.
+id: metric_l4_mom_0149
+tags:
+- L4
+title: 'MoM: Units on Hand (Daily Inventory Snapshot) — North Region'

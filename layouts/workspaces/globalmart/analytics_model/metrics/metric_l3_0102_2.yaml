@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_recruitment_recruitment_cost} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total recruitment spending filtered to the North region. Use it to monitor and compare recruiting costs for North
+  versus other regions or across time periods.
+id: metric_l3_0102_2
+tags:
+- L3
+title: Recruitment Cost (Recruitment) — North Region

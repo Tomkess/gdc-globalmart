@@ -1,0 +1,46 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each job role in the Job Role dataset, used to distinguish, group, or filter records
+    by role.
+  id: dim_job_role.role_id
+  labels: []
+  sourceColumn: role_id
+  sourceColumnDataType: STRING
+  tags:
+  - Job Role
+  title: Role ID
+- description: Job role name used to categorize and filter records by role within the Job Role dataset.
+  id: dim_job_role.role_name
+  labels: []
+  sourceColumn: role_name
+  sourceColumnDataType: STRING
+  tags:
+  - Job Role
+  title: Role Name
+- description: Indicates the salary band associated with each job role. Use it to group, segment, or filter analyses of job
+    roles by compensation range.
+  id: dim_job_role.salary_band
+  labels: []
+  sourceColumn: salary_band
+  sourceColumnDataType: STRING
+  tags:
+  - Job Role
+  title: Salary Band
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_job_role
+  path:
+  - globalmart
+  - dim_job_role
+  type: dataSource
+description: Job Role
+facts: []
+grain:
+- id: dim_job_role.role_id
+  type: attribute
+id: dim_job_role
+references: []
+tags:
+- Job Role
+title: Job Role
+workspaceDataFilterReferences: []

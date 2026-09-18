@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0010_0} - (SELECT {metric/metric_l3_0010_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in in-store revenue by comparing the current period’s blended daily revenue
+  to the prior month. Use it to monitor how in-store sales are trending from one month to the next within the same time and
+  filter context.
+id: metric_l4_mom_0030
+tags:
+- L4
+title: 'MoM: Revenue (Blended Daily Revenue) — In-Store Channel'

@@ -1,0 +1,39 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0083_0
+                type: metric
+        localIdentifier: m1
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0083_1
+                type: metric
+        localIdentifier: m2
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: attribute
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:table
+description: Table showing staffing levels over time by Quarter/Year, comparing Staff Count for the In-Store channel versus
+  the Online channel. Use it to monitor how staffing changes across quarters and to contrast staffing needs between channels.
+id: viz_store_ops_0271
+title: Staff Count and Staff Count by Quarter

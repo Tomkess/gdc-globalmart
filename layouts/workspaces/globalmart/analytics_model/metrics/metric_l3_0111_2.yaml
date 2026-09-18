@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_loyalty_roi_points_cost} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total loyalty points cost for the North region, used to quantify points-related expense as part of the loyalty
+  program ROI analysis.
+id: metric_l3_0111_2
+tags:
+- L3
+title: Points Cost (Loyalty Program ROI) — North Region

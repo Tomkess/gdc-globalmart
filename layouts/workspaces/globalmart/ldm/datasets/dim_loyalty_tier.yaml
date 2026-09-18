@@ -1,0 +1,56 @@
+aggregatedFacts: []
+attributes:
+- description: Minimum points threshold required to qualify for each Loyalty Tier. Use it to group or filter tiers based on
+    the starting points needed.
+  id: dim_loyalty_tier.min_points
+  labels: []
+  sourceColumn: min_points
+  sourceColumnDataType: INT
+  tags:
+  - Loyalty Tier
+  title: Min Points
+- description: Unique identifier for each loyalty tier in the Loyalty Tier dataset. Use it to group, filter, or join loyalty-tier
+    information at the tier level.
+  id: dim_loyalty_tier.tier_id
+  labels: []
+  sourceColumn: tier_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Tier
+  title: Tier ID
+- description: Loyalty program tier level used to categorize customers into tiers (e.g., by status level) for reporting, grouping,
+    and filtering. Sourced from the Loyalty Tier dataset.
+  id: dim_loyalty_tier.tier_level
+  labels: []
+  sourceColumn: tier_level
+  sourceColumnDataType: INT
+  tags:
+  - Loyalty Tier
+  title: Tier Level
+- description: Represents the name of a customer’s loyalty tier (e.g., tier level) from the Loyalty Tier dataset. Use it to
+    segment, group, or filter analyses by loyalty tier.
+  id: dim_loyalty_tier.tier_name
+  labels: []
+  sourceColumn: tier_name
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Tier
+  title: Tier Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_loyalty_tier
+  path:
+  - globalmart
+  - dim_loyalty_tier
+  type: dataSource
+description: Loyalty Tier
+facts: []
+grain:
+- id: dim_loyalty_tier.tier_id
+  type: attribute
+id: dim_loyalty_tier
+references: []
+tags:
+- Loyalty Tier
+title: Loyalty Tier
+workspaceDataFilterReferences: []

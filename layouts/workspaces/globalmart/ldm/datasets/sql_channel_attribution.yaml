@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for a user session in the Channel Attribution dataset. Use it to group, filter, or drill
+    into activity at the individual session level when analyzing attribution results.
+  id: sql_channel_attribution.session_id
+  labels: []
+  sourceColumn: session_id
+  sourceColumnDataType: STRING
+  tags:
+  - Channel Attribution
+  title: Session ID
+- description: Identifies the marketing or referral source that generated the traffic, used to segment and filter channel
+    attribution results. Part of the Channel Attribution dataset.
+  id: sql_channel_attribution.traffic_source
+  labels: []
+  sourceColumn: traffic_source
+  sourceColumnDataType: STRING
+  tags:
+  - Channel Attribution
+  title: Traffic Source
+description: Channel Attribution
+facts:
+- description: Revenue amount attributed to a marketing or sales channel in the Channel Attribution dataset, used to measure
+    how much revenue each channel is credited with.
+  id: sql_channel_attribution.attributed_revenue
+  sourceColumn: attributed_revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Channel Attribution
+  title: Attributed Revenue (Channel Attribution)
+grain:
+- id: sql_channel_attribution.session_id
+  type: attribute
+id: sql_channel_attribution
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    s.session_id,\n    c.customer_id,\n    s.traffic_source,\n    s.session_date,\n    CASE\n    \
+    \    WHEN LEAD(s.traffic_source) OVER (PARTITION BY c.customer_id ORDER BY s.session_date) IS NOT NULL\n        THEN ol.revenue\
+    \ * 0.1\n        ELSE ol.revenue * 0.9\n    END AS attributed_revenue\nFROM {{ datasource_schema }}.fact_search_event\
+    \ s\nJOIN {{ datasource_schema }}.fact_web_order_header woh ON s.customer_id = woh.customer_id\nJOIN {{ datasource_schema\
+    \ }}.fact_web_order_line wol ON woh.order_id = wol.order_id\nJOIN {{ datasource_schema }}.fact_order_line ol ON wol.product_id\
+    \ = ol.product_id\nJOIN {{ datasource_schema }}.dim_customer c ON woh.customer_id = c.customer_id\n"
+tags:
+- Channel Attribution
+title: Channel Attribution
+workspaceDataFilterReferences: []

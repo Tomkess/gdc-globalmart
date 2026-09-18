@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0017} + ({metric/metric_l1_sql_customer_ltv_snapshot_avg_order_value} / {metric/metric_l1_sql_rfm_segments_recency_quartile})
+description: Blends the North region year-over-year change in Return Amount with a customer value/recency adjustment by adding
+  Total Average Order Value divided by the Total Recency Quartile score. Use it as a combined KPI to view return trends alongside
+  how valuable and recently active the selected customer segment is.
+id: metric_l5_0034
+tags:
+- L5
+title: 'YoY: Return Amount (Returns) — North Region (+Average Order Value (Customer Lifetime Value)/Recency Quartile (RFM)
+  (Customer RFM Segments))'

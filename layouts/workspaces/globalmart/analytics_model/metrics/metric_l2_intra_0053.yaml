@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_header_po_amount} - {metric/metric_l1_fact_purchase_order_line_line_amount}
+description: Shows the difference between the total Purchase Order header amount and the summed line-item amounts for the
+  same purchase orders. Use it to spot and quantify discrepancies between header-level PO values and underlying line items
+  when analyzing purchasing spend across dimensions like time or supplier.
+id: metric_l2_intra_0053
+tags:
+- L2
+title: PO Amount (Purchase Order) vs Line Amount (Purchase Order Line Items) Change

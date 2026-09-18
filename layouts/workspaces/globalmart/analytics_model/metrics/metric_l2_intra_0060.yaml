@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_quality_score} - {metric/metric_l1_fact_supplier_scorecard_delivery_score}
+description: Shows the difference between a supplier’s total Quality Score and total Delivery Score (Quality minus Delivery)
+  within the current filters or breakdowns. Use it to quickly see whether quality performance is ahead of delivery (positive)
+  or delivery is ahead of quality (negative) for the selected scope.
+id: metric_l2_intra_0060
+tags:
+- L2
+title: Quality Score (Supplier Scorecard) vs Delivery Score (Supplier Scorecard) Change

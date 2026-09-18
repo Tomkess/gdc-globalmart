@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0008_0} - (SELECT {metric/metric_l3_0008_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0008_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of In-Store sales transactions by comparing the current
+  period’s transaction count to the same period last year. Use it to track whether in-store transaction volume is growing
+  or declining versus last year.
+id: metric_l4_yoy_0024
+tags:
+- L4
+title: 'YoY: Transaction Count (Daily Store Sales) — In-Store Channel'

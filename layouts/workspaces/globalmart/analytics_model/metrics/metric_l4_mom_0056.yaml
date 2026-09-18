@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0018_2} - (SELECT {metric/metric_l3_0018_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in total inventory age days for aged inventory in the North region, comparing
+  the current month to the prior month. Use it to monitor whether inventory aging in North is worsening or improving over
+  time and to analyze the change across breakdowns like product or location.
+id: metric_l4_mom_0056
+tags:
+- L4
+title: 'MoM: Age Days (Aged Inventory) — North Region'

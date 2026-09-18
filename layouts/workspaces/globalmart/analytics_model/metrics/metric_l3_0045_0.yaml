@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_rating_avg_rating} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Average product rating limited to sales made through the In-Store channel. Use this metric to monitor and compare
+  in-store customer ratings against other channels or overall performance for the selected products and time period.
+id: metric_l3_0045_0
+tags:
+- L3
+title: Avg Rating (Product Rating) — In-Store Channel

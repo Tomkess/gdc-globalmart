@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Product Seasonal Demand Score dataset. Typically used to reference
+    or de-duplicate records rather than for business analysis.
+  id: fact_product_attr_07.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product Seasonal Demand Score
+  title: Record ID (Product Seasonal Demand Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_product_attr_07
+  path:
+  - globalmart
+  - fact_product_attr_07
+  type: dataSource
+description: Product Seasonal Demand Score
+facts:
+- description: Numeric value that captures the Product Seasonal Demand Score for each product record, used to quantify and
+    aggregate seasonal demand in analyses.
+  id: fact_product_attr_07.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Product Seasonal Demand Score
+  title: Product Seasonal Demand Score
+grain:
+- id: fact_product_attr_07.attr_id
+  type: attribute
+id: fact_product_attr_07
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Product Seasonal Demand Score
+title: Product Seasonal Demand Score
+workspaceDataFilterReferences: []

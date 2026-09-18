@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0042_0} - (SELECT {metric/metric_l3_0042_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0042_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the In-Store Planogram Compliance Score, comparing the current period to
+  the same period last year. Use this to monitor whether in-store planogram compliance is improving or declining over time
+  for the locations and time frame you have selected. A planogram is a diagram specifying exact product placement on retail
+  shelves.
+id: metric_l4_yoy_0126
+tags:
+- L4
+title: 'YoY: Compliance Score (Planogram Compliance) — In-Store Channel'

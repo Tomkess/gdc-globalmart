@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each e-commerce order confirmation event in the E-commerce Order Confirmation dataset.
+    Use it to look up, group, or filter analyses to specific confirmation events.
+  id: fact_ecom_event_08.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Order Confirmation
+  title: Event ID (E-commerce Order Confirmation)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_08
+  path:
+  - globalmart
+  - fact_ecom_event_08
+  type: dataSource
+description: E-commerce Order Confirmation
+facts:
+- description: Count of events recorded in the E-commerce Order Confirmation dataset, typically used to track how many order
+    confirmation events occurred over a selected period or segment.
+  id: fact_ecom_event_08.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Order Confirmation
+  title: Event Count (E-commerce Order Confirmation)
+grain:
+- id: fact_ecom_event_08.event_id
+  type: attribute
+id: fact_ecom_event_08
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Order Confirmation
+title: E-commerce Order Confirmation
+workspaceDataFilterReferences: []

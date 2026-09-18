@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0049_1} - (SELECT {metric/metric_l3_0049_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0049_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in Units on Hand from the Daily Inventory Snapshot for the Online
+  sales channel. Use it to assess how online-fulfillment inventory levels are trending versus the same time last year.
+id: metric_l4_yoy_0148
+tags:
+- L4
+title: 'YoY: Units on Hand (Daily Inventory Snapshot) — Online Channel'

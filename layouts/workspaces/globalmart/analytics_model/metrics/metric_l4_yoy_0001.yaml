@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0000_1} - (SELECT {metric/metric_l3_0000_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0000_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in Online channel order count, comparing the current year to the prior year. Use
+  it to monitor online order growth or decline over time and to compare performance across segments.
+id: metric_l4_yoy_0001
+tags:
+- L4
+title: 'YoY: Order Count — Online Channel'

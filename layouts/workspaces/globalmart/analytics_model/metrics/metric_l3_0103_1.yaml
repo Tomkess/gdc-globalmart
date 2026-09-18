@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_enrollment_enrollment_count} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Counts loyalty program enrollments attributed to the Online sales channel, based on the overall enrollment count.
+  Use this metric to monitor how many customers enroll via online channels for the currently selected time period and filters.
+id: metric_l3_0103_1
+tags:
+- L3
+title: Enrollment Count (Loyalty Enrollment) — Online Channel

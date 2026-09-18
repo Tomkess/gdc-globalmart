@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_recruitment.recruitment_count})
+description: Measures the total number of recruitments (the process of sourcing and hiring new employees) by summing the Recruitment
+  Count from the Recruitment dataset. Use it to track overall recruitment volume and compare performance across slices such
+  as time, location, or other recruitment-related dimensions.
+id: metric_l1_fact_recruitment_recruitment_count
+tags:
+- L1
+title: Total Recruitment Count (Recruitment)

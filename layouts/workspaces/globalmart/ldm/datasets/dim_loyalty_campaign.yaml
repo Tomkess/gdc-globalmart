@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each loyalty campaign, used to group, filter, and join campaign-related reporting in
+    the Loyalty Campaign dataset.
+  id: dim_loyalty_campaign.campaign_id
+  labels: []
+  sourceColumn: campaign_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Campaign
+  title: Campaign ID (Loyalty Campaign)
+- description: Name of the loyalty campaign, used to group and filter analysis by individual campaign in the Loyalty Campaign
+    dataset.
+  id: dim_loyalty_campaign.campaign_name
+  labels: []
+  sourceColumn: campaign_name
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Campaign
+  title: Campaign Name (Loyalty Campaign)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_loyalty_campaign
+  path:
+  - globalmart
+  - dim_loyalty_campaign
+  type: dataSource
+description: Loyalty Campaign
+facts: []
+grain:
+- id: dim_loyalty_campaign.campaign_id
+  type: attribute
+id: dim_loyalty_campaign
+references: []
+tags:
+- Loyalty Campaign
+title: Loyalty Campaign
+workspaceDataFilterReferences: []

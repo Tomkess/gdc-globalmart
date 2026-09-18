@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_header_po_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total purchase order value restricted to the Online sales channel. Use this metric to monitor and compare online
+  PO spend across time, suppliers, or other reporting dimensions.
+id: metric_l3_0053_1
+tags:
+- L3
+title: PO Amount (Purchase Order) — Online Channel

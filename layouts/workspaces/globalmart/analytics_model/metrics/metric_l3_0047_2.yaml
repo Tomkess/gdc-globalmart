@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_avg_inventory} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Shows the total average inventory from the Assortment Efficiency data, limited to locations in the North region.
+  Use it to monitor overall inventory levels for the North region while analyzing assortment efficiency across any selected
+  time period, products, or other filters.
+id: metric_l3_0047_2
+tags:
+- L3
+title: Avg Inventory (Assortment Efficiency) — North Region

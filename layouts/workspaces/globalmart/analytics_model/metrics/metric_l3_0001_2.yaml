@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total net revenue filtered to the North region. Use this metric to track North-region revenue performance within
+  whatever time period and other report or dashboard filters are applied.
+id: metric_l3_0001_2
+tags:
+- L3
+title: Net Revenue — North Region

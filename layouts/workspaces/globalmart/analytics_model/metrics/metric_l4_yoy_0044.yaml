@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0014_2} - (SELECT {metric/metric_l3_0014_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0014_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in total loyalty points redeemed for the North region, comparing the current
+  year to the previous year. Use it to monitor how North’s redemption volume is trending over time.
+id: metric_l4_yoy_0044
+tags:
+- L4
+title: 'YoY: Points Redeemed (Loyalty Points Redeemed) — North Region'

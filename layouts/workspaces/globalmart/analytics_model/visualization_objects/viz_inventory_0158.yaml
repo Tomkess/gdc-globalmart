@@ -1,0 +1,31 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_total_inventory_value
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.year
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Shows total inventory value on hand broken out by year, using the Total Inventory Value metric from daily inventory
+  snapshots. Use it to compare how inventory value changes year over year within the current report scope (such as selected
+  locations or other filters).
+id: viz_inventory_0158
+title: Inventory Value by Year

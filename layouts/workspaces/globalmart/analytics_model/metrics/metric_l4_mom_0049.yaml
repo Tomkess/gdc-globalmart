@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0016_1} - (SELECT {metric/metric_l3_0016_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the till reconciliation variance amount for the Online sales channel by
+  comparing the current month’s variance to the prior month. Use it to see whether online reconciliation over/short discrepancies
+  are increasing or decreasing over time.
+id: metric_l4_mom_0049
+tags:
+- L4
+title: 'MoM: Variance Amount (Till Reconciliation) — Online Channel'

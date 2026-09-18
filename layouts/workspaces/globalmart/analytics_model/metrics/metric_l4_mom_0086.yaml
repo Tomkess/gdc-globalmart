@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0028_2} - (SELECT {metric/metric_l3_0028_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of NPS survey responses from the North region by comparing the
+  current month’s response count to the previous month. Use it to monitor whether North-region survey participation is rising
+  or falling over time.
+id: metric_l4_mom_0086
+tags:
+- L4
+title: 'MoM: Response Count (NPS Response) — North Region'

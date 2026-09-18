@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0007_2} - (SELECT {metric/metric_l3_0007_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Sales Amount for the North region by comparing the current month’s sales
+  to the previous month. Use it to quickly understand whether North region sales are increasing or decreasing from one month
+  to the next when reporting by Month/Year.
+id: metric_l4_mom_0023
+tags:
+- L4
+title: 'MoM: Sales Amount (Daily Store Sales) — North Region'

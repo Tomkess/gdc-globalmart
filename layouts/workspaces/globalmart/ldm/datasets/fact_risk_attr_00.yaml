@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each Fraud Risk Score record. Use it to reference, group, or filter analyses at the individual
+    record level within the Fraud Risk Score dataset.
+  id: fact_risk_attr_00.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Fraud Risk Score
+  title: Record ID (Fraud Risk Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_risk_attr_00
+  path:
+  - globalmart
+  - fact_risk_attr_00
+  type: dataSource
+description: Fraud Risk Score
+facts:
+- description: Captures the numeric value of a fraud risk score attribute in the Fraud Risk Score dataset, used to measure
+    and aggregate the attribute’s value in analysis and reporting.
+  id: fact_risk_attr_00.metric
+  sourceColumn: metric
+  sourceColumnDataType: INT
+  tags:
+  - Fraud Risk Score
+  title: Fraud Risk Score
+grain:
+- id: fact_risk_attr_00.attr_id
+  type: attribute
+id: fact_risk_attr_00
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Fraud Risk Score
+title: Fraud Risk Score
+workspaceDataFilterReferences: []

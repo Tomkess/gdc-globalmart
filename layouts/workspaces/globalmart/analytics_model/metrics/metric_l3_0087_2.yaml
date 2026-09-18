@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_maintenance_request_downtime_hours} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total downtime hours logged on maintenance requests, restricted to records in the North region. Use this metric
+  to monitor the amount of equipment or service disruption time attributable to maintenance activity in North.
+id: metric_l3_0087_2
+tags:
+- L3
+title: Downtime Hours (Maintenance Request) — North Region

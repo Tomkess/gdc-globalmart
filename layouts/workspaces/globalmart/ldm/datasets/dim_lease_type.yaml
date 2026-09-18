@@ -1,0 +1,46 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each lease record in the Lease Type dataset, used to look up, group, or filter analyses
+    by individual lease.
+  id: dim_lease_type.lease_id
+  labels: []
+  sourceColumn: lease_id
+  sourceColumnDataType: STRING
+  tags:
+  - Lease Type
+  title: Lease ID
+- description: Lease Term Years represents the length of a lease expressed in years for each lease type. Use it to group,
+    compare, or filter leasing metrics by term length within the Lease Type dataset.
+  id: dim_lease_type.lease_term_years
+  labels: []
+  sourceColumn: lease_term_years
+  sourceColumnDataType: INT
+  tags:
+  - Lease Type
+  title: Lease Term Years
+- description: Name of the lease type, used to categorize and filter lease records in reporting (from the Lease Type dataset).
+  id: dim_lease_type.lease_type_name
+  labels: []
+  sourceColumn: lease_type_name
+  sourceColumnDataType: STRING
+  tags:
+  - Lease Type
+  title: Lease Type Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_lease_type
+  path:
+  - globalmart
+  - dim_lease_type
+  type: dataSource
+description: Lease Type
+facts: []
+grain:
+- id: dim_lease_type.lease_id
+  type: attribute
+id: dim_lease_type
+references: []
+tags:
+- Lease Type
+title: Lease Type
+workspaceDataFilterReferences: []

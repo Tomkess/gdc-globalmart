@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0040_2} - (SELECT {metric/metric_l3_0040_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0040_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Margin for the North region, comparing the selected period’s margin to the
+  same measure in the prior year. Use it to assess how North-region profitability is trending versus last year across your
+  current product/date/report filters.
+id: metric_l4_yoy_0122
+tags:
+- L4
+title: 'YoY: Margin (Daily Product Performance) — North Region'

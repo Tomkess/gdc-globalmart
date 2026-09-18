@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0018
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: This headline shows how inventory aging compares to competitor pricing for the current selection by calculating
+  the difference between total aged inventory age days and total competitor price. Use it to quickly spot when inventory is
+  aging more (or less) relative to the competitive price environment.
+id: viz_sales_0033
+title: Age Days (Aged Inventory) vs Competitor Price

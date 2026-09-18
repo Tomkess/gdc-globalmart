@@ -1,0 +1,75 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each write-off record in the Write Off dataset. Use it to look up, group, or filter analytics
+    at the individual write-off level.
+  id: fact_write_off.writeoff_id
+  labels: []
+  sourceColumn: writeoff_id
+  sourceColumnDataType: STRING
+  tags:
+  - Write Off
+  title: Write-Off ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_write_off
+  path:
+  - globalmart
+  - fact_write_off
+  type: dataSource
+description: Write Off
+facts:
+- description: Total cost amount associated with write-offs in the Write Off dataset, typically used to analyze and aggregate
+    write-off costs across different business dimensions.
+  id: fact_write_off.writeoff_cost
+  sourceColumn: writeoff_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Write Off
+  title: Write-Off Cost
+- description: Number of units written off, used to quantify write-offs in the Write Off dataset and typically aggregated
+    to track write-off volume over time or by product/location.
+  id: fact_write_off.writeoff_qty
+  sourceColumn: writeoff_qty
+  sourceColumnDataType: INT
+  tags:
+  - Write Off
+  title: Write-Off Quantity
+grain:
+- id: fact_write_off.writeoff_id
+  type: attribute
+id: fact_write_off
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_warehouse
+    type: dataset
+  multivalue: false
+  sources:
+  - column: warehouse_id
+    dataType: STRING
+    target:
+      id: dim_warehouse.warehouse_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: writeoff_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Write Off
+title: Write Off
+workspaceDataFilterReferences: []

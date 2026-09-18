@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0046_2} - (SELECT {metric/metric_l3_0046_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0046_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the number of product rating reviews for the North region, comparing the
+  current year’s review count to the previous year. Use this to track how review volume in North is trending versus last year.
+id: metric_l4_yoy_0140
+tags:
+- L4
+title: 'YoY: Review Count (Product Rating) — North Region'

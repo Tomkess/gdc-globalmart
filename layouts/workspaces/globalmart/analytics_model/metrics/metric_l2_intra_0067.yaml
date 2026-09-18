@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_email_send_send_count} - {metric/metric_l1_fact_email_open_open_count}
+description: Shows the net difference between total emails sent and total email opens for the current filters and time period.
+  Use it to quantify how many more sends occurred than opens (or vice versa) when analyzing email volume versus engagement.
+id: metric_l2_intra_0067
+tags:
+- L2
+title: Send Count (Email Send) vs Open Count (Email Open) Change

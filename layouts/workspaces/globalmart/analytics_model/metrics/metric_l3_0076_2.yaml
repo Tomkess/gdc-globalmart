@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_capex_project_spent_amount} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total amount spent on capital expenditure projects for the North region. Use this metric to monitor and compare
+  North’s CapEx project spending across time periods or against other regions.
+id: metric_l3_0076_2
+tags:
+- L3
+title: Spent Amount (Capital Expenditure Project) — North Region

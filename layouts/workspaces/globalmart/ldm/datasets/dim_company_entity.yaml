@@ -1,0 +1,48 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for each company entity record in the Company Entity dataset. Use it to uniquely distinguish, group,
+    or filter data by entity.
+  id: dim_company_entity.entity_id
+  labels: []
+  sourceColumn: entity_id
+  sourceColumnDataType: STRING
+  tags:
+  - Company Entity
+  title: Entity ID
+- description: Name of the company entity, used to segment, group, and filter reporting by entity within the Company Entity
+    dataset.
+  id: dim_company_entity.entity_name
+  labels: []
+  sourceColumn: entity_name
+  sourceColumnDataType: STRING
+  tags:
+  - Company Entity
+  title: Entity Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_company_entity
+  path:
+  - globalmart
+  - dim_company_entity
+  type: dataSource
+description: Company Entity
+facts: []
+grain:
+- id: dim_company_entity.entity_id
+  type: attribute
+id: dim_company_entity
+references:
+- identifier:
+    id: dim_geography_country
+    type: dataset
+  multivalue: false
+  sources:
+  - column: country_id
+    dataType: STRING
+    target:
+      id: dim_geography_country.country_id
+      type: attribute
+tags:
+- Company Entity
+title: Company Entity
+workspaceDataFilterReferences: []

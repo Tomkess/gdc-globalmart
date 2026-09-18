@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each social impression record in the Social Impression dataset, used to distinguish,
+    group, or filter individual impressions.
+  id: fact_social_impression.impression_id
+  labels: []
+  sourceColumn: impression_id
+  sourceColumnDataType: STRING
+  tags:
+  - Social Impression
+  title: Impression ID (Social Impression)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_social_impression
+  path:
+  - globalmart
+  - fact_social_impression
+  type: dataSource
+description: Social Impression
+facts:
+- description: Number of impressions recorded for social content, used to measure how many times posts or ads were shown within
+    the Social Impression dataset.
+  id: fact_social_impression.impression_count
+  sourceColumn: impression_count
+  sourceColumnDataType: INT
+  tags:
+  - Social Impression
+  title: Impression Count (Social Impression)
+grain:
+- id: fact_social_impression.impression_id
+  type: attribute
+id: fact_social_impression
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: impression_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Social Impression
+title: Social Impression
+workspaceDataFilterReferences: []

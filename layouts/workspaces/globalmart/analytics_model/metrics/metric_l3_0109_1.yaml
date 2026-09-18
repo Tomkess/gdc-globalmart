@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_partner_redemption_partner_discount} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Total value of partner-funded discounts from partner redemptions, filtered to the Online sales channel. Use this
+  metric to monitor how much discount is being issued through online partner redemption activity over time or across other
+  business cuts.
+id: metric_l3_0109_1
+tags:
+- L3
+title: Partner Discount (Partner Redemption) — Online Channel

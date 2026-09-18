@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each cost category in the Cost Category dataset, used to group, join, or filter reporting
+    by cost category.
+  id: dim_cost_category.category_id
+  labels: []
+  sourceColumn: category_id
+  sourceColumnDataType: STRING
+  tags:
+  - Cost Category
+  title: Category ID (Cost Category)
+- description: Represents the name of each cost category in the Cost Category dataset. Use it to group, filter, and break
+    down spending or other cost-related measures by category.
+  id: dim_cost_category.category_name
+  labels: []
+  sourceColumn: category_name
+  sourceColumnDataType: STRING
+  tags:
+  - Cost Category
+  title: Category Name (Cost Category)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_cost_category
+  path:
+  - globalmart
+  - dim_cost_category
+  type: dataSource
+description: Cost Category
+facts: []
+grain:
+- id: dim_cost_category.category_id
+  type: attribute
+id: dim_cost_category
+references: []
+tags:
+- Cost Category
+title: Cost Category
+workspaceDataFilterReferences: []

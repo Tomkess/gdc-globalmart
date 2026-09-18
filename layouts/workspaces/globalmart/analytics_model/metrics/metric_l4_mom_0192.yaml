@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0064_0} - (SELECT {metric/metric_l3_0064_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Days of Cover for the In‑Store sales channel, indicating whether in‑store
+  inventory coverage is improving or worsening versus the prior month. Use it to track short-term trends in inventory health
+  for in‑store operations within the current reporting scope.
+id: metric_l4_mom_0192
+tags:
+- L4
+title: 'MoM: Days of Cover (Inventory Health) — In-Store Channel'

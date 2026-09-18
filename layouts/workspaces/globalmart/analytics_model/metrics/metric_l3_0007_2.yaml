@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_sales_amount} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total sales amount from the Daily Store Sales data, filtered to the North region. Use it to track North region
+  sales performance over time or compare results across other breakdowns such as store or product.
+id: metric_l3_0007_2
+tags:
+- L3
+title: Sales Amount (Daily Store Sales) — North Region

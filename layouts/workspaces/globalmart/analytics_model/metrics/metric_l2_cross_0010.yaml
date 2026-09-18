@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} / {metric/metric_l1_sql_blended_daily_revenue_total_revenue}
+description: Shows the number of orders generated per unit of revenue by dividing Total Order Count by Total Revenue from
+  the Blended Daily Revenue dataset. Use this ratio to compare how efficiently revenue translates into order volume under
+  the current filters and time period.
+id: metric_l2_cross_0010
+tags:
+- L2
+title: Order Count per Revenue (Blended Daily Revenue)

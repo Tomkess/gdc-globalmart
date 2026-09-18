@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_nps_response_nps_score} - {metric/metric_l1_fact_nps_response_response_count}
+description: Calculates the difference between the total NPS Score and the total number of NPS survey responses in the current
+  selection. Use it to compare overall NPS scoring volume against response volume and see whether score totals are keeping
+  pace with response counts.
+id: metric_l2_intra_0027
+tags:
+- L2
+title: NPS Score (NPS Response) vs Response Count (NPS Response) Change

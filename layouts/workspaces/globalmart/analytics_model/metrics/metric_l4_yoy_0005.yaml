@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0001_2} - (SELECT {metric/metric_l3_0001_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0001_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Net Revenue for the North region, comparing the selected year with the prior
+  year. Use it to monitor North-region revenue growth trends over time and quickly spot performance improvements or declines.
+id: metric_l4_yoy_0005
+tags:
+- L4
+title: 'YoY: Net Revenue — North Region'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_returns.return_amount})
+description: Shows the total value of returned items by summing Return Amount from the Returns dataset, within the current
+  report scope (such as by time period, product, or customer). Use it to track and analyze returns volume and trends across
+  different slices of the business.
+id: metric_l1_fact_returns_return_amount
+tags:
+- L1
+title: Total Return Amount (Returns)

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_payroll_transaction.deductions})
+description: Shows the total amount deducted across payroll transactions within the current reporting scope (such as applied
+  filters and selected time period). Use it to summarize withholdings (taxes and deductions withheld from employee pay by
+  the employer)/deductions by payroll dimensions like employee or pay period.
+id: metric_l1_fact_payroll_transaction_deductions
+tags:
+- L1
+title: Total Deductions (Payroll Transaction)

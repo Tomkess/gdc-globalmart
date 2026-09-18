@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0014
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline KPI showing the net difference between Loyalty Points Redeemed and the total Price Change from price
+  adjustments for the current selection (e.g., time, product, or customer). Use it to quickly see whether redemption volume
+  outweighs pricing adjustments (positive) or pricing changes dominate (negative).
+id: viz_sales_0029
+title: Points Redeemed (Loyalty Points Redeemed) vs Price Change

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0041_2} - (SELECT {metric/metric_l3_0041_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0041_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the North region’s markdown amount from markdown events, comparing the current
+  year to the previous year. Use it to gauge whether markdown impact in North is increasing or decreasing over time within
+  the report’s selected scope.
+id: metric_l4_yoy_0125
+tags:
+- L4
+title: 'YoY: Markdown Amount (Markdown Event) — North Region'

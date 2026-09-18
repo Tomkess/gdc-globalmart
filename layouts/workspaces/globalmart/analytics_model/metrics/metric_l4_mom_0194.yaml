@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0064_2} - (SELECT {metric/metric_l3_0064_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Days of Cover for the North region, showing how inventory coverage (in
+  days) has moved compared with the prior month. Use it to monitor whether stock is lasting longer or shorter over time as
+  an indicator of improving or worsening inventory health in North.
+id: metric_l4_mom_0194
+tags:
+- L4
+title: 'MoM: Days of Cover (Inventory Health) — North Region'

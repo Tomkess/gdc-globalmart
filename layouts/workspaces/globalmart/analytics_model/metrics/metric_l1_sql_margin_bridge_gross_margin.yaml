@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_margin_bridge.gross_margin})
+description: Shows total gross margin by summing Gross Margin from the Margin Bridge dataset for the currently selected filters
+  and time period. Use it to track overall profitability and support margin bridge analysis across business dimensions.
+id: metric_l1_sql_margin_bridge_gross_margin
+tags:
+- L1
+title: Total Gross Margin (Margin Bridge)

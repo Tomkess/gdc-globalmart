@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_tier_change_change_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts tier change events for the North region only, so you can track how many tier changes occurred in North
+  under the current reporting period and any additional filters applied in an insight or dashboard.
+id: metric_l3_0031_2
+tags:
+- L3
+title: Change Count (Tier Change) — North Region

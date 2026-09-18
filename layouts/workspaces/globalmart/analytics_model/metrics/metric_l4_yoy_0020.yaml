@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0006_2} - (SELECT {metric/metric_l3_0006_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0006_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Quantity Returned for the North region by comparing the current
+  period to the same period last year. Use it to understand whether return volumes in North are rising or falling versus last
+  year.
+id: metric_l4_yoy_0020
+tags:
+- L4
+title: 'YoY: Quantity Returned (Returns) — North Region'

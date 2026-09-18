@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0007_1} - (SELECT {metric/metric_l3_0007_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Online Sales Amount by comparing the current month’s online sales to the
+  prior month, based on the Daily Store Sales context. Use it to monitor whether online sales are increasing or decreasing
+  from one month to the next.
+id: metric_l4_mom_0022
+tags:
+- L4
+title: 'MoM: Sales Amount (Daily Store Sales) — Online Channel'

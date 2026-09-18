@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_bonus_event_bonus_points} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total Bonus Points awarded from Bonus Event records, filtered to the North region. Use this metric
+  to monitor bonus point volume for North in reports and dashboards, while still respecting any additional filters or time
+  period applied in the analysis.
+id: metric_l3_0106_2
+tags:
+- L3
+title: Bonus Points (Bonus Event) — North Region

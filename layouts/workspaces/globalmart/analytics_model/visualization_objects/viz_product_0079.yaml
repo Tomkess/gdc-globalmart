@@ -1,0 +1,40 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0042_0
+                type: metric
+        localIdentifier: m1
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0042_1
+                type: metric
+        localIdentifier: m2
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: attribute
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:table
+description: Table comparing planogram Compliance Score for the In-Store and Online sales channels, broken out by Quarter/Year.
+  Use it to monitor how compliance performance changes over time and how the two channels differ within the currently selected
+  reporting scope.
+id: viz_product_0079
+title: Compliance Score and Compliance Score by Quarter

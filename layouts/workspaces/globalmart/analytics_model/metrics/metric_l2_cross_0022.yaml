@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} / {metric/metric_l1_fact_customer_event_event_count}
+description: Average inventory value per recorded customer event, calculated as Total Inventory Value divided by Total Event
+  Count from Customer Event data. Use it to compare how inventory value scales with customer activity across time periods,
+  locations, or other filtered segments.
+id: metric_l2_cross_0022
+tags:
+- L2
+title: Inventory Value per Event Count (Customer Event)

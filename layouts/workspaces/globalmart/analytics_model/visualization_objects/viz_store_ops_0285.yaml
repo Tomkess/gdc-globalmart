@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0087_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total downtime hours recorded on maintenance requests, using the “Downtime Hours (Maintenance
+  Request) — North Region” metric. It’s intended to track overall equipment or service disruption time specifically for the
+  North region.
+id: viz_store_ops_0285
+title: Downtime Hours

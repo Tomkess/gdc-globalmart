@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_sqft} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Calculates total revenue generated per square foot for the North region to evaluate space productivity and operational
+  efficiency. Use it to compare how efficiently North locations convert floor space into revenue within the current reporting
+  scope.
+id: metric_l3_0092_2
+tags:
+- L3
+title: Revenue per Sq Ft (Operations Efficiency Summary) — North Region

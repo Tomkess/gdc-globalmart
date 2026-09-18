@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0005_2} - (SELECT {metric/metric_l3_0005_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0005_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the total Return Amount for the North region, comparing the current period
+  with the same period last year. Use this to see whether the value of returns in North is trending up or down versus last
+  year.
+id: metric_l4_yoy_0017
+tags:
+- L4
+title: 'YoY: Return Amount (Returns) — North Region'

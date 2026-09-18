@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_rfm_segments_recency_quartile
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the overall total of customers’ Recency Quartile (RFM) scores, summed across the currently selected
+  customers or segment using the Customer RFM Segments data.
+id: viz_customer_0110
+title: Recency Quartile (RFM)

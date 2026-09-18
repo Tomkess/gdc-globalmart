@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each shrinkage event record in the Shrinkage Event dataset. Use it to look up, group,
+    or filter analyses by a specific shrinkage event.
+  id: fact_shrinkage_event.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - Shrinkage Event
+  title: Event ID (Shrinkage Event)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_shrinkage_event
+  path:
+  - globalmart
+  - fact_shrinkage_event
+  type: dataSource
+description: Shrinkage Event
+facts:
+- description: Monetary value associated with each shrinkage event, used to quantify and aggregate shrinkage impact within
+    the Shrinkage Event dataset.
+  id: fact_shrinkage_event.shrinkage_amount
+  sourceColumn: shrinkage_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Shrinkage Event
+  title: Shrinkage Amount
+- description: Number of units associated with a shrinkage event record in the Shrinkage Event dataset. Typically used to
+    sum or analyze shrinkage volume by product, location, or time.
+  id: fact_shrinkage_event.unit_count
+  sourceColumn: unit_count
+  sourceColumnDataType: INT
+  tags:
+  - Shrinkage Event
+  title: Unit Count
+grain:
+- id: fact_shrinkage_event.event_id
+  type: attribute
+id: fact_shrinkage_event
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Shrinkage Event
+title: Shrinkage Event
+workspaceDataFilterReferences: []

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0016_0} - (SELECT {metric/metric_l3_0016_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in till reconciliation variance amount (cash over/short) for the In-Store
+  sales channel by comparing the current month to the prior month. Use it to see whether in-store reconciliation discrepancies
+  are improving or worsening over time.
+id: metric_l4_mom_0048
+tags:
+- L4
+title: 'MoM: Variance Amount (Till Reconciliation) — In-Store Channel'

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0030} + ({metric/metric_l1_fact_supplier_scorecard_quality_score} / {metric/metric_l1_fact_supplier_scorecard_delivery_score})
+description: Combines the year-over-year change in in-store blended daily revenue with an adjustment based on supplier performance,
+  adding the ratio of total supplier quality score to total supplier delivery score. Use it to view revenue growth alongside
+  a quality-vs-delivery factor within the same filtered scope of your analysis.
+id: metric_l5_0060
+tags:
+- L5
+title: 'YoY: Revenue (Blended Daily Revenue) — In-Store Channel (+Quality Score (Supplier Scorecard)/Delivery Score (Supplier
+  Scorecard))'

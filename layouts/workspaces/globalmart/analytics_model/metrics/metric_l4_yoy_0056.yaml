@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0018_2} - (SELECT {metric/metric_l3_0018_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0018_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Age Days for aged inventory in the North region, comparing the current period
+  to the same measure last year. Use it to monitor whether inventory in North is aging faster or slower than last year and
+  to analyze YoY aging trends across product, location, or other breakdowns.
+id: metric_l4_yoy_0056
+tags:
+- L4
+title: 'YoY: Age Days (Aged Inventory) — North Region'

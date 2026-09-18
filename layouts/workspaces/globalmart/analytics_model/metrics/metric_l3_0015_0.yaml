@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_price_adjustment_price_change} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Shows the total net price change driven by price adjustments, filtered to the In-Store sales channel. Use this
+  to quantify how pricing actions increased or decreased prices overall for in-store transactions across your current reporting
+  slice (e.g., by time, product, or customer).
+id: metric_l3_0015_0
+tags:
+- L3
+title: Price Change (Price Adjustment) — In-Store Channel

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_recency_quartile} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Totals the Recency Quartile (Recency, Frequency, Monetary (RFM)) score for customers, limited to those in the
+  North region. Use it to assess how recently North-region customers have engaged and to compare their recency against other
+  segments or regions.
+id: metric_l3_0035_2
+tags:
+- L3
+title: Recency Quartile (RFM) (Customer RFM Segments) — North Region

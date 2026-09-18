@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_tier_change_change_count} - {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_order_count}
+description: Shows the difference between the total number of tier change events and customers’ total lifetime order count.
+  Use it to gauge whether tier changes are happening more or less frequently relative to overall customer purchase activity.
+id: metric_l2_intra_0031
+tags:
+- L2
+title: Change Count (Tier Change) vs Lifetime Order Count (Customer Lifetime Value) Change

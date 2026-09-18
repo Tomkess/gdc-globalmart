@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_partner_redemption.points_used})
+description: Tracks the total number of loyalty points used in Partner Redemption transactions by summing Points Used. Use
+  it to monitor overall partner redemption points consumption over time or break it down by relevant business dimensions.
+id: metric_l1_fact_partner_redemption_points_used
+tags:
+- L1
+title: Total Points Used (Partner Redemption)

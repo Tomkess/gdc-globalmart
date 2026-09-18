@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_audit_finding_finding_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts audit findings for the Online channel only by filtering the total audit finding count to Channel Type
+  = Online. Use it to monitor and compare finding volume specifically tied to online activity across breakdowns such as time
+  period, audit, or area.
+id: metric_l3_0121_1
+tags:
+- L3
+title: Finding Count (Audit Finding) — Online Channel

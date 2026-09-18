@@ -1,0 +1,37 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each store format in the Store Format dataset, used to group or filter reporting by format.
+  id: dim_store_format.format_id
+  labels: []
+  sourceColumn: format_id
+  sourceColumnDataType: STRING
+  tags:
+  - Store Format
+  title: Format ID
+- description: Store format name used to categorize and filter stores by their format (e.g., different store concepts) in
+    reporting. Sourced from the Store Format dataset.
+  id: dim_store_format.format_name
+  labels: []
+  sourceColumn: format_name
+  sourceColumnDataType: STRING
+  tags:
+  - Store Format
+  title: Format Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_store_format
+  path:
+  - globalmart
+  - dim_store_format
+  type: dataSource
+description: Store Format
+facts: []
+grain:
+- id: dim_store_format.format_id
+  type: attribute
+id: dim_store_format
+references: []
+tags:
+- Store Format
+title: Store Format
+workspaceDataFilterReferences: []

@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0088_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of in-store visitors, based on Store Visit Census data (In-Store channel only).
+  Use it to quickly monitor overall foot traffic and compare performance across time periods or locations when combined with
+  other breakdowns.
+id: viz_store_ops_0286
+title: Visitor Count

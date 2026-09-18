@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_budget_plan_budget_amount} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Totals the planned budget amount from the Budget Plan data, filtered to the North region. Use it to report or
+  compare North’s budget totals across whatever other filters or breakdowns are applied.
+id: metric_l3_0078_2
+tags:
+- L3
+title: Budget Amount (Budget Plan) — North Region

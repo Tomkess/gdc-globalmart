@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_loyalty_roi_attributed_revenue} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total revenue attributed to the loyalty program, limited to the North region. Use this metric to track loyalty-driven
+  revenue performance in North and compare it with other regions or across time periods.
+id: metric_l3_0021_2
+tags:
+- L3
+title: Attributed Revenue (Loyalty Program ROI) — North Region

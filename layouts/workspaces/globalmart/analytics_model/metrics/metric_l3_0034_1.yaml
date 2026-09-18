@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_avg_order_value} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Average order value from the Customer Lifetime Value snapshot, limited to the Online sales channel. Use it to
+  compare the typical order size of online customers and how it contributes to overall customer lifetime value under the current
+  report filters.
+id: metric_l3_0034_1
+tags:
+- L3
+title: Average Order Value (Customer Lifetime Value) — Online Channel

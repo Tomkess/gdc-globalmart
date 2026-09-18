@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Energy Efficiency Score dataset, used to distinguish, group, or filter
+    individual score entries.
+  id: fact_ops_attr_04.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Energy Efficiency Score
+  title: Record ID (Energy Efficiency Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ops_attr_04
+  path:
+  - globalmart
+  - fact_ops_attr_04
+  type: dataSource
+description: Energy Efficiency Score
+facts:
+- description: Energy Efficiency Score attribute value used to quantify and aggregate the score (for example, in sums or averages)
+    in reporting.
+  id: fact_ops_attr_04.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Energy Efficiency Score
+  title: Energy Efficiency Score
+grain:
+- id: fact_ops_attr_04.attr_id
+  type: attribute
+id: fact_ops_attr_04
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Energy Efficiency Score
+title: Energy Efficiency Score
+workspaceDataFilterReferences: []

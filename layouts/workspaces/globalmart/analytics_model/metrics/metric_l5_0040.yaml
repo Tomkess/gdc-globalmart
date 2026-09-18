@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0020} + ({metric/metric_l1_fact_product_performance_daily_margin} / {metric/metric_l1_fact_markdown_event_markdown_amount})
+description: Combines the North region year-over-year change in Quantity Returned with a margin-to-markdown ratio (total margin
+  divided by total markdown amount). Use it to view return trends in North alongside how profitability compares to markdown
+  spend over the same selection of dates, products, or other filters.
+id: metric_l5_0040
+tags:
+- L5
+title: 'YoY: Quantity Returned (Returns) — North Region (+Margin (Daily Product Performance)/Markdown Amount (Markdown Event))'

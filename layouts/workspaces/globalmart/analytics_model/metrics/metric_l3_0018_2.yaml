@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_aged_inventory_age_days} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total inventory age days summed from the Aged Inventory data, filtered to the North region. Use it to quantify
+  how much inventory aging is occurring in North and to compare aging patterns across products, locations, or other breakdowns.
+id: metric_l3_0018_2
+tags:
+- L3
+title: Age Days (Aged Inventory) — North Region

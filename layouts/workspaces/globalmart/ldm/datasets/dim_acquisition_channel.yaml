@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Channel Cost is an attribute from the Acquisition Channel dataset that represents the cost associated with
+    each acquisition channel. Use it to group, filter, or compare performance by different channel cost values.
+  id: dim_acquisition_channel.channel_cost
+  labels: []
+  sourceColumn: channel_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Acquisition Channel
+  title: Channel Cost
+- description: Unique identifier for each acquisition channel in the Acquisition Channel dataset, used to group and filter
+    metrics by channel.
+  id: dim_acquisition_channel.channel_id
+  labels: []
+  sourceColumn: channel_id
+  sourceColumnDataType: STRING
+  tags:
+  - Acquisition Channel
+  title: Channel ID (Acquisition Channel)
+- description: Identifies the acquisition channel name, used to segment and filter reporting by how users or leads were acquired
+    (e.g., by marketing or referral source) within the Acquisition Channel dataset.
+  id: dim_acquisition_channel.channel_name
+  labels: []
+  sourceColumn: channel_name
+  sourceColumnDataType: STRING
+  tags:
+  - Acquisition Channel
+  title: Channel Name (Acquisition Channel)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_acquisition_channel
+  path:
+  - globalmart
+  - dim_acquisition_channel
+  type: dataSource
+description: Acquisition Channel
+facts: []
+grain:
+- id: dim_acquisition_channel.channel_id
+  type: attribute
+id: dim_acquisition_channel
+references: []
+tags:
+- Acquisition Channel
+title: Acquisition Channel
+workspaceDataFilterReferences: []

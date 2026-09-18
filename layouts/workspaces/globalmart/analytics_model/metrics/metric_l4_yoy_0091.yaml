@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0030_1} - (SELECT {metric/metric_l3_0030_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0030_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of customer feedback items submitted through the Online
+  sales channel, comparing the current period with the same period last year. Use it to monitor whether online feedback volume
+  is rising or falling over time, typically broken down by year or other time views.
+id: metric_l4_yoy_0091
+tags:
+- L4
+title: 'YoY: Feedback Count (Customer Feedback) — Online Channel'

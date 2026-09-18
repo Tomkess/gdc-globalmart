@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_units_sold} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total units sold from the Assortment Efficiency dataset, filtered to sales made through the Online channel. Use
+  this metric to monitor and compare online sales volume (in units) across relevant dimensions such as product, time period,
+  or other segmentations (the process of dividing customers or data into groups by shared characteristics) available in Assortment
+  Efficiency.
+id: metric_l3_0039_1
+tags:
+- L3
+title: Units Sold (Assortment Efficiency) — Online Channel

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0013_0} - (SELECT {metric/metric_l3_0013_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0013_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the count of in-store gift card transactions by comparing the current
+  period to the same period last year. Use it to monitor annual growth or decline in in-store gift card transaction volume
+  over time or when segmented by other business dimensions.
+id: metric_l4_yoy_0039
+tags:
+- L4
+title: 'YoY: Transaction Count (Gift Card Transaction) — In-Store Channel'

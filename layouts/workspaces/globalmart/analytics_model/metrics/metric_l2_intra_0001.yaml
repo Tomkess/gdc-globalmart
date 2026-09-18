@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} - {metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount}
+description: Calculates net revenue after subtracting the total discount amount redeemed through loyalty redemptions at the
+  point of sale. Use this metric to assess how loyalty POS discounts reduce net revenue within the current reporting scope
+  (for example by time period, store, or customer segment).
+id: metric_l2_intra_0001
+tags:
+- L2
+title: Net Revenue vs Discount Amount (Loyalty Redemption at POS) Change

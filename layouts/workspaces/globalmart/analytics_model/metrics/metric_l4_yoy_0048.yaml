@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0016_0} - (SELECT {metric/metric_l3_0016_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0016_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the in-store till reconciliation variance amount (cash over/short)
+  versus the prior year. Use it to see whether in-store reconciliation discrepancies are improving or worsening over time,
+  and to compare trends across stores or other business dimensions.
+id: metric_l4_yoy_0048
+tags:
+- L4
+title: 'YoY: Variance Amount (Till Reconciliation) — In-Store Channel'

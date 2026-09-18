@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0032_2} - (SELECT {metric/metric_l3_0032_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in customers’ Lifetime Order Count for the North region, highlighting whether
+  cumulative purchasing activity is increasing or slowing versus the prior month. Use it in Customer Lifetime Value analysis
+  to monitor shifts in long-term purchase frequency for North-region customers over time.
+id: metric_l4_mom_0098
+tags:
+- L4
+title: 'MoM: Lifetime Order Count (Customer Lifetime Value) — North Region'

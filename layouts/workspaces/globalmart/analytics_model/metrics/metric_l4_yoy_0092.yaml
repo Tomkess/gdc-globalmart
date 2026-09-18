@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0030_2} - (SELECT {metric/metric_l3_0030_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0030_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in the number of customer feedback items for the North region,
+  comparing the current year to the previous year. Use it to track whether feedback volume in North is increasing or decreasing
+  over time.
+id: metric_l4_yoy_0092
+tags:
+- L4
+title: 'YoY: Feedback Count (Customer Feedback) — North Region'

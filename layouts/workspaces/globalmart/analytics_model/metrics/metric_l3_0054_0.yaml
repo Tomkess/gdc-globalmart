@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_line_line_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total purchase order line item spend, filtered to the In-Store sales channel. Use this metric to track and compare
+  in-store purchasing totals across time, suppliers, products, or other relevant dimensions.
+id: metric_l3_0054_0
+tags:
+- L3
+title: Line Amount (Purchase Order Line Items) — In-Store Channel

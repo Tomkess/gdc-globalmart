@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_aged_inventory_age_days} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total inventory age days restricted to the Online sales channel, used to quantify how much aging inventory is
+  accumulating online. Use it to compare inventory aging across products, locations, or other breakdowns within the Online
+  channel.
+id: metric_l3_0018_1
+tags:
+- L3
+title: Age Days (Aged Inventory) — Online Channel

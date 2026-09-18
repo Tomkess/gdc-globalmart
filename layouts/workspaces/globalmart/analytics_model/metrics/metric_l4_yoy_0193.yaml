@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0064_1} - (SELECT {metric/metric_l3_0064_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0064_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Days of Cover for the Online sales channel, comparing the current period
+  to the same measure in the previous year. Use it to track whether online inventory is lasting longer or shorter than last
+  year and monitor shifts in inventory health over time.
+id: metric_l4_yoy_0193
+tags:
+- L4
+title: 'YoY: Days of Cover (Inventory Health) — Online Channel'

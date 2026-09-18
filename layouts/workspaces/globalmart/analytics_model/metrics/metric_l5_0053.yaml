@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0026} + ({metric/metric_l1_fact_purchase_order_header_po_amount} / {metric/metric_l1_fact_purchase_order_line_line_amount})
+description: Combines the month-over-month change in daily store sales transaction count for the North region with a purchasing
+  spend ratio, calculated as total PO amount divided by total purchase order line amount. Use it to view North-region transaction
+  momentum alongside how purchase order header totals compare to line-item totals in the same analysis.
+id: metric_l5_0053
+tags:
+- L5
+title: 'MoM: Transaction Count (Daily Store Sales) — North Region (+PO Amount (Purchase Order)/Line Amount (Purchase Order
+  Line Items))'

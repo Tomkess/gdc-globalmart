@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_loyalty_points_earned.points})
+description: Sums the Points values to show the total number of loyalty points earned. Use it to track overall points accrual
+  and compare earned points across relevant slices such as time, customer segments, or other available breakdowns.
+id: metric_l1_fact_loyalty_points_earned_points
+tags:
+- L1
+title: Total Points (Loyalty Points Earned)

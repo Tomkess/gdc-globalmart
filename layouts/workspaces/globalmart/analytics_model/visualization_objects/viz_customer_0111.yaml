@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_rfm_segments_frequency_quartile
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total Frequency Quartile score from the Customer RFM Segments data, summarizing how frequently
+  the selected customer set purchases within the RFM segmentation model.
+id: viz_customer_0111
+title: Frequency Quartile (RFM)

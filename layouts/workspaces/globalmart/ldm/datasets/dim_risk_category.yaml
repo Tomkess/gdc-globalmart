@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each risk category in the Risk Category dataset, used to group and filter analyses by
+    risk category.
+  id: dim_risk_category.category_id
+  labels: []
+  sourceColumn: category_id
+  sourceColumnDataType: STRING
+  tags:
+  - Risk Category
+  title: Category ID (Risk Category)
+- description: Risk category name used to classify and group records by risk category in reporting. Use it to filter analyses
+    or break down measures by categories within the Risk Category dataset.
+  id: dim_risk_category.category_name
+  labels: []
+  sourceColumn: category_name
+  sourceColumnDataType: STRING
+  tags:
+  - Risk Category
+  title: Category Name (Risk Category)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_risk_category
+  path:
+  - globalmart
+  - dim_risk_category
+  type: dataSource
+description: Risk Category
+facts: []
+grain:
+- id: dim_risk_category.category_id
+  type: attribute
+id: dim_risk_category
+references: []
+tags:
+- Risk Category
+title: Risk Category
+workspaceDataFilterReferences: []

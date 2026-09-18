@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} / {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_order_count}
+description: Calculates the average inventory value per lifetime order by dividing total inventory value on hand by customers’
+  total lifetime order count from the Customer Lifetime Value snapshot. Use it to relate inventory levels to overall customer
+  purchasing activity and compare this ratio across segments or time periods.
+id: metric_l2_cross_0032
+tags:
+- L2
+title: Inventory Value per Lifetime Order Count (Customer Lifetime Value)

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_shrinkage_event.shrinkage_amount})
+description: Shows the total monetary value of shrinkage by summing the Shrinkage Amount recorded in the Shrinkage Event dataset
+  for the current analysis scope (such as selected time period, location, or other filters). Used to track overall shrinkage
+  impact across events.
+id: metric_l1_fact_shrinkage_event_shrinkage_amount
+tags:
+- L1
+title: Total Shrinkage Amount (Shrinkage Event)

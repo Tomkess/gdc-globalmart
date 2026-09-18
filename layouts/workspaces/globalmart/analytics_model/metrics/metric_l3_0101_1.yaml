@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_recruitment_recruitment_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the total number of recruitments attributed to the Online sales channel. Use it to monitor and compare
+  online-driven recruitment volume across dimensions such as time, location, or other recruitment breakdowns. Recruitment
+  refers to the process of sourcing and hiring new employees.
+id: metric_l3_0101_1
+tags:
+- L3
+title: Recruitment Count (Recruitment) — Online Channel

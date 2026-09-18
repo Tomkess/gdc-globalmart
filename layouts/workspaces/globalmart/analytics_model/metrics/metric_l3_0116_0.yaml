@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_waste_disposal_waste_tons} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total waste volume (in tons) for Waste Disposal, filtered to the In-Store sales channel. Use this metric to track
+  and compare in-store waste levels across time, locations, or other business dimensions.
+id: metric_l3_0116_0
+tags:
+- L3
+title: Waste Tons (Waste Disposal) — In-Store Channel

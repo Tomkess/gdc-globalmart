@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_nps_response_response_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the total number of NPS survey responses received through the Online sales channel. Use this to monitor
+  online response volume and to provide context when comparing other NPS metrics across channels.
+id: metric_l3_0028_1
+tags:
+- L3
+title: Response Count (NPS Response) — Online Channel

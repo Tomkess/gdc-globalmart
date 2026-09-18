@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} / {metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount}
+description: Compares total inventory value on hand to the total discount amount redeemed through loyalty redemptions at the
+  point of sale, expressing how much inventory value corresponds to each unit of loyalty discount redeemed. Use it to assess
+  inventory exposure relative to loyalty discount activity for the selected period, stores, or customer segments.
+id: metric_l2_cross_0002
+tags:
+- L2
+title: Inventory Value per Discount Amount (Loyalty Redemption at POS)

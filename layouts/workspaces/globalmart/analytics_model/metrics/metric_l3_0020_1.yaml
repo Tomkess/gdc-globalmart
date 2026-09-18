@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_checkout_time_avg_checkout_sec} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the average checkout time in seconds for the Online sales channel only. Use it to monitor online checkout
+  speed and compare performance across time periods or against other channels.
+id: metric_l3_0020_1
+tags:
+- L3
+title: Avg Checkout Time (sec) (Checkout Time) — Online Channel

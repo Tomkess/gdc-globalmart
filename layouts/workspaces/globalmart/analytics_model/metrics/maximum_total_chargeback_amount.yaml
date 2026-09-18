@@ -1,0 +1,10 @@
+content:
+  format: $#,##0.00
+  maql: SELECT MAX({fact/fact_chargeback.chargeback_amount})
+description: Returns the maximum monetary value recorded for a chargeback amount within the selected data and filters.
+id: maximum_total_chargeback_amount
+tags:
+- chargeback
+- financial
+- maximum
+title: Maximum Total Chargeback Amount

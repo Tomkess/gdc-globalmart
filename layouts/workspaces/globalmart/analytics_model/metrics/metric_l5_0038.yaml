@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0019} + ({metric/metric_l1_fact_risk_attr_01_metric} / {metric/metric_l1_sql_assortment_efficiency_units_sold})
+description: Combines the year-over-year change in online returns volume with a normalized compliance component by adding
+  total Compliance Adherence Score per unit sold. Use it as a composite indicator to assess whether online returns are trending
+  up or down versus last year while factoring in compliance performance relative to sales volume.
+id: metric_l5_0038
+tags:
+- L5
+title: 'YoY: Quantity Returned (Returns) — Online Channel (+Attribute Value (Compliance Adherence Score)/Units Sold (Assortment
+  Efficiency))'

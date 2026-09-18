@@ -1,0 +1,45 @@
+aggregatedFacts: []
+attributes:
+- description: Categorizes each partner into a business-defined category, used to group and filter partner-related reporting
+    in the Partner dataset.
+  id: dim_partner.partner_category
+  labels: []
+  sourceColumn: partner_category
+  sourceColumnDataType: STRING
+  tags:
+  - Partner
+  title: Partner Category
+- description: Unique identifier for a Partner record in the Partner dataset, used to group, filter, or join analyses by partner.
+  id: dim_partner.partner_id
+  labels: []
+  sourceColumn: partner_id
+  sourceColumnDataType: STRING
+  tags:
+  - Partner
+  title: Partner ID
+- description: Name of the partner in the Partner dataset, used to group, filter, and break down reporting by individual partner.
+  id: dim_partner.partner_name
+  labels: []
+  sourceColumn: partner_name
+  sourceColumnDataType: STRING
+  tags:
+  - Partner
+  title: Partner Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_partner
+  path:
+  - globalmart
+  - dim_partner
+  type: dataSource
+description: Partner
+facts: []
+grain:
+- id: dim_partner.partner_id
+  type: attribute
+id: dim_partner
+references: []
+tags:
+- Partner
+title: Partner
+workspaceDataFilterReferences: []

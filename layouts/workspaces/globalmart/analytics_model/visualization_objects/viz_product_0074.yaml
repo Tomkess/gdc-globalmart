@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0040_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total margin from Daily Product Performance for sales made through the Online channel, based
+  on the “Margin (Daily Product Performance) — Online Channel” metric. Use it to monitor online margin performance for the
+  currently selected products, dates, or other report filters.
+id: viz_product_0074
+title: Margin

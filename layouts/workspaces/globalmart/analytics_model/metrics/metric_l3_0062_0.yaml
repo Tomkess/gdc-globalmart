@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_cost_score} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Shows the total Supplier Scorecard Cost Score limited to the In-Store sales channel. Use it to compare cost performance
+  for in-store activity across suppliers, time periods, or other scorecard dimensions.
+id: metric_l3_0062_0
+tags:
+- L3
+title: Cost Score (Supplier Scorecard) — In-Store Channel

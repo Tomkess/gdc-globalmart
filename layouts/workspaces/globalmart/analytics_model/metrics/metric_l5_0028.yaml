@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0014} + ({metric/metric_l1_fact_nps_response_response_count} / {metric/metric_l1_fact_customer_feedback_sentiment_score})
+description: Combines North region’s year-over-year change in energy consumption cost with an adjustment based on customer
+  feedback volume and sentiment (total NPS response count divided by total sentiment score). Use it as a composite indicator
+  to track cost trend alongside how much feedback you’re receiving relative to overall sentiment, within the report’s current
+  filters and time period.
+id: metric_l5_0028
+tags:
+- L5
+title: 'YoY: Cost (Energy Consumption) — North Region (+Response Count (NPS Response)/Sentiment Score (Customer Feedback))'

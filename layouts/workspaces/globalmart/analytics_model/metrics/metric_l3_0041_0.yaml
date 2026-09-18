@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_markdown_event_markdown_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Shows the total markdown amount from Markdown Events, limited to the In-Store sales channel. Use it to track
+  and compare the value of in-store markdowns across the selected time period, products, or locations.
+id: metric_l3_0041_0
+tags:
+- L3
+title: Markdown Amount (Markdown Event) — In-Store Channel

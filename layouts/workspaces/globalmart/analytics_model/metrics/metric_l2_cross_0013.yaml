@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} / {metric/metric_l1_fact_gift_card_txn_txn_count}
+description: Average marketing campaign spend per gift card transaction, calculated as total campaign spend divided by the
+  total number of gift card transactions. Use this metric to understand how much campaign budget is being spent for each gift
+  card transaction across the selected dimensions and time periods.
+id: metric_l2_cross_0013
+tags:
+- L2
+title: Campaign Spend per Transaction Count (Gift Card Transaction)

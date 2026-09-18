@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_payroll_transaction_gross_pay} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total gross pay from payroll transactions restricted to activity in the Online sales channel. Use this metric
+  to assess payroll costs attributable to online-channel operations within the current reporting context (such as the selected
+  time period or employee breakdowns).
+id: metric_l3_0095_1
+tags:
+- L3
+title: Gross Pay (Payroll Transaction) — Online Channel

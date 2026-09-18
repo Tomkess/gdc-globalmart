@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_order_count} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Counts the total number of orders a customer has placed over their lifetime, limited to purchases made through
+  the In-Store sales channel using the Customer Lifetime Value snapshot. Use it to compare lifetime purchase frequency for
+  in-store customers versus other channels or segments.
+id: metric_l3_0032_0
+tags:
+- L3
+title: Lifetime Order Count (Customer Lifetime Value) — In-Store Channel

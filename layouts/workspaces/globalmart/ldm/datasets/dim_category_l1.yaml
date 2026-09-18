@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for the Level 1 product category in the Product Category Level 1 dataset. Use it to group,
+    join, or filter data by high-level product category.
+  id: dim_category_l1.category_l1_id
+  labels: []
+  sourceColumn: category_l1_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product Category Level 1
+  title: Category L1 ID
+- description: Top-level product category name from the Product Category Level 1 dataset. Use it to group, segment, or filter
+    analyses by the broadest category tier.
+  id: dim_category_l1.category_l1_name
+  labels: []
+  sourceColumn: category_l1_name
+  sourceColumnDataType: STRING
+  tags:
+  - Product Category Level 1
+  title: Category L1 Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_category_l1
+  path:
+  - globalmart
+  - dim_category_l1
+  type: dataSource
+description: Product Category Level 1
+facts: []
+grain:
+- id: dim_category_l1.category_l1_id
+  type: attribute
+id: dim_category_l1
+references: []
+tags:
+- Product Category Level 1
+title: Product Category Level 1
+workspaceDataFilterReferences: []

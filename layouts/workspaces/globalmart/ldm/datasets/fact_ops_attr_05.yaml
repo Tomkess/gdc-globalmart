@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Maintenance Compliance Score dataset, used to distinguish and track
+    individual score entries.
+  id: fact_ops_attr_05.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Maintenance Compliance Score
+  title: Record ID (Maintenance Compliance Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ops_attr_05
+  path:
+  - globalmart
+  - fact_ops_attr_05
+  type: dataSource
+description: Maintenance Compliance Score
+facts:
+- description: Represents the recorded value for an attribute within the Maintenance Compliance Score dataset, used as a numeric
+    input for reporting and calculations.
+  id: fact_ops_attr_05.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Maintenance Compliance Score
+  title: Maintenance Compliance Score
+grain:
+- id: fact_ops_attr_05.attr_id
+  type: attribute
+id: fact_ops_attr_05
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Maintenance Compliance Score
+title: Maintenance Compliance Score
+workspaceDataFilterReferences: []

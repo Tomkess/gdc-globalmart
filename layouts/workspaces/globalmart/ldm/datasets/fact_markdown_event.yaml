@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each Markdown Event record. Use it to look up, filter, or group analyses by a specific
+    event within the Markdown Event dataset.
+  id: fact_markdown_event.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - Markdown Event
+  title: Event ID (Markdown Event)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_markdown_event
+  path:
+  - globalmart
+  - fact_markdown_event
+  type: dataSource
+description: Markdown Event
+facts:
+- description: The monetary value of the markdown applied in a markdown event. Use this fact to analyze and aggregate discount
+    amounts (for example, total markdown) within the Markdown Event dataset.
+  id: fact_markdown_event.markdown_amount
+  sourceColumn: markdown_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Markdown Event
+  title: Markdown Amount
+- description: Number of units sold associated with each record in the Markdown Event dataset, used to analyze sales volume
+    and aggregate total units sold across events, products, or time.
+  id: fact_markdown_event.units_sold
+  sourceColumn: units_sold
+  sourceColumnDataType: INT
+  tags:
+  - Markdown Event
+  title: Units Sold (Markdown Event)
+grain:
+- id: fact_markdown_event.event_id
+  type: attribute
+id: fact_markdown_event
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Markdown Event
+title: Markdown Event
+workspaceDataFilterReferences: []

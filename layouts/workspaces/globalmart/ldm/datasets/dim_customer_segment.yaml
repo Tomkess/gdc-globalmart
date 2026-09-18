@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Describes the customer segment in plain language for each record in the Customer Segment dataset. Use it to
+    group and filter customers by segment description in reporting and analysis.
+  id: dim_customer_segment.segment_description
+  labels: []
+  sourceColumn: segment_description
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Segment
+  title: Segment Description
+- description: Unique identifier for each customer segment in the Customer Segment dataset. Use it to group, join, or filter
+    analysis by specific segment records.
+  id: dim_customer_segment.segment_id
+  labels: []
+  sourceColumn: segment_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Segment
+  title: Segment ID (Customer Segment)
+- description: Customer Segment name used to categorize customers into segments for analysis. Use it to group or filter metrics
+    by segment within the Customer Segment dataset.
+  id: dim_customer_segment.segment_name
+  labels: []
+  sourceColumn: segment_name
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Segment
+  title: Segment Name (Customer Segment)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_customer_segment
+  path:
+  - globalmart
+  - dim_customer_segment
+  type: dataSource
+description: Customer Segment
+facts: []
+grain:
+- id: dim_customer_segment.segment_id
+  type: attribute
+id: dim_customer_segment
+references: []
+tags:
+- Customer Segment
+title: Customer Segment
+workspaceDataFilterReferences: []

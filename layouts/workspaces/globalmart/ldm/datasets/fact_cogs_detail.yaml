@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for a Cost of Goods Sold (COGS) record in the Cost of Goods Sold Detail dataset. Use it to
+    filter, group, or trace measures back to specific COGS entries.
+  id: fact_cogs_detail.cogs_id
+  labels: []
+  sourceColumn: cogs_id
+  sourceColumnDataType: STRING
+  tags:
+  - Cost of Goods Sold Detail
+  title: COGS ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_cogs_detail
+  path:
+  - globalmart
+  - fact_cogs_detail
+  type: dataSource
+description: Cost of Goods Sold Detail
+facts:
+- description: Represents the cost amount recorded in the Cost of Goods Sold Detail dataset, used for analyzing and aggregating
+    cost of goods sold across relevant dimensions.
+  id: fact_cogs_detail.cost
+  sourceColumn: cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Cost of Goods Sold Detail
+  title: Cost (Cost of Goods Sold Detail)
+grain:
+- id: fact_cogs_detail.cogs_id
+  type: attribute
+id: fact_cogs_detail
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: cost_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Cost of Goods Sold Detail
+title: Cost of Goods Sold Detail
+workspaceDataFilterReferences: []

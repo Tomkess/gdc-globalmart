@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0017
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the net change between compliment/complaint comment volume and total inventory age days, indicating
+  whether customer feedback activity is rising or falling relative to overall inventory aging.
+id: viz_sales_0032
+title: Comment Count (Compliment Complaint) vs Age Days

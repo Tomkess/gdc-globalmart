@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0033_2} - (SELECT {metric/metric_l3_0033_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0033_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Lifetime Revenue (Customer Lifetime Value) for customers in the North region,
+  comparing the current year to the prior year. Use this metric to monitor how North region lifetime revenue is trending versus
+  last year.
+id: metric_l4_yoy_0101
+tags:
+- L4
+title: 'YoY: Lifetime Revenue (Customer Lifetime Value) — North Region'

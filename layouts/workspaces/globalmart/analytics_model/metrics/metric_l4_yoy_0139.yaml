@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0046_1} - (SELECT {metric/metric_l3_0046_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0046_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the number of product rating reviews coming from the Online
+  sales channel, comparing the current year to the prior year. Use it to track how online review volume is trending over time.
+id: metric_l4_yoy_0139
+tags:
+- L4
+title: 'YoY: Review Count (Product Rating) — Online Channel'

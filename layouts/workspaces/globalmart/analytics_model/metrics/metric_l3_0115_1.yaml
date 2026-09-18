@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_waste_disposal_disposal_cost} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows total waste disposal spending for the Online sales channel only, based on summed disposal cost from the
+  Waste Disposal data. Use it to track, trend, or compare disposal costs specifically for online-channel activity in reports
+  and dashboards.
+id: metric_l3_0115_1
+tags:
+- L3
+title: Disposal Cost (Waste Disposal) — Online Channel

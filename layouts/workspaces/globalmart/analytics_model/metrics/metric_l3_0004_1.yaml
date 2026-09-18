@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_energy_consumption_cost} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Tracks total energy consumption cost for the Online sales channel only, so you can monitor and compare energy-related
+  spending tied to online activity across the selected time period and any applied filters.
+id: metric_l3_0004_1
+tags:
+- L3
+title: Cost (Energy Consumption) — Online Channel

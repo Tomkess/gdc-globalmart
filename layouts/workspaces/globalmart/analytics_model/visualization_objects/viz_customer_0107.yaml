@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_customer_ltv_snapshot_lifetime_order_count
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of orders accumulated over customers’ lifetimes, based on the Customer Lifetime
+  Value snapshot. Use it to gauge overall purchase frequency and compare lifetime ordering behavior across customer segments.
+id: viz_customer_0107
+title: Lifetime Order Count

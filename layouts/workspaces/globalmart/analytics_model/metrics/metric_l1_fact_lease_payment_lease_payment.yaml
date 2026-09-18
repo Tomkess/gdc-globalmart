@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_lease_payment.lease_payment})
+description: Calculates the total lease payment amount by summing the Lease Payment values, respecting any applied filters
+  and selections. Use this metric to report and compare overall lease payment totals across different slices of the data.
+id: metric_l1_fact_lease_payment_lease_payment
+tags:
+- L1
+title: Total Lease Payment (Lease Payment)

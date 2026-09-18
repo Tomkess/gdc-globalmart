@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0043_0} - (SELECT {metric/metric_l3_0043_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in In-Store out-of-stock days from Planogram Compliance by subtracting the
+  prior month’s value from the current month. Use it to monitor whether in-store availability is improving or worsening over
+  time and to compare trends across slices such as store or product. A planogram is a diagram specifying exact product placement
+  on retail shelves.
+id: metric_l4_mom_0129
+tags:
+- L4
+title: 'MoM: Out of Stock Days (Planogram Compliance) — In-Store Channel'

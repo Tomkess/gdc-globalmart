@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_feedback_feedback_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts customer feedback items submitted through the Online sales channel. Use it to track online feedback volume
+  and analyze trends by time, product, region, or other available breakdowns.
+id: metric_l3_0030_1
+tags:
+- L3
+title: Feedback Count (Customer Feedback) — Online Channel

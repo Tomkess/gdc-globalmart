@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_earned_order_amount} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Shows the total order amount associated with earned loyalty points, limited to orders from the Online sales channel.
+  Use it to track loyalty-related order value specifically for online activity.
+id: metric_l3_0025_1
+tags:
+- L3
+title: Order Amount (Loyalty Points Earned) — Online Channel

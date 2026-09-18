@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_transfer_order_transfer_qty} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total number of units transferred on Transfer Orders for the Online sales channel. Use this metric to track transfer
+  volume specifically for online activity within the selected reporting scope (such as time or location).
+id: metric_l3_0057_1
+tags:
+- L3
+title: Transfer Quantity (Transfer Order) — Online Channel

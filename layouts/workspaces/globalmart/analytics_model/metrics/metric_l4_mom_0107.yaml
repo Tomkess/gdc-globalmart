@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0035_2} - (SELECT {metric/metric_l3_0035_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the Recency Quartile (Recency, Frequency, Monetary (RFM)) score for customers
+  in the North region, comparing the current month to the previous month. Use it to track whether customer recency within
+  the North segment is improving or declining over time.
+id: metric_l4_mom_0107
+tags:
+- L4
+title: 'MoM: Recency Quartile (RFM) (Customer RFM Segments) — North Region'

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_ops_efficiency_summary_store_revenue} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Total store revenue from the Operations Efficiency Summary, filtered to include only the Online sales channel.
+  Use this metric to report or compare revenue performance for online-only activity within the selected time period and other
+  report filters.
+id: metric_l3_0091_1
+tags:
+- L3
+title: Store Revenue (Operations Efficiency Summary) — Online Channel

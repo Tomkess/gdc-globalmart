@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0022_1} - (SELECT {metric/metric_l3_0022_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0022_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of customer events in the Online sales channel by comparing
+  the current year’s event count to the previous year. Use it to monitor whether online customer activity volume is increasing
+  or declining over time.
+id: metric_l4_yoy_0067
+tags:
+- L4
+title: 'YoY: Event Count (Customer Event) — Online Channel'

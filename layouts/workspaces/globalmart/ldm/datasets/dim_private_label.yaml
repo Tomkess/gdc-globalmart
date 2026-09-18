@@ -1,0 +1,37 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each private label record in the Private Label dataset. Use it to look up, group, or
+    filter results by a specific label.
+  id: dim_private_label.label_id
+  labels: []
+  sourceColumn: label_id
+  sourceColumnDataType: STRING
+  tags:
+  - Private Label
+  title: Label ID
+- description: Name of the private label, used to group and filter reporting by label within the Private Label dataset.
+  id: dim_private_label.label_name
+  labels: []
+  sourceColumn: label_name
+  sourceColumnDataType: STRING
+  tags:
+  - Private Label
+  title: Label Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_private_label
+  path:
+  - globalmart
+  - dim_private_label
+  type: dataSource
+description: Private Label
+facts: []
+grain:
+- id: dim_private_label.label_id
+  type: attribute
+id: dim_private_label
+references: []
+tags:
+- Private Label
+title: Private Label
+workspaceDataFilterReferences: []

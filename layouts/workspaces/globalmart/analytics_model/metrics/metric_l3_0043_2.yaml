@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_planogram_compliance_out_of_stock_days} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Tracks the total number of out-of-stock days from Planogram (a diagram specifying exact product placement on
+  retail shelves) Compliance data for the North region. Use it to monitor stock availability issues in North and analyze stock-out
+  impact by time, store, product, or other business dimensions.
+id: metric_l3_0043_2
+tags:
+- L3
+title: Out of Stock Days (Planogram Compliance) — North Region

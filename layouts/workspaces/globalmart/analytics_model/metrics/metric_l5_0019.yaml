@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0009} + ({metric/metric_l1_fact_competitor_pricing_competitor_price} / {metric/metric_l1_fact_checkout_time_avg_checkout_sec})
+description: Measures the month-over-month change in in-store purchase order line-item quantity, then adjusts it by adding
+  a competitor pricing-to-checkout-speed factor (total competitor price divided by total average checkout time in seconds).
+  Use this metric to relate in-store volume trends to competitive pricing pressure and overall checkout efficiency under the
+  same filters and breakdowns.
+id: metric_l5_0019
+tags:
+- L5
+title: 'MoM: Quantity (Purchase Order Line Items) — In-Store Channel (+Competitor Price (Competitor Pricing)/Avg Checkout
+  Time (sec) (Checkout Time))'

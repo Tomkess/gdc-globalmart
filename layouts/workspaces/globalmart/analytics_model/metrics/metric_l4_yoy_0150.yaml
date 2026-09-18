@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0050_0} - (SELECT {metric/metric_l3_0050_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0050_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in Inventory Value for the In-Store channel by comparing the
+  current year’s in-store inventory value to the previous year. Use this to track annual growth or decline in store inventory
+  value over time.
+id: metric_l4_yoy_0150
+tags:
+- L4
+title: 'YoY: Inventory Value — In-Store Channel'

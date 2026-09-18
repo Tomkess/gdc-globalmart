@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0048_1} - (SELECT {metric/metric_l3_0048_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the Online Channel Sell-Through Rate (Assortment Efficiency) by comparing
+  the current month’s rate to the previous month (using Month/Year). Use it to see whether online inventory is converting
+  into sales more or less efficiently over time.
+id: metric_l4_mom_0145
+tags:
+- L4
+title: 'MoM: Sell-Through Rate (Assortment Efficiency) — Online Channel'

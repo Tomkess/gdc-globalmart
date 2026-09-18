@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0027_0} - (SELECT {metric/metric_l3_0027_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the In-Store channel NPS Score based on NPS responses by comparing the current
+  month to the previous month. Use it to track whether in-store customer sentiment is improving or declining over time within
+  the selected reporting filters.
+id: metric_l4_mom_0081
+tags:
+- L4
+title: 'MoM: NPS Score (NPS Response) — In-Store Channel'

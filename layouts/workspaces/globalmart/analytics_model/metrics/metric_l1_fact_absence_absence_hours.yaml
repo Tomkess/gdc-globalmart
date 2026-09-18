@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_absence.absence_hours})
+description: Shows the total number of hours employees were absent by summing Absence Hours. Use it to monitor overall absence
+  volume and compare totals across time periods or other breakdowns.
+id: metric_l1_fact_absence_absence_hours
+tags:
+- L1
+title: Total Absence Hours (Absence)

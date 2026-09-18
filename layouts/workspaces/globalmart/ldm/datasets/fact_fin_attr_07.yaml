@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Financial Risk Score dataset. Use it to distinguish, group, or drill
+    into individual Financial Risk Score entries in analyses and reports.
+  id: fact_fin_attr_07.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Financial Risk Score
+  title: Record ID (Financial Risk Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_fin_attr_07
+  path:
+  - globalmart
+  - fact_fin_attr_07
+  type: dataSource
+description: Financial Risk Score
+facts:
+- description: Captures the numeric attribute value used in the Financial Risk Score dataset, serving as an input for calculations
+    and analysis of risk scoring factors.
+  id: fact_fin_attr_07.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Financial Risk Score
+  title: Financial Risk Score
+grain:
+- id: fact_fin_attr_07.attr_id
+  type: attribute
+id: fact_fin_attr_07
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Financial Risk Score
+title: Financial Risk Score
+workspaceDataFilterReferences: []

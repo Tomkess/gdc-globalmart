@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0025_0} - (SELECT {metric/metric_l3_0025_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the total value of in-store orders that earned loyalty points, comparing
+  the current month to the previous month. Use it to monitor whether loyalty-point-earning in-store purchase value is increasing
+  or decreasing over time.
+id: metric_l4_mom_0075
+tags:
+- L4
+title: 'MoM: Order Amount (Loyalty Points Earned) — In-Store Channel'

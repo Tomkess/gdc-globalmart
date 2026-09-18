@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_partner_redemption.partner_discount})
+description: Shows the total value of partner-funded discounts by summing the Partner Discount amounts from the Partner Redemption
+  data. Use it to track and compare how much discount is being provided through partner redemptions across different cuts
+  such as time periods or partners.
+id: metric_l1_fact_partner_redemption_partner_discount
+tags:
+- L1
+title: Total Partner Discount (Partner Redemption)

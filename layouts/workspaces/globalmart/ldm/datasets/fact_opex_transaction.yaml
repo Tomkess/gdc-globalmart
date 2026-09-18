@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each operating expense transaction. Use it to look up, group, or filter operating expense
+    records at the individual transaction level.
+  id: fact_opex_transaction.transaction_id
+  labels: []
+  sourceColumn: transaction_id
+  sourceColumnDataType: STRING
+  tags:
+  - Operating Expense Transaction
+  title: Transaction ID (Operating Expense Transaction)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_opex_transaction
+  path:
+  - globalmart
+  - fact_opex_transaction
+  type: dataSource
+description: Operating Expense Transaction
+facts:
+- description: The monetary amount recorded for each operating expense transaction in the Operating Expense Transaction dataset.
+    Typically used to analyze and aggregate operating expenses across dimensions like time, category, or cost center.
+  id: fact_opex_transaction.amount
+  sourceColumn: amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Operating Expense Transaction
+  title: Amount (Operating Expense Transaction)
+grain:
+- id: fact_opex_transaction.transaction_id
+  type: attribute
+id: fact_opex_transaction
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: transaction_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Operating Expense Transaction
+title: Operating Expense Transaction
+workspaceDataFilterReferences: []

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_competitor_pricing.competitor_price})
+description: Totals the Competitor Price values from the Competitor Pricing dataset, showing the overall competitor pricing
+  amount for the current selections and breakdowns. Use it to compare competitor pricing levels across products, time periods,
+  or other dimensions.
+id: metric_l1_fact_competitor_pricing_competitor_price
+tags:
+- L1
+title: Total Competitor Price (Competitor Pricing)

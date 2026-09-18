@@ -1,0 +1,46 @@
+aggregatedFacts: []
+attributes:
+- description: Represents the size category of an audience segment in the Audience Segment dataset. Use it to group or filter
+    audience segments by their audience size.
+  id: dim_audience_segment.audience_size
+  labels: []
+  sourceColumn: audience_size
+  sourceColumnDataType: INT
+  tags:
+  - Audience Segment
+  title: Audience Size
+- description: Unique identifier for each audience segment in the Audience Segment dataset, used to group, join, or filter
+    analyses by segment.
+  id: dim_audience_segment.segment_id
+  labels: []
+  sourceColumn: segment_id
+  sourceColumnDataType: STRING
+  tags:
+  - Audience Segment
+  title: Segment ID (Audience Segment)
+- description: Name of the audience segment, used to group and filter analysis by segment within the Audience Segment dataset.
+  id: dim_audience_segment.segment_name
+  labels: []
+  sourceColumn: segment_name
+  sourceColumnDataType: STRING
+  tags:
+  - Audience Segment
+  title: Segment Name (Audience Segment)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_audience_segment
+  path:
+  - globalmart
+  - dim_audience_segment
+  type: dataSource
+description: Audience Segment
+facts: []
+grain:
+- id: dim_audience_segment.segment_id
+  type: attribute
+id: dim_audience_segment
+references: []
+tags:
+- Audience Segment
+title: Audience Segment
+workspaceDataFilterReferences: []

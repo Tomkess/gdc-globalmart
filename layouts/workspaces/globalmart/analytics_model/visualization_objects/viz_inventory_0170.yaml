@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_supplier_scorecard_cost_score
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the Total Cost Score from the Supplier Scorecard, summarizing overall cost performance across
+  the currently selected records. Use it as a quick KPI to track and compare cost scoring by supplier, time period, or other
+  scorecard dimensions.
+id: viz_inventory_0170
+title: Cost Score

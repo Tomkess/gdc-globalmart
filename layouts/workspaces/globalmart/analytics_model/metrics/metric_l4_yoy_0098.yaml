@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0032_2} - (SELECT {metric/metric_l3_0032_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0032_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Lifetime Order Count for customers in the North region by comparing
+  the current year to the prior year. Use it to monitor whether long-term purchase frequency among North-region customers
+  is increasing or decreasing over time.
+id: metric_l4_yoy_0098
+tags:
+- L4
+title: 'YoY: Lifetime Order Count (Customer Lifetime Value) — North Region'

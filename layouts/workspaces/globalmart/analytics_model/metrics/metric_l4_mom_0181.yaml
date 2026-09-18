@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0060_1} - (SELECT {metric/metric_l3_0060_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the Supplier Scorecard Quality Score for the Online sales channel by
+  comparing the current month’s score to the prior month. Use it to track whether supplier quality performance in Online is
+  improving or declining over time within your chosen filters or breakdowns.
+id: metric_l4_mom_0181
+tags:
+- L4
+title: 'MoM: Quality Score (Supplier Scorecard) — Online Channel'

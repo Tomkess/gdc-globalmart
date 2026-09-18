@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0017_1} - (SELECT {metric/metric_l3_0017_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0017_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of compliment/complaint comments received through the
+  Online channel, comparing the current year to the prior year. Use it to track whether online customer feedback volume is
+  rising or falling versus last year.
+id: metric_l4_yoy_0052
+tags:
+- L4
+title: 'YoY: Comment Count (Compliment Complaint) — Online Channel'

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0013_2} - (SELECT {metric/metric_l3_0013_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0013_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of gift card transactions for the North region, comparing
+  the current period to the same period last year. Use it to monitor growth or decline in North’s gift card transaction volume
+  over time.
+id: metric_l4_yoy_0041
+tags:
+- L4
+title: 'YoY: Transaction Count (Gift Card Transaction) — North Region'

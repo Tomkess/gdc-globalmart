@@ -1,0 +1,58 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Customer Promotion Response dataset, used to distinguish and reference
+    individual promotion response entries.
+  id: fact_customer_attr_05.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Promotion Response
+  title: Record ID (Customer Promotion Response)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_customer_attr_05
+  path:
+  - globalmart
+  - fact_customer_attr_05
+  type: dataSource
+description: Customer Promotion Response
+facts:
+- description: The “Attribute Value” fact captures the numeric value associated with a customer’s promotion response in the
+    Customer Promotion Response dataset. Use it to quantify and aggregate response-related values when analyzing promotion
+    performance by customer segments or other dimensions.
+  id: fact_customer_attr_05.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Promotion Response
+  title: Customer Promotion Response
+grain:
+- id: fact_customer_attr_05.attr_id
+  type: attribute
+id: fact_customer_attr_05
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Customer Promotion Response
+title: Customer Promotion Response
+workspaceDataFilterReferences: []

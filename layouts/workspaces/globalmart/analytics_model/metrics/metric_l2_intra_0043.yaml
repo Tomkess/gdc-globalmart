@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_planogram_compliance_out_of_stock_days} - {metric/metric_l1_fact_range_review_outcome_decision_count}
+description: Compares stock availability impact to range review activity by calculating the net difference between total out-of-stock
+  days (from Planogram (a diagram specifying exact product placement on retail shelves) Compliance) and the total number of
+  decisions recorded (from Range Review Outcomes). Use it to track how stock-out days are changing relative to decision volume
+  across time, stores, products, or other business dimensions.
+id: metric_l2_intra_0043
+tags:
+- L2
+title: Out of Stock Days (Planogram Compliance) vs Decision Count (Range Review Outcome) Change

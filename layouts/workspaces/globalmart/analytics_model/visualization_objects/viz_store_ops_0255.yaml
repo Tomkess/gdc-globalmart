@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_shrinkage_event_shrinkage_amount
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.month
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Column chart showing total shrinkage amount aggregated by month/year using Shrinkage Event data. Use it to track
+  how the financial impact of shrinkage changes over time and spot monthly trends or spikes.
+id: viz_store_ops_0255
+title: Shrinkage Amount by Month

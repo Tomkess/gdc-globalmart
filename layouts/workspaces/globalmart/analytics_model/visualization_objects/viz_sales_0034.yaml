@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0019
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline that tracks the change in the gap between competitor pricing and average checkout time (in seconds),
+  showing how competitor price levels compare to overall checkout speed for the currently selected data and filters.
+id: viz_sales_0034
+title: Competitor Price (Competitor Pricing) vs Avg Checkout Time (sec)

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_avg_inventory} - {metric/metric_l1_sql_assortment_efficiency_sell_through_rate}
+description: Measures the gap between overall average inventory and overall sell-through rate for the current slice of data
+  (for example by time, product, or location). Use it to see whether inventory levels are increasing or decreasing relative
+  to sell-through performance within the same context.
+id: metric_l2_intra_0047
+tags:
+- L2
+title: Avg Inventory (Assortment Efficiency) vs Sell-Through Rate (Assortment Efficiency) Change

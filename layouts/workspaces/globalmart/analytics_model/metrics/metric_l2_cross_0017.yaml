@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} / {metric/metric_l1_fact_compliment_complaint_comment_count}
+description: Calculates the average inventory value per compliment/complaint comment by dividing Total Inventory Value by
+  the Total Comment Count (Compliment/Complaint). Use this to understand how much inventory is on hand relative to the volume
+  of customer feedback within the same selected reporting scope (such as dates, locations, or other filters).
+id: metric_l2_cross_0017
+tags:
+- L2
+title: Inventory Value per Comment Count (Compliment Complaint)

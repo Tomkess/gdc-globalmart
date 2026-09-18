@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0015_2} - (SELECT {metric/metric_l3_0015_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0015_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the total net Price Change from Price Adjustment records for the North region.
+  Use this to compare how pricing adjustments impacted results in North this year versus the prior year when analyzing trends
+  over time.
+id: metric_l4_yoy_0047
+tags:
+- L4
+title: 'YoY: Price Change (Price Adjustment) — North Region'

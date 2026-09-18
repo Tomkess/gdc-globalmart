@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0037_2} - (SELECT {metric/metric_l3_0037_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0037_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the Monetary Quartile (Recency, Frequency, Monetary (RFM)) score
+  for customers in the North region, comparing the current year to the previous year. Use it to track whether the overall
+  monetary value segment strength in North is improving or declining over time.
+id: metric_l4_yoy_0113
+tags:
+- L4
+title: 'YoY: Monetary Quartile (RFM) (Customer RFM Segments) — North Region'

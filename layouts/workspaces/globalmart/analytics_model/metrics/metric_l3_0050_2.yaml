@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_inventory_value} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total monetary value of inventory on hand, filtered to the North region. Use this metric to monitor
+  North’s inventory value in dashboards or reports, and further slice it by date, location, or other report filters.
+id: metric_l3_0050_2
+tags:
+- L3
+title: Inventory Value — North Region

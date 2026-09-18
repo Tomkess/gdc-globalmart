@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0002_2} - (SELECT {metric/metric_l3_0002_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0002_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the total Discount Amount from loyalty redemptions at the point
+  of sale, filtered to the North region. Use it to understand whether loyalty-related discount value in North is trending
+  up or down versus the same period last year.
+id: metric_l4_yoy_0008
+tags:
+- L4
+title: 'YoY: Discount Amount (Loyalty Redemption at POS) — North Region'

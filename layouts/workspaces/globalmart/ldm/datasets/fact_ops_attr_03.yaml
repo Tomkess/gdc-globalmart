@@ -1,0 +1,56 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Staff Productivity Index dataset, used to distinguish and reference
+    individual rows for analysis and filtering.
+  id: fact_ops_attr_03.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Staff Productivity Index
+  title: Record ID (Staff Productivity Index)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ops_attr_03
+  path:
+  - globalmart
+  - fact_ops_attr_03
+  type: dataSource
+description: Staff Productivity Index
+facts:
+- description: Captures the raw attribute value used in the Staff Productivity Index dataset for reporting and analysis.
+  id: fact_ops_attr_03.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Staff Productivity Index
+  title: Staff Productivity Index
+grain:
+- id: fact_ops_attr_03.attr_id
+  type: attribute
+id: fact_ops_attr_03
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Staff Productivity Index
+title: Staff Productivity Index
+workspaceDataFilterReferences: []

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_visit_census_sqft} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total square footage from the Store Visit Census, filtered to locations in the In-Store sales channel. Use this
+  metric to quantify in-store space and compare it across other dimensions in reports and dashboards.
+id: metric_l3_0090_0
+tags:
+- L3
+title: Sq Ft (Store Visit Census) — In-Store Channel

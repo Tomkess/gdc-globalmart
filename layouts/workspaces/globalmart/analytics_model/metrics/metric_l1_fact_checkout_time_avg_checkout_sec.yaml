@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_checkout_time.avg_checkout_sec})
+description: Shows the overall average checkout time in seconds by summing the “Avg Checkout Time (sec)” values from the Checkout
+  Time dataset. Use it to monitor checkout speed and compare efficiency across the currently selected filters or segments.
+id: metric_l1_fact_checkout_time_avg_checkout_sec
+tags:
+- L1
+title: Total Avg Checkout Time (sec) (Checkout Time)

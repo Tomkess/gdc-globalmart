@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0038_0} - (SELECT {metric/metric_l3_0038_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the In-Store Compliance Adherence Score by comparing the current month’s
+  value to the prior month. Use it to see whether in-store compliance adherence is improving or declining over time within
+  the current report filters.
+id: metric_l4_mom_0114
+tags:
+- L4
+title: 'MoM: Attribute Value (Compliance Adherence Score) — In-Store Channel'

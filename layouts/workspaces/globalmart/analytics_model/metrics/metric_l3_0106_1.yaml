@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_bonus_event_bonus_points} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total bonus points awarded from Bonus Event records, restricted to the Online sales channel. Use this metric
+  to monitor how many bonus points are being issued through online activity within the current report filters or selected
+  time period.
+id: metric_l3_0106_1
+tags:
+- L3
+title: Bonus Points (Bonus Event) — Online Channel

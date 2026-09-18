@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each e-commerce product view event in the E-commerce Product View dataset. Use it to
+    distinguish, group, or filter analyses by individual events.
+  id: fact_ecom_event_01.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Product View
+  title: Event ID (E-commerce Product View)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_01
+  path:
+  - globalmart
+  - fact_ecom_event_01
+  type: dataSource
+description: E-commerce Product View
+facts:
+- description: Counts the number of tracked e-commerce events in the E-commerce Product View dataset, typically used to measure
+    activity volume and support reporting by product or time.
+  id: fact_ecom_event_01.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Product View
+  title: Event Count (E-commerce Product View)
+grain:
+- id: fact_ecom_event_01.event_id
+  type: attribute
+id: fact_ecom_event_01
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Product View
+title: E-commerce Product View
+workspaceDataFilterReferences: []

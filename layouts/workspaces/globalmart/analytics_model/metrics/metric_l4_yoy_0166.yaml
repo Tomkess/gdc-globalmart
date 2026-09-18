@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0055_1} - (SELECT {metric/metric_l3_0055_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0055_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Online Channel goods receipt quantity, comparing the current period to
+  the same period in the prior year. Use it to assess whether inbound receipt volumes supporting online operations are growing
+  or declining over time.
+id: metric_l4_yoy_0166
+tags:
+- L4
+title: 'YoY: Receipt Quantity (Goods Receipt) — Online Channel'

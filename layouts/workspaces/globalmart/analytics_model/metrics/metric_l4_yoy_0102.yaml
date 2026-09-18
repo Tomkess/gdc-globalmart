@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0034_0} - (SELECT {metric/metric_l3_0034_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0034_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in Average Order Value for Customer Lifetime Value, limited to
+  the In-Store sales channel. Use it to track how in-store customer value is trending compared with the prior year.
+id: metric_l4_yoy_0102
+tags:
+- L4
+title: 'YoY: Average Order Value (Customer Lifetime Value) — In-Store Channel'

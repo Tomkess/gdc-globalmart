@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_chargeback_chargeback_count} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Counts the number of chargebacks in the North region only, by applying a Region Name = North filter to the overall
+  chargeback count. Use this metric to monitor and compare North’s chargeback volume across time periods or other business
+  dimensions. A chargeback is a disputed payment transaction reversed by the card issuer.
+id: metric_l3_0119_2
+tags:
+- L3
+title: Chargeback Count (Chargeback) — North Region

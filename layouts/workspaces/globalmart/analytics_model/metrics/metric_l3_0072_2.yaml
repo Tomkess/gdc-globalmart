@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_campaign_roi_total_spend} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total campaign spend limited to the North region. Use this metric to monitor and compare how much is being spent
+  on campaigns specifically within the North area.
+id: metric_l3_0072_2
+tags:
+- L3
+title: Spend (Campaign ROI) — North Region

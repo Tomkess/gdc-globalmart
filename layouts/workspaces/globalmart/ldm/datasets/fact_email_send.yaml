@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each email send event in the Email Send dataset. Use it to group, filter, or drill into
+    metrics at the individual send level.
+  id: fact_email_send.send_id
+  labels: []
+  sourceColumn: send_id
+  sourceColumnDataType: STRING
+  tags:
+  - Email Send
+  title: Send ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_email_send
+  path:
+  - globalmart
+  - fact_email_send
+  type: dataSource
+description: Email Send
+facts:
+- description: Number of emails sent, captured in the Email Send dataset and typically used to report total send volume over
+    time, campaign, or audience segments.
+  id: fact_email_send.send_count
+  sourceColumn: send_count
+  sourceColumnDataType: INT
+  tags:
+  - Email Send
+  title: Send Count
+grain:
+- id: fact_email_send.send_id
+  type: attribute
+id: fact_email_send
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: send_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Email Send
+title: Email Send
+workspaceDataFilterReferences: []

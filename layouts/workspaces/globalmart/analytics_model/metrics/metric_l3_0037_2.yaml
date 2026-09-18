@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_monetary_quartile} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Totals customers’ Monetary Quartile (Recency, Frequency, Monetary (RFM)) scores, restricted to the North region.
+  Use it to compare the overall monetary value segment score for North against other regions or when slicing analysis by other
+  attributes.
+id: metric_l3_0037_2
+tags:
+- L3
+title: Monetary Quartile (RFM) (Customer RFM Segments) — North Region

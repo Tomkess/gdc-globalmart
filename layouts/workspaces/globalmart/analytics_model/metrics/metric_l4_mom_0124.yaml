@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0041_1} - (SELECT {metric/metric_l3_0041_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Online Channel markdown amount from Markdown Event data by comparing the
+  current month to the previous month. Use it to see whether online markdown impact is rising or falling over time and to
+  analyze the change by product or other business dimensions.
+id: metric_l4_mom_0124
+tags:
+- L4
+title: 'MoM: Markdown Amount (Markdown Event) — Online Channel'

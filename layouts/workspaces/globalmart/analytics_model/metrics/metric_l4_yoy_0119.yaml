@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0039_2} - (SELECT {metric/metric_l3_0039_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0039_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in Units Sold for Assortment Efficiency in the North region,
+  comparing the current year to the previous year. Use it to track how North’s unit sales volume is growing or declining versus
+  last year.
+id: metric_l4_yoy_0119
+tags:
+- L4
+title: 'YoY: Units Sold (Assortment Efficiency) — North Region'

@@ -1,0 +1,66 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for products in the Inventory Health dataset, used to group and filter inventory health metrics
+    by individual product.
+  id: sql_inventory_health.product_id
+  labels: []
+  sourceColumn: product_id
+  sourceColumnDataType: STRING
+  tags:
+  - Inventory Health
+  title: Product ID (Inventory Health)
+description: Inventory Health
+facts:
+- description: Current Stock represents the on-hand inventory quantity in the Inventory Health dataset, used to measure how
+    much stock is currently available.
+  id: sql_inventory_health.current_stock
+  sourceColumn: current_stock
+  sourceColumnDataType: INT
+  tags:
+  - Inventory Health
+  title: Current Stock
+- description: Number of days the current inventory is expected to cover demand, used to monitor stock sufficiency in the
+    Inventory Health dataset.
+  id: sql_inventory_health.days_of_cover
+  sourceColumn: days_of_cover
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Inventory Health
+  title: Days of Cover
+grain:
+- id: sql_inventory_health.product_id
+  type: attribute
+id: sql_inventory_health
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_warehouse
+    type: dataset
+  multivalue: false
+  sources:
+  - column: warehouse_id
+    dataType: STRING
+    target:
+      id: dim_warehouse.warehouse_id
+      type: attribute
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    inv.product_id,\n    inv.warehouse_id,\n    SUM(inv.on_hand_units) AS current_stock,\n    SUM(COALESCE(sales.daily_sales,\
+    \ 0)) * 30 AS units_30_day,\n    SUM(inv.on_hand_units) / NULLIF(SUM(COALESCE(sales.daily_sales, 0)), 0) AS days_of_cover\n\
+    FROM {{ datasource_schema }}.fact_inventory_snapshot_daily inv\nLEFT JOIN (\n    SELECT ol.product_id, oh.order_date,\
+    \ SUM(ol.quantity) AS daily_sales\n    FROM {{ datasource_schema }}.fact_order_line ol\n    JOIN {{ datasource_schema\
+    \ }}.fact_order_header oh ON ol.order_id = oh.order_id\n    GROUP BY 1, 2\n) sales ON inv.product_id = sales.product_id\n\
+    GROUP BY 1, 2\n"
+tags:
+- Inventory Health
+title: Inventory Health
+workspaceDataFilterReferences: []

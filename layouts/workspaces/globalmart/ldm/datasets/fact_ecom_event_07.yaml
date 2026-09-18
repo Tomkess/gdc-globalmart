@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each payment entry event in the E-commerce Payment Entry dataset. Use it to look up,
+    group, or filter analyses by individual payment events.
+  id: fact_ecom_event_07.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Payment Entry
+  title: Event ID (E-commerce Payment Entry)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_07
+  path:
+  - globalmart
+  - fact_ecom_event_07
+  type: dataSource
+description: E-commerce Payment Entry
+facts:
+- description: Counts the number of e-commerce payment entry events recorded in the E-commerce Payment Entry dataset, typically
+    used to measure activity volume and support aggregations like totals by time, customer, or other dimensions.
+  id: fact_ecom_event_07.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Payment Entry
+  title: Event Count (E-commerce Payment Entry)
+grain:
+- id: fact_ecom_event_07.event_id
+  type: attribute
+id: fact_ecom_event_07
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Payment Entry
+title: E-commerce Payment Entry
+workspaceDataFilterReferences: []

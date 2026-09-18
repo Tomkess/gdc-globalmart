@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0034_1} - (SELECT {metric/metric_l3_0034_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0034_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in Average Order Value from the Customer Lifetime Value snapshot for the Online
+  sales channel, comparing the current period to the same measure in the prior year. Use it to track whether typical online
+  order value is increasing or decreasing versus last year under the same report filters.
+id: metric_l4_yoy_0103
+tags:
+- L4
+title: 'YoY: Average Order Value (Customer Lifetime Value) — Online Channel'

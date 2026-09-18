@@ -1,0 +1,45 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each brand in the Brand dataset, used to group, join, or filter reporting by brand.
+  id: dim_brand.brand_id
+  labels: []
+  sourceColumn: brand_id
+  sourceColumnDataType: STRING
+  tags:
+  - Brand
+  title: Brand ID
+- description: Name of the brand (from the Brand dataset), used to group, filter, and segment reporting by brand.
+  id: dim_brand.brand_name
+  labels: []
+  sourceColumn: brand_name
+  sourceColumnDataType: STRING
+  tags:
+  - Brand
+  title: Brand Name
+- description: Identifies the company or organization that owns each brand. Use it to group and filter brand-related reporting
+    by owner.
+  id: dim_brand.brand_owner
+  labels: []
+  sourceColumn: brand_owner
+  sourceColumnDataType: STRING
+  tags:
+  - Brand
+  title: Brand Owner
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_brand
+  path:
+  - globalmart
+  - dim_brand
+  type: dataSource
+description: Brand
+facts: []
+grain:
+- id: dim_brand.brand_id
+  type: attribute
+id: dim_brand
+references: []
+tags:
+- Brand
+title: Brand
+workspaceDataFilterReferences: []

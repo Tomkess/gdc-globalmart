@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_visit_census_sqft} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total store square footage from the Store Visit Census, limited to records where the Sales Channel is Online.
+  Use this to quantify the online-channel footprint and compare it against other channels or dimensions in reports and dashboards.
+id: metric_l3_0090_1
+tags:
+- L3
+title: Sq Ft (Store Visit Census) — Online Channel

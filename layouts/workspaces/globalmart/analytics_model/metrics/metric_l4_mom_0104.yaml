@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0034_2} - (SELECT {metric/metric_l3_0034_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Average Order Value for customers in the North region by comparing the
+  current month’s value to the previous month. Use it to monitor whether North’s typical order size is improving or declining
+  over time.
+id: metric_l4_mom_0104
+tags:
+- L4
+title: 'MoM: Average Order Value (Customer Lifetime Value) — North Region'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_assortment_efficiency.units_sold})
+description: Shows the total number of units sold by summing Units Sold from the Assortment Efficiency dataset. Use it to
+  track and compare overall sales volume in units across the available Assortment Efficiency dimensions (for example by product,
+  store, or time period).
+id: metric_l1_sql_assortment_efficiency_units_sold
+tags:
+- L1
+title: Total Units Sold (Assortment Efficiency)

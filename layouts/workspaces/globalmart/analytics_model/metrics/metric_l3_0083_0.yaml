@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_staffing_daily_staff_count} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total number of staff recorded in the Daily Store Staffing data, limited to the In-Store sales channel. Use this
+  metric to monitor in-store staffing levels over the selected dates and any other applied filters (such as store).
+id: metric_l3_0083_0
+tags:
+- L3
+title: Staff Count (Daily Store Staffing) — In-Store Channel

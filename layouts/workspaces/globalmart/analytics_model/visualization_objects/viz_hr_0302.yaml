@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0095_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total Gross Pay from payroll transactions for the North region. Use it to track overall
+  payroll cost for North-region employees/transactions under the current reporting filters (such as date or employee).
+id: viz_hr_0302
+title: Gross Pay

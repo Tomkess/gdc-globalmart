@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_avg_transaction_value} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Average transaction value for Daily Store Sales, filtered to the In-Store sales channel only. Use it to track
+  or compare typical transaction value over time or across store/region groupings while excluding other channels.
+id: metric_l3_0009_0
+tags:
+- L3
+title: Avg Transaction Value (Daily Store Sales) — In-Store Channel

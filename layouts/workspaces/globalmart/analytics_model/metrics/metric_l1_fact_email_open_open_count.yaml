@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_email_open.open_count})
+description: Sums the Email Open “Open Count” fact to show the total number of email opens, used as an overall engagement
+  volume indicator across campaigns, audiences, or time periods.
+id: metric_l1_fact_email_open_open_count
+tags:
+- L1
+title: Total Open Count (Email Open)

@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0078_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total planned Budget Amount for the Online sales channel, based on the Budget Plan. Use
+  it to quickly track overall online budget levels under the current dashboard filters.
+id: viz_finance_0249
+title: Budget Amount

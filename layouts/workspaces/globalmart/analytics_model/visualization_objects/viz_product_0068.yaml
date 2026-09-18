@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_assortment_efficiency_avg_inventory
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline KPI showing the total average inventory in the current analysis context, based on Assortment Efficiency
+  data. Use it to monitor overall inventory levels for the selected time period, products, or locations when assessing assortment
+  efficiency.
+id: viz_product_0068
+title: Avg Inventory

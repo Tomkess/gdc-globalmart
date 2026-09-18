@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_nps_response_nps_score} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Net Promoter Score (NPS) total based on NPS Response records, filtered to the North region (Region Name = North).
+  Use it to track and compare NPS scoring for North within the current reporting context, such as the selected time period
+  or other segmentation (the process of dividing customers or data into groups by shared characteristics) filters.
+id: metric_l3_0027_2
+tags:
+- L3
+title: NPS Score (NPS Response) — North Region

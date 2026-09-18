@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0082_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.month
+            type: label
+        localIdentifier: t1
+    localIdentifier: trend
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:line
+description: Line chart showing total staff hours for North-region stores over time, grouped by month/year. Use it to track
+  staffing labor trends across the reporting period and spot changes in overall labor hours.
+id: viz_store_ops_0270
+title: Staff Hours Over Time

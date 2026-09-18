@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_email_open_open_count} - {metric/metric_l1_fact_paid_search_click_click_count}
+description: Shows the net difference in engagement volume by subtracting total paid search clicks from total email opens
+  for the same slice of data. Use it to see whether email opens are higher or lower than paid search clicks and by how much.
+id: metric_l2_intra_0068
+tags:
+- L2
+title: Open Count (Email Open) vs Click Count (Paid Search Click) Change

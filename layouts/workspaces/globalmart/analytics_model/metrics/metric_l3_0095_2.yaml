@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_payroll_transaction_gross_pay} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows total gross pay from payroll transactions, restricted to the North region. Use it to track and compare
+  payroll cost totals for North across any other selected reporting filters such as date or employee.
+id: metric_l3_0095_2
+tags:
+- L3
+title: Gross Pay (Payroll Transaction) — North Region

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0043_2} - (SELECT {metric/metric_l3_0043_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Out of Stock Days from Planogram Compliance for the North region by comparing
+  the current month to the prior month. Use it to monitor whether stock availability in North is improving or worsening over
+  time, and to analyze the change when slicing by store, product, or other dimensions. A planogram is a diagram specifying
+  exact product placement on retail shelves.
+id: metric_l4_mom_0131
+tags:
+- L4
+title: 'MoM: Out of Stock Days (Planogram Compliance) — North Region'

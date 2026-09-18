@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_store_staffing_daily.staff_count})
+description: Shows the total number of staff recorded in the Daily Store Staffing data by summing Staff Count for the selected
+  time period and any applied filters (such as store or date). Use it to track and compare overall staffing levels across
+  time or locations.
+id: metric_l1_fact_store_staffing_daily_staff_count
+tags:
+- L1
+title: Total Staff Count (Daily Store Staffing)

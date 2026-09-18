@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_headcount_snapshot_total_headcount} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Total employee headcount from the Headcount Snapshot, filtered to the In-Store sales channel. Use this metric
+  to monitor staffing levels for in-store operations over time or across organizational breakdowns.
+id: metric_l3_0099_0
+tags:
+- L3
+title: Headcount (Headcount Snapshot) — In-Store Channel

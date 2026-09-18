@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0029_2} - (SELECT {metric/metric_l3_0029_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the Customer Feedback Sentiment Score for the North region by comparing
+  the current month’s score to the previous month (using Month/Year). Use it to track whether sentiment in North is improving
+  or declining from one month to the next.
+id: metric_l4_mom_0089
+tags:
+- L4
+title: 'MoM: Sentiment Score (Customer Feedback) — North Region'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_daily_store_sales.sales_amount})
+description: Sums Sales Amount from the Daily Store Sales dataset to show total sales value for the selected scope (for example
+  by time period, store, or other filters). Use it as a core measure for tracking and comparing overall sales performance.
+id: metric_l1_fact_daily_store_sales_sales_amount
+tags:
+- L1
+title: Total Sales Amount (Daily Store Sales)

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_net_revenue} / {metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount}
+description: Shows how much net revenue you generate for each unit of loyalty discount redeemed at the point of sale, calculated
+  as Total Net Revenue divided by Total Discount Amount from POS loyalty redemptions. Use this to evaluate the revenue efficiency
+  or payback of POS loyalty redemptions across the selected time period, stores, or customer segments.
+id: metric_l2_cross_0001
+tags:
+- L2
+title: Net Revenue per Discount Amount (Loyalty Redemption at POS)

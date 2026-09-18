@@ -1,0 +1,66 @@
+aggregatedFacts: []
+attributes:
+- description: Represents the hour of day for each record in the Hourly Footfall dataset. Use it to group or filter footfall
+    metrics by hour to analyze intraday traffic patterns.
+  id: fact_footfall_hourly.hour
+  labels: []
+  sourceColumn: hour
+  sourceColumnDataType: INT
+  tags:
+  - Hourly Footfall
+  title: Footfall Hour
+- description: Identifies the hour for each record in the Hourly Footfall dataset, used to group and filter footfall metrics
+    by hour of day.
+  id: fact_footfall_hourly.hour_id
+  labels: []
+  sourceColumn: hour_id
+  sourceColumnDataType: STRING
+  tags:
+  - Hourly Footfall
+  title: Hour ID (Hourly Footfall)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_footfall_hourly
+  path:
+  - globalmart
+  - fact_footfall_hourly
+  type: dataSource
+description: Hourly Footfall
+facts:
+- description: Number of visitors recorded in each hourly footfall record. Used to analyze and aggregate foot traffic volume
+    by hour within the Hourly Footfall dataset.
+  id: fact_footfall_hourly.visitor_count
+  sourceColumn: visitor_count
+  sourceColumnDataType: INT
+  tags:
+  - Hourly Footfall
+  title: Visitor Count (Hourly Footfall)
+grain:
+- id: fact_footfall_hourly.hour_id
+  type: attribute
+id: fact_footfall_hourly
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: footfall_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Hourly Footfall
+title: Hourly Footfall
+workspaceDataFilterReferences: []

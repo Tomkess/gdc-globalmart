@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_campaign_spend_daily.spend_count})
+description: Shows the total number of spend records by summing the Spend Count from the Daily Campaign Spend dataset, reflecting
+  how many daily spend entries are included for the selected filters and time period.
+id: metric_l1_fact_campaign_spend_daily_spend_count
+tags:
+- L1
+title: Total Spend Count (Daily Campaign Spend)

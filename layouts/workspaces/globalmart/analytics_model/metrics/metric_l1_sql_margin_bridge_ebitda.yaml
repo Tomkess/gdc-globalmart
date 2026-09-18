@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_margin_bridge.ebitda})
+description: Shows total EBITDA by summing the EBITDA values from the Margin Bridge dataset for the current report or dashboard
+  context. Use it to track overall operating profitability and compare results across the applied filters and breakdowns.
+id: metric_l1_sql_margin_bridge_ebitda
+tags:
+- L1
+title: Total EBITDA (Margin Bridge)

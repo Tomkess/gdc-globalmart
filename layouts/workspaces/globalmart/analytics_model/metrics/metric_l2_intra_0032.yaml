@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_order_count} - {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_revenue}
+description: Shows the difference between customers’ total lifetime order count and total lifetime revenue from the Customer
+  Lifetime Value snapshot to highlight how purchase frequency compares to revenue. Use it to identify segments where order
+  volume and revenue are moving out of sync.
+id: metric_l2_intra_0032
+tags:
+- L2
+title: Lifetime Order Count (Customer Lifetime Value) vs Lifetime Revenue (Customer Lifetime Value) Change

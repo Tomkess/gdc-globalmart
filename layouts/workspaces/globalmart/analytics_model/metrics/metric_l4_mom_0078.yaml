@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0026_0} - (SELECT {metric/metric_l3_0026_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the total reward value redeemed using loyalty points for the In-Store
+  sales channel, comparing the current month to the prior month. Use it to quickly see whether in-store redemption value is
+  trending up or down month over month.
+id: metric_l4_mom_0078
+tags:
+- L4
+title: 'MoM: Reward Value (Loyalty Points Redeemed) — In-Store Channel'

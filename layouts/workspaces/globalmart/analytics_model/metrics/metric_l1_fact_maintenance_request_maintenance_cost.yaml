@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_maintenance_request.maintenance_cost})
+description: Shows the total maintenance spend by summing Maintenance Cost across Maintenance Request records, respecting
+  the current date range and any applied filters.
+id: metric_l1_fact_maintenance_request_maintenance_cost
+tags:
+- L1
+title: Total Maintenance Cost (Maintenance Request)

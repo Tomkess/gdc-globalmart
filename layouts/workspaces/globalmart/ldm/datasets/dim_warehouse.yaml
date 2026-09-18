@@ -1,0 +1,56 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each warehouse in the Warehouse dataset, used to group, filter, and link records by warehouse.
+  id: dim_warehouse.warehouse_id
+  labels: []
+  sourceColumn: warehouse_id
+  sourceColumnDataType: STRING
+  tags:
+  - Warehouse
+  title: Warehouse ID
+- description: The name of each warehouse in the Warehouse dataset. Use it to group, filter, and label metrics by individual
+    warehouse.
+  id: dim_warehouse.warehouse_name
+  labels: []
+  sourceColumn: warehouse_name
+  sourceColumnDataType: STRING
+  tags:
+  - Warehouse
+  title: Warehouse Name
+- description: Type or category of warehouse (for example, different facility classifications) in the Warehouse dataset. Use
+    it to group and filter analyses by warehouse type.
+  id: dim_warehouse.warehouse_type
+  labels: []
+  sourceColumn: warehouse_type
+  sourceColumnDataType: STRING
+  tags:
+  - Warehouse
+  title: Warehouse Type
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_warehouse
+  path:
+  - globalmart
+  - dim_warehouse
+  type: dataSource
+description: Warehouse
+facts: []
+grain:
+- id: dim_warehouse.warehouse_id
+  type: attribute
+id: dim_warehouse
+references:
+- identifier:
+    id: dim_geography_city
+    type: dataset
+  multivalue: false
+  sources:
+  - column: city_id
+    dataType: STRING
+    target:
+      id: dim_geography_city.city_id
+      type: attribute
+tags:
+- Warehouse
+title: Warehouse
+workspaceDataFilterReferences: []

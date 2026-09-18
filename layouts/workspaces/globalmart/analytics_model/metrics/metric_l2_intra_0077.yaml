@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_intercompany_recharge_recharge_amount} - {metric/metric_l1_fact_budget_plan_budget_amount}
+description: Calculates the variance between actual intercompany (transactions between entities within the same organisation)
+  recharge amounts and the planned budget amount for the current filters and breakdowns. Use it to see whether recharge activity
+  is over or under budget by subtracting total Budget Amount from total Recharge Amount.
+id: metric_l2_intra_0077
+tags:
+- L2
+title: Recharge Amount (Intercompany Recharge) vs Budget Amount (Budget Plan) Change

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0059_2} - (SELECT {metric/metric_l3_0059_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Write-Off Cost for the North region by comparing the current month’s total
+  to the previous month. Use it to see whether North’s write-off costs are trending up or down over time.
+id: metric_l4_mom_0179
+tags:
+- L4
+title: 'MoM: Write-Off Cost (Write Off) — North Region'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_recruitment_recruitment_cost} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total recruitment spend filtered to the In-Store sales channel. Use it to monitor and compare the cost of recruiting
+  for In-Store hiring across time periods or other recruitment dimensions.
+id: metric_l3_0102_0
+tags:
+- L3
+title: Recruitment Cost (Recruitment) — In-Store Channel

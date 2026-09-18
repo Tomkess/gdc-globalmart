@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_event_event_value} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total customer event value restricted to the In‑Store sales channel. Use this metric to analyze the value generated
+  by in‑store customer events across time or other business breakdowns.
+id: metric_l3_0023_0
+tags:
+- L3
+title: Event Value (Customer Event) — In-Store Channel

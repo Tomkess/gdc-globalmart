@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0028_2} - (SELECT {metric/metric_l3_0028_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0028_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of NPS survey responses from the North region, comparing
+  the current year with the prior year. Use it to track whether North-region response volume is increasing or declining over
+  time and to add context to other NPS metrics.
+id: metric_l4_yoy_0086
+tags:
+- L4
+title: 'YoY: Response Count (NPS Response) — North Region'

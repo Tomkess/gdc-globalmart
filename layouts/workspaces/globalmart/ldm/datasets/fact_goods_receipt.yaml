@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each goods receipt record in the Goods Receipt dataset. Use it to look up, group, or
+    filter metrics by individual receipt.
+  id: fact_goods_receipt.receipt_id
+  labels: []
+  sourceColumn: receipt_id
+  sourceColumnDataType: STRING
+  tags:
+  - Goods Receipt
+  title: Receipt ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_goods_receipt
+  path:
+  - globalmart
+  - fact_goods_receipt
+  type: dataSource
+description: Goods Receipt
+facts:
+- description: Number of units received on a goods receipt record. Use this field to quantify receipt volumes and to sum or
+    analyze received quantities within the Goods Receipt dataset.
+  id: fact_goods_receipt.receipt_qty
+  sourceColumn: receipt_qty
+  sourceColumnDataType: INT
+  tags:
+  - Goods Receipt
+  title: Receipt Quantity
+- description: Quantity variance recorded on each goods receipt transaction. Use this fact to analyze discrepancies between
+    expected and received quantities in the Goods Receipt dataset.
+  id: fact_goods_receipt.variance_qty
+  sourceColumn: variance_qty
+  sourceColumnDataType: INT
+  tags:
+  - Goods Receipt
+  title: Variance Quantity
+grain:
+- id: fact_goods_receipt.receipt_id
+  type: attribute
+id: fact_goods_receipt
+references:
+- identifier:
+    id: fact_purchase_order_header
+    type: dataset
+  multivalue: false
+  sources:
+  - column: po_id
+    dataType: STRING
+    target:
+      id: fact_purchase_order_header.po_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: receipt_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Goods Receipt
+title: Goods Receipt
+workspaceDataFilterReferences: []

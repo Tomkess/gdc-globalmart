@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0015_0} - (SELECT {metric/metric_l3_0015_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0015_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the total net price change driven by price adjustments, limited to the In-Store
+  sales channel. Use it to assess whether the impact of in-store pricing actions has increased or decreased versus the prior
+  year for the same slice (e.g., by product, customer, or time).
+id: metric_l4_yoy_0045
+tags:
+- L4
+title: 'YoY: Price Change (Price Adjustment) — In-Store Channel'

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_planogram_compliance_compliance_score} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Shows the total Planogram (a diagram specifying exact product placement on retail shelves) Compliance Score,
+  filtered to the In-Store sales channel. Use it to monitor overall in-store planogram compliance for the currently selected
+  locations, time period, and other analysis filters.
+id: metric_l3_0042_0
+tags:
+- L3
+title: Compliance Score (Planogram Compliance) — In-Store Channel

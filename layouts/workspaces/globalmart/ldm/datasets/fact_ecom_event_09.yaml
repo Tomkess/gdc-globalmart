@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each product review event in the E-commerce Product Review dataset. Use it to drill into,
+    group, or filter analyses at the individual review-event level.
+  id: fact_ecom_event_09.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Product Review
+  title: Event ID (E-commerce Product Review)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_09
+  path:
+  - globalmart
+  - fact_ecom_event_09
+  type: dataSource
+description: E-commerce Product Review
+facts:
+- description: Counts the number of e-commerce product review events recorded in the E-commerce Product Review dataset. Typically
+    used to measure review activity volume and to aggregate totals across time, products, or other breakdowns.
+  id: fact_ecom_event_09.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Product Review
+  title: Event Count (E-commerce Product Review)
+grain:
+- id: fact_ecom_event_09.event_id
+  type: attribute
+id: fact_ecom_event_09
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Product Review
+title: E-commerce Product Review
+workspaceDataFilterReferences: []

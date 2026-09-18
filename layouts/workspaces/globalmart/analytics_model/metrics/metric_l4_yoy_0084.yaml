@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0028_0} - (SELECT {metric/metric_l3_0028_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0028_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percent change in the number of NPS survey responses coming from the In-Store sales
+  channel, comparing the current year with the prior year. Use it to monitor whether in-store response volume is rising or
+  falling over time and to provide context for other in-store NPS performance metrics.
+id: metric_l4_yoy_0084
+tags:
+- L4
+title: 'YoY: Response Count (NPS Response) — In-Store Channel'

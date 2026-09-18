@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0024} + ({metric/metric_l1_fact_inventory_snapshot_daily_on_hand_units} / {metric/metric_l1_total_inventory_value})
+description: Measures month-over-month change in in-store transaction count, and then adjusts it by adding an inventory intensity
+  factor based on total units on hand divided by total inventory value. Use it to track changes in in-store sales activity
+  while factoring in the current scale/value mix of inventory on hand for the same reporting scope.
+id: metric_l5_0049
+tags:
+- L5
+title: 'MoM: Transaction Count (Daily Store Sales) — In-Store Channel (+Units on Hand (Daily Inventory Snapshot)/Inventory
+  Value)'

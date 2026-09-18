@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_capex_project.spent_amount})
+description: Sums the Spent Amount from the Capital Expenditure Project dataset to show total capital project spend. Use it
+  to monitor overall spending and compare spend across projects, time periods, or other business breakdowns.
+id: metric_l1_fact_capex_project_spent_amount
+tags:
+- L1
+title: Total Spent Amount (Capital Expenditure Project)

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0054_0} - (SELECT {metric/metric_l3_0054_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0054_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in total purchase order line item spend for the In-Store sales
+  channel, comparing the current period to the previous year. Use it to track how in-store purchasing totals are trending
+  over time and to assess growth or decline versus last year.
+id: metric_l4_yoy_0162
+tags:
+- L4
+title: 'YoY: Line Amount (Purchase Order Line Items) — In-Store Channel'

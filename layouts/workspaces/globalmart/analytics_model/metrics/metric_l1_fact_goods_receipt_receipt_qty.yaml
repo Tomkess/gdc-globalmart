@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_goods_receipt.receipt_qty})
+description: Shows the total quantity received by summing Receipt Quantity from the Goods Receipt data within the selected
+  scope (e.g., time period, supplier, or product). Use it to track inbound receipt volumes and compare received quantities
+  across segments.
+id: metric_l1_fact_goods_receipt_receipt_qty
+tags:
+- L1
+title: Total Receipt Quantity (Goods Receipt)

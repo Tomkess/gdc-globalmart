@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_loyalty_expiry.points_expired})
+description: Shows the total number of loyalty points that have expired by summing the “Points Expired” fact from the Loyalty
+  Expiry dataset. Use it to monitor the overall volume of expired points within the current reporting context (for example,
+  by time period or customer segment).
+id: metric_l1_fact_loyalty_expiry_points_expired
+tags:
+- L1
+title: Total Points Expired (Loyalty Expiry)

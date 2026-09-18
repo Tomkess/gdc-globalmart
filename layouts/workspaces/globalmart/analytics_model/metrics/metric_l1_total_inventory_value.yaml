@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_inventory_snapshot_daily.inventory_value})
+description: Shows the total monetary value of inventory on hand by summing Inventory Value from the Daily Inventory Snapshot.
+  Use it to track and compare inventory value across the selected scope, such as by date, location, or other report filters.
+id: metric_l1_total_inventory_value
+tags:
+- L1
+title: Total Inventory Value

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_ebitda} - {metric/metric_l1_fact_store_staffing_daily_staff_hours}
+description: Calculates the net difference between Total EBITDA from the Margin Bridge data and Total Staff Hours from Daily
+  Store Staffing in the current report context. Use it to compare profitability against labor effort and track how that gap
+  shifts across the selected filters and breakdowns.
+id: metric_l2_intra_0081
+tags:
+- L2
+title: EBITDA (Margin Bridge) vs Staff Hours (Daily Store Staffing) Change

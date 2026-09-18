@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_avg_transaction_value} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Average transaction value from the Daily Store Sales data, filtered to stores in the North region. Use it to
+  monitor and compare transaction value performance or trends for the North region against other regions or segments.
+id: metric_l3_0009_2
+tags:
+- L3
+title: Avg Transaction Value (Daily Store Sales) — North Region

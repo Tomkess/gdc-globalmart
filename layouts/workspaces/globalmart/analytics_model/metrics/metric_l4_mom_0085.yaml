@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0028_1} - (SELECT {metric/metric_l3_0028_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the number of NPS survey responses received through the Online channel
+  by comparing the current month’s response count to the prior month. Use it to see whether online NPS response volume is
+  increasing or decreasing over time and to add context when reviewing other NPS results.
+id: metric_l4_mom_0085
+tags:
+- L4
+title: 'MoM: Response Count (NPS Response) — Online Channel'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0017_0} - (SELECT {metric/metric_l3_0017_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of compliment/complaint comments recorded for the In-Store channel,
+  calculated as the current month’s count minus the prior month’s count. Use it to track how in-store customer feedback volume
+  is trending month to month.
+id: metric_l4_mom_0051
+tags:
+- L4
+title: 'MoM: Comment Count (Compliment Complaint) — In-Store Channel'

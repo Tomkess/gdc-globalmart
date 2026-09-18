@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0024_2} - (SELECT {metric/metric_l3_0024_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0024_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in loyalty points earned for the North region, comparing the current
+  period with the same period last year. Use it to evaluate whether points accumulation in North is increasing or declining
+  versus last year when analyzing results by year.
+id: metric_l4_yoy_0074
+tags:
+- L4
+title: 'YoY: Points (Loyalty Points Earned) — North Region'

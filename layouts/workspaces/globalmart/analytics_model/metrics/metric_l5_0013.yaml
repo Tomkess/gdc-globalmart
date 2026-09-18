@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0006} + ({metric/metric_l1_fact_gift_card_txn_txn_count} / {metric/metric_l1_fact_loyalty_points_redeemed_points_redeemed})
+description: Combines the month-over-month change in in-store POS loyalty redemption discount amount with an added ratio of
+  gift card transaction volume to loyalty points redeemed. Use it to track how discount trends shift month to month while
+  also factoring in transaction activity relative to redemption volume.
+id: metric_l5_0013
+tags:
+- L5
+title: 'MoM: Discount Amount (Loyalty Redemption at POS) — In-Store Channel (+Transaction Count (Gift Card Transaction)/Points
+  Redeemed (Loyalty Points Redeemed))'

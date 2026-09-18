@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0043_2} - (SELECT {metric/metric_l3_0043_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0043_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in out-of-stock days from Planogram Compliance for the North region.
+  Use it to track whether stock availability issues are improving or worsening compared with the same period last year. A
+  planogram is a diagram specifying exact product placement on retail shelves.
+id: metric_l4_yoy_0131
+tags:
+- L4
+title: 'YoY: Out of Stock Days (Planogram Compliance) — North Region'

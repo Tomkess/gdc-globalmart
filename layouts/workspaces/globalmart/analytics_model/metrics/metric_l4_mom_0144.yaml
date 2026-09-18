@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0048_0} - (SELECT {metric/metric_l3_0048_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the In-Store Sell-Through Rate (assortment efficiency) by comparing the
+  current month’s rate to the prior month. Use it to monitor whether in-store assortment performance is improving or declining
+  over time under the same report filters and breakdowns.
+id: metric_l4_mom_0144
+tags:
+- L4
+title: 'MoM: Sell-Through Rate (Assortment Efficiency) — In-Store Channel'

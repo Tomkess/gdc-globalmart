@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_supplier_scorecard.quality_score})
+description: Shows the total Quality Score by summing Quality Score values from the Supplier Scorecard data. Use it to track
+  and compare overall supplier quality performance within the current report scope (such as selected suppliers, time periods,
+  or other breakdowns).
+id: metric_l1_fact_supplier_scorecard_quality_score
+tags:
+- L1
+title: Total Quality Score (Supplier Scorecard)

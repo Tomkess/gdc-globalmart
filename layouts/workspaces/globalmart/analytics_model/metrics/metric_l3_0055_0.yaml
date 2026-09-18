@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_goods_receipt_receipt_qty} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total quantity received in Goods Receipt, filtered to the In-Store sales channel. Use this metric to monitor
+  and compare inbound receipt volumes for in-store operations across the selected time period, supplier, or product.
+id: metric_l3_0055_0
+tags:
+- L3
+title: Receipt Quantity (Goods Receipt) — In-Store Channel

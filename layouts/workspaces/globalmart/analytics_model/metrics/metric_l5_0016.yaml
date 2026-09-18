@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0008} + ({metric/metric_l1_fact_till_reconciliation_variance_amount} / {metric/metric_l1_fact_compliment_complaint_comment_count})
+description: Composite metric that combines the year-over-year change in loyalty redemption discount amount at the point of
+  sale for the North region with a variance-per-comment adjustment based on till reconciliation variance amount divided by
+  compliment/complaint comment count. Use it to track YoY discount performance while factoring in operational variance relative
+  to customer feedback volume.
+id: metric_l5_0016
+tags:
+- L5
+title: 'YoY: Discount Amount (Loyalty Redemption at POS) — North Region (+Variance Amount (Till Reconciliation)/Comment Count
+  (Compliment Complaint))'

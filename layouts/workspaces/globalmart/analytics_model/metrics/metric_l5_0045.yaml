@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0022} + ({metric/metric_l1_fact_product_rating_avg_rating} / {metric/metric_l1_fact_product_rating_review_count})
+description: Combines the month-over-month change in online sales amount with an average product rating per review (total
+  average rating divided by total review count). Use it to view sales momentum alongside product satisfaction in a single
+  metric over the selected period.
+id: metric_l5_0045
+tags:
+- L5
+title: 'MoM: Sales Amount (Daily Store Sales) — Online Channel (+Avg Rating (Product Rating)/Review Count (Product Rating))'

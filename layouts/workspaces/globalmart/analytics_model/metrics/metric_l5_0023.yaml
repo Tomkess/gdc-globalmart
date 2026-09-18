@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0011} + ({metric/metric_l1_fact_customer_event_event_value} / {metric/metric_l1_fact_loyalty_points_earned_points})
+description: Combines the month-over-month change in purchase order line item quantity for the North region with an adjustment
+  based on the ratio of total customer event value to total loyalty points earned. Use it to monitor North-region purchasing
+  momentum while factoring in how much customer-event value is generated per loyalty point over the same slice of data.
+id: metric_l5_0023
+tags:
+- L5
+title: 'MoM: Quantity (Purchase Order Line Items) — North Region (+Event Value (Customer Event)/Points (Loyalty Points Earned))'

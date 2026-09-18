@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_sell_through_rate} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Sell-Through Rate (Assortment Efficiency) metric scoped to the North region, showing overall sell-through performance
+  under the current report filters. Use it to assess how efficiently the assortment is selling in North and compare results
+  across time periods or against other regions.
+id: metric_l3_0048_2
+tags:
+- L3
+title: Sell-Through Rate (Assortment Efficiency) — North Region

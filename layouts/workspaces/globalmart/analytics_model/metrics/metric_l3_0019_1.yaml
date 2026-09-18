@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_competitor_pricing_competitor_price} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Shows the total competitor price for activity in the Online sales channel only. Use it to analyze and compare
+  competitor pricing levels for online business across the selected breakdowns and filters (e.g., product, time, or other
+  dimensions).
+id: metric_l3_0019_1
+tags:
+- L3
+title: Competitor Price (Competitor Pricing) — Online Channel

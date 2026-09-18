@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_transaction_count} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Counts the total number of store sales transactions for stores in the North region. Use it to monitor North-region
+  transaction volume over time or compare against other regions’ transaction counts.
+id: metric_l3_0008_2
+tags:
+- L3
+title: Transaction Count (Daily Store Sales) — North Region

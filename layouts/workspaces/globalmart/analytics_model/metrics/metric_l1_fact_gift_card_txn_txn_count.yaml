@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_gift_card_txn.txn_count})
+description: Shows the total number of gift card transactions by summing the Transaction Count from the Gift Card Transaction
+  dataset. Use it to monitor overall gift card transaction volume across the time periods and business dimensions you select.
+id: metric_l1_fact_gift_card_txn_txn_count
+tags:
+- L1
+title: Total Transaction Count (Gift Card Transaction)

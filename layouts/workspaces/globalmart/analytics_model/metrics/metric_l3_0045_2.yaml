@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_rating_avg_rating} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Average product rating limited to items in the North region. Use it to evaluate and compare rating performance
+  for the North region against other regions or across different time periods under the same filters.
+id: metric_l3_0045_2
+tags:
+- L3
+title: Avg Rating (Product Rating) — North Region

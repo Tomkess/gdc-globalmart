@@ -1,0 +1,24 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0012
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the difference between total Operating Expense Transaction amount and the total number of Gift
+  Card Transactions for the current selections and time period. Use it to quickly gauge whether operating expenses are running
+  higher or lower relative to gift card transaction volume (positive means expenses exceed transaction count, negative means
+  the opposite).
+id: viz_sales_0027
+title: Amount (Operating Expense Transaction) vs Transaction Count

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_recruitment_recruitment_cost} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total recruitment spend filtered to the Online sales channel. Use this metric to monitor and compare recruiting
+  costs attributable to online-channel activity versus other channels or overall recruitment spend.
+id: metric_l3_0102_1
+tags:
+- L3
+title: Recruitment Cost (Recruitment) — Online Channel

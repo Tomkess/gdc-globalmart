@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_shrinkage_event_unit_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the total number of units involved in shrinkage events, limited to the Online sales channel. Use it to
+  monitor online-related shrinkage volume and compare it against other channels or overall shrinkage totals.
+id: metric_l3_0085_1
+tags:
+- L3
+title: Unit Count (Shrinkage Event) — Online Channel

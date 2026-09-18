@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_markdown_event.markdown_amount})
+description: Sums the Markdown Amount from the Markdown Event data to show the total value of markdowns over the selected
+  scope (such as time period, store, or product). Use it to track overall markdown impact and compare it across different
+  dimensions.
+id: metric_l1_fact_markdown_event_markdown_amount
+tags:
+- L1
+title: Total Markdown Amount (Markdown Event)

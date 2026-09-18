@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0024_1} - (SELECT {metric/metric_l3_0024_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in loyalty points earned from the Online sales channel, comparing the current
+  month’s points to the prior month. Use it to monitor whether online points accrual is increasing or decreasing over time.
+id: metric_l4_mom_0073
+tags:
+- L4
+title: 'MoM: Points (Loyalty Points Earned) — Online Channel'

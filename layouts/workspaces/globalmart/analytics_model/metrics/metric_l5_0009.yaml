@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0004} + ({metric/metric_l1_fact_daily_store_sales_avg_transaction_value} / {metric/metric_l1_sql_blended_daily_revenue_total_revenue})
+description: Measures the month-over-month change in Online Channel net revenue, then adjusts it by adding the ratio of total
+  average transaction value (from Daily Store Sales) to total blended revenue. Use this metric to track monthly online revenue
+  movement while factoring in transaction value relative to overall revenue in the same reporting context.
+id: metric_l5_0009
+tags:
+- L5
+title: 'MoM: Net Revenue — Online Channel (+Avg Transaction Value (Daily Store Sales)/Revenue (Blended Daily Revenue))'

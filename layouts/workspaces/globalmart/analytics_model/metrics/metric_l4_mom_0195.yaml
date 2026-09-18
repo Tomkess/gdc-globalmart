@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0065_0} - (SELECT {metric/metric_l3_0065_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in campaign spend for the In-Store sales channel, comparing the current month’s
+  spend to the prior month. Use it to see whether in-store campaign investment is increasing or decreasing over time.
+id: metric_l4_mom_0195
+tags:
+- L4
+title: 'MoM: Campaign Spend — In-Store Channel'

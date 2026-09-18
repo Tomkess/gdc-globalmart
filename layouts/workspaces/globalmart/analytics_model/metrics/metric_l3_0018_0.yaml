@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_aged_inventory_age_days} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Totals the inventory age (in days) specifically for items sold through the In-Store channel, helping quantify
+  how much stock is aging in physical locations. Use it to monitor in-store inventory aging trends and compare aging across
+  products or locations when sliced by other attributes.
+id: metric_l3_0018_0
+tags:
+- L3
+title: Age Days (Aged Inventory) — In-Store Channel

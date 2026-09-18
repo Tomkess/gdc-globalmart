@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0012_1} - (SELECT {metric/metric_l3_0012_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0012_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in total operating expense transaction amount for the Online channel, comparing
+  the selected period to the same period last year. Use it to see whether online-related operating expenses are increasing
+  or decreasing versus last year under the current report filters.
+id: metric_l4_yoy_0037
+tags:
+- L4
+title: 'YoY: Amount (Operating Expense Transaction) — Online Channel'

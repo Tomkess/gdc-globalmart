@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each product lifecycle stage in the Product Lifecycle Stage dataset. Use it to group,
+    join, or filter records by lifecycle stage when analyzing product performance over time.
+  id: dim_product_lifecycle_stage.stage_id
+  labels: []
+  sourceColumn: stage_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product Lifecycle Stage
+  title: Stage ID (Product Lifecycle Stage)
+- description: Identifies the name of the product lifecycle stage (e.g., the stage a product is currently in) from the Product
+    Lifecycle Stage dataset. Use it to group, segment, or filter analysis by lifecycle stage.
+  id: dim_product_lifecycle_stage.stage_name
+  labels: []
+  sourceColumn: stage_name
+  sourceColumnDataType: STRING
+  tags:
+  - Product Lifecycle Stage
+  title: Stage Name (Product Lifecycle Stage)
+- description: Represents the numeric or sequential order of each Product Lifecycle Stage, used to sort stages consistently
+    in reports and dashboards.
+  id: dim_product_lifecycle_stage.stage_order
+  labels: []
+  sourceColumn: stage_order
+  sourceColumnDataType: INT
+  tags:
+  - Product Lifecycle Stage
+  title: Stage Order (Product Lifecycle Stage)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_product_lifecycle_stage
+  path:
+  - globalmart
+  - dim_product_lifecycle_stage
+  type: dataSource
+description: Product Lifecycle Stage
+facts: []
+grain:
+- id: dim_product_lifecycle_stage.stage_id
+  type: attribute
+id: dim_product_lifecycle_stage
+references: []
+tags:
+- Product Lifecycle Stage
+title: Product Lifecycle Stage
+workspaceDataFilterReferences: []

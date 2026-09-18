@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_ops_efficiency_summary_store_revenue} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Shows total store revenue limited to the In-Store sales channel, based on the Operations Efficiency Summary data.
+  Use it to report in-store revenue while excluding other channel types.
+id: metric_l3_0091_0
+tags:
+- L3
+title: Store Revenue (Operations Efficiency Summary) — In-Store Channel

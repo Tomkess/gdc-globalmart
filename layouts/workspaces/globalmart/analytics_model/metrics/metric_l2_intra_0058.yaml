@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_write_off_writeoff_qty} - {metric/metric_l1_fact_write_off_writeoff_cost}
+description: Compares changes in write-off volume versus write-off cost by calculating the net difference between Total Write-Off
+  Quantity and Total Write-Off Cost for the current filters and time period. Use it to see whether write-off quantity is increasing
+  faster or slower than write-off cost.
+id: metric_l2_intra_0058
+tags:
+- L2
+title: Write-Off Quantity (Write Off) vs Write-Off Cost (Write Off) Change

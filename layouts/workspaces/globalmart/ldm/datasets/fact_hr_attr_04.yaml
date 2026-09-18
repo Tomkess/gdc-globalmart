@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Employee Attendance Score dataset, used to distinguish and reference
+    individual attendance score entries when filtering or drilling into details.
+  id: fact_hr_attr_04.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Employee Attendance Score
+  title: Record ID (Employee Attendance Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_hr_attr_04
+  path:
+  - globalmart
+  - fact_hr_attr_04
+  type: dataSource
+description: Employee Attendance Score
+facts:
+- description: Represents the recorded attribute value used in the Employee Attendance Score dataset for analyzing and filtering
+    attendance-related results.
+  id: fact_hr_attr_04.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Employee Attendance Score
+  title: Employee Attendance Score
+grain:
+- id: fact_hr_attr_04.attr_id
+  type: attribute
+id: fact_hr_attr_04
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Employee Attendance Score
+title: Employee Attendance Score
+workspaceDataFilterReferences: []

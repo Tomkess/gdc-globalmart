@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0043_0} - (SELECT {metric/metric_l3_0043_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0043_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Out of Stock Days from Planogram Compliance data for the In-Store
+  sales channel. Use it to compare current performance vs the prior year and track whether in-store availability issues are
+  improving or worsening over time or across store/product cuts. A planogram is a diagram specifying exact product placement
+  on retail shelves.
+id: metric_l4_yoy_0129
+tags:
+- L4
+title: 'YoY: Out of Stock Days (Planogram Compliance) — In-Store Channel'

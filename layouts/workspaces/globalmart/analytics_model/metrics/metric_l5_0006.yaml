@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0003} + ({metric/metric_l1_fact_returns_quantity_returned} / {metric/metric_l1_fact_daily_store_sales_sales_amount})
+description: Extends the year-over-year Net Revenue change for the In-Store channel by adding a returns-to-sales ratio (total
+  quantity returned divided by total sales amount). Use it to view YoY in-store revenue performance while factoring in return
+  volume relative to sales.
+id: metric_l5_0006
+tags:
+- L5
+title: 'YoY: Net Revenue — In-Store Channel (+Quantity Returned (Returns)/Sales Amount (Daily Store Sales))'

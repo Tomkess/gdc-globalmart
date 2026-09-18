@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0004
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the net difference between Energy Consumption cost and Return Amount for the current selection,
+  indicating whether energy-related spending outweighs returns in the chosen context.
+id: viz_sales_0019
+title: Cost (Energy Consumption) vs Return Amount

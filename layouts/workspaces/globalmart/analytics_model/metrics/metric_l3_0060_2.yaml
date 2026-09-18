@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_quality_score} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total Quality Score from the Supplier Scorecard, restricted to suppliers in the North region. Use this metric
+  to monitor and compare overall supplier quality performance for the North region within the current reporting scope.
+id: metric_l3_0060_2
+tags:
+- L3
+title: Quality Score (Supplier Scorecard) — North Region

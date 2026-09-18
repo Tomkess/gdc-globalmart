@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each Store Efficiency Score record. Use it to reference, group, or filter individual
+    score entries when analyzing store efficiency results.
+  id: fact_ops_attr_00.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Store Efficiency Score
+  title: Record ID (Store Efficiency Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ops_attr_00
+  path:
+  - globalmart
+  - fact_ops_attr_00
+  type: dataSource
+description: Store Efficiency Score
+facts:
+- description: Stores the numeric value used to quantify a specific store efficiency attribute in the Store Efficiency Score
+    dataset.
+  id: fact_ops_attr_00.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Store Efficiency Score
+  title: Store Efficiency Score
+grain:
+- id: fact_ops_attr_00.attr_id
+  type: attribute
+id: fact_ops_attr_00
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Store Efficiency Score
+title: Store Efficiency Score
+workspaceDataFilterReferences: []

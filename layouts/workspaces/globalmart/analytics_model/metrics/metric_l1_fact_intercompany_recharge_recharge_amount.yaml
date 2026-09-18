@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_intercompany_recharge.recharge_amount})
+description: Shows the total monetary value of intercompany (transactions between entities within the same organisation) recharges
+  by summing the Recharge Amount from the Intercompany Recharge dataset for the current filters and selected time period.
+id: metric_l1_fact_intercompany_recharge_recharge_amount
+tags:
+- L1
+title: Total Recharge Amount (Intercompany Recharge)

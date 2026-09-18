@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0053_1} - (SELECT {metric/metric_l3_0053_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Purchase Order Amount for the Online sales channel by comparing the current
+  month’s total to the prior month. Use it to track whether online PO spend is increasing or decreasing over time at a monthly
+  level.
+id: metric_l4_mom_0160
+tags:
+- L4
+title: 'MoM: PO Amount (Purchase Order) — Online Channel'

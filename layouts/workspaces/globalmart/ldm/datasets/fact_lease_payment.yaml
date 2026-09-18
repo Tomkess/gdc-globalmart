@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each lease payment record in the Lease Payment dataset, used to reference, group, or
+    filter payments at the individual transaction level.
+  id: fact_lease_payment.payment_id
+  labels: []
+  sourceColumn: payment_id
+  sourceColumnDataType: STRING
+  tags:
+  - Lease Payment
+  title: Payment ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_lease_payment
+  path:
+  - globalmart
+  - fact_lease_payment
+  type: dataSource
+description: Lease Payment
+facts:
+- description: The Lease Payment fact captures the amount of a lease payment recorded in the Lease Payment dataset, and is
+    typically used for summing and analyzing lease payment totals across different cuts of the data.
+  id: fact_lease_payment.lease_payment
+  sourceColumn: lease_payment
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Lease Payment
+  title: Lease Payment
+grain:
+- id: fact_lease_payment.payment_id
+  type: attribute
+id: fact_lease_payment
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: payment_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Lease Payment
+title: Lease Payment
+workspaceDataFilterReferences: []

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Working Capital Score dataset. Use it to distinguish, group, or filter
+    individual Working Capital Score entries.
+  id: fact_fin_attr_04.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Working Capital Score
+  title: Record ID (Working Capital Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_fin_attr_04
+  path:
+  - globalmart
+  - fact_fin_attr_04
+  type: dataSource
+description: Working Capital Score
+facts:
+- description: Numeric value recorded for each attribute in the Working Capital Score dataset, used as the underlying measure
+    for calculations and reporting.
+  id: fact_fin_attr_04.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Working Capital Score
+  title: Working Capital Score
+grain:
+- id: fact_fin_attr_04.attr_id
+  type: attribute
+id: fact_fin_attr_04
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Working Capital Score
+title: Working Capital Score
+workspaceDataFilterReferences: []

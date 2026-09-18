@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_training_completion_training_cost} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Total training spend from Training Completion data, filtered to the In-Store sales channel. Use this metric to
+  monitor and compare in-store training costs across the current reporting context (such as time period, course, or other
+  applied filters).
+id: metric_l3_0098_0
+tags:
+- L3
+title: Training Cost (Training Completion) — In-Store Channel

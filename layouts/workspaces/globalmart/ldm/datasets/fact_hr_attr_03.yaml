@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Workforce Productivity Index dataset, used to distinguish and reference
+    individual rows when filtering or drilling into details.
+  id: fact_hr_attr_03.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Workforce Productivity Index
+  title: Record ID (Workforce Productivity Index)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_hr_attr_03
+  path:
+  - globalmart
+  - fact_hr_attr_03
+  type: dataSource
+description: Workforce Productivity Index
+facts:
+- description: Represents the numeric value captured for the Workforce Productivity Index, used as the underlying measure
+    for calculations and analysis.
+  id: fact_hr_attr_03.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Workforce Productivity Index
+  title: Workforce Productivity Index
+grain:
+- id: fact_hr_attr_03.attr_id
+  type: attribute
+id: fact_hr_attr_03
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Workforce Productivity Index
+title: Workforce Productivity Index
+workspaceDataFilterReferences: []

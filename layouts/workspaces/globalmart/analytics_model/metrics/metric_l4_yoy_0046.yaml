@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0015_1} - (SELECT {metric/metric_l3_0015_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0015_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the total net price change driven by price adjustments for the
+  Online sales channel, comparing the current year to the prior year. Use it to monitor how the impact of online pricing actions
+  is trending over time at a yearly level.
+id: metric_l4_yoy_0046
+tags:
+- L4
+title: 'YoY: Price Change (Price Adjustment) — Online Channel'

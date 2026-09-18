@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_header_po_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts purchase orders for the Online sales channel only, based on the total PO count metric filtered to Channel
+  Type = Online. Use it to track and compare online purchase order volume across time periods or other business dimensions.
+id: metric_l3_0052_1
+tags:
+- L3
+title: PO Count (Purchase Order) — Online Channel

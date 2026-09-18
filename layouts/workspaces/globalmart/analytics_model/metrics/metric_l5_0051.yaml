@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0025} + ({metric/metric_l1_fact_stock_movement_movement_qty} / {metric/metric_l1_fact_purchase_order_header_po_count})
+description: Combines the month-over-month change in online store sales transaction count with the average stock movement
+  quantity per purchase order (total movement quantity divided by total PO count). Use it to track how online transaction
+  momentum shifts while factoring in inventory movement intensity relative to purchasing activity.
+id: metric_l5_0051
+tags:
+- L5
+title: 'MoM: Transaction Count (Daily Store Sales) — Online Channel (+Movement Quantity (Stock Movement)/PO Count (Purchase
+  Order))'

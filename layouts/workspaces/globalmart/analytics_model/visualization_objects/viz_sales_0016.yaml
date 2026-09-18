@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0001
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline that shows the net revenue remaining after subtracting discount amounts redeemed through loyalty redemptions
+  at the point of sale, helping you gauge the impact of loyalty POS discounts on net revenue for the current analysis scope.
+id: viz_sales_0016
+title: Net Revenue vs Discount Amount

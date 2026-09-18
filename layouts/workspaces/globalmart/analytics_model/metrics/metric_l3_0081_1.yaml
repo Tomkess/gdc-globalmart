@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_ebitda} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total EBITDA from the Margin Bridge calculation, limited to the Online sales channel. Use it to analyze and compare
+  profitability for online sales versus other channels in reports or dashboards.
+id: metric_l3_0081_1
+tags:
+- L3
+title: EBITDA (Margin Bridge) — Online Channel

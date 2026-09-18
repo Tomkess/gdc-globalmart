@@ -1,0 +1,56 @@
+aggregatedFacts: []
+attributes:
+- description: Defines the named time-of-day bucket (e.g., morning/afternoon/evening) used to group or filter analyses by
+    time-of-day segments. This attribute comes from the "Time of Day" dataset.
+  id: dim_time_of_day_bucket.bucket_name
+  labels: []
+  sourceColumn: bucket_name
+  sourceColumnDataType: STRING
+  tags:
+  - Time of Day
+  title: Bucket Name (Time of Day)
+- description: Identifies the ending hour of a time-of-day bucket in the Time of Day dataset. Use it to group or filter analyses
+    by hour-end time segments (e.g., to compare activity across different times of day).
+  id: dim_time_of_day_bucket.hour_end
+  labels: []
+  sourceColumn: hour_end
+  sourceColumnDataType: INT
+  tags:
+  - Time of Day
+  title: Hour End (Time of Day)
+- description: Start hour for a time-of-day bucket in the Time of Day dataset. Use it to group or filter analyses by the hour
+    a period begins (e.g., to compare performance by hour of day).
+  id: dim_time_of_day_bucket.hour_start
+  labels: []
+  sourceColumn: hour_start
+  sourceColumnDataType: INT
+  tags:
+  - Time of Day
+  title: Hour Start (Time of Day)
+- description: Identifier for each time-of-day bucket in the Time of Day dataset. Use it to group or filter records by specific
+    time bucket IDs when you need a stable key rather than a descriptive name.
+  id: dim_time_of_day_bucket.time_bucket_id
+  labels: []
+  sourceColumn: time_bucket_id
+  sourceColumnDataType: STRING
+  tags:
+  - Time of Day
+  title: Time Bucket ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_time_of_day_bucket
+  path:
+  - globalmart
+  - dim_time_of_day_bucket
+  type: dataSource
+description: Time of Day
+facts: []
+grain:
+- id: dim_time_of_day_bucket.time_bucket_id
+  type: attribute
+id: dim_time_of_day_bucket
+references: []
+tags:
+- Time of Day
+title: Time of Day
+workspaceDataFilterReferences: []

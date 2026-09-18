@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_rating_avg_rating} - {metric/metric_l1_fact_product_rating_review_count}
+description: Compares overall product rating magnitude to review volume by subtracting total review count from the summed
+  average rating values within the current filters/selection. Use it as a single variance-style indicator to see whether rating
+  totals are moving differently than review volume, noting it combines two different units.
+id: metric_l2_intra_0045
+tags:
+- L2
+title: Avg Rating (Product Rating) vs Review Count (Product Rating) Change

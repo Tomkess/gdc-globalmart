@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0027} + ({metric/metric_l1_fact_purchase_order_line_line_amount} / {metric/metric_l1_fact_goods_receipt_receipt_qty})
+description: Combines the year-over-year change in in-store average transaction value from Daily Store Sales with an additional
+  average-value component based on purchase order line amount divided by goods receipt quantity. Use it to assess how typical
+  in-store transaction size is trending versus last year while factoring in a unit-value signal from purchasing and receiving
+  activity.
+id: metric_l5_0054
+tags:
+- L5
+title: 'YoY: Avg Transaction Value (Daily Store Sales) — In-Store Channel (+Line Amount (Purchase Order Line Items)/Receipt
+  Quantity (Goods Receipt))'

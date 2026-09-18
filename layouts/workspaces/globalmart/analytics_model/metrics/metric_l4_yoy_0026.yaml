@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0008_2} - (SELECT {metric/metric_l3_0008_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0008_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the number of store sales transactions for the North region
+  by comparing the current period to the same period last year. Use it to track North-region transaction growth trends over
+  time and quickly spot improvements or declines versus the prior year.
+id: metric_l4_yoy_0026
+tags:
+- L4
+title: 'YoY: Transaction Count (Daily Store Sales) — North Region'

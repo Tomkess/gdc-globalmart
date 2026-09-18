@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0044_2} - (SELECT {metric/metric_l3_0044_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0044_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the number of Range Review Outcome decisions for the North region,
+  comparing the current year to the previous year. Use it to track whether decision volume in North is increasing or declining
+  over time.
+id: metric_l4_yoy_0134
+tags:
+- L4
+title: 'YoY: Decision Count (Range Review Outcome) — North Region'

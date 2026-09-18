@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0045_2} - (SELECT {metric/metric_l3_0045_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0045_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in the North region’s average product rating by comparing the current
+  value to the previous year.
+id: metric_l4_yoy_0137
+tags:
+- L4
+title: 'YoY: Avg Rating (Product Rating) — North Region'

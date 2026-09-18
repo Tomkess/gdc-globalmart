@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_returns_return_amount} - {metric/metric_l1_fact_returns_quantity_returned}
+description: Shows the difference between the total value of returns and the total number of units returned within the current
+  report scope. Use it as a quick indicator of whether return dollars are rising or falling relative to return volume when
+  comparing across time, products, or customers.
+id: metric_l2_intra_0005
+tags:
+- L2
+title: Return Amount (Returns) vs Quantity Returned (Returns) Change

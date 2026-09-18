@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0104_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.month
+            type: label
+        localIdentifier: t1
+    localIdentifier: trend
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:line
+description: Shows the trend of online referral volume over time by plotting the Referral Count (Online Channel) by Month/Year.
+  Use it to monitor how online referrals are changing month to month and spot spikes or declines.
+id: viz_loyalty_0149
+title: Referral Count Over Time

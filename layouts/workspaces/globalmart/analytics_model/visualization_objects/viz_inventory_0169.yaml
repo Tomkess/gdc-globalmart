@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_supplier_scorecard_delivery_score
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total Delivery Score from the Supplier Scorecard, summarizing overall delivery performance
+  for the currently selected data. Use it to monitor delivery performance at a glance and compare results as you change supplier,
+  time period, or other dimensions in the report.
+id: viz_inventory_0169
+title: Delivery Score

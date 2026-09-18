@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0032_1} - (SELECT {metric/metric_l3_0032_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0032_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in customers’ lifetime order count for the Online sales channel by
+  comparing the current period to the same period last year. Use it to monitor whether online customers’ lifetime purchase
+  frequency is trending up or down over time.
+id: metric_l4_yoy_0097
+tags:
+- L4
+title: 'YoY: Lifetime Order Count (Customer Lifetime Value) — Online Channel'

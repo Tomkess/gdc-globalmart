@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_rfm_segments_recency_quartile} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the overall customer Recency Quartile (Recency, Frequency, Monetary (RFM)) score restricted to the Online
+  sales channel, so you can assess how recently online customers have purchased. Use it to compare recency across customer
+  segments or other breakdowns while keeping the view limited to online activity.
+id: metric_l3_0035_1
+tags:
+- L3
+title: Recency Quartile (RFM) (Customer RFM Segments) — Online Channel

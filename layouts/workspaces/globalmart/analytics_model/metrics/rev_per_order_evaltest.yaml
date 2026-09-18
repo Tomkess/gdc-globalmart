@@ -1,0 +1,10 @@
+content:
+  format: $#,##0.00
+  maql: SELECT SUM({fact/fact_order_header.revenue}) / SUM({fact/fact_order_header.order_count})
+description: Revenue per order calculated as total order revenue divided by order count (Sales Order dataset).
+id: rev_per_order_evaltest
+tags:
+- kpi
+- orders
+- revenue
+title: Rev_Per_Order_EvalTest

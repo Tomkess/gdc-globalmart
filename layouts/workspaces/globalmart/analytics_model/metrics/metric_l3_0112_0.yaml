@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_lease_payment_lease_payment} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total lease payment amount limited to the In-Store sales channel. Use this metric to track and compare in-store
+  lease payment performance under the current report filters and time period.
+id: metric_l3_0112_0
+tags:
+- L3
+title: Lease Payment (Lease Payment) — In-Store Channel

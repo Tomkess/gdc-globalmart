@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each purchase order in the Purchase Order dataset, used to look up, group, or filter
+    results by individual purchase orders.
+  id: fact_purchase_order_header.po_id
+  labels: []
+  sourceColumn: po_id
+  sourceColumnDataType: STRING
+  tags:
+  - Purchase Order
+  title: Purchase Order ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_purchase_order_header
+  path:
+  - globalmart
+  - fact_purchase_order_header
+  type: dataSource
+description: Purchase Order
+facts:
+- description: Total monetary amount of a purchase order in the Purchase Order dataset, typically used to sum or analyze purchasing
+    spend across suppliers, time periods, or other dimensions.
+  id: fact_purchase_order_header.po_amount
+  sourceColumn: po_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Purchase Order
+  title: PO Amount
+- description: Number of purchase orders recorded in the Purchase Order dataset, typically used to count and trend PO volume
+    by time, supplier, or other dimensions.
+  id: fact_purchase_order_header.po_count
+  sourceColumn: po_count
+  sourceColumnDataType: INT
+  tags:
+  - Purchase Order
+  title: PO Count
+grain:
+- id: fact_purchase_order_header.po_id
+  type: attribute
+id: fact_purchase_order_header
+references:
+- identifier:
+    id: dim_supplier
+    type: dataset
+  multivalue: false
+  sources:
+  - column: supplier_id
+    dataType: STRING
+    target:
+      id: dim_supplier.supplier_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: po_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Purchase Order
+title: Purchase Order
+workspaceDataFilterReferences: []

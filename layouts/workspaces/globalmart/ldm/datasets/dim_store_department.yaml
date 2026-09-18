@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for a store department in the Store Department dataset, used to group, join, or filter results
+    by department.
+  id: dim_store_department.dept_id
+  labels: []
+  sourceColumn: dept_id
+  sourceColumnDataType: STRING
+  tags:
+  - Store Department
+  title: Dept ID
+- description: Name of the store department, used to group and filter analysis by department within the Store Department dataset.
+  id: dim_store_department.dept_name
+  labels: []
+  sourceColumn: dept_name
+  sourceColumnDataType: STRING
+  tags:
+  - Store Department
+  title: Dept Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_store_department
+  path:
+  - globalmart
+  - dim_store_department
+  type: dataSource
+description: Store Department
+facts: []
+grain:
+- id: dim_store_department.dept_id
+  type: attribute
+id: dim_store_department
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+tags:
+- Store Department
+title: Store Department
+workspaceDataFilterReferences: []

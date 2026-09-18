@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_header_po_count} - {metric/metric_l1_fact_purchase_order_header_po_amount}
+description: Shows the difference between the total number of purchase orders and the total purchase order amount, helping
+  you compare changes in purchasing volume versus spend. Use it to spot time periods or segments where PO counts and PO value
+  move in different directions.
+id: metric_l2_intra_0052
+tags:
+- L2
+title: PO Count (Purchase Order) vs PO Amount (Purchase Order) Change

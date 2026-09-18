@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0017_1} - (SELECT {metric/metric_l3_0017_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the number of compliment/complaint comments received through the Online
+  channel, calculated as the current month’s comment count minus the previous month’s count. Use it to see whether online
+  feedback volume is increasing or decreasing from one month to the next.
+id: metric_l4_mom_0052
+tags:
+- L4
+title: 'MoM: Comment Count (Compliment Complaint) — Online Channel'

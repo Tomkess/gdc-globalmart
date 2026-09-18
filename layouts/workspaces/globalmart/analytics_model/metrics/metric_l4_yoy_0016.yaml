@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0005_1} - (SELECT {metric/metric_l3_0005_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0005_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in Online Channel Return Amount, comparing the current period to the same period
+  last year. Use it to understand whether the value of online returns is rising or falling versus the prior year within the
+  current reporting scope.
+id: metric_l4_yoy_0016
+tags:
+- L4
+title: 'YoY: Return Amount (Returns) — Online Channel'

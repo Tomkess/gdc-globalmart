@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0065_1} - (SELECT {metric/metric_l3_0065_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0065_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Campaign Spend for the Online sales channel by comparing the
+  current year’s spend to the previous year.
+id: metric_l4_yoy_0196
+tags:
+- L4
+title: 'YoY: Campaign Spend — Online Channel'

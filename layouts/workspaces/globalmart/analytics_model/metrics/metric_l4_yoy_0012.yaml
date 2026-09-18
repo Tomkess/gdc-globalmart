@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0004_0} - (SELECT {metric/metric_l3_0004_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0004_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in in-store energy consumption cost by comparing the current period
+  to the same period last year. Use it to track annual trends in in-store energy spending and quantify increases or reductions
+  versus the prior year.
+id: metric_l4_yoy_0012
+tags:
+- L4
+title: 'YoY: Cost (Energy Consumption) — In-Store Channel'

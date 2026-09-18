@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0012_0} - (SELECT {metric/metric_l3_0012_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0012_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in total Operating Expense Transaction Amount for the In-Store sales channel,
+  comparing the selected period to the same period last year. Use this metric to monitor whether in-store operating expenses
+  are rising or falling versus the prior year.
+id: metric_l4_yoy_0036
+tags:
+- L4
+title: 'YoY: Amount (Operating Expense Transaction) — In-Store Channel'

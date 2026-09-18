@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_write_off.writeoff_qty})
+description: Total quantity of items written off, calculated by summing the Write-Off Quantity in the Write Off dataset. Use
+  this metric to monitor overall write-off volume and compare it across slices such as time, location, or product when filtered.
+id: metric_l1_fact_write_off_writeoff_qty
+tags:
+- L1
+title: Total Write-Off Quantity (Write Off)

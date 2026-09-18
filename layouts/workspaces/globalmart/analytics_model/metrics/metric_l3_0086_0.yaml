@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_maintenance_request_maintenance_cost} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Total maintenance cost from Maintenance Request records, filtered to the In-Store sales channel. Use it to monitor
+  and compare maintenance spend for in-store operations within the current report filters and timeframe.
+id: metric_l3_0086_0
+tags:
+- L3
+title: Maintenance Cost (Maintenance Request) — In-Store Channel

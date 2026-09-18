@@ -1,0 +1,77 @@
+aggregatedFacts: []
+attributes:
+- description: Identifies the department associated with each payroll transaction, from the Payroll Transaction dataset. Use
+    it to group, filter, or segment payroll measures by department.
+  id: fact_payroll_transaction.department_id
+  labels: []
+  sourceColumn: department_id
+  sourceColumnDataType: STRING
+  tags:
+  - Payroll Transaction
+  title: Department ID (Payroll Transaction)
+- description: Unique identifier for each payroll transaction record in the Payroll Transaction dataset, used to look up,
+    group, or filter specific transactions.
+  id: fact_payroll_transaction.transaction_id
+  labels: []
+  sourceColumn: transaction_id
+  sourceColumnDataType: STRING
+  tags:
+  - Payroll Transaction
+  title: Transaction ID (Payroll Transaction)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_payroll_transaction
+  path:
+  - globalmart
+  - fact_payroll_transaction
+  type: dataSource
+description: Payroll Transaction
+facts:
+- description: Total deductions recorded on each payroll transaction. Use this to analyze how much is being withheld or deducted,
+    and to summarize deductions by employee, period, or other payroll dimensions.
+  id: fact_payroll_transaction.deductions
+  sourceColumn: deductions
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Payroll Transaction
+  title: Deductions
+- description: Gross Pay represents the total payroll amount earned before any deductions or taxes for each payroll transaction.
+    Use it to analyze and aggregate employee compensation within the Payroll Transaction dataset.
+  id: fact_payroll_transaction.gross_pay
+  sourceColumn: gross_pay
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Payroll Transaction
+  title: Gross Pay
+grain:
+- id: fact_payroll_transaction.transaction_id
+  type: attribute
+id: fact_payroll_transaction
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: payroll_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Payroll Transaction
+title: Payroll Transaction
+workspaceDataFilterColumns:
+- dataType: STRING
+  name: department_id
+workspaceDataFilterReferences: []

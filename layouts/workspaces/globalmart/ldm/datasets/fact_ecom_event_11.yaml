@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each “Coupon Applied” event in the E-commerce Coupon Applied dataset. Use it to look
+    up, group, or filter analyses by a specific coupon-application event record.
+  id: fact_ecom_event_11.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Coupon Applied
+  title: Event ID (E-commerce Coupon Applied)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_11
+  path:
+  - globalmart
+  - fact_ecom_event_11
+  type: dataSource
+description: E-commerce Coupon Applied
+facts:
+- description: Number of coupon-applied events recorded in the E-commerce Coupon Applied dataset, typically used to count
+    how many times the coupon application event occurred.
+  id: fact_ecom_event_11.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Coupon Applied
+  title: Event Count (E-commerce Coupon Applied)
+grain:
+- id: fact_ecom_event_11.event_id
+  type: attribute
+id: fact_ecom_event_11
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Coupon Applied
+title: E-commerce Coupon Applied
+workspaceDataFilterReferences: []

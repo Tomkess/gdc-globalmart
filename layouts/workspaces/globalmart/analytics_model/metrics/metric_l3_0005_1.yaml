@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_returns_return_amount} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total value of return amounts limited to the Online sales channel. Use this metric to monitor and compare returns
+  from online transactions across the current reporting scope (for example by time period, product, or customer).
+id: metric_l3_0005_1
+tags:
+- L3
+title: Return Amount (Returns) — Online Channel

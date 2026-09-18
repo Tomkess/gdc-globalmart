@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_feedback_sentiment_score} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total customer feedback sentiment score filtered to the North region. Use this metric to monitor overall feedback
+  tone for North-only reporting or to compare North’s sentiment against other regions when paired with unfiltered or region-specific
+  metrics.
+id: metric_l3_0029_2
+tags:
+- L3
+title: Sentiment Score (Customer Feedback) — North Region

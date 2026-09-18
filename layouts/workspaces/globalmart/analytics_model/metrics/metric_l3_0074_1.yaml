@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_pnl_opex} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total operating expenses (Operating Expenses (OpEx) from the Daily Profit & Loss data, filtered to the Online
+  sales channel. Use this metric to monitor Operating Expenses (OpEx) for online operations across the current reporting context
+  (for example, the selected date range and other dashboard filters).
+id: metric_l3_0074_1
+tags:
+- L3
+title: OpEx (Daily Profit & Loss) — Online Channel

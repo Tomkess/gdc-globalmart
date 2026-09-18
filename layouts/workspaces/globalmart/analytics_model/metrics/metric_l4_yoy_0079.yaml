@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0026_1} - (SELECT {metric/metric_l3_0026_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0026_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the monetary value of loyalty points rewards redeemed through the Online sales
+  channel, comparing the current period to the same period last year. Use it to monitor whether online reward redemptions
+  are increasing or declining over time.
+id: metric_l4_yoy_0079
+tags:
+- L4
+title: 'YoY: Reward Value (Loyalty Points Redeemed) — Online Channel'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_maintenance_request.downtime_hours})
+description: Sums the total downtime hours logged on maintenance requests. Use this metric to track overall equipment or service
+  disruption time based on Maintenance Request data.
+id: metric_l1_fact_maintenance_request_downtime_hours
+tags:
+- L1
+title: Total Downtime Hours (Maintenance Request)

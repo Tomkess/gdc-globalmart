@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_campaign_roi_total_spend} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total campaign spend filtered to the In-Store sales channel within the Campaign ROI context. Use it to analyze
+  and compare in-store marketing spend across campaigns, time periods, and other segments.
+id: metric_l3_0072_0
+tags:
+- L3
+title: Spend (Campaign ROI) — In-Store Channel

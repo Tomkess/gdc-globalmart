@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each contract in the Contract Type dataset, used to group, filter, or drill into contract-level
+    analysis.
+  id: dim_contract_type.contract_id
+  labels: []
+  sourceColumn: contract_id
+  sourceColumnDataType: STRING
+  tags:
+  - Contract Type
+  title: Contract ID
+- description: Identifies the name of the contract type (e.g., the category of contract) from the Contract Type dataset. Use
+    it to group, segment, or filter reports and analyses by contract type.
+  id: dim_contract_type.contract_type_name
+  labels: []
+  sourceColumn: contract_type_name
+  sourceColumnDataType: STRING
+  tags:
+  - Contract Type
+  title: Contract Type Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_contract_type
+  path:
+  - globalmart
+  - dim_contract_type
+  type: dataSource
+description: Contract Type
+facts: []
+grain:
+- id: dim_contract_type.contract_id
+  type: attribute
+id: dim_contract_type
+references: []
+tags:
+- Contract Type
+title: Contract Type
+workspaceDataFilterReferences: []

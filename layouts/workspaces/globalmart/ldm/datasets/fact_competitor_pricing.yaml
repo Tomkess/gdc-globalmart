@@ -1,0 +1,67 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for a pricing record in the Competitor Pricing dataset, used to distinguish and filter individual
+    price entries.
+  id: fact_competitor_pricing.price_id
+  labels: []
+  sourceColumn: price_id
+  sourceColumnDataType: STRING
+  tags:
+  - Competitor Pricing
+  title: Price ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_competitor_pricing
+  path:
+  - globalmart
+  - fact_competitor_pricing
+  type: dataSource
+description: Competitor Pricing
+facts:
+- description: The competitor’s listed price for a product in the Competitor Pricing dataset. Use this fact to analyze and
+    compare competitor pricing levels and trends across products or time.
+  id: fact_competitor_pricing.competitor_price
+  sourceColumn: competitor_price
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Competitor Pricing
+  title: Competitor Price
+grain:
+- id: fact_competitor_pricing.price_id
+  type: attribute
+id: fact_competitor_pricing
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: price_check_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Competitor Pricing
+title: Competitor Pricing
+workspaceDataFilterReferences: []

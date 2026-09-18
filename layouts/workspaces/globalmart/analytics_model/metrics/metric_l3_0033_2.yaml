@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_lifetime_revenue} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Total customer lifetime value revenue restricted to customers in the North region. Use it to track and compare
+  lifetime revenue performance for the North region across dashboards and analyses.
+id: metric_l3_0033_2
+tags:
+- L3
+title: Lifetime Revenue (Customer Lifetime Value) — North Region

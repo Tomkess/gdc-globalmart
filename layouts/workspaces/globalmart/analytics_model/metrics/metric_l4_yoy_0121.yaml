@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0040_1} - (SELECT {metric/metric_l3_0040_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0040_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in online-channel margin by comparing the current value to the
+  same metric in the prior year. Use it to track whether online margin is improving or declining over time, typically segmented
+  by Year or other report filters.
+id: metric_l4_yoy_0121
+tags:
+- L4
+title: 'YoY: Margin (Daily Product Performance) — Online Channel'

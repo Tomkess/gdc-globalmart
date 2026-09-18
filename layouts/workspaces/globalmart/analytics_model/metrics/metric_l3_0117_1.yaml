@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_fraud_alert_alert_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total number of fraud alerts restricted to the Online sales channel. Use this metric to monitor and compare online
+  fraud alert volume across the currently selected reporting scope (for example, time period or other dashboard filters).
+id: metric_l3_0117_1
+tags:
+- L3
+title: Alert Count (Fraud Alert) — Online Channel

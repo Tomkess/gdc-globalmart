@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0055_1} - (SELECT {metric/metric_l3_0055_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in goods receipt quantity for the Online sales channel by comparing the current
+  month’s receipts to the prior month. Use it to monitor whether inbound receipt volumes for online operations are increasing
+  or decreasing over time.
+id: metric_l4_mom_0166
+tags:
+- L4
+title: 'MoM: Receipt Quantity (Goods Receipt) — Online Channel'

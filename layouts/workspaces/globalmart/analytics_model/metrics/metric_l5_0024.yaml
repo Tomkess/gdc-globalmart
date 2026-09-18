@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0012} + ({metric/metric_l1_fact_loyalty_points_earned_points} / {metric/metric_l1_fact_loyalty_points_earned_order_amount})
+description: Combines the year-over-year change in In-Store energy consumption cost with an added loyalty efficiency component,
+  calculated as total loyalty points earned divided by the total order amount associated with those points. Use this metric
+  to view energy cost trend alongside how many loyalty points are generated per unit of order value, as a single blended indicator.
+id: metric_l5_0024
+tags:
+- L5
+title: 'YoY: Cost (Energy Consumption) — In-Store Channel (+Points (Loyalty Points Earned)/Order Amount (Loyalty Points Earned))'

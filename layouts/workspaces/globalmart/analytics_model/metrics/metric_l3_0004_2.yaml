@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_energy_consumption_cost} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total energy consumption cost restricted to the North region. Use it to monitor and compare energy-related spending
+  for North within the current reporting scope (including any applied filters and time period).
+id: metric_l3_0004_2
+tags:
+- L3
+title: Cost (Energy Consumption) — North Region

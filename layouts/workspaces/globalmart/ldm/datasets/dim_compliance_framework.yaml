@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each compliance framework in the Compliance Framework dataset, used to group, join, or
+    filter reporting by framework.
+  id: dim_compliance_framework.framework_id
+  labels: []
+  sourceColumn: framework_id
+  sourceColumnDataType: STRING
+  tags:
+  - Compliance Framework
+  title: Framework ID
+- description: Name of the compliance framework (e.g., the standard or framework being assessed). Use this field to group,
+    filter, or break down results by framework within the Compliance Framework dataset.
+  id: dim_compliance_framework.framework_name
+  labels: []
+  sourceColumn: framework_name
+  sourceColumnDataType: STRING
+  tags:
+  - Compliance Framework
+  title: Framework Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_compliance_framework
+  path:
+  - globalmart
+  - dim_compliance_framework
+  type: dataSource
+description: Compliance Framework
+facts: []
+grain:
+- id: dim_compliance_framework.framework_id
+  type: attribute
+id: dim_compliance_framework
+references: []
+tags:
+- Compliance Framework
+title: Compliance Framework
+workspaceDataFilterReferences: []

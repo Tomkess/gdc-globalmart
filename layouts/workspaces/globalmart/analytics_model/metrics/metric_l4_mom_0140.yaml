@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0046_2} - (SELECT {metric/metric_l3_0046_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Product Rating review volume for the North region, calculated as this month’s
+  review count minus the previous month’s. Use it to track whether review activity in North is increasing or decreasing over
+  time.
+id: metric_l4_mom_0140
+tags:
+- L4
+title: 'MoM: Review Count (Product Rating) — North Region'

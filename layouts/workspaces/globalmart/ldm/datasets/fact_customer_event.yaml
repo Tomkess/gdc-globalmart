@@ -1,0 +1,74 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each customer event record in the Customer Event dataset. Use it to distinguish, group,
+    or filter analyses down to individual events.
+  id: fact_customer_event.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Event
+  title: Event ID (Customer Event)
+- description: Identifies the type of customer event recorded in the Customer Event dataset. Use it to group, segment, or
+    filter analyses by event type.
+  id: fact_customer_event.event_type_id
+  labels: []
+  sourceColumn: event_type_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer Event
+  title: Event Type ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_customer_event
+  path:
+  - globalmart
+  - fact_customer_event
+  type: dataSource
+description: Customer Event
+facts:
+- description: Count of customer events recorded in the Customer Event dataset, used to measure event volume and support aggregations
+    like total events by time, customer, or event type.
+  id: fact_customer_event.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - Customer Event
+  title: Event Count (Customer Event)
+- description: Numeric value associated with each customer event record in the Customer Event dataset, used for measuring
+    or aggregating event-related amounts.
+  id: fact_customer_event.event_value
+  sourceColumn: event_value
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer Event
+  title: Event Value
+grain:
+- id: fact_customer_event.event_id
+  type: attribute
+id: fact_customer_event
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Customer Event
+title: Customer Event
+workspaceDataFilterReferences: []

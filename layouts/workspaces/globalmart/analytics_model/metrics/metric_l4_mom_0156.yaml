@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0052_0} - (SELECT {metric/metric_l3_0052_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of In-Store purchase orders by subtracting the prior month’s
+  in-store PO count from the current month. Use it to monitor whether in-store purchase order volume is increasing or decreasing
+  from one month to the next.
+id: metric_l4_mom_0156
+tags:
+- L4
+title: 'MoM: PO Count (Purchase Order) — In-Store Channel'

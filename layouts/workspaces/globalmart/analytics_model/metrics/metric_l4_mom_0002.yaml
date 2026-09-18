@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0000_2} - (SELECT {metric/metric_l3_0000_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of online orders in the North region by comparing the current
+  month’s order count to the previous month. Use it to track whether North’s order volume is rising or falling over time when
+  reporting by Month/Year.
+id: metric_l4_mom_0002
+tags:
+- L4
+title: 'MoM: Order Count — North Region'

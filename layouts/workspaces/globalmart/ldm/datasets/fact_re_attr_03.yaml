@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Renovation ROI Score dataset, used to distinguish and reference individual
+    Renovation ROI Score entries for grouping or filtering.
+  id: fact_re_attr_03.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Renovation ROI Score
+  title: Record ID (Renovation ROI Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_re_attr_03
+  path:
+  - globalmart
+  - fact_re_attr_03
+  type: dataSource
+description: Renovation ROI Score
+facts:
+- description: Represents the recorded attribute value used in the Renovation ROI Score dataset, typically as a numeric input
+    for reporting and calculations.
+  id: fact_re_attr_03.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Renovation ROI Score
+  title: Renovation ROI Score
+grain:
+- id: fact_re_attr_03.attr_id
+  type: attribute
+id: fact_re_attr_03
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Renovation ROI Score
+title: Renovation ROI Score
+workspaceDataFilterReferences: []

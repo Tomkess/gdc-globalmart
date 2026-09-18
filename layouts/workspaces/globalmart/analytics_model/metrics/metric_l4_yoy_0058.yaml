@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0019_1} - (SELECT {metric/metric_l3_0019_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0019_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Competitor Price for the Online sales channel, comparing the
+  current value to the same metric in the prior year. Use it to track how online competitor pricing is trending versus last
+  year under the same filters and breakdowns.
+id: metric_l4_yoy_0058
+tags:
+- L4
+title: 'YoY: Competitor Price (Competitor Pricing) — Online Channel'

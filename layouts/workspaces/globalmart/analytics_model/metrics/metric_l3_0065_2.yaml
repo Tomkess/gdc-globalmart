@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total marketing campaign spend filtered to the North region. Use this metric to track and compare campaign spending
+  in North across reports and time periods.
+id: metric_l3_0065_2
+tags:
+- L3
+title: Campaign Spend — North Region

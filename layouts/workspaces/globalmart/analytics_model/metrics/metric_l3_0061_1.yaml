@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_delivery_score} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Shows the total Supplier Scorecard Delivery Score for the Online sales channel only. Use it to monitor and compare
+  delivery performance for online fulfillment across suppliers, time periods, or other reporting dimensions.
+id: metric_l3_0061_1
+tags:
+- L3
+title: Delivery Score (Supplier Scorecard) — Online Channel

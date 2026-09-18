@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0009_0} - (SELECT {metric/metric_l3_0009_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0009_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the average in-store transaction value from Daily Store Sales, comparing the
+  current period to the same period last year. Use this to see whether typical in-store basket size is increasing or decreasing
+  versus the prior year when analyzing trends over time or by store/region.
+id: metric_l4_yoy_0027
+tags:
+- L4
+title: 'YoY: Avg Transaction Value (Daily Store Sales) — In-Store Channel'

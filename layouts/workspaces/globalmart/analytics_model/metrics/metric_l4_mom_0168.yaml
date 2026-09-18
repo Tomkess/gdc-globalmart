@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0056_0} - (SELECT {metric/metric_l3_0056_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in goods receipt quantity variance for the In-Store channel by comparing the
+  current month to the prior month. Use it to see whether receiving discrepancies in in-store operations are increasing or
+  decreasing over time.
+id: metric_l4_mom_0168
+tags:
+- L4
+title: 'MoM: Variance Quantity (Goods Receipt) — In-Store Channel'

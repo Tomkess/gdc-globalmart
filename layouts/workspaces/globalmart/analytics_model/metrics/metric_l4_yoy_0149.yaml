@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0049_2} - (SELECT {metric/metric_l3_0049_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0049_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Units on Hand from the Daily Inventory Snapshot for locations in
+  the North region, comparing the current period to the same period last year. Use it to gauge whether North-region inventory
+  levels are rising or falling versus last year.
+id: metric_l4_yoy_0149
+tags:
+- L4
+title: 'YoY: Units on Hand (Daily Inventory Snapshot) — North Region'

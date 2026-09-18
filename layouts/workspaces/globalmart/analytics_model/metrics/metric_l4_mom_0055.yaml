@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0018_1} - (SELECT {metric/metric_l3_0018_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Aged Inventory Age Days for the Online sales channel, indicating whether
+  inventory aging is increasing or decreasing versus the prior month. Use it to monitor trends in online inventory accumulation
+  over time and identify improving or worsening aging patterns.
+id: metric_l4_mom_0055
+tags:
+- L4
+title: 'MoM: Age Days (Aged Inventory) — Online Channel'

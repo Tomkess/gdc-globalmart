@@ -1,0 +1,77 @@
+aggregatedFacts: []
+attributes:
+- description: Calendar day associated with each record in the Daily Store Staffing dataset. Use it to filter or group staffing
+    measures by specific dates or daily trends.
+  id: fact_store_staffing_daily.day
+  labels: []
+  sourceColumn: day
+  sourceColumnDataType: DATE
+  tags:
+  - Daily Store Staffing
+  title: Day (Daily Store Staffing)
+- description: Identifies the store for each record in the Daily Store Staffing dataset. Use it to group or filter staffing
+    metrics by individual store.
+  id: fact_store_staffing_daily.store_id
+  labels: []
+  sourceColumn: store_id
+  sourceColumnDataType: STRING
+  tags:
+  - Daily Store Staffing
+  title: Store ID (Daily Store Staffing)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_store_staffing_daily
+  path:
+  - globalmart
+  - fact_store_staffing_daily
+  type: dataSource
+description: Daily Store Staffing
+facts:
+- description: Number of staff recorded for each day in the Daily Store Staffing dataset. Typically used to analyze staffing
+    levels over time or compare staffing across stores or other staffing dimensions.
+  id: fact_store_staffing_daily.staff_count
+  sourceColumn: staff_count
+  sourceColumnDataType: INT
+  tags:
+  - Daily Store Staffing
+  title: Staff Count
+- description: Total number of hours worked by staff, recorded at the daily store staffing level. Commonly used to track labor
+    effort over time or compare staffing levels across stores and days.
+  id: fact_store_staffing_daily.staff_hours
+  sourceColumn: staff_hours
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Store Staffing
+  title: Staff Hours
+grain:
+- id: fact_store_staffing_daily.day
+  type: attribute
+id: fact_store_staffing_daily
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: day
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Daily Store Staffing
+title: Daily Store Staffing
+workspaceDataFilterColumns:
+- dataType: STRING
+  name: store_id
+workspaceDataFilterReferences: []

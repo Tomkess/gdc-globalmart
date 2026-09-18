@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Loyalty Engagement Score dataset. Use it to reference or de-duplicate
+    individual score records rather than for business grouping or analysis.
+  id: fact_loyalty_attr_00.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Engagement Score
+  title: Record ID (Loyalty Engagement Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_loyalty_attr_00
+  path:
+  - globalmart
+  - fact_loyalty_attr_00
+  type: dataSource
+description: Loyalty Engagement Score
+facts:
+- description: Numeric attribute value captured in the Loyalty Engagement Score dataset, typically used as the underlying
+    measure for calculations and reporting.
+  id: fact_loyalty_attr_00.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Loyalty Engagement Score
+  title: Loyalty Engagement Score
+grain:
+- id: fact_loyalty_attr_00.attr_id
+  type: attribute
+id: fact_loyalty_attr_00
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Loyalty Engagement Score
+title: Loyalty Engagement Score
+workspaceDataFilterReferences: []

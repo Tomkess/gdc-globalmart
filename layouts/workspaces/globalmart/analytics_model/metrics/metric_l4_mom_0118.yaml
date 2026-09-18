@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0039_1} - (SELECT {metric/metric_l3_0039_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in online Units Sold within the Assortment Efficiency subject area, calculated
+  as the current month’s units minus the prior month’s units. Use it to track how online sales volume is trending over time
+  and to compare changes by product or other Assortment Efficiency dimensions.
+id: metric_l4_mom_0118
+tags:
+- L4
+title: 'MoM: Units Sold (Assortment Efficiency) — Online Channel'

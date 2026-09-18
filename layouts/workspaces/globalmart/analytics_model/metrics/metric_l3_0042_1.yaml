@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_planogram_compliance_compliance_score} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Shows the total Planogram (a diagram specifying exact product placement on retail shelves) Compliance Score for
+  the Online sales channel. Use this metric to monitor overall planogram compliance performance for online activity within
+  the current analysis scope (such as the selected time period or locations).
+id: metric_l3_0042_1
+tags:
+- L3
+title: Compliance Score (Planogram Compliance) — Online Channel

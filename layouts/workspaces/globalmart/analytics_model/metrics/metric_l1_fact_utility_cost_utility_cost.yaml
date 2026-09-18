@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_utility_cost.utility_cost})
+description: Shows total utility spending by summing the Utility Cost amounts across the selected data and any applied filters.
+  Use it to track overall utility expense levels and compare utility costs across different breakdowns such as time or location.
+id: metric_l1_fact_utility_cost_utility_cost
+tags:
+- L1
+title: Total Utility Cost (Utility Cost)

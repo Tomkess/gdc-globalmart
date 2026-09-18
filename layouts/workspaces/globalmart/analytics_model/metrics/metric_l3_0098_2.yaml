@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_training_completion_training_cost} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Total training spend from Training Completion records, filtered to the North region. Use this metric to monitor
+  training costs in the North within the current reporting context (such as time period, course, or other applied filters).
+id: metric_l3_0098_2
+tags:
+- L3
+title: Training Cost (Training Completion) — North Region

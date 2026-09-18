@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_line_line_amount} - {metric/metric_l1_fact_goods_receipt_receipt_qty}
+description: Shows the net difference between total purchase order line amount and total goods receipt quantity for the selected
+  scope. Use it to highlight potential changes or discrepancies between ordered value and received volume when comparing suppliers,
+  products, or time periods.
+id: metric_l2_intra_0054
+tags:
+- L2
+title: Line Amount (Purchase Order Line Items) vs Receipt Quantity (Goods Receipt) Change

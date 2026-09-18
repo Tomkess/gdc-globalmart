@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} / {metric/metric_l1_fact_competitor_pricing_competitor_price}
+description: Compares your total Cost of Goods Sold (COGS) to the total competitor price for the current selection, showing
+  how your direct costs stack up against competitor pricing levels. Use it to benchmark cost positioning across the same filters
+  and breakdowns (e.g., by product or time period).
+id: metric_l2_cross_0019
+tags:
+- L2
+title: COGS per Competitor Price (Competitor Pricing)

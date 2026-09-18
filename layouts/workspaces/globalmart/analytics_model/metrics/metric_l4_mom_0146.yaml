@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0048_2} - (SELECT {metric/metric_l3_0048_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Sell-Through Rate (Assortment Efficiency) for the North region, comparing
+  the current month’s rate to the prior month. Use it to quickly see whether sell-through efficiency in North is improving
+  or declining over time.
+id: metric_l4_mom_0146
+tags:
+- L4
+title: 'MoM: Sell-Through Rate (Assortment Efficiency) — North Region'

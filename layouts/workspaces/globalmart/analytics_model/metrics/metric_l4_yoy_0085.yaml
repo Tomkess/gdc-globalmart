@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0028_1} - (SELECT {metric/metric_l3_0028_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0028_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percent change in the number of NPS survey responses coming from the Online sales channel,
+  comparing the current year to the prior year. Use it to see whether online response volume is growing or declining and to
+  add context when reviewing other online NPS results.
+id: metric_l4_yoy_0085
+tags:
+- L4
+title: 'YoY: Response Count (NPS Response) — Online Channel'

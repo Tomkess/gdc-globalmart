@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0002
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline view showing the difference between loyalty discounts redeemed at the point of sale and the total quantity
+  of units ordered on purchase order line items. Use it to gauge how loyalty discount impact compares to overall purchasing
+  volume under the currently selected filters (for example, time period or business segment).
+id: viz_sales_0017
+title: Discount Amount (Loyalty Redemption at POS) vs Quantity

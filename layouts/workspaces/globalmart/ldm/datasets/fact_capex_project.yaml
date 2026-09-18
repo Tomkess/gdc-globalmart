@@ -1,0 +1,54 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each capital expenditure project in the Capital Expenditure Project dataset, used to
+    group, filter, and drill into project-level reporting.
+  id: fact_capex_project.project_id
+  labels: []
+  sourceColumn: project_id
+  sourceColumnDataType: STRING
+  tags:
+  - Capital Expenditure Project
+  title: Project ID (Capital Expenditure Project)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_capex_project
+  path:
+  - globalmart
+  - fact_capex_project
+  type: dataSource
+description: Capital Expenditure Project
+facts:
+- description: The approved budget amount allocated to a capital expenditure project. Use it to analyze and compare planned
+    spending across projects in the Capital Expenditure Project dataset.
+  id: fact_capex_project.approved_budget
+  sourceColumn: approved_budget
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Capital Expenditure Project
+  title: Approved Budget
+- description: Amount spent for a capital expenditure project, used to quantify project spending in reporting and analysis.
+  id: fact_capex_project.spent_amount
+  sourceColumn: spent_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Capital Expenditure Project
+  title: Spent Amount
+grain:
+- id: fact_capex_project.project_id
+  type: attribute
+id: fact_capex_project
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: project_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Capital Expenditure Project
+title: Capital Expenditure Project
+workspaceDataFilterReferences: []

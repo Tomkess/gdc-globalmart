@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0028} + ({metric/metric_l1_fact_transfer_order_transfer_qty} / {metric/metric_l1_fact_write_off_writeoff_qty})
+description: Measures the month-over-month change in average online transaction value, adjusted by adding the ratio of total
+  transfer quantity to total write-off quantity. Use it to track how online basket value is trending month to month while
+  factoring in the relative level of inventory transfers versus write-offs in the same reporting scope.
+id: metric_l5_0057
+tags:
+- L5
+title: 'MoM: Avg Transaction Value (Daily Store Sales) — Online Channel (+Transfer Quantity (Transfer Order)/Write-Off Quantity
+  (Write Off))'

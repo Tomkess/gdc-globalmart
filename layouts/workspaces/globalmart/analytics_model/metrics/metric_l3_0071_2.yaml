@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_paid_search_click_click_cost} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total paid search click spend filtered to the North region. Use this metric to monitor how much is being spent
+  on paid search clicks in North and compare performance across time periods or against other regional metrics.
+id: metric_l3_0071_2
+tags:
+- L3
+title: Click Cost (Paid Search Click) — North Region

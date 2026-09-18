@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0051_0} - (SELECT {metric/metric_l3_0051_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in in-store stock movement quantity by comparing the current month to the
+  prior month. Use it to track whether inventory movement through the In-Store channel is increasing or decreasing over time
+  within the applied report filters.
+id: metric_l4_mom_0153
+tags:
+- L4
+title: 'MoM: Movement Quantity (Stock Movement) — In-Store Channel'

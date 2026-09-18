@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_shrinkage_event.unit_count})
+description: Sums the Unit Count across all records in the Shrinkage Event dataset to show the total number of units involved
+  in shrinkage events. Use it to quantify shrinkage volume and compare it by product, location, or time when paired with relevant
+  attributes.
+id: metric_l1_fact_shrinkage_event_unit_count
+tags:
+- L1
+title: Total Unit Count (Shrinkage Event)

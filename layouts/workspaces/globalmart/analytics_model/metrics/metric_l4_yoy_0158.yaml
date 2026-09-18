@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0052_2} - (SELECT {metric/metric_l3_0052_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0052_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of purchase orders for the North region, comparing the
+  current period to the same metric in the prior year. Use it to track growth or decline in PO volume for North over time.
+id: metric_l4_yoy_0158
+tags:
+- L4
+title: 'YoY: PO Count (Purchase Order) — North Region'

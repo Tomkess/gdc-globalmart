@@ -1,0 +1,39 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0097_1
+                type: metric
+        localIdentifier: m1
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0097_2
+                type: metric
+        localIdentifier: m2
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: attribute
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:table
+description: 'Table showing total employee absence hours by quarter/year, split into two views: Online Channel and North Region.
+  Use it to compare how absence volume changes over time for the online channel versus the North region.'
+id: viz_hr_0307
+title: Absence Hours and Absence Hours by Quarter

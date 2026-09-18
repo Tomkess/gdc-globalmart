@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0033_0} - (SELECT {metric/metric_l3_0033_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Lifetime Revenue (Customer Lifetime Value) for the In-Store sales channel
+  by comparing the current month to the previous month. Use it to track whether in-store customer lifetime revenue is increasing
+  or decreasing over time within the applied report filters.
+id: metric_l4_mom_0099
+tags:
+- L4
+title: 'MoM: Lifetime Revenue (Customer Lifetime Value) — In-Store Channel'

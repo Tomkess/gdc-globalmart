@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0012_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total Amount for Operating Expense Transactions, filtered to the Online sales channel. Use
+  it to quickly track overall online-attributable operating expenses for the currently selected period and any other applied
+  filters.
+id: viz_finance_0231
+title: Amount

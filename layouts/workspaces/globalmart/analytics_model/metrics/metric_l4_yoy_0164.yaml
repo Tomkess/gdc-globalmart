@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0054_2} - (SELECT {metric/metric_l3_0054_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0054_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in total purchase order line item amount for the North region by
+  comparing the current year’s value to the prior year.
+id: metric_l4_yoy_0164
+tags:
+- L4
+title: 'YoY: Line Amount (Purchase Order Line Items) — North Region'

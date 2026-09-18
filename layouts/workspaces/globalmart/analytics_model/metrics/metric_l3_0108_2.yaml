@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_partner_redemption_points_used} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total loyalty points used in partner redemption transactions for the North region only. Use this metric to track
+  and compare partner redemption points consumption specifically within North geography over time or across other business
+  dimensions.
+id: metric_l3_0108_2
+tags:
+- L3
+title: Points Used (Partner Redemption) — North Region

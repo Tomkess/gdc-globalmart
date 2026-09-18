@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0058_0} - (SELECT {metric/metric_l3_0058_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0058_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the in-store write-off quantity, comparing the current period to
+  the same metric in the previous year. Use it to understand whether in-store write-off volume is increasing or decreasing
+  over time.
+id: metric_l4_yoy_0174
+tags:
+- L4
+title: 'YoY: Write-Off Quantity (Write Off) — In-Store Channel'

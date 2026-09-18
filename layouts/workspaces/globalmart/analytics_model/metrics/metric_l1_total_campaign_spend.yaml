@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_campaign_spend_daily.spend})
+description: Sums daily recorded Spend amounts to show total marketing campaign spend. Use this metric to monitor and compare
+  overall spend across reports and time periods based on the Daily Campaign Spend data.
+id: metric_l1_total_campaign_spend
+tags:
+- L1
+title: Total Campaign Spend

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Loyalty Program ROI Score dataset. Use it to distinguish or look up
+    individual ROI score records when analyzing or troubleshooting the data.
+  id: fact_loyalty_attr_02.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Program ROI Score
+  title: Record ID (Loyalty Program ROI Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_loyalty_attr_02
+  path:
+  - globalmart
+  - fact_loyalty_attr_02
+  type: dataSource
+description: Loyalty Program ROI Score
+facts:
+- description: Numeric value representing the Loyalty Program ROI Score, used as the underlying measure for calculations and
+    reporting within the Loyalty Program ROI Score dataset.
+  id: fact_loyalty_attr_02.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Loyalty Program ROI Score
+  title: Loyalty Program ROI Score
+grain:
+- id: fact_loyalty_attr_02.attr_id
+  type: attribute
+id: fact_loyalty_attr_02
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Loyalty Program ROI Score
+title: Loyalty Program ROI Score
+workspaceDataFilterReferences: []

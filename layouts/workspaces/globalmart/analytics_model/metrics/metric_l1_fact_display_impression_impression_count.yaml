@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_display_impression.impression_count})
+description: Counts the total number of display ad impressions by summing the underlying Impression Count from the Display
+  Impression data. Use it as a core volume metric when evaluating campaign performance across sites, audiences, or time periods.
+id: metric_l1_fact_display_impression_impression_count
+tags:
+- L1
+title: Total Impression Count (Display Impression)

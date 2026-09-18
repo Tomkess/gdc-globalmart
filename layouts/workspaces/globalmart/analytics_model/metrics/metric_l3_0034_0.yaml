@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_customer_ltv_snapshot_avg_order_value} WHERE {label/dim_channel_master.channel_type}
+    IN ("In-Store")
+description: Shows the average order value used in Customer Lifetime Value reporting, restricted to the In-Store sales channel.
+  Use it to monitor typical in-store order size and compare in-store customer value against other channels.
+id: metric_l3_0034_0
+tags:
+- L3
+title: Average Order Value (Customer Lifetime Value) — In-Store Channel

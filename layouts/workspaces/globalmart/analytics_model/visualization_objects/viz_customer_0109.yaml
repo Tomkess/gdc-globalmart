@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_customer_ltv_snapshot_avg_order_value
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total average order value across the currently selected customers and any applied filters,
+  using the Customer Lifetime Value average order value metric.
+id: viz_customer_0109
+title: Average Order Value

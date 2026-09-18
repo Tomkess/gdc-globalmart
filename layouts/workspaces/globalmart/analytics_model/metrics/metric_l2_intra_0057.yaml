@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_transfer_order_transfer_qty} - {metric/metric_l1_fact_write_off_writeoff_qty}
+description: Shows the net change in units by subtracting written-off quantity from transferred quantity within the current
+  reporting scope (e.g., selected time period, location, and product). Use it to compare inventory moved via transfer orders
+  against inventory lost through write-offs for the same filters.
+id: metric_l2_intra_0057
+tags:
+- L2
+title: Transfer Quantity (Transfer Order) vs Write-Off Quantity (Write Off) Change

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_referral_referral_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the total number of referrals attributable to the Online sales channel. Use it to track online referral
+  volume and compare it across dimensions like time, source, or customer segment.
+id: metric_l3_0104_1
+tags:
+- L3
+title: Referral Count (Referral) — Online Channel

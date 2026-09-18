@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0035_0} - (SELECT {metric/metric_l3_0035_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0035_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percent change in the Recency Quartile (Recency, Frequency, Monetary (RFM)) score
+  for customers purchasing through the In-Store channel. Use it to track whether in-store customers are becoming more or less
+  recent buyers compared with the same period last year, by year or other cuts.
+id: metric_l4_yoy_0105
+tags:
+- L4
+title: 'YoY: Recency Quartile (RFM) (Customer RFM Segments) — In-Store Channel'

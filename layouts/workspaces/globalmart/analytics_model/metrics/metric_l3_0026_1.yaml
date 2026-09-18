@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_redeemed_reward_value} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Measures the total monetary value of rewards redeemed via loyalty points for transactions in the Online sales
+  channel. Use it to track how much reward value customers redeem online over time or compare online redemption value across
+  customer segments.
+id: metric_l3_0026_1
+tags:
+- L3
+title: Reward Value (Loyalty Points Redeemed) — Online Channel

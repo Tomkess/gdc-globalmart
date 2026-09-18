@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Product Inventory Efficiency dataset, used to distinguish and reference
+    individual rows when filtering or drilling into details.
+  id: fact_product_attr_04.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product Inventory Efficiency
+  title: Record ID (Product Inventory Efficiency)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_product_attr_04
+  path:
+  - globalmart
+  - fact_product_attr_04
+  type: dataSource
+description: Product Inventory Efficiency
+facts:
+- description: The “Attribute Value” fact captures the numeric value associated with a product attribute in the Product Inventory
+    Efficiency dataset, used for aggregating and analyzing inventory efficiency measures.
+  id: fact_product_attr_04.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Product Inventory Efficiency
+  title: Product Inventory Efficiency
+grain:
+- id: fact_product_attr_04.attr_id
+  type: attribute
+id: fact_product_attr_04
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Product Inventory Efficiency
+title: Product Inventory Efficiency
+workspaceDataFilterReferences: []

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_loyalty_enrollment.enrollment_count})
+description: Shows the total number of loyalty program enrollments by summing the Enrollment Count from the Loyalty Enrollment
+  data. Use it to track overall enrollment volume across the currently selected filters and time period.
+id: metric_l1_fact_loyalty_enrollment_enrollment_count
+tags:
+- L1
+title: Total Enrollment Count (Loyalty Enrollment)

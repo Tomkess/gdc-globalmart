@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_referral.referral_count})
+description: Tracks overall referral volume by summing the Referral Count from the Referral dataset. Use it to monitor total
+  referrals and to slice or trend referral activity by dimensions such as time, source, or segment in reports.
+id: metric_l1_fact_referral_referral_count
+tags:
+- L1
+title: Total Referral Count (Referral)

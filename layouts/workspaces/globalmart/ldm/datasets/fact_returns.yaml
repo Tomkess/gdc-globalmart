@@ -1,0 +1,74 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each return record in the Returns dataset, used to group, filter, or drill into specific
+    returns.
+  id: fact_returns.return_id
+  labels: []
+  sourceColumn: return_id
+  sourceColumnDataType: STRING
+  tags:
+  - Returns
+  title: Return ID
+- description: Identifier for the reason a product was returned, used in the Returns dataset to group and filter return records
+    by return reason.
+  id: fact_returns.return_reason_id
+  labels: []
+  sourceColumn: return_reason_id
+  sourceColumnDataType: STRING
+  tags:
+  - Returns
+  title: Return Reason ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_returns
+  path:
+  - globalmart
+  - fact_returns
+  type: dataSource
+description: Returns
+facts:
+- description: Number of items returned, captured in the Returns dataset. Use this to analyze return volumes and trends by
+    product, customer, time period, or other available dimensions.
+  id: fact_returns.quantity_returned
+  sourceColumn: quantity_returned
+  sourceColumnDataType: INT
+  tags:
+  - Returns
+  title: Quantity Returned
+- description: Monetary value of returned items recorded in the Returns dataset, typically used to sum or analyze the total
+    amount of returns.
+  id: fact_returns.return_amount
+  sourceColumn: return_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Returns
+  title: Return Amount
+grain:
+- id: fact_returns.return_id
+  type: attribute
+id: fact_returns
+references:
+- identifier:
+    id: fact_order_header
+    type: dataset
+  multivalue: false
+  sources:
+  - column: order_id
+    dataType: STRING
+    target:
+      id: fact_order_header.order_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: return_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Returns
+title: Returns
+workspaceDataFilterReferences: []

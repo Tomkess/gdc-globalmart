@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Budget Variance Score dataset, used to distinguish and filter individual
+    entries.
+  id: fact_fin_attr_00.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Budget Variance Score
+  title: Record ID (Budget Variance Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_fin_attr_00
+  path:
+  - globalmart
+  - fact_fin_attr_00
+  type: dataSource
+description: Budget Variance Score
+facts:
+- description: Represents the numeric value of an attribute recorded in the Budget Variance Score dataset. Typically used
+    as a measure to aggregate and analyze attribute values across relevant dimensions.
+  id: fact_fin_attr_00.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Budget Variance Score
+  title: Budget Variance Score
+grain:
+- id: fact_fin_attr_00.attr_id
+  type: attribute
+id: fact_fin_attr_00
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Budget Variance Score
+title: Budget Variance Score
+workspaceDataFilterReferences: []

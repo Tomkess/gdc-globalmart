@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_payroll_transaction_deductions} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Shows the total payroll transaction deductions for the In-Store sales channel. Use it to analyze and compare
+  deduction amounts tied specifically to in-store activity within the current report filters and time period.
+id: metric_l3_0096_0
+tags:
+- L3
+title: Deductions (Payroll Transaction) — In-Store Channel

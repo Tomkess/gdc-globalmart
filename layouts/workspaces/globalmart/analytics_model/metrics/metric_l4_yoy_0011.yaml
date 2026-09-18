@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0003_2} - (SELECT {metric/metric_l3_0003_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0003_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in total purchase order line item quantity for the North region by
+  comparing the current year to the prior year. Use it to monitor whether purchasing volume in North is growing or declining
+  over time and to analyze the trend by dimensions such as supplier, product, or year.
+id: metric_l4_yoy_0011
+tags:
+- L4
+title: 'YoY: Quantity (Purchase Order Line Items) — North Region'

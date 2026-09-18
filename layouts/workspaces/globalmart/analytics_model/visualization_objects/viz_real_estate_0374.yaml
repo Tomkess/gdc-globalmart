@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0115_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total waste disposal cost for the In-Store sales channel. Use it to monitor and compare in-store
+  disposal spending across the current reporting context (such as time period, site, or vendor).
+id: viz_real_estate_0374
+title: Disposal Cost

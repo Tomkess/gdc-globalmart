@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_gross_revenue} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows total gross revenue from the Margin Bridge metric, filtered to the North region. Use it to report or compare
+  North-specific gross revenue while still respecting any other report or dashboard filters.
+id: metric_l3_0079_2
+tags:
+- L3
+title: Gross Revenue (Margin Bridge) — North Region

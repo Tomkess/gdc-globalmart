@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0038_2} - (SELECT {metric/metric_l3_0038_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0038_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Compliance Adherence Score for the North region, comparing the current
+  year to the previous year. Use it to track whether North’s adherence score is improving or declining over time under the
+  same report filters.
+id: metric_l4_yoy_0116
+tags:
+- L4
+title: 'YoY: Attribute Value (Compliance Adherence Score) — North Region'

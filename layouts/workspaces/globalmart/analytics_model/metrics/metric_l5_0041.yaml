@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0020} + ({metric/metric_l1_fact_markdown_event_markdown_amount} / {metric/metric_l1_fact_planogram_compliance_compliance_score})
+description: Combines the month-over-month change in Quantity Returned in the North region with an adjustment based on the
+  ratio of Total Markdown Amount to Total Compliance Score. Use it to track return trends in North while factoring in markdown
+  activity relative to planogram compliance over the same filtered scope.
+id: metric_l5_0041
+tags:
+- L5
+title: 'MoM: Quantity Returned (Returns) — North Region (+Markdown Amount (Markdown Event)/Compliance Score (Planogram Compliance))'

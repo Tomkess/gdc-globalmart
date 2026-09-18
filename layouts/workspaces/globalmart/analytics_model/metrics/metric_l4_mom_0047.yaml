@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0015_2} - (SELECT {metric/metric_l3_0015_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in total net Price Change from Price Adjustment records for the North region,
+  comparing the current month to the previous month. Use it to see whether the impact of North-region pricing adjustments
+  is increasing or decreasing over time.
+id: metric_l4_mom_0047
+tags:
+- L4
+title: 'MoM: Price Change (Price Adjustment) — North Region'

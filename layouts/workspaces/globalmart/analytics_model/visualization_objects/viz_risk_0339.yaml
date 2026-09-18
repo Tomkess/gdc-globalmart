@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0119_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of chargebacks for the In-Store sales channel. Use it to monitor in-store chargeback
+  volume at a glance and compare it across time periods or other business dimensions.
+id: viz_risk_0339
+title: Chargeback Count

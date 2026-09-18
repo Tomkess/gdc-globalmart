@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0011_2} - (SELECT {metric/metric_l3_0011_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Net Revenue for the North Region by comparing the current month’s net revenue
+  to the prior month. Use it to monitor how North-region revenue is trending over time at a monthly level.
+id: metric_l4_mom_0035
+tags:
+- L4
+title: 'MoM: Net Revenue (Net Sales Summary) — North Region'

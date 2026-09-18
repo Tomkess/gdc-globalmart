@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0008_1} - (SELECT {metric/metric_l3_0008_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of Online Channel store sales transactions by comparing the current
+  month’s transaction count to the previous month. Use it to monitor whether online transaction volume is rising or falling
+  over time.
+id: metric_l4_mom_0025
+tags:
+- L4
+title: 'MoM: Transaction Count (Daily Store Sales) — Online Channel'

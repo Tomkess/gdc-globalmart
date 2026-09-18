@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0033_2} - (SELECT {metric/metric_l3_0033_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Lifetime Revenue (Customer Lifetime Value) for customers in the North region
+  by comparing the current month to the previous month. Use it to monitor how North-region customer lifetime revenue is trending
+  over time when analyzing results by Month/Year.
+id: metric_l4_mom_0101
+tags:
+- L4
+title: 'MoM: Lifetime Revenue (Customer Lifetime Value) — North Region'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0062_1} - (SELECT {metric/metric_l3_0062_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the Supplier Scorecard Cost Score for the Online sales channel, comparing
+  the current month’s score to the prior month. Use it to track whether online supplier cost performance is improving or worsening
+  over time and when slicing results by other scorecard dimensions.
+id: metric_l4_mom_0187
+tags:
+- L4
+title: 'MoM: Cost Score (Supplier Scorecard) — Online Channel'

@@ -1,0 +1,85 @@
+aggregatedFacts: []
+attributes:
+- description: Represents the calendar day for each record in the Daily Store Sales dataset, used to break down and filter
+    sales results by day.
+  id: fact_daily_store_sales.day
+  labels: []
+  sourceColumn: day
+  sourceColumnDataType: DATE
+  tags:
+  - Daily Store Sales
+  title: Day (Daily Store Sales)
+- description: Identifies the sales region associated with each record in the Daily Store Sales dataset. Use it to group,
+    filter, or join daily store sales results by region.
+  id: fact_daily_store_sales.region_id
+  labels: []
+  sourceColumn: region_id
+  sourceColumnDataType: STRING
+  tags:
+  - Daily Store Sales
+  title: Region ID (Daily Store Sales)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_daily_store_sales
+  path:
+  - globalmart
+  - fact_daily_store_sales
+  type: dataSource
+description: Daily Store Sales
+facts:
+- description: Average value per transaction recorded in the Daily Store Sales dataset, used to analyze typical basket size
+    and compare performance across stores, dates, or other dimensions.
+  id: fact_daily_store_sales.avg_transaction_value
+  sourceColumn: avg_transaction_value
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Store Sales
+  title: Avg Transaction Value
+- description: Sales Amount captures the value of sales recorded in the Daily Store Sales dataset. It is typically used to
+    sum sales over time, stores, or other dimensions for reporting and analysis.
+  id: fact_daily_store_sales.sales_amount
+  sourceColumn: sales_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Store Sales
+  title: Sales Amount
+- description: Number of transactions recorded in the Daily Store Sales dataset. Typically used to analyze store activity
+    volume and compare performance across dates, stores, or other dimensions.
+  id: fact_daily_store_sales.transaction_count
+  sourceColumn: transaction_count
+  sourceColumnDataType: INT
+  tags:
+  - Daily Store Sales
+  title: Transaction Count (Daily Store Sales)
+grain:
+- id: fact_daily_store_sales.day
+  type: attribute
+id: fact_daily_store_sales
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: day
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Daily Store Sales
+title: Daily Store Sales
+workspaceDataFilterColumns:
+- dataType: STRING
+  name: region_id
+workspaceDataFilterReferences: []

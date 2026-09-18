@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_rating_review_count} - {metric/metric_l1_sql_assortment_efficiency_avg_inventory}
+description: Measures the net difference between total product review count and total average inventory in the current analysis
+  context. Use it to compare how changes in customer review volume stack up against inventory levels and identify which side
+  is driving the gap.
+id: metric_l2_intra_0046
+tags:
+- L2
+title: Review Count (Product Rating) vs Avg Inventory (Assortment Efficiency) Change

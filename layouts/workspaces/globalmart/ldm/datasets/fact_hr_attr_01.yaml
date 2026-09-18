@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Employee Retention Risk dataset, used to reference, group, or filter
+    individual entries.
+  id: fact_hr_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Employee Retention Risk
+  title: Record ID (Employee Retention Risk)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_hr_attr_01
+  path:
+  - globalmart
+  - fact_hr_attr_01
+  type: dataSource
+description: Employee Retention Risk
+facts:
+- description: Represents the recorded value for an employee-related attribute in the Employee Retention Risk dataset. Use
+    it as a numeric measure for summarizing or analyzing attribute values across employees or segments.
+  id: fact_hr_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Employee Retention Risk
+  title: Employee Retention Risk
+grain:
+- id: fact_hr_attr_01.attr_id
+  type: attribute
+id: fact_hr_attr_01
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Employee Retention Risk
+title: Employee Retention Risk
+workspaceDataFilterReferences: []

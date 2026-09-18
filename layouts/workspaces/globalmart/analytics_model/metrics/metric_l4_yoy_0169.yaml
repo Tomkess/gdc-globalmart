@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0056_1} - (SELECT {metric/metric_l3_0056_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0056_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in goods-receipt quantity variance for the Online sales channel,
+  comparing the current year to the previous year. Use it to track whether receipt quantity deviations for Online orders are
+  improving or worsening over time.
+id: metric_l4_yoy_0169
+tags:
+- L4
+title: 'YoY: Variance Quantity (Goods Receipt) — Online Channel'

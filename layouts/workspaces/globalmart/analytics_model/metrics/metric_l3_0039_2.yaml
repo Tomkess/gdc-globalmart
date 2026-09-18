@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_units_sold} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total units sold from the Assortment Efficiency data, filtered to the North region. Use this metric to monitor
+  and compare North’s sales volume (in units) across relevant Assortment Efficiency breakdowns.
+id: metric_l3_0039_2
+tags:
+- L3
+title: Units Sold (Assortment Efficiency) — North Region

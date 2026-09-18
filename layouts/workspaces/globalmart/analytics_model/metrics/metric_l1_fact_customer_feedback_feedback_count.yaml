@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_customer_feedback.feedback_count})
+description: Total number of customer feedback items, calculated by summing the Feedback Count values in the Customer Feedback
+  dataset. Use this metric to monitor overall feedback volume and analyze trends by time, product, region, or other available
+  breakdowns.
+id: metric_l1_fact_customer_feedback_feedback_count
+tags:
+- L1
+title: Total Feedback Count (Customer Feedback)

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_waste_disposal.disposal_cost})
+description: Shows total spending on waste disposal by summing Disposal Cost from the Waste Disposal data. Use it to track
+  and compare disposal costs across the selected reporting scope, such as time period, site, or vendor.
+id: metric_l1_fact_waste_disposal_disposal_cost
+tags:
+- L1
+title: Total Disposal Cost (Waste Disposal)

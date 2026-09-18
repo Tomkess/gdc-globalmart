@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0023_1} - (SELECT {metric/metric_l3_0023_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in total Customer Event Value for the Online sales channel by comparing the
+  current month to the prior month. Use it to track whether online customer event value is increasing or decreasing over time
+  when reporting by Month/Year.
+id: metric_l4_mom_0070
+tags:
+- L4
+title: 'MoM: Event Value (Customer Event) — Online Channel'

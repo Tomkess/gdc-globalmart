@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing Total Revenue per Staff Hour, summarizing how much revenue is generated for each staff hour
+  in the selected data slice based on the Operations Efficiency Summary.
+id: viz_store_ops_0264
+title: Revenue per Staff Hour

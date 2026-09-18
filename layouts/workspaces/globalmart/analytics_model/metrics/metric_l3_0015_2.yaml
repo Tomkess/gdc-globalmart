@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_price_adjustment_price_change} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total net impact of Price Change from Price Adjustment records, filtered to the North region. Use it
+  to quantify how pricing adjustments affected overall results in North when analyzing by time, product, customer, or other
+  breakdowns.
+id: metric_l3_0015_2
+tags:
+- L3
+title: Price Change (Price Adjustment) — North Region

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_utility_cost_utility_cost} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Shows total utility cost for the In-Store sales channel only, isolating utility spending for physical locations
+  from other channels. Use it to track and compare in-store utility expenses across time, locations, or other business breakdowns.
+id: metric_l3_0113_0
+tags:
+- L3
+title: Utility Cost (Utility Cost) — In-Store Channel

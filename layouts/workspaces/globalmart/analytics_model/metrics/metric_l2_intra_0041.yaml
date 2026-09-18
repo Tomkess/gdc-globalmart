@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_markdown_event_markdown_amount} - {metric/metric_l1_fact_planogram_compliance_compliance_score}
+description: Net difference between total markdown amount from Markdown Events and the total planogram (a diagram specifying
+  exact product placement on retail shelves) compliance score for the current selection (such as time, store, or product).
+  Use it to compare whether markdown activity is increasing faster or slower than compliance performance under the same filters.
+id: metric_l2_intra_0041
+tags:
+- L2
+title: Markdown Amount (Markdown Event) vs Compliance Score (Planogram Compliance) Change

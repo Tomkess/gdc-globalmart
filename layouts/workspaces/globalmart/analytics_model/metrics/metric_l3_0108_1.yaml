@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_partner_redemption_points_used} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Measures the total loyalty points used in Partner Redemption transactions for the Online sales channel. Use it
+  to track online partner redemption points consumption and analyze trends or break it down by other business dimensions.
+id: metric_l3_0108_1
+tags:
+- L3
+title: Points Used (Partner Redemption) — Online Channel

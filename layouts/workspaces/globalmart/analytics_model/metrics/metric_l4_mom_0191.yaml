@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0063_2} - (SELECT {metric/metric_l3_0063_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in Current Stock (Inventory Health) for the North region by comparing the
+  current period’s on-hand inventory to the prior month. Use it to see whether inventory availability in North is trending
+  up or down within the current report or dashboard filters.
+id: metric_l4_mom_0191
+tags:
+- L4
+title: 'MoM: Current Stock (Inventory Health) — North Region'

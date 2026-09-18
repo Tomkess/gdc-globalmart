@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_employee_hours.hours_worked})
+description: Totals the Hours Worked values to show overall employee labor hours for the current selection and any applied
+  filters. Use it to track aggregate time effort in the Employee Hours data across employees or time periods.
+id: metric_l1_fact_employee_hours_hours_worked
+tags:
+- L1
+title: Total Hours Worked (Employee Hours)

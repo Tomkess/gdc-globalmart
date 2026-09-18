@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0031_1} - (SELECT {metric/metric_l3_0031_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0031_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of customer tier-change events for the Online sales
+  channel, comparing the selected period to the same period last year. Use it to see whether Online tier-change activity is
+  increasing or decreasing over time.
+id: metric_l4_yoy_0094
+tags:
+- L4
+title: 'YoY: Change Count (Tier Change) — Online Channel'

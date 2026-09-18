@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_ops_efficiency_summary.revenue_per_sqft})
+description: Shows the total revenue generated per square foot by summing the “Revenue per Sq Ft” values from the Operations
+  Efficiency Summary data for the current selection (such as time period, location, or other filters). Use it to compare overall
+  space productivity across segments.
+id: metric_l1_sql_ops_efficiency_summary_revenue_per_sqft
+tags:
+- L1
+title: Total Revenue per Sq Ft (Operations Efficiency Summary)

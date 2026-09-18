@@ -1,0 +1,56 @@
+aggregatedFacts: []
+attributes:
+- description: Points Cost is an attribute in the Reward Type dataset that represents the number of points required for a
+    given reward type. Use it to group, compare, or filter rewards by their points requirement.
+  id: dim_reward_type.points_cost
+  labels: []
+  sourceColumn: points_cost
+  sourceColumnDataType: INT
+  tags:
+  - Reward Type
+  title: Points Cost (Reward Type)
+- description: Reward Category classifies each reward into a business-friendly category for reporting. Use it to group, segment,
+    or filter analyses of rewards in the Reward Type dataset.
+  id: dim_reward_type.reward_category
+  labels: []
+  sourceColumn: reward_category
+  sourceColumnDataType: STRING
+  tags:
+  - Reward Type
+  title: Reward Category
+- description: Unique identifier for each reward type in the Reward Type dataset, used to group, filter, or join reward records
+    consistently across analyses.
+  id: dim_reward_type.reward_id
+  labels: []
+  sourceColumn: reward_id
+  sourceColumnDataType: STRING
+  tags:
+  - Reward Type
+  title: Reward ID
+- description: Identifies the name of the reward type, used to segment, group, and filter analyses by reward in the Reward
+    Type dataset.
+  id: dim_reward_type.reward_name
+  labels: []
+  sourceColumn: reward_name
+  sourceColumnDataType: STRING
+  tags:
+  - Reward Type
+  title: Reward Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_reward_type
+  path:
+  - globalmart
+  - dim_reward_type
+  type: dataSource
+description: Reward Type
+facts: []
+grain:
+- id: dim_reward_type.reward_id
+  type: attribute
+id: dim_reward_type
+references: []
+tags:
+- Reward Type
+title: Reward Type
+workspaceDataFilterReferences: []

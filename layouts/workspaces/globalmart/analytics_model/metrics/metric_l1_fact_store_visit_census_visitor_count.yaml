@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_store_visit_census.visitor_count})
+description: Total number of visitors captured in the Store Visit Census data, calculated by summing Visitor Count. Use it
+  to track overall foot traffic and compare visitor volumes across time, locations, or other breakdowns.
+id: metric_l1_fact_store_visit_census_visitor_count
+tags:
+- L1
+title: Total Visitor Count (Store Visit Census)

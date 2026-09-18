@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_maintenance_request_maintenance_cost} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Totals maintenance cost from Maintenance Request records, limited to requests associated with the Online sales
+  channel. Use it to monitor and compare maintenance spending for online-originated activity within the selected time period
+  and any applied filters.
+id: metric_l3_0086_1
+tags:
+- L3
+title: Maintenance Cost (Maintenance Request) — Online Channel

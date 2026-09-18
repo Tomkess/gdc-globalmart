@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Compliance Adherence Score dataset. Use it to reference, filter, or
+    drill into individual compliance adherence score entries.
+  id: fact_risk_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Compliance Adherence Score
+  title: Record ID (Compliance Adherence Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_risk_attr_01
+  path:
+  - globalmart
+  - fact_risk_attr_01
+  type: dataSource
+description: Compliance Adherence Score
+facts:
+- description: Numeric value used to quantify the Compliance Adherence Score, supporting reporting and aggregations of attribute-related
+    compliance performance.
+  id: fact_risk_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: INT
+  tags:
+  - Compliance Adherence Score
+  title: Compliance Adherence Score
+grain:
+- id: fact_risk_attr_01.attr_id
+  type: attribute
+id: fact_risk_attr_01
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Compliance Adherence Score
+title: Compliance Adherence Score
+workspaceDataFilterReferences: []

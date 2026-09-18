@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0054_0} - (SELECT {metric/metric_l3_0054_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in total purchase order line item spend for the In-Store sales channel, calculated
+  as the current month’s line amount minus the prior month. Use it to track how in-store purchasing totals are trending over
+  time and identify increases or declines versus last month.
+id: metric_l4_mom_0162
+tags:
+- L4
+title: 'MoM: Line Amount (Purchase Order Line Items) — In-Store Channel'

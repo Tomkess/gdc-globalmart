@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0015_0} - (SELECT {metric/metric_l3_0015_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in total net price adjustments for the In-Store sales channel by comparing
+  the current month to the prior month. Use it to understand whether the impact of in-store pricing actions is increasing
+  or decreasing over time within your chosen slice (e.g., by product, customer, or month).
+id: metric_l4_mom_0045
+tags:
+- L4
+title: 'MoM: Price Change (Price Adjustment) — In-Store Channel'

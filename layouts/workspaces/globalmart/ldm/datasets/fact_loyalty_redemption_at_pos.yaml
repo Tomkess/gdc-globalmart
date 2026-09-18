@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each loyalty redemption recorded at the point of sale. Use it to filter, group, or drill
+    into individual redemption transactions in the Loyalty Redemption at POS dataset.
+  id: fact_loyalty_redemption_at_pos.redemption_id
+  labels: []
+  sourceColumn: redemption_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Redemption at POS
+  title: Redemption ID (Loyalty Redemption at POS)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_loyalty_redemption_at_pos
+  path:
+  - globalmart
+  - fact_loyalty_redemption_at_pos
+  type: dataSource
+description: Loyalty Redemption at POS
+facts:
+- description: Monetary value of the discount applied during a loyalty redemption at the point of sale. Use it to analyze
+    total or average discounts across loyalty redemption transactions.
+  id: fact_loyalty_redemption_at_pos.discount_amount
+  sourceColumn: discount_amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Loyalty Redemption at POS
+  title: Discount Amount (Loyalty Redemption at POS)
+- description: Total number of loyalty points redeemed at the point of sale. Use this measure from the “Loyalty Redemption
+    at POS” dataset to analyze redemption volume and trends by time, store, customer, or other business dimensions.
+  id: fact_loyalty_redemption_at_pos.points_redeemed
+  sourceColumn: points_redeemed
+  sourceColumnDataType: INT
+  tags:
+  - Loyalty Redemption at POS
+  title: Points Redeemed (Loyalty Redemption at POS)
+grain:
+- id: fact_loyalty_redemption_at_pos.redemption_id
+  type: attribute
+id: fact_loyalty_redemption_at_pos
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: redemption_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Loyalty Redemption at POS
+title: Loyalty Redemption at POS
+workspaceDataFilterReferences: []

@@ -1,0 +1,56 @@
+aggregatedFacts: []
+attributes:
+- description: Number of days in the supplier’s agreed payment terms, from the Supplier dataset. Use this attribute to group
+    or filter reporting by payment-term length.
+  id: dim_supplier.payment_terms_days
+  labels: []
+  sourceColumn: payment_terms_days
+  sourceColumnDataType: INT
+  tags:
+  - Supplier
+  title: Payment Terms Days
+- description: Unique identifier for each supplier in the Supplier dataset. Use it to filter, group, or join supplier-related
+    reporting at the individual supplier level.
+  id: dim_supplier.supplier_id
+  labels: []
+  sourceColumn: supplier_id
+  sourceColumnDataType: STRING
+  tags:
+  - Supplier
+  title: Supplier ID
+- description: Name of the supplier in the Supplier dataset, used to identify, group, and filter reporting by individual suppliers.
+  id: dim_supplier.supplier_name
+  labels: []
+  sourceColumn: supplier_name
+  sourceColumnDataType: STRING
+  tags:
+  - Supplier
+  title: Supplier Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_supplier
+  path:
+  - globalmart
+  - dim_supplier
+  type: dataSource
+description: Supplier
+facts: []
+grain:
+- id: dim_supplier.supplier_id
+  type: attribute
+id: dim_supplier
+references:
+- identifier:
+    id: dim_geography_country
+    type: dataset
+  multivalue: false
+  sources:
+  - column: country_id
+    dataType: STRING
+    target:
+      id: dim_geography_country.country_id
+      type: attribute
+tags:
+- Supplier
+title: Supplier
+workspaceDataFilterReferences: []

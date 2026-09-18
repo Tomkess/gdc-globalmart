@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0025_2} - (SELECT {metric/metric_l3_0025_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in total order amount associated with earned loyalty points for the North
+  region, comparing the current month to the previous month. Use it to monitor whether loyalty-linked order value in the North
+  region is increasing or decreasing over time.
+id: metric_l4_mom_0077
+tags:
+- L4
+title: 'MoM: Order Amount (Loyalty Points Earned) — North Region'

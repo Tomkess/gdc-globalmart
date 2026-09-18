@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0003_2} - (SELECT {metric/metric_l3_0003_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in total purchase order line item quantity for the North region by comparing
+  the current month’s ordered units to the prior month. Use it to monitor whether purchasing volume in the North is rising
+  or falling over time and to analyze the trend by dimensions such as supplier or product.
+id: metric_l4_mom_0011
+tags:
+- L4
+title: 'MoM: Quantity (Purchase Order Line Items) — North Region'

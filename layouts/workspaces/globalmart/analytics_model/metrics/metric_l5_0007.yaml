@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0003} + ({metric/metric_l1_fact_daily_store_sales_sales_amount} / {metric/metric_l1_fact_daily_store_sales_transaction_count})
+description: Combines the month-over-month change in In-Store Net Revenue with the average sales per transaction (Total Sales
+  Amount divided by Total Transaction Count) for the current filter context. Use it to understand how in-store revenue trends
+  month to month alongside the typical transaction value.
+id: metric_l5_0007
+tags:
+- L5
+title: 'MoM: Net Revenue — In-Store Channel (+Sales Amount (Daily Store Sales)/Transaction Count (Daily Store Sales))'

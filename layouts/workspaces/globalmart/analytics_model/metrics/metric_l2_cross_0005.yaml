@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_order_count} / {metric/metric_l1_fact_returns_return_amount}
+description: Shows how many orders you get per unit of returned value by dividing Total Order Count by Total Return Amount
+  (Returns). Use it to relate order volume to returns value within the current slice (for example by time period, product,
+  or customer segment).
+id: metric_l2_cross_0005
+tags:
+- L2
+title: Order Count per Return Amount (Returns)

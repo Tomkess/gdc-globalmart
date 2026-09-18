@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_sales_amount} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total sales amount from the Daily Store Sales data, filtered to the In-Store channel. Use this metric to track
+  and compare in-store sales performance across time periods, stores, or other selected filters.
+id: metric_l3_0007_0
+tags:
+- L3
+title: Sales Amount (Daily Store Sales) — In-Store Channel

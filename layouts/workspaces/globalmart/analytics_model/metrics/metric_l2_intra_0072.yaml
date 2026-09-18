@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_campaign_roi_total_spend} - {metric/metric_l1_total_cogs}
+description: Shows the gap between total campaign spend (from Campaign ROI) and total cost of goods sold (COGS) (from Daily
+  Profit & Loss) for the current selection. Use it to understand whether marketing spend is running above or below direct
+  product costs when comparing by time period, campaign, or other segments.
+id: metric_l2_intra_0072
+tags:
+- L2
+title: Spend (Campaign ROI) vs COGS Change

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0048_2} - (SELECT {metric/metric_l3_0048_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0048_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the North region’s Sell-Through Rate (Assortment Efficiency), comparing the
+  current period’s rate to the same metric in the prior year. Use it to track whether assortment sell-through performance
+  in North is improving or declining versus last year.
+id: metric_l4_yoy_0146
+tags:
+- L4
+title: 'YoY: Sell-Through Rate (Assortment Efficiency) — North Region'

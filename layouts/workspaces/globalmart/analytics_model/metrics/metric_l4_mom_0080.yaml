@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0026_2} - (SELECT {metric/metric_l3_0026_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the total monetary value of loyalty rewards redeemed using points for customers
+  in the North region. Use it to see whether redemption value increased or decreased compared with the prior month.
+id: metric_l4_mom_0080
+tags:
+- L4
+title: 'MoM: Reward Value (Loyalty Points Redeemed) — North Region'

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_margin_bridge_gross_revenue} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total gross sales revenue from the Margin Bridge data restricted to the In-Store sales channel. Use it to evaluate
+  and compare in-store revenue performance alongside other channels under the same time period and report filters.
+id: metric_l3_0079_0
+tags:
+- L3
+title: Gross Revenue (Margin Bridge) — In-Store Channel

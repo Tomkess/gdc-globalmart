@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Utility Cost Efficiency Score dataset, used to distinguish, group,
+    or filter individual score records.
+  id: fact_re_attr_04.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Utility Cost Efficiency Score
+  title: Record ID (Utility Cost Efficiency Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_re_attr_04
+  path:
+  - globalmart
+  - fact_re_attr_04
+  type: dataSource
+description: Utility Cost Efficiency Score
+facts:
+- description: Measured value for the “Utility Cost Efficiency Score” dataset, representing the underlying attribute value
+    used in reporting and analysis.
+  id: fact_re_attr_04.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Utility Cost Efficiency Score
+  title: Utility Cost Efficiency Score
+grain:
+- id: fact_re_attr_04.attr_id
+  type: attribute
+id: fact_re_attr_04
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Utility Cost Efficiency Score
+title: Utility Cost Efficiency Score
+workspaceDataFilterReferences: []

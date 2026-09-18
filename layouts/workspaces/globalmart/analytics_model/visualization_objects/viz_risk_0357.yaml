@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0117_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of fraud alerts in the In-Store sales channel, based on the Alert Count metric.
+  Use it to monitor in-store fraud alert volume for the currently selected reporting scope (such as the active time period
+  or other dashboard filters).
+id: viz_risk_0357
+title: Alert Count

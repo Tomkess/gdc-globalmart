@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total Cost of Goods Sold (COGS) for the Online sales channel, showing the direct costs associated with online
+  sales for the selected period and any other applied filters.
+id: metric_l3_0073_1
+tags:
+- L3
+title: COGS — Online Channel

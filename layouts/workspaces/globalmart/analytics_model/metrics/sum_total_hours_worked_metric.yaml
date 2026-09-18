@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({metric/metric_l1_fact_employee_hours_hours_worked})
+description: Sums the existing {metric/metric_l1_fact_employee_hours_hours_worked} metric across the current analytical context
+  and any applied filters.
+id: sum_total_hours_worked_metric
+tags:
+- employee_hours
+- hours
+- labor
+title: Sum of Total Hours Worked Metric

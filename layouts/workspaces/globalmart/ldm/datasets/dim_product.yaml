@@ -1,0 +1,85 @@
+aggregatedFacts: []
+attributes:
+- description: Represents the product cost in the Product dataset, used to group, slice, or filter products by their cost
+    value in analyses and reports.
+  id: dim_product.cost
+  labels: []
+  sourceColumn: cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Product
+  title: Cost (Product)
+- description: List Price of a product in the Product dataset, used to group, filter, or break down analysis by the product’s
+    listed price.
+  id: dim_product.list_price
+  labels: []
+  sourceColumn: list_price
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Product
+  title: List Price
+- description: Unique identifier for each product in the Product dataset. Use it to filter or group analyses at the individual
+    product level.
+  id: dim_product.product_id
+  labels: []
+  sourceColumn: product_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product
+  title: Product ID (Product)
+- description: Names of products in the Product dataset, used to label, group, and filter analyses by individual product.
+  id: dim_product.product_name
+  labels: []
+  sourceColumn: product_name
+  sourceColumnDataType: STRING
+  tags:
+  - Product
+  title: Product Name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_product
+  path:
+  - globalmart
+  - dim_product
+  type: dataSource
+description: Product
+facts: []
+grain:
+- id: dim_product.product_id
+  type: attribute
+id: dim_product
+references:
+- identifier:
+    id: dim_brand
+    type: dataset
+  multivalue: false
+  sources:
+  - column: brand_id
+    dataType: STRING
+    target:
+      id: dim_brand.brand_id
+      type: attribute
+- identifier:
+    id: dim_category_l1
+    type: dataset
+  multivalue: false
+  sources:
+  - column: category_id
+    dataType: STRING
+    target:
+      id: dim_category_l1.category_l1_id
+      type: attribute
+- identifier:
+    id: dim_supplier
+    type: dataset
+  multivalue: false
+  sources:
+  - column: supplier_id
+    dataType: STRING
+    target:
+      id: dim_supplier.supplier_id
+      type: attribute
+tags:
+- Product
+title: Product
+workspaceDataFilterReferences: []

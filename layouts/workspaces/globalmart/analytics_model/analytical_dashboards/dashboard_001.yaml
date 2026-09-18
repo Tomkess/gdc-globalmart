@@ -1,0 +1,218 @@
+content:
+  filterContextRef:
+    identifier:
+      id: filter_context_001
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0012
+              type: visualizationObject
+          localIdentifier: widget_001_00
+          title: Age Days
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0013
+              type: visualizationObject
+          localIdentifier: widget_001_01
+          title: Competitor Price
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0014
+              type: visualizationObject
+          localIdentifier: widget_001_02
+          title: Avg Checkout Time (sec)
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0015
+              type: visualizationObject
+          localIdentifier: widget_001_03
+          title: Order Count vs Net Revenue Change
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0016
+              type: visualizationObject
+          localIdentifier: widget_001_04
+          title: Net Revenue vs Discount Amount
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0017
+              type: visualizationObject
+          localIdentifier: widget_001_05
+          title: Discount Amount (Loyalty Redemption at POS) vs Quantity
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0018
+              type: visualizationObject
+          localIdentifier: widget_001_06
+          title: Quantity (Purchase Order Line Items) vs Cost
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0019
+              type: visualizationObject
+          localIdentifier: widget_001_07
+          title: Cost (Energy Consumption) vs Return Amount
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0020
+              type: visualizationObject
+          localIdentifier: widget_001_08
+          title: Return Amount (Returns) vs Quantity Returned
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0021
+              type: visualizationObject
+          localIdentifier: widget_001_09
+          title: Quantity Returned (Returns) vs Sales Amount
+          type: insight
+      type: IDashboardLayoutSection
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0022
+              type: visualizationObject
+          localIdentifier: widget_001_10
+          title: Sales Amount (Daily Store Sales) vs Transaction Count
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_0023
+              type: visualizationObject
+          localIdentifier: widget_001_11
+          title: Transaction Count (Daily Store Sales) vs Avg Transaction Value
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: Dashboard that provides a high-level view of performance across revenue, discounts, orders, returns, purchasing,
+  and operational indicators, intended for comparing how key measures move under the same analysis scope. It is prefiltered
+  to the last 12 months and supports narrowing results by store/region (via the included store-related filters).
+id: dashboard_001
+title: Revenue by Channel & Region

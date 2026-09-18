@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_tier_change_change_count} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Counts the number of tier change events for customers in the Online sales channel. Use this metric to monitor
+  the volume of tier changes for Online customers over a selected period or segment.
+id: metric_l3_0031_1
+tags:
+- L3
+title: Change Count (Tier Change) — Online Channel

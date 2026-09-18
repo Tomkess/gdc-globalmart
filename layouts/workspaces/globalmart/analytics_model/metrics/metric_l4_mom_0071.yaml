@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0023_2} - (SELECT {metric/metric_l3_0023_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in total Customer Event Value for the North region by comparing the current
+  month to the prior month. Use it to quickly see whether North-region event value is increasing or decreasing over time.
+id: metric_l4_mom_0071
+tags:
+- L4
+title: 'MoM: Event Value (Customer Event) — North Region'

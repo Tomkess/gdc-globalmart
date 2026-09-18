@@ -1,0 +1,37 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each shrinkage category in the Shrinkage Category dataset. Use it to group, join, or
+    filter reporting by shrinkage category.
+  id: dim_shrinkage_category.category_id
+  labels: []
+  sourceColumn: category_id
+  sourceColumnDataType: STRING
+  tags:
+  - Shrinkage Category
+  title: Category ID (Shrinkage Category)
+- description: Name of the shrinkage category, used to group and filter shrinkage-related data by category in reporting.
+  id: dim_shrinkage_category.category_name
+  labels: []
+  sourceColumn: category_name
+  sourceColumnDataType: STRING
+  tags:
+  - Shrinkage Category
+  title: Category Name (Shrinkage Category)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_shrinkage_category
+  path:
+  - globalmart
+  - dim_shrinkage_category
+  type: dataSource
+description: Shrinkage Category
+facts: []
+grain:
+- id: dim_shrinkage_category.category_id
+  type: attribute
+id: dim_shrinkage_category
+references: []
+tags:
+- Shrinkage Category
+title: Shrinkage Category
+workspaceDataFilterReferences: []

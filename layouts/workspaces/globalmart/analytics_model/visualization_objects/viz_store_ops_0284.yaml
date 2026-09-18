@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0087_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total downtime hours from maintenance requests, limited to the Online sales channel, to
+  help track disruption time attributed to online-channel maintenance activity.
+id: viz_store_ops_0284
+title: Downtime Hours

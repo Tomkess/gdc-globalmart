@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_loyalty_roi_points_cost} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total cost of loyalty points attributable to the Online sales channel. Use this metric to isolate online-driven
+  points expense when evaluating loyalty program ROI and comparing costs across channels.
+id: metric_l3_0111_1
+tags:
+- L3
+title: Points Cost (Loyalty Program ROI) — Online Channel

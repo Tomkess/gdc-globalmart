@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_goods_receipt_receipt_qty} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the total quantity of goods received, filtered to receipts associated with the Online sales channel. Use
+  it to track and compare inbound receipt volumes for online-driven operations across the selected reporting scope (such as
+  time period, supplier, or product).
+id: metric_l3_0055_1
+tags:
+- L3
+title: Receipt Quantity (Goods Receipt) — Online Channel

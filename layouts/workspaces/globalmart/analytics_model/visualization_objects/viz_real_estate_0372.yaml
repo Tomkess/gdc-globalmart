@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0114_1
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total renovation spending for the Online sales channel, based on the Renovation Cost metric.
+  Use it to quickly track or compare Online renovation costs within the current reporting scope (for example by time period,
+  project, or other dashboard filters).
+id: viz_real_estate_0372
+title: Renovation Cost

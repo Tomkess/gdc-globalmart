@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_headcount_snapshot_total_headcount} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Total employee headcount from the Headcount Snapshot, filtered to the Online sales channel. Use this metric to
+  monitor workforce size for online operations and analyze how it changes when sliced by time or organizational dimensions.
+id: metric_l3_0099_1
+tags:
+- L3
+title: Headcount (Headcount Snapshot) — Online Channel

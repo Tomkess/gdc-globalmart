@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0034_2} - (SELECT {metric/metric_l3_0034_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0034_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the North Region’s Average Order Value used in the Customer Lifetime Value snapshot.
+  Use it to track whether average order value for North-region customers is improving or declining compared with the prior
+  year.
+id: metric_l4_yoy_0104
+tags:
+- L4
+title: 'YoY: Average Order Value (Customer Lifetime Value) — North Region'

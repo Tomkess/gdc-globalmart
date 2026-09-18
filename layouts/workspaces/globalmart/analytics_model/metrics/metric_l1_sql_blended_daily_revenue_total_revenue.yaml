@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_blended_daily_revenue.total_revenue})
+description: Shows total revenue by summing the Revenue fact from the Blended Daily Revenue dataset, reflecting whatever filters
+  and time period are currently selected.
+id: metric_l1_sql_blended_daily_revenue_total_revenue
+tags:
+- L1
+title: Total Revenue (Blended Daily Revenue)

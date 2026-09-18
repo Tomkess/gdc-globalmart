@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0042_0} - (SELECT {metric/metric_l3_0042_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the In-Store Planogram Compliance Score by comparing the current month
+  to the previous month. Use it to track whether in-store planogram compliance is improving or declining over time for the
+  selected locations and date range. A planogram is a diagram specifying exact product placement on retail shelves.
+id: metric_l4_mom_0126
+tags:
+- L4
+title: 'MoM: Compliance Score (Planogram Compliance) — In-Store Channel'

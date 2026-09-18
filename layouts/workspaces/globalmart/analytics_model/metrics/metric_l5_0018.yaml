@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0009} + ({metric/metric_l1_fact_aged_inventory_age_days} / {metric/metric_l1_fact_competitor_pricing_competitor_price})
+description: A composite metric that adjusts the year-over-year change in in-store purchase order line item quantity by adding
+  an inventory aging-to-competitor-price factor. Use it to relate in-store purchasing volume trends to overall inventory age
+  days and competitor pricing levels in the same analysis.
+id: metric_l5_0018
+tags:
+- L5
+title: 'YoY: Quantity (Purchase Order Line Items) — In-Store Channel (+Age Days (Aged Inventory)/Competitor Price (Competitor
+  Pricing))'

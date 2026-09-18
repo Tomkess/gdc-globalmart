@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} / {metric/metric_l1_fact_customer_feedback_sentiment_score}
+description: Calculates Cost of Goods Sold (COGS) per point of customer feedback sentiment by dividing total COGS by the total
+  sentiment score. Use it to assess cost efficiency relative to customer sentiment and compare performance across time periods
+  or segments under the current filters.
+id: metric_l2_cross_0029
+tags:
+- L2
+title: COGS per Sentiment Score (Customer Feedback)

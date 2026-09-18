@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_bonus_event.bonus_cost})
+description: Sums the Bonus Cost from Bonus Event records to show total bonus spend. Use it to monitor overall bonus expenses
+  and compare them across time periods or other business dimensions.
+id: metric_l1_fact_bonus_event_bonus_cost
+tags:
+- L1
+title: Total Bonus Cost (Bonus Event)

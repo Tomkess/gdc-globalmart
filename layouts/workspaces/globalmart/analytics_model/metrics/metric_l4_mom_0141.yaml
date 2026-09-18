@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0047_0} - (SELECT {metric/metric_l3_0047_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in average inventory for the In-Store channel, based on the Assortment Efficiency
+  average inventory measure. Use it to track how in-store inventory levels moved versus the previous month when analyzing
+  trends over time.
+id: metric_l4_mom_0141
+tags:
+- L4
+title: 'MoM: Avg Inventory (Assortment Efficiency) — In-Store Channel'

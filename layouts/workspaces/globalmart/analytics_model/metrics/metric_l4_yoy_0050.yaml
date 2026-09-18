@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0016_2} - (SELECT {metric/metric_l3_0016_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0016_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in till reconciliation variance amount for the North region, comparing the current
+  period to the same period last year. Use this to see whether cash over/short reconciliation discrepancies in North are improving
+  or worsening versus the prior year.
+id: metric_l4_yoy_0050
+tags:
+- L4
+title: 'YoY: Variance Amount (Till Reconciliation) — North Region'

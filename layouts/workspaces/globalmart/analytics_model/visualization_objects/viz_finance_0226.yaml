@@ -1,0 +1,30 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_margin_bridge_ebitda
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: view
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: Shows total EBITDA over time, broken out by quarter/year, to help track quarterly profitability trends. It uses
+  the “Total EBITDA (Margin Bridge)” metric displayed by the “Quarter/Year” period as a column chart.
+id: viz_finance_0226
+title: EBITDA by Quarter

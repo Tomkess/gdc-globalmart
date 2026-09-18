@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0046_0} - (SELECT {metric/metric_l3_0046_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0046_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the number of product rating reviews for the In-Store sales channel,
+  comparing the current period to the same period in the prior year. Use it to track how in-store review volume is trending
+  annually.
+id: metric_l4_yoy_0138
+tags:
+- L4
+title: 'YoY: Review Count (Product Rating) — In-Store Channel'

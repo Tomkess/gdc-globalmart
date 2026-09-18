@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0028_0} - (SELECT {metric/metric_l3_0028_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of NPS survey responses submitted through the In-Store channel.
+  Use it to quickly see whether in-store response volume is rising or falling compared with the prior month and to provide
+  context when reviewing other in-store NPS metrics.
+id: metric_l4_mom_0084
+tags:
+- L4
+title: 'MoM: Response Count (NPS Response) — In-Store Channel'

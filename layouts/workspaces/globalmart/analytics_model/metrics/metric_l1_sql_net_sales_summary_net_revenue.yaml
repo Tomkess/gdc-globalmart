@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/sql_net_sales_summary.net_revenue})
+description: Sums Net Revenue from the Net Sales Summary dataset to show total net revenue for the current report or dashboard
+  context, respecting the selected filters and breakdowns.
+id: metric_l1_sql_net_sales_summary_net_revenue
+tags:
+- L1
+title: Total Net Revenue (Net Sales Summary)

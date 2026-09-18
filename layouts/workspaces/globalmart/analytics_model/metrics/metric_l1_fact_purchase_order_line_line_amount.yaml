@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_purchase_order_line.line_amount})
+description: Sums the line amounts across purchase order line items to show total purchase spend. Use it to track overall
+  spend and compare totals across time, suppliers, products, or other dimensions.
+id: metric_l1_fact_purchase_order_line_line_amount
+tags:
+- L1
+title: Total Line Amount (Purchase Order Line Items)

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0061_1} - (SELECT {metric/metric_l3_0061_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the Supplier Scorecard Delivery Score for the Online sales channel by
+  comparing the current month’s score to the prior month. Use it to quickly identify whether online delivery performance is
+  improving or declining over time.
+id: metric_l4_mom_0184
+tags:
+- L4
+title: 'MoM: Delivery Score (Supplier Scorecard) — Online Channel'

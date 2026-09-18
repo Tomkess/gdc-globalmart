@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0004_2} - (SELECT {metric/metric_l3_0004_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in energy consumption cost for the North region by comparing the current month’s
+  cost to the prior month. Use it to track whether North’s energy spending is rising or falling over time within the applied
+  reporting filters.
+id: metric_l4_mom_0014
+tags:
+- L4
+title: 'MoM: Cost (Energy Consumption) — North Region'

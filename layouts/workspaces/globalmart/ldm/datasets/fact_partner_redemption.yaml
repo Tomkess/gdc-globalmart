@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each partner redemption record in the Partner Redemption dataset. Use it to look up,
+    group, or filter analyses by individual redemption transactions.
+  id: fact_partner_redemption.redemption_id
+  labels: []
+  sourceColumn: redemption_id
+  sourceColumnDataType: STRING
+  tags:
+  - Partner Redemption
+  title: Redemption ID (Partner Redemption)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_partner_redemption
+  path:
+  - globalmart
+  - fact_partner_redemption
+  type: dataSource
+description: Partner Redemption
+facts:
+- description: Discount amount attributed to a partner for redemptions in the Partner Redemption dataset. Typically used to
+    sum or analyze partner-funded discounts across partners, time periods, or other dimensions.
+  id: fact_partner_redemption.partner_discount
+  sourceColumn: partner_discount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Partner Redemption
+  title: Partner Discount
+- description: Number of loyalty points used in partner redemption transactions. Use this fact to sum or analyze points consumption
+    within the Partner Redemption dataset.
+  id: fact_partner_redemption.points_used
+  sourceColumn: points_used
+  sourceColumnDataType: INT
+  tags:
+  - Partner Redemption
+  title: Points Used
+grain:
+- id: fact_partner_redemption.redemption_id
+  type: attribute
+id: fact_partner_redemption
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: redemption_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Partner Redemption
+title: Partner Redemption
+workspaceDataFilterReferences: []

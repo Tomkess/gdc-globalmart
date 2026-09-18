@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_store_sales_avg_transaction_value} - {metric/metric_l1_sql_blended_daily_revenue_total_revenue}
+description: Compares overall transaction value to overall revenue by calculating the difference between total Avg Transaction
+  Value (from Daily Store Sales) and total Revenue (from Blended Daily Revenue) in the current reporting context. Use it to
+  track how the gap between these two totals shifts across filters, time periods, or segments.
+id: metric_l2_intra_0009
+tags:
+- L2
+title: Avg Transaction Value (Daily Store Sales) vs Revenue (Blended Daily Revenue) Change

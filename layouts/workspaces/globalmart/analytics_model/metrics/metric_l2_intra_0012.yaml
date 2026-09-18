@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_opex_transaction_amount} - {metric/metric_l1_fact_gift_card_txn_txn_count}
+description: Calculates the net difference between total Operating Expense Transaction amount and the total number of Gift
+  Card Transactions for the current filters and time period. Use it to compare how operating expense value is tracking versus
+  gift card transaction volume, where a positive result means expenses are higher than transaction count and a negative result
+  means the opposite.
+id: metric_l2_intra_0012
+tags:
+- L2
+title: Amount (Operating Expense Transaction) vs Transaction Count (Gift Card Transaction) Change

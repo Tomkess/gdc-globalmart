@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0017_2} - (SELECT {metric/metric_l3_0017_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the number of compliment/complaint comments in the North region by comparing
+  the current month’s count to the prior month. Use it to quickly spot whether comment volume in North is trending up or down
+  versus last month.
+id: metric_l4_mom_0053
+tags:
+- L4
+title: 'MoM: Comment Count (Compliment Complaint) — North Region'

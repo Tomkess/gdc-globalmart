@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_range_review_outcome_decision_count} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Counts the total number of Range Review Outcome decisions, limited to the In-Store sales channel. Use it to track
+  and compare in-store decision volume over time or across categories and other business breakdowns.
+id: metric_l3_0044_0
+tags:
+- L3
+title: Decision Count (Range Review Outcome) — In-Store Channel

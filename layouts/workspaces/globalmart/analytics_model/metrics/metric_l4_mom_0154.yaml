@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0051_1} - (SELECT {metric/metric_l3_0051_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in online stock movement quantity by comparing the current month’s moved
+  units to the previous month. Use it to see whether online stock movement volume is trending up or down over time, typically
+  when analyzed by Month/Year.
+id: metric_l4_mom_0154
+tags:
+- L4
+title: 'MoM: Movement Quantity (Stock Movement) — Online Channel'

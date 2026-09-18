@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_feedback_sentiment_score} WHERE {label/dim_channel_master.channel_type} IN
+    ("Online")
+description: Total customer feedback sentiment score limited to the Online sales channel. Use it to monitor overall online
+  customer sentiment within the current report filters or selected time period.
+id: metric_l3_0029_1
+tags:
+- L3
+title: Sentiment Score (Customer Feedback) — Online Channel

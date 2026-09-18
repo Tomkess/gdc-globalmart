@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each training completion record in the Training Completion dataset, used to distinguish
+    and look up individual completion entries.
+  id: fact_training_completion.completion_id
+  labels: []
+  sourceColumn: completion_id
+  sourceColumnDataType: STRING
+  tags:
+  - Training Completion
+  title: Completion ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_training_completion
+  path:
+  - globalmart
+  - fact_training_completion
+  type: dataSource
+description: Training Completion
+facts:
+- description: Training Cost captures the cost associated with a training completion record in the Training Completion dataset,
+    and is typically used to analyze and aggregate training spend across courses, employees, or time periods.
+  id: fact_training_completion.training_cost
+  sourceColumn: training_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Training Completion
+  title: Training Cost Amount
+grain:
+- id: fact_training_completion.completion_id
+  type: attribute
+id: fact_training_completion
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: completion_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Training Completion
+title: Training Completion
+workspaceDataFilterReferences: []

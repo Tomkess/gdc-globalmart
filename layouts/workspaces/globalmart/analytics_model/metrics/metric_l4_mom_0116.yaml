@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0038_2} - (SELECT {metric/metric_l3_0038_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in the Compliance Adherence Score for the North region by comparing the current
+  month’s score to the prior month. Use it to monitor whether adherence is improving or declining over time, while still respecting
+  other report or dashboard filters.
+id: metric_l4_mom_0116
+tags:
+- L4
+title: 'MoM: Attribute Value (Compliance Adherence Score) — North Region'

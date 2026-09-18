@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0002_0} - (SELECT {metric/metric_l3_0002_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0002_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percent change in the total value of loyalty redemption discount amounts applied at
+  the point of sale for the In-Store sales channel. Use it to evaluate whether in-store loyalty redemption discounts are rising
+  or falling versus the same period last year.
+id: metric_l4_yoy_0006
+tags:
+- L4
+title: 'YoY: Discount Amount (Loyalty Redemption at POS) — In-Store Channel'

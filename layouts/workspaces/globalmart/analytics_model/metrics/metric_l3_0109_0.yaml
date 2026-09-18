@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_partner_redemption_partner_discount} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Total value of partner redemption discounts limited to the In-Store sales channel. Use this metric to monitor
+  how much partner-funded discount is being applied through partner redemptions in physical stores.
+id: metric_l3_0109_0
+tags:
+- L3
+title: Partner Discount (Partner Redemption) — In-Store Channel

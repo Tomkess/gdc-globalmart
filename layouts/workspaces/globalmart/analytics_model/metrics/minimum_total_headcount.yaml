@@ -1,0 +1,11 @@
+content:
+  format: '#,##0'
+  maql: SELECT MIN({metric/metric_l1_fact_headcount_snapshot_total_headcount})
+description: Returns the minimum value of Total Headcount within the selected data and filters. This metric respects dashboard,
+  visualization, date, and segment filters applied in the analysis context.
+id: minimum_total_headcount
+tags:
+- headcount
+- minimum
+- workforce
+title: Minimum Total Headcount

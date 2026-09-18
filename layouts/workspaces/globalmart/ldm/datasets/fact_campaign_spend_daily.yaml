@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Calendar day associated with each record in the Daily Campaign Spend dataset. Use it to group or filter campaign
+    spend metrics by day to analyze daily trends.
+  id: fact_campaign_spend_daily.day
+  labels: []
+  sourceColumn: day
+  sourceColumnDataType: DATE
+  tags:
+  - Daily Campaign Spend
+  title: Day (Daily Campaign Spend)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_campaign_spend_daily
+  path:
+  - globalmart
+  - fact_campaign_spend_daily
+  type: dataSource
+description: Daily Campaign Spend
+facts:
+- description: Amount of campaign spend recorded at a daily level in the Daily Campaign Spend dataset, typically used to analyze
+    and aggregate marketing costs over time.
+  id: fact_campaign_spend_daily.spend
+  sourceColumn: spend
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Daily Campaign Spend
+  title: Spend (Daily Campaign Spend)
+- description: Counts the number of spend records captured in the Daily Campaign Spend dataset. Useful for checking data volume
+    and understanding how many daily spend entries are included in reports or filters.
+  id: fact_campaign_spend_daily.spend_count
+  sourceColumn: spend_count
+  sourceColumnDataType: INT
+  tags:
+  - Daily Campaign Spend
+  title: Spend Count (Daily Campaign Spend)
+grain:
+- id: fact_campaign_spend_daily.day
+  type: attribute
+id: fact_campaign_spend_daily
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: day
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Daily Campaign Spend
+title: Daily Campaign Spend
+workspaceDataFilterReferences: []

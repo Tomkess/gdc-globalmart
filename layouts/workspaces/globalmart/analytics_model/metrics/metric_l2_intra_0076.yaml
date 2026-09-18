@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_capex_project_spent_amount} - {metric/metric_l1_fact_intercompany_recharge_recharge_amount}
+description: Shows the net difference between total capital expenditure project spend and total intercompany (transactions
+  between entities within the same organisation) recharge amounts for the current filters and selected time period. Use it
+  to assess whether project spending is running higher or lower than the recharges being applied.
+id: metric_l2_intra_0076
+tags:
+- L2
+title: Spent Amount (Capital Expenditure Project) vs Recharge Amount (Intercompany Recharge) Change

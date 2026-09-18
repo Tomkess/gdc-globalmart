@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_loyalty_roi_attributed_revenue} - {metric/metric_l1_fact_customer_event_event_count}
+description: Measures the net difference between revenue attributed to the loyalty program and the total volume of customer
+  events in the current analysis scope. Use it to compare loyalty program revenue impact against overall customer activity
+  under the same filters and breakdowns.
+id: metric_l2_intra_0021
+tags:
+- L2
+title: Attributed Revenue (Loyalty Program ROI) vs Event Count (Customer Event) Change

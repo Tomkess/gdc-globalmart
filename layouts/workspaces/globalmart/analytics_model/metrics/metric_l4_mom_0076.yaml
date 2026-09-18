@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0025_1} - (SELECT {metric/metric_l3_0025_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in order amount tied to earned loyalty points for the Online sales channel,
+  comparing the current month to the prior month. Use it to track whether online, loyalty-driven order value is increasing
+  or decreasing over time.
+id: metric_l4_mom_0076
+tags:
+- L4
+title: 'MoM: Order Amount (Loyalty Points Earned) — Online Channel'

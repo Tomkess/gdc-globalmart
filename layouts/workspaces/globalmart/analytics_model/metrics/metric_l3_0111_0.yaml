@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_loyalty_roi_points_cost} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Totals the loyalty points cost for transactions in the In-Store sales channel. Use this to isolate points-related
+  expenses driven by in-store activity when evaluating loyalty program ROI.
+id: metric_l3_0111_0
+tags:
+- L3
+title: Points Cost (Loyalty Program ROI) — In-Store Channel

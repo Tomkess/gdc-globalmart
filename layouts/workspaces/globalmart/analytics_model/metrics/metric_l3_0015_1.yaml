@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_price_adjustment_price_change} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Shows the total net price change driven by price adjustments, restricted to the Online sales channel. Use it
+  to quantify the overall impact of pricing actions on online prices when analyzing by time, product, customer, or other dimensions.
+id: metric_l3_0015_1
+tags:
+- L3
+title: Price Change (Price Adjustment) — Online Channel

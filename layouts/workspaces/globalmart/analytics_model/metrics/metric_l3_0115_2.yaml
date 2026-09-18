@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_waste_disposal_disposal_cost} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total waste disposal spending limited to the North region. Use this metric to track and compare disposal costs
+  for North-region operations across the current reporting context (for example by time period, site, or vendor).
+id: metric_l3_0115_2
+tags:
+- L3
+title: Disposal Cost (Waste Disposal) — North Region

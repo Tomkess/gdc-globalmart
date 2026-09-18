@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0007_2} - (SELECT {metric/metric_l3_0007_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0007_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Calculates the year-over-year percentage change in Sales Amount for the North region by comparing the current
+  period to the same period in the prior year. Use it to track North region sales growth or decline over time for YoY performance
+  reporting.
+id: metric_l4_yoy_0023
+tags:
+- L4
+title: 'YoY: Sales Amount (Daily Store Sales) — North Region'

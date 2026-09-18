@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0021_2} - (SELECT {metric/metric_l3_0021_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0021_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in loyalty-program attributed revenue for the North region by comparing
+  the current year with the prior year. Use it to monitor growth or decline in loyalty-driven revenue performance in North
+  over time.
+id: metric_l4_yoy_0065
+tags:
+- L4
+title: 'YoY: Attributed Revenue (Loyalty Program ROI) — North Region'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_store_staffing_daily_staff_hours} - {metric/metric_l1_fact_store_staffing_daily_staff_count}
+description: Compares changes in labor hours to changes in headcount by calculating the difference between total staff hours
+  and total staff count from the Daily Store Staffing data for the selected period and any applied filters. Use it to see
+  whether overall staffing effort is rising or falling relative to the number of staff.
+id: metric_l2_intra_0082
+tags:
+- L2
+title: Staff Hours (Daily Store Staffing) vs Staff Count (Daily Store Staffing) Change

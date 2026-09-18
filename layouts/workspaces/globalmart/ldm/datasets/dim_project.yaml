@@ -1,0 +1,47 @@
+aggregatedFacts: []
+attributes:
+- description: Identifier for each project in the Project dataset, used to uniquely distinguish projects and to group or filter
+    reporting by project.
+  id: dim_project.project_id
+  labels: []
+  sourceColumn: project_id
+  sourceColumnDataType: STRING
+  tags:
+  - Project
+  title: Project ID (Project)
+- description: Identifies the name of a project in the Project dataset. Use it to group, filter, and break down metrics by
+    individual project.
+  id: dim_project.project_name
+  labels: []
+  sourceColumn: project_name
+  sourceColumnDataType: STRING
+  tags:
+  - Project
+  title: Project Name
+- description: Indicates the current status of a project (for example, the stage it is in). Use this attribute from the Project
+    dataset to segment, group, or filter project-related metrics by status.
+  id: dim_project.project_status
+  labels: []
+  sourceColumn: project_status
+  sourceColumnDataType: STRING
+  tags:
+  - Project
+  title: Project Status
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_project
+  path:
+  - globalmart
+  - dim_project
+  type: dataSource
+description: Project
+facts: []
+grain:
+- id: dim_project.project_id
+  type: attribute
+id: dim_project
+references: []
+tags:
+- Project
+title: Project
+workspaceDataFilterReferences: []

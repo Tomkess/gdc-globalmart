@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each fraud alert record in the Fraud Alert dataset. Use it to look up, filter, or group
+    analyses by specific alerts.
+  id: fact_fraud_alert.alert_id
+  labels: []
+  sourceColumn: alert_id
+  sourceColumnDataType: STRING
+  tags:
+  - Fraud Alert
+  title: Alert ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_fraud_alert
+  path:
+  - globalmart
+  - fact_fraud_alert
+  type: dataSource
+description: Fraud Alert
+facts:
+- description: Number of fraud alerts recorded in the Fraud Alert dataset, typically used to count and trend alert volume
+    by time, type, or other dimensions.
+  id: fact_fraud_alert.alert_count
+  sourceColumn: alert_count
+  sourceColumnDataType: INT
+  tags:
+  - Fraud Alert
+  title: Alert Count
+- description: Monetary value associated with a fraud alert record in the Fraud Alert dataset, used to analyze the size of
+    alerts (for example, total or average alert value) across different segments and time periods.
+  id: fact_fraud_alert.alert_value
+  sourceColumn: alert_value
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Fraud Alert
+  title: Alert Value
+grain:
+- id: fact_fraud_alert.alert_id
+  type: attribute
+id: fact_fraud_alert
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: alert_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Fraud Alert
+title: Fraud Alert
+workspaceDataFilterReferences: []

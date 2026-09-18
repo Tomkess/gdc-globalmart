@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0047_1} - (SELECT {metric/metric_l3_0047_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0047_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Online Channel average inventory (from Assortment Efficiency), comparing
+  the current period to the same period last year. Use it to track whether online inventory levels are increasing or decreasing
+  versus the prior year within the current reporting context (e.g., by time, product, or location).
+id: metric_l4_yoy_0142
+tags:
+- L4
+title: 'YoY: Avg Inventory (Assortment Efficiency) — Online Channel'

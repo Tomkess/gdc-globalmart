@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_nps_response_response_count} - {metric/metric_l1_fact_customer_feedback_sentiment_score}
+description: Measures the gap between NPS survey response volume and the total sentiment captured in customer feedback by
+  subtracting Total Sentiment Score from Total Response Count. Use it to see whether changes in response volume are outpacing
+  or lagging behind shifts in overall feedback sentiment for the same time period or filters.
+id: metric_l2_intra_0028
+tags:
+- L2
+title: Response Count (NPS Response) vs Sentiment Score (Customer Feedback) Change

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each wishlist-related e-commerce event in the E-commerce Wishlist dataset, used to distinguish,
+    group, or filter individual events.
+  id: fact_ecom_event_04.event_id
+  labels: []
+  sourceColumn: event_id
+  sourceColumnDataType: STRING
+  tags:
+  - E-commerce Wishlist
+  title: Event ID (E-commerce Wishlist)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_ecom_event_04
+  path:
+  - globalmart
+  - fact_ecom_event_04
+  type: dataSource
+description: E-commerce Wishlist
+facts:
+- description: Counts the number of wishlist-related e-commerce events recorded in the E-commerce Wishlist dataset. Typically
+    used to track event volume and analyze activity trends by different dimensions (for example, time or customer segments).
+  id: fact_ecom_event_04.event_count
+  sourceColumn: event_count
+  sourceColumnDataType: INT
+  tags:
+  - E-commerce Wishlist
+  title: Event Count (E-commerce Wishlist)
+grain:
+- id: fact_ecom_event_04.event_id
+  type: attribute
+id: fact_ecom_event_04
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: event_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- E-commerce Wishlist
+title: E-commerce Wishlist
+workspaceDataFilterReferences: []

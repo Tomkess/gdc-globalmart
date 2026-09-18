@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_headcount_snapshot.total_headcount})
+description: Shows the total number of employees by summing the Headcount measure from the Headcount Snapshot dataset. Use
+  it to track overall workforce size and break it down by the selected filters, such as time period or organizational structure.
+id: metric_l1_fact_headcount_snapshot_total_headcount
+tags:
+- L1
+title: Total Headcount (Headcount Snapshot)

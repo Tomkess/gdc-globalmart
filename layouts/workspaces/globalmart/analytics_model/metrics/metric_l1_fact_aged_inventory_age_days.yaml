@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_aged_inventory.age_days})
+description: Sums the total number of inventory age days across all records in the Aged Inventory dataset to quantify overall
+  inventory aging. Use it with attributes like product or location to pinpoint where older stock is concentrated.
+id: metric_l1_fact_aged_inventory_age_days
+tags:
+- L1
+title: Total Age Days (Aged Inventory)

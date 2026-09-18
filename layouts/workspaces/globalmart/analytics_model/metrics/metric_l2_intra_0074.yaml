@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_daily_pnl_opex} - {metric/metric_l1_fact_capex_project_approved_budget}
+description: Shows the variance between total operating expenses (Operating Expenses (OpEx) from the Daily Profit & Loss data
+  and the total approved budget for Capital Expenditure Projects in the current reporting context (based on the selected time
+  period and any applied filters). Use it to see whether Operating Expenses (OpEx) is above or below the approved capital
+  budget and by how much.
+id: metric_l2_intra_0074
+tags:
+- L2
+title: OpEx (Daily Profit & Loss) vs Approved Budget (Capital Expenditure Project) Change

@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each waste disposal record in the Waste Disposal dataset. Use it to look up, filter,
+    or group reporting by a specific disposal event.
+  id: fact_waste_disposal.disposal_id
+  labels: []
+  sourceColumn: disposal_id
+  sourceColumnDataType: STRING
+  tags:
+  - Waste Disposal
+  title: Disposal ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_waste_disposal
+  path:
+  - globalmart
+  - fact_waste_disposal
+  type: dataSource
+description: Waste Disposal
+facts:
+- description: Cost associated with waste disposal, captured on the Waste Disposal dataset and typically summed to analyze
+    total disposal spending by location, time period, or disposal type.
+  id: fact_waste_disposal.disposal_cost
+  sourceColumn: disposal_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Waste Disposal
+  title: Disposal Cost
+- description: Total amount of waste disposed of, measured in tons, from the Waste Disposal dataset. Commonly used to sum
+    and compare waste volumes across time periods, locations, or disposal methods.
+  id: fact_waste_disposal.waste_tons
+  sourceColumn: waste_tons
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Waste Disposal
+  title: Waste Tons
+grain:
+- id: fact_waste_disposal.disposal_id
+  type: attribute
+id: fact_waste_disposal
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: disposal_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Waste Disposal
+title: Waste Disposal
+workspaceDataFilterReferences: []

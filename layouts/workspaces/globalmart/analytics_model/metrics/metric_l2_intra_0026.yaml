@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_redeemed_reward_value} - {metric/metric_l1_fact_nps_response_nps_score}
+description: Shows the difference between the total reward value from redeemed loyalty points and the total NPS score within
+  the current filter context. Use it to compare how redemption value is changing relative to customer satisfaction scoring
+  across the same time period or segments.
+id: metric_l2_intra_0026
+tags:
+- L2
+title: Reward Value (Loyalty Points Redeemed) vs NPS Score (NPS Response) Change

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each email open event in the Email Open dataset, used to distinguish and filter individual
+    open records.
+  id: fact_email_open.open_id
+  labels: []
+  sourceColumn: open_id
+  sourceColumnDataType: STRING
+  tags:
+  - Email Open
+  title: Open ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_email_open
+  path:
+  - globalmart
+  - fact_email_open
+  type: dataSource
+description: Email Open
+facts:
+- description: Number of email opens recorded in the Email Open dataset, typically used to quantify engagement and aggregate
+    opens across campaigns, audiences, or time periods.
+  id: fact_email_open.open_count
+  sourceColumn: open_count
+  sourceColumnDataType: INT
+  tags:
+  - Email Open
+  title: Open Count
+grain:
+- id: fact_email_open.open_id
+  type: attribute
+id: fact_email_open
+references:
+- identifier:
+    id: fact_email_send
+    type: dataset
+  multivalue: false
+  sources:
+  - column: send_id
+    dataType: STRING
+    target:
+      id: fact_email_send.send_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: open_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Email Open
+title: Email Open
+workspaceDataFilterReferences: []

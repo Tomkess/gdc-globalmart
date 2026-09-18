@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Shows total revenue generated per staff hour for the Operations Efficiency Summary, filtered to the North region.
+  Use it to assess and compare operational efficiency in North versus other regions or time periods.
+id: metric_l3_0093_2
+tags:
+- L3
+title: Revenue per Staff Hour (Operations Efficiency Summary) — North Region

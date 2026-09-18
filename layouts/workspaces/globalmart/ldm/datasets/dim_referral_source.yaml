@@ -1,0 +1,38 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each referral source in the Referral Source dataset, used to group and filter reporting
+    by source.
+  id: dim_referral_source.source_id
+  labels: []
+  sourceColumn: source_id
+  sourceColumnDataType: STRING
+  tags:
+  - Referral Source
+  title: Source ID (Referral Source)
+- description: Identifies the name of the referral source (e.g., where a lead or visit originated) in the Referral Source
+    dataset. Use it to group or filter reports by source name for attribution and performance analysis.
+  id: dim_referral_source.source_name
+  labels: []
+  sourceColumn: source_name
+  sourceColumnDataType: STRING
+  tags:
+  - Referral Source
+  title: Source Name (Referral Source)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_referral_source
+  path:
+  - globalmart
+  - dim_referral_source
+  type: dataSource
+description: Referral Source
+facts: []
+grain:
+- id: dim_referral_source.source_id
+  type: attribute
+id: dim_referral_source
+references: []
+tags:
+- Referral Source
+title: Referral Source
+workspaceDataFilterReferences: []

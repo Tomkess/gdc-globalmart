@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total marketing campaign spend filtered to the Online sales channel. Use this metric to isolate and compare online-only
+  spending versus overall campaign spend across reports and time periods.
+id: metric_l3_0065_1
+tags:
+- L3
+title: Campaign Spend — Online Channel

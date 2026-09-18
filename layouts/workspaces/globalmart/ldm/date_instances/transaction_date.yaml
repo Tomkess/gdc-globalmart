@@ -1,0 +1,14 @@
+description: ''
+granularities:
+- MINUTE
+- HOUR
+- DAY
+- WEEK
+- MONTH
+- QUARTER
+- YEAR
+granularitiesFormatting:
+  titleBase: ''
+  titlePattern: '%granularityTitle'
+id: transaction_date
+title: Transaction Date

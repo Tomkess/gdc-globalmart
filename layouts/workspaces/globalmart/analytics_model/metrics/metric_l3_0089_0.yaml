@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_energy_consumption_kwh} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total electricity consumption in kilowatt-hours for the In-Store sales channel only. Use this metric to monitor
+  and compare in-store energy usage across different slices of the Energy Consumption data.
+id: metric_l3_0089_0
+tags:
+- L3
+title: kWh (Energy Consumption) — In-Store Channel

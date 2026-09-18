@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0040_0} - (SELECT {metric/metric_l3_0040_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0040_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in in-store margin, comparing the current period’s margin to the same
+  measure in the previous year. Use it to track whether in-store profitability is improving or declining over time and across
+  report breakdowns.
+id: metric_l4_yoy_0120
+tags:
+- L4
+title: 'YoY: Margin (Daily Product Performance) — In-Store Channel'

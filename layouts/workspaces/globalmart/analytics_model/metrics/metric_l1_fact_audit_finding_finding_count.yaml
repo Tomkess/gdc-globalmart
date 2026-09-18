@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_audit_finding.finding_count})
+description: Totals the number of audit findings by summing the Finding Count values from the Audit Finding dataset. Use it
+  to report overall finding volume and to break results down by dimensions such as time period, audit, or area.
+id: metric_l1_fact_audit_finding_finding_count
+tags:
+- L1
+title: Total Finding Count (Audit Finding)

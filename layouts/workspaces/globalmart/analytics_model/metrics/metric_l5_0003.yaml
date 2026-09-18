@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0001} + ({metric/metric_l1_fact_purchase_order_line_quantity} / {metric/metric_l1_fact_energy_consumption_cost})
+description: Combines the month-over-month change in online order count with an efficiency-style adjustment that divides total
+  purchased quantity by total energy-consumption cost. Use it as a single indicator to monitor whether online order volume
+  is rising or falling while factoring in purchasing volume relative to energy spending within the current filters and time
+  period.
+id: metric_l5_0003
+tags:
+- L5
+title: 'MoM: Order Count — Online Channel (+Quantity (Purchase Order Line Items)/Cost (Energy Consumption))'

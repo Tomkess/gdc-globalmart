@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_display_impression_impression_count} - {metric/metric_l1_fact_paid_search_click_click_cost}
+description: Shows the net difference between total display ad impressions and total paid search click spend within the current
+  report scope (for example, a selected time period or campaign). Use it to compare display impression volume against paid
+  search costs in a single number and see how the gap shifts as you filter or segment the data.
+id: metric_l2_intra_0070
+tags:
+- L2
+title: Impression Count (Display Impression) vs Click Cost (Paid Search Click) Change

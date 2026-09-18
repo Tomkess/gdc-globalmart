@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_redeemed_points_redeemed} WHERE {label/dim_channel_master.channel_type}
+    IN ("Online")
+description: Shows the total loyalty points redeemed from transactions in the Online sales channel only. Use it to track and
+  compare online redemption volume and trends across available reporting dimensions.
+id: metric_l3_0014_1
+tags:
+- L3
+title: Points Redeemed (Loyalty Points Redeemed) — Online Channel

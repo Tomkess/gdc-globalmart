@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Location Value Score dataset. Use it to distinguish, group, or filter
+    individual Location Value Score entries.
+  id: fact_re_attr_00.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Location Value Score
+  title: Record ID (Location Value Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_re_attr_00
+  path:
+  - globalmart
+  - fact_re_attr_00
+  type: dataSource
+description: Location Value Score
+facts:
+- description: Stores the numeric score value for each record in the Location Value Score dataset, used as the underlying
+    measure for aggregations in reports and metrics.
+  id: fact_re_attr_00.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Location Value Score
+  title: Location Value Score
+grain:
+- id: fact_re_attr_00.attr_id
+  type: attribute
+id: fact_re_attr_00
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Location Value Score
+title: Location Value Score
+workspaceDataFilterReferences: []

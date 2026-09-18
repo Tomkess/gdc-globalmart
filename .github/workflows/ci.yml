@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        run: uv sync --all-extras --dev
+
+      - name: Lint
+        run: uv run ruff check src tests
+
+      - name: Type check
+        run: uv run mypy
+
+      - name: Test
+        run: uv run pytest tests/ -q
+
+      # The gate that keeps the committed layout canonical. A hand-edited layout file,
+      # or one written by a different SDK version, fails the PR that introduced it.
+      # Offline: reads the committed tree, never a live host.
+      - name: Layout tree is canonical
+        run: uv run globalmart normalize --check

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_range_review_outcome.decision_count})
+description: Sums the Decision Count from the Range Review Outcome dataset to show the total number of decisions recorded.
+  Use it to monitor overall decision volume and compare it across time periods, product categories, or other reporting dimensions.
+id: metric_l1_fact_range_review_outcome_decision_count
+tags:
+- L1
+title: Total Decision Count (Range Review Outcome)

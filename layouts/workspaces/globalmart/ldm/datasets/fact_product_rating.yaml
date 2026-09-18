@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each product rating record in the Product Rating dataset, used to distinguish and filter
+    individual ratings.
+  id: fact_product_rating.rating_id
+  labels: []
+  sourceColumn: rating_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product Rating
+  title: Rating ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_product_rating
+  path:
+  - globalmart
+  - fact_product_rating
+  type: dataSource
+description: Product Rating
+facts:
+- description: Average product rating captured in the Product Rating dataset, used to analyze typical customer ratings across
+    products or other business dimensions.
+  id: fact_product_rating.avg_rating
+  sourceColumn: avg_rating
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Product Rating
+  title: Avg Rating
+- description: Number of product reviews recorded for each product rating entry in the Product Rating dataset, commonly used
+    to sum or compare review volume across products or time.
+  id: fact_product_rating.review_count
+  sourceColumn: review_count
+  sourceColumnDataType: INT
+  tags:
+  - Product Rating
+  title: Review Count
+grain:
+- id: fact_product_rating.rating_id
+  type: attribute
+id: fact_product_rating
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: rating_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Product Rating
+title: Product Rating
+workspaceDataFilterReferences: []

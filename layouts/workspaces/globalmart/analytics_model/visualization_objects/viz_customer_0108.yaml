@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_sql_customer_ltv_snapshot_lifetime_revenue
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total customer lifetime value revenue by summing Lifetime Revenue across the currently selected
+  scope (for example, the filtered set of customers or time period).
+id: viz_customer_0108
+title: Lifetime Revenue

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0005_0} - (SELECT {metric/metric_l3_0005_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0005_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the total return amount for returns processed through the In-Store sales
+  channel, comparing the current year to the previous year. Use this metric to track whether the value of in-store returns
+  is increasing or decreasing over time.
+id: metric_l4_yoy_0015
+tags:
+- L4
+title: 'YoY: Return Amount (Returns) — In-Store Channel'

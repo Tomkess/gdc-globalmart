@@ -1,0 +1,65 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each gift card transaction in the Gift Card Transaction dataset. Use it to look up, filter,
+    or drill into specific transactions when analyzing gift card activity.
+  id: fact_gift_card_txn.txn_id
+  labels: []
+  sourceColumn: txn_id
+  sourceColumnDataType: STRING
+  tags:
+  - Gift Card Transaction
+  title: Transaction ID (Gift Card Transaction)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_gift_card_txn
+  path:
+  - globalmart
+  - fact_gift_card_txn
+  type: dataSource
+description: Gift Card Transaction
+facts:
+- description: Transaction amount recorded for each gift card transaction. Typically used to sum or analyze the value of gift
+    card activity in reports and dashboards.
+  id: fact_gift_card_txn.amount
+  sourceColumn: amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Gift Card Transaction
+  title: Amount (Gift Card Transaction)
+- description: Count of gift card transactions recorded in the Gift Card Transaction dataset. Typically used to report transaction
+    volume and to compare activity across time, stores, or other dimensions.
+  id: fact_gift_card_txn.txn_count
+  sourceColumn: txn_count
+  sourceColumnDataType: INT
+  tags:
+  - Gift Card Transaction
+  title: Transaction Count (Gift Card Transaction)
+grain:
+- id: fact_gift_card_txn.txn_id
+  type: attribute
+id: fact_gift_card_txn
+references:
+- identifier:
+    id: dim_store
+    type: dataset
+  multivalue: false
+  sources:
+  - column: store_id
+    dataType: STRING
+    target:
+      id: dim_store.store_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: txn_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Gift Card Transaction
+title: Gift Card Transaction
+workspaceDataFilterReferences: []

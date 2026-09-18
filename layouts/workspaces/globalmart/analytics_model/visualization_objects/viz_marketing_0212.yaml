@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_total_campaign_spend
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline view showing Total Campaign Spend, summing recorded spend amounts to indicate overall marketing campaign
+  expenditure for the selected reporting context.
+id: viz_marketing_0212
+title: Campaign Spend

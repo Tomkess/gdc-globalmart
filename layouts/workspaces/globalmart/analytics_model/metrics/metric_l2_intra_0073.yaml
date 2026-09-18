@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_cogs} - {metric/metric_l1_fact_daily_pnl_opex}
+description: Shows the net difference between Cost of Goods Sold (COGS) and Operating Expenses (OpEx) for the current reporting
+  context in the Daily Profit & Loss data. Use it to understand whether direct costs or operating costs are driving spending
+  changes over the selected period and filters.
+id: metric_l2_intra_0073
+tags:
+- L2
+title: COGS vs OpEx (Daily Profit & Loss) Change

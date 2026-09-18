@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_product_rating_avg_rating} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Average product rating filtered to the Online sales channel. Use it to monitor and compare product ratings for
+  online-only performance across the currently selected products and any applied time or other filters.
+id: metric_l3_0045_1
+tags:
+- L3
+title: Avg Rating (Product Rating) — Online Channel

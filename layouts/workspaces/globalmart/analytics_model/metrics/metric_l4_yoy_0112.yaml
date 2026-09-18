@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0037_1} - (SELECT {metric/metric_l3_0037_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0037_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Online Channel Monetary Quartile (Recency, Frequency, Monetary (RFM))
+  metric, comparing the current period to the previous year. Use it to see how the strength of customers’ monetary-value RFM
+  segmentation for online customers is trending versus last year under the same groupings and filters.
+id: metric_l4_yoy_0112
+tags:
+- L4
+title: 'YoY: Monetary Quartile (RFM) (Customer RFM Segments) — Online Channel'

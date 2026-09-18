@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0041_0} - (SELECT {metric/metric_l3_0041_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in total markdown amount from Markdown Events for the In-Store channel by
+  comparing the current month to the previous month. Use it to monitor whether in-store markdown activity is rising or falling
+  over time.
+id: metric_l4_mom_0123
+tags:
+- L4
+title: 'MoM: Markdown Amount (Markdown Event) — In-Store Channel'

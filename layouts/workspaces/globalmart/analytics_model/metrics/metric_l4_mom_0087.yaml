@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0029_0} - (SELECT {metric/metric_l3_0029_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the In-Store Customer Feedback Sentiment Score by subtracting the prior
+  month’s score from the current month’s score. Use it to track whether in-store customer sentiment is improving or declining
+  over time.
+id: metric_l4_mom_0087
+tags:
+- L4
+title: 'MoM: Sentiment Score (Customer Feedback) — In-Store Channel'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_total_campaign_spend} - {metric/metric_l1_fact_campaign_spend_daily_spend_count}
+description: Compares total campaign spend to the total number of daily spend records by calculating the difference between
+  Spend and Spend Count. Use it to spot potential logging gaps or anomalies where the amount spent and the number of recorded
+  spend entries don’t align for the selected period and filters.
+id: metric_l2_intra_0065
+tags:
+- L2
+title: Campaign Spend vs Spend Count (Daily Campaign Spend) Change

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_points_earned_order_amount} WHERE {label/dim_geography_region.region_name} IN
+    ("North")
+description: Totals the monetary value of orders tied to earned loyalty points, filtered to include only orders from the North
+  region. Use it to track loyalty-linked order value for the North region in reports and dashboards.
+id: metric_l3_0025_2
+tags:
+- L3
+title: Order Amount (Loyalty Points Earned) — North Region

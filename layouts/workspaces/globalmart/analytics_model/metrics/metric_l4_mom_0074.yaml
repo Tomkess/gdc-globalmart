@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0024_2} - (SELECT {metric/metric_l3_0024_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in loyalty points earned for the North region, calculated as the current month’s
+  total minus the prior month’s total. Use it to monitor whether points accumulation in the North region is trending up or
+  down from one month to the next.
+id: metric_l4_mom_0074
+tags:
+- L4
+title: 'MoM: Points (Loyalty Points Earned) — North Region'

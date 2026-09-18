@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0038_2
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the overall Compliance Adherence Score for the North region, using the “Attribute Value (Compliance
+  Adherence Score) — North Region” metric. Use it to quickly monitor North’s total adherence score in a report or dashboard,
+  while still respecting any additional filters applied.
+id: viz_risk_0356
+title: Compliance Adherence Score

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Product Margin Score dataset. Use it to distinguish, group, or filter
+    individual Product Margin Score entries.
+  id: fact_product_attr_01.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Product Margin Score
+  title: Record ID (Product Margin Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_product_attr_01
+  path:
+  - globalmart
+  - fact_product_attr_01
+  type: dataSource
+description: Product Margin Score
+facts:
+- description: Numeric value that represents a product attribute score used in the Product Margin Score dataset, typically
+    aggregated to analyze and compare products based on their margin-related attributes.
+  id: fact_product_attr_01.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Product Margin Score
+  title: Product Margin Score
+grain:
+- id: fact_product_attr_01.attr_id
+  type: attribute
+id: fact_product_attr_01
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Product Margin Score
+title: Product Margin Score
+workspaceDataFilterReferences: []

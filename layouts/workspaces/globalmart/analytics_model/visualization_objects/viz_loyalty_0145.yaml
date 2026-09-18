@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0103_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total number of loyalty program enrollments, limited to the In-Store channel. Use it to
+  monitor in-store enrollment volume for the currently selected reporting period and any applied filters.
+id: viz_loyalty_0145
+title: Enrollment Count

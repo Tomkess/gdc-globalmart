@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_planogram_compliance.compliance_score})
+description: Shows the overall planogram (a diagram specifying exact product placement on retail shelves) compliance total
+  by summing the Compliance Score across the Planogram Compliance data, based on the current analysis scope (such as selected
+  filters, locations, or time period). Use it to compare total compliance levels across different cuts of the business.
+id: metric_l1_fact_planogram_compliance_compliance_score
+tags:
+- L1
+title: Total Compliance Score (Planogram Compliance)

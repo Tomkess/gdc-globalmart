@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0036_0} - (SELECT {metric/metric_l3_0036_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0036_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in the Frequency Quartile (Recency, Frequency, Monetary (RFM)) score
+  for customers, limited to the In-Store sales channel. Use it to track how customers’ frequency-based RFM quartile performance
+  is trending versus the prior year for the selected segment or filters.
+id: metric_l4_yoy_0108
+tags:
+- L4
+title: 'YoY: Frequency Quartile (RFM) (Customer RFM Segments) — In-Store Channel'

@@ -1,0 +1,75 @@
+aggregatedFacts: []
+attributes:
+- description: Identifies the source warehouse a transfer order is shipped from. Use this attribute to group or filter transfer
+    orders by originating warehouse.
+  id: fact_transfer_order.from_warehouse_id
+  labels: []
+  sourceColumn: from_warehouse_id
+  sourceColumnDataType: STRING
+  tags:
+  - Transfer Order
+  title: From Warehouse ID
+- description: Identifies the destination warehouse for each transfer order. Use this field to filter or group transfer orders
+    by where inventory is being sent.
+  id: fact_transfer_order.to_warehouse_id
+  labels: []
+  sourceColumn: to_warehouse_id
+  sourceColumnDataType: STRING
+  tags:
+  - Transfer Order
+  title: To Warehouse ID
+- description: Unique identifier for each transfer order in the Transfer Order dataset. Use it to filter, group, or drill
+    into results at the individual transfer level.
+  id: fact_transfer_order.transfer_id
+  labels: []
+  sourceColumn: transfer_id
+  sourceColumnDataType: STRING
+  tags:
+  - Transfer Order
+  title: Transfer ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_transfer_order
+  path:
+  - globalmart
+  - fact_transfer_order
+  type: dataSource
+description: Transfer Order
+facts:
+- description: Number of units transferred on a transfer order. Use this fact from the Transfer Order dataset to sum or analyze
+    transfer volumes by time, location, or other dimensions.
+  id: fact_transfer_order.transfer_qty
+  sourceColumn: transfer_qty
+  sourceColumnDataType: INT
+  tags:
+  - Transfer Order
+  title: Transfer Quantity
+grain:
+- id: fact_transfer_order.transfer_id
+  type: attribute
+id: fact_transfer_order
+references:
+- identifier:
+    id: dim_warehouse
+    type: dataset
+  multivalue: false
+  sources:
+  - column: from_warehouse_id
+    dataType: STRING
+    target:
+      id: dim_warehouse.warehouse_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: transfer_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Transfer Order
+title: Transfer Order
+workspaceDataFilterReferences: []

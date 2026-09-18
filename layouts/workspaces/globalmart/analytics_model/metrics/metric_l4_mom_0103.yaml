@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0034_1} - (SELECT {metric/metric_l3_0034_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Average Order Value from the Customer Lifetime Value snapshot for the Online
+  sales channel by comparing the current month’s value to the prior month. Use it to track how typical online order size is
+  trending over time under the current report filters.
+id: metric_l4_mom_0103
+tags:
+- L4
+title: 'MoM: Average Order Value (Customer Lifetime Value) — Online Channel'

@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0027_2} - (SELECT {metric/metric_l3_0027_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0027_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Shows the year-over-year percentage change in Net Promoter Score (NPS) for the North region, comparing the current
+  year’s NPS Score (from NPS Response data) to the prior year. Use it to monitor whether North-region customer advocacy is
+  improving or declining versus last year, typically alongside time and segment filters.
+id: metric_l4_yoy_0083
+tags:
+- L4
+title: 'YoY: NPS Score (NPS Response) — North Region'

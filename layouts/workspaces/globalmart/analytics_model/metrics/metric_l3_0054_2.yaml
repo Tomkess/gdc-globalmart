@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_purchase_order_line_line_amount} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total monetary value of purchase order line items for the North region only. Use this metric to track and compare
+  purchase order spend in North across time, suppliers, products, or other business dimensions.
+id: metric_l3_0054_2
+tags:
+- L3
+title: Line Amount (Purchase Order Line Items) — North Region

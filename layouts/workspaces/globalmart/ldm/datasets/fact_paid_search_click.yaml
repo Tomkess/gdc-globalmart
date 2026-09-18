@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each paid search click record in the Paid Search Click dataset. Use it to look up, filter,
+    or drill into specific clicks when analyzing paid search performance.
+  id: fact_paid_search_click.click_id
+  labels: []
+  sourceColumn: click_id
+  sourceColumnDataType: STRING
+  tags:
+  - Paid Search Click
+  title: Click ID (Paid Search Click)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_paid_search_click
+  path:
+  - globalmart
+  - fact_paid_search_click
+  type: dataSource
+description: Paid Search Click
+facts:
+- description: Cost associated with an individual paid search click in the Paid Search Click dataset, used to analyze and
+    aggregate spending on paid search traffic.
+  id: fact_paid_search_click.click_cost
+  sourceColumn: click_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Paid Search Click
+  title: Click Cost
+- description: Number of paid search clicks recorded in the Paid Search Click dataset. Typically used to aggregate click volume
+    when analyzing campaign or channel performance over time.
+  id: fact_paid_search_click.click_count
+  sourceColumn: click_count
+  sourceColumnDataType: INT
+  tags:
+  - Paid Search Click
+  title: Click Count (Paid Search Click)
+grain:
+- id: fact_paid_search_click.click_id
+  type: attribute
+id: fact_paid_search_click
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: click_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Paid Search Click
+title: Paid Search Click
+workspaceDataFilterReferences: []

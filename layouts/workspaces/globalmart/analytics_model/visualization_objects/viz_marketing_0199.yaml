@@ -1,0 +1,39 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0068_2
+                type: metric
+        localIdentifier: m1
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0069_0
+                type: metric
+        localIdentifier: m2
+    localIdentifier: measures
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: transaction_date.quarter
+            type: label
+        localIdentifier: a1
+    localIdentifier: attribute
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:table
+description: Table showing quarterly trends in Email Open Count for the North region and Paid Search Click Count for the In-Store
+  channel. Use it to compare how these two engagement volumes change over time by quarter/year.
+id: viz_marketing_0199
+title: Open Count and Click Count by Quarter

@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_fact_supplier_scorecard_quality_score
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the total Supplier Scorecard Quality Score, summed across the current selection (e.g., the suppliers
+  and time period in scope). Use it to quickly gauge overall supplier quality performance for the filtered context.
+id: viz_inventory_0168
+title: Quality Score

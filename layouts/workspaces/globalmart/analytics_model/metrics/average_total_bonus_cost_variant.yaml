@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})
+description: Average of the pre-aggregated Total Bonus Cost (Bonus Event), computing the average of summed bonus cost totals
+  in the current reporting context.
+id: average_total_bonus_cost_variant
+tags:
+- average
+- bonus
+- cost
+title: Average Total Bonus Cost (Variant)

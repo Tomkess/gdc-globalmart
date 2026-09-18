@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0002_2} - (SELECT {metric/metric_l3_0002_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the total discount amount redeemed through loyalty redemptions at the point
+  of sale in the North region. Use it to track whether loyalty redemption discounts are increasing or decreasing compared
+  with the prior month across the selected time period.
+id: metric_l4_mom_0008
+tags:
+- L4
+title: 'MoM: Discount Amount (Loyalty Redemption at POS) — North Region'

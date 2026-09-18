@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_maintenance_request_downtime_hours} WHERE {label/dim_channel_master.channel_type} IN
+    ("In-Store")
+description: Total downtime hours logged on maintenance requests, filtered to the In-Store sales channel. Use it to monitor
+  and compare disruption time specifically affecting in-store operations.
+id: metric_l3_0087_0
+tags:
+- L3
+title: Downtime Hours (Maintenance Request) — In-Store Channel

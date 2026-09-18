@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0016
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline KPI showing the net change between till reconciliation variance amount and the volume of compliment/complaint
+  comments for the current selection, helping you see whether cash over/short discrepancies are moving differently than customer
+  feedback volume.
+id: viz_sales_0031
+title: Variance Amount (Till Reconciliation) vs Comment Count

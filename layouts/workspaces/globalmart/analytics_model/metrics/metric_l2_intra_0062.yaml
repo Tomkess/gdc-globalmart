@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_cost_score} - {metric/metric_l1_sql_inventory_health_current_stock}
+description: Compares Supplier Scorecard cost performance to Inventory Health on-hand inventory by calculating the difference
+  between total Cost Score and total Current Stock within the same filters and reporting context. Use it to see whether cost
+  scoring is increasing or decreasing relative to available inventory.
+id: metric_l2_intra_0062
+tags:
+- L2
+title: Cost Score (Supplier Scorecard) vs Current Stock (Inventory Health) Change

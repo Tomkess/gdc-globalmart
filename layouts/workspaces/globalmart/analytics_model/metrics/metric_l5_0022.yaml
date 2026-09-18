@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0011} + ({metric/metric_l1_fact_customer_event_event_count} / {metric/metric_l1_fact_customer_event_event_value})
+description: Combines the North region year-over-year change in purchase order line item quantity with an event efficiency
+  factor calculated as total customer event count divided by total customer event value. Use it as a composite indicator to
+  see how purchasing volume growth in the North region shifts when adjusted by customer-event activity/value patterns.
+id: metric_l5_0022
+tags:
+- L5
+title: 'YoY: Quantity (Purchase Order Line Items) — North Region (+Event Count (Customer Event)/Event Value (Customer Event))'

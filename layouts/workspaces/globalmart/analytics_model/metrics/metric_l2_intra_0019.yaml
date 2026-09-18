@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_competitor_pricing_competitor_price} - {metric/metric_l1_fact_checkout_time_avg_checkout_sec}
+description: Compares total competitor pricing against total average checkout time (in seconds) by calculating the difference
+  between the two for the current selections and filters. Use it to see how competitor price levels move relative to checkout
+  speed and to track changes in the gap across segments or time.
+id: metric_l2_intra_0019
+tags:
+- L2
+title: Competitor Price (Competitor Pricing) vs Avg Checkout Time (sec) (Checkout Time) Change

@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0042_1} - (SELECT {metric/metric_l3_0042_1} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0042_1} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in the Planogram Compliance Score for the Online sales channel, comparing the
+  current period’s score to the same period in the prior year. Use it to track whether online planogram compliance performance
+  is improving or declining over time within the selected reporting scope. A planogram is a diagram specifying exact product
+  placement on retail shelves.
+id: metric_l4_yoy_0127
+tags:
+- L4
+title: 'YoY: Compliance Score (Planogram Compliance) — Online Channel'

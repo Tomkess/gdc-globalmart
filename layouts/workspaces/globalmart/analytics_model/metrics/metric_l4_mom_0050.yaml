@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0016_2} - (SELECT {metric/metric_l3_0016_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Measures the month-over-month change in the Till Reconciliation Variance Amount for the North region by comparing
+  the current month to the prior month. Use it to track whether cash over/short reconciliation discrepancies in the North
+  are improving or worsening over time.
+id: metric_l4_mom_0050
+tags:
+- L4
+title: 'MoM: Variance Amount (Till Reconciliation) — North Region'

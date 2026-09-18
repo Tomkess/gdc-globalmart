@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each loyalty expiry record in the Loyalty Expiry dataset. Use it to reference, group,
+    or filter individual expiry entries.
+  id: fact_loyalty_expiry.expiry_id
+  labels: []
+  sourceColumn: expiry_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Expiry
+  title: Expiry ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_loyalty_expiry
+  path:
+  - globalmart
+  - fact_loyalty_expiry
+  type: dataSource
+description: Loyalty Expiry
+facts:
+- description: Number of loyalty points that expired, based on the Loyalty Expiry dataset. Use this to track the volume of
+    points lost due to expiration over time or by customer segments.
+  id: fact_loyalty_expiry.points_expired
+  sourceColumn: points_expired
+  sourceColumnDataType: INT
+  tags:
+  - Loyalty Expiry
+  title: Points Expired
+grain:
+- id: fact_loyalty_expiry.expiry_id
+  type: attribute
+id: fact_loyalty_expiry
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: expiry_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Loyalty Expiry
+title: Loyalty Expiry
+workspaceDataFilterReferences: []

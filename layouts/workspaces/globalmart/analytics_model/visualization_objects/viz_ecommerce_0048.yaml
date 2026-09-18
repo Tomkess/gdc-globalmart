@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l1_total_order_count
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the Total Order Count, used to track overall online order volume at a glance and monitor changes
+  over time or across segments when combined with other filters or breakdowns.
+id: viz_ecommerce_0048
+title: Order Count

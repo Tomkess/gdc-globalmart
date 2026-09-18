@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_loyalty_redemption_at_pos_discount_amount} WHERE {label/dim_geography_region.region_name}
+    IN ("North")
+description: Totals the discount value redeemed through loyalty redemptions at the point of sale, filtered to the North region.
+  Use it to monitor how much loyalty redemptions are reducing sales via discounts in North across the selected time period,
+  stores, or customer segments.
+id: metric_l3_0002_2
+tags:
+- L3
+title: Discount Amount (Loyalty Redemption at POS) — North Region

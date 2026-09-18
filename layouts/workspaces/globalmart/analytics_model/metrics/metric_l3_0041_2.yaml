@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_markdown_event_markdown_amount} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Shows the total markdown amount from markdown events, filtered to the North region. Use it to track and compare
+  markdown impact in North across whatever time, store, or product scope is applied in a report.
+id: metric_l3_0041_2
+tags:
+- L3
+title: Markdown Amount (Markdown Event) — North Region

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_yoy_0004} + ({metric/metric_l1_fact_daily_store_sales_transaction_count} / {metric/metric_l1_fact_daily_store_sales_avg_transaction_value})
+description: Composite metric that adjusts the year-over-year change in Online Channel net revenue by adding a ratio derived
+  from Daily Store Sales (total transaction count divided by total average transaction value). Use it when you want an online
+  revenue YoY view that is augmented by store transaction activity within the current filter context.
+id: metric_l5_0008
+tags:
+- L5
+title: 'YoY: Net Revenue — Online Channel (+Transaction Count (Daily Store Sales)/Avg Transaction Value (Daily Store Sales))'

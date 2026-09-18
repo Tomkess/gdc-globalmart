@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Customer LTV Score dataset, used to reference or deduplicate (the
+    process of identifying and removing duplicate records) individual LTV score entries.
+  id: fact_customer_attr_00.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Customer LTV Score
+  title: Record ID (Customer LTV Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_customer_attr_00
+  path:
+  - globalmart
+  - fact_customer_attr_00
+  type: dataSource
+description: Customer LTV Score
+facts:
+- description: Stores the numeric value for the Customer LTV Score, used for aggregating and analyzing customers by their
+    lifetime value score.
+  id: fact_customer_attr_00.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Customer LTV Score
+  title: Customer LTV Score
+grain:
+- id: fact_customer_attr_00.attr_id
+  type: attribute
+id: fact_customer_attr_00
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Customer LTV Score
+title: Customer LTV Score
+workspaceDataFilterReferences: []

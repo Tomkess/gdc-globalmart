@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0102_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total recruitment spend for the In-Store sales channel, based on the “Recruitment Cost (Recruitment)
+  — In-Store Channel” metric. Use it to monitor and compare In-Store recruiting costs over time or across other recruitment
+  dimensions.
+id: viz_hr_0321
+title: Recruitment Cost

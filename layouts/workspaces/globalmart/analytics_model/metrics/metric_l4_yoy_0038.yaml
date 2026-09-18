@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0012_2} - (SELECT {metric/metric_l3_0012_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0012_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percentage change in total Operating Expense Transaction Amount for the North region, comparing
+  the current year to the prior year. Use it to monitor whether North’s operating expense spending is rising or falling versus
+  last year over time.
+id: metric_l4_yoy_0038
+tags:
+- L4
+title: 'YoY: Amount (Operating Expense Transaction) — North Region'

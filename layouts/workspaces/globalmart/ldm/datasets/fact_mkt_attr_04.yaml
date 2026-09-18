@@ -1,0 +1,46 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Media Mix Efficiency Score dataset. Use it to distinguish or look
+    up individual rows when validating data or troubleshooting specific records.
+  id: fact_mkt_attr_04.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Media Mix Efficiency Score
+  title: Record ID (Media Mix Efficiency Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_mkt_attr_04
+  path:
+  - globalmart
+  - fact_mkt_attr_04
+  type: dataSource
+description: Media Mix Efficiency Score
+facts:
+- description: Stores the numeric attribute value used in the Media Mix Efficiency Score dataset for analysis and reporting.
+  id: fact_mkt_attr_04.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Media Mix Efficiency Score
+  title: Media Mix Efficiency Score
+grain:
+- id: fact_mkt_attr_04.attr_id
+  type: attribute
+id: fact_mkt_attr_04
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Media Mix Efficiency Score
+title: Media Mix Efficiency Score
+workspaceDataFilterReferences: []

@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT SUM({fact/fact_waste_disposal.waste_tons})
+description: Sums the total waste disposed of (in tons) across Waste Disposal records. Use it to monitor overall waste volume
+  and compare totals by time period, location, or other dimensions.
+id: metric_l1_fact_waste_disposal_waste_tons
+tags:
+- L1
+title: Total Waste Tons (Waste Disposal)

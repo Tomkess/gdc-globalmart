@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_lease_payment_lease_payment} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Total lease payment amount limited to the Online sales channel. Use it to report or compare lease payments specifically
+  for online-originated business while still respecting any other filters in the report.
+id: metric_l3_0112_1
+tags:
+- L3
+title: Lease Payment (Lease Payment) — Online Channel

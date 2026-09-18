@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0009
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the gap between overall average transaction value (from Daily Store Sales) and total revenue
+  (from Blended Daily Revenue) in the current reporting context. Use it to monitor how the difference between transaction
+  value and revenue shifts as you change time periods, filters, or segments.
+id: viz_sales_0024
+title: Avg Transaction Value (Daily Store Sales) vs Revenue

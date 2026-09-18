@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_sql_assortment_efficiency_units_sold} - {metric/metric_l1_fact_product_performance_daily_margin}
+description: Measures the gap between sales volume and profitability by subtracting Total Margin (Daily Product Performance)
+  from Total Units Sold (Assortment Efficiency) for the current filters. Use it as a directional indicator to spot products,
+  dates, or other slices where unit movement and margin are out of balance.
+id: metric_l2_intra_0039
+tags:
+- L2
+title: Units Sold (Assortment Efficiency) vs Margin (Daily Product Performance) Change

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0047_1} - (SELECT {metric/metric_l3_0047_1} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in average inventory for the Online channel by comparing the current month’s
+  average inventory to the previous month. Use it to see whether online inventory levels are rising or falling over time within
+  your current analysis context.
+id: metric_l4_mom_0142
+tags:
+- L4
+title: 'MoM: Avg Inventory (Assortment Efficiency) — Online Channel'

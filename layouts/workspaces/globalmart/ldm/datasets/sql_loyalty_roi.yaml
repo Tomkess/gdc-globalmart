@@ -1,0 +1,55 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each loyalty program in the Loyalty Program ROI dataset, used to group, filter, and join
+    results by program.
+  id: sql_loyalty_roi.loyalty_program_id
+  labels: []
+  sourceColumn: loyalty_program_id
+  sourceColumnDataType: STRING
+  tags:
+  - Loyalty Program ROI
+  title: Loyalty Program ID
+description: Loyalty Program ROI
+facts:
+- description: Revenue amount attributed to the loyalty program, used to analyze the program’s ROI and performance within
+    the Loyalty Program ROI dataset.
+  id: sql_loyalty_roi.attributed_revenue
+  sourceColumn: attributed_revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Loyalty Program ROI
+  title: Attributed Revenue (Loyalty Program ROI)
+- description: Cost associated with loyalty points in the Loyalty Program ROI dataset, used to track and analyze the expense
+    of issuing or redeeming points.
+  id: sql_loyalty_roi.points_cost
+  sourceColumn: points_cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Loyalty Program ROI
+  title: Points Cost (Loyalty ROI)
+grain:
+- id: sql_loyalty_roi.loyalty_program_id
+  type: attribute
+id: sql_loyalty_roi
+references:
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: program_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: "\nSELECT\n    lp.enrollment_id AS loyalty_program_id,\n    lp.enrollment_date AS program_date,\n    SUM(lpe.points)\
+    \ * 0.01 AS points_cost,\n    SUM(COALESCE(ol.revenue, 0)) AS attributed_revenue\nFROM {{ datasource_schema }}.fact_loyalty_points_earned\
+    \ lpe\nJOIN {{ datasource_schema }}.fact_loyalty_enrollment lp ON lpe.customer_id = lp.customer_id\nLEFT JOIN {{ datasource_schema\
+    \ }}.fact_order_header oh ON lpe.customer_id = oh.customer_id\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON\
+    \ oh.order_id = ol.order_id\nGROUP BY 1, 2\n"
+tags:
+- Loyalty Program ROI
+title: Loyalty Program ROI
+workspaceDataFilterReferences: []

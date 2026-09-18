@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_supplier_scorecard_quality_score} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Total supplier quality score from the Supplier Scorecard, limited to the In‑Store sales channel. Use this metric
+  to assess overall quality performance for in‑store activity and analyze it by supplier, time period, or other dimensions.
+id: metric_l3_0060_0
+tags:
+- L3
+title: Quality Score (Supplier Scorecard) — In-Store Channel

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0046_0} - (SELECT {metric/metric_l3_0046_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in the number of product rating reviews submitted through the In-Store sales
+  channel, comparing the current month to the previous month. Use it to track whether in-store review volume is increasing
+  or decreasing over time at a monthly level.
+id: metric_l4_mom_0138
+tags:
+- L4
+title: 'MoM: Review Count (Product Rating) — In-Store Channel'

@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_nps_response_nps_score} WHERE {label/dim_channel_master.channel_type} IN ("Online")
+description: Sums NPS Score values from NPS Response records, restricted to the Online sales channel, and respects any other
+  report filters such as time period or segment. Use it to track overall NPS scoring volume specifically for online interactions
+  and compare it across cuts of the data.
+id: metric_l3_0027_1
+tags:
+- L3
+title: NPS Score (NPS Response) — Online Channel

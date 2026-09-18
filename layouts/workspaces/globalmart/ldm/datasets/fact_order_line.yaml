@@ -1,0 +1,82 @@
+aggregatedFacts: []
+attributes:
+- description: Percentage discount applied to an order line item in the Order Line Items dataset, used to group or filter
+    sales analysis by discount level.
+  id: fact_order_line.discount_pct
+  labels: []
+  sourceColumn: discount_pct
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Order Line Items
+  title: Discount Pct
+- description: Unique identifier for each order line item in the Order Line Items dataset. Use it to distinguish, group, or
+    drill into individual line items when analyzing orders at the line level.
+  id: fact_order_line.order_line_id
+  labels: []
+  sourceColumn: order_line_id
+  sourceColumnDataType: STRING
+  tags:
+  - Order Line Items
+  title: Order Line ID (Order Line Items)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_order_line
+  path:
+  - globalmart
+  - fact_order_line
+  type: dataSource
+description: Order Line Items
+facts:
+- description: Cost amount recorded for each order line item in the Order Line Items dataset, used to analyze expenses by
+    product, order, or other dimensions.
+  id: fact_order_line.cost
+  sourceColumn: cost
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Order Line Items
+  title: Cost (Order Line Items)
+- description: Number of units on each order line item in the Order Line Items dataset, typically used to sum total units
+    sold and to break down volumes by product, customer, or time.
+  id: fact_order_line.quantity
+  sourceColumn: quantity
+  sourceColumnDataType: INT
+  tags:
+  - Order Line Items
+  title: Quantity (Order Line Items)
+- description: Revenue amount generated from order line items. Use it to analyze and compare sales performance by different
+    product, customer, or time breakdowns.
+  id: fact_order_line.revenue
+  sourceColumn: revenue
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Order Line Items
+  title: Revenue (Order Line Items)
+grain:
+- id: fact_order_line.order_line_id
+  type: attribute
+id: fact_order_line
+references:
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+- identifier:
+    id: fact_order_header
+    type: dataset
+  multivalue: false
+  sources:
+  - column: order_id
+    dataType: STRING
+    target:
+      id: fact_order_header.order_id
+      type: attribute
+tags:
+- Order Line Items
+title: Order Line Items
+workspaceDataFilterReferences: []

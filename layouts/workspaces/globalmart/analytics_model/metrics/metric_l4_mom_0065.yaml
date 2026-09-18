@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0021_2} - (SELECT {metric/metric_l3_0021_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in revenue attributed to the loyalty program for the North region by comparing
+  the current month to the prior month. Use it to monitor whether loyalty-driven revenue in North is increasing or decreasing
+  over time.
+id: metric_l4_mom_0065
+tags:
+- L4
+title: 'MoM: Attributed Revenue (Loyalty Program ROI) — North Region'

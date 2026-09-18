@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0008
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the change between total transaction count and average transaction value using Daily Store Sales
+  data, helping you compare how transaction volume is moving relative to basket size for the selected stores, regions, or
+  time period.
+id: viz_sales_0023
+title: Transaction Count (Daily Store Sales) vs Avg Transaction Value

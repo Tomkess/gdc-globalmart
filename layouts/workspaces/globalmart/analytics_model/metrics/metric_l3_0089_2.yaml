@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_energy_consumption_kwh} WHERE {label/dim_geography_region.region_name} IN ("North")
+description: Total electricity consumption measured in kilowatt-hours (kWh) for the North region only. Use this metric to
+  monitor and compare North’s energy usage against other regions or overall consumption.
+id: metric_l3_0089_2
+tags:
+- L3
+title: kWh (Energy Consumption) — North Region

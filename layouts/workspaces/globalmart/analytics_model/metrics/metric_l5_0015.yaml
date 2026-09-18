@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l4_mom_0007} + ({metric/metric_l1_fact_price_adjustment_price_change} / {metric/metric_l1_fact_till_reconciliation_variance_amount})
+description: Calculates a month-over-month view of online loyalty redemption discount amounts, then adjusts it by adding the
+  ratio of total Price Change (Price Adjustment) to total Variance Amount (Till Reconciliation). Use this metric to monitor
+  how online loyalty discount trends shift month to month while factoring in pricing adjustments relative to till reconciliation
+  discrepancies.
+id: metric_l5_0015
+tags:
+- L5
+title: 'MoM: Discount Amount (Loyalty Redemption at POS) — Online Channel (+Price Change (Price Adjustment)/Variance Amount
+  (Till Reconciliation))'

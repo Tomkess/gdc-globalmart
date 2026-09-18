@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0039_2} - (SELECT {metric/metric_l3_0039_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in Units Sold for the North region within the Assortment Efficiency subject
+  area. Use it to understand how many more or fewer units were sold compared with the prior month and to monitor short-term
+  sales momentum.
+id: metric_l4_mom_0119
+tags:
+- L4
+title: 'MoM: Units Sold (Assortment Efficiency) — North Region'

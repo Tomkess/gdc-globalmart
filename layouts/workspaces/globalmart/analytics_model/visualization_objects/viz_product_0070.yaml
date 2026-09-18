@@ -1,0 +1,22 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l3_0039_0
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing total Units Sold for the In-Store channel, based on the Assortment Efficiency dataset. Use it
+  to monitor and compare in-store unit volume across relevant dimensions such as product, location, or time.
+id: viz_product_0070
+title: Units Sold (In-Store channel)

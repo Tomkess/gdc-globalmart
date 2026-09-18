@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_customer_event_event_count} - {metric/metric_l1_fact_customer_event_event_value}
+description: Compares customer event activity to customer event value by calculating the difference between total event count
+  and total event value. Use it to see whether changes in event volume are outpacing (or lagging) changes in the value generated,
+  across time periods or business segments.
+id: metric_l2_intra_0022
+tags:
+- L2
+title: Event Count (Customer Event) vs Event Value (Customer Event) Change

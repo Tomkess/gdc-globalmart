@@ -1,0 +1,75 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each tier change event in the Tier Change dataset. Use it to distinguish, group, or look
+    up individual change records in reports.
+  id: fact_tier_change.change_id
+  labels: []
+  sourceColumn: change_id
+  sourceColumnDataType: STRING
+  tags:
+  - Tier Change
+  title: Change ID
+- description: Identifier of the new tier assigned in each Tier Change record. Use it to group or filter analyses by the resulting
+    tier after a change.
+  id: fact_tier_change.new_tier_id
+  labels: []
+  sourceColumn: new_tier_id
+  sourceColumnDataType: STRING
+  tags:
+  - Tier Change
+  title: New Tier ID
+- description: Identifies the membership or account tier a record was in before a tier change occurred. Use this attribute
+    from the Tier Change dataset to group, filter, or compare changes by the prior tier.
+  id: fact_tier_change.old_tier_id
+  labels: []
+  sourceColumn: old_tier_id
+  sourceColumnDataType: STRING
+  tags:
+  - Tier Change
+  title: Old Tier ID
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_tier_change
+  path:
+  - globalmart
+  - fact_tier_change
+  type: dataSource
+description: Tier Change
+facts:
+- description: Number of tier change events recorded in the Tier Change dataset, typically used to count how many changes
+    occurred for a given time period or segment.
+  id: fact_tier_change.change_count
+  sourceColumn: change_count
+  sourceColumnDataType: INT
+  tags:
+  - Tier Change
+  title: Change Count
+grain:
+- id: fact_tier_change.change_id
+  type: attribute
+id: fact_tier_change
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: change_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Tier Change
+title: Tier Change
+workspaceDataFilterReferences: []

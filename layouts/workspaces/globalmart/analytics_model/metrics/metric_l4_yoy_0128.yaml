@@ -1,0 +1,12 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0042_2} - (SELECT {metric/metric_l3_0042_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0042_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Year-over-year percent change in the North Region’s Planogram Compliance Score, comparing the current period’s
+  score to the same metric in the prior year. Use it to track whether planogram compliance performance in the North Region
+  is improving or declining versus last year under the current report filters. A planogram is a diagram specifying exact product
+  placement on retail shelves.
+id: metric_l4_yoy_0128
+tags:
+- L4
+title: 'YoY: Compliance Score (Planogram Compliance) — North Region'

@@ -1,0 +1,57 @@
+aggregatedFacts: []
+attributes:
+- description: Unique identifier for each record in the Cost Center Benchmark Score dataset, used to distinguish and reference
+    individual benchmark score entries for cost centers.
+  id: fact_fin_attr_06.attr_id
+  labels: []
+  sourceColumn: attr_id
+  sourceColumnDataType: STRING
+  tags:
+  - Cost Center Benchmark Score
+  title: Record ID (Cost Center Benchmark Score)
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_fin_attr_06
+  path:
+  - globalmart
+  - fact_fin_attr_06
+  type: dataSource
+description: Cost Center Benchmark Score
+facts:
+- description: Numeric value captured for each record in the Cost Center Benchmark Score dataset, representing the measured
+    attribute amount used in analysis and aggregations.
+  id: fact_fin_attr_06.metric
+  sourceColumn: metric
+  sourceColumnDataType: NUMERIC
+  tags:
+  - Cost Center Benchmark Score
+  title: Cost Center Benchmark Score
+grain:
+- id: fact_fin_attr_06.attr_id
+  type: attribute
+id: fact_fin_attr_06
+references:
+- identifier:
+    id: dim_company_entity
+    type: dataset
+  multivalue: false
+  sources:
+  - column: entity_id
+    dataType: STRING
+    target:
+      id: dim_company_entity.entity_id
+      type: attribute
+- identifier:
+    id: transaction_date
+    type: dataset
+  multivalue: false
+  sources:
+  - column: attr_date
+    dataType: DATE
+    target:
+      id: transaction_date
+      type: date
+tags:
+- Cost Center Benchmark Score
+title: Cost Center Benchmark Score
+workspaceDataFilterReferences: []

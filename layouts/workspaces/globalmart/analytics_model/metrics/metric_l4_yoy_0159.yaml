@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0053_0} - (SELECT {metric/metric_l3_0053_0} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0053_0} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Purchase Order Amount for the In-Store sales channel, comparing
+  the current year to the previous year. Use it to track how in-store purchase order spend is growing or declining over time.
+id: metric_l4_yoy_0159
+tags:
+- L4
+title: 'YoY: PO Amount (Purchase Order) — In-Store Channel'

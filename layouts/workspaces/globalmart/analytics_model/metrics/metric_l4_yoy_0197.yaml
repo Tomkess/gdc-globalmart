@@ -1,0 +1,11 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT ({metric/metric_l3_0065_2} - (SELECT {metric/metric_l3_0065_2} FOR PREVIOUS ({label/transaction_date.year})))
+    / (SELECT {metric/metric_l3_0065_2} FOR PREVIOUS ({label/transaction_date.year}))
+description: Measures the year-over-year percentage change in Campaign Spend for the North region by comparing the current
+  year’s spend to the previous year. Use it to track how marketing campaign spending in North is growing or declining over
+  time.
+id: metric_l4_yoy_0197
+tags:
+- L4
+title: 'YoY: Campaign Spend — North Region'

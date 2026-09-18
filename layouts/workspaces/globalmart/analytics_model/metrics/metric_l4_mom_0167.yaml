@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0055_2} - (SELECT {metric/metric_l3_0055_2} FOR PREVIOUS ({label/transaction_date.month}))
+description: Shows the month-over-month change in goods receipt quantity for the North region by comparing the current month’s
+  received quantity to the previous month. Use it to track whether inbound receipt volume in the North is increasing or declining
+  over time.
+id: metric_l4_mom_0167
+tags:
+- L4
+title: 'MoM: Receipt Quantity (Goods Receipt) — North Region'

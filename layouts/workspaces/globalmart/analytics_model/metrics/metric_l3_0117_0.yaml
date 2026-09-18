@@ -1,0 +1,9 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l1_fact_fraud_alert_alert_count} WHERE {label/dim_channel_master.channel_type} IN ("In-Store")
+description: Counts the total number of fraud alerts specifically for the In-Store sales channel. Use this metric to monitor
+  in-store fraud alert volume within the current reporting scope (for example, the selected time period and any applied filters).
+id: metric_l3_0117_0
+tags:
+- L3
+title: Alert Count (Fraud Alert) — In-Store Channel

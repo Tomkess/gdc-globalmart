@@ -1,0 +1,10 @@
+content:
+  format: '#,##0.00'
+  maql: SELECT {metric/metric_l3_0049_0} - (SELECT {metric/metric_l3_0049_0} FOR PREVIOUS ({label/transaction_date.month}))
+description: Tracks the month-over-month change in in-store Units on Hand based on the Daily Inventory Snapshot, calculated
+  as the current month’s units on hand minus the prior month’s value. Use it to monitor whether in-store inventory levels
+  are rising or falling over time at a monthly cadence.
+id: metric_l4_mom_0147
+tags:
+- L4
+title: 'MoM: Units on Hand (Daily Inventory Snapshot) — In-Store Channel'

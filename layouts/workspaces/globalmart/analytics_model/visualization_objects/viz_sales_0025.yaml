@@ -1,0 +1,23 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: metric_l2_intra_0010
+                type: metric
+        localIdentifier: m1
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:headline
+description: Headline showing the change (difference) between Total Revenue from the Blended Daily Revenue source and Total
+  Net Revenue from the Net Sales Summary in the current reporting context. Use it to quantify how far these two revenue measures
+  diverge for the selected filters and time period.
+id: viz_sales_0025
+title: Revenue (Blended Daily Revenue) vs Net Revenue
