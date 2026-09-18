@@ -25,6 +25,7 @@ from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import
 
 from globalmart.config import GlobalmartError
 from globalmart.counts import ObjectCounts, count_objects
+from globalmart.traversal import iter_datasource_slots, iter_sql_statements
 
 #: Placeholders left in the committed tree, resolved at publish time by FEAT-002.
 #: Both use the same ``{{ ... }}`` form so one substitution mechanism covers them and an
@@ -116,18 +117,14 @@ def _pass_1_strip_user_refs(model: CatalogDeclarativeWorkspaceModel) -> int:
 def _pass_2_parameterize_datasource(model: CatalogDeclarativeWorkspaceModel) -> int:
     """Replace every dataset's datasource id with the placeholder.
 
-    Two slots per dataset shape, mutually exclusive in practice: a table-backed dataset
-    carries ``data_source_table_id.data_source_id``, a SQL-backed one ``sql.data_source_id``.
+    Enumerated by ``traversal.iter_datasource_slots`` — the same generator the publisher's
+    ``resolve`` uses in the opposite direction, so the two can never disagree about where a
+    datasource reference lives.
     """
     rewritten = 0
-    for dataset in (model.ldm.datasets if model.ldm else None) or []:
-        table_id = getattr(dataset, "data_source_table_id", None)
-        if table_id is not None and getattr(table_id, "data_source_id", None) is not None:
-            table_id.data_source_id = DATASOURCE_ID_TOKEN
-            rewritten += 1
-        sql = getattr(dataset, "sql", None)
-        if sql is not None and getattr(sql, "data_source_id", None) is not None:
-            sql.data_source_id = DATASOURCE_ID_TOKEN
+    for slot in iter_datasource_slots(model):
+        if slot.get() is not None:
+            slot.set(DATASOURCE_ID_TOKEN)
             rewritten += 1
     return rewritten
 
@@ -159,11 +156,8 @@ def _pass_3_parameterize_schema(
     parameterized = 0
     unparameterized: list[str] = []
 
-    for dataset in (model.ldm.datasets if model.ldm else None) or []:
-        sql = getattr(dataset, "sql", None)
-        if sql is None:
-            continue
-        statement = sql.statement or ""
+    for slot in iter_sql_statements(model):
+        statement = slot.get()
 
         if DATASOURCE_SCHEMA_TOKEN in statement:
             parameterized += 1
@@ -171,10 +165,10 @@ def _pass_3_parameterize_schema(
 
         replaced, count = pattern.subn(f"{DATASOURCE_SCHEMA_TOKEN}.", statement)
         if count:
-            sql.statement = replaced
+            slot.set(replaced)
             parameterized += 1
         else:
-            unparameterized.append(dataset.id)
+            unparameterized.append(slot.dataset_id)
 
     return parameterized, unparameterized
 
