@@ -1,0 +1,3 @@
+layouts/**/*.yaml text eol=lf
+tests/fixtures/**/*.yaml text eol=lf
+generated/**/*.json text eol=lf

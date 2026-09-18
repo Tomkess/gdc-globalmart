@@ -251,3 +251,27 @@ def test_counts_survive_normalization(captured: CatalogDeclarativeWorkspaceModel
     result = normalize_workspace(captured, datasource_schema=SOURCE_SCHEMA)
 
     assert result.counts == before
+
+
+# --- task 23: credential leak guard ----------------------------------------
+
+
+def test_no_credential_shaped_keys_survive(
+    captured: CatalogDeclarativeWorkspaceModel, tmp_path: Path
+) -> None:
+    """A committed layout must never carry anything secret-shaped, however it got there."""
+    from globalmart.layout_io import write_tree
+
+    result = normalize_workspace(captured, datasource_schema=SOURCE_SCHEMA)
+    destination = tmp_path / "tree"
+    write_tree(result.model, destination)
+
+    forbidden = ("token", "password", "secret", "apikey", "clientsecret", "privatekey")
+    offenders: list[str] = []
+    for path in destination.rglob("*.yaml"):
+        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+            key = line.split(":", 1)[0].strip().lstrip("- ").lower()
+            if key in forbidden:
+                offenders.append(f"{path.relative_to(destination)}:{number}: {line.strip()}")
+
+    assert offenders == [], "credential-shaped keys in the layout tree:\n" + "\n".join(offenders)
