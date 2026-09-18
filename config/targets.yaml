@@ -20,6 +20,23 @@ targets:
     # The NAME of the env var holding the token — never the value.
     datasource_secret_env: MOTHERDUCK_TOKEN
 
+  # Second demo org — the cross-org proof target. Publishing the same repo state
+  # here and to demo-cloud must yield layouts identical except for the parameterized
+  # values (STEERING § Portability Contract).
+  # Fill organization_id / datasource_* once a token for this org exists:
+  #   GLOBALMART_TOKEN__USECASES_AI=...  then  globalmart targets inspect --target usecases-ai
+  # usecases-ai:
+  #   host: https://usecases-ai.demo.cloud.gooddata.com
+  #   organization_id: <discover>
+  #   datasource_id: <discover>
+  #   datasource_schema: <discover>
+  #   parent_workspace_id: globalmart
+  #   warehouse_type: motherduck
+  #   datasource_name: GlobalMart MotherDuck
+  #   datasource_url: <discover>
+  #   datasource_database: <discover>
+  #   datasource_secret_env: MOTHERDUCK_TOKEN
+
   # Local-inference host. Filled in by FEAT-002 when the Postgres datasource
   # fields (warehouse_type, url, username, secret env var) are added.
   # local-inference:
