@@ -25,17 +25,21 @@ targets:
   # values (STEERING § Portability Contract).
   # Fill organization_id / datasource_* once a token for this org exists:
   #   GLOBALMART_TOKEN__USECASES_AI=...  then  globalmart targets inspect --target usecases-ai
-  # usecases-ai:
-  #   host: https://usecases-ai.demo.cloud.gooddata.com
-  #   organization_id: <discover>
-  #   datasource_id: <discover>
-  #   datasource_schema: <discover>
-  #   parent_workspace_id: globalmart
-  #   warehouse_type: motherduck
-  #   datasource_name: GlobalMart MotherDuck
-  #   datasource_url: <discover>
-  #   datasource_database: <discover>
-  #   datasource_secret_env: MOTHERDUCK_TOKEN
+  usecases-ai:
+    host: https://usecases-ai.demo.cloud.gooddata.com
+    organization_id: w2r-kigdm6
+    # This org has no GlobalMart datasource yet — its existing motherduck-ds points at
+    # the demo_data_git database. Publishing with --apply creates this one, aimed at the
+    # same shared MotherDuck database the demo-cloud org reads, so both orgs serve the
+    # same rows and the cross-org comparison is meaningful.
+    datasource_id: globalmart-motherduck
+    datasource_schema: globalmart
+    parent_workspace_id: globalmart
+    warehouse_type: motherduck
+    datasource_name: GlobalMart MotherDuck
+    datasource_url: jdbc:duckdb:md:gd_demo
+    datasource_database: gd_demo
+    datasource_secret_env: MOTHERDUCK_TOKEN
 
   # Local-inference host. Filled in by FEAT-002 when the Postgres datasource
   # fields (warehouse_type, url, username, secret env var) are added.

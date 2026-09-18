@@ -17,7 +17,7 @@ id: feat-002
 name: Publish the parent workspace from the repo YAML layout into any host/org/datasource,
   parameterized and idempotent, with no hardcoded identifiers
 sources: []
-status: in-progress
+status: done
 tags: []
 updated: '2026-09-18'
 ---
@@ -39,29 +39,29 @@ splitter publishing children the same way.
 
 ## Acceptance Criteria
 
-- [ ] Given a target profile naming host, token env var, datasource id, warehouse type and schema,
+- [x] Given a target profile naming host, token env var, datasource id, warehouse type and schema,
       when `publish parent --target <profile> --apply` runs, then the `globalmart` workspace exists
       in that org with the full LDM and analytics from the repo tree.
-- [ ] Given the same command **without** `--apply`, when it runs, then it performs every read,
+- [x] Given the same command **without** `--apply`, when it runs, then it performs every read,
       resolution and assertion, prints the diff it would apply, and writes nothing to the host —
       `--apply` is the only way to reach a write.
-- [ ] Given the same command run twice against the same target, when the second run completes, then
+- [x] Given the same command run twice against the same target, when the second run completes, then
       the resulting layout is byte-identical to the first (idempotent; no duplicated or orphaned
       objects).
-- [ ] Given a target whose datasource id differs from the source's, when publishing, then all 225
+- [x] Given a target whose datasource id differs from the source's, when publishing, then all 225
       dataset datasource references point at the configured id — verified by traversing the loaded
       model, not by string matching.
-- [ ] Given SQL-backed datasets carrying `{{ datasource_schema }}`, when publishing, then the
+- [x] Given SQL-backed datasets carrying `{{ datasource_schema }}`, when publishing, then the
       placeholder is substituted with the target's schema and no templated placeholder survives into
       the published workspace.
-- [ ] Given two different target orgs, when the same repo state is published to both and each
+- [x] Given two different target orgs, when the same repo state is published to both and each
       resulting layout is fetched and normalized, then the two normalizations are identical except
       for the parameterized values (host, org, datasource id, schema).
-- [ ] Given a target profile that omits a required value, when publishing, then the command fails
+- [x] Given a target profile that omits a required value, when publishing, then the command fails
       before contacting the host, naming the missing key.
-- [ ] Given a target org where the datasource does not yet exist, when publishing, then it is created
+- [x] Given a target org where the datasource does not yet exist, when publishing, then it is created
       from the profile; given one where it exists, then it is updated rather than duplicated.
-- [ ] Given a grep of the implementation, when searching for host names, org ids, workspace ids or
+- [x] Given a grep of the implementation, when searching for host names, org ids, workspace ids or
       datasource ids, then none appear outside configuration files.
 
 ## Scope
@@ -146,3 +146,38 @@ reasoning is not buried.
   not the target — `PARENT_WORKSPACE_NAME = "GlobalMart"` in `publish.py`, overridable per
   invocation with `--workspace-name`, and supplied by `domains.yaml` for each child in FEAT-004.
   `TargetProfile` gains no name field, so the same GlobalMart carries the same name in every org.
+
+## Outcome (2026-09-18)
+
+Built and verified against two live orgs.
+
+```
+                        demo-cloud            usecases-ai
+org                     gm-ddebmti            w2r-kigdm6
+datasource              created earlier       created by this publish
+datasource refs         225                   225
+SQL statements          11                    11
+second publish          changed: False        changed: False
+```
+
+**The portability contract, proven rather than asserted.** Both orgs were captured back
+independently after publishing, normalized, and compared: identical digests, zero diff
+lines. The same repo state produces the same workspace in two unrelated orgs.
+
+Three things the implementation contradicted or added:
+
+1. **`organization_id` was wrong in config** — `petertomko`, inferred from the hostname;
+   the org is `gm-ddebmti`. The preflight org-identity guard caught it before any write,
+   which is exactly the failure it exists for. This also motivated `globalmart targets
+   inspect`, which reports what a host actually says so a profile is filled in from fact.
+2. **`changed` was permanently `True` and the diff was 6849 lines of pure noise** — all
+   `createdAt`/`modifiedAt`/`createdBy`/`modifiedBy`, zero real differences. The server
+   stamps those on every write, so a normalized local model can never match live on them.
+   `model_digest` and `model_diff` now exclude server-owned fields. Without this the
+   idempotency signal was useless against a real host.
+3. **`_flatten` dropped empty containers**, so a diff could report no change while the
+   digests disagreed. Fixed with an explicit marker.
+
+Publishing to a second org also required creating a datasource there: `usecases-ai` had no
+GlobalMart datasource, only one pointing at a different MotherDuck database. `ensure_data_source`
+created it aimed at the same shared `gd_demo` database, so both orgs serve the same rows.
