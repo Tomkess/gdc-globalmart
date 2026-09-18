@@ -1,0 +1,28 @@
+# Meridian — generated from tracked files (spec frontmatter, goals/, decisions/).
+# Committing it protected nothing and conflicted on nearly every merge.
+specs/REGISTRY.md
+
+# Generated artifacts. ADR 003: commit what a human reviews, regenerate what a
+# machine consumes — generated/workspaces/*.json IS committed, the data is not.
+generated/data/
+
+# Runtime output
+backups/
+reports/
+
+# Secrets — every credential is env-only (see specs/CONTRACT.md)
+.env
+.env.*
+!.env.example
+
+# Tooling
+.kilo/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# macOS
+.DS_Store
