@@ -52,3 +52,8 @@ jobs:
       # no credentials and no warehouse.
       - name: Data is intact and SQL datasets resolve
         run: uv run globalmart data verify
+
+      # The compiled memory items must match the authored Markdown. Editing a knowledge
+      # document without rebuilding fails here. Offline.
+      - name: Knowledge is compiled
+        run: uv run globalmart knowledge build --check

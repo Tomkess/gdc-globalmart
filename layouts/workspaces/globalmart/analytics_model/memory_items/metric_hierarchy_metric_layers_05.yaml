@@ -1,0 +1,13 @@
+description: GlobalMart metric conventions › Metric layers (compiled from docs/knowledge/metric-hierarchy.md)
+id: metric_hierarchy_metric_layers_05
+instruction: L4 and L5 metrics compose further on top of the lower layers.
+keywords:
+- hierarchy
+- layers
+- metric
+- naming
+strategy: AUTO
+tags:
+- knowledge
+- knowledge/shared
+title: Metric layers

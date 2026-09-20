@@ -371,3 +371,53 @@ def test_verify_equivalence_is_a_subcommand() -> None:
 
     dests = {a.dest for a in actions["equivalence"]._actions}
     assert {"target_a", "target_b", "workspace_id"} <= dests
+
+
+# --- knowledge (FEAT-008) ----------------------------------------------------
+
+
+def test_knowledge_build_has_check_and_no_apply() -> None:
+    """A local-file writer, so ADR 002 gives it --check and never --apply."""
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    actions = choices["knowledge"]._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+
+    dests = {a.dest for a in actions["build"]._actions}
+    assert "check" in dests
+    assert "apply" not in dests
+
+
+def test_knowledge_build_writes_items(tmp_path: Path) -> None:
+    import shutil
+
+    tree = tmp_path / "tree"
+    shutil.copytree(FIXTURE, tree)
+    source = Path(__file__).parent / "fixtures" / "knowledge_ok"
+
+    assert main(["knowledge", "build", "--source", str(source), "--layout", str(tree)]) == 0
+    written = sorted(p.stem for p in (tree / "analytics_model" / "memory_items").glob("*.yaml"))
+    assert "net_revenue_gross_revenue" in written
+
+
+def test_knowledge_check_exits_one_on_drift(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    import shutil
+
+    tree = tmp_path / "tree"
+    shutil.copytree(FIXTURE, tree)
+    source = Path(__file__).parent / "fixtures" / "knowledge_ok"
+
+    assert main(["knowledge", "build", "--source", str(source), "--layout", str(tree), "--check"]) == 1
+    assert "does not match" in capsys.readouterr().err
+    # --check writes nothing: the fixture's own captured memory item is all that is there.
+    written = sorted(p.stem for p in (tree / "analytics_model" / "memory_items").glob("*.yaml"))
+    assert written == ["mem_sales_definitions"]
+
+
+def test_knowledge_check_exits_zero_once_current(tmp_path: Path) -> None:
+    import shutil
+
+    tree = tmp_path / "tree"
+    shutil.copytree(FIXTURE, tree)
+    source = Path(__file__).parent / "fixtures" / "knowledge_ok"
+
+    main(["knowledge", "build", "--source", str(source), "--layout", str(tree)])
+    assert main(["knowledge", "build", "--source", str(source), "--layout", str(tree), "--check"]) == 0

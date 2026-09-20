@@ -128,3 +128,33 @@ def test_a_real_content_change_is_still_detected() -> None:
 
     assert model_diff(live, ours) != []
     assert model_digest(live) != model_digest(ours)
+
+
+def test_keyword_order_is_not_a_difference() -> None:
+    """The server stores `keywords` as a set and returns its own order.
+
+    Found on the first publish carrying memory items (2026-09-20): the layout came back
+    with keywords reordered, so every subsequent publish reported `changed: True` forever.
+    Exactly the failure the audit fields caused, in a different field.
+    """
+    from globalmart.compare import model_digest
+
+    model_a = read_tree(FIXTURE)
+    model_b = read_tree(FIXTURE)
+    for model, order in ((model_a, ["alpha", "beta"]), (model_b, ["beta", "alpha"])):
+        model.analytics.memory_items[0].keywords = order
+
+    assert model_digest(model_a) == model_digest(model_b)
+    assert model_diff(model_a, model_b) == []
+
+
+def test_a_real_keyword_change_is_still_a_difference() -> None:
+    """Guard: sorting must not hide an actual edit."""
+    from globalmart.compare import model_digest
+
+    model_a = read_tree(FIXTURE)
+    model_b = read_tree(FIXTURE)
+    model_a.analytics.memory_items[0].keywords = ["alpha", "beta"]
+    model_b.analytics.memory_items[0].keywords = ["alpha", "gamma"]
+
+    assert model_digest(model_a) != model_digest(model_b)

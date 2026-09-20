@@ -110,6 +110,12 @@ domains:
 shared:
   dashboards: []
   visualizations: []
+  ai:
+    # Knowledge documents that name no domains are universal (metric naming conventions,
+    # date-dimension choice), so every child gets them. A document that lists `domains:`
+    # carries `domain/<key>` tags instead and is selected per domain below.
+    memory_item_tags:
+    - knowledge/shared
 unassigned:
   dashboards: []
   visualizations: []

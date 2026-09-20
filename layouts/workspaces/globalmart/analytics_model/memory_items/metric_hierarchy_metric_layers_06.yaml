@@ -1,0 +1,14 @@
+description: GlobalMart metric conventions › Metric layers (compiled from docs/knowledge/metric-hierarchy.md)
+id: metric_hierarchy_metric_layers_06
+instruction: Prefer the lowest layer that answers the question. Total net revenue is an L1 metric; net revenue for one channel
+  is an existing L3 metric, not an L1 metric with a filter added.
+keywords:
+- hierarchy
+- layers
+- metric
+- naming
+strategy: AUTO
+tags:
+- knowledge
+- knowledge/shared
+title: Metric layers

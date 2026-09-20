@@ -1,0 +1,15 @@
+description: GlobalMart metric conventions › Choosing a revenue metric (compiled from docs/knowledge/metric-hierarchy.md)
+id: metric_hierarchy_choosing_a_revenue_metric_03
+instruction: '`metric_l1_sql_margin_bridge_gross_revenue` is gross, before returns and discounts. It exists for the margin
+  bridge and is the wrong figure elsewhere.'
+keywords:
+- choosing
+- hierarchy
+- metric
+- naming
+- revenue
+strategy: AUTO
+tags:
+- knowledge
+- knowledge/shared
+title: Choosing a revenue metric

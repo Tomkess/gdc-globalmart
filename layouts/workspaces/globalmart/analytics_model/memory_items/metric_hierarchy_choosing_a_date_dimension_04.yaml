@@ -1,0 +1,15 @@
+description: GlobalMart metric conventions › Choosing a date dimension (compiled from docs/knowledge/metric-hierarchy.md)
+id: metric_hierarchy_choosing_a_date_dimension_04
+instruction: When a question says "last quarter" in a financial context it means a fiscal quarter, so group by `fiscal_date`.
+keywords:
+- choosing
+- date
+- dimension
+- hierarchy
+- metric
+- naming
+strategy: AUTO
+tags:
+- knowledge
+- knowledge/shared
+title: Choosing a date dimension

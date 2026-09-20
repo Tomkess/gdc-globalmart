@@ -18,9 +18,9 @@ name: 'Knowledge ingestion: compile authored Markdown documents into AI memory i
   in the parent workspace, chunked by section, so domain knowledge travels cross-org
   with the layout'
 sources: []
-status: draft
+status: done
 tags: []
-updated: '2026-09-18'
+updated: '2026-09-20'
 ---
 
 ## Summary
@@ -82,26 +82,26 @@ item is always injected or retrieved on relevance.
 
 ## Acceptance Criteria
 
-- [ ] Given a Markdown file under `docs/knowledge/`, when `globalmart knowledge build` runs, then one
+- [x] Given a Markdown file under `docs/knowledge/`, when `globalmart knowledge build` runs, then one
       memory item is emitted per second-level section, written into
       `layouts/workspaces/globalmart/analytics_model/memory_items/`, with a deterministic id derived
       from the file and heading.
-- [ ] Given the same source documents run twice, when the build completes, then `git diff` is empty —
+- [x] Given the same source documents run twice, when the build completes, then `git diff` is empty —
       the emitted items are byte-stable, and `globalmart normalize --check` still reports the tree
       canonical.
-- [ ] Given a section heading and body, when the item is emitted, then `title` is the heading,
+- [x] Given a section heading and body, when the item is emitted, then `title` is the heading,
       `instruction` is the body text, and `keywords` contains terms drawn from the heading plus any
       explicit `keywords:` front-matter, so retrieval has something to match on.
-- [ ] Given a section removed from a source document, when the build re-runs, then its memory item is
+- [x] Given a section removed from a source document, when the build re-runs, then its memory item is
       deleted from the tree rather than left orphaned (the same guarantee `write_tree` gives).
-- [ ] Given a document with domain front-matter (`domains: [finance, sales]`), when the item is
+- [x] Given a document with domain front-matter (`domains: [finance, sales]`), when the item is
       emitted, then it carries matching `tags`, so FEAT-004's per-domain AI filtering can select it
       without a second mapping file.
-- [ ] Given a built tree, when it is published with FEAT-002, then the memory items appear in the
+- [x] Given a built tree, when it is published with FEAT-002, then the memory items appear in the
       target org, and a second publish reports no change.
-- [ ] Given a section whose body exceeds a configured size limit, when the build runs, then it fails
+- [x] Given a section whose body exceeds a configured size limit, when the build runs, then it fails
       naming the file and heading rather than silently emitting an item too large to be useful.
-- [ ] Given a hand-edited memory item YAML, when the build re-runs, then the hand edit is overwritten
+- [x] Given a hand-edited memory item YAML, when the build re-runs, then the hand edit is overwritten
       — the Markdown is the source of truth, and `docs/knowledge/` is the only place to change
       content.
 
@@ -185,3 +185,68 @@ item is always injected or retrieved on relevance.
 - Agents are org-scoped and therefore absent from a published workspace. Does GlobalMart need an
   agent personality to be useful in a fresh org, and if so does that become a sibling feature
   capturing the org layout?
+
+## Outcome (2026-09-20)
+
+Built, published, and verified in the live org. 448 tests, ruff and mypy clean.
+
+```
+docs/knowledge/metric-hierarchy.md  ->  14 memory items
+
+GET /api/v1/entities/workspaces/globalmart/memoryItems   14 items
+second publish                                           changed: False
+each of the 12 domain children                           14 items
+domains validate --strict                                clean
+```
+
+GlobalMart's AI channels had been empty since the project started. This is the first content
+in them, which also means FEAT-004's per-domain AI filtering has finally filtered something
+real rather than a fixture.
+
+### The design changed, because the platform said so
+
+**`instruction` is capped at 255 characters.** Discovered by being rejected by the API on
+the first build. The spec's plan — one memory item per `##` section — is not merely
+awkward at that size, it is not expressible: a section that fits in 255 characters is a
+paragraph with extra steps.
+
+So the unit of compilation is a **paragraph**. Write one idea per paragraph; each becomes a
+retrievable item. A paragraph over the cap fails the build naming the file, the heading and
+its opening words. `description` (10000 chars) carries provenance instead, so an item read
+in the org can be traced back to the Markdown that produced it.
+
+This also answers the spec's open question about `##` being the right granularity: it was
+never available. The remaining question — whether *paragraph* granularity retrieves well —
+is task 20 and still needs a human to ask the assistant something only the document answers.
+
+### A real bug in shipped code, found by publishing
+
+The second publish reported `changed: True` and would have done so forever. The server
+stores `keywords` as a **set** and returns its own order, unrelated to what was sent — so
+`model_digest` saw a difference on every run. This is precisely the failure the audit fields
+caused during FEAT-002, in a different field, and it was invisible until the first object
+with a keyword list was published. `compare.UNORDERED_FIELDS` now normalises it, with a
+regression test and a guard that a genuine keyword edit is still a difference.
+
+### Two decisions worth naming
+
+1. **Ownership is marked, not positional.** Every compiled item carries the reserved tag
+   `knowledge`, and a build reconciles only against items carrying it. "This build owns
+   everything in `memory_items/`" would have deleted captured or hand-authored items the
+   first time it ran — the channel is shared. `test_a_build_never_touches_an_item_it_does_not_own`
+   is the test that matters in this feature.
+
+2. **"No domains" means universal, not unclassified.** A document listing no domains is
+   tagged `knowledge/shared` and reaches every child via `domains.yaml`'s `shared.ai`.
+   Letting it mean "no domain" would leave the item uncovered and fail
+   `domains validate --strict` — the right outcome for something nobody classified, the
+   wrong one for something deliberately universal. Found because the coverage gate caught it.
+
+### Not done
+
+- **Task 20 — does the assistant actually retrieve these usefully?** The items are live and
+  the question is now cheap to ask, but it needs a human to judge the answer. This is the
+  one open acceptance question, and building more will not settle it.
+- **Agent personalities remain org-scoped and absent**, as the spec's Out of Scope says.
+  A published GlobalMart still arrives with no agent. Unchanged by this feature and still
+  worth its own.

@@ -34,7 +34,7 @@ the doc cannot silently drift.
 | `attribute_hierarchies` | 0 |
 | `dashboard_plugins` | 0 |
 | `export_definitions` | 0 |
-| `memory_items` | 0 |
+| `memory_items` | 14 |
 | `parameters` | 0 |
 
 ## What normalization did
@@ -61,3 +61,14 @@ the doc cannot silently drift.
 - **AI context channels are empty today** (0 memory items, 0 parameters). They are still
   captured and counted, and `tests/test_sdk_floor.py` pins the SDK version that models
   them — on an older SDK they would be dropped silently.
+
+## Amended 2026-09-20 — memory items (FEAT-008)
+
+`memory_items` was 0 at capture and is now **14**. Those items are not captured content:
+they are compiled from `docs/knowledge/*.md` by `globalmart knowledge build`, and they are
+the first content GlobalMart has ever had in an AI channel.
+
+They carry the reserved tag `knowledge`, which is what distinguishes them from anything a
+capture pulls back. A re-`bootstrap` against an org that lacks them will remove them from
+the tree — correct, since the tree mirrors the org — so the ordering is **bootstrap, then
+knowledge build, then publish**. See `docs/knowledge.md`.

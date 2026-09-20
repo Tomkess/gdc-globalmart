@@ -1,0 +1,14 @@
+description: GlobalMart metric conventions › Choosing a revenue metric (compiled from docs/knowledge/metric-hierarchy.md)
+id: metric_hierarchy_choosing_a_revenue_metric_02
+instruction: Use `metric_l1_total_net_revenue` by default. Net revenue is after returns and discounts.
+keywords:
+- choosing
+- hierarchy
+- metric
+- naming
+- revenue
+strategy: AUTO
+tags:
+- knowledge
+- knowledge/shared
+title: Choosing a revenue metric

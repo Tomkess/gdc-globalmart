@@ -1,0 +1,14 @@
+description: GlobalMart metric conventions › Metric layers (compiled from docs/knowledge/metric-hierarchy.md)
+id: metric_hierarchy_metric_layers_04
+instruction: L3 metrics (`metric_l3_*`) apply a filter to an L1 or L2 metric, usually a WHERE on a dimension attribute such
+  as channel type.
+keywords:
+- hierarchy
+- layers
+- metric
+- naming
+strategy: AUTO
+tags:
+- knowledge
+- knowledge/shared
+title: Metric layers

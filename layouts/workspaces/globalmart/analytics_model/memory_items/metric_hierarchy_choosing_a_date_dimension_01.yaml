@@ -1,0 +1,15 @@
+description: GlobalMart metric conventions › Choosing a date dimension (compiled from docs/knowledge/metric-hierarchy.md)
+id: metric_hierarchy_choosing_a_date_dimension_01
+instruction: GlobalMart has two date dimensions, and choosing the wrong one silently changes the answer.
+keywords:
+- choosing
+- date
+- dimension
+- hierarchy
+- metric
+- naming
+strategy: AUTO
+tags:
+- knowledge
+- knowledge/shared
+title: Choosing a date dimension

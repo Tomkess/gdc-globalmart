@@ -23,6 +23,13 @@ from globalmart.normalize import DATASOURCE_ID_TOKEN, DATASOURCE_SCHEMA_TOKEN
 #: measured against the live parent: 6849 diff lines, all audit, zero real differences.
 SERVER_OWNED_FIELDS = frozenset({"createdAt", "modifiedAt", "createdBy", "modifiedBy"})
 
+#: Fields the server stores as a *set*: it returns them in an order of its own choosing,
+#: unrelated to the order they were sent in. Comparing that order compares noise, and a
+#: workspace would report `changed: True` forever — the same failure mode the audit fields
+#: caused, in a different field. Found 2026-09-20 on the first publish carrying memory
+#: items, whose `keywords` came back reordered.
+UNORDERED_FIELDS = frozenset({"keywords"})
+
 
 def _strip_server_owned(node: Any) -> Any:
     """Drop server-stamped fields, and treat absent and empty as the same thing.
@@ -39,6 +46,8 @@ def _strip_server_owned(node: Any) -> Any:
             if key in SERVER_OWNED_FIELDS:
                 continue
             cleaned = _strip_server_owned(value)
+            if key in UNORDERED_FIELDS and isinstance(cleaned, list):
+                cleaned = sorted(cleaned, key=repr)
             if cleaned in (None, [], {}):
                 continue
             out[key] = cleaned

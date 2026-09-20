@@ -36,6 +36,7 @@ from globalmart.dataload import load_data, verify_data
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
+from globalmart.knowledge import DEFAULT_SOURCE_DIR, build_knowledge
 from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
@@ -508,6 +509,36 @@ def cmd_rebuild(args: argparse.Namespace) -> int:
     return 0 if report.passed else 1
 
 
+def cmd_knowledge_build(args: argparse.Namespace) -> int:
+    """Compile docs/knowledge/*.md into memory items in the layout tree.
+
+    Writes local files only, so per ADR 002 it takes --check (the CI-gate form) and never
+    --apply. Run it *after* `bootstrap`: both write the tree, and a capture reflects the
+    org, so a build before a capture is a build the capture discards.
+    """
+    report = build_knowledge(
+        source_dir=Path(args.source),
+        layout_path=Path(args.layout),
+        check=args.check,
+    )
+
+    _print_report(f"Knowledge — {args.source}", report.summary_lines())
+
+    if args.check:
+        if report.changed:
+            print(
+                f"\n{args.layout} does not match {args.source}. "
+                "Run `globalmart knowledge build` and commit the result.",
+                file=sys.stderr,
+            )
+            return 1
+        print("\nThe tree is current with the authored documents.")
+        return 0
+
+    print(f"\nWrote {report.items} memory item(s) into {args.layout}")
+    return 0
+
+
 def cmd_targets_inspect(args: argparse.Namespace) -> int:
     """Discover what a host reports, so a new profile can be filled in from fact.
 
@@ -714,6 +745,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="actually write; without it this prints the step plan (ADR 002)",
     )
     rebuild.set_defaults(func=cmd_rebuild)
+
+    knowledge = subparsers.add_parser(
+        "knowledge", help="compile authored Markdown into AI memory items"
+    )
+    knowledge_actions = knowledge.add_subparsers(dest="action", required=True)
+
+    knowledge_build = knowledge_actions.add_parser(
+        "build", help="compile docs/knowledge/*.md into the layout tree"
+    )
+    knowledge_build.add_argument("--source", default=str(DEFAULT_SOURCE_DIR))
+    knowledge_build.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    knowledge_build.add_argument(
+        "--check",
+        action="store_true",
+        help="exit 1 if the tree would change; writes nothing (the CI gate)",
+    )
+    knowledge_build.set_defaults(func=cmd_knowledge_build)
 
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)

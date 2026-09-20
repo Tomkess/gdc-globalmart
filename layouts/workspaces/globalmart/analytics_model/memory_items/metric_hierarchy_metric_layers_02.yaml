@@ -1,0 +1,14 @@
+description: GlobalMart metric conventions › Metric layers (compiled from docs/knowledge/metric-hierarchy.md)
+id: metric_hierarchy_metric_layers_02
+instruction: L1 metrics (`metric_l1_*`) are base aggregations over a single fact column. They are the only layer that touches
+  a fact directly.
+keywords:
+- hierarchy
+- layers
+- metric
+- naming
+strategy: AUTO
+tags:
+- knowledge
+- knowledge/shared
+title: Metric layers
