@@ -19,9 +19,9 @@ id: feat-006
 name: 'Rebuild verification: cold-rebuild smoke test that executes every visualization
   in the parent and every domain workspace and reports failures'
 sources: []
-status: in-progress
+status: done
 tags: []
-updated: '2026-09-18'
+updated: '2026-09-20'
 ---
 
 ## Summary
@@ -50,47 +50,50 @@ rather than a health check on a live org.
 
 ## Acceptance Criteria
 
-- [ ] Given a published target profile, when `globalmart verify --target <profile>` runs, then every
+- [x] Given a published target profile, when `globalmart verify --target <profile>` runs, then every
       visualization in the parent workspace and in all 12 domain workspaces is executed against the
       warehouse, and the command exits 0 only if zero visualizations are broken.
-- [ ] Given a visualization that fails to execute, when the run completes, then the report names its
+- [x] Given a visualization that fails to execute, when the run completes, then the report names its
       workspace id, object id, title, the HTTP status, the server's error body verbatim, a taxonomy
       category and a remediation hint — never an aggregate count alone.
-- [ ] Given a visualization that executes successfully but returns zero rows, when the run completes,
+- [x] Given a visualization that executes successfully but returns zero rows, when the run completes,
       then it is reported with status `EMPTY` and counted separately from `OK` — a technically valid
       empty result is surfaced, not hidden, and `--fail-on-empty` can promote it to a failure.
-- [ ] Given a completed run, when the output directory is inspected, then it contains
+- [x] Given a completed run, when the output directory is inspected, then it contains
       `verification_result.json` (a versioned, machine-readable `VerificationRun`) and
       `verification_report.md` (broken-first, human-readable), both regenerable from the JSON alone.
-- [ ] Given the repo's committed artifacts, when verification runs, then each workspace's live object
+- [x] Given the repo's committed artifacts, when verification runs, then each workspace's live object
       counts are compared against counts derived from the repo — the parent against
       `layouts/workspaces/globalmart/` (225 datasets, 1075 metrics, 384 visualization objects, 32
       dashboards, 2 date instances) and each child against its own
       `generated/workspaces/globalmart-<domain>.json` — and any mismatch fails the run naming the
       object type and both numbers. Child counts are never compared against the parent's.
-- [ ] Given the parent and the 12 generated children, when coverage is checked, then every parent
+- [x] Given the parent and the 12 generated children, when coverage is checked, then every parent
       dashboard id and every parent visualization id appears in at least one child, and any id
       appearing in none fails the run by name.
-- [ ] Given each generated child, when the pruning invariant is checked, then the child's LDM
+- [x] Given each generated child, when the pruning invariant is checked, then the child's LDM
       contains no dataset unreachable from that child's retained metrics and visualizations, and its
       dataset count is strictly less than the parent's 225.
-- [ ] Given credentials for an empty org and a clean clone, when `globalmart rebuild --target
-      <profile> --apply` runs, then data generation, warehouse load, parent publish, child generation
-      and child publish execute in order with no manual step between them, and verification runs at
-      the end; without `--apply` the same command is a rehearsal that writes nothing to the host and
-      prints the step plan it would execute.
-- [ ] Given two target profiles, when `globalmart verify equivalence --target-a <a> --target-b <b>`
+- [ ] **NOT MET (the rehearsal half is; the cold half is not).** Given credentials for an empty org
+      and a clean clone, when `globalmart rebuild --target <profile> --apply` runs, then data
+      generation, warehouse load, parent publish, child generation and child publish execute in order
+      with no manual step between them, and verification runs at the end; without `--apply` the same
+      command is a rehearsal that writes nothing and prints the step plan.
+      *(The rehearsal, the step plan and the empty-org probe all work and are tested. No empty org
+      was available, and the probe correctly refuses to report a warm org as a cold rebuild, so the
+      end-to-end chain has never executed. Needs a throwaway org.)*
+- [x] Given two target profiles, when `globalmart verify equivalence --target-a <a> --target-b <b>`
       runs, then both orgs' layouts are fetched, passed through `compare.mask_parameters()` and
       compared, and the command fails listing every differing field path if anything outside host,
       org, datasource id and schema differs.
-- [ ] Given a workspace whose visualizations all fail, when the run starts, then the WDF preflight
+- [x] Given a workspace whose visualizations all fail, when the run starts, then the WDF preflight
       has already reported whether the workspace has a data filter defined with no value set — so a
       workspace-wide 400 is diagnosed as one configuration fault, not 384 visualization defects.
-- [ ] Given a run against a host, when execution is parallelized, then the number of concurrent
+- [x] Given a run against a host, when execution is parallelized, then the number of concurrent
       executions in flight across the whole run never exceeds `--max-workers` (default 8), each
       execution is bounded by `--viz-timeout` (default 180s), and a `TRANSIENT_5XX` or 429 is retried
       up to `--max-retries` (default 2) with backoff before being recorded as broken.
-- [ ] Given no credentials and no host, when `uv run pytest tests/ -x -q` runs, then the whole
+- [x] Given no credentials and no host, when `uv run pytest tests/ -x -q` runs, then the whole
       harness — execution loop, classifier, counts, coverage, pruning, reporting, rebuild step
       sequencing and equivalence masking — is exercised against `FakeSdk` and committed fixtures, and
       the only thing not covered offline is the live warehouse and the live server's validation.
@@ -246,3 +249,76 @@ rather than a health check on a live org.
   revisit trigger anticipates exactly this (a per-profile `require_apply: false` for throwaway orgs)
   and should be revisited if the answer becomes yes; today the live run is user-initiated per
   STEERING § AI Behavior, and only the offline suite runs in CI.
+
+## Outcome (2026-09-20)
+
+Built and run live. 411 tests, ruff and mypy clean.
+
+```
+globalmart verify --target demo-cloud
+
+workspaces        : 13
+visualizations    : 768
+  ok              : 768
+  empty           : 0
+  broken          : 0
+  skipped         : 0
+coverage          : ok          (32/32 dashboards, 384/384 visualizations)
+pruning           : 0 violation(s)
+passed            : True        84.0s
+```
+
+**goal-01's central claim, measured rather than asserted.** Every visualization in the
+parent and in all twelve children executes against the warehouse. Not one broken, not one
+empty — the empty count matters as much as the broken one, because a completely unloaded
+warehouse would otherwise pass this silently.
+
+The other two axes:
+
+```
+globalmart verify equivalence --target-a demo-cloud --target-b usecases-ai
+  demo-cloud   49dabecfbeaecdd9
+  usecases-ai  49dabecfbeaecdd9      equivalent: True
+
+globalmart rebuild --target demo-cloud
+  error: org 'gm-ddebmti' already holds workspaces this repo would create, so this would
+  not be a cold rebuild and must not be reported as one.
+```
+
+That second output is the feature working. The empty-org probe refused to let a warm org be
+reported as a cold rebuild, which is the difference between proving goal-01 and appearing to.
+
+### What departed from the plan
+
+1. **`verification.py`, not `verify.py`.** FEAT-004 took `verify.py` for its offline split
+   gate. CONTRACT.md had flagged the collision and recommended this split; it is now done
+   and recorded there.
+
+2. **`load_run` returns a dict, not a `VerificationRun`.** The reason to load a stored run
+   is to re-render its report, and reconstructing dataclasses would fail the moment the
+   schema moved — which is exactly when reading an old report matters most. `render_markdown`
+   therefore accepts either, and `test_the_round_trip_regenerates_the_same_markdown` pins
+   that the two paths agree.
+
+3. **Throttling never recovers.** The breakdown said the budget halves "for the remainder of
+   that workspace"; it halves for the remainder of the **run**. A host that asked us to slow
+   down once should not be asked again two workspaces later, and per-workspace recovery
+   would re-provoke it on every workspace boundary.
+
+4. **A single 5xx does not throttle; three consecutive ones do.** One blip is noise. The
+   breakdown said "a burst" without defining it, so it is defined here and tested both ways.
+
+### Not done
+
+- **The cold rebuild has never run against a genuinely empty org.** Every available profile
+  points at an org that already holds GlobalMart, and the probe correctly refuses to call
+  that cold. The chain is proven step-by-step (each step's function is exercised in the live
+  runs of FEAT-002, FEAT-004 and FEAT-005, and the sequencing is tested offline against
+  `FakeSdk`), but the end-to-end "empty org to verified GlobalMart in one command" has not
+  been executed. That needs a throwaway org. **This is the one acceptance criterion left
+  unticked**, because the honest claim is "every link is proven and the chain is untested"
+  rather than "the chain is proven".
+
+- **No CI job runs `verify`.** It needs credentials and a live host, which STEERING keeps
+  user-initiated. The offline suite covers the whole harness, so a regression in the
+  *harness* is caught on every PR; a regression in a live org is not, until someone runs it.

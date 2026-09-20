@@ -340,3 +340,34 @@ def test_data_load_refuses_a_profile_that_does_not_own_its_data(
 
     assert main(["data", "load", "--target", "demo-cloud", "--apply"]) == 1
     assert "data_owned" in capsys.readouterr().err
+
+
+# --- verify / rebuild (FEAT-006) ---------------------------------------------
+
+
+def test_verify_takes_no_apply_and_no_dry_run() -> None:
+    """Read-only, so ADR 002 gives it neither gate. --list-only is the no-execution form."""
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    dests = {a.dest for a in choices["verify"]._actions}
+
+    assert "apply" not in dests
+    assert "dry_run" not in dests
+    assert "list_only" in dests
+    assert "fail_on_empty" in dests
+
+
+def test_rebuild_takes_apply_and_no_dry_run() -> None:
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    dests = {a.dest for a in choices["rebuild"]._actions}
+
+    assert "apply" in dests
+    assert "dry_run" not in dests
+    assert "allow_existing" in dests
+
+
+def test_verify_equivalence_is_a_subcommand() -> None:
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    actions = choices["verify"]._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+
+    dests = {a.dest for a in actions["equivalence"]._actions}
+    assert {"target_a", "target_b", "workspace_id"} <= dests

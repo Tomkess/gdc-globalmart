@@ -35,13 +35,17 @@ from globalmart.coverage import check_coverage, raise_for_report
 from globalmart.dataload import load_data, verify_data
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
+from globalmart.equivalence import compare_orgs
 from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
+from globalmart.rebuild import RebuildOptions, cold_rebuild
 from globalmart.registry import DEFAULT_DDL_PATH, build_registry
+from globalmart.report import write_reports
 from globalmart.sdk_client import make_sdk
 from globalmart.split import split_all
 from globalmart.sqlcheck import check_sql_datasets
+from globalmart.verification import VerifyOptions, empty_warnings, verify_target
 
 DEFAULT_LAYOUT_PATH = Path("layouts/workspaces/globalmart")
 DEFAULT_DOMAINS_PATH = Path("config/domains.yaml")
@@ -411,6 +415,99 @@ def cmd_data_load(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_verify(args: argparse.Namespace) -> int:
+    """Read-only, so no --apply and no --dry-run. --list-only names objects without running."""
+    profile = load_profile(args.target)
+    manifest = load_domains(Path(args.domains_file))
+
+    run = verify_target(
+        make_sdk(profile),
+        profile,
+        manifest,
+        options=VerifyOptions(
+            max_workers=args.max_workers,
+            viz_timeout=args.viz_timeout,
+            max_retries=args.max_retries,
+            fail_on_empty=args.fail_on_empty,
+            list_only=args.list_only,
+            layout_path=Path(args.layout),
+            generated_path=Path(args.generated),
+            workspaces=tuple(args.workspace or ()),
+        ),
+    )
+
+    _print_report("Verification", run.summary_lines())
+
+    for warning in empty_warnings(run):
+        print(f"\nwarning: {warning}", file=sys.stderr)
+
+    json_path, markdown_path = write_reports(run, Path(args.output_dir))
+    print(f"\nreports: {json_path}  {markdown_path}")
+
+    if not run.passed:
+        print("\nerror: verification failed", file=sys.stderr)
+        for reason in run.failure_reasons:
+            print(f"  - {reason}", file=sys.stderr)
+        return 1
+
+    print("\nEverything the repo claims about this target holds.")
+    return 0
+
+
+def cmd_verify_equivalence(args: argparse.Namespace) -> int:
+    profile_a = load_profile(args.target_a)
+    profile_b = load_profile(args.target_b)
+
+    report = compare_orgs(
+        make_sdk(profile_a),
+        profile_a,
+        make_sdk(profile_b),
+        profile_b,
+        args.workspace_id,
+    )
+
+    _print_report("Equivalence", report.summary_lines())
+
+    if not report.equivalent:
+        print("\nerror: the two orgs differ outside the parameterized values", file=sys.stderr)
+        return 1
+
+    print("\nIdentical except for the parameterized values.")
+    return 0
+
+
+def cmd_rebuild(args: argparse.Namespace) -> int:
+    """Chains every other command. --apply is threaded into each step, never re-gated here."""
+    profile = load_profile(args.target)
+    manifest = load_domains(Path(args.domains_file))
+
+    report = cold_rebuild(
+        make_sdk(profile),
+        profile,
+        manifest,
+        apply=args.apply,
+        options=RebuildOptions(
+            layout_path=Path(args.layout),
+            generated_path=Path(args.generated),
+            domains_path=Path(args.domains_file),
+            skip_data=args.skip_data,
+            allow_existing=args.allow_existing,
+        ),
+    )
+
+    if not args.apply:
+        print("REHEARSAL — no writes. Re-run with --apply to rebuild.\n")
+
+    _print_report("Rebuild", report.summary_lines())
+
+    if not args.apply:
+        print("\nReproduce any single step by hand:")
+        for step in report.steps:
+            print(f"  {step.name:24s} {step.cli_equivalent}")
+
+    return 0 if report.passed else 1
+
+
 def cmd_targets_inspect(args: argparse.Namespace) -> int:
     """Discover what a host reports, so a new profile can be filled in from fact.
 
@@ -565,6 +662,58 @@ def build_parser() -> argparse.ArgumentParser:
         help="actually truncate and load; without it this is a read-only rehearsal (ADR 002/004)",
     )
     data_load.set_defaults(func=cmd_data_load)
+
+    verify = subparsers.add_parser(
+        "verify", help="execute every visualization and check the repo's claims"
+    )
+    verify_actions = verify.add_subparsers(dest="action", required=False)
+
+    verify.add_argument("--target", required=False)
+    verify.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
+    verify.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    verify.add_argument("--generated", default=str(DEFAULT_GENERATED_PATH))
+    verify.add_argument("--workspace", action="append", help="verify only these workspace ids")
+    verify.add_argument("--max-workers", type=int, default=8)
+    verify.add_argument("--viz-timeout", type=int, default=180)
+    verify.add_argument("--max-retries", type=int, default=2)
+    verify.add_argument(
+        "--fail-on-empty",
+        action="store_true",
+        help="treat a zero-row result as a failure (off by default: empty slices exist)",
+    )
+    verify.add_argument(
+        "--list-only", action="store_true", help="name what would run, execute nothing"
+    )
+    verify.add_argument("--output-dir", default="reports")
+    verify.set_defaults(func=cmd_verify)
+
+    equivalence = verify_actions.add_parser(
+        "equivalence", help="compare two orgs outside the parameterized values"
+    )
+    equivalence.add_argument("--target-a", required=True)
+    equivalence.add_argument("--target-b", required=True)
+    equivalence.add_argument("--workspace-id", default="globalmart")
+    equivalence.set_defaults(func=cmd_verify_equivalence)
+
+    rebuild = subparsers.add_parser(
+        "rebuild", help="the whole chain: data, parent, children, verification"
+    )
+    rebuild.add_argument("--target", required=True)
+    rebuild.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
+    rebuild.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    rebuild.add_argument("--generated", default=str(DEFAULT_GENERATED_PATH))
+    rebuild.add_argument("--skip-data", action="store_true")
+    rebuild.add_argument(
+        "--allow-existing",
+        action="store_true",
+        help="rebuild over an org that already holds these workspaces (it is then not cold)",
+    )
+    rebuild.add_argument(
+        "--apply",
+        action="store_true",
+        help="actually write; without it this prints the step plan (ADR 002)",
+    )
+    rebuild.set_defaults(func=cmd_rebuild)
 
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)

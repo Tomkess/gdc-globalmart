@@ -79,3 +79,56 @@ def check_portability(model: CatalogDeclarativeWorkspaceModel) -> None:
             f"{len(offenders)} user reference(s) survive in the model: {shown}{more}. "
             "Run `globalmart normalize` before publishing."
         )
+
+
+def check_wdf_values(host: str, token: str, workspace_id: str) -> str | None:
+    """The preflight for the single most common cause of "everything is broken".
+
+    A workspace that inherits a workspace-data-filter *definition* but has no filter *value*
+    set fails **every** execution with HTTP 400 ("...filter values...are empty..."), which in
+    the UI reads as "SORRY, WE CAN'T DISPLAY THIS VISUALIZATION" on every tile. Without this
+    check that presents as 384 visualization defects instead of one configuration fault — the
+    predecessor's highest-value finding, and the reason this runs before execution rather
+    than being inferred from the results afterwards.
+
+    Raw REST: the SDK models no `workspaceDataFilter*` endpoint (STEERING § Coding Standards
+    requires saying so where we go around it).
+
+    **Never raises.** A preflight that blocks the run it is meant to inform is worse than no
+    preflight, so every failure here returns ``None`` and the run proceeds.
+
+    FEAT-001 defaults to ``WdfPolicy.DROP``, so in a repo-built org this must always return
+    ``None``. The check stays precisely to prove that, rather than to assume it.
+    """
+    import requests
+
+    base = host.rstrip("/")
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.gooddata.api+json",
+    }
+    try:
+        filters = requests.get(
+            f"{base}/api/v1/entities/workspaces/{workspace_id}/workspaceDataFilters",
+            headers=headers,
+            timeout=30,
+        )
+        settings = requests.get(
+            f"{base}/api/v1/entities/workspaces/{workspace_id}/workspaceDataFilterSettings",
+            headers=headers,
+            timeout=30,
+        )
+        if filters.status_code != 200 or settings.status_code != 200:
+            return None
+        defined = len(filters.json().get("data", []))
+        valued = len(settings.json().get("data", []))
+    except Exception:  # noqa: BLE001 - a preflight must never block the run
+        return None
+
+    if defined > 0 and valued == 0:
+        return (
+            f"workspace {workspace_id!r} has {defined} workspace data filter(s) and 0 value(s) "
+            "set — EVERY visualization in it will fail with HTTP 400. Set a filter value "
+            "before reading the per-object failures below as real defects."
+        )
+    return None

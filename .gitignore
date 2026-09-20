@@ -5,23 +5,19 @@ specs/REGISTRY.md
 # Generated artifacts. ADR 003: commit what a human reviews, regenerate what a
 # machine consumes — generated/workspaces/*.json IS committed.
 generated/data/
-
 # data/ IS committed (ADR 007): 215 gzipped CSVs, 2.3 MB, plus the DDL and the manifest.
 # Nobody reviews 53,902 order lines, so ADR 003's rule does not obviously cover it — the
 # reason is durability, not review. The rows previously existed only in a bucket this
 # project does not own and cannot read; committing removes that dependency rather than
 # relocating it. data/.staging/ is the custody script's scratch area and is not.
 data/.staging/
-
 # Runtime output
 backups/
 reports/
-
 # Secrets — every credential is env-only (see specs/CONTRACT.md)
 .env
 .env.*
 !.env.example
-
 # Tooling
 .kilo/
 .venv/
@@ -30,22 +26,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
-
 # macOS
 .DS_Store
-
 # Python
-.venv/
-__pycache__/
 *.pyc
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-
-# Runtime output
-backups/
-reports/
 .cache/globalmart-data/
-
 # Secrets
-.env

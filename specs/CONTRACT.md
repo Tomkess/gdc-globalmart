@@ -50,7 +50,7 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `classify.py` | FEAT-006 | Failure taxonomy (ported from predecessor `classifier.py`) |
 | `execute.py` | FEAT-006 | `execute_visualization(...)` — AFM execution with timeout + retry |
 | `expect.py` | FEAT-006 | Expectations computed from committed artifacts, never from a live org |
-| `equivalence.py` | FEAT-006 | `compare_orgs(...) -> EquivalenceReport` |
+| `equivalence.py` | FEAT-006 | `compare_orgs(...) -> EquivalenceReport`, `dict_diff` |
 | `rebuild.py` | FEAT-006 | `RebuildStep` chain — the "no manual step" proof |
 | `report.py` | FEAT-006 | The only module that knows about presentation |
 | `cli.py` | all | Subcommand registration only; no logic |
@@ -203,8 +203,9 @@ Single entry point `globalmart`, subcommands registered in `cli.py`:
 | `globalmart publish domains --target <profile> [--apply]` | FEAT-004 |
 | `globalmart data verify [--ddl ...] [--layout ...] [--schema ...]` | FEAT-005 (replaces the planned `data fetch` — the data is committed, so there is nothing to fetch) |
 | `globalmart data load --target <profile> [--apply] [--only <tables>]` | FEAT-005 |
-| `globalmart verify --target <profile> [--workspace <id> ...] [--max-workers N]` | FEAT-006 |
-| `globalmart rebuild` | FEAT-006 |
+| `globalmart verify --target <profile> [--workspace <id>] [--max-workers N] [--list-only] [--fail-on-empty]` | FEAT-006 |
+| `globalmart verify equivalence --target-a <a> --target-b <b> [--workspace-id <id>]` | FEAT-006 |
+| `globalmart rebuild --target <profile> [--apply] [--allow-existing] [--skip-data]` | FEAT-006 |
 
 **Flag convention (from STEERING.md, binding):** `--apply` gates writes to a live org — every such
 command is a read-only rehearsal by default. `--dry-run` belongs only to commands whose writes are
