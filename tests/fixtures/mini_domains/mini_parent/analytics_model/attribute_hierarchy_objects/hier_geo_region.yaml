@@ -1,0 +1,12 @@
+content:
+  attributes:
+  - identifier:
+      id: dim_geo.geo_id
+      type: attribute
+  - identifier:
+      id: dim_region.region_id
+      type: attribute
+description: ''
+id: hier_geo_region
+tags: []
+title: Geo > Region

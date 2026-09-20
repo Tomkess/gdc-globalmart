@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_fraud_alert
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_fraud_alert
   type: dataSource
 description: Fraud Alert

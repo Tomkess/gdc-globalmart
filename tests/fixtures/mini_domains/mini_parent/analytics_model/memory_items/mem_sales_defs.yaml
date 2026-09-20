@@ -1,0 +1,6 @@
+id: mem_sales_defs
+instruction: Revenue excludes returns.
+strategy: ALWAYS
+tags:
+- area/sales
+title: Sales definitions

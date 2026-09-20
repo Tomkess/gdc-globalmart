@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_paid_search_click
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_paid_search_click
   type: dataSource
 description: Paid Search Click

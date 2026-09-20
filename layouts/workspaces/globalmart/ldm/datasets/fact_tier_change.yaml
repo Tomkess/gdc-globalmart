@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_tier_change
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_tier_change
   type: dataSource
 description: Tier Change

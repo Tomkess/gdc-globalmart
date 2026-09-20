@@ -21,7 +21,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_property
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_property
   type: dataSource
 description: Property

@@ -1,0 +1,5224 @@
+{
+  "analytics": {
+    "analyticalDashboardExtensions": [],
+    "analyticalDashboards": [
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_012",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0252",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_00",
+                      "title": "Cost by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0253",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_01",
+                      "title": "Staff Hours by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0254",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_02",
+                      "title": "Staff Count by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0255",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_03",
+                      "title": "Shrinkage Amount by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0256",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_04",
+                      "title": "Unit Count by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0257",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_05",
+                      "title": "Maintenance Cost by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0258",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_06",
+                      "title": "Downtime Hours by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0259",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_07",
+                      "title": "Visitor Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0260",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_08",
+                      "title": "kWh by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0261",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_09",
+                      "title": "Sq Ft by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0262",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_10",
+                      "title": "Store Revenue",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0263",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_012_11",
+                      "title": "Revenue per Sq Ft",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring store operations efficiency over time, combining key KPIs and trends such as store revenue, revenue per square foot, energy cost and kWh usage, staffing levels and hours, visitor counts, maintenance downtime and costs, and shrinkage impact. By default it focuses on the last 12 months and can be segmented using acquisition channel and loyalty tier filters.",
+        "id": "dashboard_012",
+        "title": "Store Operations Efficiency"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_013",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0264",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_00",
+                      "title": "Revenue per Staff Hour",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0265",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_01",
+                      "title": "Cost",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0266",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_02",
+                      "title": "Cost",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0267",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_03",
+                      "title": "Cost",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0268",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_04",
+                      "title": "Staff Hours Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0269",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_05",
+                      "title": "Staff Hours Over Time",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0270",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_06",
+                      "title": "Staff Hours Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0271",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_07",
+                      "title": "Staff Count and Staff Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0272",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_08",
+                      "title": "Staff Count by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0273",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_09",
+                      "title": "Staff Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0274",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_10",
+                      "title": "Shrinkage Amount by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0275",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_013_11",
+                      "title": "Shrinkage Amount by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring staff productivity and scheduling by linking labor (staff hours and staff counts) to operational outcomes such as revenue per staff hour, energy cost, and shrinkage trends. It brings together time-series views by month/quarter/year and comparisons across channels (In-Store vs Online) and regions to help spot staffing and cost changes over time. By default it is scoped to the last 12 months and can be further narrowed by store region and loyalty tier selections.",
+        "id": "dashboard_013",
+        "title": "Staff Productivity & Scheduling"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_026",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0276",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_00",
+                      "title": "Shrinkage Amount by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0277",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_01",
+                      "title": "Unit Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0278",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_02",
+                      "title": "Unit Count by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0279",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_03",
+                      "title": "Unit Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0280",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_04",
+                      "title": "Maintenance Cost by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0281",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_05",
+                      "title": "Maintenance Cost by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0282",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_06",
+                      "title": "Maintenance Cost by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0283",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_07",
+                      "title": "Downtime Hours by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0284",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_08",
+                      "title": "Downtime Hours",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0285",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_09",
+                      "title": "Downtime Hours",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0286",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_10",
+                      "title": "Visitor Count",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_store_ops_0287",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_026_11",
+                      "title": "Visitor Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring store traffic and related operational KPIs over time, bringing together visitor counts along with shrinkage, maintenance cost, and downtime trends by month/quarter/year across in-store and online channels (with some views focused on the North region). By default it is filtered to the last 12 months, with optional filter controls for exchange rate to USD and fiscal period.",
+        "id": "dashboard_026",
+        "title": "Footfall & Store Traffic"
+      }
+    ],
+    "attributeHierarchies": [],
+    "dashboardPlugins": [],
+    "exportDefinitions": [],
+    "filterContexts": [
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.acquisition_channel_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.loyalty_tier_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_012",
+        "title": "Filters — Store Operations Efficiency"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.loyalty_tier_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_region.region_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_013",
+        "title": "Filters — Staff Productivity & Scheduling"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_currency.exchange_rate_to_usd",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_fiscal_period.fiscal_period_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_026",
+        "title": "Filters — Footfall & Store Traffic"
+      }
+    ],
+    "memoryItems": [],
+    "metrics": [
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT MAX({metric/metric_l1_fact_energy_consumption_kwh})"
+        },
+        "description": "Returns the maximum value of total kWh consumed within the selected data and filters.",
+        "id": "maximum_total_kwh_consumed",
+        "tags": [
+          "consumption",
+          "energy",
+          "kwh"
+        ],
+        "title": "Maximum Total kWh Consumed"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_energy_consumption.cost})"
+        },
+        "description": "Shows the total cost of energy consumption within the current analysis scope (such as applied filters and the selected time period). Use it to track overall spending and compare energy-consumption costs across different groups or periods.",
+        "id": "metric_l1_fact_energy_consumption_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Cost (Energy Consumption)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_energy_consumption.kwh})"
+        },
+        "description": "Sums energy consumption in kilowatt-hours (kWh) to show the total amount of electricity used. Use this metric to track overall energy usage and compare consumption across different slices of the Energy Consumption data.",
+        "id": "metric_l1_fact_energy_consumption_kwh",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total kWh (Energy Consumption)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_maintenance_request.downtime_hours})"
+        },
+        "description": "Sums the total downtime hours logged on maintenance requests. Use this metric to track overall equipment or service disruption time based on Maintenance Request data.",
+        "id": "metric_l1_fact_maintenance_request_downtime_hours",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Downtime Hours (Maintenance Request)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_maintenance_request.maintenance_cost})"
+        },
+        "description": "Shows the total maintenance spend by summing Maintenance Cost across Maintenance Request records, respecting the current date range and any applied filters.",
+        "id": "metric_l1_fact_maintenance_request_maintenance_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Maintenance Cost (Maintenance Request)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_shrinkage_event.shrinkage_amount})"
+        },
+        "description": "Shows the total monetary value of shrinkage by summing the Shrinkage Amount recorded in the Shrinkage Event dataset for the current analysis scope (such as selected time period, location, or other filters). Used to track overall shrinkage impact across events.",
+        "id": "metric_l1_fact_shrinkage_event_shrinkage_amount",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Shrinkage Amount (Shrinkage Event)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_shrinkage_event.unit_count})"
+        },
+        "description": "Sums the Unit Count across all records in the Shrinkage Event dataset to show the total number of units involved in shrinkage events. Use it to quantify shrinkage volume and compare it by product, location, or time when paired with relevant attributes.",
+        "id": "metric_l1_fact_shrinkage_event_unit_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Unit Count (Shrinkage Event)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_store_staffing_daily.staff_count})"
+        },
+        "description": "Shows the total number of staff recorded in the Daily Store Staffing data by summing Staff Count for the selected time period and any applied filters (such as store or date). Use it to track and compare overall staffing levels across time or locations.",
+        "id": "metric_l1_fact_store_staffing_daily_staff_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Staff Count (Daily Store Staffing)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_store_staffing_daily.staff_hours})"
+        },
+        "description": "Tracks the total number of staff hours recorded in the Daily Store Staffing data, summed over the selected time period and any applied filters. Use it to monitor overall labor hours and support store staffing and workforce analysis.",
+        "id": "metric_l1_fact_store_staffing_daily_staff_hours",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Staff Hours (Daily Store Staffing)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_store_visit_census.sqft})"
+        },
+        "description": "Sums square footage from the Store Visit Census data to show total space across the selected records. Use it to quantify overall Sq Ft in reports and dashboards, and break it down by other dimensions as needed.",
+        "id": "metric_l1_fact_store_visit_census_sqft",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Sq Ft (Store Visit Census)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_store_visit_census.visitor_count})"
+        },
+        "description": "Total number of visitors captured in the Store Visit Census data, calculated by summing Visitor Count. Use it to track overall foot traffic and compare visitor volumes across time, locations, or other breakdowns.",
+        "id": "metric_l1_fact_store_visit_census_visitor_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Visitor Count (Store Visit Census)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_ops_efficiency_summary.revenue_per_sqft})"
+        },
+        "description": "Shows the total revenue generated per square foot by summing the “Revenue per Sq Ft” values from the Operations Efficiency Summary data for the current selection (such as time period, location, or other filters). Use it to compare overall space productivity across segments.",
+        "id": "metric_l1_sql_ops_efficiency_summary_revenue_per_sqft",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Revenue per Sq Ft (Operations Efficiency Summary)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_ops_efficiency_summary.revenue_per_staff_hour})"
+        },
+        "description": "Shows the total Revenue per Staff Hour by summing this value across the selected slice of the Operations Efficiency Summary data. Use it to assess overall labor productivity and operational efficiency in the current view.",
+        "id": "metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Revenue per Staff Hour (Operations Efficiency Summary)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_ops_efficiency_summary.store_revenue})"
+        },
+        "description": "Shows the total revenue generated by stores by summing Store Revenue from the Operations Efficiency Summary data for the selected filters and reporting period.",
+        "id": "metric_l1_sql_ops_efficiency_summary_store_revenue",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Store Revenue (Operations Efficiency Summary)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_staffing_daily_staff_hours} - {metric/metric_l1_fact_store_staffing_daily_staff_count}"
+        },
+        "description": "Compares changes in labor hours to changes in headcount by calculating the difference between total staff hours and total staff count from the Daily Store Staffing data for the selected period and any applied filters. Use it to see whether overall staffing effort is rising or falling relative to the number of staff.",
+        "id": "metric_l2_intra_0082",
+        "tags": [
+          "L2"
+        ],
+        "title": "Staff Hours (Daily Store Staffing) vs Staff Count (Daily Store Staffing) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_staffing_daily_staff_count} - {metric/metric_l1_fact_shrinkage_event_shrinkage_amount}"
+        },
+        "description": "Shows the net difference between total staff count (from Daily Store Staffing) and total shrinkage amount (from Shrinkage Event) within the selected time period and filters. Use it to monitor how changes in staffing levels compare to shrinkage impact in the same reporting scope.",
+        "id": "metric_l2_intra_0083",
+        "tags": [
+          "L2"
+        ],
+        "title": "Staff Count (Daily Store Staffing) vs Shrinkage Amount (Shrinkage Event) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_shrinkage_event_shrinkage_amount} - {metric/metric_l1_fact_shrinkage_event_unit_count}"
+        },
+        "description": "Compares the overall change in shrinkage by subtracting total unit count from total shrinkage amount within the selected reporting scope. Use it to see how shrinkage value is shifting relative to the volume of units involved in shrinkage events.",
+        "id": "metric_l2_intra_0084",
+        "tags": [
+          "L2"
+        ],
+        "title": "Shrinkage Amount (Shrinkage Event) vs Unit Count (Shrinkage Event) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_shrinkage_event_unit_count} - {metric/metric_l1_fact_maintenance_request_maintenance_cost}"
+        },
+        "description": "Net change between shrinkage volume and maintenance spend, calculated as Total Unit Count from Shrinkage Events minus Total Maintenance Cost from Maintenance Requests. Use it to assess whether shrinkage activity outweighs maintenance costs for the selected filters and time period.",
+        "id": "metric_l2_intra_0085",
+        "tags": [
+          "L2"
+        ],
+        "title": "Unit Count (Shrinkage Event) vs Maintenance Cost (Maintenance Request) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_energy_consumption_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total energy consumption cost limited to the In-Store sales channel. Use this metric to monitor and compare in-store energy spending across time periods or other breakdowns while excluding other channel types.",
+        "id": "metric_l3_0004_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Cost (Energy Consumption) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_energy_consumption_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Tracks total energy consumption cost for the Online sales channel only, so you can monitor and compare energy-related spending tied to online activity across the selected time period and any applied filters.",
+        "id": "metric_l3_0004_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Cost (Energy Consumption) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_energy_consumption_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total energy consumption cost restricted to the North region. Use it to monitor and compare energy-related spending for North within the current reporting scope (including any applied filters and time period).",
+        "id": "metric_l3_0004_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Cost (Energy Consumption) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_staffing_daily_staff_hours} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total staff hours for the In-Store sales channel, summed over the selected time period and any other applied filters. Use this metric to track labor hours specifically for in-store operations and staffing needs.",
+        "id": "metric_l3_0082_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Staff Hours (Daily Store Staffing) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_staffing_daily_staff_hours} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total staff hours from the Daily Store Staffing data, filtered to the Online sales channel. Use this metric to track labor hours attributable to online operations over the selected time period and any other applied filters.",
+        "id": "metric_l3_0082_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Staff Hours (Daily Store Staffing) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_staffing_daily_staff_hours} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total staff hours from the Daily Store Staffing data, filtered to stores in the North region. Use this metric to monitor overall labor hours for North-region staffing across the selected reporting period and any other applied filters.",
+        "id": "metric_l3_0082_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Staff Hours (Daily Store Staffing) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_staffing_daily_staff_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total number of staff recorded in the Daily Store Staffing data, limited to the In-Store sales channel. Use this metric to monitor in-store staffing levels over the selected dates and any other applied filters (such as store).",
+        "id": "metric_l3_0083_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Staff Count (Daily Store Staffing) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_staffing_daily_staff_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total number of staff recorded in the Daily Store Staffing data, filtered to the Online sales channel. Use this metric to monitor daily staffing levels for online operations and compare them across time periods or against other channels.",
+        "id": "metric_l3_0083_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Staff Count (Daily Store Staffing) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_staffing_daily_staff_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total staff count from the Daily Store Staffing data, filtered to stores in the North region. Use this metric to monitor overall staffing levels in the North over the selected time period and any other report filters.",
+        "id": "metric_l3_0083_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Staff Count (Daily Store Staffing) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_shrinkage_event_shrinkage_amount} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total monetary value of shrinkage recorded in the Shrinkage Event data, filtered to the In-Store sales channel. Use this metric to monitor and report in-store shrinkage value across the current analysis scope (for example, selected time period or location).",
+        "id": "metric_l3_0084_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Shrinkage Amount (Shrinkage Event) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_shrinkage_event_shrinkage_amount} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Tracks the total monetary value of shrinkage recorded in shrinkage events, limited to the Online sales channel. Use it to monitor the financial impact of shrinkage for online activity within the current report context (for example, selected time period or location).",
+        "id": "metric_l3_0084_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Shrinkage Amount (Shrinkage Event) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_shrinkage_event_shrinkage_amount} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Tracks the total monetary value of shrinkage from shrinkage events, limited to the North region. Use it to monitor shrinkage impact for North when analyzing results by time, location, or other report filters.",
+        "id": "metric_l3_0084_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Shrinkage Amount (Shrinkage Event) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_shrinkage_event_unit_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the total units involved in shrinkage events for activity attributed to the In-Store sales channel. Use it to monitor and compare in-store shrinkage volume over time or across other business dimensions.",
+        "id": "metric_l3_0085_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Unit Count (Shrinkage Event) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_shrinkage_event_unit_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts the total number of units involved in shrinkage events, limited to the Online sales channel. Use it to monitor online-related shrinkage volume and compare it against other channels or overall shrinkage totals.",
+        "id": "metric_l3_0085_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Unit Count (Shrinkage Event) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_shrinkage_event_unit_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the total units involved in shrinkage events, filtered to the North region. Use it to track shrinkage volume in the North and compare results across time periods or against other regions.",
+        "id": "metric_l3_0085_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Unit Count (Shrinkage Event) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_maintenance_request_maintenance_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total maintenance cost from Maintenance Request records, filtered to the In-Store sales channel. Use it to monitor and compare maintenance spend for in-store operations within the current report filters and timeframe.",
+        "id": "metric_l3_0086_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Maintenance Cost (Maintenance Request) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_maintenance_request_maintenance_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Totals maintenance cost from Maintenance Request records, limited to requests associated with the Online sales channel. Use it to monitor and compare maintenance spending for online-originated activity within the selected time period and any applied filters.",
+        "id": "metric_l3_0086_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Maintenance Cost (Maintenance Request) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_maintenance_request_maintenance_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total maintenance cost from Maintenance Request records, filtered to the North region. Use it to monitor and report maintenance spend for North, while still respecting any currently selected date range and other report/dashboard filters.",
+        "id": "metric_l3_0086_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Maintenance Cost (Maintenance Request) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_maintenance_request_downtime_hours} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total downtime hours logged on maintenance requests, filtered to the In-Store sales channel. Use it to monitor and compare disruption time specifically affecting in-store operations.",
+        "id": "metric_l3_0087_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Downtime Hours (Maintenance Request) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_maintenance_request_downtime_hours} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Totals the downtime hours logged on maintenance requests, restricted to the Online sales channel. Use it to monitor and report disruption time specifically attributable to online-channel maintenance activity.",
+        "id": "metric_l3_0087_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Downtime Hours (Maintenance Request) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_maintenance_request_downtime_hours} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total downtime hours logged on maintenance requests, restricted to records in the North region. Use this metric to monitor the amount of equipment or service disruption time attributable to maintenance activity in North.",
+        "id": "metric_l3_0087_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Downtime Hours (Maintenance Request) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_visit_census_visitor_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts total visitors from the Store Visit Census data, filtered to the In-Store sales channel. Use this metric to track and compare in-store foot traffic over time, by location, or across other business breakdowns.",
+        "id": "metric_l3_0088_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Visitor Count (Store Visit Census) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_visit_census_visitor_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts total Store Visit Census visitors restricted to the Online sales channel. Use it to monitor and compare online visitor volume across time, locations, or other business breakdowns.",
+        "id": "metric_l3_0088_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Visitor Count (Store Visit Census) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_visit_census_visitor_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total Store Visit Census visitor count filtered to the North region. Use it to monitor and compare foot traffic volume for North-only reporting across time or other dimensions.",
+        "id": "metric_l3_0088_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Visitor Count (Store Visit Census) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_energy_consumption_kwh} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total electricity consumption in kilowatt-hours for the In-Store sales channel only. Use this metric to monitor and compare in-store energy usage across different slices of the Energy Consumption data.",
+        "id": "metric_l3_0089_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "kWh (Energy Consumption) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_energy_consumption_kwh} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Measures total electricity consumption in kilowatt-hours (kWh) for the Online sales channel only. Use it to monitor and compare energy usage attributable specifically to online activity versus other channels.",
+        "id": "metric_l3_0089_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "kWh (Energy Consumption) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_energy_consumption_kwh} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total electricity consumption measured in kilowatt-hours (kWh) for the North region only. Use this metric to monitor and compare North’s energy usage against other regions or overall consumption.",
+        "id": "metric_l3_0089_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "kWh (Energy Consumption) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_visit_census_sqft} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total square footage from the Store Visit Census, filtered to locations in the In-Store sales channel. Use this metric to quantify in-store space and compare it across other dimensions in reports and dashboards.",
+        "id": "metric_l3_0090_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Sq Ft (Store Visit Census) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_visit_census_sqft} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total store square footage from the Store Visit Census, limited to records where the Sales Channel is Online. Use this to quantify the online-channel footprint and compare it against other channels or dimensions in reports and dashboards.",
+        "id": "metric_l3_0090_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Sq Ft (Store Visit Census) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_store_visit_census_sqft} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total store square footage from the Store Visit Census, filtered to locations in the North region. Use it to compare the amount of space represented by North-region records when slicing by other business dimensions.",
+        "id": "metric_l3_0090_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Sq Ft (Store Visit Census) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_store_revenue} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Shows total store revenue limited to the In-Store sales channel, based on the Operations Efficiency Summary data. Use it to report in-store revenue while excluding other channel types.",
+        "id": "metric_l3_0091_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Store Revenue (Operations Efficiency Summary) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_store_revenue} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total store revenue from the Operations Efficiency Summary, filtered to include only the Online sales channel. Use this metric to report or compare revenue performance for online-only activity within the selected time period and other report filters.",
+        "id": "metric_l3_0091_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Store Revenue (Operations Efficiency Summary) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_store_revenue} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total store revenue from the Operations Efficiency Summary, filtered to the North region. Use it to report how much revenue stores generated in North for the selected reporting period and any other applied filters.",
+        "id": "metric_l3_0091_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Store Revenue (Operations Efficiency Summary) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_sqft} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Shows total revenue generated per square foot for the In-Store sales channel to assess space productivity and operational efficiency. Use it to compare in-store performance across locations, time periods, or other segments in reports and dashboards.",
+        "id": "metric_l3_0092_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Revenue per Sq Ft (Operations Efficiency Summary) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_sqft} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Shows revenue generated per square foot for the Online sales channel only, so you can assess space productivity for online operations. Use it to compare operational efficiency across time periods, locations, or other segments while keeping the channel fixed to Online.",
+        "id": "metric_l3_0092_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Revenue per Sq Ft (Operations Efficiency Summary) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_sqft} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Calculates total revenue generated per square foot for the North region to evaluate space productivity and operational efficiency. Use it to compare how efficiently North locations convert floor space into revenue within the current reporting scope.",
+        "id": "metric_l3_0092_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Revenue per Sq Ft (Operations Efficiency Summary) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Shows total revenue generated per staff hour for the In-Store sales channel, based on the Operations Efficiency Summary data. Use it to compare labor productivity and operational efficiency when focusing specifically on in-store performance.",
+        "id": "metric_l3_0093_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Revenue per Staff Hour (Operations Efficiency Summary) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Shows total revenue generated per staff hour for the Online sales channel. Use it to track online operational efficiency and labor productivity and compare performance across time or other business segments.",
+        "id": "metric_l3_0093_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Revenue per Staff Hour (Operations Efficiency Summary) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows total revenue generated per staff hour for the Operations Efficiency Summary, filtered to the North region. Use it to assess and compare operational efficiency in North versus other regions or time periods.",
+        "id": "metric_l3_0093_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Revenue per Staff Hour (Operations Efficiency Summary) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0004_0} - (SELECT {metric/metric_l3_0004_0} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Tracks the month-over-month change in energy consumption cost for the In-Store channel by comparing the current month’s cost to the prior month. Use it to see whether in-store energy spending is rising or falling over time, typically broken down by Month/Year.",
+        "id": "metric_l4_mom_0012",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Cost (Energy Consumption) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0004_1} - (SELECT {metric/metric_l3_0004_1} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in energy consumption cost for the Online sales channel, comparing the current month’s cost to the prior month. Use it to monitor whether online energy-related spending is rising or falling over time.",
+        "id": "metric_l4_mom_0013",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Cost (Energy Consumption) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0004_2} - (SELECT {metric/metric_l3_0004_2} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in energy consumption cost for the North region by comparing the current month’s cost to the prior month. Use it to track whether North’s energy spending is rising or falling over time within the applied reporting filters.",
+        "id": "metric_l4_mom_0014",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Cost (Energy Consumption) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0004_0} - (SELECT {metric/metric_l3_0004_0} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0004_0} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in in-store energy consumption cost by comparing the current period to the same period last year. Use it to track annual trends in in-store energy spending and quantify increases or reductions versus the prior year.",
+        "id": "metric_l4_yoy_0012",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Cost (Energy Consumption) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0004_1} - (SELECT {metric/metric_l3_0004_1} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0004_1} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in energy consumption cost for the Online sales channel by comparing the current year to the previous year. Use it to track whether online energy-related spending is increasing or decreasing over time under the applied report filters.",
+        "id": "metric_l4_yoy_0013",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Cost (Energy Consumption) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0004_2} - (SELECT {metric/metric_l3_0004_2} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0004_2} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in Energy Consumption Cost for the North region by comparing the current year’s cost to the previous year. Use it to track whether North’s energy spending is rising or falling over time, within the current report filters and selected time period.",
+        "id": "metric_l4_yoy_0014",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Cost (Energy Consumption) — North Region"
+      }
+    ],
+    "parameters": [],
+    "visualizationObjects": [
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_energy_consumption_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total energy consumption cost trended by Month/Year, to track how overall energy-related spending changes over time.",
+        "id": "viz_store_ops_0252",
+        "title": "Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_store_staffing_daily_staff_hours",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total staff hours over time, grouped by quarter/year. Use it to track labor hours trends across quarters for staffing and store operations planning.",
+        "id": "viz_store_ops_0253",
+        "title": "Staff Hours by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_store_staffing_daily_staff_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total staff count trended by year, based on the Daily Store Staffing data. Use it to compare staffing levels year over year for the selected period and any applied filters.",
+        "id": "viz_store_ops_0254",
+        "title": "Staff Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_shrinkage_event_shrinkage_amount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total shrinkage amount aggregated by month/year using Shrinkage Event data. Use it to track how the financial impact of shrinkage changes over time and spot monthly trends or spikes.",
+        "id": "viz_store_ops_0255",
+        "title": "Shrinkage Amount by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_shrinkage_event_unit_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total number of units recorded in shrinkage events, grouped by quarter and year, to help track how shrinkage volume changes over time.",
+        "id": "viz_store_ops_0256",
+        "title": "Unit Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_maintenance_request_maintenance_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total maintenance spend from maintenance requests, broken down by year. Use it to compare how maintenance costs change year over year across the selected data and filters.",
+        "id": "viz_store_ops_0257",
+        "title": "Maintenance Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_maintenance_request_downtime_hours",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total downtime hours from maintenance requests by month/year, to track how equipment or service disruption time trends over time.",
+        "id": "viz_store_ops_0258",
+        "title": "Downtime Hours by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_store_visit_census_visitor_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total store visitor count by quarter/year to track foot traffic trends over time and compare visitor volumes across quarters.",
+        "id": "viz_store_ops_0259",
+        "title": "Visitor Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_energy_consumption_kwh",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total electricity consumption (kWh) broken down by year, using the Total kWh (Energy Consumption) metric. Use it to track overall energy usage trends over time and compare consumption between years.",
+        "id": "viz_store_ops_0260",
+        "title": "kWh by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_store_visit_census_sqft",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total square footage from the Store Visit Census, trended by Month/Year. Use it to track how total space changes over time and compare month-to-month levels.",
+        "id": "viz_store_ops_0261",
+        "title": "Sq Ft by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_ops_efficiency_summary_store_revenue",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total store revenue for the selected reporting period and any applied filters, based on the Operations Efficiency Summary data.",
+        "id": "viz_store_ops_0262",
+        "title": "Store Revenue"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_ops_efficiency_summary_revenue_per_sqft",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline KPI showing total revenue generated per square foot for the selected scope, based on the Operations Efficiency Summary metric. Use it to quickly assess and compare space productivity across the current filters or segments.",
+        "id": "viz_store_ops_0263",
+        "title": "Revenue per Sq Ft"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_ops_efficiency_summary_revenue_per_staff_hour",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing Total Revenue per Staff Hour, summarizing how much revenue is generated for each staff hour in the selected data slice based on the Operations Efficiency Summary.",
+        "id": "viz_store_ops_0264",
+        "title": "Revenue per Staff Hour"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0004_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total energy consumption cost for the In-Store sales channel. Use it to monitor and compare in-store energy spending across time periods or other breakdowns while excluding other channel types.",
+        "id": "viz_store_ops_0265",
+        "title": "Cost (In-Store sales channel)"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0004_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total energy consumption cost for the Online sales channel, based on the selected filters and time period. Use it to monitor and compare online energy-related spending at a glance.",
+        "id": "viz_store_ops_0266",
+        "title": "Cost (Online sales channel)"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0004_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total energy consumption cost for the North region. Use it to monitor overall energy-related spending for North within the current reporting context (such as the selected time period and any dashboard filters).",
+        "id": "viz_store_ops_0267",
+        "title": "Cost (North region)"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0082_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing total In-Store staff hours trended by month/year, based on the Daily Store Staffing hours metric. Use it to monitor how in-store labor hours change over time and spot staffing shifts or seasonality.",
+        "id": "viz_store_ops_0268",
+        "title": "Staff Hours Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0082_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing monthly trends in total staff hours attributed to the Online channel, based on Daily Store Staffing records. Use it to monitor how online-related labor hours change over time and spot seasonality or spikes by month.",
+        "id": "viz_store_ops_0269",
+        "title": "Staff Hours Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0082_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing total staff hours for North-region stores over time, grouped by month/year. Use it to track staffing labor trends across the reporting period and spot changes in overall labor hours.",
+        "id": "viz_store_ops_0270",
+        "title": "Staff Hours Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0083_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                },
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0083_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m2"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "attribute"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:table"
+        },
+        "description": "Table showing staffing levels over time by Quarter/Year, comparing Staff Count for the In-Store channel versus the Online channel. Use it to monitor how staffing changes across quarters and to contrast staffing needs between channels.",
+        "id": "viz_store_ops_0271",
+        "title": "Staff Count and Staff Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0083_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of staff recorded for the Online channel, grouped by year. Use it to track how online staffing levels change year over year.",
+        "id": "viz_store_ops_0272",
+        "title": "Staff Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0083_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing how total daily store staff counts trend over time by Month/Year, limited to stores in the North region. Use it to monitor overall staffing levels month to month and spot increases or decreases over the selected period.",
+        "id": "viz_store_ops_0273",
+        "title": "Staff Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0084_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total in-store shrinkage amount by quarter/year, helping you track how the value of shrinkage events trends over time.",
+        "id": "viz_store_ops_0274",
+        "title": "Shrinkage Amount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0084_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total shrinkage amount from shrinkage events for the Online sales channel, broken out by year. Use it to monitor how the financial impact of online shrinkage changes year over year under the current report filters.",
+        "id": "viz_store_ops_0275",
+        "title": "Shrinkage Amount by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0084_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total shrinkage amount over time by Month/Year, using the “Shrinkage Amount (Shrinkage Event) — North Region” metric. It is intended to track monthly trends in shrinkage value specifically for the North region.",
+        "id": "viz_store_ops_0276",
+        "title": "Shrinkage Amount by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0085_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of units involved in in-store shrinkage events, trended by quarter/year. Use it to monitor how in-store shrinkage volume changes over time and compare quarters.",
+        "id": "viz_store_ops_0277",
+        "title": "Unit Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0085_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the annual total Unit Count for shrinkage events in the Online sales channel, grouped by Year. Use it to track and compare year-over-year changes in online-related shrinkage volume.",
+        "id": "viz_store_ops_0278",
+        "title": "Unit Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0085_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total Unit Count for shrinkage events in the North region, trended by Month/Year. Use it to monitor how shrinkage volume changes over time in the North and compare month-to-month patterns.",
+        "id": "viz_store_ops_0279",
+        "title": "Unit Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0086_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total maintenance cost from Maintenance Request records for the In-Store sales channel, trended by quarter/year. Use it to compare how in-store maintenance spend changes over time.",
+        "id": "viz_store_ops_0280",
+        "title": "Maintenance Cost by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0086_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Maintenance Cost for Maintenance Requests associated with the Online channel, broken out by Year. Use it to compare year-over-year maintenance spending for online-originated activity over the selected period.",
+        "id": "viz_store_ops_0281",
+        "title": "Maintenance Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0086_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total maintenance spend from maintenance requests in the North region, broken down by month/year. Use it to monitor monthly maintenance cost trends for North over the currently selected reporting period.",
+        "id": "viz_store_ops_0282",
+        "title": "Maintenance Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0087_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total downtime hours from maintenance requests for the In-Store sales channel, broken out by quarter/year. Use it to monitor and compare how in-store operational disruption changes over time.",
+        "id": "viz_store_ops_0283",
+        "title": "Downtime Hours by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0087_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total downtime hours from maintenance requests, limited to the Online sales channel, to help track disruption time attributed to online-channel maintenance activity.",
+        "id": "viz_store_ops_0284",
+        "title": "Downtime Hours"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0087_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total downtime hours recorded on maintenance requests, using the “Downtime Hours (Maintenance Request) — North Region” metric. It’s intended to track overall equipment or service disruption time specifically for the North region.",
+        "id": "viz_store_ops_0285",
+        "title": "Downtime Hours"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0088_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of in-store visitors, based on Store Visit Census data (In-Store channel only). Use it to quickly monitor overall foot traffic and compare performance across time periods or locations when combined with other breakdowns.",
+        "id": "viz_store_ops_0286",
+        "title": "Visitor Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0088_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of visitors, using the “Visitor Count (Store Visit Census) — Online Channel” metric to track online-channel visitor volume.",
+        "id": "viz_store_ops_0287",
+        "title": "Visitor Count"
+      }
+    ]
+  },
+  "ldm": {
+    "datasetExtensions": [],
+    "datasets": [
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Channel Cost is an attribute from the Acquisition Channel dataset that represents the cost associated with each acquisition channel. Use it to group, filter, or compare performance by different channel cost values.",
+            "id": "dim_acquisition_channel.channel_cost",
+            "labels": [],
+            "sourceColumn": "channel_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Cost"
+          },
+          {
+            "description": "Unique identifier for each acquisition channel in the Acquisition Channel dataset, used to group and filter metrics by channel.",
+            "id": "dim_acquisition_channel.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel ID (Acquisition Channel)"
+          },
+          {
+            "description": "Identifies the acquisition channel name, used to segment and filter reporting by how users or leads were acquired (e.g., by marketing or referral source) within the Acquisition Channel dataset.",
+            "id": "dim_acquisition_channel.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Name (Acquisition Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_acquisition_channel",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_acquisition_channel"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Acquisition Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_acquisition_channel.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_acquisition_channel",
+        "references": [],
+        "tags": [
+          "Acquisition Channel"
+        ],
+        "title": "Acquisition Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+            "id": "dim_channel_master.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel ID (Sales Channel)"
+          },
+          {
+            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Name (Sales Channel)"
+          },
+          {
+            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_type",
+            "labels": [],
+            "sourceColumn": "channel_type",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Type (Sales Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_channel_master",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_channel_master"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Sales Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_channel_master.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_channel_master",
+        "references": [],
+        "tags": [
+          "Sales Channel"
+        ],
+        "title": "Sales Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group, filter, or segment measures by currency.",
+            "id": "dim_currency.currency_code",
+            "labels": [],
+            "sourceColumn": "currency_code",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Code"
+          },
+          {
+            "description": "Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering or grouping analyses.",
+            "id": "dim_currency.currency_id",
+            "labels": [],
+            "sourceColumn": "currency_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency ID"
+          },
+          {
+            "description": "Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and reports by currency.",
+            "id": "dim_currency.currency_name",
+            "labels": [],
+            "sourceColumn": "currency_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Name"
+          },
+          {
+            "description": "The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter or break down analyses by the applicable USD conversion rate.",
+            "id": "dim_currency.exchange_rate_to_usd",
+            "labels": [],
+            "sourceColumn": "exchange_rate_to_usd",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Exchange Rate to Usd"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_currency",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_currency"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Currency",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_currency.currency_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_currency",
+        "references": [],
+        "tags": [
+          "Currency"
+        ],
+        "title": "Currency",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for the customer’s acquisition channel in the Customer dataset. Use it to group or filter customers by the channel they were acquired through.",
+            "id": "dim_customer.acquisition_channel_id",
+            "labels": [],
+            "sourceColumn": "acquisition_channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Acquisition Channel ID"
+          },
+          {
+            "description": "Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into metrics at the individual customer level.",
+            "id": "dim_customer.customer_id",
+            "labels": [],
+            "sourceColumn": "customer_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer ID (Customer)"
+          },
+          {
+            "description": "Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.",
+            "id": "dim_customer.customer_name",
+            "labels": [],
+            "sourceColumn": "customer_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer Name (Customer)"
+          },
+          {
+            "description": "Identifier for the customer’s lifecycle stage in the Customer dataset, used to group or filter customers by lifecycle stage.",
+            "id": "dim_customer.lifecycle_stage_id",
+            "labels": [],
+            "sourceColumn": "lifecycle_stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Lifecycle Stage ID"
+          },
+          {
+            "description": "Identifier for a customer’s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty tier.",
+            "id": "dim_customer.loyalty_tier_id",
+            "labels": [],
+            "sourceColumn": "loyalty_tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Loyalty Tier ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer.customer_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_acquisition_channel",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "acquisition_channel_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_acquisition_channel.channel_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_customer_segment",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "segment_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer_segment.segment_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_lifecycle_stage",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "lifecycle_stage_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_lifecycle_stage.stage_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_loyalty_tier",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "loyalty_tier_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_loyalty_tier.tier_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Customer"
+        ],
+        "title": "Customer",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Describes the customer segment in plain language for each record in the Customer Segment dataset. Use it to group and filter customers by segment description in reporting and analysis.",
+            "id": "dim_customer_segment.segment_description",
+            "labels": [],
+            "sourceColumn": "segment_description",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Description"
+          },
+          {
+            "description": "Unique identifier for each customer segment in the Customer Segment dataset. Use it to group, join, or filter analysis by specific segment records.",
+            "id": "dim_customer_segment.segment_id",
+            "labels": [],
+            "sourceColumn": "segment_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment ID (Customer Segment)"
+          },
+          {
+            "description": "Customer Segment name used to categorize customers into segments for analysis. Use it to group or filter metrics by segment within the Customer Segment dataset.",
+            "id": "dim_customer_segment.segment_name",
+            "labels": [],
+            "sourceColumn": "segment_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Name (Customer Segment)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer_segment",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer_segment"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer Segment",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer_segment.segment_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer_segment",
+        "references": [],
+        "tags": [
+          "Customer Segment"
+        ],
+        "title": "Customer Segment",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Represents the fiscal month in the Fiscal Period dataset. Use it to group, filter, and compare results by month within your organization’s fiscal calendar.",
+            "id": "dim_fiscal_period.fiscal_month",
+            "labels": [],
+            "sourceColumn": "fiscal_month",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Month"
+          },
+          {
+            "description": "Unique identifier for each fiscal period in the Fiscal Period dataset, used to group and filter reporting by specific fiscal periods.",
+            "id": "dim_fiscal_period.fiscal_period_id",
+            "labels": [],
+            "sourceColumn": "fiscal_period_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Period ID"
+          },
+          {
+            "description": "Represents the fiscal quarter within the Fiscal Period calendar. Use it to group, compare, or filter metrics by quarter (e.g., Q1–Q4) in reports and dashboards.",
+            "id": "dim_fiscal_period.fiscal_quarter",
+            "labels": [],
+            "sourceColumn": "fiscal_quarter",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Quarter"
+          },
+          {
+            "description": "Represents the fiscal year associated with each fiscal period. Use it to group, filter, and compare measures by fiscal year in reporting based on the Fiscal Period dataset.",
+            "id": "dim_fiscal_period.fiscal_year",
+            "labels": [],
+            "sourceColumn": "fiscal_year",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Year (Fiscal Period)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_fiscal_period",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_fiscal_period"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Fiscal Period",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_fiscal_period.fiscal_period_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_fiscal_period",
+        "references": [
+          {
+            "identifier": {
+              "id": "fiscal_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "calendar_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "fiscal_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Fiscal Period"
+        ],
+        "title": "Fiscal Period",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each city record in the City dataset, typically used to join, group, or filter city-level data in reporting.",
+            "id": "dim_geography_city.city_id",
+            "labels": [],
+            "sourceColumn": "city_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City ID"
+          },
+          {
+            "description": "Name of the city, used to group or filter analyses by city.",
+            "id": "dim_geography_city.city_name",
+            "labels": [],
+            "sourceColumn": "city_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_city",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_city"
+          ],
+          "type": "dataSource"
+        },
+        "description": "City",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_city.city_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_city",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_region",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "region_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_region.region_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "City"
+        ],
+        "title": "City",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and grouping in analysis.",
+            "id": "dim_geography_country.country_id",
+            "labels": [],
+            "sourceColumn": "country_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country ID"
+          },
+          {
+            "description": "Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by country.",
+            "id": "dim_geography_country.country_name",
+            "labels": [],
+            "sourceColumn": "country_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_country",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_country"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Country",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_country.country_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_country",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_currency",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "currency_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_currency.currency_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Country"
+        ],
+        "title": "Country",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis by region.",
+            "id": "dim_geography_region.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region ID (Region)"
+          },
+          {
+            "description": "Name of the geographic region in the Region dataset, used to group and filter reporting by region.",
+            "id": "dim_geography_region.region_name",
+            "labels": [],
+            "sourceColumn": "region_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_region",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_region"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Region",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_region.region_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_region",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Region"
+        ],
+        "title": "Region",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each lifecycle stage in the Lifecycle Stage dataset. Use it to group, join, or filter records by specific stage.",
+            "id": "dim_lifecycle_stage.stage_id",
+            "labels": [],
+            "sourceColumn": "stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage ID (Lifecycle Stage)"
+          },
+          {
+            "description": "Identifies the name of a lifecycle stage (e.g., a step in an entity’s progression) from the Lifecycle Stage dataset. Use it to group, segment, or filter analyses by lifecycle stage.",
+            "id": "dim_lifecycle_stage.stage_name",
+            "labels": [],
+            "sourceColumn": "stage_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Name (Lifecycle Stage)"
+          },
+          {
+            "description": "Indicates the numeric/order position of a lifecycle stage within the Lifecycle Stage dataset. Use it to sort or sequence lifecycle stages consistently in reports and dashboards.",
+            "id": "dim_lifecycle_stage.stage_order",
+            "labels": [],
+            "sourceColumn": "stage_order",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Order (Lifecycle Stage)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_lifecycle_stage",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_lifecycle_stage"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Lifecycle Stage",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_lifecycle_stage.stage_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_lifecycle_stage",
+        "references": [],
+        "tags": [
+          "Lifecycle Stage"
+        ],
+        "title": "Lifecycle Stage",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Minimum points threshold required to qualify for each Loyalty Tier. Use it to group or filter tiers based on the starting points needed.",
+            "id": "dim_loyalty_tier.min_points",
+            "labels": [],
+            "sourceColumn": "min_points",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Min Points"
+          },
+          {
+            "description": "Unique identifier for each loyalty tier in the Loyalty Tier dataset. Use it to group, filter, or join loyalty-tier information at the tier level.",
+            "id": "dim_loyalty_tier.tier_id",
+            "labels": [],
+            "sourceColumn": "tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier ID"
+          },
+          {
+            "description": "Loyalty program tier level used to categorize customers into tiers (e.g., by status level) for reporting, grouping, and filtering. Sourced from the Loyalty Tier dataset.",
+            "id": "dim_loyalty_tier.tier_level",
+            "labels": [],
+            "sourceColumn": "tier_level",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Level"
+          },
+          {
+            "description": "Represents the name of a customer’s loyalty tier (e.g., tier level) from the Loyalty Tier dataset. Use it to segment, group, or filter analyses by loyalty tier.",
+            "id": "dim_loyalty_tier.tier_name",
+            "labels": [],
+            "sourceColumn": "tier_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_loyalty_tier",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_loyalty_tier"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Loyalty Tier",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_loyalty_tier.tier_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_loyalty_tier",
+        "references": [],
+        "tags": [
+          "Loyalty Tier"
+        ],
+        "title": "Loyalty Tier",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for the store’s region in the Store dataset, used to group, segment, or filter store-related reporting by region.",
+            "id": "dim_store.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Region ID (Store)"
+          },
+          {
+            "description": "Store square footage (size) for each store, used to group, compare, or filter stores by their physical footprint.",
+            "id": "dim_store.sqft",
+            "labels": [],
+            "sourceColumn": "sqft",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Size (Sq Ft)"
+          },
+          {
+            "description": "Store Format is a Store attribute that categorizes each store by its format/type (for example, different store concepts). It’s typically used to filter or break down metrics by store format in analyses and dashboards.",
+            "id": "dim_store.store_format",
+            "labels": [],
+            "sourceColumn": "store_format",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Format"
+          },
+          {
+            "description": "Unique identifier for each store in the Store dataset, used to group, filter, or join reporting by individual store.",
+            "id": "dim_store.store_id",
+            "labels": [],
+            "sourceColumn": "store_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store ID (Store)"
+          },
+          {
+            "description": "The name of the store, used to group and filter reporting by individual store in the Store dataset.",
+            "id": "dim_store.store_name",
+            "labels": [],
+            "sourceColumn": "store_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_store",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_store"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Store",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_store.store_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_store",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_city",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "city_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_city.city_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_region",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "region_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_region.region_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Store"
+        ],
+        "title": "Store",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each energy consumption record in the Energy Consumption dataset. Use it to distinguish or look up individual consumption entries and to group or filter analyses at the record level.",
+            "id": "fact_energy_consumption.consumption_id",
+            "labels": [],
+            "sourceColumn": "consumption_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Energy Consumption"
+            ],
+            "title": "Consumption ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_energy_consumption",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_energy_consumption"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Energy Consumption",
+        "facts": [
+          {
+            "description": "Cost associated with energy consumption records in the Energy Consumption dataset, typically used to analyze and aggregate spending across periods, locations, or other dimensions.",
+            "id": "fact_energy_consumption.cost",
+            "sourceColumn": "cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Energy Consumption"
+            ],
+            "title": "Cost (Energy Consumption)"
+          },
+          {
+            "description": "Energy consumption measured in kilowatt-hours (kWh) from the Energy Consumption dataset, typically used to aggregate and analyze total usage over time or by other dimensions.",
+            "id": "fact_energy_consumption.kwh",
+            "sourceColumn": "kwh",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Energy Consumption"
+            ],
+            "title": "kWh"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_energy_consumption.consumption_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_energy_consumption",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "consumption_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Energy Consumption"
+        ],
+        "title": "Energy Consumption",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each maintenance request in the Maintenance Request dataset, used to look up, group, or filter records by a specific request.",
+            "id": "fact_maintenance_request.request_id",
+            "labels": [],
+            "sourceColumn": "request_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Maintenance Request"
+            ],
+            "title": "Request ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_maintenance_request",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_maintenance_request"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Maintenance Request",
+        "facts": [
+          {
+            "description": "Total downtime duration recorded for a maintenance request, expressed in hours. Use it to quantify and compare equipment or service interruptions across requests in the Maintenance Request dataset.",
+            "id": "fact_maintenance_request.downtime_hours",
+            "sourceColumn": "downtime_hours",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Maintenance Request"
+            ],
+            "title": "Downtime Hours"
+          },
+          {
+            "description": "Cost amount associated with a maintenance request, used to analyze and aggregate maintenance spending within the Maintenance Request dataset.",
+            "id": "fact_maintenance_request.maintenance_cost",
+            "sourceColumn": "maintenance_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Maintenance Request"
+            ],
+            "title": "Maintenance Cost"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_maintenance_request.request_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_maintenance_request",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "request_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Maintenance Request"
+        ],
+        "title": "Maintenance Request",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each shrinkage event record in the Shrinkage Event dataset. Use it to look up, group, or filter analyses by a specific shrinkage event.",
+            "id": "fact_shrinkage_event.event_id",
+            "labels": [],
+            "sourceColumn": "event_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Shrinkage Event"
+            ],
+            "title": "Event ID (Shrinkage Event)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_shrinkage_event",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_shrinkage_event"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Shrinkage Event",
+        "facts": [
+          {
+            "description": "Monetary value associated with each shrinkage event, used to quantify and aggregate shrinkage impact within the Shrinkage Event dataset.",
+            "id": "fact_shrinkage_event.shrinkage_amount",
+            "sourceColumn": "shrinkage_amount",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Shrinkage Event"
+            ],
+            "title": "Shrinkage Amount"
+          },
+          {
+            "description": "Number of units associated with a shrinkage event record in the Shrinkage Event dataset. Typically used to sum or analyze shrinkage volume by product, location, or time.",
+            "id": "fact_shrinkage_event.unit_count",
+            "sourceColumn": "unit_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Shrinkage Event"
+            ],
+            "title": "Unit Count"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_shrinkage_event.event_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_shrinkage_event",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "event_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Shrinkage Event"
+        ],
+        "title": "Shrinkage Event",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Calendar day associated with each record in the Daily Store Staffing dataset. Use it to filter or group staffing measures by specific dates or daily trends.",
+            "id": "fact_store_staffing_daily.day",
+            "labels": [],
+            "sourceColumn": "day",
+            "sourceColumnDataType": "DATE",
+            "tags": [
+              "Daily Store Staffing"
+            ],
+            "title": "Day (Daily Store Staffing)"
+          },
+          {
+            "description": "Identifies the store for each record in the Daily Store Staffing dataset. Use it to group or filter staffing metrics by individual store.",
+            "id": "fact_store_staffing_daily.store_id",
+            "labels": [],
+            "sourceColumn": "store_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Daily Store Staffing"
+            ],
+            "title": "Store ID (Daily Store Staffing)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_store_staffing_daily",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_store_staffing_daily"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Daily Store Staffing",
+        "facts": [
+          {
+            "description": "Number of staff recorded for each day in the Daily Store Staffing dataset. Typically used to analyze staffing levels over time or compare staffing across stores or other staffing dimensions.",
+            "id": "fact_store_staffing_daily.staff_count",
+            "sourceColumn": "staff_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Daily Store Staffing"
+            ],
+            "title": "Staff Count"
+          },
+          {
+            "description": "Total number of hours worked by staff, recorded at the daily store staffing level. Commonly used to track labor effort over time or compare staffing levels across stores and days.",
+            "id": "fact_store_staffing_daily.staff_hours",
+            "sourceColumn": "staff_hours",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Daily Store Staffing"
+            ],
+            "title": "Staff Hours"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_store_staffing_daily.day",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_store_staffing_daily",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "day",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Daily Store Staffing"
+        ],
+        "title": "Daily Store Staffing",
+        "workspaceDataFilterColumns": [
+          {
+            "dataType": "STRING",
+            "name": "store_id"
+          }
+        ],
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each recorded store visit in the Store Visit Census dataset. Use it to distinguish, group, or filter analyses down to individual visits.",
+            "id": "fact_store_visit_census.visit_id",
+            "labels": [],
+            "sourceColumn": "visit_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store Visit Census"
+            ],
+            "title": "Visit ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_store_visit_census",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_store_visit_census"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Store Visit Census",
+        "facts": [
+          {
+            "description": "Square footage associated with each record in the Store Visit Census dataset, typically used to compare or normalize store visits by store size.",
+            "id": "fact_store_visit_census.sqft",
+            "sourceColumn": "sqft",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Store Visit Census"
+            ],
+            "title": "Census Area (Sq Ft)"
+          },
+          {
+            "description": "Number of visitors recorded in the Store Visit Census dataset, used to quantify foot traffic and support totals or averages by location, date, or other dimensions.",
+            "id": "fact_store_visit_census.visitor_count",
+            "sourceColumn": "visitor_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Store Visit Census"
+            ],
+            "title": "Visitor Count (Store Visit Census)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_store_visit_census.visit_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_store_visit_census",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "visit_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Store Visit Census"
+        ],
+        "title": "Store Visit Census",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for a store in the Operations Efficiency Summary dataset. Use it to group, filter, or drill into operational efficiency results by individual store.",
+            "id": "sql_ops_efficiency_summary.store_id",
+            "labels": [],
+            "sourceColumn": "store_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Operations Efficiency Summary"
+            ],
+            "title": "Store ID (Operations Efficiency Summary)"
+          }
+        ],
+        "description": "Operations Efficiency Summary",
+        "facts": [
+          {
+            "description": "Revenue generated per square foot for records in the Operations Efficiency Summary dataset, used to compare space productivity across locations or time periods.",
+            "id": "sql_ops_efficiency_summary.revenue_per_sqft",
+            "sourceColumn": "revenue_per_sqft",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Operations Efficiency Summary"
+            ],
+            "title": "Revenue per Sq Ft"
+          },
+          {
+            "description": "Revenue generated per hour of staff time in the Operations Efficiency Summary dataset, used to assess labor productivity and operational efficiency.",
+            "id": "sql_ops_efficiency_summary.revenue_per_staff_hour",
+            "sourceColumn": "revenue_per_staff_hour",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Operations Efficiency Summary"
+            ],
+            "title": "Revenue per Staff Hour"
+          },
+          {
+            "description": "Total revenue generated by a store, from the Operations Efficiency Summary dataset. Use it to analyze sales performance and efficiency across stores and time.",
+            "id": "sql_ops_efficiency_summary.store_revenue",
+            "sourceColumn": "store_revenue",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Operations Efficiency Summary"
+            ],
+            "title": "Store Revenue"
+          }
+        ],
+        "grain": [
+          {
+            "id": "sql_ops_efficiency_summary.store_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "sql_ops_efficiency_summary",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "sql": {
+          "dataSourceId": "{{ datasource_id }}",
+          "statement": "\nSELECT\n    s.store_id,\n    s.store_name,\n    SUM(ol.revenue) AS store_revenue,\n    SUM(fsd.sqft) AS store_sqft,\n    SUM(COALESCE(sh.staff_hours, 0)) AS total_staff_hours,\n    SUM(ol.revenue) / SUM(fsd.sqft) AS revenue_per_sqft,\n    SUM(ol.revenue) / NULLIF(SUM(COALESCE(sh.staff_hours, 0)), 0) AS revenue_per_staff_hour\nFROM {{ datasource_schema }}.dim_store s\nLEFT JOIN {{ datasource_schema }}.fact_order_header oh ON s.store_id = oh.store_id\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN (\n    SELECT store_id, SUM(sqft) AS sqft\n    FROM {{ datasource_schema }}.fact_store_visit_census GROUP BY store_id\n) fsd ON s.store_id = fsd.store_id\nLEFT JOIN {{ datasource_schema }}.fact_store_staffing_daily sh ON s.store_id = sh.store_id\nGROUP BY 1, 2\n"
+        },
+        "tags": [
+          "Operations Efficiency Summary"
+        ],
+        "title": "Operations Efficiency Summary",
+        "workspaceDataFilterReferences": []
+      }
+    ],
+    "dateInstances": [
+      {
+        "description": "",
+        "granularities": [
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "fiscal_date",
+        "title": "Fiscal Date"
+      },
+      {
+        "description": "",
+        "granularities": [
+          "MINUTE",
+          "HOUR",
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "transaction_date",
+        "title": "Transaction Date"
+      }
+    ]
+  }
+}

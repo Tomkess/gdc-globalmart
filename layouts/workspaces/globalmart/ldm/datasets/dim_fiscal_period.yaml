@@ -40,7 +40,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_fiscal_period
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_fiscal_period
   type: dataSource
 description: Fiscal Period

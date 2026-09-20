@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_budget_version
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_budget_version
   type: dataSource
 description: Budget Version

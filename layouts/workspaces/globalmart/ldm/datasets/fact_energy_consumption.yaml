@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_energy_consumption
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_energy_consumption
   type: dataSource
 description: Energy Consumption

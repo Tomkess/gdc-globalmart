@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT {metric/m_revenue} BY {label/order_date.month}
+description: ''
+id: m_revenue_by_month
+tags:
+- metric
+title: m_revenue_by_month

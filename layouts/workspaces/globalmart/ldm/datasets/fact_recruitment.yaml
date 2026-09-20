@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_recruitment
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_recruitment
   type: dataSource
 description: Recruitment

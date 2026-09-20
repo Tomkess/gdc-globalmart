@@ -1,0 +1,34 @@
+aggregatedFacts: []
+attributes:
+- description: ''
+  id: dim_product.product_id
+  labels: []
+  sourceColumn: product_id
+  sourceColumnDataType: STRING
+  tags:
+  - dim_product
+  title: product_id
+- description: ''
+  id: dim_product.product_name
+  labels: []
+  sourceColumn: product_name
+  sourceColumnDataType: STRING
+  tags:
+  - dim_product
+  title: product_name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_product
+  path:
+  - globalmart
+  - dim_product
+  type: dataSource
+description: ''
+facts: []
+grain: []
+id: dim_product
+references: []
+tags:
+- dim_product
+title: Dim Product
+workspaceDataFilterReferences: []

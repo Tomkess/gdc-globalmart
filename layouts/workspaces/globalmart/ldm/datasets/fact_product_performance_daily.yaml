@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_product_performance_daily
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_product_performance_daily
   type: dataSource
 description: Daily Product Performance

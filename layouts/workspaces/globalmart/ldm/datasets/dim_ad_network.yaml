@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_ad_network
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_ad_network
   type: dataSource
 description: Ad Network

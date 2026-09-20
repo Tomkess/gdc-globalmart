@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_gift_card_txn
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_gift_card_txn
   type: dataSource
 description: Gift Card Transaction

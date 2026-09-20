@@ -1,0 +1,47 @@
+content:
+  filterContextRef:
+    identifier:
+      id: fc_sales
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_revenue
+              type: visualizationObject
+          localIdentifier: w0
+          title: viz_sales_revenue
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_orders
+              type: visualizationObject
+          localIdentifier: w1
+          title: viz_sales_orders
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: ''
+id: dash_sales
+tags: []
+title: dash_sales

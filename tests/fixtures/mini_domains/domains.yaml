@@ -1,0 +1,56 @@
+# The manifest for tests/fixtures/mini_domains/mini_parent/.
+#
+# Built so every rule has something to bite on and the expected sets can be worked out by
+# hand:
+#
+#   dash_exec         is listed under BOTH sales and hr — its tiles span the two domains,
+#                     and this is the dashboard the predecessor's all-tiles-must-match rule
+#                     dropped from every child without a word.
+#   dash_shared_*     is in `shared:`, so it belongs in every child.
+#   hier_geo_region   names an attribute on dim_region, which nothing else reaches. hr's
+#                     dashboard references the hierarchy, so hr must pull dim_region in.
+#   ldm_include       gives hr dim_store, a table no hr analytics touches — the headroom to
+#                     author something new in the child.
+version: 1
+parent_workspace_id: globalmart
+workspace_id_template: globalmart-{key_kebab}
+workspace_name_template: GlobalMart — {label}
+domains:
+- key: hr
+  label: People
+  description: Headcount and workforce analytics.
+  workspace_id: globalmart-hr
+  workspace_name: GlobalMart People (pilot)
+  dashboards:
+  - dash_exec
+  - dash_hr
+  visualizations: []
+  ai:
+    memory_item_tags:
+    - area/hr
+  ldm_include:
+  - dim_store
+- key: sales
+  label: Sales
+  description: Revenue, orders and basket analytics.
+  workspace_id: globalmart-sales
+  dashboards:
+  - dash_exec
+  - dash_sales
+  visualizations:
+  - viz_sales_basket
+  ai:
+    memory_item_ids:
+    - mem_sales_defs
+shared:
+  dashboards:
+  - dash_shared_overview
+  visualizations:
+  - viz_shared_geo
+  ai:
+    parameter_ids:
+    - param_currency
+unassigned:
+  dashboards: []
+  visualizations: []
+  ai: []

@@ -1,0 +1,60 @@
+aggregatedFacts: []
+attributes:
+- description: ''
+  id: fact_orders.order_id
+  labels: []
+  sourceColumn: order_id
+  sourceColumnDataType: STRING
+  tags:
+  - fact_orders
+  title: order_id
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_orders
+  path:
+  - globalmart
+  - fact_orders
+  type: dataSource
+description: ''
+facts:
+- description: ''
+  id: fact_orders.amount
+  sourceColumn: amount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - fact_orders
+  title: amount
+- description: ''
+  id: fact_orders.quantity
+  sourceColumn: quantity
+  sourceColumnDataType: NUMERIC
+  tags:
+  - fact_orders
+  title: quantity
+grain: []
+id: fact_orders
+references:
+- identifier:
+    id: dim_customer
+    type: dataset
+  multivalue: false
+  sources:
+  - column: dim_customer_id
+    dataType: STRING
+    target:
+      id: dim_customer.customer_id
+      type: attribute
+- identifier:
+    id: dim_product
+    type: dataset
+  multivalue: false
+  sources:
+  - column: dim_product_id
+    dataType: STRING
+    target:
+      id: dim_product.product_id
+      type: attribute
+tags:
+- fact_orders
+title: Fact Orders
+workspaceDataFilterReferences: []

@@ -1,0 +1,3119 @@
+{
+  "analytics": {
+    "analyticalDashboardExtensions": [],
+    "analyticalDashboards": [
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_002",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0036",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_00",
+                      "title": "Order Count by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0037",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_01",
+                      "title": "Order Count — In-Store Channel by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0038",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_02",
+                      "title": "Order Count — Online Channel by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0039",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_03",
+                      "title": "Order Count — North Region by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0040",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_04",
+                      "title": "Order Count by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0041",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_05",
+                      "title": "Order Count — In-Store Channel by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0042",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_06",
+                      "title": "Order Count — Online Channel by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0043",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_07",
+                      "title": "Order Count — North Region by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0044",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_08",
+                      "title": "Order Count by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0045",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_09",
+                      "title": "Order Count — In-Store Channel by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0046",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_10",
+                      "title": "Order Count — Online Channel by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0047",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_002_11",
+                      "title": "Order Count — North Region by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring online sales ordering trends over time, with views of total order count and breakouts by channel (Online vs In-Store) and by region (North) across month, quarter, and year. By default it is filtered to the last 12 months and can be further narrowed by store region and store format.",
+        "id": "dashboard_002",
+        "title": "Online Sales & E-commerce Funnel"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_024",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0048",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_00",
+                      "title": "Order Count",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0049",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_01",
+                      "title": "Order Count — In-Store Channel",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0050",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_02",
+                      "title": "Order Count — Online Channel",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0051",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_03",
+                      "title": "Order Count — North Region",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0052",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_04",
+                      "title": "Order Count Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0053",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_05",
+                      "title": "Order Count — In-Store Channel Over Time",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0054",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_06",
+                      "title": "Order Count — Online Channel Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0055",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_07",
+                      "title": "Order Count — North Region and Order Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0056",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_08",
+                      "title": "Order Count by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0057",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_09",
+                      "title": "Order Count — In-Store Channel by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0058",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_10",
+                      "title": "Order Count — Online Channel by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_ecommerce_0059",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_024_11",
+                      "title": "Order Count — North Region by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring seasonal patterns and longer-term trends in order volume, combining overall order count with breakouts for Online vs In-Store channels and a focus view on the North region across month, quarter, and year timeframes. By default it is filtered to the last 12 months.",
+        "id": "dashboard_024",
+        "title": "Seasonal Demand & Trends"
+      }
+    ],
+    "attributeHierarchies": [],
+    "dashboardPlugins": [],
+    "exportDefinitions": [],
+    "filterContexts": [
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_store.region_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_store.store_format",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_002",
+        "title": "Filters — Online Sales & E-commerce Funnel"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_currency.currency_code",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_currency.currency_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_024",
+        "title": "Filters — Seasonal Demand & Trends"
+      }
+    ],
+    "memoryItems": [],
+    "metrics": [
+      {
+        "content": {
+          "format": "$#,##0.00",
+          "maql": "SELECT SUM({fact/fact_web_order_header.revenue}) / SUM({fact/fact_web_order_header.order_count})"
+        },
+        "description": "Average revenue generated per online order, calculated as total online order revenue divided by the number of online orders. Use this metric to track typical order size and compare purchasing behavior across time periods or business segments.",
+        "id": "avg_order_value_online",
+        "tags": [
+          "aov",
+          "orders",
+          "revenue"
+        ],
+        "title": "Average Order Value (Online Orders)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_web_order_header.order_count})"
+        },
+        "description": "Tracks the total number of online orders by summing the Order Count from the Online Order dataset. Use it to monitor overall order volume and compare order activity across time periods, channels, or customer segments.",
+        "id": "metric_l1_total_order_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Order Count"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_order_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the number of orders for the In-Store sales channel only. Use it to monitor and compare in-store order volume over time or against other channels.",
+        "id": "metric_l3_0000_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Order Count — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_order_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts the number of orders restricted to the Online sales channel. Use it to track online order volume and compare performance over time or across segments versus other channels.",
+        "id": "metric_l3_0000_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Order Count — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_order_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the total number of online orders limited to the North region. Use this metric to track order volume for North and compare its performance across time periods or against other segments.",
+        "id": "metric_l3_0000_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Order Count — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0000_0} - (SELECT {metric/metric_l3_0000_0} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Measures the month-over-month change in the number of orders placed through the In-Store sales channel by comparing this month’s order count to the previous month. Use it to track whether in-store order volume is rising or falling over time.",
+        "id": "metric_l4_mom_0000",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Order Count — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0000_1} - (SELECT {metric/metric_l3_0000_1} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in the number of orders placed through the Online channel by comparing the current month’s order count to the prior month. Use it to monitor whether online order volume is trending up or down over time at a Month/Year level.",
+        "id": "metric_l4_mom_0001",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Order Count — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0000_2} - (SELECT {metric/metric_l3_0000_2} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in the number of online orders in the North region by comparing the current month’s order count to the previous month. Use it to track whether North’s order volume is rising or falling over time when reporting by Month/Year.",
+        "id": "metric_l4_mom_0002",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Order Count — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0000_0} - (SELECT {metric/metric_l3_0000_0} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0000_0} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in the number of In-Store channel orders by comparing the current year’s order count to the previous year. Use it to track whether in-store order volume is growing or declining over time.",
+        "id": "metric_l4_yoy_0000",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Order Count — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0000_1} - (SELECT {metric/metric_l3_0000_1} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0000_1} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percent change in Online channel order count, comparing the current year to the prior year. Use it to monitor online order growth or decline over time and to compare performance across segments.",
+        "id": "metric_l4_yoy_0001",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Order Count — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0000_2} - (SELECT {metric/metric_l3_0000_2} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0000_2} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Measures the year-over-year percentage change in order count for the North region by comparing the current year’s orders with the prior year. Use it to monitor whether North’s order volume is growing or declining over time.",
+        "id": "metric_l4_yoy_0002",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Order Count — North Region"
+      }
+    ],
+    "parameters": [],
+    "visualizationObjects": [
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_order_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing Total Order Count broken out by Month/Year, used to track how order volume trends over time and compare month-to-month performance.",
+        "id": "viz_ecommerce_0036",
+        "title": "Order Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the count of orders from the In-Store sales channel, broken out by quarter/year. Use it to track quarterly trends in in-store order volume and compare performance over time.",
+        "id": "viz_ecommerce_0037",
+        "title": "Order Count — In-Store Channel by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the number of orders placed through the Online sales channel, broken down by Year. Use it to track annual trends in online order volume over time.",
+        "id": "viz_ecommerce_0038",
+        "title": "Order Count — Online Channel by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the number of online orders in the North region over time, broken out by Month/Year. Use it to track monthly order volume trends for North and compare performance across time periods.",
+        "id": "viz_ecommerce_0039",
+        "title": "Order Count — North Region by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_order_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "This column chart shows the Total Order Count broken down by Quarter/Year, helping you track overall order volume over time and spot seasonal or year-over-year changes in ordering activity.",
+        "id": "viz_ecommerce_0040",
+        "title": "Order Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the yearly trend in Order Count for the In-Store sales channel. Use it to monitor how in-store order volume changes over time and to compare performance across years.",
+        "id": "viz_ecommerce_0041",
+        "title": "Order Count — In-Store Channel by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the number of orders from the Online sales channel, trended by Month/Year. Use it to monitor online order volume over time and spot seasonality or changes in demand.",
+        "id": "viz_ecommerce_0042",
+        "title": "Order Count — Online Channel by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the number of online orders in the North region, broken down by Quarter/Year. Use it to track how North’s order volume changes over time and compare performance across quarters.",
+        "id": "viz_ecommerce_0043",
+        "title": "Order Count — North Region by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_order_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total number of online orders broken down by year, helping you track overall order volume trends over time.",
+        "id": "viz_ecommerce_0044",
+        "title": "Order Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the monthly trend in the number of orders placed through the In-Store sales channel. Use it to monitor changes in in-store order volume over time and compare performance across months.",
+        "id": "viz_ecommerce_0045",
+        "title": "Order Count — In-Store Channel by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the number of orders in the Online sales channel broken out by quarter/year, to track trends in online order volume over time.",
+        "id": "viz_ecommerce_0046",
+        "title": "Order Count — Online Channel by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the yearly trend in the total number of online orders from the North region, displayed as a column chart. Use it to track North-region order volume over time and compare year-to-year changes.",
+        "id": "viz_ecommerce_0047",
+        "title": "Order Count — North Region by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_order_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the Total Order Count, used to track overall online order volume at a glance and monitor changes over time or across segments when combined with other filters or breakdowns.",
+        "id": "viz_ecommerce_0048",
+        "title": "Order Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the number of orders placed through the In-Store sales channel. Use it to monitor in-store order volume and compare performance over time or against other channels.",
+        "id": "viz_ecommerce_0049",
+        "title": "Order Count — In-Store Channel"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the number of orders placed through the Online sales channel. Use it to monitor online order volume and compare performance across time or other business segments.",
+        "id": "viz_ecommerce_0050",
+        "title": "Order Count — Online Channel"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of online orders in the North region. Use it to monitor North’s order volume and compare it across time periods or against other segments in your analysis.",
+        "id": "viz_ecommerce_0051",
+        "title": "Order Count — North Region"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_order_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing how Total Order Count changes month by month (Month/Year), helping you monitor overall order volume trends over time.",
+        "id": "viz_ecommerce_0052",
+        "title": "Order Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the monthly trend in the number of orders placed through the In-Store sales channel. Use it to monitor changes in in-store order volume over time by Month/Year.",
+        "id": "viz_ecommerce_0053",
+        "title": "Order Count — In-Store Channel Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the count of orders from the Online sales channel trended by Month/Year. Use it to monitor changes in online order volume over time and spot seasonality or growth/declines.",
+        "id": "viz_ecommerce_0054",
+        "title": "Order Count — Online Channel Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                },
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_order_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m2"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "attribute"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:table"
+        },
+        "description": "Table showing total online order count alongside the order count for the North region, broken down by quarter/year. Use it to compare North’s order volume against overall order volume over time and spot quarter-to-quarter changes.",
+        "id": "viz_ecommerce_0055",
+        "title": "Order Count — North Region and Order Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_order_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of online orders broken out by year, using the Total Order Count metric. Use it to track year-over-year changes in overall order volume.",
+        "id": "viz_ecommerce_0056",
+        "title": "Order Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the monthly trend in the number of orders placed through the In-Store sales channel. It uses the “Order Count — In-Store Channel” metric and breaks results out by Month/Year to track changes in in-store order volume over time.",
+        "id": "viz_ecommerce_0057",
+        "title": "Order Count — In-Store Channel by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the number of orders from the Online sales channel, broken out by Quarter/Year in a column chart. Use it to track online order volume over time and spot quarter-to-quarter trends.",
+        "id": "viz_ecommerce_0058",
+        "title": "Order Count — Online Channel by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0000_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total number of online orders from the North region, broken out by year, to help track how North’s order volume changes over time.",
+        "id": "viz_ecommerce_0059",
+        "title": "Order Count — North Region by Year"
+      }
+    ]
+  },
+  "ldm": {
+    "datasetExtensions": [],
+    "datasets": [
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Channel Cost is an attribute from the Acquisition Channel dataset that represents the cost associated with each acquisition channel. Use it to group, filter, or compare performance by different channel cost values.",
+            "id": "dim_acquisition_channel.channel_cost",
+            "labels": [],
+            "sourceColumn": "channel_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Cost"
+          },
+          {
+            "description": "Unique identifier for each acquisition channel in the Acquisition Channel dataset, used to group and filter metrics by channel.",
+            "id": "dim_acquisition_channel.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel ID (Acquisition Channel)"
+          },
+          {
+            "description": "Identifies the acquisition channel name, used to segment and filter reporting by how users or leads were acquired (e.g., by marketing or referral source) within the Acquisition Channel dataset.",
+            "id": "dim_acquisition_channel.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Name (Acquisition Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_acquisition_channel",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_acquisition_channel"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Acquisition Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_acquisition_channel.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_acquisition_channel",
+        "references": [],
+        "tags": [
+          "Acquisition Channel"
+        ],
+        "title": "Acquisition Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+            "id": "dim_channel_master.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel ID (Sales Channel)"
+          },
+          {
+            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Name (Sales Channel)"
+          },
+          {
+            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_type",
+            "labels": [],
+            "sourceColumn": "channel_type",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Type (Sales Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_channel_master",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_channel_master"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Sales Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_channel_master.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_channel_master",
+        "references": [],
+        "tags": [
+          "Sales Channel"
+        ],
+        "title": "Sales Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group, filter, or segment measures by currency.",
+            "id": "dim_currency.currency_code",
+            "labels": [],
+            "sourceColumn": "currency_code",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Code"
+          },
+          {
+            "description": "Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering or grouping analyses.",
+            "id": "dim_currency.currency_id",
+            "labels": [],
+            "sourceColumn": "currency_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency ID"
+          },
+          {
+            "description": "Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and reports by currency.",
+            "id": "dim_currency.currency_name",
+            "labels": [],
+            "sourceColumn": "currency_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Name"
+          },
+          {
+            "description": "The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter or break down analyses by the applicable USD conversion rate.",
+            "id": "dim_currency.exchange_rate_to_usd",
+            "labels": [],
+            "sourceColumn": "exchange_rate_to_usd",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Exchange Rate to Usd"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_currency",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_currency"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Currency",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_currency.currency_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_currency",
+        "references": [],
+        "tags": [
+          "Currency"
+        ],
+        "title": "Currency",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for the customer’s acquisition channel in the Customer dataset. Use it to group or filter customers by the channel they were acquired through.",
+            "id": "dim_customer.acquisition_channel_id",
+            "labels": [],
+            "sourceColumn": "acquisition_channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Acquisition Channel ID"
+          },
+          {
+            "description": "Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into metrics at the individual customer level.",
+            "id": "dim_customer.customer_id",
+            "labels": [],
+            "sourceColumn": "customer_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer ID (Customer)"
+          },
+          {
+            "description": "Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.",
+            "id": "dim_customer.customer_name",
+            "labels": [],
+            "sourceColumn": "customer_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer Name (Customer)"
+          },
+          {
+            "description": "Identifier for the customer’s lifecycle stage in the Customer dataset, used to group or filter customers by lifecycle stage.",
+            "id": "dim_customer.lifecycle_stage_id",
+            "labels": [],
+            "sourceColumn": "lifecycle_stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Lifecycle Stage ID"
+          },
+          {
+            "description": "Identifier for a customer’s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty tier.",
+            "id": "dim_customer.loyalty_tier_id",
+            "labels": [],
+            "sourceColumn": "loyalty_tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Loyalty Tier ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer.customer_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_acquisition_channel",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "acquisition_channel_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_acquisition_channel.channel_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_customer_segment",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "segment_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer_segment.segment_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_lifecycle_stage",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "lifecycle_stage_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_lifecycle_stage.stage_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_loyalty_tier",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "loyalty_tier_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_loyalty_tier.tier_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Customer"
+        ],
+        "title": "Customer",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Describes the customer segment in plain language for each record in the Customer Segment dataset. Use it to group and filter customers by segment description in reporting and analysis.",
+            "id": "dim_customer_segment.segment_description",
+            "labels": [],
+            "sourceColumn": "segment_description",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Description"
+          },
+          {
+            "description": "Unique identifier for each customer segment in the Customer Segment dataset. Use it to group, join, or filter analysis by specific segment records.",
+            "id": "dim_customer_segment.segment_id",
+            "labels": [],
+            "sourceColumn": "segment_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment ID (Customer Segment)"
+          },
+          {
+            "description": "Customer Segment name used to categorize customers into segments for analysis. Use it to group or filter metrics by segment within the Customer Segment dataset.",
+            "id": "dim_customer_segment.segment_name",
+            "labels": [],
+            "sourceColumn": "segment_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Name (Customer Segment)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer_segment",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer_segment"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer Segment",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer_segment.segment_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer_segment",
+        "references": [],
+        "tags": [
+          "Customer Segment"
+        ],
+        "title": "Customer Segment",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each city record in the City dataset, typically used to join, group, or filter city-level data in reporting.",
+            "id": "dim_geography_city.city_id",
+            "labels": [],
+            "sourceColumn": "city_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City ID"
+          },
+          {
+            "description": "Name of the city, used to group or filter analyses by city.",
+            "id": "dim_geography_city.city_name",
+            "labels": [],
+            "sourceColumn": "city_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_city",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_city"
+          ],
+          "type": "dataSource"
+        },
+        "description": "City",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_city.city_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_city",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_region",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "region_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_region.region_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "City"
+        ],
+        "title": "City",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and grouping in analysis.",
+            "id": "dim_geography_country.country_id",
+            "labels": [],
+            "sourceColumn": "country_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country ID"
+          },
+          {
+            "description": "Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by country.",
+            "id": "dim_geography_country.country_name",
+            "labels": [],
+            "sourceColumn": "country_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_country",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_country"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Country",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_country.country_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_country",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_currency",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "currency_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_currency.currency_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Country"
+        ],
+        "title": "Country",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis by region.",
+            "id": "dim_geography_region.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region ID (Region)"
+          },
+          {
+            "description": "Name of the geographic region in the Region dataset, used to group and filter reporting by region.",
+            "id": "dim_geography_region.region_name",
+            "labels": [],
+            "sourceColumn": "region_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_region",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_region"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Region",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_region.region_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_region",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Region"
+        ],
+        "title": "Region",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each lifecycle stage in the Lifecycle Stage dataset. Use it to group, join, or filter records by specific stage.",
+            "id": "dim_lifecycle_stage.stage_id",
+            "labels": [],
+            "sourceColumn": "stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage ID (Lifecycle Stage)"
+          },
+          {
+            "description": "Identifies the name of a lifecycle stage (e.g., a step in an entity’s progression) from the Lifecycle Stage dataset. Use it to group, segment, or filter analyses by lifecycle stage.",
+            "id": "dim_lifecycle_stage.stage_name",
+            "labels": [],
+            "sourceColumn": "stage_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Name (Lifecycle Stage)"
+          },
+          {
+            "description": "Indicates the numeric/order position of a lifecycle stage within the Lifecycle Stage dataset. Use it to sort or sequence lifecycle stages consistently in reports and dashboards.",
+            "id": "dim_lifecycle_stage.stage_order",
+            "labels": [],
+            "sourceColumn": "stage_order",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Order (Lifecycle Stage)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_lifecycle_stage",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_lifecycle_stage"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Lifecycle Stage",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_lifecycle_stage.stage_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_lifecycle_stage",
+        "references": [],
+        "tags": [
+          "Lifecycle Stage"
+        ],
+        "title": "Lifecycle Stage",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Minimum points threshold required to qualify for each Loyalty Tier. Use it to group or filter tiers based on the starting points needed.",
+            "id": "dim_loyalty_tier.min_points",
+            "labels": [],
+            "sourceColumn": "min_points",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Min Points"
+          },
+          {
+            "description": "Unique identifier for each loyalty tier in the Loyalty Tier dataset. Use it to group, filter, or join loyalty-tier information at the tier level.",
+            "id": "dim_loyalty_tier.tier_id",
+            "labels": [],
+            "sourceColumn": "tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier ID"
+          },
+          {
+            "description": "Loyalty program tier level used to categorize customers into tiers (e.g., by status level) for reporting, grouping, and filtering. Sourced from the Loyalty Tier dataset.",
+            "id": "dim_loyalty_tier.tier_level",
+            "labels": [],
+            "sourceColumn": "tier_level",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Level"
+          },
+          {
+            "description": "Represents the name of a customer’s loyalty tier (e.g., tier level) from the Loyalty Tier dataset. Use it to segment, group, or filter analyses by loyalty tier.",
+            "id": "dim_loyalty_tier.tier_name",
+            "labels": [],
+            "sourceColumn": "tier_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_loyalty_tier",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_loyalty_tier"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Loyalty Tier",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_loyalty_tier.tier_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_loyalty_tier",
+        "references": [],
+        "tags": [
+          "Loyalty Tier"
+        ],
+        "title": "Loyalty Tier",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for the store’s region in the Store dataset, used to group, segment, or filter store-related reporting by region.",
+            "id": "dim_store.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Region ID (Store)"
+          },
+          {
+            "description": "Store square footage (size) for each store, used to group, compare, or filter stores by their physical footprint.",
+            "id": "dim_store.sqft",
+            "labels": [],
+            "sourceColumn": "sqft",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Size (Sq Ft)"
+          },
+          {
+            "description": "Store Format is a Store attribute that categorizes each store by its format/type (for example, different store concepts). It’s typically used to filter or break down metrics by store format in analyses and dashboards.",
+            "id": "dim_store.store_format",
+            "labels": [],
+            "sourceColumn": "store_format",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Format"
+          },
+          {
+            "description": "Unique identifier for each store in the Store dataset, used to group, filter, or join reporting by individual store.",
+            "id": "dim_store.store_id",
+            "labels": [],
+            "sourceColumn": "store_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store ID (Store)"
+          },
+          {
+            "description": "The name of the store, used to group and filter reporting by individual store in the Store dataset.",
+            "id": "dim_store.store_name",
+            "labels": [],
+            "sourceColumn": "store_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_store",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_store"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Store",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_store.store_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_store",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_city",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "city_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_city.city_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_region",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "region_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_region.region_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Store"
+        ],
+        "title": "Store",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each online order in the Online Order dataset, used to group, filter, and drill into order-level analysis.",
+            "id": "fact_web_order_header.order_id",
+            "labels": [],
+            "sourceColumn": "order_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Online Order"
+            ],
+            "title": "Order ID (Online Order)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_web_order_header",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_web_order_header"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Online Order",
+        "facts": [
+          {
+            "description": "Number of online orders, used to count order volume and trend it over time or by business dimensions.",
+            "id": "fact_web_order_header.order_count",
+            "sourceColumn": "order_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Online Order"
+            ],
+            "title": "Order Count (Online Order)"
+          },
+          {
+            "description": "Total revenue amount recorded for each online order in the Online Order dataset, used to analyze sales performance and trends.",
+            "id": "fact_web_order_header.revenue",
+            "sourceColumn": "revenue",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Online Order"
+            ],
+            "title": "Revenue (Online Order)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_web_order_header.order_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_web_order_header",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_customer",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "customer_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer.customer_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "order_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Online Order"
+        ],
+        "title": "Online Order",
+        "workspaceDataFilterReferences": []
+      }
+    ],
+    "dateInstances": [
+      {
+        "description": "",
+        "granularities": [
+          "MINUTE",
+          "HOUR",
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "transaction_date",
+        "title": "Transaction Date"
+      }
+    ]
+  }
+}

@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_loyalty_points_redeemed
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_loyalty_points_redeemed
   type: dataSource
 description: Loyalty Points Redeemed

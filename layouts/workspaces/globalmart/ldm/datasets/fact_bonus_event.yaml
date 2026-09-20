@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_bonus_event
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_bonus_event
   type: dataSource
 description: Bonus Event

@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_payroll_transaction
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_payroll_transaction
   type: dataSource
 description: Payroll Transaction

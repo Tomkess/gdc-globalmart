@@ -1,0 +1,16 @@
+content:
+  filters:
+  - attributeFilter:
+      attributeElements:
+        uris: []
+      displayForm:
+        identifier:
+          id: dim_customer.customer_name
+          type: label
+      localIdentifier: f0
+      negativeSelection: true
+  version: '2'
+description: ''
+id: fc_sales
+tags: []
+title: fc_sales

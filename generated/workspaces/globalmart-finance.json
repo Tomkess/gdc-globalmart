@@ -1,0 +1,4954 @@
+{
+  "analytics": {
+    "analyticalDashboardExtensions": [],
+    "analyticalDashboards": [
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_010",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0216",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_00",
+                      "title": "Net Revenue by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0217",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_01",
+                      "title": "Amount by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0218",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_02",
+                      "title": "COGS by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0219",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_03",
+                      "title": "OpEx by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0220",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_04",
+                      "title": "Approved Budget by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0221",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_05",
+                      "title": "Spent Amount by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0222",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_06",
+                      "title": "Recharge Amount by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0223",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_07",
+                      "title": "Budget Amount by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0224",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_08",
+                      "title": "Gross Revenue by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0225",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_09",
+                      "title": "Gross Margin by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0226",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_10",
+                      "title": "EBITDA by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0227",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_010_11",
+                      "title": "Net Revenue — In-Store Channel by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard that summarizes daily Profit & Loss performance by trending key finance measures over time, including net and gross revenue, gross margin, COGS, OpEx, EBITDA, budgets, CapEx spend/approved budget, and intercompany recharges. By default it focuses on the last 12 months, with additional customer-related filters applied, to support ongoing monitoring of profitability and cost/revenue trends.",
+        "id": "dashboard_010",
+        "title": "Daily Profit & Loss Summary"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_011",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0228",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_00",
+                      "title": "Net Revenue — Online Channel",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0229",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_01",
+                      "title": "Net Revenue — North Region",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0230",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_02",
+                      "title": "Amount",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0231",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_03",
+                      "title": "Amount",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0232",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_04",
+                      "title": "Amount Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0233",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_05",
+                      "title": "COGS — In-Store Channel Over Time",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0234",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_06",
+                      "title": "COGS — Online Channel Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0235",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_07",
+                      "title": "COGS — North Region and OpEx by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0236",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_08",
+                      "title": "OpEx by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0237",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_09",
+                      "title": "OpEx by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0238",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_10",
+                      "title": "OpEx by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0239",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_011_11",
+                      "title": "Approved Budget by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring budget vs. actual financial performance, bringing together net revenue, COGS, operating expenses, and approved budget trends across time and key segments (e.g., Online vs In-Store and North region). By default, it focuses on the last 12 months and supports narrowing results by customer lifecycle stage and acquisition channel.",
+        "id": "dashboard_011",
+        "title": "Budget vs Actual Financials"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_025",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0240",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_00",
+                      "title": "Approved Budget by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0241",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_01",
+                      "title": "Approved Budget by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0242",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_02",
+                      "title": "Spent Amount by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0243",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_03",
+                      "title": "Spent Amount by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0244",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_04",
+                      "title": "Spent Amount by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0245",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_05",
+                      "title": "Recharge Amount by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0246",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_06",
+                      "title": "Recharge Amount by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0247",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_07",
+                      "title": "Recharge Amount by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0248",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_08",
+                      "title": "Budget Amount",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0249",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_09",
+                      "title": "Budget Amount",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0250",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_10",
+                      "title": "Budget Amount",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_finance_0251",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_025_11",
+                      "title": "Gross Revenue",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring and explaining gross margin drivers by bringing together key finance measures such as approved budget, project spend, intercompany recharge, and gross revenue across time. It is set up to review performance over the last 12 months and can be sliced by business dimensions such as region and sales channel.",
+        "id": "dashboard_025",
+        "title": "Gross Margin Bridge"
+      }
+    ],
+    "attributeHierarchies": [],
+    "dashboardPlugins": [],
+    "exportDefinitions": [],
+    "filterContexts": [
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.customer_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.lifecycle_stage_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_010",
+        "title": "Filters — Daily Profit & Loss Summary"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.lifecycle_stage_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.acquisition_channel_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_011",
+        "title": "Filters — Budget vs Actual Financials"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_currency.currency_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_currency.exchange_rate_to_usd",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_025",
+        "title": "Filters — Gross Margin Bridge"
+      }
+    ],
+    "memoryItems": [],
+    "metrics": [
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_approved_budget} - {metric/metric_l1_fact_capex_project_spent_amount}"
+        },
+        "description": "Shows remaining (or overrun) capital budget by subtracting total spent amount from the total approved CapEx budget for the current selection (such as chosen filters and time period). Use it to monitor whether capital expenditure projects are under or over their approved budgets.",
+        "id": "capex_budget_variance",
+        "tags": [
+          "budget",
+          "capex",
+          "variance"
+        ],
+        "title": "CapEx Budget Variance"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_budget_plan.budget_amount})"
+        },
+        "description": "Shows the total planned budget value by summing Budget Amount from the Budget Plan dataset, respecting any selected filters and breakdowns.",
+        "id": "metric_l1_fact_budget_plan_budget_amount",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Budget Amount (Budget Plan)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_capex_project.approved_budget})"
+        },
+        "description": "Shows the total approved capital budget by summing the Approved Budget amounts across Capital Expenditure Projects for the current reporting scope (such as applied filters or time period). Use it to understand overall approved funding and compare totals across different project selections.",
+        "id": "metric_l1_fact_capex_project_approved_budget",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Approved Budget (Capital Expenditure Project)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_capex_project.spent_amount})"
+        },
+        "description": "Sums the Spent Amount from the Capital Expenditure Project dataset to show total capital project spend. Use it to monitor overall spending and compare spend across projects, time periods, or other business breakdowns.",
+        "id": "metric_l1_fact_capex_project_spent_amount",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Spent Amount (Capital Expenditure Project)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_daily_pnl.opex})"
+        },
+        "description": "Shows total operating expenses (Operating Expenses (OpEx) by summing Operating Expenses (OpEx) from the Daily Profit & Loss data for the current reporting context, such as the selected date range, business unit, or other applied filters.",
+        "id": "metric_l1_fact_daily_pnl_opex",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total OpEx (Daily Profit & Loss)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_intercompany_recharge.recharge_amount})"
+        },
+        "description": "Shows the total monetary value of intercompany (transactions between entities within the same organisation) recharges by summing the Recharge Amount from the Intercompany Recharge dataset for the current filters and selected time period.",
+        "id": "metric_l1_fact_intercompany_recharge_recharge_amount",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Recharge Amount (Intercompany Recharge)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_opex_transaction.amount})"
+        },
+        "description": "Shows the total value of operating expense transactions by summing the Amount from Operating Expense Transaction records for the current report filters and time period.",
+        "id": "metric_l1_fact_opex_transaction_amount",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Amount (Operating Expense Transaction)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_margin_bridge.ebitda})"
+        },
+        "description": "Shows total EBITDA by summing the EBITDA values from the Margin Bridge dataset for the current report or dashboard context. Use it to track overall operating profitability and compare results across the applied filters and breakdowns.",
+        "id": "metric_l1_sql_margin_bridge_ebitda",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total EBITDA (Margin Bridge)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_margin_bridge.gross_margin})"
+        },
+        "description": "Shows total gross margin by summing Gross Margin from the Margin Bridge dataset for the currently selected filters and time period. Use it to track overall profitability and support margin bridge analysis across business dimensions.",
+        "id": "metric_l1_sql_margin_bridge_gross_margin",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Gross Margin (Margin Bridge)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_margin_bridge.gross_revenue})"
+        },
+        "description": "Shows total gross sales revenue by summing Gross Revenue from the Margin Bridge dataset, reflecting the current filters or reporting context in a report or dashboard. Useful as a baseline measure for revenue and margin bridge analysis.",
+        "id": "metric_l1_sql_margin_bridge_gross_revenue",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Gross Revenue (Margin Bridge)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_daily_pnl.cogs})"
+        },
+        "description": "Totals Cost of Goods Sold (COGS) from the Daily Profit & Loss data to show overall direct costs for the currently selected period and any applied filters.",
+        "id": "metric_l1_total_cogs",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total COGS"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_daily_pnl.revenue})"
+        },
+        "description": "Totals the Revenue from the Daily Profit & Loss dataset to show net revenue for the current reporting scope, such as the selected time period and any applied filters.",
+        "id": "metric_l1_total_net_revenue",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Net Revenue"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_cogs} - {metric/metric_l1_fact_daily_pnl_opex}"
+        },
+        "description": "Shows the net difference between Cost of Goods Sold (COGS) and Operating Expenses (OpEx) for the current reporting context in the Daily Profit & Loss data. Use it to understand whether direct costs or operating costs are driving spending changes over the selected period and filters.",
+        "id": "metric_l2_intra_0073",
+        "tags": [
+          "L2"
+        ],
+        "title": "COGS vs OpEx (Daily Profit & Loss) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_daily_pnl_opex} - {metric/metric_l1_fact_capex_project_approved_budget}"
+        },
+        "description": "Shows the variance between total operating expenses (Operating Expenses (OpEx) from the Daily Profit & Loss data and the total approved budget for Capital Expenditure Projects in the current reporting context (based on the selected time period and any applied filters). Use it to see whether Operating Expenses (OpEx) is above or below the approved capital budget and by how much.",
+        "id": "metric_l2_intra_0074",
+        "tags": [
+          "L2"
+        ],
+        "title": "OpEx (Daily Profit & Loss) vs Approved Budget (Capital Expenditure Project) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_approved_budget} - {metric/metric_l1_fact_capex_project_spent_amount}"
+        },
+        "description": "Shows the variance between the total approved budget for capital expenditure projects and the total amount spent, indicating how much budget remains or whether there is an overspend (if negative) for the current selection.",
+        "id": "metric_l2_intra_0075",
+        "tags": [
+          "L2"
+        ],
+        "title": "Approved Budget (Capital Expenditure Project) vs Spent Amount (Capital Expenditure Project) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_spent_amount} - {metric/metric_l1_fact_intercompany_recharge_recharge_amount}"
+        },
+        "description": "Shows the net difference between total capital expenditure project spend and total intercompany (transactions between entities within the same organisation) recharge amounts for the current filters and selected time period. Use it to assess whether project spending is running higher or lower than the recharges being applied.",
+        "id": "metric_l2_intra_0076",
+        "tags": [
+          "L2"
+        ],
+        "title": "Spent Amount (Capital Expenditure Project) vs Recharge Amount (Intercompany Recharge) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_intercompany_recharge_recharge_amount} - {metric/metric_l1_fact_budget_plan_budget_amount}"
+        },
+        "description": "Calculates the variance between actual intercompany (transactions between entities within the same organisation) recharge amounts and the planned budget amount for the current filters and breakdowns. Use it to see whether recharge activity is over or under budget by subtracting total Budget Amount from total Recharge Amount.",
+        "id": "metric_l2_intra_0077",
+        "tags": [
+          "L2"
+        ],
+        "title": "Recharge Amount (Intercompany Recharge) vs Budget Amount (Budget Plan) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_budget_plan_budget_amount} - {metric/metric_l1_sql_margin_bridge_gross_revenue}"
+        },
+        "description": "Shows the variance between the planned budget and actual gross revenue by subtracting Total Gross Revenue (Margin Bridge) from the Total Budget Amount (Budget Plan). Use it to quantify how much the budget is over or under gross revenue for the current filters and breakdowns.",
+        "id": "metric_l2_intra_0078",
+        "tags": [
+          "L2"
+        ],
+        "title": "Budget Amount (Budget Plan) vs Gross Revenue (Margin Bridge) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_gross_revenue} - {metric/metric_l1_sql_margin_bridge_gross_margin}"
+        },
+        "description": "Calculates the absolute gap between Total Gross Revenue and Total Gross Margin in the Margin Bridge context (revenue minus margin). Use it to quantify how much revenue does not translate into margin for the current filters and time period.",
+        "id": "metric_l2_intra_0079",
+        "tags": [
+          "L2"
+        ],
+        "title": "Gross Revenue (Margin Bridge) vs Gross Margin (Margin Bridge) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_gross_margin} - {metric/metric_l1_sql_margin_bridge_ebitda}"
+        },
+        "description": "Calculates the gap between Total Gross Margin and Total EBITDA in the Margin Bridge context. Use it to quantify how much gross margin exceeds (or falls short of) EBITDA and to see how that difference shifts across filters, time periods, and breakdowns.",
+        "id": "metric_l2_intra_0080",
+        "tags": [
+          "L2"
+        ],
+        "title": "Gross Margin (Margin Bridge) vs EBITDA (Margin Bridge) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_net_revenue} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Net revenue filtered to the In-Store sales channel, built on the Total Net Revenue metric. Use it to report and compare brick-and-mortar revenue performance within the current reporting scope (such as the selected time period and any other applied filters).",
+        "id": "metric_l3_0001_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Net Revenue — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_net_revenue} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total net revenue generated through the Online sales channel within the current reporting scope (respecting any filters such as the selected time period). Use this metric to monitor online revenue trends or compare online performance against other sales channels.",
+        "id": "metric_l3_0001_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Net Revenue — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_net_revenue} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total net revenue filtered to the North region. Use this metric to track North-region revenue performance within whatever time period and other report or dashboard filters are applied.",
+        "id": "metric_l3_0001_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Net Revenue — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_opex_transaction_amount} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total operating expense transaction amount limited to the In-Store sales channel. Use this metric to track and compare in-store operating expenses across the current time period and any other report filters.",
+        "id": "metric_l3_0012_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Amount (Operating Expense Transaction) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_opex_transaction_amount} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total operating expense transaction amount restricted to the Online sales channel. Use this metric to track and compare operating expenses attributable to online activity across the selected time period and any other applied report filters.",
+        "id": "metric_l3_0012_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Amount (Operating Expense Transaction) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_opex_transaction_amount} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total operating expense transaction amount filtered to the North region. Use this metric to track North’s operating expense spend in reports and dashboards while still honoring other selected filters and the chosen time period.",
+        "id": "metric_l3_0012_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Amount (Operating Expense Transaction) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_cogs} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total Cost of Goods Sold (COGS) filtered to the In-Store sales channel. Use this metric to assess direct product costs for in-store activity over the selected period and any other applied report filters.",
+        "id": "metric_l3_0073_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "COGS — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_cogs} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total Cost of Goods Sold (COGS) for the Online sales channel, showing the direct costs associated with online sales for the selected period and any other applied filters.",
+        "id": "metric_l3_0073_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "COGS — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_cogs} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total cost of goods sold (COGS) filtered to the North region. Use this to track direct product costs for North-only performance over the selected reporting period alongside any other report filters.",
+        "id": "metric_l3_0073_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "COGS — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_daily_pnl_opex} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total operating expenses (Operating Expenses (OpEx) from the Daily Profit & Loss data, filtered to the In-Store sales channel. Use this metric to monitor and compare in-store operating costs across the current reporting context (for example, the selected time period or business unit).",
+        "id": "metric_l3_0074_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "OpEx (Daily Profit & Loss) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_daily_pnl_opex} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total operating expenses (Operating Expenses (OpEx) from the Daily Profit & Loss data, filtered to the Online sales channel. Use this metric to monitor Operating Expenses (OpEx) for online operations across the current reporting context (for example, the selected date range and other dashboard filters).",
+        "id": "metric_l3_0074_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "OpEx (Daily Profit & Loss) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_daily_pnl_opex} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total operating expenses from the Daily Profit & Loss data, filtered to the North region. Use this metric to monitor and compare Operating Expenses (OpEx) performance for North within the current reporting context (for example, the selected date range or business unit filters).",
+        "id": "metric_l3_0074_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "OpEx (Daily Profit & Loss) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_approved_budget} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total approved budget for capital expenditure projects, filtered to the In-Store sales channel. Use it to track and compare approved CapEx funding specifically for in-store initiatives within the current reporting scope and any applied filters.",
+        "id": "metric_l3_0075_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Approved Budget (Capital Expenditure Project) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_approved_budget} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total approved budget for capital expenditure projects, restricted to initiatives tied to the Online sales channel type. Use this metric to monitor and compare approved capex funding specifically for online-channel projects within the current reporting scope.",
+        "id": "metric_l3_0075_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Approved Budget (Capital Expenditure Project) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_approved_budget} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total approved capital expenditure project budget limited to projects in the North region. Use it to track and compare the size of approved CapEx funding for the North within the current report scope (including any additional filters or time period).",
+        "id": "metric_l3_0075_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Approved Budget (Capital Expenditure Project) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_spent_amount} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Measures total capital expenditure project spending for the In-Store sales channel only. Use it to track and compare in-store CapEx spend across time, projects, or other breakdowns while excluding all other channel types.",
+        "id": "metric_l3_0076_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spent Amount (Capital Expenditure Project) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_spent_amount} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Tracks total spending on capital expenditure projects for the Online sales channel only. Use it to monitor and compare CapEx project spend for online activity across time, projects, or other business dimensions.",
+        "id": "metric_l3_0076_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spent Amount (Capital Expenditure Project) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_capex_project_spent_amount} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total amount spent on capital expenditure projects for the North region. Use this metric to monitor and compare North’s CapEx project spending across time periods or against other regions.",
+        "id": "metric_l3_0076_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spent Amount (Capital Expenditure Project) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_intercompany_recharge_recharge_amount} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total intercompany (transactions between entities within the same organisation) recharge amount restricted to the In-Store sales channel, based on the Recharge Amount summed for the current filters and selected time period. Use it to track the value of recharges specifically attributed to in-store activity in your reporting.",
+        "id": "metric_l3_0077_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recharge Amount (Intercompany Recharge) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_intercompany_recharge_recharge_amount} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total intercompany (transactions between entities within the same organisation) recharge amount restricted to the Online sales channel. Use this metric to track the value of intercompany recharges attributable to online activity, while still respecting any other report filters and the selected time period.",
+        "id": "metric_l3_0077_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recharge Amount (Intercompany Recharge) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_intercompany_recharge_recharge_amount} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total monetary value of intercompany (transactions between entities within the same organisation) recharges restricted to the North region. Use this metric to monitor recharge value for North under the current report filters and selected time period.",
+        "id": "metric_l3_0077_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recharge Amount (Intercompany Recharge) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_budget_plan_budget_amount} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Planned budget amount restricted to the In-Store sales channel, based on the Budget Plan data. Use this metric to report and compare in-store budget allocations across the filters and breakdowns in your analysis.",
+        "id": "metric_l3_0078_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Budget Amount (Budget Plan) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_budget_plan_budget_amount} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total planned budget amount limited to the Online sales channel. Use this metric to analyze and break down Online budget plan values across your selected filters and reporting dimensions.",
+        "id": "metric_l3_0078_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Budget Amount (Budget Plan) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_budget_plan_budget_amount} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Totals the planned budget amount from the Budget Plan data, filtered to the North region. Use it to report or compare North’s budget totals across whatever other filters or breakdowns are applied.",
+        "id": "metric_l3_0078_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Budget Amount (Budget Plan) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_gross_revenue} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total gross sales revenue from the Margin Bridge data restricted to the In-Store sales channel. Use it to evaluate and compare in-store revenue performance alongside other channels under the same time period and report filters.",
+        "id": "metric_l3_0079_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Revenue (Margin Bridge) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_gross_revenue} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Tracks total gross revenue from the Margin Bridge for sales in the Online channel type, respecting any current report or dashboard filters. Use it to monitor and compare online gross revenue performance in your analysis.",
+        "id": "metric_l3_0079_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Revenue (Margin Bridge) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_gross_revenue} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows total gross revenue from the Margin Bridge metric, filtered to the North region. Use it to report or compare North-specific gross revenue while still respecting any other report or dashboard filters.",
+        "id": "metric_l3_0079_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Revenue (Margin Bridge) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_gross_margin} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total gross margin from the Margin Bridge dataset, filtered to sales made through the In-Store channel. Use this metric to track and compare in-store profitability across the current time period and any other applied filters.",
+        "id": "metric_l3_0080_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Margin (Margin Bridge) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_gross_margin} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Tracks total gross margin specifically for the Online sales channel by summing gross margin amounts from the Margin Bridge data, while respecting any other selected filters and the chosen time period. Use it to monitor online profitability and compare performance against other sales channels.",
+        "id": "metric_l3_0080_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Margin (Margin Bridge) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_gross_margin} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total gross margin from the Margin Bridge dataset, restricted to the North region. Use this metric to track profitability for North and support margin-bridge analysis by other business dimensions and time selections.",
+        "id": "metric_l3_0080_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Margin (Margin Bridge) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_ebitda} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Shows total EBITDA for the In-Store sales channel using the Margin Bridge EBITDA measure. Use it to monitor operating profitability from in-store activity across the current report or dashboard filters and breakdowns.",
+        "id": "metric_l3_0081_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "EBITDA (Margin Bridge) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_ebitda} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total EBITDA from the Margin Bridge calculation, limited to the Online sales channel. Use it to analyze and compare profitability for online sales versus other channels in reports or dashboards.",
+        "id": "metric_l3_0081_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "EBITDA (Margin Bridge) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_margin_bridge_ebitda} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total EBITDA from the Margin Bridge scoped to the North region. Use this metric to monitor North’s operating profitability in reports or dashboards, and combine it with other filters or breakdowns to compare performance within North.",
+        "id": "metric_l3_0081_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "EBITDA (Margin Bridge) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0001_0} - (SELECT {metric/metric_l3_0001_0} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in Net Revenue for the In-Store sales channel by comparing the current Month/Year to the prior month. Use it to monitor how brick-and-mortar revenue is trending over time within the report’s active filters.",
+        "id": "metric_l4_mom_0003",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Net Revenue — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0001_1} - (SELECT {metric/metric_l3_0001_1} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in Net Revenue for the Online sales channel, calculated as the current month’s net revenue minus the prior month’s value (by Month/Year). Use it to track how online revenue is trending from one month to the next under the same reporting filters.",
+        "id": "metric_l4_mom_0004",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Net Revenue — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0001_2} - (SELECT {metric/metric_l3_0001_2} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Tracks the month-over-month change in Net Revenue for the North region by comparing the current month’s net revenue to the prior month. Use it to monitor how North-region revenue is trending over time within the date range and any other filters applied in a report or dashboard.",
+        "id": "metric_l4_mom_0005",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Net Revenue — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0012_0} - (SELECT {metric/metric_l3_0012_0} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in total operating expense transaction amount for the In-Store channel, comparing the current month to the prior month using the Month/Year calendar. Use it to monitor whether in-store operating expenses are trending up or down over time.",
+        "id": "metric_l4_mom_0036",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Amount (Operating Expense Transaction) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0012_1} - (SELECT {metric/metric_l3_0012_1} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Measures the month-over-month change in operating expense transaction amount for the Online sales channel by comparing the current month to the prior month. Use it to monitor whether online operating expenses are rising or falling over time.",
+        "id": "metric_l4_mom_0037",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Amount (Operating Expense Transaction) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0012_2} - (SELECT {metric/metric_l3_0012_2} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in total operating expense transaction amount for the North region by comparing the current month to the previous month. Use it to monitor how North’s operating expense spending is trending over time, while still respecting any other report filters and the selected time period.",
+        "id": "metric_l4_mom_0038",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Amount (Operating Expense Transaction) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0001_0} - (SELECT {metric/metric_l3_0001_0} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0001_0} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in Net Revenue for the In-Store sales channel by comparing the current period to the same period last year. Use it to track growth or decline in brick-and-mortar revenue over time within the current report filters.",
+        "id": "metric_l4_yoy_0003",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Net Revenue — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0001_1} - (SELECT {metric/metric_l3_0001_1} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0001_1} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in Net Revenue for the Online sales channel by comparing the current period’s online net revenue with the same period last year. Use it to track whether online revenue is growing or declining over time, especially when applying a reporting-period filter.",
+        "id": "metric_l4_yoy_0004",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Net Revenue — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0001_2} - (SELECT {metric/metric_l3_0001_2} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0001_2} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percentage change in Net Revenue for the North region, comparing the selected year with the prior year. Use it to monitor North-region revenue growth trends over time and quickly spot performance improvements or declines.",
+        "id": "metric_l4_yoy_0005",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Net Revenue — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0012_0} - (SELECT {metric/metric_l3_0012_0} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0012_0} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percentage change in total Operating Expense Transaction Amount for the In-Store sales channel, comparing the selected period to the same period last year. Use this metric to monitor whether in-store operating expenses are rising or falling versus the prior year.",
+        "id": "metric_l4_yoy_0036",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Amount (Operating Expense Transaction) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0012_1} - (SELECT {metric/metric_l3_0012_1} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0012_1} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percentage change in total operating expense transaction amount for the Online channel, comparing the selected period to the same period last year. Use it to see whether online-related operating expenses are increasing or decreasing versus last year under the current report filters.",
+        "id": "metric_l4_yoy_0037",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Amount (Operating Expense Transaction) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0012_2} - (SELECT {metric/metric_l3_0012_2} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0012_2} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percentage change in total Operating Expense Transaction Amount for the North region, comparing the current year to the prior year. Use it to monitor whether North’s operating expense spending is rising or falling versus last year over time.",
+        "id": "metric_l4_yoy_0038",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Amount (Operating Expense Transaction) — North Region"
+      }
+    ],
+    "parameters": [],
+    "visualizationObjects": [
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_net_revenue",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing Total Net Revenue trended by Month/Year, used to track how net revenue changes over time for the selected reporting scope.",
+        "id": "viz_finance_0216",
+        "title": "Net Revenue by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_opex_transaction_amount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total operating expense transaction amount, broken out by quarter and year. Use it to track how operating expense spending changes over time at a quarterly level.",
+        "id": "viz_finance_0217",
+        "title": "Amount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_cogs",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing Total Cost of Goods Sold (COGS) broken out by year, based on Daily Profit & Loss data. Use it to compare how direct costs trend year over year for the selected reporting period and any applied filters.",
+        "id": "viz_finance_0218",
+        "title": "COGS by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_daily_pnl_opex",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total operating expenses (OpEx) summarized by month/year, based on the Daily Profit & Loss data. Use it to track how OpEx trends over time for the selected reporting context and any applied filters (e.g., date range or business unit).",
+        "id": "viz_finance_0219",
+        "title": "OpEx by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_capex_project_approved_budget",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total approved capital expenditure (CapEx) project budget broken out by quarter/year, helping track how approved funding changes over time.",
+        "id": "viz_finance_0220",
+        "title": "Approved Budget by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_capex_project_spent_amount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total spent amount on capital expenditure projects, broken down by year, to track overall project spending trends over time.",
+        "id": "viz_finance_0221",
+        "title": "Spent Amount by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_intercompany_recharge_recharge_amount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total Intercompany Recharge Amount aggregated by Month/Year, to track how intercompany recharge values trend over time for the selected period and filters.",
+        "id": "viz_finance_0222",
+        "title": "Recharge Amount by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_budget_plan_budget_amount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total planned budget amount, broken down by quarter/year to track how budget levels change over time.",
+        "id": "viz_finance_0223",
+        "title": "Budget Amount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_margin_bridge_gross_revenue",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total gross revenue (from the Margin Bridge dataset) by year, using the transaction date to trend gross revenue over time.",
+        "id": "viz_finance_0224",
+        "title": "Gross Revenue by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_margin_bridge_gross_margin",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total gross margin over time, broken out by Month/Year, to help track margin trends across months. Useful for monitoring how overall gross margin changes in the selected period.",
+        "id": "viz_finance_0225",
+        "title": "Gross Margin by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_margin_bridge_ebitda",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total EBITDA over time, broken out by quarter/year, to help track quarterly profitability trends. It uses the “Total EBITDA (Margin Bridge)” metric displayed by the “Quarter/Year” period as a column chart.",
+        "id": "viz_finance_0226",
+        "title": "EBITDA by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0001_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing net revenue from the In-Store sales channel, broken out by year. Use it to compare how brick-and-mortar revenue performance changes year over year within the current reporting period.",
+        "id": "viz_finance_0227",
+        "title": "Net Revenue — In-Store Channel by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0001_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total net revenue generated through the Online sales channel, based on the current reporting scope and any filters applied (such as the selected time period). Use it to monitor or compare online revenue performance against other channels.",
+        "id": "viz_finance_0228",
+        "title": "Net Revenue — Online Channel"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0001_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total net revenue for the North region, useful for quickly tracking North-region revenue performance for the current report or dashboard context.",
+        "id": "viz_finance_0229",
+        "title": "Net Revenue — North Region"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0012_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total operating expense transaction amount for the In-Store channel. Use it to track in-store operating expenses for the currently selected time period and any other report filters.",
+        "id": "viz_finance_0230",
+        "title": "Amount (In-Store channel)"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0012_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total Amount for Operating Expense Transactions, filtered to the Online sales channel. Use it to quickly track overall online-attributable operating expenses for the currently selected period and any other applied filters.",
+        "id": "viz_finance_0231",
+        "title": "Amount"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0012_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the North region’s total operating expense transaction amount trended by month/year. Use it to monitor how North operating expenses change over time for the selected reporting period and any other applied filters.",
+        "id": "viz_finance_0232",
+        "title": "Amount Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0073_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing monthly Cost of Goods Sold (COGS) for the In-Store sales channel, using Month/Year as the time axis. It helps track how direct product costs for in-store activity change over time for the currently selected reporting period and any other applied filters.",
+        "id": "viz_finance_0233",
+        "title": "COGS — In-Store Channel Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0073_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing total Cost of Goods Sold (COGS) for the Online sales channel, trended by Month/Year. Use it to track how online COGS changes over time for the selected period and any other applied filters.",
+        "id": "viz_finance_0234",
+        "title": "COGS — Online Channel Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0073_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                },
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0074_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m2"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "attribute"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:table"
+        },
+        "description": "Table showing quarterly trends for North Region Cost of Goods Sold (COGS) alongside In-Store channel operating expenses (OpEx), grouped by Quarter/Year. Use it to compare how direct costs and operating costs change over time in these specific segments.",
+        "id": "viz_finance_0235",
+        "title": "COGS — North Region and OpEx by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0074_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total operating expenses (OpEx) for the In-Store sales channel, trended by year. Use it to monitor and compare year-over-year changes in in-store operating costs within the current reporting context.",
+        "id": "viz_finance_0236",
+        "title": "OpEx by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0074_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing operating expenses (OpEx) for the Online sales channel, broken out by Month/Year. Use it to track how online OpEx trends over time within the current reporting context.",
+        "id": "viz_finance_0237",
+        "title": "OpEx by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0074_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Operating Expenses (OpEx) for the North region, broken out by quarter/year. Use it to monitor and compare how OpEx trends over time at a quarterly level.",
+        "id": "viz_finance_0238",
+        "title": "OpEx by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0075_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total approved budget for capital expenditure projects in the In-Store sales channel, broken out by year. Use it to track year-over-year changes in approved in-store CapEx funding within the current reporting scope.",
+        "id": "viz_finance_0239",
+        "title": "Approved Budget by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0075_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total approved budget for capital expenditure projects associated with the Online sales channel, broken out by Month/Year. Use it to track how approved online-channel capex funding changes month to month within the current reporting scope.",
+        "id": "viz_finance_0240",
+        "title": "Approved Budget by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0075_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total approved capital expenditure project budget for the North region, broken down by quarter/year. Use it to track how approved CapEx funding in the North trends over time and to compare quarters within the current reporting scope.",
+        "id": "viz_finance_0241",
+        "title": "Approved Budget by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0076_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total capital expenditure project spend for the In-Store sales channel, broken down by year. Use it to compare how in-store CapEx spending changes year over year.",
+        "id": "viz_finance_0242",
+        "title": "Spent Amount by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0076_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing monthly trends in total capital expenditure project spending for the Online sales channel. Use it to monitor and compare how online CapEx project spend changes over time by Month/Year.",
+        "id": "viz_finance_0243",
+        "title": "Spent Amount by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0076_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total capital expenditure project spend for the North region, broken down by quarter/year. Use it to track how North-region CapEx spending changes over time and compare quarters.",
+        "id": "viz_finance_0244",
+        "title": "Spent Amount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0077_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Intercompany Recharge Amount for the In-Store sales channel, broken down by year. Use it to track how in-store recharge value trends over time within the current report filters.",
+        "id": "viz_finance_0245",
+        "title": "Recharge Amount by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0077_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total intercompany recharge amount attributable to the Online sales channel, trended by Month/Year. Use it to monitor how online recharge value changes over time, in line with any additional time-period or report filters applied.",
+        "id": "viz_finance_0246",
+        "title": "Recharge Amount by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0077_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total intercompany recharge amount for the North region, broken out by quarter/year. Use it to track how recharge value trends over time in North for the selected reporting period.",
+        "id": "viz_finance_0247",
+        "title": "Recharge Amount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0078_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the planned Budget Amount for the In-Store sales channel, based on the Budget Plan data. Use it to monitor or compare in-store budget allocations within the current dashboard or report filters.",
+        "id": "viz_finance_0248",
+        "title": "Budget Amount"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0078_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total planned Budget Amount for the Online sales channel, based on the Budget Plan. Use it to quickly track overall online budget levels under the current dashboard filters.",
+        "id": "viz_finance_0249",
+        "title": "Budget Amount"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0078_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total planned Budget Amount from the Budget Plan data for the North region. Use it to report or compare North’s budget total alongside other dashboard filters.",
+        "id": "viz_finance_0250",
+        "title": "Budget Amount"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0079_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total gross revenue for the In-Store sales channel, based on Margin Bridge data. Use it to track and compare in-store revenue performance within the current reporting context and time period.",
+        "id": "viz_finance_0251",
+        "title": "Gross Revenue"
+      }
+    ]
+  },
+  "ldm": {
+    "datasetExtensions": [],
+    "datasets": [
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Channel Cost is an attribute from the Acquisition Channel dataset that represents the cost associated with each acquisition channel. Use it to group, filter, or compare performance by different channel cost values.",
+            "id": "dim_acquisition_channel.channel_cost",
+            "labels": [],
+            "sourceColumn": "channel_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Cost"
+          },
+          {
+            "description": "Unique identifier for each acquisition channel in the Acquisition Channel dataset, used to group and filter metrics by channel.",
+            "id": "dim_acquisition_channel.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel ID (Acquisition Channel)"
+          },
+          {
+            "description": "Identifies the acquisition channel name, used to segment and filter reporting by how users or leads were acquired (e.g., by marketing or referral source) within the Acquisition Channel dataset.",
+            "id": "dim_acquisition_channel.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Name (Acquisition Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_acquisition_channel",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_acquisition_channel"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Acquisition Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_acquisition_channel.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_acquisition_channel",
+        "references": [],
+        "tags": [
+          "Acquisition Channel"
+        ],
+        "title": "Acquisition Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+            "id": "dim_channel_master.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel ID (Sales Channel)"
+          },
+          {
+            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Name (Sales Channel)"
+          },
+          {
+            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_type",
+            "labels": [],
+            "sourceColumn": "channel_type",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Type (Sales Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_channel_master",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_channel_master"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Sales Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_channel_master.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_channel_master",
+        "references": [],
+        "tags": [
+          "Sales Channel"
+        ],
+        "title": "Sales Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each company entity record in the Company Entity dataset. Use it to uniquely distinguish, group, or filter data by entity.",
+            "id": "dim_company_entity.entity_id",
+            "labels": [],
+            "sourceColumn": "entity_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Company Entity"
+            ],
+            "title": "Entity ID"
+          },
+          {
+            "description": "Name of the company entity, used to segment, group, and filter reporting by entity within the Company Entity dataset.",
+            "id": "dim_company_entity.entity_name",
+            "labels": [],
+            "sourceColumn": "entity_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Company Entity"
+            ],
+            "title": "Entity Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_company_entity",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_company_entity"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Company Entity",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_company_entity.entity_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_company_entity",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Company Entity"
+        ],
+        "title": "Company Entity",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group, filter, or segment measures by currency.",
+            "id": "dim_currency.currency_code",
+            "labels": [],
+            "sourceColumn": "currency_code",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Code"
+          },
+          {
+            "description": "Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering or grouping analyses.",
+            "id": "dim_currency.currency_id",
+            "labels": [],
+            "sourceColumn": "currency_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency ID"
+          },
+          {
+            "description": "Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and reports by currency.",
+            "id": "dim_currency.currency_name",
+            "labels": [],
+            "sourceColumn": "currency_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Name"
+          },
+          {
+            "description": "The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter or break down analyses by the applicable USD conversion rate.",
+            "id": "dim_currency.exchange_rate_to_usd",
+            "labels": [],
+            "sourceColumn": "exchange_rate_to_usd",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Exchange Rate to Usd"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_currency",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_currency"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Currency",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_currency.currency_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_currency",
+        "references": [],
+        "tags": [
+          "Currency"
+        ],
+        "title": "Currency",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for the customer’s acquisition channel in the Customer dataset. Use it to group or filter customers by the channel they were acquired through.",
+            "id": "dim_customer.acquisition_channel_id",
+            "labels": [],
+            "sourceColumn": "acquisition_channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Acquisition Channel ID"
+          },
+          {
+            "description": "Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into metrics at the individual customer level.",
+            "id": "dim_customer.customer_id",
+            "labels": [],
+            "sourceColumn": "customer_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer ID (Customer)"
+          },
+          {
+            "description": "Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.",
+            "id": "dim_customer.customer_name",
+            "labels": [],
+            "sourceColumn": "customer_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer Name (Customer)"
+          },
+          {
+            "description": "Identifier for the customer’s lifecycle stage in the Customer dataset, used to group or filter customers by lifecycle stage.",
+            "id": "dim_customer.lifecycle_stage_id",
+            "labels": [],
+            "sourceColumn": "lifecycle_stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Lifecycle Stage ID"
+          },
+          {
+            "description": "Identifier for a customer’s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty tier.",
+            "id": "dim_customer.loyalty_tier_id",
+            "labels": [],
+            "sourceColumn": "loyalty_tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Loyalty Tier ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer.customer_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_acquisition_channel",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "acquisition_channel_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_acquisition_channel.channel_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_customer_segment",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "segment_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer_segment.segment_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_lifecycle_stage",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "lifecycle_stage_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_lifecycle_stage.stage_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_loyalty_tier",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "loyalty_tier_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_loyalty_tier.tier_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Customer"
+        ],
+        "title": "Customer",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Describes the customer segment in plain language for each record in the Customer Segment dataset. Use it to group and filter customers by segment description in reporting and analysis.",
+            "id": "dim_customer_segment.segment_description",
+            "labels": [],
+            "sourceColumn": "segment_description",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Description"
+          },
+          {
+            "description": "Unique identifier for each customer segment in the Customer Segment dataset. Use it to group, join, or filter analysis by specific segment records.",
+            "id": "dim_customer_segment.segment_id",
+            "labels": [],
+            "sourceColumn": "segment_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment ID (Customer Segment)"
+          },
+          {
+            "description": "Customer Segment name used to categorize customers into segments for analysis. Use it to group or filter metrics by segment within the Customer Segment dataset.",
+            "id": "dim_customer_segment.segment_name",
+            "labels": [],
+            "sourceColumn": "segment_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Name (Customer Segment)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer_segment",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer_segment"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer Segment",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer_segment.segment_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer_segment",
+        "references": [],
+        "tags": [
+          "Customer Segment"
+        ],
+        "title": "Customer Segment",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and grouping in analysis.",
+            "id": "dim_geography_country.country_id",
+            "labels": [],
+            "sourceColumn": "country_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country ID"
+          },
+          {
+            "description": "Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by country.",
+            "id": "dim_geography_country.country_name",
+            "labels": [],
+            "sourceColumn": "country_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_country",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_country"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Country",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_country.country_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_country",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_currency",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "currency_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_currency.currency_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Country"
+        ],
+        "title": "Country",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis by region.",
+            "id": "dim_geography_region.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region ID (Region)"
+          },
+          {
+            "description": "Name of the geographic region in the Region dataset, used to group and filter reporting by region.",
+            "id": "dim_geography_region.region_name",
+            "labels": [],
+            "sourceColumn": "region_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_region",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_region"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Region",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_region.region_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_region",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Region"
+        ],
+        "title": "Region",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each lifecycle stage in the Lifecycle Stage dataset. Use it to group, join, or filter records by specific stage.",
+            "id": "dim_lifecycle_stage.stage_id",
+            "labels": [],
+            "sourceColumn": "stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage ID (Lifecycle Stage)"
+          },
+          {
+            "description": "Identifies the name of a lifecycle stage (e.g., a step in an entity’s progression) from the Lifecycle Stage dataset. Use it to group, segment, or filter analyses by lifecycle stage.",
+            "id": "dim_lifecycle_stage.stage_name",
+            "labels": [],
+            "sourceColumn": "stage_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Name (Lifecycle Stage)"
+          },
+          {
+            "description": "Indicates the numeric/order position of a lifecycle stage within the Lifecycle Stage dataset. Use it to sort or sequence lifecycle stages consistently in reports and dashboards.",
+            "id": "dim_lifecycle_stage.stage_order",
+            "labels": [],
+            "sourceColumn": "stage_order",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Order (Lifecycle Stage)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_lifecycle_stage",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_lifecycle_stage"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Lifecycle Stage",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_lifecycle_stage.stage_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_lifecycle_stage",
+        "references": [],
+        "tags": [
+          "Lifecycle Stage"
+        ],
+        "title": "Lifecycle Stage",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Minimum points threshold required to qualify for each Loyalty Tier. Use it to group or filter tiers based on the starting points needed.",
+            "id": "dim_loyalty_tier.min_points",
+            "labels": [],
+            "sourceColumn": "min_points",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Min Points"
+          },
+          {
+            "description": "Unique identifier for each loyalty tier in the Loyalty Tier dataset. Use it to group, filter, or join loyalty-tier information at the tier level.",
+            "id": "dim_loyalty_tier.tier_id",
+            "labels": [],
+            "sourceColumn": "tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier ID"
+          },
+          {
+            "description": "Loyalty program tier level used to categorize customers into tiers (e.g., by status level) for reporting, grouping, and filtering. Sourced from the Loyalty Tier dataset.",
+            "id": "dim_loyalty_tier.tier_level",
+            "labels": [],
+            "sourceColumn": "tier_level",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Level"
+          },
+          {
+            "description": "Represents the name of a customer’s loyalty tier (e.g., tier level) from the Loyalty Tier dataset. Use it to segment, group, or filter analyses by loyalty tier.",
+            "id": "dim_loyalty_tier.tier_name",
+            "labels": [],
+            "sourceColumn": "tier_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_loyalty_tier",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_loyalty_tier"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Loyalty Tier",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_loyalty_tier.tier_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_loyalty_tier",
+        "references": [],
+        "tags": [
+          "Loyalty Tier"
+        ],
+        "title": "Loyalty Tier",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each budget record in the Budget Plan dataset. Use it to filter or group analyses at the individual budget level.",
+            "id": "fact_budget_plan.budget_id",
+            "labels": [],
+            "sourceColumn": "budget_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Budget Plan"
+            ],
+            "title": "Budget ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_budget_plan",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_budget_plan"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Budget Plan",
+        "facts": [
+          {
+            "description": "Budget Amount is the monetary value allocated in the Budget Plan dataset, used to analyze and compare planned budget figures across relevant business dimensions.",
+            "id": "fact_budget_plan.budget_amount",
+            "sourceColumn": "budget_amount",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Budget Plan"
+            ],
+            "title": "Budget Amount"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_budget_plan.budget_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_budget_plan",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "budget_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Budget Plan"
+        ],
+        "title": "Budget Plan",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each capital expenditure project in the Capital Expenditure Project dataset, used to group, filter, and drill into project-level reporting.",
+            "id": "fact_capex_project.project_id",
+            "labels": [],
+            "sourceColumn": "project_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Capital Expenditure Project"
+            ],
+            "title": "Project ID (Capital Expenditure Project)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_capex_project",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_capex_project"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Capital Expenditure Project",
+        "facts": [
+          {
+            "description": "The approved budget amount allocated to a capital expenditure project. Use it to analyze and compare planned spending across projects in the Capital Expenditure Project dataset.",
+            "id": "fact_capex_project.approved_budget",
+            "sourceColumn": "approved_budget",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Capital Expenditure Project"
+            ],
+            "title": "Approved Budget"
+          },
+          {
+            "description": "Amount spent for a capital expenditure project, used to quantify project spending in reporting and analysis.",
+            "id": "fact_capex_project.spent_amount",
+            "sourceColumn": "spent_amount",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Capital Expenditure Project"
+            ],
+            "title": "Spent Amount"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_capex_project.project_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_capex_project",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "project_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Capital Expenditure Project"
+        ],
+        "title": "Capital Expenditure Project",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Represents the calendar day for each record in the Daily Profit & Loss dataset. Use it to group, trend, or filter profit and loss measures at a daily level of detail.",
+            "id": "fact_daily_pnl.day",
+            "labels": [],
+            "sourceColumn": "day",
+            "sourceColumnDataType": "DATE",
+            "tags": [
+              "Daily Profit & Loss"
+            ],
+            "title": "Day (Daily Profit & Loss)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_daily_pnl",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_daily_pnl"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Daily Profit & Loss",
+        "facts": [
+          {
+            "description": "Cost of goods sold (COGS) amount recorded in the Daily Profit & Loss dataset, used to analyze direct costs and profitability over time or across other business dimensions.",
+            "id": "fact_daily_pnl.cogs",
+            "sourceColumn": "cogs",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Daily Profit & Loss"
+            ],
+            "title": "COGS"
+          },
+          {
+            "description": "Operating expenses captured in the Daily Profit & Loss dataset, used to analyze cost levels and trends over time and across reporting dimensions.",
+            "id": "fact_daily_pnl.opex",
+            "sourceColumn": "opex",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Daily Profit & Loss"
+            ],
+            "title": "OpEx"
+          },
+          {
+            "description": "Revenue represents the sales income recorded in the Daily Profit & Loss dataset. It is typically used as a core measure to analyze topline performance over time or by other business dimensions.",
+            "id": "fact_daily_pnl.revenue",
+            "sourceColumn": "revenue",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Daily Profit & Loss"
+            ],
+            "title": "Revenue (Daily Profit & Loss)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_daily_pnl.day",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_daily_pnl",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_company_entity",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "entity_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_company_entity.entity_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "day",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Daily Profit & Loss"
+        ],
+        "title": "Daily Profit & Loss",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the source entity in an intercompany (transactions between entities within the same organisation) recharge transaction (the entity the charge is coming from). Use this attribute from the Intercompany Recharge dataset to group or filter analyses by originating entity.",
+            "id": "fact_intercompany_recharge.from_entity_id",
+            "labels": [],
+            "sourceColumn": "from_entity_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Intercompany Recharge"
+            ],
+            "title": "From Entity ID"
+          },
+          {
+            "description": "Unique identifier for each intercompany (transactions between entities within the same organisation) recharge record in the Intercompany Recharge dataset. Use it to look up, group, or filter analyses by a specific recharge transaction.",
+            "id": "fact_intercompany_recharge.recharge_id",
+            "labels": [],
+            "sourceColumn": "recharge_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Intercompany Recharge"
+            ],
+            "title": "Recharge ID"
+          },
+          {
+            "description": "Identifier of the receiving (\"to\") entity in an intercompany (transactions between entities within the same organisation) recharge transaction, used to group, filter, or join recharges by the destination entity within the Intercompany Recharge dataset.",
+            "id": "fact_intercompany_recharge.to_entity_id",
+            "labels": [],
+            "sourceColumn": "to_entity_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Intercompany Recharge"
+            ],
+            "title": "To Entity ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_intercompany_recharge",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_intercompany_recharge"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Intercompany Recharge",
+        "facts": [
+          {
+            "description": "Monetary value of the intercompany (transactions between entities within the same organisation) recharge, used to analyze and aggregate recharge costs or amounts within the Intercompany Recharge dataset.",
+            "id": "fact_intercompany_recharge.recharge_amount",
+            "sourceColumn": "recharge_amount",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Intercompany Recharge"
+            ],
+            "title": "Recharge Amount"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_intercompany_recharge.recharge_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_intercompany_recharge",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_company_entity",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "from_entity_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_company_entity.entity_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "recharge_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Intercompany Recharge"
+        ],
+        "title": "Intercompany Recharge",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each operating expense transaction. Use it to look up, group, or filter operating expense records at the individual transaction level.",
+            "id": "fact_opex_transaction.transaction_id",
+            "labels": [],
+            "sourceColumn": "transaction_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Operating Expense Transaction"
+            ],
+            "title": "Transaction ID (Operating Expense Transaction)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_opex_transaction",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_opex_transaction"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Operating Expense Transaction",
+        "facts": [
+          {
+            "description": "The monetary amount recorded for each operating expense transaction in the Operating Expense Transaction dataset. Typically used to analyze and aggregate operating expenses across dimensions like time, category, or cost center.",
+            "id": "fact_opex_transaction.amount",
+            "sourceColumn": "amount",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Operating Expense Transaction"
+            ],
+            "title": "Amount (Operating Expense Transaction)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_opex_transaction.transaction_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_opex_transaction",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "transaction_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Operating Expense Transaction"
+        ],
+        "title": "Operating Expense Transaction",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Date when the order was placed in the Margin Bridge dataset. Use it to filter or group margin-bridge metrics by day, month, or other time periods.",
+            "id": "sql_margin_bridge.order_date",
+            "labels": [],
+            "sourceColumn": "order_date",
+            "sourceColumnDataType": "DATE",
+            "tags": [
+              "Margin Bridge"
+            ],
+            "title": "Order Date (Margin Bridge)"
+          }
+        ],
+        "description": "Margin Bridge",
+        "facts": [
+          {
+            "description": "Earnings Before Interest, Taxes, Depreciation, and Amortization (EBITDA) measure in the Margin Bridge dataset, used to analyze operating profitability and its drivers.",
+            "id": "sql_margin_bridge.ebitda",
+            "sourceColumn": "ebitda",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Margin Bridge"
+            ],
+            "title": "EBITDA"
+          },
+          {
+            "description": "Gross Margin for records in the Margin Bridge dataset, used to quantify profitability and support analysis of margin drivers over time or across business dimensions.",
+            "id": "sql_margin_bridge.gross_margin",
+            "sourceColumn": "gross_margin",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Margin Bridge"
+            ],
+            "title": "Gross Margin"
+          },
+          {
+            "description": "Gross Revenue is the total sales revenue before any discounts, returns, or cost adjustments, used as a base measure for margin and revenue analysis in the Margin Bridge dataset.",
+            "id": "sql_margin_bridge.gross_revenue",
+            "sourceColumn": "gross_revenue",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Margin Bridge"
+            ],
+            "title": "Gross Revenue"
+          }
+        ],
+        "grain": [
+          {
+            "id": "sql_margin_bridge.order_date",
+            "type": "attribute"
+          }
+        ],
+        "id": "sql_margin_bridge",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "order_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "sql": {
+          "dataSourceId": "{{ datasource_id }}",
+          "statement": "\nSELECT\n    oh.order_date,\n    SUM(ol.revenue) AS gross_revenue,\n    SUM(ol.revenue) - SUM(COALESCE(cogs.cost, 0)) AS gross_margin,\n    (SUM(ol.revenue) - SUM(COALESCE(cogs.cost, 0))) / NULLIF(SUM(ol.revenue), 0) AS gross_margin_pct,\n    (SUM(ol.revenue) - SUM(COALESCE(cogs.cost, 0))) - SUM(COALESCE(opex.amount, 0)) AS ebitda\nFROM {{ datasource_schema }}.fact_order_header oh\nJOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN {{ datasource_schema }}.fact_cogs_detail cogs ON ol.product_id = cogs.product_id\nLEFT JOIN {{ datasource_schema }}.fact_opex_transaction opex ON oh.order_date = opex.transaction_date\nGROUP BY 1\n"
+        },
+        "tags": [
+          "Margin Bridge"
+        ],
+        "title": "Margin Bridge",
+        "workspaceDataFilterReferences": []
+      }
+    ],
+    "dateInstances": [
+      {
+        "description": "",
+        "granularities": [
+          "MINUTE",
+          "HOUR",
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "transaction_date",
+        "title": "Transaction Date"
+      }
+    ]
+  }
+}

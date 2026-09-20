@@ -30,7 +30,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_department
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_department
   type: dataSource
 description: Department

@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_order_line
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_order_line
   type: dataSource
 description: Order Line Items

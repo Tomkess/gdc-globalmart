@@ -21,7 +21,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_geography_city
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_geography_city
   type: dataSource
 description: City

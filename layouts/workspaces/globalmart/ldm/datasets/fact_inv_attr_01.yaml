@@ -14,7 +14,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_inv_attr_01
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_inv_attr_01
   type: dataSource
 description: Supplier Reliability Score

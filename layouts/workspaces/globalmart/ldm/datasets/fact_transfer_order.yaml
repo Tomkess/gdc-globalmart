@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_transfer_order
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_transfer_order
   type: dataSource
 description: Transfer Order

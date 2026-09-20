@@ -30,7 +30,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_audience_segment
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_audience_segment
   type: dataSource
 description: Audience Segment

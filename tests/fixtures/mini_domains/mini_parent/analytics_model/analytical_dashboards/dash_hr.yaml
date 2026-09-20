@@ -1,0 +1,35 @@
+content:
+  filterContextRef:
+    identifier:
+      id: fc_hr
+      type: filterContext
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drillDownIntersectionIgnoredDrills:
+          - identifier:
+              id: hier_geo_region
+              type: attributeHierarchy
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_hr_headcount
+              type: visualizationObject
+          localIdentifier: w0
+          title: viz_hr_headcount
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: ''
+id: dash_hr
+tags: []
+title: dash_hr

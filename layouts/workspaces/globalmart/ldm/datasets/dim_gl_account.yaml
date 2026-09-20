@@ -29,7 +29,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_gl_account
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_gl_account
   type: dataSource
 description: General Ledger Account

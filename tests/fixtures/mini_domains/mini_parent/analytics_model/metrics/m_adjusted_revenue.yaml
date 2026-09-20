@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT {metric/m_net_revenue} - 100
+description: ''
+id: m_adjusted_revenue
+tags:
+- metric
+title: m_adjusted_revenue

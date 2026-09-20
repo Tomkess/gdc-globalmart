@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_loyalty_campaign
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_loyalty_campaign
   type: dataSource
 description: Loyalty Campaign

@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_mkt_attr_04
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_mkt_attr_04
   type: dataSource
 description: Media Mix Efficiency Score

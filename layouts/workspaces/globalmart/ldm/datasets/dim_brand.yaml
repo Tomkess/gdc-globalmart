@@ -29,7 +29,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_brand
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_brand
   type: dataSource
 description: Brand

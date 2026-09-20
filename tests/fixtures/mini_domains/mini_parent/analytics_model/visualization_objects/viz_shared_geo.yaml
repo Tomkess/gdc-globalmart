@@ -1,0 +1,19 @@
+content:
+  buckets:
+  - items:
+    - attribute:
+        displayForm:
+          identifier:
+            id: dim_geo.country
+            type: label
+        localIdentifier: a_dim_geo.country
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: ''
+id: viz_shared_geo
+tags: []
+title: viz_shared_geo

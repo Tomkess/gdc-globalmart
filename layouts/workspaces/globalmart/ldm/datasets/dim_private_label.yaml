@@ -21,7 +21,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_private_label
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_private_label
   type: dataSource
 description: Private Label

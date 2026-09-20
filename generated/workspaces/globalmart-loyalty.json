@@ -1,0 +1,4211 @@
+{
+  "analytics": {
+    "analyticalDashboardExtensions": [],
+    "analyticalDashboards": [
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_005",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0132",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_00",
+                      "title": "Attributed Revenue by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0133",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_01",
+                      "title": "Enrollment Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0134",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_02",
+                      "title": "Referral Count by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0135",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_03",
+                      "title": "Referral Bonus by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0136",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_04",
+                      "title": "Bonus Points by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0137",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_05",
+                      "title": "Bonus Cost by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0138",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_06",
+                      "title": "Points Used by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0139",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_07",
+                      "title": "Partner Discount by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0140",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_08",
+                      "title": "Points Expired by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0141",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_09",
+                      "title": "Points Cost by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0142",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_10",
+                      "title": "Attributed Revenue by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0143",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_005_11",
+                      "title": "Attributed Revenue by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard tracking loyalty and retention performance over the last 12 months, bringing together trends in attributed revenue, enrollments, referrals, points usage/expiry, bonus points and costs, and partner redemption discounts. Use it to monitor how key loyalty KPIs change over time (monthly, quarterly, yearly) and compare performance across the currently selected scope.",
+        "id": "dashboard_005",
+        "title": "Customer Loyalty & Retention"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_016",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0144",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_00",
+                      "title": "Attributed Revenue",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0145",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_01",
+                      "title": "Enrollment Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0146",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_02",
+                      "title": "Enrollment Count",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0147",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_03",
+                      "title": "Enrollment Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0148",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_04",
+                      "title": "Referral Count Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0149",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_05",
+                      "title": "Referral Count Over Time",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0150",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_06",
+                      "title": "Referral Count Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0151",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_07",
+                      "title": "Referral Bonus and Referral Bonus by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0152",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_08",
+                      "title": "Referral Bonus by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0153",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_09",
+                      "title": "Referral Bonus by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0154",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_10",
+                      "title": "Bonus Points by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_loyalty_0155",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_016_11",
+                      "title": "Bonus Points by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard that brings together key loyalty-program ROI indicators—attributed revenue, enrollment counts, referral activity, referral bonuses, and bonus points—so you can monitor program performance and trends over time. By default it is filtered to the last 12 months, with location and channel filters available to focus the analysis.",
+        "id": "dashboard_016",
+        "title": "Loyalty Program ROI"
+      }
+    ],
+    "attributeHierarchies": [],
+    "dashboardPlugins": [],
+    "exportDefinitions": [],
+    "filterContexts": [
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_product.product_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_product.product_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_005",
+        "title": "Filters — Customer Loyalty & Retention"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_city.city_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_city.city_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_016",
+        "title": "Filters — Loyalty Program ROI"
+      }
+    ],
+    "memoryItems": [],
+    "metrics": [
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
+        },
+        "description": "Average of {metric/metric_l1_fact_bonus_event_bonus_cost} in the current reporting context.",
+        "id": "average_l1_bonus_cost",
+        "tags": [
+          "bonus",
+          "cost"
+        ],
+        "title": "Average L1 Bonus Cost"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
+        },
+        "description": "Average of {metric/metric_l1_fact_bonus_event_bonus_cost} in the current reporting context.",
+        "id": "average_l1_bonus_cost_duplicate",
+        "tags": [
+          "bonus",
+          "cost"
+        ],
+        "title": "Average L1 Bonus Cost (Duplicate)"
+      },
+      {
+        "content": {
+          "format": "$#,##0.00",
+          "maql": "SELECT AVG({fact/fact_bonus_event.bonus_cost})"
+        },
+        "description": "Average bonus cost per bonus event, calculated from the Bonus Cost fact and respecting the current report filters and breakdowns.",
+        "id": "average_total_bonus_cost",
+        "tags": [
+          "average",
+          "bonus",
+          "cost"
+        ],
+        "title": "Average Total Bonus Cost"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT AVG({metric/metric_l1_fact_bonus_event_bonus_cost})"
+        },
+        "description": "Average of the pre-aggregated Total Bonus Cost (Bonus Event), computing the average of summed bonus cost totals in the current reporting context.",
+        "id": "average_total_bonus_cost_variant",
+        "tags": [
+          "average",
+          "bonus",
+          "cost"
+        ],
+        "title": "Average Total Bonus Cost (Variant)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_bonus_event.bonus_cost})"
+        },
+        "description": "Sums the Bonus Cost from Bonus Event records to show total bonus spend. Use it to monitor overall bonus expenses and compare them across time periods or other business dimensions.",
+        "id": "metric_l1_fact_bonus_event_bonus_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Bonus Cost (Bonus Event)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_bonus_event.bonus_points})"
+        },
+        "description": "Shows the total number of bonus points awarded by summing Bonus Points across Bonus Event records within the current reporting scope (such as the selected filters or time period).",
+        "id": "metric_l1_fact_bonus_event_bonus_points",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Bonus Points (Bonus Event)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_loyalty_enrollment.enrollment_count})"
+        },
+        "description": "Shows the total number of loyalty program enrollments by summing the Enrollment Count from the Loyalty Enrollment data. Use it to track overall enrollment volume across the currently selected filters and time period.",
+        "id": "metric_l1_fact_loyalty_enrollment_enrollment_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Enrollment Count (Loyalty Enrollment)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_loyalty_expiry.points_expired})"
+        },
+        "description": "Shows the total number of loyalty points that have expired by summing the “Points Expired” fact from the Loyalty Expiry dataset. Use it to monitor the overall volume of expired points within the current reporting context (for example, by time period or customer segment).",
+        "id": "metric_l1_fact_loyalty_expiry_points_expired",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Points Expired (Loyalty Expiry)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_partner_redemption.partner_discount})"
+        },
+        "description": "Shows the total value of partner-funded discounts by summing the Partner Discount amounts from the Partner Redemption data. Use it to track and compare how much discount is being provided through partner redemptions across different cuts such as time periods or partners.",
+        "id": "metric_l1_fact_partner_redemption_partner_discount",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Partner Discount (Partner Redemption)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_partner_redemption.points_used})"
+        },
+        "description": "Tracks the total number of loyalty points used in Partner Redemption transactions by summing Points Used. Use it to monitor overall partner redemption points consumption over time or break it down by relevant business dimensions.",
+        "id": "metric_l1_fact_partner_redemption_points_used",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Points Used (Partner Redemption)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_referral.referral_bonus})"
+        },
+        "description": "Shows the total referral bonus earned by summing Referral Bonus amounts from the Referral dataset, respecting the currently selected filters and date range.",
+        "id": "metric_l1_fact_referral_referral_bonus",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Referral Bonus (Referral)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_referral.referral_count})"
+        },
+        "description": "Tracks overall referral volume by summing the Referral Count from the Referral dataset. Use it to monitor total referrals and to slice or trend referral activity by dimensions such as time, source, or segment in reports.",
+        "id": "metric_l1_fact_referral_referral_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Referral Count (Referral)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_loyalty_roi.attributed_revenue})"
+        },
+        "description": "Shows the total revenue attributed to the loyalty program by summing Attributed Revenue from the Loyalty Program ROI dataset within the currently selected filters and scope.",
+        "id": "metric_l1_sql_loyalty_roi_attributed_revenue",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Attributed Revenue (Loyalty Program ROI)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_loyalty_roi.points_cost})"
+        },
+        "description": "Tracks the total cost associated with loyalty points by summing the Points Cost from the Loyalty Program ROI dataset. Use it to monitor the overall expense of points issued or redeemed as part of the loyalty program.",
+        "id": "metric_l1_sql_loyalty_roi_points_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Points Cost (Loyalty Program ROI)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_loyalty_roi_attributed_revenue} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total revenue attributed to the loyalty program for the In-Store sales channel only. Use this metric to evaluate loyalty program ROI performance specifically for in-store purchases within the current report filters.",
+        "id": "metric_l3_0021_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Attributed Revenue (Loyalty Program ROI) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_loyalty_roi_attributed_revenue} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total revenue attributed to the loyalty program for the Online sales channel. Use this metric to assess loyalty-program ROI for online activity within the current report filters.",
+        "id": "metric_l3_0021_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Attributed Revenue (Loyalty Program ROI) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_loyalty_roi_attributed_revenue} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total revenue attributed to the loyalty program, limited to the North region. Use this metric to track loyalty-driven revenue performance in North and compare it with other regions or across time periods.",
+        "id": "metric_l3_0021_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Attributed Revenue (Loyalty Program ROI) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_loyalty_enrollment_enrollment_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts loyalty program enrollments limited to the In-Store sales channel. Use this metric to monitor in-store enrollment volume for the selected time period and any other applied report filters.",
+        "id": "metric_l3_0103_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Enrollment Count (Loyalty Enrollment) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_loyalty_enrollment_enrollment_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts loyalty program enrollments attributed to the Online sales channel, based on the overall enrollment count. Use this metric to monitor how many customers enroll via online channels for the currently selected time period and filters.",
+        "id": "metric_l3_0103_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Enrollment Count (Loyalty Enrollment) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_loyalty_enrollment_enrollment_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts loyalty program enrollments in the North region for the currently selected time period and any other report filters. Use it to monitor enrollment volume in the North and compare it with other regions or overall totals.",
+        "id": "metric_l3_0103_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Enrollment Count (Loyalty Enrollment) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_referral_referral_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the total number of referrals attributed to the In-Store sales channel. Use it to monitor in-store referral volume over time or compare it with other channels and segments.",
+        "id": "metric_l3_0104_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Referral Count (Referral) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_referral_referral_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts the total number of referrals attributable to the Online sales channel. Use it to track online referral volume and compare it across dimensions like time, source, or customer segment.",
+        "id": "metric_l3_0104_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Referral Count (Referral) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_referral_referral_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the total number of referrals for the North region only. Use this metric to monitor and trend referral volume in North and compare it with other regions or time periods.",
+        "id": "metric_l3_0104_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Referral Count (Referral) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_referral_referral_bonus} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total referral bonus earned, filtered to the In-Store sales channel. Use this metric to monitor in-store referral bonus performance within the current report filters and selected date range.",
+        "id": "metric_l3_0105_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Referral Bonus (Referral) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_referral_referral_bonus} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total referral bonus earned from referrals attributed to the Online sales channel. Use this metric to monitor online-channel referral bonus performance over the currently selected filters and time period.",
+        "id": "metric_l3_0105_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Referral Bonus (Referral) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_referral_referral_bonus} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows the total referral bonus earned for the North region only, based on the total referral bonus measure and respecting any current date and report filters. Use it to monitor referral bonus performance specifically for North Region.",
+        "id": "metric_l3_0105_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Referral Bonus (Referral) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_bonus_event_bonus_points} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Totals the bonus points awarded from Bonus Event records, restricted to the In-Store sales channel. Use it to monitor in-store bonus-point activity for the current reporting filters and time period.",
+        "id": "metric_l3_0106_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Bonus Points (Bonus Event) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_bonus_event_bonus_points} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total bonus points awarded from Bonus Event records, restricted to the Online sales channel. Use this metric to monitor how many bonus points are being issued through online activity within the current report filters or selected time period.",
+        "id": "metric_l3_0106_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Bonus Points (Bonus Event) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_bonus_event_bonus_points} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows the total Bonus Points awarded from Bonus Event records, filtered to the North region. Use this metric to monitor bonus point volume for North in reports and dashboards, while still respecting any additional filters or time period applied in the analysis.",
+        "id": "metric_l3_0106_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Bonus Points (Bonus Event) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_bonus_event_bonus_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total bonus cost from Bonus Event records filtered to the In-Store sales channel. Use this metric to monitor and compare in-store bonus spend across time periods or other business dimensions.",
+        "id": "metric_l3_0107_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Bonus Cost (Bonus Event) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_bonus_event_bonus_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total bonus cost from Bonus Event records, filtered to the Online sales channel. Use this metric to track and compare online-only bonus spend across time periods or other business dimensions.",
+        "id": "metric_l3_0107_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Bonus Cost (Bonus Event) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_bonus_event_bonus_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total bonus cost from Bonus Event records limited to the North region. Use this metric to track and compare bonus spending for North against other time periods or business slices.",
+        "id": "metric_l3_0107_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Bonus Cost (Bonus Event) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_partner_redemption_points_used} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total loyalty points used in partner redemption transactions, filtered to the In-Store sales channel. Use it to monitor in-store partner redemption points consumption and to analyze performance across other business dimensions.",
+        "id": "metric_l3_0108_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Used (Partner Redemption) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_partner_redemption_points_used} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Measures the total loyalty points used in Partner Redemption transactions for the Online sales channel. Use it to track online partner redemption points consumption and analyze trends or break it down by other business dimensions.",
+        "id": "metric_l3_0108_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Used (Partner Redemption) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_partner_redemption_points_used} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total loyalty points used in partner redemption transactions for the North region only. Use this metric to track and compare partner redemption points consumption specifically within North geography over time or across other business dimensions.",
+        "id": "metric_l3_0108_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Used (Partner Redemption) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_partner_redemption_partner_discount} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total value of partner redemption discounts limited to the In-Store sales channel. Use this metric to monitor how much partner-funded discount is being applied through partner redemptions in physical stores.",
+        "id": "metric_l3_0109_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Partner Discount (Partner Redemption) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_partner_redemption_partner_discount} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total value of partner-funded discounts from partner redemptions, filtered to the Online sales channel. Use this metric to monitor how much discount is being issued through online partner redemption activity over time or across other business cuts.",
+        "id": "metric_l3_0109_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Partner Discount (Partner Redemption) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_partner_redemption_partner_discount} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows the total value of partner-funded discounts provided through partner redemptions, filtered to the North region. Use it to monitor discount impact in North and compare it with the same measure for other regions.",
+        "id": "metric_l3_0109_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Partner Discount (Partner Redemption) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_loyalty_expiry_points_expired} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Tracks the total number of loyalty points that expired for the In-Store sales channel. Use it to monitor the volume of expired points in physical locations within the current reporting context (such as the selected time period or customer segment).",
+        "id": "metric_l3_0110_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Expired (Loyalty Expiry) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_loyalty_expiry_points_expired} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total loyalty points that expired for the Online sales channel within the current reporting context (such as the selected time period or customer segments). Use it to monitor expired-points volume specifically for online activity.",
+        "id": "metric_l3_0110_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Expired (Loyalty Expiry) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_loyalty_expiry_points_expired} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Tracks the total number of loyalty points that expired, limited to the North region. Use it to monitor and compare expired points volume for North across different reporting cuts such as time periods or customer segments.",
+        "id": "metric_l3_0110_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Expired (Loyalty Expiry) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_loyalty_roi_points_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Totals the loyalty points cost for transactions in the In-Store sales channel. Use this to isolate points-related expenses driven by in-store activity when evaluating loyalty program ROI.",
+        "id": "metric_l3_0111_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Cost (Loyalty Program ROI) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_loyalty_roi_points_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total cost of loyalty points attributable to the Online sales channel. Use this metric to isolate online-driven points expense when evaluating loyalty program ROI and comparing costs across channels.",
+        "id": "metric_l3_0111_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Cost (Loyalty Program ROI) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_loyalty_roi_points_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total loyalty points cost for the North region, used to quantify points-related expense as part of the loyalty program ROI analysis.",
+        "id": "metric_l3_0111_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Points Cost (Loyalty Program ROI) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0021_0} - (SELECT {metric/metric_l3_0021_0} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Tracks the month-over-month change in loyalty-program attributed revenue for the In-Store sales channel by comparing the current month to the previous month. Use it to monitor whether in-store loyalty ROI revenue is increasing or declining over time.",
+        "id": "metric_l4_mom_0063",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Attributed Revenue (Loyalty Program ROI) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0021_1} - (SELECT {metric/metric_l3_0021_1} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in loyalty-program attributed revenue for the Online sales channel by comparing the current month’s value to the previous month.",
+        "id": "metric_l4_mom_0064",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Attributed Revenue (Loyalty Program ROI) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0021_2} - (SELECT {metric/metric_l3_0021_2} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Tracks the month-over-month change in revenue attributed to the loyalty program for the North region by comparing the current month to the prior month. Use it to monitor whether loyalty-driven revenue in North is increasing or decreasing over time.",
+        "id": "metric_l4_mom_0065",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Attributed Revenue (Loyalty Program ROI) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0021_0} - (SELECT {metric/metric_l3_0021_0} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0021_0} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in loyalty-program attributed revenue for the In-Store sales channel, comparing the current period to the same period last year. Use it to track how in-store loyalty ROI revenue is trending versus last year under the current report filters.",
+        "id": "metric_l4_yoy_0063",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Attributed Revenue (Loyalty Program ROI) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0021_1} - (SELECT {metric/metric_l3_0021_1} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0021_1} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in loyalty program–attributed revenue for the Online sales channel, comparing the current period to the same period last year. Use it to understand whether online loyalty-driven revenue is growing or declining versus last year under the current report filters.",
+        "id": "metric_l4_yoy_0064",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Attributed Revenue (Loyalty Program ROI) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0021_2} - (SELECT {metric/metric_l3_0021_2} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0021_2} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in loyalty-program attributed revenue for the North region by comparing the current year with the prior year. Use it to monitor growth or decline in loyalty-driven revenue performance in North over time.",
+        "id": "metric_l4_yoy_0065",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Attributed Revenue (Loyalty Program ROI) — North Region"
+      }
+    ],
+    "parameters": [],
+    "visualizationObjects": [
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_loyalty_roi_attributed_revenue",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total revenue attributed to the loyalty program over time, grouped by Month/Year. Use it to track monthly trends in attributed revenue within the currently selected scope and filters.",
+        "id": "viz_loyalty_0132",
+        "title": "Attributed Revenue by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_loyalty_enrollment_enrollment_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total number of loyalty program enrollments broken out by quarter/year, helping track enrollment volume trends over time.",
+        "id": "viz_loyalty_0133",
+        "title": "Enrollment Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_referral_referral_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of referrals by year, using Total Referral Count (Referral) to track how overall referral volume changes over time.",
+        "id": "viz_loyalty_0134",
+        "title": "Referral Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_referral_referral_bonus",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total Referral Bonus earned, broken down by Month/Year. Use it to track how referral bonus payouts trend over time for the selected data and any applied filters.",
+        "id": "viz_loyalty_0135",
+        "title": "Referral Bonus by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_bonus_event_bonus_points",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total bonus points awarded from Bonus Event records, broken down by quarter/year, to help track how bonus point issuance changes over time.",
+        "id": "viz_loyalty_0136",
+        "title": "Bonus Points by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_bonus_event_bonus_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total bonus spend (Total Bonus Cost from Bonus Event records) broken down by year, helping you compare how bonus costs change over time.",
+        "id": "viz_loyalty_0137",
+        "title": "Bonus Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_partner_redemption_points_used",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the monthly trend of Total Points Used from Partner Redemption transactions, grouped by Month/Year. Use it to monitor overall partner redemption points consumption over time.",
+        "id": "viz_loyalty_0138",
+        "title": "Points Used by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_partner_redemption_partner_discount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total Partner Discount value from Partner Redemption transactions, broken out by Quarter/Year. Use it to track how partner-provided discount amounts change over time on a quarterly basis.",
+        "id": "viz_loyalty_0139",
+        "title": "Partner Discount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_loyalty_expiry_points_expired",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of loyalty points that expired, broken down by year. Use it to track how expired points volume changes over time and compare year-to-year totals.",
+        "id": "viz_loyalty_0140",
+        "title": "Points Expired by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_loyalty_roi_points_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "This column chart shows the Total Points Cost for the loyalty program broken out by Month/Year, helping you monitor how the overall cost of points issued or redeemed changes over time.",
+        "id": "viz_loyalty_0141",
+        "title": "Points Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0021_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows loyalty-program attributed revenue for the In-Store channel, broken out by quarter/year to track performance trends over time. Use it to monitor quarterly changes in revenue credited to the loyalty program for in-store purchases.",
+        "id": "viz_loyalty_0142",
+        "title": "Attributed Revenue by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0021_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing loyalty-program attributed revenue for the Online sales channel, broken out by transaction year. Use it to compare year-over-year changes in online loyalty-driven revenue under the current report filters.",
+        "id": "viz_loyalty_0143",
+        "title": "Attributed Revenue by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0021_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total revenue attributed to the loyalty program for the North region, based on the “Attributed Revenue (Loyalty Program ROI) — North Region” metric. Use it to monitor loyalty-driven revenue performance in North and compare it with other time periods or regions.",
+        "id": "viz_loyalty_0144",
+        "title": "Attributed Revenue (North region)"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0103_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of loyalty program enrollments, limited to the In-Store channel. Use it to monitor in-store enrollment volume for the currently selected reporting period and any applied filters.",
+        "id": "viz_loyalty_0145",
+        "title": "Enrollment Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0103_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Shows the number of loyalty program enrollments coming from the Online sales channel, based on the “Enrollment Count (Loyalty Enrollment) — Online Channel” metric. Use this headline to quickly track how many customers enrolled online for the currently selected period and any applied filters.",
+        "id": "viz_loyalty_0146",
+        "title": "Enrollment Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0103_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Shows the total number of loyalty enrollments for the North region as a single headline value, reflecting any time period or other report filters applied. Use it to monitor enrollment volume in the North and compare it against other regions or overall totals.",
+        "id": "viz_loyalty_0147",
+        "title": "Enrollment Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0104_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the monthly trend in Referral Count for the In-Store sales channel, using Month/Year as the time axis. Use it to monitor how in-store referral volume changes over time and spot growth or seasonality patterns.",
+        "id": "viz_loyalty_0148",
+        "title": "Referral Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0104_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Shows the trend of online referral volume over time by plotting the Referral Count (Online Channel) by Month/Year. Use it to monitor how online referrals are changing month to month and spot spikes or declines.",
+        "id": "viz_loyalty_0149",
+        "title": "Referral Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0104_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the monthly trend in Referral Count for the North region. Use it to track how referral volume changes over time and spot spikes or declines by month.",
+        "id": "viz_loyalty_0150",
+        "title": "Referral Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0105_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                },
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0105_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m2"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "attribute"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:table"
+        },
+        "description": "Table showing total referral bonus earned split by quarter/year, with separate columns for the In-Store and Online sales channels. Use it to compare how referral bonus performance trends over time across these two channels.",
+        "id": "viz_loyalty_0151",
+        "title": "Referral Bonus and Referral Bonus by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0105_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Referral Bonus earned from referrals attributed to the Online sales channel, broken out by transaction year. Use it to track how online-channel referral bonus performance changes year over year under the current filters and time period.",
+        "id": "viz_loyalty_0152",
+        "title": "Referral Bonus by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0105_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total referral bonus earned in the North region, broken down by month/year, to help track how referral bonus performance trends over time.",
+        "id": "viz_loyalty_0153",
+        "title": "Referral Bonus by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0106_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Bonus Points awarded from Bonus Event records in the In-Store sales channel, broken out by Quarter/Year. Use it to track how in-store bonus-point activity trends over time under the current report filters.",
+        "id": "viz_loyalty_0154",
+        "title": "Bonus Points by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0106_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total bonus points awarded from Bonus Event records in the Online sales channel, broken down by year. Use it to track year-over-year trends in online bonus point issuance for the selected time period and filters.",
+        "id": "viz_loyalty_0155",
+        "title": "Bonus Points by Year"
+      }
+    ]
+  },
+  "ldm": {
+    "datasetExtensions": [],
+    "datasets": [
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Channel Cost is an attribute from the Acquisition Channel dataset that represents the cost associated with each acquisition channel. Use it to group, filter, or compare performance by different channel cost values.",
+            "id": "dim_acquisition_channel.channel_cost",
+            "labels": [],
+            "sourceColumn": "channel_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Cost"
+          },
+          {
+            "description": "Unique identifier for each acquisition channel in the Acquisition Channel dataset, used to group and filter metrics by channel.",
+            "id": "dim_acquisition_channel.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel ID (Acquisition Channel)"
+          },
+          {
+            "description": "Identifies the acquisition channel name, used to segment and filter reporting by how users or leads were acquired (e.g., by marketing or referral source) within the Acquisition Channel dataset.",
+            "id": "dim_acquisition_channel.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Name (Acquisition Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_acquisition_channel",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_acquisition_channel"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Acquisition Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_acquisition_channel.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_acquisition_channel",
+        "references": [],
+        "tags": [
+          "Acquisition Channel"
+        ],
+        "title": "Acquisition Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each brand in the Brand dataset, used to group, join, or filter reporting by brand.",
+            "id": "dim_brand.brand_id",
+            "labels": [],
+            "sourceColumn": "brand_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Brand"
+            ],
+            "title": "Brand ID"
+          },
+          {
+            "description": "Name of the brand (from the Brand dataset), used to group, filter, and segment reporting by brand.",
+            "id": "dim_brand.brand_name",
+            "labels": [],
+            "sourceColumn": "brand_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Brand"
+            ],
+            "title": "Brand Name"
+          },
+          {
+            "description": "Identifies the company or organization that owns each brand. Use it to group and filter brand-related reporting by owner.",
+            "id": "dim_brand.brand_owner",
+            "labels": [],
+            "sourceColumn": "brand_owner",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Brand"
+            ],
+            "title": "Brand Owner"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_brand",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_brand"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Brand",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_brand.brand_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_brand",
+        "references": [],
+        "tags": [
+          "Brand"
+        ],
+        "title": "Brand",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for the Level 1 product category in the Product Category Level 1 dataset. Use it to group, join, or filter data by high-level product category.",
+            "id": "dim_category_l1.category_l1_id",
+            "labels": [],
+            "sourceColumn": "category_l1_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Product Category Level 1"
+            ],
+            "title": "Category L1 ID"
+          },
+          {
+            "description": "Top-level product category name from the Product Category Level 1 dataset. Use it to group, segment, or filter analyses by the broadest category tier.",
+            "id": "dim_category_l1.category_l1_name",
+            "labels": [],
+            "sourceColumn": "category_l1_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Product Category Level 1"
+            ],
+            "title": "Category L1 Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_category_l1",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_category_l1"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Product Category Level 1",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_category_l1.category_l1_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_category_l1",
+        "references": [],
+        "tags": [
+          "Product Category Level 1"
+        ],
+        "title": "Product Category Level 1",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+            "id": "dim_channel_master.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel ID (Sales Channel)"
+          },
+          {
+            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Name (Sales Channel)"
+          },
+          {
+            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_type",
+            "labels": [],
+            "sourceColumn": "channel_type",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Type (Sales Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_channel_master",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_channel_master"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Sales Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_channel_master.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_channel_master",
+        "references": [],
+        "tags": [
+          "Sales Channel"
+        ],
+        "title": "Sales Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group, filter, or segment measures by currency.",
+            "id": "dim_currency.currency_code",
+            "labels": [],
+            "sourceColumn": "currency_code",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Code"
+          },
+          {
+            "description": "Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering or grouping analyses.",
+            "id": "dim_currency.currency_id",
+            "labels": [],
+            "sourceColumn": "currency_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency ID"
+          },
+          {
+            "description": "Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and reports by currency.",
+            "id": "dim_currency.currency_name",
+            "labels": [],
+            "sourceColumn": "currency_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Name"
+          },
+          {
+            "description": "The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter or break down analyses by the applicable USD conversion rate.",
+            "id": "dim_currency.exchange_rate_to_usd",
+            "labels": [],
+            "sourceColumn": "exchange_rate_to_usd",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Exchange Rate to Usd"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_currency",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_currency"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Currency",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_currency.currency_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_currency",
+        "references": [],
+        "tags": [
+          "Currency"
+        ],
+        "title": "Currency",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for the customer’s acquisition channel in the Customer dataset. Use it to group or filter customers by the channel they were acquired through.",
+            "id": "dim_customer.acquisition_channel_id",
+            "labels": [],
+            "sourceColumn": "acquisition_channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Acquisition Channel ID"
+          },
+          {
+            "description": "Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into metrics at the individual customer level.",
+            "id": "dim_customer.customer_id",
+            "labels": [],
+            "sourceColumn": "customer_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer ID (Customer)"
+          },
+          {
+            "description": "Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.",
+            "id": "dim_customer.customer_name",
+            "labels": [],
+            "sourceColumn": "customer_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer Name (Customer)"
+          },
+          {
+            "description": "Identifier for the customer’s lifecycle stage in the Customer dataset, used to group or filter customers by lifecycle stage.",
+            "id": "dim_customer.lifecycle_stage_id",
+            "labels": [],
+            "sourceColumn": "lifecycle_stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Lifecycle Stage ID"
+          },
+          {
+            "description": "Identifier for a customer’s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty tier.",
+            "id": "dim_customer.loyalty_tier_id",
+            "labels": [],
+            "sourceColumn": "loyalty_tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Loyalty Tier ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer.customer_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_acquisition_channel",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "acquisition_channel_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_acquisition_channel.channel_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_customer_segment",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "segment_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer_segment.segment_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_lifecycle_stage",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "lifecycle_stage_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_lifecycle_stage.stage_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_loyalty_tier",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "loyalty_tier_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_loyalty_tier.tier_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Customer"
+        ],
+        "title": "Customer",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Describes the customer segment in plain language for each record in the Customer Segment dataset. Use it to group and filter customers by segment description in reporting and analysis.",
+            "id": "dim_customer_segment.segment_description",
+            "labels": [],
+            "sourceColumn": "segment_description",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Description"
+          },
+          {
+            "description": "Unique identifier for each customer segment in the Customer Segment dataset. Use it to group, join, or filter analysis by specific segment records.",
+            "id": "dim_customer_segment.segment_id",
+            "labels": [],
+            "sourceColumn": "segment_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment ID (Customer Segment)"
+          },
+          {
+            "description": "Customer Segment name used to categorize customers into segments for analysis. Use it to group or filter metrics by segment within the Customer Segment dataset.",
+            "id": "dim_customer_segment.segment_name",
+            "labels": [],
+            "sourceColumn": "segment_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Name (Customer Segment)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer_segment",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer_segment"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer Segment",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer_segment.segment_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer_segment",
+        "references": [],
+        "tags": [
+          "Customer Segment"
+        ],
+        "title": "Customer Segment",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each city record in the City dataset, typically used to join, group, or filter city-level data in reporting.",
+            "id": "dim_geography_city.city_id",
+            "labels": [],
+            "sourceColumn": "city_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City ID"
+          },
+          {
+            "description": "Name of the city, used to group or filter analyses by city.",
+            "id": "dim_geography_city.city_name",
+            "labels": [],
+            "sourceColumn": "city_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_city",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_city"
+          ],
+          "type": "dataSource"
+        },
+        "description": "City",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_city.city_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_city",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_region",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "region_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_region.region_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "City"
+        ],
+        "title": "City",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and grouping in analysis.",
+            "id": "dim_geography_country.country_id",
+            "labels": [],
+            "sourceColumn": "country_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country ID"
+          },
+          {
+            "description": "Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by country.",
+            "id": "dim_geography_country.country_name",
+            "labels": [],
+            "sourceColumn": "country_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_country",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_country"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Country",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_country.country_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_country",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_currency",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "currency_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_currency.currency_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Country"
+        ],
+        "title": "Country",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis by region.",
+            "id": "dim_geography_region.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region ID (Region)"
+          },
+          {
+            "description": "Name of the geographic region in the Region dataset, used to group and filter reporting by region.",
+            "id": "dim_geography_region.region_name",
+            "labels": [],
+            "sourceColumn": "region_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_region",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_region"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Region",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_region.region_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_region",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Region"
+        ],
+        "title": "Region",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each lifecycle stage in the Lifecycle Stage dataset. Use it to group, join, or filter records by specific stage.",
+            "id": "dim_lifecycle_stage.stage_id",
+            "labels": [],
+            "sourceColumn": "stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage ID (Lifecycle Stage)"
+          },
+          {
+            "description": "Identifies the name of a lifecycle stage (e.g., a step in an entity’s progression) from the Lifecycle Stage dataset. Use it to group, segment, or filter analyses by lifecycle stage.",
+            "id": "dim_lifecycle_stage.stage_name",
+            "labels": [],
+            "sourceColumn": "stage_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Name (Lifecycle Stage)"
+          },
+          {
+            "description": "Indicates the numeric/order position of a lifecycle stage within the Lifecycle Stage dataset. Use it to sort or sequence lifecycle stages consistently in reports and dashboards.",
+            "id": "dim_lifecycle_stage.stage_order",
+            "labels": [],
+            "sourceColumn": "stage_order",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Order (Lifecycle Stage)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_lifecycle_stage",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_lifecycle_stage"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Lifecycle Stage",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_lifecycle_stage.stage_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_lifecycle_stage",
+        "references": [],
+        "tags": [
+          "Lifecycle Stage"
+        ],
+        "title": "Lifecycle Stage",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Minimum points threshold required to qualify for each Loyalty Tier. Use it to group or filter tiers based on the starting points needed.",
+            "id": "dim_loyalty_tier.min_points",
+            "labels": [],
+            "sourceColumn": "min_points",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Min Points"
+          },
+          {
+            "description": "Unique identifier for each loyalty tier in the Loyalty Tier dataset. Use it to group, filter, or join loyalty-tier information at the tier level.",
+            "id": "dim_loyalty_tier.tier_id",
+            "labels": [],
+            "sourceColumn": "tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier ID"
+          },
+          {
+            "description": "Loyalty program tier level used to categorize customers into tiers (e.g., by status level) for reporting, grouping, and filtering. Sourced from the Loyalty Tier dataset.",
+            "id": "dim_loyalty_tier.tier_level",
+            "labels": [],
+            "sourceColumn": "tier_level",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Level"
+          },
+          {
+            "description": "Represents the name of a customer’s loyalty tier (e.g., tier level) from the Loyalty Tier dataset. Use it to segment, group, or filter analyses by loyalty tier.",
+            "id": "dim_loyalty_tier.tier_name",
+            "labels": [],
+            "sourceColumn": "tier_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_loyalty_tier",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_loyalty_tier"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Loyalty Tier",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_loyalty_tier.tier_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_loyalty_tier",
+        "references": [],
+        "tags": [
+          "Loyalty Tier"
+        ],
+        "title": "Loyalty Tier",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Represents the product cost in the Product dataset, used to group, slice, or filter products by their cost value in analyses and reports.",
+            "id": "dim_product.cost",
+            "labels": [],
+            "sourceColumn": "cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Product"
+            ],
+            "title": "Cost (Product)"
+          },
+          {
+            "description": "List Price of a product in the Product dataset, used to group, filter, or break down analysis by the product’s listed price.",
+            "id": "dim_product.list_price",
+            "labels": [],
+            "sourceColumn": "list_price",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Product"
+            ],
+            "title": "List Price"
+          },
+          {
+            "description": "Unique identifier for each product in the Product dataset. Use it to filter or group analyses at the individual product level.",
+            "id": "dim_product.product_id",
+            "labels": [],
+            "sourceColumn": "product_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Product"
+            ],
+            "title": "Product ID (Product)"
+          },
+          {
+            "description": "Names of products in the Product dataset, used to label, group, and filter analyses by individual product.",
+            "id": "dim_product.product_name",
+            "labels": [],
+            "sourceColumn": "product_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Product"
+            ],
+            "title": "Product Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_product",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_product"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Product",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_product.product_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_product",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_brand",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "brand_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_brand.brand_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_category_l1",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "category_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_category_l1.category_l1_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_supplier",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "supplier_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_supplier.supplier_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Product"
+        ],
+        "title": "Product",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Number of days in the supplier’s agreed payment terms, from the Supplier dataset. Use this attribute to group or filter reporting by payment-term length.",
+            "id": "dim_supplier.payment_terms_days",
+            "labels": [],
+            "sourceColumn": "payment_terms_days",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Supplier"
+            ],
+            "title": "Payment Terms Days"
+          },
+          {
+            "description": "Unique identifier for each supplier in the Supplier dataset. Use it to filter, group, or join supplier-related reporting at the individual supplier level.",
+            "id": "dim_supplier.supplier_id",
+            "labels": [],
+            "sourceColumn": "supplier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Supplier"
+            ],
+            "title": "Supplier ID"
+          },
+          {
+            "description": "Name of the supplier in the Supplier dataset, used to identify, group, and filter reporting by individual suppliers.",
+            "id": "dim_supplier.supplier_name",
+            "labels": [],
+            "sourceColumn": "supplier_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Supplier"
+            ],
+            "title": "Supplier Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_supplier",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_supplier"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Supplier",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_supplier.supplier_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_supplier",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Supplier"
+        ],
+        "title": "Supplier",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each bonus event record in the Bonus Event dataset. Use it to look up, group, or filter analyses at the individual event level.",
+            "id": "fact_bonus_event.event_id",
+            "labels": [],
+            "sourceColumn": "event_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Bonus Event"
+            ],
+            "title": "Event ID (Bonus Event)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_bonus_event",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_bonus_event"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Bonus Event",
+        "facts": [
+          {
+            "description": "Cost amount associated with each bonus event, used to quantify and analyze the expense of bonuses (for example by summing costs) within the Bonus Event dataset.",
+            "id": "fact_bonus_event.bonus_cost",
+            "sourceColumn": "bonus_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Bonus Event"
+            ],
+            "title": "Bonus Cost"
+          },
+          {
+            "description": "Number of bonus points awarded for each Bonus Event record. Use this fact to total or analyze earned bonus points by different dimensions in the Bonus Event dataset.",
+            "id": "fact_bonus_event.bonus_points",
+            "sourceColumn": "bonus_points",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Bonus Event"
+            ],
+            "title": "Bonus Points"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_bonus_event.event_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_bonus_event",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_customer",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "customer_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer.customer_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "event_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Bonus Event"
+        ],
+        "title": "Bonus Event",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each loyalty program enrollment record in the Loyalty Enrollment dataset. Use it to look up, filter, or deduplicate (the process of identifying and removing duplicate records) specific enrollments.",
+            "id": "fact_loyalty_enrollment.enrollment_id",
+            "labels": [],
+            "sourceColumn": "enrollment_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Enrollment"
+            ],
+            "title": "Enrollment ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_loyalty_enrollment",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_loyalty_enrollment"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Loyalty Enrollment",
+        "facts": [
+          {
+            "description": "Number of loyalty program enrollments recorded in the Loyalty Enrollment dataset, typically used to sum enrollments over time, store, channel, or other dimensions.",
+            "id": "fact_loyalty_enrollment.enrollment_count",
+            "sourceColumn": "enrollment_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Enrollment"
+            ],
+            "title": "Enrollment Count"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_loyalty_enrollment.enrollment_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_loyalty_enrollment",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_customer",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "customer_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer.customer_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "enrollment_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Loyalty Enrollment"
+        ],
+        "title": "Loyalty Enrollment",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each loyalty expiry record in the Loyalty Expiry dataset. Use it to reference, group, or filter individual expiry entries.",
+            "id": "fact_loyalty_expiry.expiry_id",
+            "labels": [],
+            "sourceColumn": "expiry_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Expiry"
+            ],
+            "title": "Expiry ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_loyalty_expiry",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_loyalty_expiry"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Loyalty Expiry",
+        "facts": [
+          {
+            "description": "Number of loyalty points that expired, based on the Loyalty Expiry dataset. Use this to track the volume of points lost due to expiration over time or by customer segments.",
+            "id": "fact_loyalty_expiry.points_expired",
+            "sourceColumn": "points_expired",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Expiry"
+            ],
+            "title": "Points Expired"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_loyalty_expiry.expiry_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_loyalty_expiry",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_customer",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "customer_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer.customer_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "expiry_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Loyalty Expiry"
+        ],
+        "title": "Loyalty Expiry",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each partner redemption record in the Partner Redemption dataset. Use it to look up, group, or filter analyses by individual redemption transactions.",
+            "id": "fact_partner_redemption.redemption_id",
+            "labels": [],
+            "sourceColumn": "redemption_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Partner Redemption"
+            ],
+            "title": "Redemption ID (Partner Redemption)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_partner_redemption",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_partner_redemption"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Partner Redemption",
+        "facts": [
+          {
+            "description": "Discount amount attributed to a partner for redemptions in the Partner Redemption dataset. Typically used to sum or analyze partner-funded discounts across partners, time periods, or other dimensions.",
+            "id": "fact_partner_redemption.partner_discount",
+            "sourceColumn": "partner_discount",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Partner Redemption"
+            ],
+            "title": "Partner Discount"
+          },
+          {
+            "description": "Number of loyalty points used in partner redemption transactions. Use this fact to sum or analyze points consumption within the Partner Redemption dataset.",
+            "id": "fact_partner_redemption.points_used",
+            "sourceColumn": "points_used",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Partner Redemption"
+            ],
+            "title": "Points Used"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_partner_redemption.redemption_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_partner_redemption",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_customer",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "customer_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer.customer_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "redemption_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Partner Redemption"
+        ],
+        "title": "Partner Redemption",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each referral record in the Referral dataset, used to distinguish and filter individual referrals.",
+            "id": "fact_referral.referral_id",
+            "labels": [],
+            "sourceColumn": "referral_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Referral"
+            ],
+            "title": "Referral ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_referral",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_referral"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Referral",
+        "facts": [
+          {
+            "description": "Amount of referral bonus recorded for each referral in the Referral dataset, typically used to sum or analyze bonus payouts across referrals.",
+            "id": "fact_referral.referral_bonus",
+            "sourceColumn": "referral_bonus",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Referral"
+            ],
+            "title": "Referral Bonus"
+          },
+          {
+            "description": "Counts the number of referrals recorded in the Referral dataset. Use it to track referral volume and aggregate totals across time, channels, or other business dimensions.",
+            "id": "fact_referral.referral_count",
+            "sourceColumn": "referral_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Referral"
+            ],
+            "title": "Referral Count"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_referral.referral_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_referral",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_customer",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "customer_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer.customer_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "referral_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Referral"
+        ],
+        "title": "Referral",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each loyalty program in the Loyalty Program ROI dataset, used to group, filter, and join results by program.",
+            "id": "sql_loyalty_roi.loyalty_program_id",
+            "labels": [],
+            "sourceColumn": "loyalty_program_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Program ROI"
+            ],
+            "title": "Loyalty Program ID"
+          }
+        ],
+        "description": "Loyalty Program ROI",
+        "facts": [
+          {
+            "description": "Revenue amount attributed to the loyalty program, used to analyze the program’s ROI and performance within the Loyalty Program ROI dataset.",
+            "id": "sql_loyalty_roi.attributed_revenue",
+            "sourceColumn": "attributed_revenue",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Loyalty Program ROI"
+            ],
+            "title": "Attributed Revenue (Loyalty Program ROI)"
+          },
+          {
+            "description": "Cost associated with loyalty points in the Loyalty Program ROI dataset, used to track and analyze the expense of issuing or redeeming points.",
+            "id": "sql_loyalty_roi.points_cost",
+            "sourceColumn": "points_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Loyalty Program ROI"
+            ],
+            "title": "Points Cost (Loyalty ROI)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "sql_loyalty_roi.loyalty_program_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "sql_loyalty_roi",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "program_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "sql": {
+          "dataSourceId": "{{ datasource_id }}",
+          "statement": "\nSELECT\n    lp.enrollment_id AS loyalty_program_id,\n    lp.enrollment_date AS program_date,\n    SUM(lpe.points) * 0.01 AS points_cost,\n    SUM(COALESCE(ol.revenue, 0)) AS attributed_revenue\nFROM {{ datasource_schema }}.fact_loyalty_points_earned lpe\nJOIN {{ datasource_schema }}.fact_loyalty_enrollment lp ON lpe.customer_id = lp.customer_id\nLEFT JOIN {{ datasource_schema }}.fact_order_header oh ON lpe.customer_id = oh.customer_id\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nGROUP BY 1, 2\n"
+        },
+        "tags": [
+          "Loyalty Program ROI"
+        ],
+        "title": "Loyalty Program ROI",
+        "workspaceDataFilterReferences": []
+      }
+    ],
+    "dateInstances": [
+      {
+        "description": "",
+        "granularities": [
+          "MINUTE",
+          "HOUR",
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "transaction_date",
+        "title": "Transaction Date"
+      }
+    ]
+  }
+}

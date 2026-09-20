@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_facilities_category
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_facilities_category
   type: dataSource
 description: Facilities Category

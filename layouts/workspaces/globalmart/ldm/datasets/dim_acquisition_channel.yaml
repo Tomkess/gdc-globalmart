@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_acquisition_channel
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_acquisition_channel
   type: dataSource
 description: Acquisition Channel

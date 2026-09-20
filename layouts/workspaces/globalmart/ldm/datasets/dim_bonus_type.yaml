@@ -30,7 +30,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_bonus_type
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_bonus_type
   type: dataSource
 description: Bonus Type

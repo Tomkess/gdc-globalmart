@@ -1,0 +1,28 @@
+content:
+  buckets:
+  - items:
+    - measure:
+        definition:
+          measureDefinition:
+            filters: []
+            item:
+              identifier:
+                id: m_orders
+                type: metric
+        localIdentifier: m_m_orders
+    - attribute:
+        displayForm:
+          identifier:
+            id: order_date.month
+            type: label
+        localIdentifier: a_order_date.month
+    localIdentifier: measures
+  filters: []
+  properties: {}
+  sorts: []
+  version: '2'
+  visualizationUrl: local:column
+description: ''
+id: viz_sales_orders
+tags: []
+title: viz_sales_orders

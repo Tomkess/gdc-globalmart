@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_ops_attr_00
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_ops_attr_00
   type: dataSource
 description: Store Efficiency Score

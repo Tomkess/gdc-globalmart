@@ -1,0 +1,43 @@
+aggregatedFacts: []
+attributes:
+- description: ''
+  id: fact_headcount.headcount_id
+  labels: []
+  sourceColumn: headcount_id
+  sourceColumnDataType: STRING
+  tags:
+  - fact_headcount
+  title: headcount_id
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: fact_headcount
+  path:
+  - globalmart
+  - fact_headcount
+  type: dataSource
+description: ''
+facts:
+- description: ''
+  id: fact_headcount.headcount
+  sourceColumn: headcount
+  sourceColumnDataType: NUMERIC
+  tags:
+  - fact_headcount
+  title: headcount
+grain: []
+id: fact_headcount
+references:
+- identifier:
+    id: dim_employee
+    type: dataset
+  multivalue: false
+  sources:
+  - column: dim_employee_id
+    dataType: STRING
+    target:
+      id: dim_employee.employee_id
+      type: attribute
+tags:
+- fact_headcount
+title: Fact Headcount
+workspaceDataFilterReferences: []

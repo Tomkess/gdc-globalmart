@@ -31,7 +31,7 @@ from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import
 
 from globalmart.backup import backup_workspace
 from globalmart.compare import model_diff, model_digest
-from globalmart.config import TargetProfile
+from globalmart.config import GlobalmartError, TargetProfile
 from globalmart.counts import ObjectCounts, count_objects
 from globalmart.datasource import DataSourceOutcome, ensure_data_source
 from globalmart.preflight import check_organization, check_portability, check_profile
@@ -79,6 +79,68 @@ class PublishResult:
 def resolved_workspace_id(profile: TargetProfile, base_id: str) -> str:
     """Apply the profile's prefix, so several copies can coexist in one org."""
     return f"{profile.workspace_id_prefix}{base_id}"
+
+
+def publish_domains(
+    sdk: GoodDataSdk,
+    manifest: object,
+    profile: TargetProfile,
+    *,
+    models: dict[str, CatalogDeclarativeWorkspaceModel],
+    only: set[str] | None = None,
+    apply: bool = False,
+    take_backup: bool = True,
+    standalone_copy: bool = False,
+    keep_going: bool = False,
+) -> list[PublishResult]:
+    """Publish each domain child through the **unchanged** ``publish_workspace``.
+
+    A loop, deliberately: every guard FEAT-002 built — preflight, org identity pin,
+    datasource upsert, placeholder resolution, backup, the ``--apply`` gate — applies per
+    child for free, and this feature adds no SDK call site of its own.
+
+    Stops at the first failure unless ``keep_going``, because twelve workspaces replaced
+    against a misconfigured target is twelve restores.
+    """
+    results: list[PublishResult] = []
+    failures: list[str] = []
+    keys = [key for key in manifest.keys() if only is None or key in only]  # type: ignore[attr-defined]  # noqa: SIM118 - DomainManifest.keys() is a method, not a mapping
+
+    for position, key in enumerate(keys):
+        domain = manifest.by_key(key)  # type: ignore[attr-defined]
+        model = models.get(key)
+        if model is None:
+            raise GlobalmartError(
+                f"no generated workspace for domain {key!r} — run `globalmart split` first"
+            )
+        try:
+            results.append(
+                publish_workspace(
+                    sdk,
+                    model,
+                    profile,
+                    workspace_id=domain.workspace_id,
+                    workspace_name=manifest.resolve_workspace_name(domain),  # type: ignore[attr-defined]
+                    apply=apply,
+                    standalone_copy=standalone_copy,
+                    take_backup=take_backup,
+                )
+            )
+        except Exception as error:
+            failures.append(f"[{key}] {error}")
+            if not keep_going:
+                remaining = keys[position + 1 :]
+                raise GlobalmartError(
+                    f"publishing domain {key!r} failed: {error}\n"
+                    f"not attempted: {', '.join(remaining) or '(none)'}"
+                ) from error
+
+    if failures:
+        raise GlobalmartError(
+            f"{len(failures)} domain(s) failed to publish:\n  " + "\n  ".join(failures)
+        )
+
+    return results
 
 
 def publish_workspace(

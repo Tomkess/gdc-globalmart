@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT SUM({fact/fact_orders.amount})
+description: ''
+id: m_revenue
+tags:
+- metric
+title: m_revenue

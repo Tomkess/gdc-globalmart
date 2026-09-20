@@ -1,0 +1,34 @@
+aggregatedFacts: []
+attributes:
+- description: ''
+  id: dim_employee.employee_id
+  labels: []
+  sourceColumn: employee_id
+  sourceColumnDataType: STRING
+  tags:
+  - dim_employee
+  title: employee_id
+- description: ''
+  id: dim_employee.employee_name
+  labels: []
+  sourceColumn: employee_name
+  sourceColumnDataType: STRING
+  tags:
+  - dim_employee
+  title: employee_name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_employee
+  path:
+  - globalmart
+  - dim_employee
+  type: dataSource
+description: ''
+facts: []
+grain: []
+id: dim_employee
+references: []
+tags:
+- dim_employee
+title: Dim Employee
+workspaceDataFilterReferences: []

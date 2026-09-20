@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_customer_attr_01
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_customer_attr_01
   type: dataSource
 description: Customer Churn Risk Score

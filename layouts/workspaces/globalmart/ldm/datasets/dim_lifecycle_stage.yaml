@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_lifecycle_stage
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_lifecycle_stage
   type: dataSource
 description: Lifecycle Stage

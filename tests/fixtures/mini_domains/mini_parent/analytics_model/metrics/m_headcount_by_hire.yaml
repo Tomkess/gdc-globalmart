@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT {metric/m_headcount} BY {label/hire_date.year}
+description: ''
+id: m_headcount_by_hire
+tags:
+- metric
+title: m_headcount_by_hire

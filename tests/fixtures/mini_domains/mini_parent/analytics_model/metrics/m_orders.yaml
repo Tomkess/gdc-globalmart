@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT COUNT({attribute/fact_orders.order_id})
+description: ''
+id: m_orders
+tags:
+- metric
+title: m_orders

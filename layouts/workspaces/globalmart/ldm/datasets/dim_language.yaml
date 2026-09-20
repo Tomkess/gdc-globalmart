@@ -29,7 +29,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_language
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_language
   type: dataSource
 description: Language

@@ -1,0 +1,44 @@
+aggregatedFacts: []
+attributes:
+- description: ''
+  id: dim_customer.customer_id
+  labels: []
+  sourceColumn: customer_id
+  sourceColumnDataType: STRING
+  tags:
+  - dim_customer
+  title: customer_id
+- description: ''
+  id: dim_customer.customer_name
+  labels: []
+  sourceColumn: customer_name
+  sourceColumnDataType: STRING
+  tags:
+  - dim_customer
+  title: customer_name
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_customer
+  path:
+  - globalmart
+  - dim_customer
+  type: dataSource
+description: ''
+facts: []
+grain: []
+id: dim_customer
+references:
+- identifier:
+    id: dim_geo
+    type: dataset
+  multivalue: false
+  sources:
+  - column: dim_geo_id
+    dataType: STRING
+    target:
+      id: dim_geo.geo_id
+      type: attribute
+tags:
+- dim_customer
+title: Dim Customer
+workspaceDataFilterReferences: []

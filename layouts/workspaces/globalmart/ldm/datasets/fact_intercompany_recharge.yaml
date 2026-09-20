@@ -33,7 +33,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_intercompany_recharge
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_intercompany_recharge
   type: dataSource
 description: Intercompany Recharge

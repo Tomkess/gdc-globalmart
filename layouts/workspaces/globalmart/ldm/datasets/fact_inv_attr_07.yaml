@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_inv_attr_07
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_inv_attr_07
   type: dataSource
 description: Inventory Fill Rate Score

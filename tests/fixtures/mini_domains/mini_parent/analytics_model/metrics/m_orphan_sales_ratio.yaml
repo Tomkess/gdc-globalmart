@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT {metric/m_revenue} / {metric/m_orders}
+description: ''
+id: m_orphan_sales_ratio
+tags:
+- metric
+title: m_orphan_sales_ratio

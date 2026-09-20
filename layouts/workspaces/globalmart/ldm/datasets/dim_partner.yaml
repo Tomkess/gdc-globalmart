@@ -29,7 +29,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_partner
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_partner
   type: dataSource
 description: Partner

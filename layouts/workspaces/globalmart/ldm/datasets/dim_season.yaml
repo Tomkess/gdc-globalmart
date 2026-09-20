@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_season
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_season
   type: dataSource
 description: Season

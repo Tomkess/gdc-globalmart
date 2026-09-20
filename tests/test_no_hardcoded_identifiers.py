@@ -56,3 +56,32 @@ def test_the_scan_actually_looks_at_something() -> None:
     """Guard: a scan over zero files would pass vacuously."""
     assert list(SRC.rglob("*.py")), "no source files found to scan"
     assert len(list(SRC.rglob("*.py"))) >= 10
+
+
+# --- FEAT-004 AC #15: the domain list too ------------------------------------
+
+
+def test_no_child_workspace_id_appears_in_code() -> None:
+    """The predecessor had the domain list in four places; one edit missed was invisible.
+
+    `domain_bootstrap.py` is exempt for the keys and labels (FEAT-003's one-time seed, pinned
+    by `test_single_source_of_domains.py`), but nothing anywhere may hardcode a child
+    workspace id — those come from the manifest's `workspace_id_template`.
+    """
+    import yaml
+
+    manifest_path = SRC.parent.parent / "config" / "domains.yaml"
+    document = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    child_ids = [domain["workspace_id"] for domain in document["domains"]]
+
+    offenders: list[str] = []
+    for path in sorted(SRC.rglob("*.py")):
+        text = path.read_text(encoding="utf-8")
+        for child_id in child_ids:
+            if child_id in text:
+                offenders.append(f"{path.relative_to(SRC.parent.parent)}: {child_id}")
+
+    assert offenders == [], (
+        "child workspace ids must be resolved from config/domains.yaml, not hardcoded:\n"
+        + "\n".join(offenders)
+    )

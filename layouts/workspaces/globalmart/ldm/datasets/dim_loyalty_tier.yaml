@@ -40,7 +40,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_loyalty_tier
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_loyalty_tier
   type: dataSource
 description: Loyalty Tier

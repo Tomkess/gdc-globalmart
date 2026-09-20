@@ -19,9 +19,11 @@ Paths never contain an org id: the folder is passed explicitly, never derived fr
 
 from __future__ import annotations
 
+import json
 import shutil
 import tempfile
 from pathlib import Path
+from typing import Any
 
 import yaml
 from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import (
@@ -107,3 +109,42 @@ def read_tree(workspace_folder: Path) -> CatalogDeclarativeWorkspaceModel:
     ``load_declarative_workspace`` is never used.
     """
     return CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=Path(workspace_folder))
+
+
+# --- the JSON side (ADR 001: derived children are committed declarative JSON) -------------
+
+
+def model_to_dict(model: CatalogDeclarativeWorkspaceModel) -> dict[str, Any]:
+    """The model as the API spells it.
+
+    Mapping order is fixed by ``sort_keys`` at dump time. **List order is left exactly as
+    the model has it**, which is a deliberate reversal of the obvious idea.
+
+    Sorting every list looks like the way to make emission deterministic, and it corrupts
+    the document: ``dataSourceTableId.path`` is ``[schema, table]`` positionally, so sorting
+    it put the schema second and the publish failed on an unresolved placeholder — and it
+    would equally have reordered a visualization's ``buckets``, its ``sorts``, and a date
+    instance's ``granularities``, none of which announce that they are ordered.
+
+    Determinism comes from the producer instead: ``prune_ldm`` sorts datasets and date
+    instances by id, ``split._retain`` emits each analytics channel in sorted-id order, and
+    the parent tree is read from files in a fixed order. `test_emission_is_byte_stable`
+    holds this honest.
+    """
+    payload: dict[str, Any] = model.to_dict(camel_case=True)
+    return payload
+
+
+def write_model_json(model: CatalogDeclarativeWorkspaceModel, path: Path) -> Path:
+    """Write a workspace model as one deterministic JSON document."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(model_to_dict(model), sort_keys=True, indent=2, ensure_ascii=False)
+    path.write_text(text + "\n", encoding="utf-8")
+    return path
+
+
+def read_model_json(path: Path) -> CatalogDeclarativeWorkspaceModel:
+    """Load a workspace model from a JSON document written by ``write_model_json``."""
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    return CatalogDeclarativeWorkspaceModel.from_dict(payload, camel_case=True)

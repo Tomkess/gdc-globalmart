@@ -39,7 +39,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_lead_time_bucket
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_lead_time_bucket
   type: dataSource
 description: Lead Time Bucket

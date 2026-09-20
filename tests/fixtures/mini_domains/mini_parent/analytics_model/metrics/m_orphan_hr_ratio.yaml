@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT {metric/m_headcount} / 2
+description: ''
+id: m_orphan_hr_ratio
+tags:
+- metric
+title: m_orphan_hr_ratio

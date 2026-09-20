@@ -47,7 +47,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_store
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_store
   type: dataSource
 description: Store

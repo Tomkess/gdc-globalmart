@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_waste_disposal
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_waste_disposal
   type: dataSource
 description: Waste Disposal

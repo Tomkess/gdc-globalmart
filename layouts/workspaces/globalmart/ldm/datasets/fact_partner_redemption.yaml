@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_partner_redemption
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_partner_redemption
   type: dataSource
 description: Partner Redemption

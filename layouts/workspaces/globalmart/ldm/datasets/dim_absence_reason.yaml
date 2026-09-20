@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_absence_reason
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_absence_reason
   type: dataSource
 description: Absence Reason

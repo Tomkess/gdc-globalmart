@@ -1,0 +1,3054 @@
+{
+  "analytics": {
+    "analyticalDashboardExtensions": [],
+    "analyticalDashboards": [
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_020",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0360",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_00",
+                      "title": "Lease Payment by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0361",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_01",
+                      "title": "Utility Cost by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0362",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_02",
+                      "title": "Renovation Cost by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0363",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_03",
+                      "title": "Disposal Cost by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0364",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_04",
+                      "title": "Waste Tons by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0365",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_05",
+                      "title": "Lease Payment by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0366",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_06",
+                      "title": "Lease Payment by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0367",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_07",
+                      "title": "Lease Payment by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0368",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_08",
+                      "title": "Utility Cost by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0369",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_09",
+                      "title": "Utility Cost by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0370",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_10",
+                      "title": "Utility Cost by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0371",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_020_11",
+                      "title": "Renovation Cost by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "This dashboard brings together key real estate and facilities cost trends—lease payments, utility costs, waste disposal costs/tons, and renovation spending—shown over time (monthly, quarterly, and yearly) and in some cases split by channel or region. By default it focuses on the last 12 months, with optional filters for store region and channel.",
+        "id": "dashboard_020",
+        "title": "Real Estate & Facilities Costs"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_021",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0372",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_00",
+                      "title": "Renovation Cost",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0373",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_01",
+                      "title": "Renovation Cost",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0374",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_02",
+                      "title": "Disposal Cost",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0375",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_03",
+                      "title": "Disposal Cost",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0376",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_04",
+                      "title": "Disposal Cost Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0377",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_05",
+                      "title": "Waste Tons Over Time",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0378",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_06",
+                      "title": "Waste Tons Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0379",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_07",
+                      "title": "Waste Tons and Lease Payment by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0380",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_08",
+                      "title": "Lease Payment by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0381",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_09",
+                      "title": "Utility Cost by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0382",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_10",
+                      "title": "Renovation Cost by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_real_estate_0383",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_021_11",
+                      "title": "Disposal Cost by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard that provides an at-a-glance view of energy and facilities maintenance performance, including renovation spend, waste disposal cost and volume, lease payments, and utility costs over time. It is set up with default filters for the last 12 months and includes channel and store-region filter controls so users can monitor trends and compare key cost drivers across the selected scope.",
+        "id": "dashboard_021",
+        "title": "Energy & Maintenance Overview"
+      }
+    ],
+    "attributeHierarchies": [],
+    "dashboardPlugins": [],
+    "exportDefinitions": [],
+    "filterContexts": [
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_channel_master.channel_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_channel_master.channel_type",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_020",
+        "title": "Filters — Real Estate & Facilities Costs"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_channel_master.channel_type",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_channel_master.channel_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_021",
+        "title": "Filters — Energy & Maintenance Overview"
+      }
+    ],
+    "memoryItems": [],
+    "metrics": [
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_lease_payment.lease_payment})"
+        },
+        "description": "Calculates the total lease payment amount by summing the Lease Payment values, respecting any applied filters and selections. Use this metric to report and compare overall lease payment totals across different slices of the data.",
+        "id": "metric_l1_fact_lease_payment_lease_payment",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Lease Payment (Lease Payment)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_renovation_spend.renovation_cost})"
+        },
+        "description": "Shows the total amount spent on renovations by summing the Renovation Cost from the Renovation Spend data. Use it to track and compare renovation spending across the current report scope, such as by time period, project, or other applied filters.",
+        "id": "metric_l1_fact_renovation_spend_renovation_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Renovation Cost (Renovation Spend)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_utility_cost.utility_cost})"
+        },
+        "description": "Shows total utility spending by summing the Utility Cost amounts across the selected data and any applied filters. Use it to track overall utility expense levels and compare utility costs across different breakdowns such as time or location.",
+        "id": "metric_l1_fact_utility_cost_utility_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Utility Cost (Utility Cost)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_waste_disposal.disposal_cost})"
+        },
+        "description": "Shows total spending on waste disposal by summing Disposal Cost from the Waste Disposal data. Use it to track and compare disposal costs across the selected reporting scope, such as time period, site, or vendor.",
+        "id": "metric_l1_fact_waste_disposal_disposal_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Disposal Cost (Waste Disposal)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_waste_disposal.waste_tons})"
+        },
+        "description": "Sums the total waste disposed of (in tons) across Waste Disposal records. Use it to monitor overall waste volume and compare totals by time period, location, or other dimensions.",
+        "id": "metric_l1_fact_waste_disposal_waste_tons",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Waste Tons (Waste Disposal)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_lease_payment_lease_payment} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total lease payment amount limited to the In-Store sales channel. Use this metric to track and compare in-store lease payment performance under the current report filters and time period.",
+        "id": "metric_l3_0112_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Lease Payment (Lease Payment) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_lease_payment_lease_payment} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total lease payment amount limited to the Online sales channel. Use it to report or compare lease payments specifically for online-originated business while still respecting any other filters in the report.",
+        "id": "metric_l3_0112_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Lease Payment (Lease Payment) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_lease_payment_lease_payment} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows the total lease payment amount for the North region only. Use it to report on or compare lease payments specifically within the North region, while still respecting any other filters applied in a dashboard or report.",
+        "id": "metric_l3_0112_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Lease Payment (Lease Payment) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_utility_cost_utility_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Shows total utility cost for the In-Store sales channel only, isolating utility spending for physical locations from other channels. Use it to track and compare in-store utility expenses across time, locations, or other business breakdowns.",
+        "id": "metric_l3_0113_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Utility Cost (Utility Cost) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_utility_cost_utility_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total utility cost restricted to the Online sales channel. Use this metric to monitor and compare utility spending for online operations within whatever other report filters are applied.",
+        "id": "metric_l3_0113_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Utility Cost (Utility Cost) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_utility_cost_utility_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total utility cost restricted to the North region. Use this metric to monitor overall utility spending for North in reports and dashboards, while still honoring any additional filters such as the selected time period.",
+        "id": "metric_l3_0113_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Utility Cost (Utility Cost) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_renovation_spend_renovation_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Totals renovation spending for the In-Store sales channel only, so you can track and compare in-store renovation costs across whatever time period, projects, or other filters are applied in the current analysis.",
+        "id": "metric_l3_0114_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Renovation Cost (Renovation Spend) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_renovation_spend_renovation_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Shows the total amount spent on renovations, filtered to the Online sales channel. Use it to monitor and compare renovation spending for Online activity across the current reporting scope (such as time periods, projects, or other applied filters).",
+        "id": "metric_l3_0114_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Renovation Cost (Renovation Spend) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_renovation_spend_renovation_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total renovation spending for projects in the North region. Use this metric to trend or compare renovation costs for North within the current report context (for example by time period, project, or other applied filters).",
+        "id": "metric_l3_0114_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Renovation Cost (Renovation Spend) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_waste_disposal_disposal_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total waste disposal cost for the In-Store sales channel only. Use this metric to track and compare in-store spending on waste disposal across the current reporting scope (for example by time period, site, or vendor).",
+        "id": "metric_l3_0115_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Disposal Cost (Waste Disposal) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_waste_disposal_disposal_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Shows total waste disposal spending for the Online sales channel only, based on summed disposal cost from the Waste Disposal data. Use it to track, trend, or compare disposal costs specifically for online-channel activity in reports and dashboards.",
+        "id": "metric_l3_0115_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Disposal Cost (Waste Disposal) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_waste_disposal_disposal_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total waste disposal spending limited to the North region. Use this metric to track and compare disposal costs for North-region operations across the current reporting context (for example by time period, site, or vendor).",
+        "id": "metric_l3_0115_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Disposal Cost (Waste Disposal) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_waste_disposal_waste_tons} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total waste volume (in tons) for Waste Disposal, filtered to the In-Store sales channel. Use this metric to track and compare in-store waste levels across time, locations, or other business dimensions.",
+        "id": "metric_l3_0116_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Waste Tons (Waste Disposal) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_waste_disposal_waste_tons} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total waste disposed (in tons) limited to the Online sales channel. Use this metric to track and compare online-channel waste volumes across time, locations, or other business dimensions.",
+        "id": "metric_l3_0116_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Waste Tons (Waste Disposal) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_waste_disposal_waste_tons} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total waste disposed (in tons) for the North region only. Use this metric to track North’s waste volume over time and to compare it against other segments or dimensions.",
+        "id": "metric_l3_0116_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Waste Tons (Waste Disposal) — North Region"
+      }
+    ],
+    "parameters": [],
+    "visualizationObjects": [
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_lease_payment_lease_payment",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total lease payment amounts summarized by month/year, helping you track how lease payments trend over time for the current selection and filters.",
+        "id": "viz_real_estate_0360",
+        "title": "Lease Payment by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_utility_cost_utility_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total utility cost aggregated by quarter/year, helping track how utility spending changes over time.",
+        "id": "viz_real_estate_0361",
+        "title": "Utility Cost by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_renovation_spend_renovation_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total renovation spending aggregated by year, using the Total Renovation Cost metric. It helps track how renovation costs trend over time at an annual level.",
+        "id": "viz_real_estate_0362",
+        "title": "Renovation Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_waste_disposal_disposal_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total waste disposal cost by month/year, helping track how spending on waste disposal changes over time for the selected reporting scope.",
+        "id": "viz_real_estate_0363",
+        "title": "Disposal Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_waste_disposal_waste_tons",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total waste volume (in tons) by quarter/year. Use it to monitor how waste disposal totals change over time and spot seasonal or quarterly trends.",
+        "id": "viz_real_estate_0364",
+        "title": "Waste Tons by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0112_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Lease Payment amount for the In-Store channel, broken down by transaction year. Use it to track year-over-year trends in in-store lease payments under the current report filters.",
+        "id": "viz_real_estate_0365",
+        "title": "Lease Payment by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0112_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Lease Payment amount for the Online sales channel, trended by Month/Year based on the transaction date. Use it to monitor how online-originated lease payments change over time and compare month-to-month performance.",
+        "id": "viz_real_estate_0366",
+        "title": "Lease Payment by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0112_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Lease Payment for the North region, broken out by Quarter/Year. Use it to track and compare quarterly lease payment trends over time for North under any applied report or dashboard filters.",
+        "id": "viz_real_estate_0367",
+        "title": "Lease Payment by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0113_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Utility Cost for the In-Store channel, broken down by transaction year, to track how utility spending for physical locations changes over time.",
+        "id": "viz_real_estate_0368",
+        "title": "Utility Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0113_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total utility cost for the Online sales channel, broken down by Month/Year. Use it to track monthly trends and compare changes in online utility spending over time.",
+        "id": "viz_real_estate_0369",
+        "title": "Utility Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0113_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total utility cost for the North region broken out by quarter/year. Use it to monitor quarterly trends in utility spending in North over time, with any additional report filters (such as date range) applied.",
+        "id": "viz_real_estate_0370",
+        "title": "Utility Cost by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0114_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total renovation spend for the In-Store sales channel, broken out by year. Use it to track how in-store renovation costs change over time and compare yearly spending.",
+        "id": "viz_real_estate_0371",
+        "title": "Renovation Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0114_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total renovation spending for the Online sales channel, based on the Renovation Cost metric. Use it to quickly track or compare Online renovation costs within the current reporting scope (for example by time period, project, or other dashboard filters).",
+        "id": "viz_real_estate_0372",
+        "title": "Renovation Cost"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0114_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total renovation spending for North-region projects (Renovation Cost). Use it as a quick KPI to monitor or compare renovation costs for the North under the current report filters and time period.",
+        "id": "viz_real_estate_0373",
+        "title": "Renovation Cost"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0115_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total waste disposal cost for the In-Store sales channel. Use it to monitor and compare in-store disposal spending across the current reporting context (such as time period, site, or vendor).",
+        "id": "viz_real_estate_0374",
+        "title": "Disposal Cost"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0115_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total waste disposal spending for the Online sales channel, based on the Disposal Cost (Waste Disposal) metric. Use it to quickly monitor or compare online-channel disposal costs in reports and dashboards.",
+        "id": "viz_real_estate_0375",
+        "title": "Disposal Cost"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0115_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing how total waste disposal spending for North-region operations changes month by month. Use it to track trends and compare disposal costs over time within the current reporting scope.",
+        "id": "viz_real_estate_0376",
+        "title": "Disposal Cost Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0116_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing monthly trends in total waste volume (tons) for Waste Disposal, restricted to the In-Store sales channel. Use it to monitor how in-store waste amounts change over time and identify increases or decreases by month.",
+        "id": "viz_real_estate_0377",
+        "title": "Waste Tons Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0116_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing total waste disposed (in tons) for the Online sales channel, trended by Month/Year. Use it to monitor how online-channel waste volumes change over time and spot increases or decreases month to month.",
+        "id": "viz_real_estate_0378",
+        "title": "Waste Tons Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0116_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                },
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_lease_payment_lease_payment",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m2"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "attribute"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:table"
+        },
+        "description": "Table showing quarterly trends in Waste Tons (North Region only) alongside Total Lease Payment, using the Quarter/Year time period. Use it to compare how waste disposal volume and lease payment amounts move over time on a quarterly basis.",
+        "id": "viz_real_estate_0379",
+        "title": "Waste Tons and Lease Payment by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_lease_payment_lease_payment",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total lease payment amount broken out by transaction year, to compare lease payment totals year over year.",
+        "id": "viz_real_estate_0380",
+        "title": "Lease Payment by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_utility_cost_utility_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total utility cost aggregated by month/year, helping track how utility spending changes over time.",
+        "id": "viz_real_estate_0381",
+        "title": "Utility Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_renovation_spend_renovation_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total renovation spending by quarter/year, helping you track how renovation costs trend over time.",
+        "id": "viz_real_estate_0382",
+        "title": "Renovation Cost by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_waste_disposal_disposal_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total waste disposal spending (Total Disposal Cost) broken out by year, based on the transaction date. Use it to track how disposal costs trend over time and compare annual totals.",
+        "id": "viz_real_estate_0383",
+        "title": "Disposal Cost by Year"
+      }
+    ]
+  },
+  "ldm": {
+    "datasetExtensions": [],
+    "datasets": [
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+            "id": "dim_channel_master.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel ID (Sales Channel)"
+          },
+          {
+            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Name (Sales Channel)"
+          },
+          {
+            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_type",
+            "labels": [],
+            "sourceColumn": "channel_type",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Type (Sales Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_channel_master",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_channel_master"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Sales Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_channel_master.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_channel_master",
+        "references": [],
+        "tags": [
+          "Sales Channel"
+        ],
+        "title": "Sales Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group, filter, or segment measures by currency.",
+            "id": "dim_currency.currency_code",
+            "labels": [],
+            "sourceColumn": "currency_code",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Code"
+          },
+          {
+            "description": "Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering or grouping analyses.",
+            "id": "dim_currency.currency_id",
+            "labels": [],
+            "sourceColumn": "currency_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency ID"
+          },
+          {
+            "description": "Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and reports by currency.",
+            "id": "dim_currency.currency_name",
+            "labels": [],
+            "sourceColumn": "currency_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Name"
+          },
+          {
+            "description": "The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter or break down analyses by the applicable USD conversion rate.",
+            "id": "dim_currency.exchange_rate_to_usd",
+            "labels": [],
+            "sourceColumn": "exchange_rate_to_usd",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Exchange Rate to Usd"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_currency",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_currency"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Currency",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_currency.currency_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_currency",
+        "references": [],
+        "tags": [
+          "Currency"
+        ],
+        "title": "Currency",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each city record in the City dataset, typically used to join, group, or filter city-level data in reporting.",
+            "id": "dim_geography_city.city_id",
+            "labels": [],
+            "sourceColumn": "city_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City ID"
+          },
+          {
+            "description": "Name of the city, used to group or filter analyses by city.",
+            "id": "dim_geography_city.city_name",
+            "labels": [],
+            "sourceColumn": "city_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_city",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_city"
+          ],
+          "type": "dataSource"
+        },
+        "description": "City",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_city.city_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_city",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_region",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "region_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_region.region_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "City"
+        ],
+        "title": "City",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and grouping in analysis.",
+            "id": "dim_geography_country.country_id",
+            "labels": [],
+            "sourceColumn": "country_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country ID"
+          },
+          {
+            "description": "Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by country.",
+            "id": "dim_geography_country.country_name",
+            "labels": [],
+            "sourceColumn": "country_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_country",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_country"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Country",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_country.country_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_country",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_currency",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "currency_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_currency.currency_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Country"
+        ],
+        "title": "Country",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis by region.",
+            "id": "dim_geography_region.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region ID (Region)"
+          },
+          {
+            "description": "Name of the geographic region in the Region dataset, used to group and filter reporting by region.",
+            "id": "dim_geography_region.region_name",
+            "labels": [],
+            "sourceColumn": "region_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_region",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_region"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Region",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_region.region_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_region",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Region"
+        ],
+        "title": "Region",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for the store’s region in the Store dataset, used to group, segment, or filter store-related reporting by region.",
+            "id": "dim_store.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Region ID (Store)"
+          },
+          {
+            "description": "Store square footage (size) for each store, used to group, compare, or filter stores by their physical footprint.",
+            "id": "dim_store.sqft",
+            "labels": [],
+            "sourceColumn": "sqft",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Size (Sq Ft)"
+          },
+          {
+            "description": "Store Format is a Store attribute that categorizes each store by its format/type (for example, different store concepts). It’s typically used to filter or break down metrics by store format in analyses and dashboards.",
+            "id": "dim_store.store_format",
+            "labels": [],
+            "sourceColumn": "store_format",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Format"
+          },
+          {
+            "description": "Unique identifier for each store in the Store dataset, used to group, filter, or join reporting by individual store.",
+            "id": "dim_store.store_id",
+            "labels": [],
+            "sourceColumn": "store_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store ID (Store)"
+          },
+          {
+            "description": "The name of the store, used to group and filter reporting by individual store in the Store dataset.",
+            "id": "dim_store.store_name",
+            "labels": [],
+            "sourceColumn": "store_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Store"
+            ],
+            "title": "Store Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_store",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_store"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Store",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_store.store_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_store",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_city",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "city_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_city.city_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_region",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "region_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_region.region_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Store"
+        ],
+        "title": "Store",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each lease payment record in the Lease Payment dataset, used to reference, group, or filter payments at the individual transaction level.",
+            "id": "fact_lease_payment.payment_id",
+            "labels": [],
+            "sourceColumn": "payment_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lease Payment"
+            ],
+            "title": "Payment ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_lease_payment",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_lease_payment"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Lease Payment",
+        "facts": [
+          {
+            "description": "The Lease Payment fact captures the amount of a lease payment recorded in the Lease Payment dataset, and is typically used for summing and analyzing lease payment totals across different cuts of the data.",
+            "id": "fact_lease_payment.lease_payment",
+            "sourceColumn": "lease_payment",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Lease Payment"
+            ],
+            "title": "Lease Payment"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_lease_payment.payment_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_lease_payment",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "payment_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Lease Payment"
+        ],
+        "title": "Lease Payment",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each renovation project in the Renovation Spend dataset. Use it to group, filter, or drill into renovation spending by individual project.",
+            "id": "fact_renovation_spend.project_id",
+            "labels": [],
+            "sourceColumn": "project_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Renovation Spend"
+            ],
+            "title": "Project ID (Renovation Spend)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_renovation_spend",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_renovation_spend"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Renovation Spend",
+        "facts": [
+          {
+            "description": "Renovation Cost is the monetary amount spent on renovation activities in the Renovation Spend dataset, typically used to total and compare renovation spending across projects, locations, or time periods.",
+            "id": "fact_renovation_spend.renovation_cost",
+            "sourceColumn": "renovation_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Renovation Spend"
+            ],
+            "title": "Renovation Cost"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_renovation_spend.project_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_renovation_spend",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "spend_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Renovation Spend"
+        ],
+        "title": "Renovation Spend",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each utility cost record in the Utility Cost dataset, used to distinguish, group, or filter individual cost entries.",
+            "id": "fact_utility_cost.cost_id",
+            "labels": [],
+            "sourceColumn": "cost_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Utility Cost"
+            ],
+            "title": "Cost ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_utility_cost",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_utility_cost"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Utility Cost",
+        "facts": [
+          {
+            "description": "The Utility Cost fact captures the cost amount associated with utility expenses in the Utility Cost dataset. It is typically used to aggregate and analyze utility spending across different slices such as time, location, or other related dimensions.",
+            "id": "fact_utility_cost.utility_cost",
+            "sourceColumn": "utility_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Utility Cost"
+            ],
+            "title": "Utility Cost"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_utility_cost.cost_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_utility_cost",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "cost_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Utility Cost"
+        ],
+        "title": "Utility Cost",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each waste disposal record in the Waste Disposal dataset. Use it to look up, filter, or group reporting by a specific disposal event.",
+            "id": "fact_waste_disposal.disposal_id",
+            "labels": [],
+            "sourceColumn": "disposal_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Waste Disposal"
+            ],
+            "title": "Disposal ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_waste_disposal",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_waste_disposal"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Waste Disposal",
+        "facts": [
+          {
+            "description": "Cost associated with waste disposal, captured on the Waste Disposal dataset and typically summed to analyze total disposal spending by location, time period, or disposal type.",
+            "id": "fact_waste_disposal.disposal_cost",
+            "sourceColumn": "disposal_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Waste Disposal"
+            ],
+            "title": "Disposal Cost"
+          },
+          {
+            "description": "Total amount of waste disposed of, measured in tons, from the Waste Disposal dataset. Commonly used to sum and compare waste volumes across time periods, locations, or disposal methods.",
+            "id": "fact_waste_disposal.waste_tons",
+            "sourceColumn": "waste_tons",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Waste Disposal"
+            ],
+            "title": "Waste Tons"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_waste_disposal.disposal_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_waste_disposal",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_store",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "store_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_store.store_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "disposal_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Waste Disposal"
+        ],
+        "title": "Waste Disposal",
+        "workspaceDataFilterReferences": []
+      }
+    ],
+    "dateInstances": [
+      {
+        "description": "",
+        "granularities": [
+          "MINUTE",
+          "HOUR",
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "transaction_date",
+        "title": "Transaction Date"
+      }
+    ]
+  }
+}

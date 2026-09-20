@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_checkout_time
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_checkout_time
   type: dataSource
 description: Checkout Time

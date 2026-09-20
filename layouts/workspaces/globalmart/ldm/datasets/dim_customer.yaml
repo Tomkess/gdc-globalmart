@@ -48,7 +48,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_customer
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_customer
   type: dataSource
 description: Customer

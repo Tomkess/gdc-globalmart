@@ -29,7 +29,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_household
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_household
   type: dataSource
 description: Household

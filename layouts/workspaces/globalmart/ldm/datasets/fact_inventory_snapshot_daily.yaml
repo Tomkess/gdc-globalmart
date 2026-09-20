@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_inventory_snapshot_daily
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_inventory_snapshot_daily
   type: dataSource
 description: Daily Inventory Snapshot

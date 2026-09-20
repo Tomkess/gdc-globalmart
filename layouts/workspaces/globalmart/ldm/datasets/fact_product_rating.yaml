@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_product_rating
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_product_rating
   type: dataSource
 description: Product Rating

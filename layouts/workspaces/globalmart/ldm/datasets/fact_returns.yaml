@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_returns
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_returns
   type: dataSource
 description: Returns

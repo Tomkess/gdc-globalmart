@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_risk_category
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_risk_category
   type: dataSource
 description: Risk Category

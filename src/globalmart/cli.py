@@ -28,18 +28,21 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from globalmart.capture import capture_workspace
+from globalmart.closure import MetricPolicy
 from globalmart.config import GlobalmartError, load_profile
 from globalmart.counts import count_objects
 from globalmart.coverage import check_coverage, raise_for_report
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
-from globalmart.layout_io import read_tree, write_tree
+from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
-from globalmart.publish import PARENT_WORKSPACE_NAME, publish_workspace
+from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
 from globalmart.sdk_client import make_sdk
+from globalmart.split import split_all
 
 DEFAULT_LAYOUT_PATH = Path("layouts/workspaces/globalmart")
 DEFAULT_DOMAINS_PATH = Path("config/domains.yaml")
+DEFAULT_GENERATED_PATH = Path("generated/workspaces")
 
 
 def _print_report(title: str, lines: Sequence[str]) -> None:
@@ -241,6 +244,117 @@ def cmd_domains_bootstrap(args: argparse.Namespace) -> int:
     return 0
 
 
+def _load_for_split(args: argparse.Namespace) -> tuple[object, object]:
+    source = Path(args.source)
+    if not source.exists():
+        raise GlobalmartError(f"No layout tree at {source}")
+    return read_tree(source), load_domains(Path(args.domains_file))
+
+
+def _split_report(result: object) -> list[str]:
+    return list(result.summary_lines())  # type: ignore[attr-defined]
+
+
+def cmd_split(args: argparse.Namespace) -> int:
+    """Derive every domain child from the parent. Writes local files only (ADR 002)."""
+    model, manifest = _load_for_split(args)
+    only = set(args.only.split(",")) if args.only else None
+    out = Path(args.out)
+
+    result = split_all(
+        model,
+        manifest,  # type: ignore[arg-type]
+        only=only,
+        out=out,
+        write=False,
+        metric_policy=MetricPolicy(args.metric_policy),
+    )
+
+    _print_report(f"Split — {args.source} + {args.domains_file}", _split_report(result))
+
+    if args.dry_run:
+        print(f"\nREHEARSAL — nothing written. Re-run without --dry-run to write {out}.")
+        return 0
+
+    with tempfile.TemporaryDirectory(prefix="globalmart-split-") as scratch:
+        staged = Path(scratch)
+        split_all(
+            model,
+            manifest,  # type: ignore[arg-type]
+            only=only,
+            out=staged,
+            write=True,
+            metric_policy=MetricPolicy(args.metric_policy),
+        )
+        produced = {path.name: path.read_text(encoding="utf-8") for path in staged.glob("*.json")}
+
+    if args.check:
+        committed = {
+            path.name: path.read_text(encoding="utf-8") for path in sorted(out.glob("*.json"))
+        }
+        changed = sorted(k for k in produced.keys() & committed.keys() if produced[k] != committed[k])
+        added = sorted(produced.keys() - committed.keys())
+        removed = sorted(committed.keys() - produced.keys())
+        if changed or added or removed:
+            print(f"\n{out} is NOT current:")
+            for name in changed:
+                print(f"  would change: {name}")
+            for name in added:
+                print(f"  would add   : {name}")
+            for name in removed:
+                print(f"  would remove: {name}")
+            print("\nRun `globalmart split` and commit the result.")
+            return 1
+        print(f"\n{out} is current ({len(committed)} files).")
+        return 0
+
+    out.mkdir(parents=True, exist_ok=True)
+    for name, text in sorted(produced.items()):
+        (out / name).write_text(text, encoding="utf-8")
+    # A domain removed from the manifest must lose its file, or a stale child gets published.
+    for stale in sorted(set(p.name for p in out.glob("*.json")) - set(produced)):
+        if only is None:
+            (out / stale).unlink()
+    print(f"\nWrote {len(produced)} files to {out}")
+    return 0
+
+
+def cmd_publish_domains(args: argparse.Namespace) -> int:
+    profile = load_profile(args.target)
+    manifest = load_domains(Path(args.domains_file))
+    source = Path(args.source)
+    only = set(args.only.split(",")) if args.only else None
+
+    models = {}
+    for key in manifest.keys():  # noqa: SIM118 - DomainManifest.keys() is a method, not a mapping
+        if only is not None and key not in only:
+            continue
+        path = source / f"{manifest.by_key(key).workspace_id}.json"
+        if not path.exists():
+            raise GlobalmartError(f"No generated workspace at {path}. Run `globalmart split`.")
+        models[key] = read_model_json(path)
+
+    results = publish_domains(
+        make_sdk(profile),
+        manifest,
+        profile,
+        models=models,
+        only=only,
+        apply=args.apply,
+        take_backup=not args.no_backup,
+        standalone_copy=args.standalone_copy,
+        keep_going=args.keep_going,
+    )
+
+    if not args.apply:
+        print("REHEARSAL — no writes. Re-run with --apply to publish.\n")
+
+    for result in results:
+        print(f"{result.workspace_id:28s} [{result.workspace_name}]  changed={result.changed}")
+    print(f"\n{len(results)} workspace(s) {'published' if args.apply else 'rehearsed'}")
+    return 0
+
+
 def cmd_targets_inspect(args: argparse.Namespace) -> int:
     """Discover what a host reports, so a new profile can be filled in from fact.
 
@@ -345,6 +459,30 @@ def build_parser() -> argparse.ArgumentParser:
     )
     domains_bootstrap.set_defaults(func=cmd_domains_bootstrap)
 
+    split = subparsers.add_parser(
+        "split", help="derive every domain workspace from the parent"
+    )
+    split.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
+    split.add_argument("--source", "--from", dest="source", default=str(DEFAULT_LAYOUT_PATH))
+    split.add_argument("--out", default=str(DEFAULT_GENERATED_PATH))
+    split.add_argument("--only", default=None, help="comma-separated domain keys")
+    split.add_argument(
+        "--metric-policy",
+        choices=[policy.value for policy in MetricPolicy],
+        default=MetricPolicy.DATASET_FIT.value,
+        help=(
+            "dataset-fit keeps every metric whose tables are already in the child "
+            "(adds no datasets); reachable keeps only metrics a retained visualization uses"
+        ),
+    )
+    split.add_argument("--dry-run", action="store_true", help="report only; write no file")
+    split.add_argument(
+        "--check",
+        action="store_true",
+        help="exit 1 if the committed children differ from what would be generated (the CI gate)",
+    )
+    split.set_defaults(func=cmd_split)
+
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)
     inspect = targets_actions.add_parser(
@@ -373,6 +511,29 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parent.add_argument("--standalone-copy", action="store_true")
     parent.set_defaults(func=cmd_publish_parent)
+
+    domains_publish = publish_targets.add_parser(
+        "domains", help="publish the derived domain workspaces"
+    )
+    domains_publish.add_argument("--target", required=True)
+    domains_publish.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
+    domains_publish.add_argument(
+        "--source", "--in", dest="source", default=str(DEFAULT_GENERATED_PATH)
+    )
+    domains_publish.add_argument("--only", default=None, help="comma-separated domain keys")
+    domains_publish.add_argument(
+        "--apply",
+        action="store_true",
+        help="actually write to the org; without it this is a read-only rehearsal (ADR 002)",
+    )
+    domains_publish.add_argument("--no-backup", action="store_true")
+    domains_publish.add_argument("--standalone-copy", action="store_true")
+    domains_publish.add_argument(
+        "--keep-going",
+        action="store_true",
+        help="continue past a failing domain; the exit code is still non-zero",
+    )
+    domains_publish.set_defaults(func=cmd_publish_domains)
 
     return parser
 

@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_training_type
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_training_type
   type: dataSource
 description: Training Type

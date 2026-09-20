@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_payment_method
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_payment_method
   type: dataSource
 description: Payment Method

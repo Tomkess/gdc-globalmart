@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_budget_plan
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_budget_plan
   type: dataSource
 description: Budget Plan

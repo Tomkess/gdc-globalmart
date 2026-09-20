@@ -40,3 +40,9 @@ jobs:
       # freshly bootstrapped manifest cannot go green unreviewed. Offline, no credentials.
       - name: Domain manifest covers the parent
         run: uv run globalmart domains validate --strict
+
+      # The derived children must match what the parent plus the manifest produce. A
+      # hand-edited generated file, or a parent change nobody re-split, fails the PR.
+      # Offline: reads the committed tree, never a live host.
+      - name: Domain children are current
+        run: uv run globalmart split --check

@@ -21,7 +21,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_stock_location
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_stock_location
   type: dataSource
 description: Stock Location

@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_customer_event
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_customer_event
   type: dataSource
 description: Customer Event

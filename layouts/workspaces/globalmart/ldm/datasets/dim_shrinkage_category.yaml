@@ -21,7 +21,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_shrinkage_category
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_shrinkage_category
   type: dataSource
 description: Shrinkage Category

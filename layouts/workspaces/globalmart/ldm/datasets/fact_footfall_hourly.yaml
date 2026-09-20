@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_footfall_hourly
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_footfall_hourly
   type: dataSource
 description: Hourly Footfall

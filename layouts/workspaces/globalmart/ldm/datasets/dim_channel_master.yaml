@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_channel_master
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_channel_master
   type: dataSource
 description: Sales Channel

@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_lease_payment
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_lease_payment
   type: dataSource
 description: Lease Payment

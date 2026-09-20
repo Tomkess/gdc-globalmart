@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT {metric/m_revenue} BY {label/dim_product.product_name}
+description: ''
+id: m_revenue_per_product
+tags:
+- metric
+title: m_revenue_per_product

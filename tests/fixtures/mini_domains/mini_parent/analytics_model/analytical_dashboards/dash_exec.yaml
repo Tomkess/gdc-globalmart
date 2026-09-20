@@ -1,0 +1,48 @@
+content:
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_sales_revenue
+              type: visualizationObject
+          localIdentifier: w0
+          title: viz_sales_revenue
+          type: insight
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills:
+          - target:
+              identifier:
+                id: viz_sales_basket
+                type: visualizationObject
+            type: drillToInsight
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_hr_ratio
+              type: visualizationObject
+          localIdentifier: w1
+          title: viz_hr_ratio
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: ''
+id: dash_exec
+tags: []
+title: dash_exec

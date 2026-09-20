@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_fraud_type
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_fraud_type
   type: dataSource
 description: Fraud Type

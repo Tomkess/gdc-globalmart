@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_referral_source
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_referral_source
   type: dataSource
 description: Referral Source

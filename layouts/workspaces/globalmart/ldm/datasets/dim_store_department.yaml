@@ -21,7 +21,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_store_department
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_store_department
   type: dataSource
 description: Store Department

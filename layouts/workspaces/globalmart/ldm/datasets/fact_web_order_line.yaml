@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_web_order_line
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_web_order_line
   type: dataSource
 description: Online Order Line Items

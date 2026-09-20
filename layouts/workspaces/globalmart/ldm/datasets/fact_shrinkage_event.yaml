@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_shrinkage_event
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_shrinkage_event
   type: dataSource
 description: Shrinkage Event

@@ -27,6 +27,7 @@ from globalmart.traversal import (
     iter_all_string_fields,
     iter_datasource_slots,
     iter_sql_statements,
+    iter_table_schema_slots,
 )
 
 #: Any unresolved ``{{ ... }}`` placeholder, so a token nobody anticipated is still caught.
@@ -72,6 +73,10 @@ def resolve_placeholders(
         if datasource_slot.get() is not None:
             datasource_slot.set(datasource_id)
             refs += 1
+
+    for table_slot in iter_table_schema_slots(model):
+        if table_slot.get() == DATASOURCE_SCHEMA_TOKEN:
+            table_slot.set(datasource_schema)
 
     statements = 0
     substitutions = 0

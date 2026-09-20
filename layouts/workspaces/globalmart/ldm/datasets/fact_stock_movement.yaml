@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_stock_movement
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_stock_movement
   type: dataSource
 description: Stock Movement

@@ -39,7 +39,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_shift_type
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_shift_type
   type: dataSource
 description: Shift Type

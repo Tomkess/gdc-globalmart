@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_creative
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_creative
   type: dataSource
 description: Creative

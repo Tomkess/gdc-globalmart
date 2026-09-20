@@ -1,0 +1,29 @@
+aggregatedFacts: []
+attributes:
+- description: ''
+  id: sql_basket.basket_id
+  labels: []
+  sourceColumn: basket_id
+  sourceColumnDataType: STRING
+  tags:
+  - sql_basket
+  title: basket_id
+description: ''
+facts:
+- description: ''
+  id: sql_basket.basket_size
+  sourceColumn: basket_size
+  sourceColumnDataType: NUMERIC
+  tags:
+  - sql_basket
+  title: basket_size
+grain: []
+id: sql_basket
+references: []
+sql:
+  dataSourceId: '{{ datasource_id }}'
+  statement: SELECT * FROM {{ datasource_schema }}.basket
+tags:
+- sql_basket
+title: Sql Basket
+workspaceDataFilterReferences: []

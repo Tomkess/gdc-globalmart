@@ -21,7 +21,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_inbound_carrier
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_inbound_carrier
   type: dataSource
 description: Inbound Carrier

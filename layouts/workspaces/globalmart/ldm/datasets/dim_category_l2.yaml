@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_category_l2
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_category_l2
   type: dataSource
 description: Product Category Level 2

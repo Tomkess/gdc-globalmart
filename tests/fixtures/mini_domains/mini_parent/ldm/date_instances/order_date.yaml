@@ -1,0 +1,10 @@
+description: ''
+granularities:
+- DAY
+- MONTH
+- YEAR
+granularitiesFormatting:
+  titleBase: ''
+  titlePattern: '%granularityTitle'
+id: order_date
+title: Order Date

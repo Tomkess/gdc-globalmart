@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_competitor_pricing
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_competitor_pricing
   type: dataSource
 description: Competitor Pricing

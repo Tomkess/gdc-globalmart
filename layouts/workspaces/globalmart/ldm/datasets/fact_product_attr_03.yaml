@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_product_attr_03
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_product_attr_03
   type: dataSource
 description: Product Customer Rating Score

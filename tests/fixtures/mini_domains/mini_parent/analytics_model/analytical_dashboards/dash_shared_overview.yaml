@@ -1,0 +1,27 @@
+content:
+  layout:
+    sections:
+    - items:
+      - size:
+          xl:
+            gridHeight: 12
+            gridWidth: 6
+        type: IDashboardLayoutItem
+        widget:
+          description: ''
+          drills: []
+          ignoreDashboardFilters: []
+          insight:
+            identifier:
+              id: viz_shared_geo
+              type: visualizationObject
+          localIdentifier: w0
+          title: viz_shared_geo
+          type: insight
+      type: IDashboardLayoutSection
+    type: IDashboardLayout
+  version: '2'
+description: ''
+id: dash_shared_overview
+tags: []
+title: dash_shared_overview

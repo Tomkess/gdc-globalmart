@@ -39,7 +39,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_employee
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_employee
   type: dataSource
 description: Employee

@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_company_entity
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_company_entity
   type: dataSource
 description: Company Entity

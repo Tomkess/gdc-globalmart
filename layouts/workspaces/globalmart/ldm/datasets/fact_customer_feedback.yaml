@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_customer_feedback
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_customer_feedback
   type: dataSource
 description: Customer Feedback

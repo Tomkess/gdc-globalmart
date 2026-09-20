@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_mkt_attr_02
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_mkt_attr_02
   type: dataSource
 description: Brand Sentiment Score

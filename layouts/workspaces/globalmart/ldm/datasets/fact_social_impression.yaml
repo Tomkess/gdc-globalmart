@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_social_impression
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_social_impression
   type: dataSource
 description: Social Impression

@@ -30,7 +30,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_job_role
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_job_role
   type: dataSource
 description: Job Role

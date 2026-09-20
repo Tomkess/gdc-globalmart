@@ -1,0 +1,10 @@
+description: ''
+granularities:
+- DAY
+- MONTH
+- YEAR
+granularitiesFormatting:
+  titleBase: ''
+  titlePattern: '%granularityTitle'
+id: hire_date
+title: Hire Date

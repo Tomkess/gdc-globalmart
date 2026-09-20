@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_ecom_event_03
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_ecom_event_03
   type: dataSource
 description: E-commerce Remove from Cart

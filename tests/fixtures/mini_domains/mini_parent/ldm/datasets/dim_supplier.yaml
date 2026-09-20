@@ -1,0 +1,26 @@
+aggregatedFacts: []
+attributes:
+- description: ''
+  id: dim_supplier.supplier_id
+  labels: []
+  sourceColumn: supplier_id
+  sourceColumnDataType: STRING
+  tags:
+  - dim_supplier
+  title: supplier_id
+dataSourceTableId:
+  dataSourceId: '{{ datasource_id }}'
+  id: dim_supplier
+  path:
+  - globalmart
+  - dim_supplier
+  type: dataSource
+description: Reached by no domain — the fixture's proof that pruning removes something.
+facts: []
+grain: []
+id: dim_supplier
+references: []
+tags:
+- dim_supplier
+title: Dim Supplier
+workspaceDataFilterReferences: []

@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT AVG({fact/sql_basket.basket_size})
+description: ''
+id: m_basket_size
+tags:
+- metric
+title: m_basket_size

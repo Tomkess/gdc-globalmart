@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_maintenance_request
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_maintenance_request
   type: dataSource
 description: Maintenance Request

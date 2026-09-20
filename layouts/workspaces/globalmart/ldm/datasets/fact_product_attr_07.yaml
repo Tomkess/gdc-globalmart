@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_product_attr_07
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_product_attr_07
   type: dataSource
 description: Product Seasonal Demand Score

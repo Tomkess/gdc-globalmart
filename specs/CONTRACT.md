@@ -41,10 +41,11 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `domain_bootstrap.py` | FEAT-003 | One-time `domains.yaml` generator |
 | `maql.py` | FEAT-004 | The only module that knows MAQL reference syntax |
 | `refs.py` | FEAT-004 | The only module that knows where refs hide in non-MAQL content |
-| `closure.py` | FEAT-004 | `build_closure(model, domain, manifest) -> DomainClosure` |
+| `closure.py` | FEAT-004 | `build_closure`, `MetricPolicy`, `channel()` |
 | `prune.py` | FEAT-004 | `build_entity_index`, join-ancestor fixpoint |
 | `split.py` | FEAT-004 | `split_domain`, and the all-domains driver |
-| `verify.py` | FEAT-004 / FEAT-006 | **Split ownership — see note below** |
+| `verify.py` | FEAT-004 | `verify_child(child, domain_key, *, closure)` — the two-directional split gate, pure and offline |
+| `verification.py` | FEAT-006 | `verify_target(sdk, profile, domains, ...)` — live read-only verification |
 | `ai_context.py` | FEAT-004 | Per-domain filtering of the AI channels |
 | `classify.py` | FEAT-006 | Failure taxonomy (ported from predecessor `classifier.py`) |
 | `execute.py` | FEAT-006 | `execute_visualization(...)` — AFM execution with timeout + retry |
@@ -58,11 +59,11 @@ FEAT-005 (sole owner): `registry.py`, `archive.py`, `dataload.py`, `sqlcheck.py`
 `search_event.py`, and the `loaders/` submodule (`base.py`, `motherduck.py`, `postgres.py`).
 Plus the one-shot `scripts/take_custody.py`, which is not part of the runtime CLI.
 
-> **`verify.py` collision — resolve before building either feature.** FEAT-004 specifies
-> `verify_child(child_model, domain_key) -> None` (the two-directional split gate, pure, offline);
-> FEAT-006 specifies `verify_target(sdk, profile, domains, ...)` (live read-only verification).
-> Two features claim one module name for unrelated concerns. Recommended: FEAT-004 keeps
-> `verify.py`, FEAT-006 takes `verification.py`. Whoever builds first updates this row.
+> **`verify.py` collision — resolved 2026-09-18, when FEAT-004 was built.** FEAT-004 kept
+> `verify.py` for `verify_child(child, domain_key, *, closure) -> None`; FEAT-006 takes
+> `verification.py` for its live `verify_target(...)`. The two concerns are unrelated — one is
+> a pure offline gate over a model in memory, the other reads a live org — and sharing a
+> module name would have coupled them for no reason.
 
 ## Errors
 
@@ -219,6 +220,17 @@ exit non-zero otherwise" and is the CI gate form.
 | `data/ddl/globalmart.sql` | 214-table DDL, schema-only, `{schema_name}` templated | yes |
 | `data/archive-manifest.json` | Archive version, URL, sha256, per-table row counts and checksums | yes |
 | `backups/`, `reports/` | Runtime output | no |
+
+**JSON side (FEAT-004, added 2026-09-18):** `layout_io.write_model_json(model, path)` /
+`read_model_json(path)` emit and load the derived children. `model_to_dict` deliberately does
+**not** sort lists — `dataSourceTableId.path` is `[schema, table]` positionally, and sorting it
+breaks the publish. Determinism comes from sorted-id emission in `prune_ldm` and
+`split._retain`.
+
+**Placeholder coverage (FEAT-004, added 2026-09-18):** `traversal.iter_table_schema_slots`
+yields `dataSourceTableId.path[0]` for every table-backed dataset. `normalize` parameterises it
+and `resolve` substitutes it, exactly as for SQL statements. Without it all 214 table-backed
+datasets carried the source org's literal schema.
 
 Layout I/O goes through `get_declarative_workspace(...).store_to_disk(workspace_folder=...)` and
 `CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=...)` — **never**

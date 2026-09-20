@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT {metric/m_revenue} * 0.9
+description: ''
+id: m_net_revenue
+tags:
+- metric
+title: m_net_revenue

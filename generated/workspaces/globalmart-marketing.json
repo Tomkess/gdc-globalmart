@@ -1,0 +1,5057 @@
+{
+  "analytics": {
+    "analyticalDashboardExtensions": [],
+    "analyticalDashboards": [
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_008",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0180",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_00",
+                      "title": "Campaign Spend by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0181",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_01",
+                      "title": "Spend Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0182",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_02",
+                      "title": "Send Count by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0183",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_03",
+                      "title": "Open Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0184",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_04",
+                      "title": "Click Count by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0185",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_05",
+                      "title": "Impression Count by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0186",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_06",
+                      "title": "Click Cost by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0187",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_07",
+                      "title": "Spend by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0188",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_08",
+                      "title": "Campaign Spend — In-Store Channel by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0189",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_09",
+                      "title": "Campaign Spend — Online Channel by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0190",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_10",
+                      "title": "Campaign Spend — North Region by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0191",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_008_11",
+                      "title": "Spend Count by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard that tracks marketing campaign ROI drivers by showing campaign spend and key engagement/activity volumes (email sends/opens, paid search clicks and click cost, and ad impressions) over time. It includes default filters for the last 12 months and optional slicing by store region and channel to compare trends across segments.",
+        "id": "dashboard_008",
+        "title": "Marketing Campaign ROI"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_009",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0192",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_00",
+                      "title": "Spend Count",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0193",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_01",
+                      "title": "Spend Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0194",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_02",
+                      "title": "Send Count",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0195",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_03",
+                      "title": "Send Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0196",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_04",
+                      "title": "Send Count Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0197",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_05",
+                      "title": "Open Count Over Time",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0198",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_06",
+                      "title": "Open Count Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0199",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_07",
+                      "title": "Open Count and Click Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0200",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_08",
+                      "title": "Click Count by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0201",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_09",
+                      "title": "Click Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0202",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_10",
+                      "title": "Click Count by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0203",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_009_11",
+                      "title": "Impression Count by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring email and digital campaign activity, combining key volume metrics such as sends, opens, clicks, impressions, and campaign spend, with trends shown by month, quarter, and year across channels and regions. By default it is filtered to the last 12 months, with additional customer filters available to narrow the view.",
+        "id": "dashboard_009",
+        "title": "Email & Digital Campaign Analytics"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_029",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0204",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_00",
+                      "title": "Impression Count by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0205",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_01",
+                      "title": "Impression Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0206",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_02",
+                      "title": "Click Cost by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0207",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_03",
+                      "title": "Click Cost by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0208",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_04",
+                      "title": "Click Cost by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0209",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_05",
+                      "title": "Spend by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0210",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_06",
+                      "title": "Spend by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0211",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_07",
+                      "title": "Spend by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0212",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_08",
+                      "title": "Campaign Spend",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0213",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_09",
+                      "title": "Spend Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0214",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_10",
+                      "title": "Send Count",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_marketing_0215",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_029_11",
+                      "title": "Open Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Brings together key marketing performance and spend views to support campaign attribution and media-mix reporting, including impressions, paid search click cost, total campaign spend, and email engagement (sends and opens) over time. The dashboard is designed to review monthly, quarterly, and yearly trends for the selected reporting scope, with default filtering set to the last 12 months.",
+        "id": "dashboard_029",
+        "title": "Campaign Attribution & Media Mix"
+      }
+    ],
+    "attributeHierarchies": [],
+    "dashboardPlugins": [],
+    "exportDefinitions": [],
+    "filterContexts": [
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_product.cost",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.customer_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_008",
+        "title": "Filters — Marketing Campaign ROI"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.customer_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_customer.customer_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_009",
+        "title": "Filters — Email & Digital Campaign Analytics"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_fiscal_period.fiscal_month",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_fiscal_period.fiscal_quarter",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_029",
+        "title": "Filters — Campaign Attribution & Media Mix"
+      }
+    ],
+    "memoryItems": [],
+    "metrics": [
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_campaign_spend_daily.spend_count})"
+        },
+        "description": "Shows the total number of spend records by summing the Spend Count from the Daily Campaign Spend dataset, reflecting how many daily spend entries are included for the selected filters and time period.",
+        "id": "metric_l1_fact_campaign_spend_daily_spend_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Spend Count (Daily Campaign Spend)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_display_impression.impression_count})"
+        },
+        "description": "Counts the total number of display ad impressions by summing the underlying Impression Count from the Display Impression data. Use it as a core volume metric when evaluating campaign performance across sites, audiences, or time periods.",
+        "id": "metric_l1_fact_display_impression_impression_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Impression Count (Display Impression)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_email_open.open_count})"
+        },
+        "description": "Sums the Email Open “Open Count” fact to show the total number of email opens, used as an overall engagement volume indicator across campaigns, audiences, or time periods.",
+        "id": "metric_l1_fact_email_open_open_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Open Count (Email Open)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_email_send.send_count})"
+        },
+        "description": "Total number of emails sent, calculated by summing the Send Count measure from the Email Send data. Use this metric to track overall send volume and to break it down by time, campaign, or audience segments.",
+        "id": "metric_l1_fact_email_send_send_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Send Count (Email Send)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_paid_search_click.click_cost})"
+        },
+        "description": "Shows total spend on paid search clicks by summing Click Cost across all Paid Search Click records, within the current report scope (such as selected time period or campaign filters).",
+        "id": "metric_l1_fact_paid_search_click_click_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Click Cost (Paid Search Click)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_paid_search_click.click_count})"
+        },
+        "description": "Tracks total paid search click volume by summing the Click Count from the Paid Search Click dataset. Use it to monitor overall click trends and performance in paid search reporting.",
+        "id": "metric_l1_fact_paid_search_click_click_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Click Count (Paid Search Click)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/sql_campaign_roi.total_spend})"
+        },
+        "description": "Sums Spend to show total marketing/campaign spend in the Campaign ROI data. Use it to track and compare overall spending across campaigns, time periods, or other business segments.",
+        "id": "metric_l1_sql_campaign_roi_total_spend",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Spend (Campaign ROI)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_campaign_spend_daily.spend})"
+        },
+        "description": "Sums daily recorded Spend amounts to show total marketing campaign spend. Use this metric to monitor and compare overall spend across reports and time periods based on the Daily Campaign Spend data.",
+        "id": "metric_l1_total_campaign_spend",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Campaign Spend"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_campaign_spend} - {metric/metric_l1_fact_campaign_spend_daily_spend_count}"
+        },
+        "description": "Compares total campaign spend to the total number of daily spend records by calculating the difference between Spend and Spend Count. Use it to spot potential logging gaps or anomalies where the amount spent and the number of recorded spend entries don’t align for the selected period and filters.",
+        "id": "metric_l2_intra_0065",
+        "tags": [
+          "L2"
+        ],
+        "title": "Campaign Spend vs Spend Count (Daily Campaign Spend) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_campaign_spend_daily_spend_count} - {metric/metric_l1_fact_email_send_send_count}"
+        },
+        "description": "Compares activity volume by calculating the difference between the count of Daily Campaign Spend records and the total Email Send count for the current filters and time period. Use it to see whether spend record volume is higher or lower than email sending volume, and by how much.",
+        "id": "metric_l2_intra_0066",
+        "tags": [
+          "L2"
+        ],
+        "title": "Spend Count (Daily Campaign Spend) vs Send Count (Email Send) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_email_send_send_count} - {metric/metric_l1_fact_email_open_open_count}"
+        },
+        "description": "Shows the net difference between total emails sent and total email opens for the current filters and time period. Use it to quantify how many more sends occurred than opens (or vice versa) when analyzing email volume versus engagement.",
+        "id": "metric_l2_intra_0067",
+        "tags": [
+          "L2"
+        ],
+        "title": "Send Count (Email Send) vs Open Count (Email Open) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_email_open_open_count} - {metric/metric_l1_fact_paid_search_click_click_count}"
+        },
+        "description": "Shows the net difference in engagement volume by subtracting total paid search clicks from total email opens for the same slice of data. Use it to see whether email opens are higher or lower than paid search clicks and by how much.",
+        "id": "metric_l2_intra_0068",
+        "tags": [
+          "L2"
+        ],
+        "title": "Open Count (Email Open) vs Click Count (Paid Search Click) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_paid_search_click_click_count} - {metric/metric_l1_fact_display_impression_impression_count}"
+        },
+        "description": "Shows the difference between total paid search clicks and total display ad impressions. Use it to compare click volume against impression volume and monitor shifts in performance between these two channels over time or across segments.",
+        "id": "metric_l2_intra_0069",
+        "tags": [
+          "L2"
+        ],
+        "title": "Click Count (Paid Search Click) vs Impression Count (Display Impression) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_display_impression_impression_count} - {metric/metric_l1_fact_paid_search_click_click_cost}"
+        },
+        "description": "Shows the net difference between total display ad impressions and total paid search click spend within the current report scope (for example, a selected time period or campaign). Use it to compare display impression volume against paid search costs in a single number and see how the gap shifts as you filter or segment the data.",
+        "id": "metric_l2_intra_0070",
+        "tags": [
+          "L2"
+        ],
+        "title": "Impression Count (Display Impression) vs Click Cost (Paid Search Click) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_paid_search_click_click_cost} - {metric/metric_l1_sql_campaign_roi_total_spend}"
+        },
+        "description": "Shows the net difference between total paid search click costs and total campaign spend for the current analysis scope (such as selected campaigns or time periods). Use it to identify whether click-level costs are running above or below overall budget/spend and by how much.",
+        "id": "metric_l2_intra_0071",
+        "tags": [
+          "L2"
+        ],
+        "title": "Click Cost (Paid Search Click) vs Spend (Campaign ROI) Change"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_campaign_spend} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total marketing campaign spend filtered to the In-Store sales channel. Use this metric to track and compare in-store campaign investment over time or alongside spend from other channels.",
+        "id": "metric_l3_0065_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Campaign Spend — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_campaign_spend} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total marketing campaign spend filtered to the Online sales channel. Use this metric to isolate and compare online-only spending versus overall campaign spend across reports and time periods.",
+        "id": "metric_l3_0065_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Campaign Spend — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_total_campaign_spend} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total marketing campaign spend filtered to the North region. Use this metric to track and compare campaign spending in North across reports and time periods.",
+        "id": "metric_l3_0065_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Campaign Spend — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_campaign_spend_daily_spend_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the number of daily campaign spend records for the In-Store sales channel. Use it to monitor how much In-Store spend activity is being logged over the selected time period and any applied filters.",
+        "id": "metric_l3_0066_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spend Count (Daily Campaign Spend) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_campaign_spend_daily_spend_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts the number of daily campaign spend records for the Online sales channel, showing how many Online spend entries are captured within the selected time period and filters. Use it to monitor record volume/completeness for Online campaign spend activity.",
+        "id": "metric_l3_0066_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spend Count (Daily Campaign Spend) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_campaign_spend_daily_spend_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the number of daily campaign spend records for the North region. Use it to monitor activity volume in North and to compare record counts across time periods or against other regions when filters change.",
+        "id": "metric_l3_0066_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spend Count (Daily Campaign Spend) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_email_send_send_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the total number of emails sent that are associated specifically with the In-Store sales channel. Use this metric to monitor and compare In-Store email send volume over time or across campaigns and segments.",
+        "id": "metric_l3_0067_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Send Count (Email Send) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_email_send_send_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts the total number of emails sent for the Online sales channel. Use this metric to monitor online email send volume and compare it across time periods or against other channels.",
+        "id": "metric_l3_0067_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Send Count (Email Send) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_email_send_send_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the total number of emails sent for the North region. Use this metric to monitor and report North’s email sending volume across dashboards and reports.",
+        "id": "metric_l3_0067_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Send Count (Email Send) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_email_open_open_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the total number of email opens, limited to the In-Store sales channel. Use it to monitor and compare email engagement volume for In-Store activity versus other channels.",
+        "id": "metric_l3_0068_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Open Count (Email Open) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_email_open_open_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts the total number of email opens for activity limited to the Online sales channel. Use it to monitor and compare email engagement volume for Online versus other channels or overall opens.",
+        "id": "metric_l3_0068_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Open Count (Email Open) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_email_open_open_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the total number of email opens for the North region only. Use this metric to track email engagement volume in the North and compare it with other regions or with overall open counts.",
+        "id": "metric_l3_0068_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Open Count (Email Open) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_paid_search_click_click_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts paid search clicks limited to the In-Store sales channel, so you can track click volume specifically attributable to in-store activity. Use it to compare In-Store paid search performance against overall paid search click totals.",
+        "id": "metric_l3_0069_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Click Count (Paid Search Click) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_paid_search_click_click_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts paid search clicks limited to the Online sales channel, helping you monitor click volume and trends specifically for online performance. Use it in reports and dashboards when you need online-only paid search click activity rather than total clicks across all channels.",
+        "id": "metric_l3_0069_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Click Count (Paid Search Click) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_paid_search_click_click_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts total paid search clicks for the North region only. Use it to track paid search click volume and trends for North in regional performance reporting.",
+        "id": "metric_l3_0069_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Click Count (Paid Search Click) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_display_impression_impression_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts total display ad impressions specifically for the In-Store sales channel. Use this metric to monitor in-store impression volume and compare it to impression counts for other channels over the same period.",
+        "id": "metric_l3_0070_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Impression Count (Display Impression) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_display_impression_impression_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts total display ad impressions for the Online sales channel only, using the core Display Impression impression count metric and filtering Channel Type to Online. Use this metric to track online display impression volume when comparing performance by audience, site, or time period.",
+        "id": "metric_l3_0070_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Impression Count (Display Impression) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_display_impression_impression_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total number of display ad impressions, filtered to the North region. Use this metric to monitor and compare impression volume specifically for North-focused reporting across campaigns, audiences, or time periods.",
+        "id": "metric_l3_0070_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Impression Count (Display Impression) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_paid_search_click_click_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total spend on paid search clicks, limited to the In-Store sales channel. Use this metric to track click cost for in-store activity within the currently selected time period or campaign scope.",
+        "id": "metric_l3_0071_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Click Cost (Paid Search Click) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_paid_search_click_click_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total paid search click spend attributable to the Online sales channel, calculated by summing click costs within the current reporting scope (for example, selected time periods or campaign filters). Use this metric to monitor and compare online paid search costs across segments and over time.",
+        "id": "metric_l3_0071_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Click Cost (Paid Search Click) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_paid_search_click_click_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total paid search click spend filtered to the North region. Use this metric to monitor how much is being spent on paid search clicks in North and compare performance across time periods or against other regional metrics.",
+        "id": "metric_l3_0071_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Click Cost (Paid Search Click) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_campaign_roi_total_spend} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total campaign spend filtered to the In-Store sales channel within the Campaign ROI context. Use it to analyze and compare in-store marketing spend across campaigns, time periods, and other segments.",
+        "id": "metric_l3_0072_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spend (Campaign ROI) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_campaign_roi_total_spend} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total campaign spend limited to the Online sales channel. Use it to track and compare online campaign spending across time periods, campaigns, or other Campaign ROI breakdowns.",
+        "id": "metric_l3_0072_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spend (Campaign ROI) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_sql_campaign_roi_total_spend} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total campaign spend limited to the North region. Use this metric to monitor and compare how much is being spent on campaigns specifically within the North area.",
+        "id": "metric_l3_0072_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Spend (Campaign ROI) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0065_0} - (SELECT {metric/metric_l3_0065_0} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Tracks the month-over-month change in campaign spend for the In-Store sales channel, comparing the current month’s spend to the prior month. Use it to see whether in-store campaign investment is increasing or decreasing over time.",
+        "id": "metric_l4_mom_0195",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Campaign Spend — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0065_1} - (SELECT {metric/metric_l3_0065_1} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in marketing campaign spend for the Online sales channel, comparing the current month’s spend with the previous month. Use it to track whether online campaign investment is increasing or decreasing over time.",
+        "id": "metric_l4_mom_0196",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Campaign Spend — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0065_2} - (SELECT {metric/metric_l3_0065_2} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Shows the month-over-month change in marketing campaign spend for the North region by subtracting the prior month’s spend from the current month. Use it to monitor how North’s campaign spending is trending and identify increases or decreases from one month to the next.",
+        "id": "metric_l4_mom_0197",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Campaign Spend — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0066_0} - (SELECT {metric/metric_l3_0066_0} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Tracks the month-over-month change in the count of daily campaign spend records for the In-Store sales channel by comparing the current month to the previous month. Use it to monitor whether the volume of logged In-Store spend activity is trending up or down over time.",
+        "id": "metric_l4_mom_0198",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Spend Count (Daily Campaign Spend) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0066_1} - (SELECT {metric/metric_l3_0066_1} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Measures the month-over-month change in the number of daily campaign spend records for the Online channel by subtracting last month’s count from the current month’s count. Use it to track whether the volume of Online spend entries is increasing or decreasing from one month to the next.",
+        "id": "metric_l4_mom_0199",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Spend Count (Daily Campaign Spend) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0065_0} - (SELECT {metric/metric_l3_0065_0} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0065_0} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percentage change in Campaign Spend for the In-Store sales channel, comparing the current period to the prior year. Use this metric to understand how in-store campaign investment is trending annually.",
+        "id": "metric_l4_yoy_0195",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Campaign Spend — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0065_1} - (SELECT {metric/metric_l3_0065_1} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0065_1} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Measures the year-over-year percentage change in Campaign Spend for the Online sales channel by comparing the current year’s spend to the previous year.",
+        "id": "metric_l4_yoy_0196",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Campaign Spend — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0065_2} - (SELECT {metric/metric_l3_0065_2} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0065_2} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Measures the year-over-year percentage change in Campaign Spend for the North region by comparing the current year’s spend to the previous year. Use it to track how marketing campaign spending in North is growing or declining over time.",
+        "id": "metric_l4_yoy_0197",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Campaign Spend — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0066_0} - (SELECT {metric/metric_l3_0066_0} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0066_0} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Measures the year-over-year percentage change in the number of daily campaign spend records for the In-Store channel, comparing the current period against the same metric in the prior year. Use it to see whether In-Store spend activity volume is trending up or down versus last year.",
+        "id": "metric_l4_yoy_0198",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Spend Count (Daily Campaign Spend) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0066_1} - (SELECT {metric/metric_l3_0066_1} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0066_1} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percent change in the count of daily campaign spend records for the Online channel. Use it to see how the volume of Online spend entries is trending versus the same period in the prior year.",
+        "id": "metric_l4_yoy_0199",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Spend Count (Daily Campaign Spend) — Online Channel"
+      }
+    ],
+    "parameters": [],
+    "visualizationObjects": [
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_campaign_spend",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing Total Campaign Spend broken out by Month/Year, so you can track how overall marketing spend changes over time and compare monthly spending levels.",
+        "id": "viz_marketing_0180",
+        "title": "Campaign Spend by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_campaign_spend_daily_spend_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of daily campaign spend records, grouped by quarter and year (e.g., Q1/2020). Use it to track how spend activity volume changes over time at a quarterly level.",
+        "id": "viz_marketing_0181",
+        "title": "Spend Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_email_send_send_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of emails sent, broken out by year. Useful for tracking annual trends in email sending volume over time.",
+        "id": "viz_marketing_0182",
+        "title": "Send Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_email_open_open_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of email opens by month/year, based on the Total Open Count (Email Open) metric. Use it to track email engagement trends over time and spot seasonal spikes or drops in opens.",
+        "id": "viz_marketing_0183",
+        "title": "Open Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_paid_search_click_click_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total paid search click volume (Total Click Count) broken out by quarter/year to track how click activity trends over time.",
+        "id": "viz_marketing_0184",
+        "title": "Click Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_display_impression_impression_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total number of display ad impressions broken out by year, based on the sum of Impression Count from the Display Impression data. Use it to compare impression volume across years and spot year-over-year trends.",
+        "id": "viz_marketing_0185",
+        "title": "Impression Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_paid_search_click_click_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Paid Search Click Cost by month/year, useful for tracking how paid search spend trends over time within the selected reporting scope.",
+        "id": "viz_marketing_0186",
+        "title": "Click Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_sql_campaign_roi_total_spend",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing Total Spend (Campaign ROI) summarized by Quarter/Year, so you can track how overall campaign spending changes over time and compare quarters.",
+        "id": "viz_marketing_0187",
+        "title": "Spend by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0065_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total marketing campaign spend for the In-Store sales channel, broken down by year. Use it to track how in-store campaign investment changes over time and to compare year-over-year spending levels.",
+        "id": "viz_marketing_0188",
+        "title": "Campaign Spend — In-Store Channel by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0065_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total marketing campaign spend for the Online channel, broken out by Month/Year, to help track and compare online-only spending trends over time.",
+        "id": "viz_marketing_0189",
+        "title": "Campaign Spend — Online Channel by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0065_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total marketing campaign spend for the North region, broken out by quarter/year. Use it to track spending trends over time and compare quarters for North.",
+        "id": "viz_marketing_0190",
+        "title": "Campaign Spend — North Region by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0066_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the yearly count of Daily Campaign Spend records for the In-Store sales channel, based on the Spend Count (Daily Campaign Spend) — In-Store Channel metric. Use it to monitor how the volume of In-Store spend activity changes year over year.",
+        "id": "viz_marketing_0191",
+        "title": "Spend Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0066_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the count of daily campaign spend records for the Online channel. Use it to monitor how many Online spend entries are captured for the selected time period and filters.",
+        "id": "viz_marketing_0192",
+        "title": "Spend Count (Online channel)"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0066_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the count of daily campaign spend records for the North region, based on the “Spend Count (Daily Campaign Spend) — North Region” metric. Use it to monitor spend data activity volume in North and to compare record counts as other dashboard filters (such as time) change.",
+        "id": "viz_marketing_0193",
+        "title": "Spend Count (North region)"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0067_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of marketing emails sent for the In-Store channel, based on the “Send Count (Email Send) — In-Store Channel” metric. Use it to monitor overall In-Store email send volume at a glance.",
+        "id": "viz_marketing_0194",
+        "title": "Send Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0067_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of emails sent for the Online sales channel (Send Count). Use it to monitor online email send volume and compare it across periods or against other channels.",
+        "id": "viz_marketing_0195",
+        "title": "Send Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0067_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing how the total number of emails sent in the North region trends month by month over time. Use it to monitor changes in sending volume and spot spikes or drops in email activity.",
+        "id": "viz_marketing_0196",
+        "title": "Send Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0068_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the monthly trend in total email open counts for the In-Store sales channel. Use it to monitor changes in In-Store email engagement over time and spot seasonality or shifts in activity.",
+        "id": "viz_marketing_0197",
+        "title": "Open Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0068_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the total number of email opens for the Online sales channel, trended by Month/Year. Use it to monitor how online email engagement changes over time and spot seasonal patterns or shifts in performance.",
+        "id": "viz_marketing_0198",
+        "title": "Open Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0068_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                },
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0069_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m2"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "attribute"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:table"
+        },
+        "description": "Table showing quarterly trends in Email Open Count for the North region and Paid Search Click Count for the In-Store channel. Use it to compare how these two engagement volumes change over time by quarter/year.",
+        "id": "viz_marketing_0199",
+        "title": "Open Count and Click Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0069_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the yearly trend in In‑Store paid search click volume, using the Click Count (Paid Search Click) — In‑Store Channel metric grouped by Year.",
+        "id": "viz_marketing_0200",
+        "title": "Click Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0069_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the number of paid search clicks for the Online sales channel, broken out by Month/Year to track click volume and trends over time.",
+        "id": "viz_marketing_0201",
+        "title": "Click Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0069_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the total paid search click volume for the North region, broken out by quarter/year, to help track quarter-over-quarter trends in regional marketing performance.",
+        "id": "viz_marketing_0202",
+        "title": "Click Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0070_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total display ad impressions for the In-Store sales channel, broken out by year. Use it to review year-over-year trends in in-store impression volume.",
+        "id": "viz_marketing_0203",
+        "title": "Impression Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0070_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing monthly trend of Online-channel display ad impressions (Impression Count) by Month/Year. Use it to monitor how impression volume changes over time for the Online sales channel.",
+        "id": "viz_marketing_0204",
+        "title": "Impression Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0070_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of display ad impressions for the North region, broken out by quarter and year. Use it to track and compare quarterly impression volume trends for North-focused reporting.",
+        "id": "viz_marketing_0205",
+        "title": "Impression Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0071_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total paid search click spend for the In-Store sales channel, broken out by year. Use it to monitor how in-store click costs trend over time within the currently selected reporting scope.",
+        "id": "viz_marketing_0206",
+        "title": "Click Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0071_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total paid search click spend for the Online sales channel, broken out by Month/Year. Use it to track how online click costs trend over time and compare month-to-month changes.",
+        "id": "viz_marketing_0207",
+        "title": "Click Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0071_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total paid search click spend for the North region, broken out by Quarter/Year. Use it to track how click costs change over time and compare quarters.",
+        "id": "viz_marketing_0208",
+        "title": "Click Cost by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0072_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total campaign spend for the In-Store sales channel broken out by year, to compare how in-store campaign spending changes over time.",
+        "id": "viz_marketing_0209",
+        "title": "Spend by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0072_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total campaign spend for the Online sales channel, broken down by Month/Year. Use it to track how online campaign spending changes over time and compare month-to-month trends.",
+        "id": "viz_marketing_0210",
+        "title": "Spend by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0072_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total campaign spend in the North region broken down by quarter/year, helping you track how campaign spending changes over time.",
+        "id": "viz_marketing_0211",
+        "title": "Spend by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_total_campaign_spend",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline view showing Total Campaign Spend, summing recorded spend amounts to indicate overall marketing campaign expenditure for the selected reporting context.",
+        "id": "viz_marketing_0212",
+        "title": "Campaign Spend"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_campaign_spend_daily_spend_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of campaign spend records (Spend Count) over the currently selected filters and time period, based on the Daily Campaign Spend data.",
+        "id": "viz_marketing_0213",
+        "title": "Spend Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_email_send_send_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline KPI showing the total number of emails sent, based on the “Total Send Count (Email Send)” metric summed from the Email Send data.",
+        "id": "viz_marketing_0214",
+        "title": "Send Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_email_open_open_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of email opens (Total Open Count), based on summing the Open Count from the Email Open data.",
+        "id": "viz_marketing_0215",
+        "title": "Open Count"
+      }
+    ]
+  },
+  "ldm": {
+    "datasetExtensions": [],
+    "datasets": [
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Channel Cost is an attribute from the Acquisition Channel dataset that represents the cost associated with each acquisition channel. Use it to group, filter, or compare performance by different channel cost values.",
+            "id": "dim_acquisition_channel.channel_cost",
+            "labels": [],
+            "sourceColumn": "channel_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Cost"
+          },
+          {
+            "description": "Unique identifier for each acquisition channel in the Acquisition Channel dataset, used to group and filter metrics by channel.",
+            "id": "dim_acquisition_channel.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel ID (Acquisition Channel)"
+          },
+          {
+            "description": "Identifies the acquisition channel name, used to segment and filter reporting by how users or leads were acquired (e.g., by marketing or referral source) within the Acquisition Channel dataset.",
+            "id": "dim_acquisition_channel.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Acquisition Channel"
+            ],
+            "title": "Channel Name (Acquisition Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_acquisition_channel",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_acquisition_channel"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Acquisition Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_acquisition_channel.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_acquisition_channel",
+        "references": [],
+        "tags": [
+          "Acquisition Channel"
+        ],
+        "title": "Acquisition Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each brand in the Brand dataset, used to group, join, or filter reporting by brand.",
+            "id": "dim_brand.brand_id",
+            "labels": [],
+            "sourceColumn": "brand_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Brand"
+            ],
+            "title": "Brand ID"
+          },
+          {
+            "description": "Name of the brand (from the Brand dataset), used to group, filter, and segment reporting by brand.",
+            "id": "dim_brand.brand_name",
+            "labels": [],
+            "sourceColumn": "brand_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Brand"
+            ],
+            "title": "Brand Name"
+          },
+          {
+            "description": "Identifies the company or organization that owns each brand. Use it to group and filter brand-related reporting by owner.",
+            "id": "dim_brand.brand_owner",
+            "labels": [],
+            "sourceColumn": "brand_owner",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Brand"
+            ],
+            "title": "Brand Owner"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_brand",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_brand"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Brand",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_brand.brand_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_brand",
+        "references": [],
+        "tags": [
+          "Brand"
+        ],
+        "title": "Brand",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for the Level 1 product category in the Product Category Level 1 dataset. Use it to group, join, or filter data by high-level product category.",
+            "id": "dim_category_l1.category_l1_id",
+            "labels": [],
+            "sourceColumn": "category_l1_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Product Category Level 1"
+            ],
+            "title": "Category L1 ID"
+          },
+          {
+            "description": "Top-level product category name from the Product Category Level 1 dataset. Use it to group, segment, or filter analyses by the broadest category tier.",
+            "id": "dim_category_l1.category_l1_name",
+            "labels": [],
+            "sourceColumn": "category_l1_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Product Category Level 1"
+            ],
+            "title": "Category L1 Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_category_l1",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_category_l1"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Product Category Level 1",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_category_l1.category_l1_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_category_l1",
+        "references": [],
+        "tags": [
+          "Product Category Level 1"
+        ],
+        "title": "Product Category Level 1",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+            "id": "dim_channel_master.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel ID (Sales Channel)"
+          },
+          {
+            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Name (Sales Channel)"
+          },
+          {
+            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_type",
+            "labels": [],
+            "sourceColumn": "channel_type",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Type (Sales Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_channel_master",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_channel_master"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Sales Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_channel_master.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_channel_master",
+        "references": [],
+        "tags": [
+          "Sales Channel"
+        ],
+        "title": "Sales Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group, filter, or segment measures by currency.",
+            "id": "dim_currency.currency_code",
+            "labels": [],
+            "sourceColumn": "currency_code",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Code"
+          },
+          {
+            "description": "Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering or grouping analyses.",
+            "id": "dim_currency.currency_id",
+            "labels": [],
+            "sourceColumn": "currency_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency ID"
+          },
+          {
+            "description": "Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and reports by currency.",
+            "id": "dim_currency.currency_name",
+            "labels": [],
+            "sourceColumn": "currency_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Name"
+          },
+          {
+            "description": "The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter or break down analyses by the applicable USD conversion rate.",
+            "id": "dim_currency.exchange_rate_to_usd",
+            "labels": [],
+            "sourceColumn": "exchange_rate_to_usd",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Exchange Rate to Usd"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_currency",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_currency"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Currency",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_currency.currency_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_currency",
+        "references": [],
+        "tags": [
+          "Currency"
+        ],
+        "title": "Currency",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for the customer’s acquisition channel in the Customer dataset. Use it to group or filter customers by the channel they were acquired through.",
+            "id": "dim_customer.acquisition_channel_id",
+            "labels": [],
+            "sourceColumn": "acquisition_channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Acquisition Channel ID"
+          },
+          {
+            "description": "Unique identifier for each customer record in the Customer dataset. Use it to filter, group, or drill into metrics at the individual customer level.",
+            "id": "dim_customer.customer_id",
+            "labels": [],
+            "sourceColumn": "customer_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer ID (Customer)"
+          },
+          {
+            "description": "Customer Name from the Customer dataset, used to identify, group, and filter analyses by individual customer.",
+            "id": "dim_customer.customer_name",
+            "labels": [],
+            "sourceColumn": "customer_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Customer Name (Customer)"
+          },
+          {
+            "description": "Identifier for the customer’s lifecycle stage in the Customer dataset, used to group or filter customers by lifecycle stage.",
+            "id": "dim_customer.lifecycle_stage_id",
+            "labels": [],
+            "sourceColumn": "lifecycle_stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Lifecycle Stage ID"
+          },
+          {
+            "description": "Identifier for a customer’s loyalty tier in the Customer dataset. Use it to group or filter customers by loyalty tier.",
+            "id": "dim_customer.loyalty_tier_id",
+            "labels": [],
+            "sourceColumn": "loyalty_tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer"
+            ],
+            "title": "Loyalty Tier ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer.customer_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_acquisition_channel",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "acquisition_channel_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_acquisition_channel.channel_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_customer_segment",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "segment_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_customer_segment.segment_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_lifecycle_stage",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "lifecycle_stage_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_lifecycle_stage.stage_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_loyalty_tier",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "loyalty_tier_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_loyalty_tier.tier_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Customer"
+        ],
+        "title": "Customer",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Describes the customer segment in plain language for each record in the Customer Segment dataset. Use it to group and filter customers by segment description in reporting and analysis.",
+            "id": "dim_customer_segment.segment_description",
+            "labels": [],
+            "sourceColumn": "segment_description",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Description"
+          },
+          {
+            "description": "Unique identifier for each customer segment in the Customer Segment dataset. Use it to group, join, or filter analysis by specific segment records.",
+            "id": "dim_customer_segment.segment_id",
+            "labels": [],
+            "sourceColumn": "segment_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment ID (Customer Segment)"
+          },
+          {
+            "description": "Customer Segment name used to categorize customers into segments for analysis. Use it to group or filter metrics by segment within the Customer Segment dataset.",
+            "id": "dim_customer_segment.segment_name",
+            "labels": [],
+            "sourceColumn": "segment_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Customer Segment"
+            ],
+            "title": "Segment Name (Customer Segment)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_customer_segment",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_customer_segment"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Customer Segment",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_customer_segment.segment_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_customer_segment",
+        "references": [],
+        "tags": [
+          "Customer Segment"
+        ],
+        "title": "Customer Segment",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Represents the fiscal month in the Fiscal Period dataset. Use it to group, filter, and compare results by month within your organization’s fiscal calendar.",
+            "id": "dim_fiscal_period.fiscal_month",
+            "labels": [],
+            "sourceColumn": "fiscal_month",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Month"
+          },
+          {
+            "description": "Unique identifier for each fiscal period in the Fiscal Period dataset, used to group and filter reporting by specific fiscal periods.",
+            "id": "dim_fiscal_period.fiscal_period_id",
+            "labels": [],
+            "sourceColumn": "fiscal_period_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Period ID"
+          },
+          {
+            "description": "Represents the fiscal quarter within the Fiscal Period calendar. Use it to group, compare, or filter metrics by quarter (e.g., Q1–Q4) in reports and dashboards.",
+            "id": "dim_fiscal_period.fiscal_quarter",
+            "labels": [],
+            "sourceColumn": "fiscal_quarter",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Quarter"
+          },
+          {
+            "description": "Represents the fiscal year associated with each fiscal period. Use it to group, filter, and compare measures by fiscal year in reporting based on the Fiscal Period dataset.",
+            "id": "dim_fiscal_period.fiscal_year",
+            "labels": [],
+            "sourceColumn": "fiscal_year",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Year (Fiscal Period)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_fiscal_period",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_fiscal_period"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Fiscal Period",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_fiscal_period.fiscal_period_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_fiscal_period",
+        "references": [
+          {
+            "identifier": {
+              "id": "fiscal_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "calendar_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "fiscal_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Fiscal Period"
+        ],
+        "title": "Fiscal Period",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and grouping in analysis.",
+            "id": "dim_geography_country.country_id",
+            "labels": [],
+            "sourceColumn": "country_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country ID"
+          },
+          {
+            "description": "Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by country.",
+            "id": "dim_geography_country.country_name",
+            "labels": [],
+            "sourceColumn": "country_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_country",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_country"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Country",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_country.country_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_country",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_currency",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "currency_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_currency.currency_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Country"
+        ],
+        "title": "Country",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis by region.",
+            "id": "dim_geography_region.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region ID (Region)"
+          },
+          {
+            "description": "Name of the geographic region in the Region dataset, used to group and filter reporting by region.",
+            "id": "dim_geography_region.region_name",
+            "labels": [],
+            "sourceColumn": "region_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_region",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_region"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Region",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_region.region_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_region",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Region"
+        ],
+        "title": "Region",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each lifecycle stage in the Lifecycle Stage dataset. Use it to group, join, or filter records by specific stage.",
+            "id": "dim_lifecycle_stage.stage_id",
+            "labels": [],
+            "sourceColumn": "stage_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage ID (Lifecycle Stage)"
+          },
+          {
+            "description": "Identifies the name of a lifecycle stage (e.g., a step in an entity’s progression) from the Lifecycle Stage dataset. Use it to group, segment, or filter analyses by lifecycle stage.",
+            "id": "dim_lifecycle_stage.stage_name",
+            "labels": [],
+            "sourceColumn": "stage_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Name (Lifecycle Stage)"
+          },
+          {
+            "description": "Indicates the numeric/order position of a lifecycle stage within the Lifecycle Stage dataset. Use it to sort or sequence lifecycle stages consistently in reports and dashboards.",
+            "id": "dim_lifecycle_stage.stage_order",
+            "labels": [],
+            "sourceColumn": "stage_order",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Lifecycle Stage"
+            ],
+            "title": "Stage Order (Lifecycle Stage)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_lifecycle_stage",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_lifecycle_stage"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Lifecycle Stage",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_lifecycle_stage.stage_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_lifecycle_stage",
+        "references": [],
+        "tags": [
+          "Lifecycle Stage"
+        ],
+        "title": "Lifecycle Stage",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Minimum points threshold required to qualify for each Loyalty Tier. Use it to group or filter tiers based on the starting points needed.",
+            "id": "dim_loyalty_tier.min_points",
+            "labels": [],
+            "sourceColumn": "min_points",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Min Points"
+          },
+          {
+            "description": "Unique identifier for each loyalty tier in the Loyalty Tier dataset. Use it to group, filter, or join loyalty-tier information at the tier level.",
+            "id": "dim_loyalty_tier.tier_id",
+            "labels": [],
+            "sourceColumn": "tier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier ID"
+          },
+          {
+            "description": "Loyalty program tier level used to categorize customers into tiers (e.g., by status level) for reporting, grouping, and filtering. Sourced from the Loyalty Tier dataset.",
+            "id": "dim_loyalty_tier.tier_level",
+            "labels": [],
+            "sourceColumn": "tier_level",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Level"
+          },
+          {
+            "description": "Represents the name of a customer’s loyalty tier (e.g., tier level) from the Loyalty Tier dataset. Use it to segment, group, or filter analyses by loyalty tier.",
+            "id": "dim_loyalty_tier.tier_name",
+            "labels": [],
+            "sourceColumn": "tier_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Loyalty Tier"
+            ],
+            "title": "Tier Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_loyalty_tier",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_loyalty_tier"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Loyalty Tier",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_loyalty_tier.tier_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_loyalty_tier",
+        "references": [],
+        "tags": [
+          "Loyalty Tier"
+        ],
+        "title": "Loyalty Tier",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Represents the product cost in the Product dataset, used to group, slice, or filter products by their cost value in analyses and reports.",
+            "id": "dim_product.cost",
+            "labels": [],
+            "sourceColumn": "cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Product"
+            ],
+            "title": "Cost (Product)"
+          },
+          {
+            "description": "List Price of a product in the Product dataset, used to group, filter, or break down analysis by the product’s listed price.",
+            "id": "dim_product.list_price",
+            "labels": [],
+            "sourceColumn": "list_price",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Product"
+            ],
+            "title": "List Price"
+          },
+          {
+            "description": "Unique identifier for each product in the Product dataset. Use it to filter or group analyses at the individual product level.",
+            "id": "dim_product.product_id",
+            "labels": [],
+            "sourceColumn": "product_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Product"
+            ],
+            "title": "Product ID (Product)"
+          },
+          {
+            "description": "Names of products in the Product dataset, used to label, group, and filter analyses by individual product.",
+            "id": "dim_product.product_name",
+            "labels": [],
+            "sourceColumn": "product_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Product"
+            ],
+            "title": "Product Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_product",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_product"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Product",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_product.product_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_product",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_brand",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "brand_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_brand.brand_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_category_l1",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "category_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_category_l1.category_l1_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_supplier",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "supplier_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_supplier.supplier_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Product"
+        ],
+        "title": "Product",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Number of days in the supplier’s agreed payment terms, from the Supplier dataset. Use this attribute to group or filter reporting by payment-term length.",
+            "id": "dim_supplier.payment_terms_days",
+            "labels": [],
+            "sourceColumn": "payment_terms_days",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Supplier"
+            ],
+            "title": "Payment Terms Days"
+          },
+          {
+            "description": "Unique identifier for each supplier in the Supplier dataset. Use it to filter, group, or join supplier-related reporting at the individual supplier level.",
+            "id": "dim_supplier.supplier_id",
+            "labels": [],
+            "sourceColumn": "supplier_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Supplier"
+            ],
+            "title": "Supplier ID"
+          },
+          {
+            "description": "Name of the supplier in the Supplier dataset, used to identify, group, and filter reporting by individual suppliers.",
+            "id": "dim_supplier.supplier_name",
+            "labels": [],
+            "sourceColumn": "supplier_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Supplier"
+            ],
+            "title": "Supplier Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_supplier",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_supplier"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Supplier",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_supplier.supplier_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_supplier",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Supplier"
+        ],
+        "title": "Supplier",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Calendar day associated with each record in the Daily Campaign Spend dataset. Use it to group or filter campaign spend metrics by day to analyze daily trends.",
+            "id": "fact_campaign_spend_daily.day",
+            "labels": [],
+            "sourceColumn": "day",
+            "sourceColumnDataType": "DATE",
+            "tags": [
+              "Daily Campaign Spend"
+            ],
+            "title": "Day (Daily Campaign Spend)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_campaign_spend_daily",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_campaign_spend_daily"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Daily Campaign Spend",
+        "facts": [
+          {
+            "description": "Amount of campaign spend recorded at a daily level in the Daily Campaign Spend dataset, typically used to analyze and aggregate marketing costs over time.",
+            "id": "fact_campaign_spend_daily.spend",
+            "sourceColumn": "spend",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Daily Campaign Spend"
+            ],
+            "title": "Spend (Daily Campaign Spend)"
+          },
+          {
+            "description": "Counts the number of spend records captured in the Daily Campaign Spend dataset. Useful for checking data volume and understanding how many daily spend entries are included in reports or filters.",
+            "id": "fact_campaign_spend_daily.spend_count",
+            "sourceColumn": "spend_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Daily Campaign Spend"
+            ],
+            "title": "Spend Count (Daily Campaign Spend)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_campaign_spend_daily.day",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_campaign_spend_daily",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "day",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Daily Campaign Spend"
+        ],
+        "title": "Daily Campaign Spend",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each display ad impression record in the Display Impression dataset. Use it to look up, filter, or de-duplicate individual impressions rather than to summarize performance.",
+            "id": "fact_display_impression.impression_id",
+            "labels": [],
+            "sourceColumn": "impression_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Display Impression"
+            ],
+            "title": "Impression ID (Display Impression)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_display_impression",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_display_impression"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Display Impression",
+        "facts": [
+          {
+            "description": "Number of ad impressions recorded in the Display Impression dataset. Use it to quantify impression volume when analyzing performance by campaign, site, or time.",
+            "id": "fact_display_impression.impression_count",
+            "sourceColumn": "impression_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Display Impression"
+            ],
+            "title": "Impression Count (Display Impression)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_display_impression.impression_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_display_impression",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "impression_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Display Impression"
+        ],
+        "title": "Display Impression",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each email open event in the Email Open dataset, used to distinguish and filter individual open records.",
+            "id": "fact_email_open.open_id",
+            "labels": [],
+            "sourceColumn": "open_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Email Open"
+            ],
+            "title": "Open ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_email_open",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_email_open"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Email Open",
+        "facts": [
+          {
+            "description": "Number of email opens recorded in the Email Open dataset, typically used to quantify engagement and aggregate opens across campaigns, audiences, or time periods.",
+            "id": "fact_email_open.open_count",
+            "sourceColumn": "open_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Email Open"
+            ],
+            "title": "Open Count"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_email_open.open_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_email_open",
+        "references": [
+          {
+            "identifier": {
+              "id": "fact_email_send",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "send_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "fact_email_send.send_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "open_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Email Open"
+        ],
+        "title": "Email Open",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each email send event in the Email Send dataset. Use it to group, filter, or drill into metrics at the individual send level.",
+            "id": "fact_email_send.send_id",
+            "labels": [],
+            "sourceColumn": "send_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Email Send"
+            ],
+            "title": "Send ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_email_send",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_email_send"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Email Send",
+        "facts": [
+          {
+            "description": "Number of emails sent, captured in the Email Send dataset and typically used to report total send volume over time, campaign, or audience segments.",
+            "id": "fact_email_send.send_count",
+            "sourceColumn": "send_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Email Send"
+            ],
+            "title": "Send Count"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_email_send.send_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_email_send",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "send_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Email Send"
+        ],
+        "title": "Email Send",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each paid search click record in the Paid Search Click dataset. Use it to look up, filter, or drill into specific clicks when analyzing paid search performance.",
+            "id": "fact_paid_search_click.click_id",
+            "labels": [],
+            "sourceColumn": "click_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Paid Search Click"
+            ],
+            "title": "Click ID (Paid Search Click)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_paid_search_click",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_paid_search_click"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Paid Search Click",
+        "facts": [
+          {
+            "description": "Cost associated with an individual paid search click in the Paid Search Click dataset, used to analyze and aggregate spending on paid search traffic.",
+            "id": "fact_paid_search_click.click_cost",
+            "sourceColumn": "click_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Paid Search Click"
+            ],
+            "title": "Click Cost"
+          },
+          {
+            "description": "Number of paid search clicks recorded in the Paid Search Click dataset. Typically used to aggregate click volume when analyzing campaign or channel performance over time.",
+            "id": "fact_paid_search_click.click_count",
+            "sourceColumn": "click_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Paid Search Click"
+            ],
+            "title": "Click Count (Paid Search Click)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_paid_search_click.click_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_paid_search_click",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "click_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Paid Search Click"
+        ],
+        "title": "Paid Search Click",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each marketing campaign in the Campaign ROI dataset, used to group, filter, and drill into ROI and performance metrics by campaign.",
+            "id": "sql_campaign_roi.campaign_id",
+            "labels": [],
+            "sourceColumn": "campaign_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Campaign ROI"
+            ],
+            "title": "Campaign ID (Campaign ROI)"
+          }
+        ],
+        "description": "Campaign ROI",
+        "facts": [
+          {
+            "description": "Revenue amount attributed to a campaign, used to analyze campaign return on investment in the Campaign ROI dataset.",
+            "id": "sql_campaign_roi.attributed_revenue",
+            "sourceColumn": "attributed_revenue",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Campaign ROI"
+            ],
+            "title": "Attributed Revenue (Campaign ROI)"
+          },
+          {
+            "description": "Total campaign spend recorded in the Campaign ROI dataset, used to analyze and aggregate marketing costs across campaigns.",
+            "id": "sql_campaign_roi.total_spend",
+            "sourceColumn": "total_spend",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Campaign ROI"
+            ],
+            "title": "Spend (Campaign ROI)"
+          }
+        ],
+        "grain": [
+          {
+            "id": "sql_campaign_roi.campaign_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "sql_campaign_roi",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "campaign_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "sql": {
+          "dataSourceId": "{{ datasource_id }}",
+          "statement": "\nSELECT\n    csd.campaign_id,\n    csd.day AS campaign_date,\n    SUM(csd.spend) AS total_spend,\n    SUM(COALESCE(wol.revenue, 0)) AS attributed_revenue\nFROM {{ datasource_schema }}.fact_campaign_spend_daily csd\nLEFT JOIN {{ datasource_schema }}.fact_web_order_header woh ON csd.day = woh.order_date\nLEFT JOIN {{ datasource_schema }}.fact_web_order_line wol ON woh.order_id = wol.order_id\nGROUP BY 1, 2\n"
+        },
+        "tags": [
+          "Campaign ROI"
+        ],
+        "title": "Campaign ROI",
+        "workspaceDataFilterReferences": []
+      }
+    ],
+    "dateInstances": [
+      {
+        "description": "",
+        "granularities": [
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "fiscal_date",
+        "title": "Fiscal Date"
+      },
+      {
+        "description": "",
+        "granularities": [
+          "MINUTE",
+          "HOUR",
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "transaction_date",
+        "title": "Transaction Date"
+      }
+    ]
+  }
+}

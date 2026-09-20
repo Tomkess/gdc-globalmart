@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_compliment_complaint
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_compliment_complaint
   type: dataSource
 description: Compliment Complaint

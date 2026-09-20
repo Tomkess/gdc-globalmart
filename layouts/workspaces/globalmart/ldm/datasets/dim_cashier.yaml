@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_cashier
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_cashier
   type: dataSource
 description: Cashier

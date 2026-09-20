@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_write_off
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_write_off
   type: dataSource
 description: Write Off

@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_loyalty_expiry
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_loyalty_expiry
   type: dataSource
 description: Loyalty Expiry

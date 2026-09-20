@@ -40,7 +40,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_time_of_day_bucket
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_time_of_day_bucket
   type: dataSource
 description: Time of Day

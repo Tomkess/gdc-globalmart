@@ -274,3 +274,18 @@ class FakeSdk:
 @pytest.fixture
 def fake_sdk() -> FakeSdk:
     return FakeSdk()
+
+
+@pytest.fixture(autouse=True)
+def _backups_stay_out_of_the_repo(
+    tmp_path_factory: pytest.TempPathFactory, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Point `backup_dir` at a temp directory for every test.
+
+    `publish_workspace(apply=True)` takes a backup before the PUT, and the `FakeSdk` serves
+    a real model back, so a publish test writes a genuine YAML tree — into `backups/` in the
+    working tree, by default. Harmless (it is gitignored) but confusing: it leaves folders
+    named after workspaces that were never published, including one under a `workspace_id_prefix`
+    that only exists inside a test.
+    """
+    monkeypatch.setenv("GLOBALMART_BACKUP_DIR", str(tmp_path_factory.mktemp("backups")))

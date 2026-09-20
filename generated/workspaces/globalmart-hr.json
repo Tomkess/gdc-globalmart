@@ -1,0 +1,4674 @@
+{
+  "analytics": {
+    "analyticalDashboardExtensions": [],
+    "analyticalDashboards": [
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_014",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0288",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_00",
+                      "title": "Hours Worked by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0289",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_01",
+                      "title": "Gross Pay by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0290",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_02",
+                      "title": "Deductions by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0291",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_03",
+                      "title": "Absence Hours by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0292",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_04",
+                      "title": "Training Cost by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0293",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_05",
+                      "title": "Headcount by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0294",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_06",
+                      "title": "Active Count by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0295",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_07",
+                      "title": "Recruitment Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0296",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_08",
+                      "title": "Recruitment Cost by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0297",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_09",
+                      "title": "Hours Worked by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0298",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_10",
+                      "title": "Hours Worked by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0299",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_014_11",
+                      "title": "Hours Worked by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard bringing together key HR trends over time—headcount, hours worked, payroll (gross pay and deductions), absence, recruitment volume and cost, and training spend—so you can monitor workforce capacity and cost drivers. It is set up to report on the last 12 months and supports filtering by store region and channel to focus the analysis on specific parts of the business.",
+        "id": "dashboard_014",
+        "title": "Employee Performance & Headcount"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_015",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0300",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_00",
+                      "title": "Gross Pay",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0301",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_01",
+                      "title": "Gross Pay",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0302",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_02",
+                      "title": "Gross Pay",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0303",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_03",
+                      "title": "Deductions",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0304",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_04",
+                      "title": "Deductions Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0305",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_05",
+                      "title": "Deductions Over Time",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0306",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_06",
+                      "title": "Absence Hours Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0307",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_07",
+                      "title": "Absence Hours and Absence Hours by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0308",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_08",
+                      "title": "Absence Hours by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0309",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_09",
+                      "title": "Training Cost by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0310",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_10",
+                      "title": "Training Cost by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0311",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_015_11",
+                      "title": "Training Cost by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard that brings together payroll cost (gross pay and deductions), absence hours, and training spend trends across channels (In-Store, Online) and the North region. It supports monitoring month/quarter/year patterns and comparing how payroll- and absence-related measures change over time under the dashboard’s reporting context, with defaults set to the last 12 months and optional geography filters (region and city).",
+        "id": "dashboard_015",
+        "title": "Payroll & Absence Analytics"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_030",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0312",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_00",
+                      "title": "Headcount by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0313",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_01",
+                      "title": "Headcount by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0314",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_02",
+                      "title": "Headcount by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0315",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_03",
+                      "title": "Active Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0316",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_04",
+                      "title": "Active Count by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0317",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_05",
+                      "title": "Active Count by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0318",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_06",
+                      "title": "Recruitment Count by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0319",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_07",
+                      "title": "Recruitment Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0320",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_08",
+                      "title": "Recruitment Count",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0321",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_09",
+                      "title": "Recruitment Cost",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0322",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_10",
+                      "title": "Recruitment Cost",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_hr_0323",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_030_11",
+                      "title": "Recruitment Cost",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "This dashboard brings together key workforce productivity indicators—headcount, active headcount, recruitment volume, and recruitment cost—shown as time trends (by month/quarter/year) and headline KPIs. It is intended for monitoring staffing and recruiting performance across regions and channels, with default filtering to the last 12 months and optional constraints for fiscal quarter, store region, and channel.",
+        "id": "dashboard_030",
+        "title": "Workforce Productivity Index"
+      }
+    ],
+    "attributeHierarchies": [],
+    "dashboardPlugins": [],
+    "exportDefinitions": [],
+    "filterContexts": [
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_region.region_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_region.region_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_014",
+        "title": "Filters — Employee Performance & Headcount"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_region.region_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_city.city_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_015",
+        "title": "Filters — Payroll & Absence Analytics"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_fiscal_period.fiscal_quarter",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_company_entity.entity_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_030",
+        "title": "Filters — Workforce Productivity Index"
+      }
+    ],
+    "memoryItems": [],
+    "metrics": [
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_absence.absence_hours})"
+        },
+        "description": "Shows the total number of hours employees were absent by summing Absence Hours. Use it to monitor overall absence volume and compare totals across time periods or other breakdowns.",
+        "id": "metric_l1_fact_absence_absence_hours",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Absence Hours (Absence)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_employee_hours.hours_worked})"
+        },
+        "description": "Totals the Hours Worked values to show overall employee labor hours for the current selection and any applied filters. Use it to track aggregate time effort in the Employee Hours data across employees or time periods.",
+        "id": "metric_l1_fact_employee_hours_hours_worked",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Hours Worked (Employee Hours)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_headcount_snapshot.active_count})"
+        },
+        "description": "Shows the total number of active people by summing the Active Count from the Headcount Snapshot data, within the current reporting context (such as the selected time period or applied filters). Use it to track active headcount across organizational or time breakdowns.",
+        "id": "metric_l1_fact_headcount_snapshot_active_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Active Count (Headcount Snapshot)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_headcount_snapshot.total_headcount})"
+        },
+        "description": "Shows the total number of employees by summing the Headcount measure from the Headcount Snapshot dataset. Use it to track overall workforce size and break it down by the selected filters, such as time period or organizational structure.",
+        "id": "metric_l1_fact_headcount_snapshot_total_headcount",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Headcount (Headcount Snapshot)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_payroll_transaction.deductions})"
+        },
+        "description": "Shows the total amount deducted across payroll transactions within the current reporting scope (such as applied filters and selected time period). Use it to summarize withholdings (taxes and deductions withheld from employee pay by the employer)/deductions by payroll dimensions like employee or pay period.",
+        "id": "metric_l1_fact_payroll_transaction_deductions",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Deductions (Payroll Transaction)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_payroll_transaction.gross_pay})"
+        },
+        "description": "Shows the total gross pay amount by summing Gross Pay across all payroll transactions within the current reporting context (such as selected dates, employees, or other filters). Use it as a core payroll cost measure when analyzing Payroll Transaction data.",
+        "id": "metric_l1_fact_payroll_transaction_gross_pay",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Gross Pay (Payroll Transaction)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_recruitment.recruitment_cost})"
+        },
+        "description": "Tracks total recruiting spend by summing the Recruitment (the process of sourcing and hiring new employees) Cost values from the Recruitment dataset. Use this metric to monitor overall recruitment costs and compare spending across time periods, teams, or other recruitment dimensions.",
+        "id": "metric_l1_fact_recruitment_recruitment_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Recruitment Cost (Recruitment)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_recruitment.recruitment_count})"
+        },
+        "description": "Measures the total number of recruitments (the process of sourcing and hiring new employees) by summing the Recruitment Count from the Recruitment dataset. Use it to track overall recruitment volume and compare performance across slices such as time, location, or other recruitment-related dimensions.",
+        "id": "metric_l1_fact_recruitment_recruitment_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Recruitment Count (Recruitment)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_training_completion.training_cost})"
+        },
+        "description": "Shows total training spend by summing Training Cost from the Training Completion data, within the current reporting context (for example by time period, course, or other applied filters).",
+        "id": "metric_l1_fact_training_completion_training_cost",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Training Cost (Training Completion)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_employee_hours_hours_worked} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total employee labor hours worked, restricted to the In-Store sales channel. Use this metric to monitor in-store staffing effort while applying other filters such as time period or location.",
+        "id": "metric_l3_0094_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Hours Worked (Employee Hours) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_employee_hours_hours_worked} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Shows total employee labor hours worked, filtered to the Online sales channel. Use it to monitor labor effort attributable to Online activity and compare it with hours in other channels under the same reporting context.",
+        "id": "metric_l3_0094_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Hours Worked (Employee Hours) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_employee_hours_hours_worked} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Totals employee hours worked for the North region only. Use it to monitor labor effort specific to North while still honoring any additional filters applied in a report or dashboard.",
+        "id": "metric_l3_0094_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Hours Worked (Employee Hours) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_payroll_transaction_gross_pay} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total gross pay from payroll transactions, filtered to activity associated with the In-Store sales channel. Use this metric to analyze payroll costs specifically for in-store operations within the current reporting context (for example, the selected time period or employee filters).",
+        "id": "metric_l3_0095_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Pay (Payroll Transaction) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_payroll_transaction_gross_pay} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total gross pay from payroll transactions restricted to activity in the Online sales channel. Use this metric to assess payroll costs attributable to online-channel operations within the current reporting context (such as the selected time period or employee breakdowns).",
+        "id": "metric_l3_0095_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Pay (Payroll Transaction) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_payroll_transaction_gross_pay} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows total gross pay from payroll transactions, restricted to the North region. Use it to track and compare payroll cost totals for North across any other selected reporting filters such as date or employee.",
+        "id": "metric_l3_0095_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Gross Pay (Payroll Transaction) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_payroll_transaction_deductions} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Shows the total payroll transaction deductions for the In-Store sales channel. Use it to analyze and compare deduction amounts tied specifically to in-store activity within the current report filters and time period.",
+        "id": "metric_l3_0096_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Deductions (Payroll Transaction) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_payroll_transaction_deductions} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Shows the total amount deducted from payroll transactions for the Online sales channel only. Use it to monitor and report payroll deductions tied to Online activity within the current time period and any other report filters.",
+        "id": "metric_l3_0096_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Deductions (Payroll Transaction) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_payroll_transaction_deductions} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total payroll transaction deductions restricted to the North region. Use this metric to track and compare North’s deduction totals within whatever time period and other reporting filters are applied.",
+        "id": "metric_l3_0096_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Deductions (Payroll Transaction) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_absence_absence_hours} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total employee absence hours, filtered to the In-Store sales channel. Use this metric to track and compare in-store absence volume over time or across other business breakdowns.",
+        "id": "metric_l3_0097_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Absence Hours (Absence) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_absence_absence_hours} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total employee absence hours filtered to records associated with the Online sales channel type. Use it to track and compare online-channel absence volume across time or other business breakdowns.",
+        "id": "metric_l3_0097_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Absence Hours (Absence) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_absence_absence_hours} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows the total number of employee absence hours, filtered to the North region. Use it to monitor absence volume in North and compare it across time periods or other breakdowns.",
+        "id": "metric_l3_0097_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Absence Hours (Absence) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_training_completion_training_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total training spend from Training Completion data, filtered to the In-Store sales channel. Use this metric to monitor and compare in-store training costs across the current reporting context (such as time period, course, or other applied filters).",
+        "id": "metric_l3_0098_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Training Cost (Training Completion) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_training_completion_training_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Shows the total Training Cost from Training Completion records, filtered to the Online sales channel. Use it to monitor online-only training spend within the current reporting context (such as time period, course, or other applied filters).",
+        "id": "metric_l3_0098_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Training Cost (Training Completion) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_training_completion_training_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total training spend from Training Completion records, filtered to the North region. Use this metric to monitor training costs in the North within the current reporting context (such as time period, course, or other applied filters).",
+        "id": "metric_l3_0098_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Training Cost (Training Completion) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_headcount_snapshot_total_headcount} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total employee headcount from the Headcount Snapshot, filtered to the In-Store sales channel. Use this metric to monitor staffing levels for in-store operations over time or across organizational breakdowns.",
+        "id": "metric_l3_0099_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Headcount (Headcount Snapshot) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_headcount_snapshot_total_headcount} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total employee headcount from the Headcount Snapshot, filtered to the Online sales channel. Use this metric to monitor workforce size for online operations and analyze how it changes when sliced by time or organizational dimensions.",
+        "id": "metric_l3_0099_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Headcount (Headcount Snapshot) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_headcount_snapshot_total_headcount} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total employee headcount from the Headcount Snapshot data, restricted to the North region. Use this metric to monitor workforce size for North and analyze it over time or by other organizational dimensions.",
+        "id": "metric_l3_0099_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Headcount (Headcount Snapshot) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_headcount_snapshot_active_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the total number of active people from the Headcount Snapshot data, filtered to the In-Store sales channel. Use this metric to monitor in-store headcount levels over time or when slicing by other report filters.",
+        "id": "metric_l3_0100_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Active Count (Headcount Snapshot) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_headcount_snapshot_active_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Shows the total number of active people from the headcount snapshot, filtered to the Online sales channel. Use this metric to track or compare Online active headcount across the selected time period and any other report filters.",
+        "id": "metric_l3_0100_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Active Count (Headcount Snapshot) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_headcount_snapshot_active_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the total number of active people from the Headcount Snapshot data, limited to the North region. Use this metric to monitor North’s active headcount within the current reporting context (such as the selected time period and any other applied filters).",
+        "id": "metric_l3_0100_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Active Count (Headcount Snapshot) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_recruitment_recruitment_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the total number of recruitments for the In-Store sales channel. Use this metric to monitor and compare in-store recruitment volume across time periods or other recruitment dimensions. Recruitment refers to the process of sourcing and hiring new employees.",
+        "id": "metric_l3_0101_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recruitment Count (Recruitment) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_recruitment_recruitment_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts the total number of recruitments attributed to the Online sales channel. Use it to monitor and compare online-driven recruitment volume across dimensions such as time, location, or other recruitment breakdowns. Recruitment refers to the process of sourcing and hiring new employees.",
+        "id": "metric_l3_0101_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recruitment Count (Recruitment) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_recruitment_recruitment_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the total number of recruitments for the North region only. Use this metric to monitor and compare North’s recruitment volume against other regions or across time. Recruitment refers to the process of sourcing and hiring new employees.",
+        "id": "metric_l3_0101_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recruitment Count (Recruitment) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_recruitment_recruitment_cost} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total recruitment spend filtered to the In-Store sales channel. Use it to monitor and compare the cost of recruiting for In-Store hiring across time periods or other recruitment dimensions.",
+        "id": "metric_l3_0102_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recruitment Cost (Recruitment) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_recruitment_recruitment_cost} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total recruitment spend filtered to the Online sales channel. Use this metric to monitor and compare recruiting costs attributable to online-channel activity versus other channels or overall recruitment spend.",
+        "id": "metric_l3_0102_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recruitment Cost (Recruitment) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_recruitment_recruitment_cost} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total recruitment spending filtered to the North region. Use it to monitor and compare recruiting costs for North versus other regions or across time periods.",
+        "id": "metric_l3_0102_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Recruitment Cost (Recruitment) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0",
+          "maql": "SELECT MIN({metric/metric_l1_fact_headcount_snapshot_total_headcount})"
+        },
+        "description": "Returns the minimum value of Total Headcount within the selected data and filters. This metric respects dashboard, visualization, date, and segment filters applied in the analysis context.",
+        "id": "minimum_total_headcount",
+        "tags": [
+          "headcount",
+          "minimum",
+          "workforce"
+        ],
+        "title": "Minimum Total Headcount"
+      },
+      {
+        "content": {
+          "format": "#,##0",
+          "maql": "SELECT MIN((SELECT {metric/metric_l1_fact_headcount_snapshot_total_headcount} BY {label/transaction_date.week})) BY ALL {label/transaction_date.week}"
+        },
+        "description": "Returns the minimum weekly value of Total Headcount (Headcount Snapshot) across the selected date range (weekly grain = Transaction Date Week/Year). Respects all applied filters (e.g., region) and computes the minimum over weeks within the remaining analysis context.",
+        "id": "minimum_weekly_total_headcount",
+        "tags": [
+          "headcount",
+          "min",
+          "weekly"
+        ],
+        "title": "Minimum Weekly Total Headcount"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({metric/metric_l1_fact_employee_hours_hours_worked})"
+        },
+        "description": "Sums the existing {metric/metric_l1_fact_employee_hours_hours_worked} metric across the current analytical context and any applied filters.",
+        "id": "sum_total_hours_worked_metric",
+        "tags": [
+          "employee_hours",
+          "hours",
+          "labor"
+        ],
+        "title": "Sum of Total Hours Worked Metric"
+      }
+    ],
+    "parameters": [],
+    "visualizationObjects": [
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_employee_hours_hours_worked",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total employee hours worked broken out by Month/Year, using the Total Hours Worked (Employee Hours) metric. Use it to track how overall labor effort changes over time at a monthly level.",
+        "id": "viz_hr_0288",
+        "title": "Hours Worked by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_payroll_transaction_gross_pay",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total gross pay from payroll transactions broken out by quarter/year, helping you track how payroll costs change over time.",
+        "id": "viz_hr_0289",
+        "title": "Gross Pay by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_payroll_transaction_deductions",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total payroll transaction deductions broken out by year as a column chart, helping you track how deduction amounts change over time for the currently selected reporting scope.",
+        "id": "viz_hr_0290",
+        "title": "Deductions by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_absence_absence_hours",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total employee absence hours broken down by Month/Year, to track how overall absence volume changes over time and compare monthly totals.",
+        "id": "viz_hr_0291",
+        "title": "Absence Hours by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_training_completion_training_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows total training spend over time by quarter/year, using Total Training Cost from Training Completion data. Use it to compare quarterly training costs and spot trends or spikes in training investment.",
+        "id": "viz_hr_0292",
+        "title": "Training Cost by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_headcount_snapshot_total_headcount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total employee headcount by year, based on the Headcount Snapshot measure. Use it to track how overall headcount changes over time and compare year-to-year totals.",
+        "id": "viz_hr_0293",
+        "title": "Headcount by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_headcount_snapshot_active_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of active people (from the Headcount Snapshot) trended by Month/Year. Use it to monitor changes in active headcount over time for the currently selected reporting context.",
+        "id": "viz_hr_0294",
+        "title": "Active Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_recruitment_recruitment_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of recruitments by quarter/year, using the Total Recruitment Count (Recruitment) metric. Use it to track recruitment volume over time and compare quarterly trends.",
+        "id": "viz_hr_0295",
+        "title": "Recruitment Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_recruitment_recruitment_cost",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total recruitment spend (Total Recruitment Cost) broken down by year, to help track and compare overall recruiting costs over time.",
+        "id": "viz_hr_0296",
+        "title": "Recruitment Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0094_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total employee hours worked for the In-Store channel, broken out by Month/Year. Use it to track monthly labor effort trends for in-store operations and see how hours change over time.",
+        "id": "viz_hr_0297",
+        "title": "Hours Worked by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0094_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total employee hours worked for the Online sales channel, broken down by quarter/year. Use it to track how Online-related labor effort changes over time and compare quarters at a glance.",
+        "id": "viz_hr_0298",
+        "title": "Hours Worked by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0094_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total employee hours worked in the North region, broken down by year. Use it to track year-over-year changes in labor effort for the North region, with any additional report filters applied on top.",
+        "id": "viz_hr_0299",
+        "title": "Hours Worked by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0095_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total Gross Pay from payroll transactions for activity associated with the In-Store sales channel, within the current reporting context (such as selected time period or employee filters).",
+        "id": "viz_hr_0300",
+        "title": "Gross Pay"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0095_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total Gross Pay from payroll transactions for activity associated with the Online sales channel. Use it to monitor payroll cost for online-channel operations within the current dashboard/report filters.",
+        "id": "viz_hr_0301",
+        "title": "Gross Pay"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0095_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total Gross Pay from payroll transactions for the North region. Use it to track overall payroll cost for North-region employees/transactions under the current reporting filters (such as date or employee).",
+        "id": "viz_hr_0302",
+        "title": "Gross Pay"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0096_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total payroll transaction deductions for the In-Store channel, based on the “Deductions (Payroll Transaction) — In-Store Channel” metric. Use it to monitor the level of deductions tied to in-store activity under the current report filters and time period.",
+        "id": "viz_hr_0303",
+        "title": "Deductions"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0096_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing total payroll transaction deductions for the Online channel, trended by Month/Year. Use it to monitor how deductions change over time within the current reporting period and filters.",
+        "id": "viz_hr_0304",
+        "title": "Deductions Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0096_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing total payroll transaction deductions for the North region over time, trended by Month/Year. Use it to monitor how deduction totals change month to month within the current reporting period.",
+        "id": "viz_hr_0305",
+        "title": "Deductions Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0097_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing total employee absence hours for the In-Store sales channel, trended by Month/Year. Use it to monitor how in-store absence volume changes over time and compare month-to-month patterns.",
+        "id": "viz_hr_0306",
+        "title": "Absence Hours Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0097_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                },
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0097_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m2"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "attribute"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:table"
+        },
+        "description": "Table showing total employee absence hours by quarter/year, split into two views: Online Channel and North Region. Use it to compare how absence volume changes over time for the online channel versus the North region.",
+        "id": "viz_hr_0307",
+        "title": "Absence Hours and Absence Hours by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0097_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total employee absence hours for the North region, broken down by year. Use it to track yearly absence volume trends in the North and compare performance across years.",
+        "id": "viz_hr_0308",
+        "title": "Absence Hours by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0098_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total In-Store training spend over time by Month/Year, using Training Completion data. Use it to track monthly trends and compare how in-store training costs change across the selected period.",
+        "id": "viz_hr_0309",
+        "title": "Training Cost by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0098_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Training Cost from Training Completion records for the Online channel, broken out by Quarter/Year. Use it to track how online-only training spend changes over time and compare quarterly trends.",
+        "id": "viz_hr_0310",
+        "title": "Training Cost by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0098_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Training Cost from Training Completion records for the North region, broken down by year. Use it to track how annual training spend in the North changes over time under the current reporting filters (such as selected time period or course).",
+        "id": "viz_hr_0311",
+        "title": "Training Cost by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0099_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing monthly employee headcount over time, using the Headcount Snapshot metric filtered to the In-Store sales channel. Use it to track how in-store staffing levels change by Month/Year across the selected period.",
+        "id": "viz_hr_0312",
+        "title": "Headcount by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0099_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing Online Channel headcount from the Headcount Snapshot metric, trended by quarter/year. Use it to monitor how the size of the online workforce changes over time at a quarterly cadence.",
+        "id": "viz_hr_0313",
+        "title": "Headcount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0099_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the North region headcount snapshot by year, so you can track how workforce size changes over time.",
+        "id": "viz_hr_0314",
+        "title": "Headcount by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0100_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the Active Count (Headcount Snapshot) for the In-Store channel over time by Month/Year. Use it to monitor how in-store active headcount levels trend month to month.",
+        "id": "viz_hr_0315",
+        "title": "Active Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0100_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the number of active people (headcount snapshot) in the Online channel by quarter/year. Use it to track how Online active headcount changes over time and to compare quarters within the selected reporting period.",
+        "id": "viz_hr_0316",
+        "title": "Active Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0100_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the North region’s active headcount snapshot by year, based on the Active Count (Headcount Snapshot) — North Region metric. Use it to track how the number of active people in the North changes year over year within the current reporting context.",
+        "id": "viz_hr_0317",
+        "title": "Active Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0101_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the number of in-store recruitments over time, broken out by Month/Year. Use it to track recruitment volume trends and compare month-to-month performance for the In-Store channel.",
+        "id": "viz_hr_0318",
+        "title": "Recruitment Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0101_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the number of recruitments from the Online channel over time by quarter/year. Use it to monitor quarterly trends and compare online-driven recruitment volume across periods.",
+        "id": "viz_hr_0319",
+        "title": "Recruitment Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0101_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of recruitments in the North region, using the “Recruitment Count (Recruitment) — North Region” metric. Use it to quickly monitor recruitment volume for North and compare it against other regions or time periods in surrounding analysis.",
+        "id": "viz_hr_0320",
+        "title": "Recruitment Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0102_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total recruitment spend for the In-Store sales channel, based on the “Recruitment Cost (Recruitment) — In-Store Channel” metric. Use it to monitor and compare In-Store recruiting costs over time or across other recruitment dimensions.",
+        "id": "viz_hr_0321",
+        "title": "Recruitment Cost"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0102_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Shows the total recruitment spend for the Online channel as a single headline KPI, based on the \"Recruitment Cost (Recruitment) — Online Channel\" metric. Use it to monitor and compare recruiting costs specifically tied to online-channel activity.",
+        "id": "viz_hr_0322",
+        "title": "Recruitment Cost"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0102_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing total recruitment spending for the North region, based on the “Recruitment Cost (Recruitment) — North Region” metric. Use it to monitor and compare recruiting costs in the North against other regions or over time.",
+        "id": "viz_hr_0323",
+        "title": "Recruitment Cost"
+      }
+    ]
+  },
+  "ldm": {
+    "datasetExtensions": [],
+    "datasets": [
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+            "id": "dim_channel_master.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel ID (Sales Channel)"
+          },
+          {
+            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Name (Sales Channel)"
+          },
+          {
+            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_type",
+            "labels": [],
+            "sourceColumn": "channel_type",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Type (Sales Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_channel_master",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_channel_master"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Sales Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_channel_master.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_channel_master",
+        "references": [],
+        "tags": [
+          "Sales Channel"
+        ],
+        "title": "Sales Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each company entity record in the Company Entity dataset. Use it to uniquely distinguish, group, or filter data by entity.",
+            "id": "dim_company_entity.entity_id",
+            "labels": [],
+            "sourceColumn": "entity_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Company Entity"
+            ],
+            "title": "Entity ID"
+          },
+          {
+            "description": "Name of the company entity, used to segment, group, and filter reporting by entity within the Company Entity dataset.",
+            "id": "dim_company_entity.entity_name",
+            "labels": [],
+            "sourceColumn": "entity_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Company Entity"
+            ],
+            "title": "Entity Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_company_entity",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_company_entity"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Company Entity",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_company_entity.entity_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_company_entity",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Company Entity"
+        ],
+        "title": "Company Entity",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group, filter, or segment measures by currency.",
+            "id": "dim_currency.currency_code",
+            "labels": [],
+            "sourceColumn": "currency_code",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Code"
+          },
+          {
+            "description": "Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering or grouping analyses.",
+            "id": "dim_currency.currency_id",
+            "labels": [],
+            "sourceColumn": "currency_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency ID"
+          },
+          {
+            "description": "Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and reports by currency.",
+            "id": "dim_currency.currency_name",
+            "labels": [],
+            "sourceColumn": "currency_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Name"
+          },
+          {
+            "description": "The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter or break down analyses by the applicable USD conversion rate.",
+            "id": "dim_currency.exchange_rate_to_usd",
+            "labels": [],
+            "sourceColumn": "exchange_rate_to_usd",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Exchange Rate to Usd"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_currency",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_currency"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Currency",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_currency.currency_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_currency",
+        "references": [],
+        "tags": [
+          "Currency"
+        ],
+        "title": "Currency",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each department in the Department dataset, used to group, join, and filter reporting by department.",
+            "id": "dim_department.department_id",
+            "labels": [],
+            "sourceColumn": "department_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Department"
+            ],
+            "title": "Department ID (Department)"
+          },
+          {
+            "description": "Name of the department in the Department dataset, used to group and filter reports and analyses by department.",
+            "id": "dim_department.department_name",
+            "labels": [],
+            "sourceColumn": "department_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Department"
+            ],
+            "title": "Department Name"
+          },
+          {
+            "description": "Identifies the manager associated with each department. Use it to group or filter department-level reporting by manager in the Department dataset.",
+            "id": "dim_department.manager_id",
+            "labels": [],
+            "sourceColumn": "manager_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Department"
+            ],
+            "title": "Manager ID (Department)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_department",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_department"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Department",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_department.department_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_department",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_employee",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "manager_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_employee.employee_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Department"
+        ],
+        "title": "Department",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each employee in the Employee dataset, used to distinguish, group, or filter records at the individual employee level.",
+            "id": "dim_employee.employee_id",
+            "labels": [],
+            "sourceColumn": "employee_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Employee"
+            ],
+            "title": "Employee ID"
+          },
+          {
+            "description": "Employee Name identifies individual employees in the Employee dataset and is used to group, filter, or break down metrics by employee.",
+            "id": "dim_employee.employee_name",
+            "labels": [],
+            "sourceColumn": "employee_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Employee"
+            ],
+            "title": "Employee Name"
+          },
+          {
+            "description": "Identifier for an employee’s job role in the Employee dataset, used to group or filter reporting by job role.",
+            "id": "dim_employee.job_role_id",
+            "labels": [],
+            "sourceColumn": "job_role_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Employee"
+            ],
+            "title": "Job Role ID"
+          },
+          {
+            "description": "Identifies the manager associated with each employee record in the Employee dataset. Use it to group or filter employee-related metrics by manager.",
+            "id": "dim_employee.manager_id",
+            "labels": [],
+            "sourceColumn": "manager_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Employee"
+            ],
+            "title": "Manager ID (Employee)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_employee",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_employee"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Employee",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_employee.employee_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_employee",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_department",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "department_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_department.department_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_job_role",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "job_role_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_job_role.role_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Employee"
+        ],
+        "title": "Employee",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Represents the fiscal month in the Fiscal Period dataset. Use it to group, filter, and compare results by month within your organization’s fiscal calendar.",
+            "id": "dim_fiscal_period.fiscal_month",
+            "labels": [],
+            "sourceColumn": "fiscal_month",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Month"
+          },
+          {
+            "description": "Unique identifier for each fiscal period in the Fiscal Period dataset, used to group and filter reporting by specific fiscal periods.",
+            "id": "dim_fiscal_period.fiscal_period_id",
+            "labels": [],
+            "sourceColumn": "fiscal_period_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Period ID"
+          },
+          {
+            "description": "Represents the fiscal quarter within the Fiscal Period calendar. Use it to group, compare, or filter metrics by quarter (e.g., Q1–Q4) in reports and dashboards.",
+            "id": "dim_fiscal_period.fiscal_quarter",
+            "labels": [],
+            "sourceColumn": "fiscal_quarter",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Quarter"
+          },
+          {
+            "description": "Represents the fiscal year associated with each fiscal period. Use it to group, filter, and compare measures by fiscal year in reporting based on the Fiscal Period dataset.",
+            "id": "dim_fiscal_period.fiscal_year",
+            "labels": [],
+            "sourceColumn": "fiscal_year",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fiscal Period"
+            ],
+            "title": "Fiscal Year (Fiscal Period)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_fiscal_period",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_fiscal_period"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Fiscal Period",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_fiscal_period.fiscal_period_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_fiscal_period",
+        "references": [
+          {
+            "identifier": {
+              "id": "fiscal_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "calendar_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "fiscal_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Fiscal Period"
+        ],
+        "title": "Fiscal Period",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each city record in the City dataset, typically used to join, group, or filter city-level data in reporting.",
+            "id": "dim_geography_city.city_id",
+            "labels": [],
+            "sourceColumn": "city_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City ID"
+          },
+          {
+            "description": "Name of the city, used to group or filter analyses by city.",
+            "id": "dim_geography_city.city_name",
+            "labels": [],
+            "sourceColumn": "city_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "City"
+            ],
+            "title": "City Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_city",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_city"
+          ],
+          "type": "dataSource"
+        },
+        "description": "City",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_city.city_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_city",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "dim_geography_region",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "region_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_region.region_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "City"
+        ],
+        "title": "City",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and grouping in analysis.",
+            "id": "dim_geography_country.country_id",
+            "labels": [],
+            "sourceColumn": "country_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country ID"
+          },
+          {
+            "description": "Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by country.",
+            "id": "dim_geography_country.country_name",
+            "labels": [],
+            "sourceColumn": "country_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_country",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_country"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Country",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_country.country_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_country",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_currency",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "currency_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_currency.currency_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Country"
+        ],
+        "title": "Country",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis by region.",
+            "id": "dim_geography_region.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region ID (Region)"
+          },
+          {
+            "description": "Name of the geographic region in the Region dataset, used to group and filter reporting by region.",
+            "id": "dim_geography_region.region_name",
+            "labels": [],
+            "sourceColumn": "region_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_region",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_region"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Region",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_region.region_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_region",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Region"
+        ],
+        "title": "Region",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each job role in the Job Role dataset, used to distinguish, group, or filter records by role.",
+            "id": "dim_job_role.role_id",
+            "labels": [],
+            "sourceColumn": "role_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Job Role"
+            ],
+            "title": "Role ID"
+          },
+          {
+            "description": "Job role name used to categorize and filter records by role within the Job Role dataset.",
+            "id": "dim_job_role.role_name",
+            "labels": [],
+            "sourceColumn": "role_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Job Role"
+            ],
+            "title": "Role Name"
+          },
+          {
+            "description": "Indicates the salary band associated with each job role. Use it to group, segment, or filter analyses of job roles by compensation range.",
+            "id": "dim_job_role.salary_band",
+            "labels": [],
+            "sourceColumn": "salary_band",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Job Role"
+            ],
+            "title": "Salary Band"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_job_role",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_job_role"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Job Role",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_job_role.role_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_job_role",
+        "references": [],
+        "tags": [
+          "Job Role"
+        ],
+        "title": "Job Role",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each absence record in the Absence dataset. Use it to look up, group, or filter analyses by a specific absence entry.",
+            "id": "fact_absence.absence_id",
+            "labels": [],
+            "sourceColumn": "absence_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Absence"
+            ],
+            "title": "Absence ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_absence",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_absence"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Absence",
+        "facts": [
+          {
+            "description": "Total number of hours recorded as absence. Use this measure from the Absence dataset to analyze and aggregate absence time across employees, periods, or other dimensions.",
+            "id": "fact_absence.absence_hours",
+            "sourceColumn": "absence_hours",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Absence"
+            ],
+            "title": "Absence Hours"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_absence.absence_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_absence",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_employee",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "employee_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_employee.employee_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "absence_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Absence"
+        ],
+        "title": "Absence",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each record in the Employee Hours dataset, used to distinguish individual time entries and support filtering or drilling into specific records.",
+            "id": "fact_employee_hours.record_id",
+            "labels": [],
+            "sourceColumn": "record_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Employee Hours"
+            ],
+            "title": "Record ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_employee_hours",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_employee_hours"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Employee Hours",
+        "facts": [
+          {
+            "description": "Total hours worked recorded in the Employee Hours dataset, used to measure and analyze labor time across employees or periods.",
+            "id": "fact_employee_hours.hours_worked",
+            "sourceColumn": "hours_worked",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Employee Hours"
+            ],
+            "title": "Hours Worked"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_employee_hours.record_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_employee_hours",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_employee",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "employee_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_employee.employee_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "hours_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Employee Hours"
+        ],
+        "title": "Employee Hours",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each headcount snapshot record in the Headcount Snapshot dataset. Use it to distinguish and filter specific snapshot instances when analyzing headcount over time.",
+            "id": "fact_headcount_snapshot.snapshot_id",
+            "labels": [],
+            "sourceColumn": "snapshot_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Headcount Snapshot"
+            ],
+            "title": "Snapshot ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_headcount_snapshot",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_headcount_snapshot"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Headcount Snapshot",
+        "facts": [
+          {
+            "description": "Number of active people recorded in the Headcount Snapshot dataset, typically used to track and aggregate active headcount across time or organizational breakdowns.",
+            "id": "fact_headcount_snapshot.active_count",
+            "sourceColumn": "active_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Headcount Snapshot"
+            ],
+            "title": "Active Count"
+          },
+          {
+            "description": "Total number of employees in the Headcount Snapshot dataset, used to track workforce size over time and across organizational breakdowns.",
+            "id": "fact_headcount_snapshot.total_headcount",
+            "sourceColumn": "total_headcount",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Headcount Snapshot"
+            ],
+            "title": "Headcount"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_headcount_snapshot.snapshot_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_headcount_snapshot",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "snapshot_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Headcount Snapshot"
+        ],
+        "title": "Headcount Snapshot",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the department associated with each payroll transaction, from the Payroll Transaction dataset. Use it to group, filter, or segment payroll measures by department.",
+            "id": "fact_payroll_transaction.department_id",
+            "labels": [],
+            "sourceColumn": "department_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Payroll Transaction"
+            ],
+            "title": "Department ID (Payroll Transaction)"
+          },
+          {
+            "description": "Unique identifier for each payroll transaction record in the Payroll Transaction dataset, used to look up, group, or filter specific transactions.",
+            "id": "fact_payroll_transaction.transaction_id",
+            "labels": [],
+            "sourceColumn": "transaction_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Payroll Transaction"
+            ],
+            "title": "Transaction ID (Payroll Transaction)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_payroll_transaction",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_payroll_transaction"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Payroll Transaction",
+        "facts": [
+          {
+            "description": "Total deductions recorded on each payroll transaction. Use this to analyze how much is being withheld or deducted, and to summarize deductions by employee, period, or other payroll dimensions.",
+            "id": "fact_payroll_transaction.deductions",
+            "sourceColumn": "deductions",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Payroll Transaction"
+            ],
+            "title": "Deductions"
+          },
+          {
+            "description": "Gross Pay represents the total payroll amount earned before any deductions or taxes for each payroll transaction. Use it to analyze and aggregate employee compensation within the Payroll Transaction dataset.",
+            "id": "fact_payroll_transaction.gross_pay",
+            "sourceColumn": "gross_pay",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Payroll Transaction"
+            ],
+            "title": "Gross Pay"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_payroll_transaction.transaction_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_payroll_transaction",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_employee",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "employee_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_employee.employee_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "payroll_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Payroll Transaction"
+        ],
+        "title": "Payroll Transaction",
+        "workspaceDataFilterColumns": [
+          {
+            "dataType": "STRING",
+            "name": "department_id"
+          }
+        ],
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each job position in the Recruitment (the process of sourcing and hiring new employees) dataset. Use it to filter, group, or drill into hiring and recruitment metrics at the individual position level.",
+            "id": "fact_recruitment.position_id",
+            "labels": [],
+            "sourceColumn": "position_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Recruitment"
+            ],
+            "title": "Position ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_recruitment",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_recruitment"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Recruitment",
+        "facts": [
+          {
+            "description": "Total cost associated with recruitment (the process of sourcing and hiring new employees) activities, used to track and analyze hiring spend. Sourced from the Recruitment dataset.",
+            "id": "fact_recruitment.recruitment_cost",
+            "sourceColumn": "recruitment_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Recruitment"
+            ],
+            "title": "Recruitment Cost"
+          },
+          {
+            "description": "Count of recruitment (the process of sourcing and hiring new employees) records in the Recruitment dataset, used to measure overall recruitment volume and aggregate totals across different dimensions.",
+            "id": "fact_recruitment.recruitment_count",
+            "sourceColumn": "recruitment_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Recruitment"
+            ],
+            "title": "Recruitment Count"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_recruitment.position_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_recruitment",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "open_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Recruitment"
+        ],
+        "title": "Recruitment",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each training completion record in the Training Completion dataset, used to distinguish and look up individual completion entries.",
+            "id": "fact_training_completion.completion_id",
+            "labels": [],
+            "sourceColumn": "completion_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Training Completion"
+            ],
+            "title": "Completion ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_training_completion",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_training_completion"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Training Completion",
+        "facts": [
+          {
+            "description": "Training Cost captures the cost associated with a training completion record in the Training Completion dataset, and is typically used to analyze and aggregate training spend across courses, employees, or time periods.",
+            "id": "fact_training_completion.training_cost",
+            "sourceColumn": "training_cost",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Training Completion"
+            ],
+            "title": "Training Cost Amount"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_training_completion.completion_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_training_completion",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_employee",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "employee_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_employee.employee_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          },
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "completion_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Training Completion"
+        ],
+        "title": "Training Completion",
+        "workspaceDataFilterReferences": []
+      }
+    ],
+    "dateInstances": [
+      {
+        "description": "",
+        "granularities": [
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "fiscal_date",
+        "title": "Fiscal Date"
+      },
+      {
+        "description": "",
+        "granularities": [
+          "MINUTE",
+          "HOUR",
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "transaction_date",
+        "title": "Transaction Date"
+      }
+    ]
+  }
+}

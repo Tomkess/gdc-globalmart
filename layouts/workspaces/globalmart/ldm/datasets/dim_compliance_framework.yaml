@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_compliance_framework
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_compliance_framework
   type: dataSource
 description: Compliance Framework

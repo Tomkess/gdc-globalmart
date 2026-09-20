@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT SUM({fact/fact_headcount.headcount})
+description: ''
+id: m_headcount
+tags:
+- metric
+title: m_headcount

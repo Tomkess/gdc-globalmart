@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_product_attr_06
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_product_attr_06
   type: dataSource
 description: Product Cross-sell Score

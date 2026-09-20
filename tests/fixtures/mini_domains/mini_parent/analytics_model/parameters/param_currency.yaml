@@ -1,0 +1,7 @@
+content:
+  defaultValue: USD
+  type: STRING
+description: ''
+id: param_currency
+tags: []
+title: Currency

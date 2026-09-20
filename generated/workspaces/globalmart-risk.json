@@ -1,0 +1,3924 @@
+{
+  "analytics": {
+    "analyticalDashboardExtensions": [],
+    "analyticalDashboards": [
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_018",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0324",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_00",
+                      "title": "Attribute Value by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0325",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_01",
+                      "title": "Alert Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0326",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_02",
+                      "title": "Alert Value by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0327",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_03",
+                      "title": "Chargeback Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0328",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_04",
+                      "title": "Chargeback Amount by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0329",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_05",
+                      "title": "Finding Count by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0330",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_06",
+                      "title": "Attribute Value by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0331",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_07",
+                      "title": "Attribute Value by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0332",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_08",
+                      "title": "Attribute Value by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0333",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_09",
+                      "title": "Alert Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0334",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_10",
+                      "title": "Alert Count by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0335",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_018_11",
+                      "title": "Alert Count by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring fraud risk and compliance performance over time. It brings together trends for fraud alerts (count and value), chargebacks (count and amount), audit finding volume, and compliance adherence scores by month/quarter/year. By default it is scoped to the last 12 months, with region and country filters available to narrow the view.",
+        "id": "dashboard_018",
+        "title": "Fraud Risk & Compliance"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_019",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0336",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_00",
+                      "title": "Alert Value",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0337",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_01",
+                      "title": "Alert Value",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0338",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_02",
+                      "title": "Alert Value",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0339",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_03",
+                      "title": "Chargeback Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0340",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_04",
+                      "title": "Chargeback Count Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0341",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_05",
+                      "title": "Chargeback Count Over Time",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0342",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_06",
+                      "title": "Chargeback Amount Over Time",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0343",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_07",
+                      "title": "Chargeback Amount and Chargeback Amount by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0344",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_08",
+                      "title": "Chargeback Amount by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0345",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_09",
+                      "title": "Finding Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0346",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_10",
+                      "title": "Finding Count by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0347",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_019_11",
+                      "title": "Finding Count by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard for monitoring audit findings and fraud/chargeback risk over time, combining headline KPIs (alert value, chargeback count) with monthly/quarterly/yearly trends and comparisons by channel and region. By default it is filtered to the last 12 months, with additional dashboard filters available for store region and sales channel.",
+        "id": "dashboard_019",
+        "title": "Audit Findings & Risk"
+      },
+      {
+        "content": {
+          "filterContextRef": {
+            "identifier": {
+              "id": "filter_context_031",
+              "type": "filterContext"
+            }
+          },
+          "layout": {
+            "sections": [
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0348",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_00",
+                      "title": "Attribute Value by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0349",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_01",
+                      "title": "Alert Count by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0350",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_02",
+                      "title": "Alert Value by Year",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0351",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_03",
+                      "title": "Chargeback Count by Month",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0352",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_04",
+                      "title": "Chargeback Amount by Quarter",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0353",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_05",
+                      "title": "Finding Count by Year",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0354",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_06",
+                      "title": "Attribute Value by Month",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0355",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_07",
+                      "title": "Attribute Value by Quarter",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0356",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_08",
+                      "title": "Attribute Value",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0357",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_09",
+                      "title": "Alert Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              },
+              {
+                "items": [
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0358",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_10",
+                      "title": "Alert Count",
+                      "type": "insight"
+                    }
+                  },
+                  {
+                    "size": {
+                      "xl": {
+                        "gridHeight": 12,
+                        "gridWidth": 6
+                      }
+                    },
+                    "type": "IDashboardLayoutItem",
+                    "widget": {
+                      "description": "",
+                      "drills": [],
+                      "ignoreDashboardFilters": [],
+                      "insight": {
+                        "identifier": {
+                          "id": "viz_risk_0359",
+                          "type": "visualizationObject"
+                        }
+                      },
+                      "localIdentifier": "widget_031_11",
+                      "title": "Alert Count",
+                      "type": "insight"
+                    }
+                  }
+                ],
+                "type": "IDashboardLayoutSection"
+              }
+            ],
+            "type": "IDashboardLayout"
+          },
+          "version": "2"
+        },
+        "description": "Dashboard that benchmarks compliance adherence, fraud alerts, chargebacks, and audit findings over time to support risk and cost-center monitoring. It combines score and alert headlines with monthly/quarterly/yearly trend charts to spot changes, spikes, and regional or channel differences. By default it is filtered to the last 12 months, with optional filters for store region and sales channel.",
+        "id": "dashboard_031",
+        "title": "Compliance & Cost Center Benchmarks"
+      }
+    ],
+    "attributeHierarchies": [],
+    "dashboardPlugins": [],
+    "exportDefinitions": [],
+    "filterContexts": [
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_country.country_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_country.country_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_018",
+        "title": "Filters — Fraud Risk & Compliance"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_geography_country.country_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_channel_master.channel_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_019",
+        "title": "Filters — Audit Findings & Risk"
+      },
+      {
+        "content": {
+          "filters": [
+            {
+              "dateFilter": {
+                "from": "-11",
+                "granularity": "GDC.time.month",
+                "to": "0",
+                "type": "relative"
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_company_entity.entity_id",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            },
+            {
+              "attributeFilter": {
+                "attributeElements": {
+                  "uris": []
+                },
+                "displayForm": {
+                  "identifier": {
+                    "id": "dim_company_entity.entity_name",
+                    "type": "label"
+                  }
+                },
+                "filterElementsBy": [],
+                "negativeSelection": true
+              }
+            }
+          ],
+          "version": "2"
+        },
+        "description": "Default filters: last 12 months + store region + channel",
+        "id": "filter_context_031",
+        "title": "Filters — Compliance & Cost Center Benchmarks"
+      }
+    ],
+    "memoryItems": [],
+    "metrics": [
+      {
+        "content": {
+          "format": "$#,##0.00",
+          "maql": "SELECT MAX({metric/metric_l1_fact_chargeback_chargeback_amount})"
+        },
+        "description": "Maximum value of total chargeback amount across the current context (max over grouped totals when broken down by an attribute), while respecting all report filters.",
+        "id": "custom_max_total_chargeback",
+        "tags": [
+          "chargeback",
+          "risk"
+        ],
+        "title": "custom_max_total_chargeback"
+      },
+      {
+        "content": {
+          "format": "$#,##0.00",
+          "maql": "SELECT MAX({fact/fact_chargeback.chargeback_amount})"
+        },
+        "description": "Returns the maximum monetary value recorded for a chargeback amount within the selected data and filters.",
+        "id": "maximum_total_chargeback_amount",
+        "tags": [
+          "chargeback",
+          "financial",
+          "maximum"
+        ],
+        "title": "Maximum Total Chargeback Amount"
+      },
+      {
+        "content": {
+          "format": "$#,##0.00",
+          "maql": "SELECT MAX({metric/metric_l1_fact_chargeback_chargeback_amount})"
+        },
+        "description": "Returns the maximum value of the total chargeback amount metric within the selected data and filters.",
+        "id": "maximum_total_chargeback_amount_from_total_metric",
+        "tags": [
+          "chargeback",
+          "financial"
+        ],
+        "title": "Maximum Total Chargeback Amount From Total Metric"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_audit_finding.finding_count})"
+        },
+        "description": "Totals the number of audit findings by summing the Finding Count values from the Audit Finding dataset. Use it to report overall finding volume and to break results down by dimensions such as time period, audit, or area.",
+        "id": "metric_l1_fact_audit_finding_finding_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Finding Count (Audit Finding)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_chargeback.chargeback_amount})"
+        },
+        "description": "Shows the total monetary value of chargebacks (a disputed payment transaction reversed by the card issuer) by summing Chargeback Amount across the selected data and filters. Use it to monitor overall chargeback exposure and compare totals across time periods or other business dimensions.",
+        "id": "metric_l1_fact_chargeback_chargeback_amount",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Chargeback Amount (Chargeback)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_chargeback.chargeback_count})"
+        },
+        "description": "Tracks the total number of chargebacks (a disputed payment transaction reversed by the card issuer) by summing Chargeback Count records from the Chargeback dataset. Use it to monitor overall chargeback volume and compare it across time periods, products, or other business dimensions.",
+        "id": "metric_l1_fact_chargeback_chargeback_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Chargeback Count (Chargeback)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_fraud_alert.alert_count})"
+        },
+        "description": "Shows the total number of fraud alerts by summing Alert Count from the Fraud Alert data, within the current reporting scope (such as the selected time period or applied filters). Use it to track overall alert volume and compare trends across dimensions like time or alert type.",
+        "id": "metric_l1_fact_fraud_alert_alert_count",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Alert Count (Fraud Alert)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_fraud_alert.alert_value})"
+        },
+        "description": "Shows the total monetary value associated with fraud alerts by summing Alert Value, respecting any filters or segments applied in the current analysis.",
+        "id": "metric_l1_fact_fraud_alert_alert_value",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Alert Value (Fraud Alert)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT SUM({fact/fact_risk_attr_01.metric})"
+        },
+        "description": "Totals the Compliance Adherence Score by summing its underlying numeric values, giving the overall compliance adherence across whatever scope is currently selected (such as applied filters, time period, or segments).",
+        "id": "metric_l1_fact_risk_attr_01_metric",
+        "tags": [
+          "L1"
+        ],
+        "title": "Total Attribute Value (Compliance Adherence Score)"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_risk_attr_01_metric} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "This metric totals the Compliance Adherence Score, restricted to activity in the In-Store sales channel. Use it to track overall in-store compliance adherence performance within the current report’s filters and scope.",
+        "id": "metric_l3_0038_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Attribute Value (Compliance Adherence Score) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_risk_attr_01_metric} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total Compliance Adherence Score filtered to the Online sales channel. Use this metric to track and compare compliance performance specifically for Online activity within the current report filters and time period.",
+        "id": "metric_l3_0038_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Attribute Value (Compliance Adherence Score) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_risk_attr_01_metric} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "This metric returns the total Compliance Adherence Score for the North region. Use it to report an overall adherence score for North while still honoring any other filters applied in the report or dashboard.",
+        "id": "metric_l3_0038_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Attribute Value (Compliance Adherence Score) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_fraud_alert_alert_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the total number of fraud alerts specifically for the In-Store sales channel. Use this metric to monitor in-store fraud alert volume within the current reporting scope (for example, the selected time period and any applied filters).",
+        "id": "metric_l3_0117_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Alert Count (Fraud Alert) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_fraud_alert_alert_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total number of fraud alerts restricted to the Online sales channel. Use this metric to monitor and compare online fraud alert volume across the currently selected reporting scope (for example, time period or other dashboard filters).",
+        "id": "metric_l3_0117_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Alert Count (Fraud Alert) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_fraud_alert_alert_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Total number of fraud alerts restricted to the North region. Use this metric to monitor fraud alert volume for North and compare it with other regions or across different reporting periods.",
+        "id": "metric_l3_0117_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Alert Count (Fraud Alert) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_fraud_alert_alert_value} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Shows the total monetary value tied to fraud alerts, limited to the In-Store sales channel. Use it to monitor or compare the financial impact of in-store fraud alerts within the current analysis filters.",
+        "id": "metric_l3_0118_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Alert Value (Fraud Alert) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_fraud_alert_alert_value} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total monetary value associated with fraud alerts for the Online sales channel, based on the overall fraud alert alert value total but limited to records where the Channel Type is Online.",
+        "id": "metric_l3_0118_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Alert Value (Fraud Alert) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_fraud_alert_alert_value} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Totals the monetary value tied to fraud alerts, restricted to the North region. Use it to monitor the financial impact of fraud alerts in North while still respecting any other filters applied in the analysis.",
+        "id": "metric_l3_0118_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Alert Value (Fraud Alert) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_chargeback_chargeback_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts the total number of chargebacks specifically for the In-Store sales channel. Use it to monitor and compare in-store chargeback volume across time periods, products, or other business dimensions. A chargeback is a disputed payment transaction reversed by the card issuer.",
+        "id": "metric_l3_0119_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Chargeback Count (Chargeback) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_chargeback_chargeback_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts the number of chargebacks for transactions in the Online sales channel (Channel Type = Online). Use this metric to monitor and compare online chargeback volume over time or across other business dimensions. A chargeback is a disputed payment transaction reversed by the card issuer.",
+        "id": "metric_l3_0119_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Chargeback Count (Chargeback) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_chargeback_chargeback_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the number of chargebacks in the North region only, by applying a Region Name = North filter to the overall chargeback count. Use this metric to monitor and compare North’s chargeback volume across time periods or other business dimensions. A chargeback is a disputed payment transaction reversed by the card issuer.",
+        "id": "metric_l3_0119_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Chargeback Count (Chargeback) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_chargeback_chargeback_amount} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Total monetary value of chargebacks, filtered to the In-Store sales channel only. Use this metric to track and compare in-store chargeback exposure across time periods or other business dimensions while excluding other channel types. A chargeback is a disputed payment transaction reversed by the card issuer.",
+        "id": "metric_l3_0120_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Chargeback Amount (Chargeback) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_chargeback_chargeback_amount} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Total monetary value of chargebacks limited to the Online sales channel. Use this to monitor and compare chargeback exposure for online transactions across time periods or other business dimensions. A chargeback is a disputed payment transaction reversed by the card issuer.",
+        "id": "metric_l3_0120_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Chargeback Amount (Chargeback) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_chargeback_chargeback_amount} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Shows the total monetary value of chargebacks, limited to the North region. Use this metric to track and compare North’s chargeback exposure across time periods or other business dimensions. A chargeback is a disputed payment transaction reversed by the card issuer.",
+        "id": "metric_l3_0120_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Chargeback Amount (Chargeback) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_audit_finding_finding_count} WHERE {label/dim_channel_master.channel_type} IN (\"In-Store\")"
+        },
+        "description": "Counts audit findings for the In-Store sales channel only, excluding findings from other channel types. Use this metric to monitor and compare in-store finding volume over time or across audits and areas.",
+        "id": "metric_l3_0121_0",
+        "tags": [
+          "L3"
+        ],
+        "title": "Finding Count (Audit Finding) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_audit_finding_finding_count} WHERE {label/dim_channel_master.channel_type} IN (\"Online\")"
+        },
+        "description": "Counts audit findings for the Online channel only by filtering the total audit finding count to Channel Type = Online. Use it to monitor and compare finding volume specifically tied to online activity across breakdowns such as time period, audit, or area.",
+        "id": "metric_l3_0121_1",
+        "tags": [
+          "L3"
+        ],
+        "title": "Finding Count (Audit Finding) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l1_fact_audit_finding_finding_count} WHERE {label/dim_geography_region.region_name} IN (\"North\")"
+        },
+        "description": "Counts the total number of audit findings for the North region only (filtered to Region Name = North). Use this metric to monitor and compare audit finding volume for North across time periods, audits, or other breakdowns.",
+        "id": "metric_l3_0121_2",
+        "tags": [
+          "L3"
+        ],
+        "title": "Finding Count (Audit Finding) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0038_0} - (SELECT {metric/metric_l3_0038_0} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Measures the month-over-month change in the In-Store Compliance Adherence Score by comparing the current month’s value to the prior month. Use it to see whether in-store compliance adherence is improving or declining over time within the current report filters.",
+        "id": "metric_l4_mom_0114",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Attribute Value (Compliance Adherence Score) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0038_1} - (SELECT {metric/metric_l3_0038_1} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Tracks the month-over-month change in the Compliance Adherence Score for the Online sales channel by comparing the current month to the prior month (based on Month/Year). Use it to see whether Online compliance performance is improving or declining over time under the current report filters.",
+        "id": "metric_l4_mom_0115",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Attribute Value (Compliance Adherence Score) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT {metric/metric_l3_0038_2} - (SELECT {metric/metric_l3_0038_2} FOR PREVIOUS ({label/transaction_date.month}))"
+        },
+        "description": "Tracks the month-over-month change in the Compliance Adherence Score for the North region by comparing the current month’s score to the prior month. Use it to monitor whether adherence is improving or declining over time, while still respecting other report or dashboard filters.",
+        "id": "metric_l4_mom_0116",
+        "tags": [
+          "L4"
+        ],
+        "title": "MoM: Attribute Value (Compliance Adherence Score) — North Region"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0038_0} - (SELECT {metric/metric_l3_0038_0} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0038_0} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Shows the year-over-year percentage change in the Compliance Adherence Score for the In-Store channel, comparing the current year to the previous year in the same reporting context. Use it to track whether in-store compliance adherence performance is improving or declining over time.",
+        "id": "metric_l4_yoy_0114",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Attribute Value (Compliance Adherence Score) — In-Store Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0038_1} - (SELECT {metric/metric_l3_0038_1} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0038_1} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percent change in the Compliance Adherence Score for the Online sales channel, comparing the current period to the same metric in the prior year. Use it to track whether online compliance performance is improving or declining versus last year.",
+        "id": "metric_l4_yoy_0115",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Attribute Value (Compliance Adherence Score) — Online Channel"
+      },
+      {
+        "content": {
+          "format": "#,##0.00",
+          "maql": "SELECT ({metric/metric_l3_0038_2} - (SELECT {metric/metric_l3_0038_2} FOR PREVIOUS ({label/transaction_date.year}))) / (SELECT {metric/metric_l3_0038_2} FOR PREVIOUS ({label/transaction_date.year}))"
+        },
+        "description": "Year-over-year percentage change in the Compliance Adherence Score for the North region, comparing the current year to the previous year. Use it to track whether North’s adherence score is improving or declining over time under the same report filters.",
+        "id": "metric_l4_yoy_0116",
+        "tags": [
+          "L4"
+        ],
+        "title": "YoY: Attribute Value (Compliance Adherence Score) — North Region"
+      }
+    ],
+    "parameters": [],
+    "visualizationObjects": [
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_risk_attr_01_metric",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Shows the Total Attribute Value (Compliance Adherence Score) trended by Month/Year, helping you see how the overall compliance adherence score changes over time.",
+        "id": "viz_risk_0324",
+        "title": "Attribute Value by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_fraud_alert_alert_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of fraud alerts by quarter/year, using Total Alert Count (Fraud Alert) grouped by the Quarter/Year date label. Use it to spot quarterly trends and changes in alert volume over time.",
+        "id": "viz_risk_0325",
+        "title": "Alert Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_fraud_alert_alert_value",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total value associated with fraud alerts, broken down by transaction year. Use it to track how overall fraud alert value changes year over year in the current analysis context.",
+        "id": "viz_risk_0326",
+        "title": "Alert Value by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_chargeback_chargeback_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of chargebacks by month/year, based on the Total Chargeback Count metric. Use it to monitor chargeback volume trends over time and spot increases or seasonality.",
+        "id": "viz_risk_0327",
+        "title": "Chargeback Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_chargeback_chargeback_amount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total chargeback amount broken out by quarter/year, letting you track how the monetary value of chargebacks changes over time.",
+        "id": "viz_risk_0328",
+        "title": "Chargeback Amount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_audit_finding_finding_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of audit findings by year, using the Total Finding Count metric grouped by the Year label. Use it to spot year-over-year changes in overall finding volume.",
+        "id": "viz_risk_0329",
+        "title": "Finding Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0038_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the In-Store Compliance Adherence Score (Attribute Value) trended by Month/Year. Use it to track how in-store compliance adherence performance changes over time within the current report scope.",
+        "id": "viz_risk_0330",
+        "title": "Attribute Value by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0038_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the Online Channel Compliance Adherence Score broken out by Quarter/Year. Use it to track and compare online compliance performance over time at a quarterly level.",
+        "id": "viz_risk_0331",
+        "title": "Attribute Value by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0038_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total Compliance Adherence Score for the North region, broken out by transaction year, to track how adherence changes over time.",
+        "id": "viz_risk_0332",
+        "title": "Attribute Value by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0117_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the monthly trend in in-store fraud alert volume, using the Alert Count (Fraud Alert) — In-Store Channel metric grouped by Month/Year.",
+        "id": "viz_risk_0333",
+        "title": "Alert Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0117_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of fraud alerts for the Online sales channel, broken out by quarter/year. Use it to track trends and compare changes in online fraud alert volume over time.",
+        "id": "viz_risk_0334",
+        "title": "Alert Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0117_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of fraud alerts in the North region, broken down by year. Use it to track how fraud alert volume changes over time and compare year-to-year trends for the North region.",
+        "id": "viz_risk_0335",
+        "title": "Alert Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0118_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total value tied to fraud alerts for the In-Store sales channel. Use it to monitor or compare the financial impact of in-store fraud alerts under the current report filters.",
+        "id": "viz_risk_0336",
+        "title": "Alert Value"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0118_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total value associated with fraud alerts for the Online sales channel, based on the “Alert Value (Fraud Alert) — Online Channel” metric.",
+        "id": "viz_risk_0337",
+        "title": "Alert Value"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0118_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total value associated with fraud alerts for the North region, useful for monitoring the monetary impact of fraud alerts after any other report filters are applied.",
+        "id": "viz_risk_0338",
+        "title": "Alert Value"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0119_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of chargebacks for the In-Store sales channel. Use it to monitor in-store chargeback volume at a glance and compare it across time periods or other business dimensions.",
+        "id": "viz_risk_0339",
+        "title": "Chargeback Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0119_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the monthly trend in chargeback volume for transactions in the Online sales channel, using the Chargeback Count (Chargeback) — Online Channel metric. Use it to monitor changes in online chargebacks over time and spot spikes or emerging patterns.",
+        "id": "viz_risk_0340",
+        "title": "Chargeback Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0119_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the monthly trend of chargeback volume for the North region, using Chargeback Count as the measure and Month/Year on the time axis. Use it to monitor how chargebacks in the North change over time and spot spikes or seasonality.",
+        "id": "viz_risk_0341",
+        "title": "Chargeback Count Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0120_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "t1"
+                  }
+                }
+              ],
+              "localIdentifier": "trend"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:line"
+        },
+        "description": "Line chart showing the total in-store chargeback amount trended by month/year, helping you monitor how in-store chargeback exposure changes over time and compare periods.",
+        "id": "viz_risk_0342",
+        "title": "Chargeback Amount Over Time"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0120_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                },
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0120_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m2"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "attribute"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:table"
+        },
+        "description": "Table showing chargeback amounts by quarter/year, comparing the Online Channel chargeback amount against the North Region chargeback amount over time.",
+        "id": "viz_risk_0343",
+        "title": "Chargeback Amount and Chargeback Amount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0120_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total Chargeback Amount for the North region, broken out by Year. Use it to monitor how chargeback exposure in the North changes over time and compare year-to-year performance.",
+        "id": "viz_risk_0344",
+        "title": "Chargeback Amount by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0121_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the monthly trend in the number of audit findings for the In-Store sales channel. Use it to monitor how in-store finding volume changes over time and spot increases or decreases by month.",
+        "id": "viz_risk_0345",
+        "title": "Finding Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0121_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the number of audit findings for the Online channel, broken out by Quarter/Year. Use it to track and compare how online-related finding volume changes over time on a quarterly basis.",
+        "id": "viz_risk_0346",
+        "title": "Finding Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0121_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the yearly trend in the total number of audit findings for the North region. Use it to monitor how finding volume changes year over year and compare periods at a glance.",
+        "id": "viz_risk_0347",
+        "title": "Finding Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_risk_attr_01_metric",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total Compliance Adherence Score (Total Attribute Value) by Month/Year, helping you track how the score changes over time within the currently selected reporting scope.",
+        "id": "viz_risk_0348",
+        "title": "Attribute Value by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_fraud_alert_alert_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of fraud alerts by quarter/year, helping you see how alert volumes trend over time.",
+        "id": "viz_risk_0349",
+        "title": "Alert Count by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_fraud_alert_alert_value",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the Total Alert Value from the Fraud Alert data broken out by transaction year, to highlight how the value associated with fraud alerts changes year over year.",
+        "id": "viz_risk_0350",
+        "title": "Alert Value by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_chargeback_chargeback_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of chargebacks grouped by Month/Year, letting you monitor how chargeback volume changes over time and spot trends or spikes month to month.",
+        "id": "viz_risk_0351",
+        "title": "Chargeback Count by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_chargeback_chargeback_amount",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing total chargeback amount by quarter/year, using the Total Chargeback Amount metric to track how chargeback exposure changes over time and compare periods.",
+        "id": "viz_risk_0352",
+        "title": "Chargeback Amount by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l1_fact_audit_finding_finding_count",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.year",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the total number of audit findings broken out by year, using the Total Finding Count (Audit Finding) metric. Use it to track how overall finding volume trends over time.",
+        "id": "viz_risk_0353",
+        "title": "Finding Count by Year"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0038_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.month",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the In-Store Compliance Adherence Score (Attribute Value) totaled by Month/Year. Use it to track how in-store compliance adherence performance trends over time within the current report scope.",
+        "id": "viz_risk_0354",
+        "title": "Attribute Value by Month"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0038_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            },
+            {
+              "items": [
+                {
+                  "attribute": {
+                    "displayForm": {
+                      "identifier": {
+                        "id": "transaction_date.quarter",
+                        "type": "label"
+                      }
+                    },
+                    "localIdentifier": "a1"
+                  }
+                }
+              ],
+              "localIdentifier": "view"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:column"
+        },
+        "description": "Column chart showing the Online-channel Compliance Adherence Score over time by Quarter/Year. Use it to track quarter-to-quarter trends and compare compliance performance across quarters for online activity.",
+        "id": "viz_risk_0355",
+        "title": "Attribute Value by Quarter"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0038_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the overall Compliance Adherence Score for the North region, using the “Attribute Value (Compliance Adherence Score) — North Region” metric. Use it to quickly monitor North’s total adherence score in a report or dashboard, while still respecting any additional filters applied.",
+        "id": "viz_risk_0356",
+        "title": "Compliance Adherence Score"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0117_0",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of fraud alerts in the In-Store sales channel, based on the Alert Count metric. Use it to monitor in-store fraud alert volume for the currently selected reporting scope (such as the active time period or other dashboard filters).",
+        "id": "viz_risk_0357",
+        "title": "Alert Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0117_1",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of fraud alerts for the Online sales channel, based on the “Alert Count (Fraud Alert) — Online Channel” metric. Use it to monitor and compare online fraud alert volume within the currently selected reporting scope (for example, time period or other dashboard filters).",
+        "id": "viz_risk_0358",
+        "title": "Alert Count"
+      },
+      {
+        "content": {
+          "buckets": [
+            {
+              "items": [
+                {
+                  "measure": {
+                    "definition": {
+                      "measureDefinition": {
+                        "filters": [],
+                        "item": {
+                          "identifier": {
+                            "id": "metric_l3_0117_2",
+                            "type": "metric"
+                          }
+                        }
+                      }
+                    },
+                    "localIdentifier": "m1"
+                  }
+                }
+              ],
+              "localIdentifier": "measures"
+            }
+          ],
+          "filters": [],
+          "properties": {},
+          "sorts": [],
+          "version": "2",
+          "visualizationUrl": "local:headline"
+        },
+        "description": "Headline showing the total number of fraud alerts for the North region, using the “Alert Count (Fraud Alert) — North Region” metric. Use it to monitor fraud alert volume in North and compare it with other regions or time periods in related analyses.",
+        "id": "viz_risk_0359",
+        "title": "Alert Count"
+      }
+    ]
+  },
+  "ldm": {
+    "datasetExtensions": [],
+    "datasets": [
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each sales channel in the Sales Channel dataset, used to group, join, and filter reporting by channel.",
+            "id": "dim_channel_master.channel_id",
+            "labels": [],
+            "sourceColumn": "channel_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel ID (Sales Channel)"
+          },
+          {
+            "description": "Sales channel name used to categorize and filter results by where sales occurred (e.g., online, retail, partner) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_name",
+            "labels": [],
+            "sourceColumn": "channel_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Name (Sales Channel)"
+          },
+          {
+            "description": "Sales channel category used to group and filter reporting by the type of channel (e.g., online vs. offline) within the Sales Channel dataset.",
+            "id": "dim_channel_master.channel_type",
+            "labels": [],
+            "sourceColumn": "channel_type",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Sales Channel"
+            ],
+            "title": "Channel Type (Sales Channel)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_channel_master",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_channel_master"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Sales Channel",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_channel_master.channel_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_channel_master",
+        "references": [],
+        "tags": [
+          "Sales Channel"
+        ],
+        "title": "Sales Channel",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each company entity record in the Company Entity dataset. Use it to uniquely distinguish, group, or filter data by entity.",
+            "id": "dim_company_entity.entity_id",
+            "labels": [],
+            "sourceColumn": "entity_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Company Entity"
+            ],
+            "title": "Entity ID"
+          },
+          {
+            "description": "Name of the company entity, used to segment, group, and filter reporting by entity within the Company Entity dataset.",
+            "id": "dim_company_entity.entity_name",
+            "labels": [],
+            "sourceColumn": "entity_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Company Entity"
+            ],
+            "title": "Entity Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_company_entity",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_company_entity"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Company Entity",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_company_entity.entity_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_company_entity",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Company Entity"
+        ],
+        "title": "Company Entity",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifies the currency using its standard code (e.g., USD, EUR) in the Currency dataset. Use it to group, filter, or segment measures by currency.",
+            "id": "dim_currency.currency_code",
+            "labels": [],
+            "sourceColumn": "currency_code",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Code"
+          },
+          {
+            "description": "Identifier for each currency in the Currency dataset, used to uniquely distinguish currencies when filtering or grouping analyses.",
+            "id": "dim_currency.currency_id",
+            "labels": [],
+            "sourceColumn": "currency_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency ID"
+          },
+          {
+            "description": "Identifies the name of the currency in the Currency dataset. Use it to group, filter, or segment metrics and reports by currency.",
+            "id": "dim_currency.currency_name",
+            "labels": [],
+            "sourceColumn": "currency_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Currency Name"
+          },
+          {
+            "description": "The exchange rate used to convert amounts from a given currency into USD. Use this Currency attribute to filter or break down analyses by the applicable USD conversion rate.",
+            "id": "dim_currency.exchange_rate_to_usd",
+            "labels": [],
+            "sourceColumn": "exchange_rate_to_usd",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Currency"
+            ],
+            "title": "Exchange Rate to Usd"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_currency",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_currency"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Currency",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_currency.currency_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_currency",
+        "references": [],
+        "tags": [
+          "Currency"
+        ],
+        "title": "Currency",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Identifier for each country in the Country dataset, used to uniquely distinguish countries for filtering and grouping in analysis.",
+            "id": "dim_geography_country.country_id",
+            "labels": [],
+            "sourceColumn": "country_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country ID"
+          },
+          {
+            "description": "Country Name identifies the country in the Country dataset. Use it to group, filter, and compare metrics by country.",
+            "id": "dim_geography_country.country_name",
+            "labels": [],
+            "sourceColumn": "country_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Country"
+            ],
+            "title": "Country Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_country",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_country"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Country",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_country.country_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_country",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_currency",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "currency_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_currency.currency_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Country"
+        ],
+        "title": "Country",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each geographic region in the Region dataset, used to group, join, or filter analysis by region.",
+            "id": "dim_geography_region.region_id",
+            "labels": [],
+            "sourceColumn": "region_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region ID (Region)"
+          },
+          {
+            "description": "Name of the geographic region in the Region dataset, used to group and filter reporting by region.",
+            "id": "dim_geography_region.region_name",
+            "labels": [],
+            "sourceColumn": "region_name",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Region"
+            ],
+            "title": "Region Name"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "dim_geography_region",
+          "path": [
+            "{{ datasource_schema }}",
+            "dim_geography_region"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Region",
+        "facts": [],
+        "grain": [
+          {
+            "id": "dim_geography_region.region_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "dim_geography_region",
+        "references": [
+          {
+            "identifier": {
+              "id": "dim_geography_country",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "country_id",
+                "dataType": "STRING",
+                "target": {
+                  "id": "dim_geography_country.country_id",
+                  "type": "attribute"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Region"
+        ],
+        "title": "Region",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each audit finding record in the Audit Finding dataset, used to reference, group, or filter specific findings.",
+            "id": "fact_audit_finding.finding_id",
+            "labels": [],
+            "sourceColumn": "finding_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Audit Finding"
+            ],
+            "title": "Finding ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_audit_finding",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_audit_finding"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Audit Finding",
+        "facts": [
+          {
+            "description": "Number of audit findings recorded in the Audit Finding dataset, typically used to count findings and summarize volumes across time, audits, or other dimensions.",
+            "id": "fact_audit_finding.finding_count",
+            "sourceColumn": "finding_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Audit Finding"
+            ],
+            "title": "Finding Count"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_audit_finding.finding_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_audit_finding",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "finding_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Audit Finding"
+        ],
+        "title": "Audit Finding",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each chargeback (a disputed payment transaction reversed by the card issuer) record in the Chargeback dataset, used to look up, group, or filter chargeback details at the individual case level.",
+            "id": "fact_chargeback.chargeback_id",
+            "labels": [],
+            "sourceColumn": "chargeback_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Chargeback"
+            ],
+            "title": "Chargeback ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_chargeback",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_chargeback"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Chargeback",
+        "facts": [
+          {
+            "description": "Monetary value of a chargeback (a disputed payment transaction reversed by the card issuer) recorded in the Chargeback dataset. Use it to quantify chargebacks and aggregate totals or averages for reporting and analysis.",
+            "id": "fact_chargeback.chargeback_amount",
+            "sourceColumn": "chargeback_amount",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Chargeback"
+            ],
+            "title": "Chargeback Amount"
+          },
+          {
+            "description": "Number of chargebacks (a disputed payment transaction reversed by the card issuer) recorded in the Chargeback dataset, typically used to track and compare chargeback volume across time periods or business dimensions.",
+            "id": "fact_chargeback.chargeback_count",
+            "sourceColumn": "chargeback_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Chargeback"
+            ],
+            "title": "Chargeback Count"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_chargeback.chargeback_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_chargeback",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "chargeback_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Chargeback"
+        ],
+        "title": "Chargeback",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each fraud alert record in the Fraud Alert dataset. Use it to look up, filter, or group analyses by specific alerts.",
+            "id": "fact_fraud_alert.alert_id",
+            "labels": [],
+            "sourceColumn": "alert_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Fraud Alert"
+            ],
+            "title": "Alert ID"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_fraud_alert",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_fraud_alert"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Fraud Alert",
+        "facts": [
+          {
+            "description": "Number of fraud alerts recorded in the Fraud Alert dataset, typically used to count and trend alert volume by time, type, or other dimensions.",
+            "id": "fact_fraud_alert.alert_count",
+            "sourceColumn": "alert_count",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Fraud Alert"
+            ],
+            "title": "Alert Count"
+          },
+          {
+            "description": "Monetary value associated with a fraud alert record in the Fraud Alert dataset, used to analyze the size of alerts (for example, total or average alert value) across different segments and time periods.",
+            "id": "fact_fraud_alert.alert_value",
+            "sourceColumn": "alert_value",
+            "sourceColumnDataType": "NUMERIC",
+            "tags": [
+              "Fraud Alert"
+            ],
+            "title": "Alert Value"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_fraud_alert.alert_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_fraud_alert",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "alert_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Fraud Alert"
+        ],
+        "title": "Fraud Alert",
+        "workspaceDataFilterReferences": []
+      },
+      {
+        "aggregatedFacts": [],
+        "attributes": [
+          {
+            "description": "Unique identifier for each record in the Compliance Adherence Score dataset. Use it to reference, filter, or drill into individual compliance adherence score entries.",
+            "id": "fact_risk_attr_01.attr_id",
+            "labels": [],
+            "sourceColumn": "attr_id",
+            "sourceColumnDataType": "STRING",
+            "tags": [
+              "Compliance Adherence Score"
+            ],
+            "title": "Record ID (Compliance Adherence Score)"
+          }
+        ],
+        "dataSourceTableId": {
+          "dataSourceId": "{{ datasource_id }}",
+          "id": "fact_risk_attr_01",
+          "path": [
+            "{{ datasource_schema }}",
+            "fact_risk_attr_01"
+          ],
+          "type": "dataSource"
+        },
+        "description": "Compliance Adherence Score",
+        "facts": [
+          {
+            "description": "Numeric value used to quantify the Compliance Adherence Score, supporting reporting and aggregations of attribute-related compliance performance.",
+            "id": "fact_risk_attr_01.metric",
+            "sourceColumn": "metric",
+            "sourceColumnDataType": "INT",
+            "tags": [
+              "Compliance Adherence Score"
+            ],
+            "title": "Compliance Adherence Score"
+          }
+        ],
+        "grain": [
+          {
+            "id": "fact_risk_attr_01.attr_id",
+            "type": "attribute"
+          }
+        ],
+        "id": "fact_risk_attr_01",
+        "references": [
+          {
+            "identifier": {
+              "id": "transaction_date",
+              "type": "dataset"
+            },
+            "multivalue": false,
+            "sources": [
+              {
+                "column": "attr_date",
+                "dataType": "DATE",
+                "target": {
+                  "id": "transaction_date",
+                  "type": "date"
+                }
+              }
+            ]
+          }
+        ],
+        "tags": [
+          "Compliance Adherence Score"
+        ],
+        "title": "Compliance Adherence Score",
+        "workspaceDataFilterReferences": []
+      }
+    ],
+    "dateInstances": [
+      {
+        "description": "",
+        "granularities": [
+          "MINUTE",
+          "HOUR",
+          "DAY",
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "YEAR"
+        ],
+        "granularitiesFormatting": {
+          "titleBase": "",
+          "titlePattern": "%granularityTitle"
+        },
+        "id": "transaction_date",
+        "title": "Transaction Date"
+      }
+    ]
+  }
+}

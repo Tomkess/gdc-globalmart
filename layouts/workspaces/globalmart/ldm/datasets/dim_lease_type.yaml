@@ -30,7 +30,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_lease_type
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_lease_type
   type: dataSource
 description: Lease Type

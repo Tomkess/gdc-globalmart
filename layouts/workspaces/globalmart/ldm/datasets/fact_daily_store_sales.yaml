@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_daily_store_sales
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_daily_store_sales
   type: dataSource
 description: Daily Store Sales

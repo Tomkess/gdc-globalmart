@@ -30,7 +30,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_promotion
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_promotion
   type: dataSource
 description: Promotion

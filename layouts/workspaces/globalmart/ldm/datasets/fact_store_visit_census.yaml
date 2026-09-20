@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_store_visit_census
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_store_visit_census
   type: dataSource
 description: Store Visit Census

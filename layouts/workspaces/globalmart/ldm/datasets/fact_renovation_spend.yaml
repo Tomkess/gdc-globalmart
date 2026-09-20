@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_renovation_spend
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_renovation_spend
   type: dataSource
 description: Renovation Spend

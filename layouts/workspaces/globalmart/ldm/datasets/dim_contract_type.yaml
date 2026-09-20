@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_contract_type
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_contract_type
   type: dataSource
 description: Contract Type

@@ -25,7 +25,11 @@ from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import
 
 from globalmart.config import GlobalmartError
 from globalmart.counts import ObjectCounts, count_objects
-from globalmart.traversal import iter_datasource_slots, iter_sql_statements
+from globalmart.traversal import (
+    iter_datasource_slots,
+    iter_sql_statements,
+    iter_table_schema_slots,
+)
 
 #: Placeholders left in the committed tree, resolved at publish time by FEAT-002.
 #: Both use the same ``{{ ... }}`` form so one substitution mechanism covers them and an
@@ -76,6 +80,7 @@ class NormalizeResult:
     user_refs_stripped: int = 0
     datasource_refs_rewritten: int = 0
     sql_datasets_parameterized: int = 0
+    table_paths_parameterized: int = 0
     unparameterized_sql: list[str] = field(default_factory=list)
     wdf_refs_handled: int = 0
     wdf_policy: WdfPolicy = WdfPolicy.DROP
@@ -86,6 +91,7 @@ class NormalizeResult:
             f"user references stripped   : {self.user_refs_stripped}",
             f"datasource refs rewritten  : {self.datasource_refs_rewritten}",
             f"SQL datasets parameterised : {self.sql_datasets_parameterized}",
+            f"table paths parameterised  : {self.table_paths_parameterized}",
             f"WDF references handled     : {self.wdf_refs_handled} ({self.wdf_policy})",
         ]
         if self.unparameterized_sql:
@@ -171,6 +177,25 @@ def _pass_3_parameterize_schema(
             unparameterized.append(slot.dataset_id)
 
     return parameterized, unparameterized
+
+
+def _pass_3b_parameterize_table_paths(
+    model: CatalogDeclarativeWorkspaceModel, schema: str
+) -> int:
+    """Replace the literal schema in every table-backed dataset's ``path``.
+
+    The counterpart to pass 3, for the datasets that name their table structurally instead
+    of in SQL text. Missing it left all 214 table-backed datasets carrying the source org's
+    schema — invisible while every target happened to use the same schema name, and silent
+    rather than loud the first time one did not, because the assertion looks for surviving
+    placeholders and a hardcoded literal is not one.
+    """
+    parameterized = 0
+    for slot in iter_table_schema_slots(model):
+        if slot.get() == schema:
+            slot.set(DATASOURCE_SCHEMA_TOKEN)
+            parameterized += 1
+    return parameterized
 
 
 def _pass_4_handle_wdf(model: CatalogDeclarativeWorkspaceModel, policy: WdfPolicy) -> int:
@@ -262,6 +287,7 @@ def normalize_workspace(
     user_refs = _pass_1_strip_user_refs(model)
     datasource_refs = _pass_2_parameterize_datasource(model)
     sql_count, unparameterized = _pass_3_parameterize_schema(model, datasource_schema)
+    table_path_count = _pass_3b_parameterize_table_paths(model, datasource_schema)
     wdf_handled = _pass_4_handle_wdf(model, wdf_policy)
     _pass_5_stabilise_order(model)
     _pass_6_canonicalise_empties(model)
@@ -278,6 +304,7 @@ def normalize_workspace(
         user_refs_stripped=user_refs,
         datasource_refs_rewritten=datasource_refs,
         sql_datasets_parameterized=sql_count,
+        table_paths_parameterized=table_path_count,
         unparameterized_sql=unparameterized,
         wdf_refs_handled=wdf_handled,
         wdf_policy=wdf_policy,

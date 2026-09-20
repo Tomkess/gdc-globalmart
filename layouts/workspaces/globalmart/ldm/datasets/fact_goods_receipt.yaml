@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_goods_receipt
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_goods_receipt
   type: dataSource
 description: Goods Receipt

@@ -1,0 +1,8 @@
+content:
+  format: '#,##0'
+  maql: SELECT COUNT({attribute/dim_region.region_id})
+description: ''
+id: m_orphan_region
+tags:
+- metric
+title: m_orphan_region

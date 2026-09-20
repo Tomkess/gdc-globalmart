@@ -74,6 +74,36 @@ def iter_datasource_slots(model: CatalogDeclarativeWorkspaceModel) -> Iterator[D
             )
 
 
+def iter_table_schema_slots(model: CatalogDeclarativeWorkspaceModel) -> Iterator[DataSourceSlot]:
+    """Yield the schema element of every table-backed dataset's ``dataSourceTableId.path``.
+
+    A table-backed dataset locates its table as ``path: [<schema>, <table>]``, and that
+    first element is the warehouse schema — the same value a SQL-backed dataset spells out
+    in its statement. It was missed originally because it is the one org-coupled value that
+    is neither a datasource id nor inside SQL text: measured on the parent, all 214
+    table-backed datasets carried the literal ``globalmart`` there while every SQL dataset
+    was correctly parameterised.
+
+    Nothing failed, because both orgs published so far happen to use the schema
+    ``globalmart``. Against a target whose ``datasource_schema`` differs, all 214 datasets
+    would have pointed at a schema that does not exist there — and the publish would have
+    succeeded, because the assertion only looks for surviving placeholders, and a hardcoded
+    literal is not one.
+    """
+    for dataset in _datasets(model):
+        table_id = getattr(dataset, "data_source_table_id", None)
+        if table_id is None:
+            continue
+        path = getattr(table_id, "path", None)
+        if not path:
+            continue
+        yield DataSourceSlot(
+            path=f"ldm.datasets[{dataset.id}].dataSourceTableId.path[0]",
+            get=lambda p=path: p[0],  # type: ignore[misc]
+            set=lambda value, p=path: p.__setitem__(0, value),  # type: ignore[misc]
+        )
+
+
 def iter_sql_statements(model: CatalogDeclarativeWorkspaceModel) -> Iterator[SqlStatementSlot]:
     """Yield every SQL-backed dataset's statement. 11 on the real parent."""
     for dataset in _datasets(model):

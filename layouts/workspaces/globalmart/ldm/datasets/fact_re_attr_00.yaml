@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_re_attr_00
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_re_attr_00
   type: dataSource
 description: Location Value Score

@@ -31,7 +31,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_project
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_project
   type: dataSource
 description: Project

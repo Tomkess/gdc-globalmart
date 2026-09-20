@@ -22,7 +22,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_cost_category
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_cost_category
   type: dataSource
 description: Cost Category

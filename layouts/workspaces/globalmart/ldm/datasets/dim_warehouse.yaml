@@ -30,7 +30,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: dim_warehouse
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - dim_warehouse
   type: dataSource
 description: Warehouse

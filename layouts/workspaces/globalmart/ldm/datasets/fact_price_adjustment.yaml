@@ -13,7 +13,7 @@ dataSourceTableId:
   dataSourceId: '{{ datasource_id }}'
   id: fact_price_adjustment
   path:
-  - globalmart
+  - '{{ datasource_schema }}'
   - fact_price_adjustment
   type: dataSource
 description: Price Adjustment
