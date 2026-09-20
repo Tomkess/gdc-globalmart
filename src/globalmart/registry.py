@@ -150,3 +150,40 @@ def build_registry(
 def render_ddl(ddl_path: Path, schema: str) -> str:
     """The DDL with its `{schema_name}` placeholder resolved for one target."""
     return Path(ddl_path).read_text(encoding="utf-8").replace(SCHEMA_PLACEHOLDER, schema)
+
+
+def foreign_key_target(column_name: str, known_tables: frozenset[str] | set[str]) -> str | None:
+    """Resolve a `<base>_id` column to the table that owns it, or ``None``.
+
+    Lives here rather than in the generator because it is a fact about the schema, and the
+    generator should not become the second place that knows how tables relate.
+
+    The DDL declares no foreign keys at all, so this is inference from naming — which is
+    why an unresolvable `_id` is not an error. `session_id` on a table with no `dim_session`
+    is a local identifier, not a dangling reference.
+    """
+    if not column_name.endswith("_id"):
+        return None
+    base = column_name[: -len("_id")]
+    for candidate in (f"dim_{base}", base, f"fact_{base}"):
+        if candidate in known_tables:
+            return candidate
+    return None
+
+
+def own_key_column(table: Table) -> str | None:
+    """The column that identifies a row of this table, if one is discernible.
+
+    Prefers an `_id` column whose base matches the table's own name (`dim_customer` ->
+    `customer_id`), and falls back to the first `_id` column. A table with none simply has
+    no key space for others to draw from.
+    """
+    names = [column.name for column in table.columns if column.name.endswith("_id")]
+    if not names:
+        return None
+
+    stem = re.sub(r"^(dim|fact)_", "", table.name)
+    preferred = f"{stem}_id"
+    if preferred in names:
+        return preferred
+    return names[0]

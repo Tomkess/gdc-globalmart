@@ -421,3 +421,35 @@ def test_knowledge_check_exits_zero_once_current(tmp_path: Path) -> None:
 
     main(["knowledge", "build", "--source", str(source), "--layout", str(tree)])
     assert main(["knowledge", "build", "--source", str(source), "--layout", str(tree), "--check"]) == 0
+
+
+# --- data generate (FEAT-007) ------------------------------------------------
+
+
+def test_data_generate_writes_into_the_given_directory(tmp_path: Path) -> None:
+    repo = Path(__file__).resolve().parents[1]
+    if not (repo / "data" / "ddl" / "globalmart.sql").exists():
+        pytest.skip("DDL not present")
+
+    out = tmp_path / "gen"
+    assert main(["data", "generate", "--out", str(out), "--seed", "3", "--scale", "0.01"]) == 0
+    assert (out / "table-manifest.json").exists()
+    assert len(list((out / "tables").glob("*.csv.gz"))) == 215
+
+
+def test_data_generate_refuses_the_committed_archive(capsys: pytest.CaptureFixture[str]) -> None:
+    repo = Path(__file__).resolve().parents[1]
+    if not (repo / "data" / "ddl" / "globalmart.sql").exists():
+        pytest.skip("DDL not present")
+
+    assert main(["data", "generate", "--out", str(repo / "data")]) == 1
+    assert "committed archive" in capsys.readouterr().err
+
+
+def test_data_generate_has_no_apply() -> None:
+    """A local-file writer; the loading is a separate, gated step."""
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    actions = choices["data"]._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+
+    assert "apply" not in {a.dest for a in actions["generate"]._actions}
+    assert "tables_dir" in {a.dest for a in actions["load"]._actions}

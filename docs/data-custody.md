@@ -111,3 +111,62 @@ All 11 SQL-backed datasets were then executed against the loaded schema — wrap
 `SELECT * FROM (...) LIMIT 0`, so the planner resolves every column and join without moving
 rows. All 11 pass, including `sql_channel_attribution`, which could not have run at all
 before `fact_search_event` existed.
+
+## The generator (FEAT-007)
+
+The committed archive is the real GlobalMart data. The generator is an *alternative* source
+for when you need a different size, not a replacement for it.
+
+```bash
+globalmart data generate --out .cache/gen --seed 42 --scale 1
+globalmart data load --target demo-cloud-rebuild \
+  --tables-dir .cache/gen/tables --manifest .cache/gen/table-manifest.json --apply
+```
+
+It refuses to write into `data/`. A generated variant must never silently become the
+archive.
+
+### What it guarantees
+
+- **Determinism.** One seed, one output, byte for byte. Each table derives its own stream
+  from `blake2b(seed, table_name)`, so adding a table or changing one table's row count does
+  not shift every other table's values.
+- **Referential integrity by construction.** Each table mints a key space as it is
+  generated, in the registry's load order, and a foreign column draws from the target's
+  minted keys. A value that was never minted cannot appear. Asserted across all 215 tables.
+- **The real shape at scale 1.** Row counts come from `data/table-manifest.json`, so a
+  generated dataset is directly comparable with the real one — 215 tables, 174,372 rows.
+- **Dates inside the real window**, so existing date filters still match rows.
+- **`--scale`**: facts linear, dimensions `sqrt` and never below their base. Facts carry the
+  volume; multiplying twelve currencies by a hundred would be nonsense, and shrinking a
+  dimension would drop keys the semantic layer expects.
+
+### What it does not guarantee
+
+**Plausibility.** The distributions are uniform and unremarkable. A generated dataset has
+the right structure, the right keys and the right date range; it does not have believable
+retail behaviour — no seasonality, no relationship between price and margin, no realistic
+basket composition.
+
+That boundary is deliberate. FEAT-007 was parked because inventing plausible retail data
+with no consumer able to judge it is how a dataset quietly gets worse while every test still
+passes. This is the substrate every use case shares; plausibility is a second body of work
+and needs someone with a real need to say what "plausible" means.
+
+**Two consequences worth stating.** Any eval with a baked-in expected answer is invalid
+against generated data. And any analysis of the *numbers* is meaningless — only the
+structure is meaningful.
+
+### Verified, 2026-09-20
+
+Generated at scale 1, loaded into `gd_demo.globalmart_rebuild`, and checked:
+
+```
+215 tables, 174,372 rows            matching the real archive exactly
+all 11 SQL-backed datasets          execute
+fact_order_header -> dim_customer   35,872 of 35,872 join
+```
+
+That load also caught a real bug: `hour_start` is an `INTEGER` whose name ends in `_start`,
+and the generator had let the name override the declared type, writing a date into it. The
+warehouse rejected it. The DDL's type is now authoritative and two tests pin that.

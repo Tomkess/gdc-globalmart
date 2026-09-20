@@ -36,12 +36,18 @@ from globalmart.dataload import load_data, verify_data
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
+from globalmart.generate import base_row_counts, date_window, generate_dataset
 from globalmart.knowledge import DEFAULT_SOURCE_DIR, build_knowledge
 from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
 from globalmart.rebuild import RebuildOptions, cold_rebuild
-from globalmart.registry import DEFAULT_DDL_PATH, build_registry
+from globalmart.registry import (
+    DEFAULT_DDL_PATH,
+    DEFAULT_MANIFEST_PATH,
+    DEFAULT_TABLES_DIR,
+    build_registry,
+)
 from globalmart.report import write_reports
 from globalmart.sdk_client import make_sdk
 from globalmart.split import split_all
@@ -391,6 +397,32 @@ def cmd_data_verify(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_data_generate(args: argparse.Namespace) -> int:
+    """Produce a synthetic dataset in FEAT-005's format. Local files only, so no --apply."""
+    model = read_tree(Path(args.layout)) if Path(args.layout).exists() else None
+    registry = build_registry(Path(args.ddl), model=model)
+
+    counts = base_row_counts(Path(args.manifest))
+    window = date_window(Path(args.reference_tables), Path(args.manifest))
+
+    report = generate_dataset(
+        registry,
+        out_dir=Path(args.out),
+        seed=args.seed,
+        scale=args.scale,
+        base_counts=counts,
+        window=window,
+    )
+
+    _print_report("Generate", report.summary_lines())
+    print(
+        f"\nLoad it with: globalmart data load --target <profile> "
+        f"--tables-dir {Path(args.out) / 'tables'} "
+        f"--manifest {Path(args.out) / 'table-manifest.json'} --apply"
+    )
+    return 0
+
+
 def cmd_data_load(args: argparse.Namespace) -> int:
     """Load the committed rows into a warehouse. Writes to a live warehouse, so --apply."""
     profile = load_profile(args.target)
@@ -402,6 +434,8 @@ def cmd_data_load(args: argparse.Namespace) -> int:
         apply=args.apply,
         only=only,
         ddl_path=Path(args.ddl),
+        tables_dir=Path(args.tables_dir),
+        manifest_path=Path(args.manifest),
         model=model,
     )
 
@@ -688,6 +722,12 @@ def build_parser() -> argparse.ArgumentParser:
     data_load.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     data_load.add_argument("--only", default=None, help="comma-separated table names")
     data_load.add_argument(
+        "--tables-dir",
+        default=str(DEFAULT_TABLES_DIR),
+        help="where the gzipped CSVs live; point at a generated set to load that instead",
+    )
+    data_load.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
+    data_load.add_argument(
         "--apply",
         action="store_true",
         help="actually truncate and load; without it this is a read-only rehearsal (ADR 002/004)",
@@ -762,6 +802,27 @@ def build_parser() -> argparse.ArgumentParser:
         help="exit 1 if the tree would change; writes nothing (the CI gate)",
     )
     knowledge_build.set_defaults(func=cmd_knowledge_build)
+
+    data_generate = data_actions.add_parser(
+        "generate", help="produce a synthetic dataset at a chosen seed and scale"
+    )
+    data_generate.add_argument("--out", required=True, help="destination directory (never data/)")
+    data_generate.add_argument("--seed", type=int, default=20260920)
+    data_generate.add_argument(
+        "--scale",
+        type=float,
+        default=1.0,
+        help="facts scale linearly, dimensions by sqrt; 1.0 reproduces the real row counts",
+    )
+    data_generate.add_argument("--ddl", default=str(DEFAULT_DDL_PATH))
+    data_generate.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    data_generate.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
+    data_generate.add_argument(
+        "--reference-tables",
+        default=str(DEFAULT_TABLES_DIR),
+        help="the real archive, read only to measure the date window",
+    )
+    data_generate.set_defaults(func=cmd_data_generate)
 
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)
