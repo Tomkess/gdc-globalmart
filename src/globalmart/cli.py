@@ -25,6 +25,7 @@ import json
 import sys
 import tempfile
 from collections.abc import Sequence
+from datetime import date
 from pathlib import Path
 
 from globalmart.capture import capture_workspace
@@ -36,7 +37,7 @@ from globalmart.dataload import load_data, verify_data
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
-from globalmart.generate import base_row_counts, date_window, generate_dataset
+from globalmart.generate import base_row_counts, generate_dataset, resolve_window
 from globalmart.knowledge import DEFAULT_SOURCE_DIR, build_knowledge
 from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
@@ -303,9 +304,7 @@ def cmd_split(args: argparse.Namespace) -> int:
         produced = {path.name: path.read_text(encoding="utf-8") for path in staged.glob("*.json")}
 
     if args.check:
-        committed = {
-            path.name: path.read_text(encoding="utf-8") for path in sorted(out.glob("*.json"))
-        }
+        committed = {path.name: path.read_text(encoding="utf-8") for path in sorted(out.glob("*.json"))}
         changed = sorted(k for k in produced.keys() & committed.keys() if produced[k] != committed[k])
         added = sorted(produced.keys() - committed.keys())
         removed = sorted(committed.keys() - produced.keys())
@@ -403,7 +402,10 @@ def cmd_data_generate(args: argparse.Namespace) -> int:
     registry = build_registry(Path(args.ddl), model=model)
 
     counts = base_row_counts(Path(args.manifest))
-    window = date_window(Path(args.reference_tables), Path(args.manifest))
+    window = resolve_window(
+        date.fromisoformat(args.start_date) if args.start_date else None,
+        date.fromisoformat(args.end_date) if args.end_date else None,
+    )
 
     report = generate_dataset(
         registry,
@@ -615,12 +617,8 @@ def build_parser() -> argparse.ArgumentParser:
     bootstrap.add_argument("--target", required=True, help="profile name from config/targets.yaml")
     bootstrap.add_argument("--workspace-id", default=None, help="override the profile's workspace id")
     bootstrap.add_argument("--out", default=str(DEFAULT_LAYOUT_PATH), help="destination tree")
-    bootstrap.add_argument(
-        "--dry-run", action="store_true", help="capture and report, write nothing locally"
-    )
-    bootstrap.add_argument(
-        "--wdf-policy", choices=[p.value for p in WdfPolicy], default=WdfPolicy.DROP.value
-    )
+    bootstrap.add_argument("--dry-run", action="store_true", help="capture and report, write nothing locally")
+    bootstrap.add_argument("--wdf-policy", choices=[p.value for p in WdfPolicy], default=WdfPolicy.DROP.value)
     bootstrap.add_argument(
         "--allow-unparameterized-sql",
         action="store_true",
@@ -642,9 +640,7 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="exit 1 if normalization would change the tree; writes nothing (the CI gate)",
     )
-    normalize.add_argument(
-        "--wdf-policy", choices=[p.value for p in WdfPolicy], default=WdfPolicy.DROP.value
-    )
+    normalize.add_argument("--wdf-policy", choices=[p.value for p in WdfPolicy], default=WdfPolicy.DROP.value)
     normalize.add_argument("--allow-unparameterized-sql", action="store_true")
     normalize.set_defaults(func=cmd_normalize)
 
@@ -669,17 +665,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     domains_bootstrap.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     domains_bootstrap.add_argument("--out", default=str(DEFAULT_DOMAINS_PATH))
-    domains_bootstrap.add_argument(
-        "--dry-run", action="store_true", help="report only; write no file"
-    )
-    domains_bootstrap.add_argument(
-        "--force", action="store_true", help="overwrite an existing manifest"
-    )
+    domains_bootstrap.add_argument("--dry-run", action="store_true", help="report only; write no file")
+    domains_bootstrap.add_argument("--force", action="store_true", help="overwrite an existing manifest")
     domains_bootstrap.set_defaults(func=cmd_domains_bootstrap)
 
-    split = subparsers.add_parser(
-        "split", help="derive every domain workspace from the parent"
-    )
+    split = subparsers.add_parser("split", help="derive every domain workspace from the parent")
     split.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
     split.add_argument("--source", "--from", dest="source", default=str(DEFAULT_LAYOUT_PATH))
     split.add_argument("--out", default=str(DEFAULT_GENERATED_PATH))
@@ -714,9 +704,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     data_verify.set_defaults(func=cmd_data_verify)
 
-    data_load = data_actions.add_parser(
-        "load", help="truncate-then-load the committed rows into a warehouse"
-    )
+    data_load = data_actions.add_parser("load", help="truncate-then-load the committed rows into a warehouse")
     data_load.add_argument("--target", required=True)
     data_load.add_argument("--ddl", default=str(DEFAULT_DDL_PATH))
     data_load.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
@@ -734,9 +722,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     data_load.set_defaults(func=cmd_data_load)
 
-    verify = subparsers.add_parser(
-        "verify", help="execute every visualization and check the repo's claims"
-    )
+    verify = subparsers.add_parser("verify", help="execute every visualization and check the repo's claims")
     verify_actions = verify.add_subparsers(dest="action", required=False)
 
     verify.add_argument("--target", required=False)
@@ -752,9 +738,7 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="treat a zero-row result as a failure (off by default: empty slices exist)",
     )
-    verify.add_argument(
-        "--list-only", action="store_true", help="name what would run, execute nothing"
-    )
+    verify.add_argument("--list-only", action="store_true", help="name what would run, execute nothing")
     verify.add_argument("--output-dir", default="reports")
     verify.set_defaults(func=cmd_verify)
 
@@ -766,9 +750,7 @@ def build_parser() -> argparse.ArgumentParser:
     equivalence.add_argument("--workspace-id", default="globalmart")
     equivalence.set_defaults(func=cmd_verify_equivalence)
 
-    rebuild = subparsers.add_parser(
-        "rebuild", help="the whole chain: data, parent, children, verification"
-    )
+    rebuild = subparsers.add_parser("rebuild", help="the whole chain: data, parent, children, verification")
     rebuild.add_argument("--target", required=True)
     rebuild.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
     rebuild.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
@@ -786,9 +768,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     rebuild.set_defaults(func=cmd_rebuild)
 
-    knowledge = subparsers.add_parser(
-        "knowledge", help="compile authored Markdown into AI memory items"
-    )
+    knowledge = subparsers.add_parser("knowledge", help="compile authored Markdown into AI memory items")
     knowledge_actions = knowledge.add_subparsers(dest="action", required=True)
 
     knowledge_build = knowledge_actions.add_parser(
@@ -818,9 +798,12 @@ def build_parser() -> argparse.ArgumentParser:
     data_generate.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     data_generate.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
     data_generate.add_argument(
-        "--reference-tables",
-        default=str(DEFAULT_TABLES_DIR),
-        help="the real archive, read only to measure the date window",
+        "--start-date",
+        help="first date in the generated window (default: --end-date minus two years)",
+    )
+    data_generate.add_argument(
+        "--end-date",
+        help="last date in the generated window (default: today, which is the point)",
     )
     data_generate.set_defaults(func=cmd_data_generate)
 
@@ -853,14 +836,10 @@ def build_parser() -> argparse.ArgumentParser:
     parent.add_argument("--standalone-copy", action="store_true")
     parent.set_defaults(func=cmd_publish_parent)
 
-    domains_publish = publish_targets.add_parser(
-        "domains", help="publish the derived domain workspaces"
-    )
+    domains_publish = publish_targets.add_parser("domains", help="publish the derived domain workspaces")
     domains_publish.add_argument("--target", required=True)
     domains_publish.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
-    domains_publish.add_argument(
-        "--source", "--in", dest="source", default=str(DEFAULT_GENERATED_PATH)
-    )
+    domains_publish.add_argument("--source", "--in", dest="source", default=str(DEFAULT_GENERATED_PATH))
     domains_publish.add_argument("--only", default=None, help="comma-separated domain keys")
     domains_publish.add_argument(
         "--apply",

@@ -36,6 +36,12 @@ from enum import StrEnum
 from pathlib import Path
 
 from globalmart.config import GlobalmartError
+from globalmart.plausible import (
+    TableScale,
+    TimeShape,
+    family_of,
+    shape_row,
+)
 from globalmart.registry import (
     DEFAULT_MANIFEST_PATH,
     Table,
@@ -48,8 +54,9 @@ from globalmart.registry import (
 #: failing. Small on purpose: an unknown table is more likely reference data than a fact.
 DEFAULT_ROWS = 100
 
-#: Used only when the real archive cannot be read. The real window is measured from it.
-FALLBACK_WINDOW = (date(2024, 1, 1), date(2026, 12, 31))
+#: How much history a generated dataset covers when no explicit start is given. Two years
+#: is enough for a year-on-year metric to have something to compare against.
+DEFAULT_WINDOW_DAYS = 730
 
 FACT_PREFIX = "fact_"
 
@@ -214,17 +221,34 @@ def row_count_for(table_name: str, base_counts: dict[str, int], scale: float) ->
 # --- values -------------------------------------------------------------------
 
 
-def date_window(
+def resolve_window(
+    start: date | None = None, end: date | None = None, *, today: date | None = None
+) -> tuple[date, date]:
+    """Decide the window to generate into.
+
+    Explicit beats implicit; an end defaults to **today**, which is the whole point. The
+    predecessor measured the window by reading the archive it was about to replace — always
+    circular, and the reason GlobalMart's data sat 21 months stale behind dashboards whose
+    relative filters resolved to an empty range.
+    """
+    end = end or (today or date.today())
+    start = start or (end - timedelta(days=DEFAULT_WINDOW_DAYS))
+    if start >= end:
+        raise GenerationError(f"window start {start} is not before end {end}")
+    return start, end
+
+
+def _legacy_date_window(
     tables_dir: Path | None = None, manifest_path: Path = DEFAULT_MANIFEST_PATH
 ) -> tuple[date, date]:
-    """The window the real data covers, so existing date filters still match rows."""
+    """The window the real data covers. Retained only until the archive is deleted."""
     from globalmart.dataload import read_table_csv
 
     if tables_dir is None:
-        return FALLBACK_WINDOW
+        return resolve_window()
     manifest = Path(manifest_path)
     if not manifest.exists():
-        return FALLBACK_WINDOW
+        return resolve_window()
 
     entries = json.loads(manifest.read_text(encoding="utf-8")).get("tables", {})
     seen: list[str] = []
@@ -249,7 +273,7 @@ def date_window(
             break
 
     if not seen:
-        return FALLBACK_WINDOW
+        return resolve_window()
     return date.fromisoformat(min(seen)), date.fromisoformat(max(seen))
 
 
@@ -290,6 +314,22 @@ def _value(
     return f"{plan.column}_{index:05d}"
 
 
+def _row_date(values: dict[str, str], date_columns: list[str]) -> date | None:
+    """The date this row's numbers should follow, if it has one.
+
+    The first dated column wins. A table with several dates (an order date and a ship date,
+    say) is driven by the one declared first, which is the one the DDL author put first.
+    """
+    for column in date_columns:
+        raw = values.get(column, "")
+        if len(raw) == 10 and raw[4] == "-":
+            try:
+                return date.fromisoformat(raw)
+            except ValueError:
+                continue
+    return None
+
+
 def generate_table(
     table: Table,
     plans: tuple[ColumnPlan, ...],
@@ -309,15 +349,42 @@ def generate_table(
     key_plan = next((p for p in plans if p.strategy is ColumnStrategy.OWN_KEY), None)
     minted: list[str] = []
 
+    # Numeric columns are shaped, not drawn. Classified once per table rather than per row,
+    # and only the numeric strategies qualify: a key or a code is structural and must not
+    # be touched by anything that cares how the number *looks*.
+    numeric = {
+        plan.column: family_of(plan.column)
+        for plan in plans
+        if plan.strategy in (ColumnStrategy.INTEGER, ColumnStrategy.DECIMAL)
+    }
+    date_columns = [plan.column for plan in plans if plan.strategy is ColumnStrategy.DATE]
+    # The DDL decides how a number is written. Shaping changes what a value *means*, never
+    # what type it is stored as.
+    integers = frozenset(plan.column for plan in plans if plan.strategy is ColumnStrategy.INTEGER)
+    shape = TimeShape(start=window[0], end=window[1])
+    scale = TableScale.draw(rng)
+
     for index in range(rows):
-        row = [
-            _value(
-                plan, rng, table=table.name, index=index, keyspaces=keyspaces, window=window
-            )
+        values = {
+            plan.column: _value(plan, rng, table=table.name, index=index, keyspaces=keyspaces, window=window)
             for plan in plans
-        ]
+        }
+
+        if numeric:
+            when = _row_date(values, date_columns)
+            shape_row(
+                values,
+                numeric,
+                when=when,
+                shape=shape,
+                scale=scale,
+                rng=rng,
+                integers=integers,
+            )
+
+        row = [values[plan.column] for plan in plans]
         if key_plan is not None:
-            minted.append(row[plans.index(key_plan)])
+            minted.append(values[key_plan.column])
         writer.writerow(row)
 
     space = (
@@ -355,7 +422,7 @@ def generate_dataset(
         raise GenerationError(f"scale must be positive, got {scale}")
 
     counts = base_counts if base_counts is not None else base_row_counts()
-    effective_window = window or FALLBACK_WINDOW
+    effective_window = window or resolve_window()
 
     tables_dir = out_dir / "tables"
     tables_dir.mkdir(parents=True, exist_ok=True)
