@@ -55,9 +55,12 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `report.py` | FEAT-006 | The only module that knows about presentation |
 | `cli.py` | all | Subcommand registration only; no logic |
 
-FEAT-005 (sole owner): `registry.py`, `archive.py`, `dataload.py`, `sqlcheck.py`,
-`search_event.py`, and the `loaders/` submodule (`base.py`, `motherduck.py`, `postgres.py`).
-Plus the one-shot `scripts/take_custody.py`, which is not part of the runtime CLI.
+FEAT-005 (sole owner), **as built 2026-09-18**: `registry.py`, `dataload.py`, `sqlcheck.py`
+and the `loaders/` submodule (`base.py`, `motherduck.py`, `postgres.py`), plus the one-shot
+`scripts/take_custody.py`, which is not part of the runtime CLI. `archive.py` and
+`search_event.py` were planned and do not exist: the data is committed rather than archived
+(ADR 007), so there is nothing to fetch, and the one synthesised table is generated inside
+the custody script rather than at runtime.
 
 > **`verify.py` collision — resolved 2026-09-18, when FEAT-004 was built.** FEAT-004 kept
 > `verify.py` for `verify_child(child, domain_key, *, closure) -> None`; FEAT-006 takes
@@ -90,7 +93,7 @@ One entry in `config/targets.yaml`. Tokens and secrets are **env-only**, never i
 | `datasource_name`, `datasource_url`, `datasource_database`, `datasource_username`, `datasource_secret_env` | `str` | FEAT-002 |
 | `workspace_id_prefix`, `backup_dir` | `str` | FEAT-002 |
 | `warehouse_database` | `str \| None` (MotherDuck `gd_demo`) | FEAT-005 |
-| `data_out` | path | FEAT-005 |
+| `data_owned` | `bool`, default `False` — opt-in before any truncate (ADR 004) | FEAT-005 |
 
 `load_profile(name: str) -> TargetProfile` keeps its FEAT-001 signature; only the dataclass grows.
 `validate_for_publish(profile) -> list[str]` returns the names of missing publish-required keys,
@@ -198,8 +201,8 @@ Single entry point `globalmart`, subcommands registered in `cli.py`:
 | `globalmart domains validate \| bootstrap [--manifest config/domains.yaml]` | FEAT-003 |
 | `globalmart split [--domains-file ...] [--from <layout>] [--check]` | FEAT-004 |
 | `globalmart publish domains --target <profile> [--apply]` | FEAT-004 |
-| `globalmart data fetch [--manifest data/archive-manifest.json] [--force] [--dry-run]` | FEAT-005 |
-| `globalmart data load --target <profile> [--apply] [--only <table>]` | FEAT-005 |
+| `globalmart data verify [--ddl ...] [--layout ...] [--schema ...]` | FEAT-005 (replaces the planned `data fetch` — the data is committed, so there is nothing to fetch) |
+| `globalmart data load --target <profile> [--apply] [--only <tables>]` | FEAT-005 |
 | `globalmart verify --target <profile> [--workspace <id> ...] [--max-workers N]` | FEAT-006 |
 | `globalmart rebuild` | FEAT-006 |
 
@@ -214,11 +217,11 @@ exit non-zero otherwise" and is the CI gate form.
 |---|---|---|
 | `layouts/workspaces/globalmart/` | Parent workspace, SDK native YAML tree, one file per object. Neutral path — **no org id** | yes |
 | `generated/workspaces/globalmart-<domain>.json` | The 12 derived children, declarative JSON | yes (ADR 003) |
-| `.cache/globalmart-data/` | Fetched + extracted CSVs | **no** — gitignored, re-fetched from the pinned archive |
+| `data/tables/<table>.csv.gz` | The rows themselves, one gzipped CSV per table — 215 files, 2.3 MB | yes (ADR 007) |
 | `config/targets.yaml` | Publish target profiles. Zero secrets | yes |
 | `config/domains.yaml` | Domain membership manifest | yes |
-| `data/ddl/globalmart.sql` | 214-table DDL, schema-only, `{schema_name}` templated | yes |
-| `data/archive-manifest.json` | Archive version, URL, sha256, per-table row counts and checksums | yes |
+| `data/ddl/globalmart.sql` | **215**-table DDL, schema-only, `{schema_name}` templated (214 inherited + `fact_search_event`) | yes |
+| `data/table-manifest.json` | Per table: row count, columns, sha256 of the **uncompressed** CSV, byte size | yes |
 | `backups/`, `reports/` | Runtime output | no |
 
 **JSON side (FEAT-004, added 2026-09-18):** `layout_io.write_model_json(model, path)` /

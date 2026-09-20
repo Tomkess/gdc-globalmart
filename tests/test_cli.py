@@ -300,3 +300,43 @@ def test_domains_commands_take_no_apply_flag() -> None:
     assert "apply" not in {a.dest for a in actions["validate"]._actions}
     assert "apply" not in {a.dest for a in actions["bootstrap"]._actions}
     assert "dry_run" in {a.dest for a in actions["bootstrap"]._actions}
+
+
+# --- data (FEAT-005) ---------------------------------------------------------
+
+
+def test_data_verify_passes_on_the_committed_data(capsys: pytest.CaptureFixture[str]) -> None:
+    repo = Path(__file__).resolve().parents[1]
+    if not (repo / "data" / "tables").exists():
+        pytest.skip("committed data not present")
+
+    assert main(["data", "verify"]) == 0
+    out = capsys.readouterr().out
+    assert "215" in out
+    assert "every SQL dataset resolves" in out
+
+
+def test_data_load_has_apply_and_no_dry_run() -> None:
+    """Writes to a live warehouse, so ADR 002 gives it --apply and no --dry-run."""
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    actions = choices["data"]._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+
+    dests = {a.dest for a in actions["load"]._actions}
+    assert "apply" in dests
+    assert "dry_run" not in dests
+    assert "apply" not in {a.dest for a in actions["verify"]._actions}
+
+
+def test_data_load_refuses_a_profile_that_does_not_own_its_data(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """demo-cloud is the live schema both orgs query; it must not be loadable."""
+    repo = Path(__file__).resolve().parents[1]
+    if not (repo / "data" / "tables").exists():
+        pytest.skip("committed data not present")
+
+    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
+    monkeypatch.setenv("MOTHERDUCK_TOKEN", "secret")
+
+    assert main(["data", "load", "--target", "demo-cloud", "--apply"]) == 1
+    assert "data_owned" in capsys.readouterr().err

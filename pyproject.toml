@@ -17,6 +17,15 @@ dependencies = [
     "pyyaml>=6.0.2",
 ]
 
+[project.optional-dependencies]
+# Warehouse drivers, needed only by `globalmart data load`. Capturing, splitting and
+# publishing never touch a warehouse, and duckdb alone is a ~15 MB wheel — so someone who
+# only publishes layouts should not have to install it.
+data = [
+    "duckdb>=1.1.0",
+    "psycopg[binary]>=3.2.0",
+]
+
 [project.scripts]
 globalmart = "globalmart.cli:main"
 
@@ -49,6 +58,13 @@ files = ["src/globalmart"]
 
 [[tool.mypy.overrides]]
 module = ["gooddata_sdk.*"]
+ignore_missing_imports = true
+
+# Optional warehouse drivers (the `data` extra). They are imported inside functions so the
+# package works without them, which means a type-check run in an environment that lacks
+# them must not fail.
+[[tool.mypy.overrides]]
+module = ["duckdb.*", "psycopg.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

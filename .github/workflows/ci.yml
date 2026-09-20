@@ -46,3 +46,9 @@ jobs:
       # Offline: reads the committed tree, never a live host.
       - name: Domain children are current
         run: uv run globalmart split --check
+
+      # The committed rows must match their manifest, and every SQL-backed dataset must
+      # reference a table the DDL defines. Offline — the data is in the repo, so this needs
+      # no credentials and no warehouse.
+      - name: Data is intact and SQL datasets resolve
+        run: uv run globalmart data verify

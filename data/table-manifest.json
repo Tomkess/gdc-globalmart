@@ -1,0 +1,2382 @@
+{
+  "source": {
+    "database": "gd_demo",
+    "kind": "motherduck",
+    "schema": "globalmart",
+    "taken_at": "2026-09-18"
+  },
+  "synthesised": [
+    "fact_search_event"
+  ],
+  "tables": {
+    "dim_absence_reason": {
+      "bytes": 186,
+      "columns": [
+        "reason_id",
+        "reason_name"
+      ],
+      "rows": 10,
+      "sha256": "bc2eb5bfbb5a599b90b47466a21e2ff5ad0b957cf36986e859ef9a73d375d790"
+    },
+    "dim_acquisition_channel": {
+      "bytes": 261,
+      "columns": [
+        "channel_id",
+        "channel_name",
+        "channel_cost"
+      ],
+      "rows": 10,
+      "sha256": "52bf8d9a5cc2654630063c9606e2ceb67a3e24dfdd9f220dd803588f8d7d0108"
+    },
+    "dim_ad_network": {
+      "bytes": 162,
+      "columns": [
+        "network_id",
+        "network_name"
+      ],
+      "rows": 8,
+      "sha256": "17d03c2ddc3623ffccb0ea7e2e8541c9c1247dad7ed2cce54e1661799893dbbe"
+    },
+    "dim_audience_segment": {
+      "bytes": 258,
+      "columns": [
+        "segment_id",
+        "segment_name",
+        "audience_size"
+      ],
+      "rows": 10,
+      "sha256": "6e26d4af6af7633a9e4698d1662d05350b16ed48757d2f1c26ea664f6bb773d9"
+    },
+    "dim_audit_type": {
+      "bytes": 153,
+      "columns": [
+        "audit_id",
+        "audit_type_name"
+      ],
+      "rows": 8,
+      "sha256": "d5cf0b4b28b6ed098e4b0d4093c92bf42ca24f5b7f589a2ee914f10c1abce570"
+    },
+    "dim_bonus_type": {
+      "bytes": 281,
+      "columns": [
+        "bonus_id",
+        "bonus_name",
+        "bonus_multiplier"
+      ],
+      "rows": 8,
+      "sha256": "ebbc65dee50c62e1179f1443b3625b2b639a50571949456ba283adaf02c77659"
+    },
+    "dim_brand": {
+      "bytes": 1264,
+      "columns": [
+        "brand_id",
+        "brand_name",
+        "brand_owner"
+      ],
+      "rows": 40,
+      "sha256": "3279e412f7ee558f62e7463c66409b758416515f9235dbd6af49013c04cf183e"
+    },
+    "dim_budget_version": {
+      "bytes": 174,
+      "columns": [
+        "version_id",
+        "version_name",
+        "fiscal_year"
+      ],
+      "rows": 6,
+      "sha256": "e7c2443c009e124156e073add4474feacd0944f5dba3e467b6b94cba75f18af3"
+    },
+    "dim_campaign": {
+      "bytes": 1499,
+      "columns": [
+        "campaign_id",
+        "campaign_name",
+        "campaign_type",
+        "channel_id"
+      ],
+      "rows": 40,
+      "sha256": "93ace258d94e5fe060c0ed42999a58ea7be938ec770937bbb7415c2ecaa02c75"
+    },
+    "dim_cashier": {
+      "bytes": 804,
+      "columns": [
+        "cashier_id",
+        "cashier_name"
+      ],
+      "rows": 40,
+      "sha256": "fb83f3ad9c5e366b94a10c7a7acfb5f777121737087c87be0aa8a4ef94ff7c47"
+    },
+    "dim_category_l1": {
+      "bytes": 168,
+      "columns": [
+        "category_l1_id",
+        "category_l1_name"
+      ],
+      "rows": 10,
+      "sha256": "7fe4d17d4c968aadfd1adab034e29fd89c0c1ff4f9d515a1adee59120a22765f"
+    },
+    "dim_category_l2": {
+      "bytes": 867,
+      "columns": [
+        "category_l2_id",
+        "category_l2_name",
+        "category_l1_id"
+      ],
+      "rows": 30,
+      "sha256": "8132b0acdc32d12d530ed6d092c1cd29ec10042d6b302e81ffde4f3ca1c14afc"
+    },
+    "dim_channel_master": {
+      "bytes": 201,
+      "columns": [
+        "channel_id",
+        "channel_type",
+        "channel_name"
+      ],
+      "rows": 6,
+      "sha256": "9faabf91b8c6bf9ecdb2bbb255eb5d04559d1bdd90b4cc1e9cc2f19b70a831cd"
+    },
+    "dim_company_entity": {
+      "bytes": 197,
+      "columns": [
+        "entity_id",
+        "entity_name",
+        "country_id"
+      ],
+      "rows": 6,
+      "sha256": "33a5a71f2b45faf051bb01e3dbe2de02ecd8fbe4c95eb0bc8549c14fa37048c0"
+    },
+    "dim_compliance_framework": {
+      "bytes": 134,
+      "columns": [
+        "framework_id",
+        "framework_name"
+      ],
+      "rows": 8,
+      "sha256": "a344aedc17d6a869331fc6dae6a79a61bcf33609d7dc8aea0233b6a2ce17d9ad"
+    },
+    "dim_contract_type": {
+      "bytes": 191,
+      "columns": [
+        "contract_id",
+        "contract_type_name"
+      ],
+      "rows": 8,
+      "sha256": "de1fef0b1100613db98cb08388ab7c9102a1bc9c53eac1012455c54bbe2eb742"
+    },
+    "dim_cost_category": {
+      "bytes": 226,
+      "columns": [
+        "category_id",
+        "category_name"
+      ],
+      "rows": 10,
+      "sha256": "4de96c9e6c259408c07c0a9e2a13a063c7a13347d05033404b64d9043e41f3de"
+    },
+    "dim_cost_center": {
+      "bytes": 612,
+      "columns": [
+        "cost_center_id",
+        "cost_center_name",
+        "entity_id"
+      ],
+      "rows": 20,
+      "sha256": "5c050e99b22bf339c70f3560774ef20789f5d828836475fd0484160e52783e78"
+    },
+    "dim_creative": {
+      "bytes": 538,
+      "columns": [
+        "creative_id",
+        "creative_name",
+        "creative_type"
+      ],
+      "rows": 20,
+      "sha256": "14673bc5db1cab9c822802840d46580aa13479195cf7955bcdc7fd20839fa378"
+    },
+    "dim_currency": {
+      "bytes": 357,
+      "columns": [
+        "currency_id",
+        "currency_code",
+        "currency_name",
+        "exchange_rate_to_usd"
+      ],
+      "rows": 10,
+      "sha256": "cfc5c4594e376f972676d41fc9cab33e4daa04628e4b2a21a3314ed1d8584aa9"
+    },
+    "dim_customer": {
+      "bytes": 1153938,
+      "columns": [
+        "customer_id",
+        "customer_name",
+        "lifecycle_stage_id",
+        "segment_id",
+        "acquisition_channel_id",
+        "country_id",
+        "loyalty_tier_id"
+      ],
+      "rows": 20000,
+      "sha256": "cfed11864e050aaf96d7e18fdd3d05736132bf193b15b76ee3d8616a8c25acbd"
+    },
+    "dim_customer_segment": {
+      "bytes": 272,
+      "columns": [
+        "segment_id",
+        "segment_name",
+        "segment_description"
+      ],
+      "rows": 6,
+      "sha256": "5eb948a349e4e9713d89b9f2cf363e3ed4f906acecb9f54c606ea3074cd485ed"
+    },
+    "dim_department": {
+      "bytes": 643,
+      "columns": [
+        "department_id",
+        "department_name",
+        "manager_id"
+      ],
+      "rows": 20,
+      "sha256": "bffda62a39d7ff62d65f672fc58d72b51d24a92a1453d14ce4b37765a79fc51c"
+    },
+    "dim_employee": {
+      "bytes": 11457,
+      "columns": [
+        "employee_id",
+        "employee_name",
+        "department_id",
+        "job_role_id",
+        "manager_id",
+        "hire_date"
+      ],
+      "rows": 200,
+      "sha256": "18365ed1253ec321ca09524945859ca7aeb218095ca8d357f6e6fd3a719604eb"
+    },
+    "dim_facilities_category": {
+      "bytes": 162,
+      "columns": [
+        "category_id",
+        "category_name"
+      ],
+      "rows": 8,
+      "sha256": "62f8edd59b0a5cf37026a5530c8a4ded5530205ec846cee51065bea48588293a"
+    },
+    "dim_fiscal_period": {
+      "bytes": 2321,
+      "columns": [
+        "fiscal_period_id",
+        "fiscal_year",
+        "fiscal_month",
+        "fiscal_quarter",
+        "calendar_date"
+      ],
+      "rows": 72,
+      "sha256": "a409beb93acedb24c31e958e592b5a67385c817983071b4ed14101a3f8d8ad78"
+    },
+    "dim_fraud_type": {
+      "bytes": 261,
+      "columns": [
+        "fraud_id",
+        "fraud_type_name"
+      ],
+      "rows": 8,
+      "sha256": "bd778f0bec7d1c50caf21625c0cf533b994347c1549fdd584e32646691db4dfa"
+    },
+    "dim_geography_city": {
+      "bytes": 2571,
+      "columns": [
+        "city_id",
+        "city_name",
+        "region_id",
+        "country_id"
+      ],
+      "rows": 100,
+      "sha256": "4a84c298b32954701400c52ecf3e8de1cf2928078994e648f204ad0b93d3fa05"
+    },
+    "dim_geography_country": {
+      "bytes": 78,
+      "columns": [
+        "country_id",
+        "country_name",
+        "currency_id"
+      ],
+      "rows": 2,
+      "sha256": "73a12b000c718e8e525fe86b8453650f68072f51abc0cc034ddbaeb3fd7ab8eb"
+    },
+    "dim_geography_region": {
+      "bytes": 201,
+      "columns": [
+        "region_id",
+        "region_name",
+        "country_id"
+      ],
+      "rows": 8,
+      "sha256": "a049e9a7bfa506ebd412fc83088eb3dce7b14da729278ee7ac909fa5a8f601b1"
+    },
+    "dim_gl_account": {
+      "bytes": 1237,
+      "columns": [
+        "account_id",
+        "account_name",
+        "account_type"
+      ],
+      "rows": 40,
+      "sha256": "86c53623a70059a35f509ec92c49c8f92acec4dae4189ed12ed47437682709dd"
+    },
+    "dim_household": {
+      "bytes": 4821,
+      "columns": [
+        "household_id",
+        "household_name",
+        "member_count"
+      ],
+      "rows": 200,
+      "sha256": "8fa7307556f8cb229fd4558a0d6019434d2dc1a095ce36884e7f8b5b06474df9"
+    },
+    "dim_inbound_carrier": {
+      "bytes": 177,
+      "columns": [
+        "carrier_id",
+        "carrier_name",
+        "country_id"
+      ],
+      "rows": 10,
+      "sha256": "3aa6759b897332c67111b41ce2271697bd1433ea4f45cd84eef676bbd8691de4"
+    },
+    "dim_job_role": {
+      "bytes": 470,
+      "columns": [
+        "role_id",
+        "role_name",
+        "salary_band"
+      ],
+      "rows": 20,
+      "sha256": "0c1a82d5d614bd92f7afdb46d7dc7b63229d29e26c5cfb8a2ba7c0f579935944"
+    },
+    "dim_language": {
+      "bytes": 206,
+      "columns": [
+        "language_id",
+        "language_code",
+        "language_name"
+      ],
+      "rows": 10,
+      "sha256": "2437562c1520455412cd90bf31163c79609ddbf81ee76c71c406ae00338019d7"
+    },
+    "dim_lead_time_bucket": {
+      "bytes": 230,
+      "columns": [
+        "bucket_id",
+        "bucket_name",
+        "days_min",
+        "days_max"
+      ],
+      "rows": 10,
+      "sha256": "8f75a98742e538ec542c30fe28dc1f41d48b14d6952c8acc847033d005b7ef9e"
+    },
+    "dim_lease_type": {
+      "bytes": 168,
+      "columns": [
+        "lease_id",
+        "lease_type_name",
+        "lease_term_years"
+      ],
+      "rows": 6,
+      "sha256": "044b8799cec390d84060cbca30ad590edf62eecc5075452864fc663473101f38"
+    },
+    "dim_lifecycle_stage": {
+      "bytes": 152,
+      "columns": [
+        "stage_id",
+        "stage_name",
+        "stage_order"
+      ],
+      "rows": 8,
+      "sha256": "4b0195d35f2cb6d5efc452764e1f04afe847b749e4d422363a46c765754b7c95"
+    },
+    "dim_loyalty_campaign": {
+      "bytes": 554,
+      "columns": [
+        "campaign_id",
+        "campaign_name",
+        "campaign_start",
+        "campaign_end"
+      ],
+      "rows": 10,
+      "sha256": "25131d968c64d2458f383e409cb195ed2879c86a2e2d2bcf25642196f2812345"
+    },
+    "dim_loyalty_tier": {
+      "bytes": 204,
+      "columns": [
+        "tier_id",
+        "tier_name",
+        "tier_level",
+        "min_points"
+      ],
+      "rows": 8,
+      "sha256": "15bcca7f5f4bb1be53bcd5250330c628536bc45e80951e943d1cf4af8c70f740"
+    },
+    "dim_maintenance_type": {
+      "bytes": 190,
+      "columns": [
+        "type_id",
+        "type_name"
+      ],
+      "rows": 10,
+      "sha256": "c67db1bf8ecc9e878b97e2d8f9832205402581713b038a20f4c63252382cfc8b"
+    },
+    "dim_partner": {
+      "bytes": 289,
+      "columns": [
+        "partner_id",
+        "partner_name",
+        "partner_category"
+      ],
+      "rows": 10,
+      "sha256": "36de65f018c5c2c005e8c567a9a5a265dfe587ff4e6c18333db8b64438a1ac1e"
+    },
+    "dim_payment_method": {
+      "bytes": 158,
+      "columns": [
+        "method_id",
+        "method_name"
+      ],
+      "rows": 8,
+      "sha256": "2bc7368f1663c2aaf5e12375a66ead8b947f95f1aa5080e0c4ae5029a96ade3d"
+    },
+    "dim_private_label": {
+      "bytes": 240,
+      "columns": [
+        "label_id",
+        "label_name"
+      ],
+      "rows": 10,
+      "sha256": "86d479f829fb4c8d44bc68596d034a26779b21fa2eb2abce0b04a1cfe8da3b09"
+    },
+    "dim_product": {
+      "bytes": 120613,
+      "columns": [
+        "product_id",
+        "product_name",
+        "category_id",
+        "brand_id",
+        "supplier_id",
+        "list_price",
+        "cost"
+      ],
+      "rows": 2000,
+      "sha256": "ca2406f25ca4e83919435654915f97c596451a51a9d112f3ccb45b3912438eaf"
+    },
+    "dim_product_lifecycle_stage": {
+      "bytes": 182,
+      "columns": [
+        "stage_id",
+        "stage_name",
+        "stage_order"
+      ],
+      "rows": 8,
+      "sha256": "285c1ee1bd547216d4884fb3b722b41a625a7b79245bfe67f5fad28d42affad2"
+    },
+    "dim_project": {
+      "bytes": 599,
+      "columns": [
+        "project_id",
+        "project_name",
+        "project_status"
+      ],
+      "rows": 20,
+      "sha256": "7a3e56e39a288f06cafca0cf146af4a1d2a94daaf9cb252aa59bcb8191c60715"
+    },
+    "dim_promotion": {
+      "bytes": 512,
+      "columns": [
+        "promo_id",
+        "promo_name",
+        "is_promoted"
+      ],
+      "rows": 20,
+      "sha256": "3a2ec96871d6513ed0b833e0c2c0d1ed1891da50dc0a38712601ea45d548423e"
+    },
+    "dim_property": {
+      "bytes": 614,
+      "columns": [
+        "property_id",
+        "property_name",
+        "city_id"
+      ],
+      "rows": 20,
+      "sha256": "82029cf63e8b571c093d8e6901190ac7198f62548ce87a36d8ec5afa28e47d66"
+    },
+    "dim_referral_source": {
+      "bytes": 164,
+      "columns": [
+        "source_id",
+        "source_name"
+      ],
+      "rows": 10,
+      "sha256": "e1409380640af61ae384f93fb2b48a12eb5cd5e0b4656c61d1e9d5e848668c65"
+    },
+    "dim_reorder_status": {
+      "bytes": 138,
+      "columns": [
+        "status_id",
+        "status_name"
+      ],
+      "rows": 8,
+      "sha256": "c934fc4e805a7ba1836126cef328c673a8ad8f470636924dafec04ed82c34370"
+    },
+    "dim_return_reason": {
+      "bytes": 242,
+      "columns": [
+        "reason_id",
+        "reason_name"
+      ],
+      "rows": 10,
+      "sha256": "d3cf6d553a5bdc33509613bcaabb3aaa271e053e03c0e018bf24159fef637903"
+    },
+    "dim_reward_type": {
+      "bytes": 536,
+      "columns": [
+        "reward_id",
+        "reward_name",
+        "points_cost",
+        "reward_category"
+      ],
+      "rows": 16,
+      "sha256": "88b1036a5a535b4237edb9be60e2fc997167d8bd47e190e4c4f2faf68ad08633"
+    },
+    "dim_risk_category": {
+      "bytes": 182,
+      "columns": [
+        "category_id",
+        "category_name"
+      ],
+      "rows": 8,
+      "sha256": "c361d9511c5f3439099c8f9c1633202ad38131b26bb8f25deab978c197d6bb81"
+    },
+    "dim_season": {
+      "bytes": 322,
+      "columns": [
+        "season_id",
+        "season_name",
+        "start_date",
+        "end_date"
+      ],
+      "rows": 8,
+      "sha256": "d53d1fb526af5fb08ccae26ca2dd46a314bb12732599ff48b2485cfe11cb6840"
+    },
+    "dim_shift_type": {
+      "bytes": 228,
+      "columns": [
+        "shift_id",
+        "shift_name",
+        "hour_start",
+        "hour_end"
+      ],
+      "rows": 8,
+      "sha256": "707cccbd84d5a955cbec11c443e60e69776b47eca41ecedfd3975bc02a7f7288"
+    },
+    "dim_shrinkage_category": {
+      "bytes": 150,
+      "columns": [
+        "category_id",
+        "category_name"
+      ],
+      "rows": 8,
+      "sha256": "31d0a65d3c8dc7e014aea628acc910e5807240dfce72d3dd77e3c6a4242ed5ed"
+    },
+    "dim_stock_location": {
+      "bytes": 1079,
+      "columns": [
+        "location_id",
+        "location_name",
+        "warehouse_id"
+      ],
+      "rows": 40,
+      "sha256": "c24d01df6a5f6d239a617e9d28bc51b5ea9e2a8cb53de4cd3abb55f2736f041c"
+    },
+    "dim_store": {
+      "bytes": 1133,
+      "columns": [
+        "store_id",
+        "store_name",
+        "region_id",
+        "city_id",
+        "country_id",
+        "store_format",
+        "sqft"
+      ],
+      "rows": 20,
+      "sha256": "3e07a8942ca9bfd11d4ec8b027fc6a57521c7d715f328bd8167f7e6d4c94a8a5"
+    },
+    "dim_store_department": {
+      "bytes": 1137,
+      "columns": [
+        "dept_id",
+        "dept_name",
+        "store_id"
+      ],
+      "rows": 30,
+      "sha256": "6a13228d8e1fcad76f43d2821e2cfe065ed5e6c1bc5b94dbb717b97bf571e897"
+    },
+    "dim_store_format": {
+      "bytes": 168,
+      "columns": [
+        "format_id",
+        "format_name"
+      ],
+      "rows": 8,
+      "sha256": "a49144043467742b35e9e59f0fe5fa9d2f9ff96b4982d05f12b7a996c112c964"
+    },
+    "dim_supplier": {
+      "bytes": 1596,
+      "columns": [
+        "supplier_id",
+        "supplier_name",
+        "country_id",
+        "payment_terms_days"
+      ],
+      "rows": 60,
+      "sha256": "141effe929302c883363e31411ba5dcc70a4baa6e4672aba35c25c75059d029a"
+    },
+    "dim_tender_type": {
+      "bytes": 140,
+      "columns": [
+        "tender_id",
+        "tender_name"
+      ],
+      "rows": 10,
+      "sha256": "bb6a531c13aae6eaeb6a4d1daff5fb6bd5fcd237e2c739dc8b997cc1cf38e266"
+    },
+    "dim_time_of_day_bucket": {
+      "bytes": 259,
+      "columns": [
+        "time_bucket_id",
+        "bucket_name",
+        "hour_start",
+        "hour_end"
+      ],
+      "rows": 10,
+      "sha256": "51be3cc2cc31645b76aceeed2c59caf0c1ae5d811a9131b9c95ef6f5662d2906"
+    },
+    "dim_training_type": {
+      "bytes": 450,
+      "columns": [
+        "training_id",
+        "training_name",
+        "training_cost"
+      ],
+      "rows": 16,
+      "sha256": "614ccbd505ddf46c9b6a0000e4873bb2de36ba18d090e775604d5c7e1707c848"
+    },
+    "dim_utility_type": {
+      "bytes": 210,
+      "columns": [
+        "utility_id",
+        "utility_name",
+        "unit_of_measure"
+      ],
+      "rows": 8,
+      "sha256": "614448272e8898a8c0ab41b9b633076329c722a993a4f65b6a7e55f0c2404059"
+    },
+    "dim_utm_source": {
+      "bytes": 170,
+      "columns": [
+        "source_id",
+        "source_name"
+      ],
+      "rows": 10,
+      "sha256": "8daf98c9fe1eb501c041a910b0669c4bf33d3c75781041db3de8c178107fd787"
+    },
+    "dim_warehouse": {
+      "bytes": 375,
+      "columns": [
+        "warehouse_id",
+        "warehouse_name",
+        "city_id",
+        "warehouse_type"
+      ],
+      "rows": 10,
+      "sha256": "7ed1471854cbde5750e8b7be83a33496bd70d87854835e12093ba3d2a2014658"
+    },
+    "fact_absence": {
+      "bytes": 14850,
+      "columns": [
+        "absence_id",
+        "employee_id",
+        "absence_date",
+        "absence_hours"
+      ],
+      "rows": 400,
+      "sha256": "efca02e65b3d4202f47f873f971dce2450db91bb08f5ebc3ad89ba0199266681"
+    },
+    "fact_aged_inventory": {
+      "bytes": 15492,
+      "columns": [
+        "aged_id",
+        "product_id",
+        "store_id",
+        "age_days",
+        "quantity"
+      ],
+      "rows": 400,
+      "sha256": "b8d5700f4b97faf29687f9065fdc6036a142db2c80faae5eb865981c4182fc87"
+    },
+    "fact_audit_finding": {
+      "bytes": 2438,
+      "columns": [
+        "finding_id",
+        "finding_date",
+        "finding_count"
+      ],
+      "rows": 100,
+      "sha256": "5297a595cb62c82a392535b7cec10f4a64293ca4e3d49e5286cdb690ac1bfe5d"
+    },
+    "fact_bonus_event": {
+      "bytes": 17828,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "bonus_points",
+        "bonus_cost"
+      ],
+      "rows": 400,
+      "sha256": "cfe7219871d460e6ba8e0f08be23c6e6324cb759e86c486353cf11630f6085fd"
+    },
+    "fact_budget_plan": {
+      "bytes": 15223,
+      "columns": [
+        "budget_id",
+        "cost_center_id",
+        "budget_date",
+        "budget_amount"
+      ],
+      "rows": 400,
+      "sha256": "848dca3c526633d6b0a19aac55dada82d01b09dc18765d42acf5b34ed3bb7cec"
+    },
+    "fact_campaign_spend_daily": {
+      "bytes": 11960,
+      "columns": [
+        "day",
+        "campaign_id",
+        "spend",
+        "spend_count"
+      ],
+      "rows": 400,
+      "sha256": "1c835778dce8d22180014b53981c88fcec5f8c7f510b943bc9c5dd09612a2575"
+    },
+    "fact_capex_project": {
+      "bytes": 1763,
+      "columns": [
+        "project_id",
+        "project_date",
+        "approved_budget",
+        "spent_amount"
+      ],
+      "rows": 40,
+      "sha256": "10eaf67a5d7673c172853ae865bec2f9fb3c5fdc6c8e74f185ac60f8ec1ca81e"
+    },
+    "fact_chargeback": {
+      "bytes": 12433,
+      "columns": [
+        "chargeback_id",
+        "chargeback_date",
+        "chargeback_count",
+        "chargeback_amount"
+      ],
+      "rows": 400,
+      "sha256": "b9230a4f8f704457fdc5251c6aa5105d37e173aa55d6d8ee76d829a500ae6636"
+    },
+    "fact_checkout_time": {
+      "bytes": 14756,
+      "columns": [
+        "checkout_id",
+        "store_id",
+        "checkout_date",
+        "avg_checkout_sec"
+      ],
+      "rows": 400,
+      "sha256": "0e4c116195763492b7616b6669cc445bdf450e759df32be7f5684fcbf10853e8"
+    },
+    "fact_cogs_detail": {
+      "bytes": 15824,
+      "columns": [
+        "cogs_id",
+        "product_id",
+        "cost_date",
+        "cost"
+      ],
+      "rows": 400,
+      "sha256": "91efdcda119ee3f9413b7831bd69069ea6729350d78bb02146966a421b95b362"
+    },
+    "fact_competitor_pricing": {
+      "bytes": 20005,
+      "columns": [
+        "price_id",
+        "product_id",
+        "store_id",
+        "price_check_date",
+        "competitor_price"
+      ],
+      "rows": 400,
+      "sha256": "72c3eecb2e99f25cd2bc18a316c6ad0f9e64e3deb8d5b276906e41698c74837e"
+    },
+    "fact_compliment_complaint": {
+      "bytes": 13647,
+      "columns": [
+        "comment_id",
+        "store_id",
+        "comment_date",
+        "comment_count"
+      ],
+      "rows": 400,
+      "sha256": "92072e5abbcf17d860ed9a2ba62d770ec99fbacefc0b6a5c24c1a6ae738f56ce"
+    },
+    "fact_customer_attr_00": {
+      "bytes": 16771,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "0badb91e9d0e4bcf8e1e5b220080cfea696186b497441dbe02c942332f0cd4b6"
+    },
+    "fact_customer_attr_01": {
+      "bytes": 16771,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "7f7c8ca7f8545c473699f957864ac72e6b4bdbf51ccdba2eebf390000af4d062"
+    },
+    "fact_customer_attr_02": {
+      "bytes": 16805,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "e361763f1ea8e5d513160c8e2ff4765c86dd1070a73f9816f5cd83b2fb60fb79"
+    },
+    "fact_customer_attr_03": {
+      "bytes": 16789,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "f20225e067d0e80bb534e0c0ba5e6e3e2c397e87a55232ae3f1b1b46eebb4ae2"
+    },
+    "fact_customer_attr_04": {
+      "bytes": 16775,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "891afaed6324e7de5363bc4fcd2cba60c6113311dbd8d741d2ecdc535b5e31f0"
+    },
+    "fact_customer_attr_05": {
+      "bytes": 16797,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "99ea8cf413740aa7d43846800a6d153b440993cecce5eefd5cfd9ea422e37032"
+    },
+    "fact_customer_event": {
+      "bytes": 19722,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_type_id",
+        "event_count",
+        "event_value"
+      ],
+      "rows": 400,
+      "sha256": "a3a90769def45a730329e0ee3df4e2c7db0e005e7e132a87caed6301051e85d0"
+    },
+    "fact_customer_feedback": {
+      "bytes": 16687,
+      "columns": [
+        "feedback_id",
+        "customer_id",
+        "feedback_date",
+        "sentiment_score",
+        "feedback_count"
+      ],
+      "rows": 400,
+      "sha256": "5d40e225f2690d0c5ab1d7aed522b9b2fcfc3d5e1ee74c29f1728f2a391c6679"
+    },
+    "fact_daily_pnl": {
+      "bytes": 18494,
+      "columns": [
+        "day",
+        "entity_id",
+        "revenue",
+        "cogs",
+        "opex"
+      ],
+      "rows": 400,
+      "sha256": "332c9cdb51bfbf3cf48400a35e006739bc85649477ef57186526ee38bba451ce"
+    },
+    "fact_daily_store_sales": {
+      "bytes": 67034,
+      "columns": [
+        "day",
+        "store_id",
+        "region_id",
+        "sales_amount",
+        "transaction_count",
+        "avg_transaction_value"
+      ],
+      "rows": 1460,
+      "sha256": "94f85892eea177224504c5a01b006e53e11bcba14cec4fb898a11d5ac103fa77"
+    },
+    "fact_display_impression": {
+      "bytes": 15181,
+      "columns": [
+        "impression_id",
+        "campaign_id",
+        "impression_date",
+        "impression_count"
+      ],
+      "rows": 400,
+      "sha256": "7eff46038865c76708139a95ab8f9fca5cac6735464ff8dc93f2614d0dedb435"
+    },
+    "fact_ecom_event_00": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "a10f5ca30795cebb74f804fb459e9f9ef24cbfc7c9d6c77ffdf283c35aff0dc8"
+    },
+    "fact_ecom_event_01": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "97cf92f86896203245919f96ee7b7a61be1e365c974452c26c65823097ed17ee"
+    },
+    "fact_ecom_event_02": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "bf43fdc5a3f62edb24fe9bd728138a83b33a40443c1f92b70fc6bc0431d4d725"
+    },
+    "fact_ecom_event_03": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "cae678b290b855b44e4c633f82e7c37c30c027941a899ed17c4e91979ff747fd"
+    },
+    "fact_ecom_event_04": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "e54dd16f84087d12f270a5b22ea63aed74249a87fdd928f558776209e093d861"
+    },
+    "fact_ecom_event_05": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "c3a20976384ffb7d49242343b46911d53b8683d25e57e614d74cee57effe49e3"
+    },
+    "fact_ecom_event_06": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "5332f183e5ffbee8edc5ea663cf3e17c6dfd2c6136eca64a976cc5ee6748ff94"
+    },
+    "fact_ecom_event_07": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "f25c4bb853a33bd35100385b51c64a92d7aec48676fb3548c0008e8f3fcbf295"
+    },
+    "fact_ecom_event_08": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "fb5dd57d5ba219b98a3a17975d052d9f94e852a0e9f06d14a3d4bfa938116af4"
+    },
+    "fact_ecom_event_09": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "91006a9e4cdeb8e2755f385c30eb4f73a23be29bfa84db9f7562d4f977b7f626"
+    },
+    "fact_ecom_event_10": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "1ff51162c19e2048d783a53198aac45fa7b943012dfc5efc3b1beed5f5062943"
+    },
+    "fact_ecom_event_11": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "ef37e2738d593b563030b31af1e554a4ed3a779ba943cf3e72eefd0aef81a8bd"
+    },
+    "fact_ecom_event_12": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "5c562d8da61eed7d489801635dfcee602de323ac2a5cd824bb9b268085760f83"
+    },
+    "fact_ecom_event_13": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "04e5a0c99bc24e0d9573f576656bd535feb69fc11196f8bb9e1d7bab881c612f"
+    },
+    "fact_ecom_event_14": {
+      "bytes": 14844,
+      "columns": [
+        "event_id",
+        "customer_id",
+        "event_date",
+        "event_count"
+      ],
+      "rows": 400,
+      "sha256": "fd905d6dc29f9a0f2a522d358961a8633de9b825299807811f1e5a13df8d0e9f"
+    },
+    "fact_email_click": {
+      "bytes": 14754,
+      "columns": [
+        "click_id",
+        "send_id",
+        "click_date",
+        "click_count"
+      ],
+      "rows": 400,
+      "sha256": "61f86c0cf8e20d12b297b25a3a39ceb9ae9f40a0e0ea0b1ce79972d9de209365"
+    },
+    "fact_email_open": {
+      "bytes": 15017,
+      "columns": [
+        "open_id",
+        "send_id",
+        "open_date",
+        "open_count"
+      ],
+      "rows": 400,
+      "sha256": "0404adf26cf5c2c5b25974b9b7bb61825b264e98fd110e225c16427e95dcd66d"
+    },
+    "fact_email_send": {
+      "bytes": 14405,
+      "columns": [
+        "send_id",
+        "campaign_id",
+        "send_date",
+        "send_count"
+      ],
+      "rows": 400,
+      "sha256": "d0462f503487210c40eba9e7e16bfdecb0a59e4cc03b433a06d8112a5addfb0f"
+    },
+    "fact_employee_hours": {
+      "bytes": 14498,
+      "columns": [
+        "record_id",
+        "employee_id",
+        "hours_date",
+        "hours_worked"
+      ],
+      "rows": 400,
+      "sha256": "45911da5ec71732493c905cd882bc6d293caea70b0d54d6d44c49ca099a13c36"
+    },
+    "fact_energy_consumption": {
+      "bytes": 18440,
+      "columns": [
+        "consumption_id",
+        "store_id",
+        "consumption_date",
+        "kwh",
+        "cost"
+      ],
+      "rows": 400,
+      "sha256": "faa29e3d94cde672d94ad3c1a53f8f26508e064ed7da428d284c21fdb72fffff"
+    },
+    "fact_fin_attr_00": {
+      "bytes": 16265,
+      "columns": [
+        "attr_id",
+        "entity_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "a78793ed9b91caff71b1c7a85d3bf9cf223beb41cf90a950478f8bb25867f1aa"
+    },
+    "fact_fin_attr_01": {
+      "bytes": 16263,
+      "columns": [
+        "attr_id",
+        "entity_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "e59240abebf09990b788b6030684abd6655d55893a71c18491cf8db0d7d062a2"
+    },
+    "fact_fin_attr_02": {
+      "bytes": 16241,
+      "columns": [
+        "attr_id",
+        "entity_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "3ce048d62e5bc834f7da24d60417cc64d66beba94301f98e08e02ac52a84eff5"
+    },
+    "fact_fin_attr_03": {
+      "bytes": 16287,
+      "columns": [
+        "attr_id",
+        "entity_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "e8cc0a07c60553f05821ced5aa0ccd6319a5ea1dead583a712d3b451b5b7bc2d"
+    },
+    "fact_fin_attr_04": {
+      "bytes": 16267,
+      "columns": [
+        "attr_id",
+        "entity_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "443ff4b67d53106b11513dcf3de39ea415e2b4444dab4d055c7ac0c71c78378e"
+    },
+    "fact_fin_attr_05": {
+      "bytes": 16255,
+      "columns": [
+        "attr_id",
+        "entity_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "c52c5affccc7702b9c3b674e2a422cbe3eec99389aa1d6423442cef3bb1a5d87"
+    },
+    "fact_fin_attr_06": {
+      "bytes": 16289,
+      "columns": [
+        "attr_id",
+        "entity_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "406d41737a548daba1a86fe44f42a5e9f6ef56bb7adcaf70c209f1bc5cbae1ea"
+    },
+    "fact_fin_attr_07": {
+      "bytes": 16265,
+      "columns": [
+        "attr_id",
+        "entity_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "591f164d19e49d404cf1f7ef7f96f2936be3008c964b3df494cc5fb20cbf2c25"
+    },
+    "fact_footfall_hourly": {
+      "bytes": 15458,
+      "columns": [
+        "hour_id",
+        "store_id",
+        "footfall_date",
+        "hour",
+        "visitor_count"
+      ],
+      "rows": 400,
+      "sha256": "6b928d174df0919631d03a2e7d023057a315338538c11e609be98b1098f66a67"
+    },
+    "fact_fraud_alert": {
+      "bytes": 13008,
+      "columns": [
+        "alert_id",
+        "alert_date",
+        "alert_count",
+        "alert_value"
+      ],
+      "rows": 400,
+      "sha256": "51c46eacaead76880ddae1149334bbcd0e934fbc852cc5dcb1e46125a6b311f9"
+    },
+    "fact_gift_card_txn": {
+      "bytes": 16260,
+      "columns": [
+        "txn_id",
+        "store_id",
+        "txn_date",
+        "amount",
+        "txn_count"
+      ],
+      "rows": 400,
+      "sha256": "346609bd0b982f0658d23c43b964a7473c90eb6b49cd7a1c52f65c1d7336b995"
+    },
+    "fact_goods_receipt": {
+      "bytes": 15659,
+      "columns": [
+        "receipt_id",
+        "po_id",
+        "receipt_date",
+        "receipt_qty",
+        "variance_qty"
+      ],
+      "rows": 400,
+      "sha256": "19ddd72252ba650f91d984a4357ba460b5887af948abdd3581af2c04e90571a5"
+    },
+    "fact_headcount_snapshot": {
+      "bytes": 11545,
+      "columns": [
+        "snapshot_id",
+        "snapshot_date",
+        "total_headcount",
+        "active_count"
+      ],
+      "rows": 400,
+      "sha256": "ad9d9c2a1b1e308a5eb21474c9179452af60655962564cf333fd53d3d69bb590"
+    },
+    "fact_hr_attr_00": {
+      "bytes": 15203,
+      "columns": [
+        "attr_id",
+        "employee_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "5df958023a0886fd596321fd98c83b7759f29aad7c4b2960aead3d902870ed7e"
+    },
+    "fact_hr_attr_01": {
+      "bytes": 15181,
+      "columns": [
+        "attr_id",
+        "employee_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "fe385aa0ff8218bdc865736c7ae5aeec87544d8a140a6f9f9fa9b78a71abf3e9"
+    },
+    "fact_hr_attr_02": {
+      "bytes": 15185,
+      "columns": [
+        "attr_id",
+        "employee_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "3e1757f6b0540f8257bf9b8d7ccc0b5e453a77abf2c75ee685a90a13ee3ebada"
+    },
+    "fact_hr_attr_03": {
+      "bytes": 15199,
+      "columns": [
+        "attr_id",
+        "employee_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "85a5efbe7d562d5d5a14b5e9a8b516a08e4b881e46ec15d9cb1daca43009010d"
+    },
+    "fact_hr_attr_04": {
+      "bytes": 15189,
+      "columns": [
+        "attr_id",
+        "employee_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "dbed46055f6b0a62c901f318e1fd641a2a92e671b485f34693e658ea3e174496"
+    },
+    "fact_intercompany_recharge": {
+      "bytes": 18544,
+      "columns": [
+        "recharge_id",
+        "from_entity_id",
+        "to_entity_id",
+        "recharge_date",
+        "recharge_amount"
+      ],
+      "rows": 400,
+      "sha256": "fcb719652698adeef0e5f7cca4bc5a4a68f79ff74db6ca0430dbff4959d90744"
+    },
+    "fact_inv_attr_00": {
+      "bytes": 17595,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "warehouse_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "e9cec44992c43d14ee488cb6919e38f4c0b0de0dab72cafd826e4b91a9f6881c"
+    },
+    "fact_inv_attr_01": {
+      "bytes": 17603,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "warehouse_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "e8e24d85e4d2e47c7bea2dec99da510b27af19f09e560004b984c54262ad638d"
+    },
+    "fact_inv_attr_02": {
+      "bytes": 17591,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "warehouse_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "0b9106f3fdf7219093b178016eef73e611ab3f8df4950c032a48b80c9f8bf90c"
+    },
+    "fact_inv_attr_03": {
+      "bytes": 17611,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "warehouse_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "e119019fade4270d6591f52271dfe7cc6267064d41b15556f79d9e4e0d3724fa"
+    },
+    "fact_inv_attr_04": {
+      "bytes": 17621,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "warehouse_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "ec3bebb42261652e922ae51698d277d10c08edb6443a08320ac6a88e1b2a2fae"
+    },
+    "fact_inv_attr_05": {
+      "bytes": 17599,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "warehouse_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "b10178ca26dc2ba1d3a25e8d2009a835d4a2c15ca74274aedb0f16b51216deb3"
+    },
+    "fact_inv_attr_06": {
+      "bytes": 17599,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "warehouse_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "68375bb1e19276e865210758ae857d828f2a736d1b1af1dce9b8de06f7c272d1"
+    },
+    "fact_inv_attr_07": {
+      "bytes": 17601,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "warehouse_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "09edbca7fa36098f375200cd556089accd26ae892b47c55dddd8920e8f7ef99e"
+    },
+    "fact_inventory_snapshot_daily": {
+      "bytes": 16318,
+      "columns": [
+        "day",
+        "product_id",
+        "warehouse_id",
+        "on_hand_units",
+        "inventory_value"
+      ],
+      "rows": 400,
+      "sha256": "645697b71598b226db30aa6bf4a20097f5c00f45b3e540dc70c12f6d997bf399"
+    },
+    "fact_layaway": {
+      "bytes": 20804,
+      "columns": [
+        "layaway_id",
+        "customer_id",
+        "store_id",
+        "layaway_date",
+        "amount"
+      ],
+      "rows": 400,
+      "sha256": "57e851d4b2893cce5b294a7667d42d8d76c6ddebe6a72c17d2b46e8f45649b4e"
+    },
+    "fact_lease_payment": {
+      "bytes": 16403,
+      "columns": [
+        "payment_id",
+        "store_id",
+        "payment_date",
+        "lease_payment"
+      ],
+      "rows": 400,
+      "sha256": "0bf3a7dd4e85bcd565ed7f5afcebd3a49d866c0cd5aa786bd311a6e31c751b67"
+    },
+    "fact_loyalty_attr_00": {
+      "bytes": 16795,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "f6ae0d93fcec25eb2c308201b0ff7bcbc8ca7c90ac22c4f4e4fb356f53fad1fe"
+    },
+    "fact_loyalty_attr_01": {
+      "bytes": 16781,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "7c4b24fa8933b72d7fc2fe51825ed356fa926ff1f86b2decccf6148cd7a08eb9"
+    },
+    "fact_loyalty_attr_02": {
+      "bytes": 16795,
+      "columns": [
+        "attr_id",
+        "customer_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "a977db9bd44a13a8aab1782ce2cbee011289d75d92f3a75190afe850d098b842"
+    },
+    "fact_loyalty_enrollment": {
+      "bytes": 14859,
+      "columns": [
+        "enrollment_id",
+        "customer_id",
+        "enrollment_date",
+        "enrollment_count"
+      ],
+      "rows": 400,
+      "sha256": "448bce836c19c07fc2c613b36ba6774a3659c9f15e594751c51a241e19e9fb22"
+    },
+    "fact_loyalty_expiry": {
+      "bytes": 15575,
+      "columns": [
+        "expiry_id",
+        "customer_id",
+        "expiry_date",
+        "points_expired"
+      ],
+      "rows": 400,
+      "sha256": "cf2e602b7ac99b4497e1183aaf762c2c6c55317ef70202f16940a6ab83fab3db"
+    },
+    "fact_loyalty_points_earned": {
+      "bytes": 18315,
+      "columns": [
+        "transaction_id",
+        "customer_id",
+        "earn_date",
+        "points",
+        "order_amount"
+      ],
+      "rows": 400,
+      "sha256": "7ebceca0ef81335fedf2759890e3a2bd007f1c199aaf8a922608bc98ca555c36"
+    },
+    "fact_loyalty_points_redeemed": {
+      "bytes": 18021,
+      "columns": [
+        "redemption_id",
+        "customer_id",
+        "redemption_date",
+        "points_redeemed",
+        "reward_value"
+      ],
+      "rows": 400,
+      "sha256": "f1653411f7d58a6fd0e440b9ba248cf7de26a0e2283bb0202fea7a237c06194b"
+    },
+    "fact_loyalty_redemption_at_pos": {
+      "bytes": 17563,
+      "columns": [
+        "redemption_id",
+        "store_id",
+        "redemption_date",
+        "points_redeemed",
+        "discount_amount"
+      ],
+      "rows": 400,
+      "sha256": "8b49482f7f01ed9fd70067565f6e9e48d3c6e28a9c51fbfc3bc8a63a290379d2"
+    },
+    "fact_maintenance_request": {
+      "bytes": 17975,
+      "columns": [
+        "request_id",
+        "store_id",
+        "request_date",
+        "maintenance_cost",
+        "downtime_hours"
+      ],
+      "rows": 400,
+      "sha256": "3b985365b6e827ae4359ba960e9c96e3492d1bb6666ff13f7880fdd523e35f3e"
+    },
+    "fact_markdown_event": {
+      "bytes": 16598,
+      "columns": [
+        "event_id",
+        "product_id",
+        "event_date",
+        "markdown_amount",
+        "units_sold"
+      ],
+      "rows": 400,
+      "sha256": "b5199e7fe437ca2d30fdae67673aae781039d7072399d40c737cd90aa2276c1b"
+    },
+    "fact_mkt_attr_00": {
+      "bytes": 16003,
+      "columns": [
+        "attr_id",
+        "campaign_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "a5e1bab65cc5d1be08674ba30870e1ace1d3b16e0bf7ab05017524f7c2e8a7d9"
+    },
+    "fact_mkt_attr_01": {
+      "bytes": 15999,
+      "columns": [
+        "attr_id",
+        "campaign_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "944da5bfc34043aba3ae04d9302d665c12df5fde1838b49b9399e9301b58808d"
+    },
+    "fact_mkt_attr_02": {
+      "bytes": 15987,
+      "columns": [
+        "attr_id",
+        "campaign_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "5750e0d3be8b5874961dc155c5391fa70bac4dd48649df2733f28bc22adf8971"
+    },
+    "fact_mkt_attr_03": {
+      "bytes": 16007,
+      "columns": [
+        "attr_id",
+        "campaign_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "d79396a4c0c09e79151ea6237f44d6e7780ca6649792d29aad2771e5c52f18fa"
+    },
+    "fact_mkt_attr_04": {
+      "bytes": 15991,
+      "columns": [
+        "attr_id",
+        "campaign_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "21521c8ccc6f59d7319c3324bf9aafb392c612808e405f1e200ca9474d76cb48"
+    },
+    "fact_nps_response": {
+      "bytes": 15701,
+      "columns": [
+        "survey_id",
+        "customer_id",
+        "survey_date",
+        "nps_score",
+        "response_count"
+      ],
+      "rows": 400,
+      "sha256": "d3c1b1cd37f347edf2a4a64bae014dd3ef48a4d2ef861546899925f90376ec15"
+    },
+    "fact_opex_transaction": {
+      "bytes": 14824,
+      "columns": [
+        "transaction_id",
+        "cost_center_id",
+        "transaction_date",
+        "amount"
+      ],
+      "rows": 400,
+      "sha256": "bc088d4d01ae37cf3e40b0ba1a2ce01d825e0db8602fb21f93a0b447f858d114"
+    },
+    "fact_ops_attr_00": {
+      "bytes": 15988,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "764cb9ca23dc944edc053c3e85f04ab40f89db736f48698f42e42426fe735dac"
+    },
+    "fact_ops_attr_01": {
+      "bytes": 15962,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "caf56da0dd7353f279435b7d93f04b1aba286b3ccc7825f87af82146b3bd97cf"
+    },
+    "fact_ops_attr_02": {
+      "bytes": 15990,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "d843d2bb0ebf8161c853a68bfed7cd965ea4fd6f86353915c94886db6b85a494"
+    },
+    "fact_ops_attr_03": {
+      "bytes": 15970,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "863a6b9fafde5348ea9ade6c53d639e346e0616be38fa21d9b14d84692f0bcd5"
+    },
+    "fact_ops_attr_04": {
+      "bytes": 15986,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "e6347ce3e4276f220182dfbccc4c5951283a6ca81621f3d056ee47e4141ff9d4"
+    },
+    "fact_ops_attr_05": {
+      "bytes": 15996,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "b4481363c6e9a5b7dced40153792f8685507368b79f415c41d763c238e2b628f"
+    },
+    "fact_ops_attr_06": {
+      "bytes": 15990,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "71a870e1c4cbae2549192397b136de4d88d807d0f1a121090c1d2cf2c3925a51"
+    },
+    "fact_order_header": {
+      "bytes": 2628188,
+      "columns": [
+        "order_id",
+        "order_date",
+        "customer_id",
+        "store_id",
+        "region_id",
+        "channel_id",
+        "order_count",
+        "revenue",
+        "discount_amount"
+      ],
+      "rows": 35872,
+      "sha256": "8093d9d3222db61033b27697d27bc61e663d0a35ed657a20b4e82e46c7f55abd"
+    },
+    "fact_order_line": {
+      "bytes": 3072069,
+      "columns": [
+        "order_line_id",
+        "order_id",
+        "product_id",
+        "quantity",
+        "revenue",
+        "cost",
+        "discount_pct"
+      ],
+      "rows": 53902,
+      "sha256": "fd7b87e673697dc9deb8e7e219984c54dd2f5b211bc123ffc22fac62542c3a74"
+    },
+    "fact_paid_search_click": {
+      "bytes": 16009,
+      "columns": [
+        "click_id",
+        "campaign_id",
+        "click_date",
+        "click_count",
+        "click_cost"
+      ],
+      "rows": 400,
+      "sha256": "a235cd3eb7d4a90fb9acffdbbf41eae1660caef3500764ffd1bb006c77820b1f"
+    },
+    "fact_partner_redemption": {
+      "bytes": 18639,
+      "columns": [
+        "redemption_id",
+        "customer_id",
+        "redemption_date",
+        "points_used",
+        "partner_discount"
+      ],
+      "rows": 400,
+      "sha256": "e4fd7bce6959496e55e0b3d9af31fd3ca10ff61cc51679851d6f3770ff529c65"
+    },
+    "fact_payroll_transaction": {
+      "bytes": 21983,
+      "columns": [
+        "transaction_id",
+        "employee_id",
+        "department_id",
+        "payroll_date",
+        "gross_pay",
+        "deductions"
+      ],
+      "rows": 400,
+      "sha256": "e486916d1cd22a54ce1b228a8a1526f3248efb9bdc2704302974ace4f0d95cf7"
+    },
+    "fact_planogram_compliance": {
+      "bytes": 20080,
+      "columns": [
+        "compliance_id",
+        "store_id",
+        "product_id",
+        "check_date",
+        "compliance_score",
+        "out_of_stock_days"
+      ],
+      "rows": 400,
+      "sha256": "5e5d326f3af8fa8ef74a1181c4a2524193b703eadf41268d70944e179407799f"
+    },
+    "fact_price_adjustment": {
+      "bytes": 19707,
+      "columns": [
+        "adjustment_id",
+        "store_id",
+        "product_id",
+        "adjustment_date",
+        "price_change"
+      ],
+      "rows": 400,
+      "sha256": "21b76bb08f00543d78160d9562443eba2d1756bc8790a81ea6e4784b45d3f723"
+    },
+    "fact_product_attr_00": {
+      "bytes": 16394,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "c77631debb9b24475a748b26237163a1a29ee2f680697bbda543df2cbfa5f459"
+    },
+    "fact_product_attr_01": {
+      "bytes": 16382,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "5cb91151eb48d150ae61f7a65288b902470fdcb5a2a57dbc49b5dec01fb9b12e"
+    },
+    "fact_product_attr_02": {
+      "bytes": 16386,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "8482ae98dedb86d5519f0b288d9f8961933de276bd2957395b11afa25b70538c"
+    },
+    "fact_product_attr_03": {
+      "bytes": 16394,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "2ad603ae27f5633011bdc52673b9ed590413ed7a9f67e9084eb839435257bbe3"
+    },
+    "fact_product_attr_04": {
+      "bytes": 16402,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "2d74d176f3602896773d3f569fb1a6e1e0fe5ef11bd4a6d75f8997e700fe0fd0"
+    },
+    "fact_product_attr_05": {
+      "bytes": 16400,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "34982e8ecaa9f0ac4522b608fd2af2962cb4a2132812acc50162e47f602d6a79"
+    },
+    "fact_product_attr_06": {
+      "bytes": 16384,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "34a207f8b7b03961e3d3e59facd00fe92f373a087549b0ad4d031492e5dde547"
+    },
+    "fact_product_attr_07": {
+      "bytes": 16380,
+      "columns": [
+        "attr_id",
+        "product_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "f6f22c870e2bd656eae5e3fcb2866853de15a4808bfa41037296ffdfa3c4d21f"
+    },
+    "fact_product_performance_daily": {
+      "bytes": 15873,
+      "columns": [
+        "day",
+        "product_id",
+        "units_sold",
+        "revenue",
+        "margin"
+      ],
+      "rows": 400,
+      "sha256": "34aab98d49a44c3ffc7e527e2fb11d52fa2bed1d0350b887b77381e4286374c4"
+    },
+    "fact_product_rating": {
+      "bytes": 16821,
+      "columns": [
+        "rating_id",
+        "product_id",
+        "rating_date",
+        "avg_rating",
+        "review_count"
+      ],
+      "rows": 400,
+      "sha256": "08ee0c3b5864b8cf465bf6a5f3372e85eec3736ae4e5a285a1c8d5bcfd01381c"
+    },
+    "fact_purchase_order_header": {
+      "bytes": 16353,
+      "columns": [
+        "po_id",
+        "supplier_id",
+        "po_date",
+        "po_count",
+        "po_amount"
+      ],
+      "rows": 400,
+      "sha256": "24ac568e45f874d1241b1815e29b77b1d147396d504045e8cd94713329d79b9b"
+    },
+    "fact_purchase_order_line": {
+      "bytes": 18341,
+      "columns": [
+        "po_line_id",
+        "po_id",
+        "product_id",
+        "quantity",
+        "line_amount"
+      ],
+      "rows": 400,
+      "sha256": "3514bb04281194659c5fc7dec0c94e9ca6ad641be543473cd3e980d088709adc"
+    },
+    "fact_range_review_outcome": {
+      "bytes": 16437,
+      "columns": [
+        "review_id",
+        "product_id",
+        "review_date",
+        "outcome_id",
+        "decision_count"
+      ],
+      "rows": 400,
+      "sha256": "bc0cc88c0689bfa8e9997c665aa28ffcee4b53e9a37b4e6c0e0008743cc3d9f6"
+    },
+    "fact_re_attr_00": {
+      "bytes": 16794,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "4c60ce236698a66b18c0fb5067b51b292ef708024a91700a3f4f30636bbad248"
+    },
+    "fact_re_attr_01": {
+      "bytes": 16800,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "a1e6e2becae67e38a6c14cd299d694faeae73bd1ffc0ee762d861e99ea0b1ee1"
+    },
+    "fact_re_attr_02": {
+      "bytes": 16794,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "8695b97ffba3d7222ad18b06ff932d07c35dd051c26db1e32f2f6b2a45323891"
+    },
+    "fact_re_attr_03": {
+      "bytes": 16798,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "80c02cb4cf05ebb940660da6f8a5092f432722f0c73cdbcc72937068b0f1b775"
+    },
+    "fact_re_attr_04": {
+      "bytes": 16780,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "6ed66bb9c28919492914ae307c4b0704f9bcc21a647da807dc02dbc5732c5ae8"
+    },
+    "fact_re_attr_05": {
+      "bytes": 16796,
+      "columns": [
+        "attr_id",
+        "store_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "622354b50e5c9d8da15fc7f1fcadfc241316ea7f188394076ed51db8ec0b7826"
+    },
+    "fact_recruitment": {
+      "bytes": 3351,
+      "columns": [
+        "position_id",
+        "open_date",
+        "recruitment_count",
+        "recruitment_cost"
+      ],
+      "rows": 100,
+      "sha256": "d21f3bab391d7b17eb926367942074a59bd11ad336999919a3aa926f1cdfea51"
+    },
+    "fact_referral": {
+      "bytes": 17178,
+      "columns": [
+        "referral_id",
+        "customer_id",
+        "referral_date",
+        "referral_count",
+        "referral_bonus"
+      ],
+      "rows": 400,
+      "sha256": "b85863b1fd0238f13183a5adc9b211e5041a2a10f8344acdd89084750ec4e74a"
+    },
+    "fact_renovation_spend": {
+      "bytes": 1723,
+      "columns": [
+        "project_id",
+        "store_id",
+        "spend_date",
+        "renovation_cost"
+      ],
+      "rows": 40,
+      "sha256": "88f9d6aae50984a799f07b0f76d4841e5d905481397a336fac5715c634431b3b"
+    },
+    "fact_returns": {
+      "bytes": 10500,
+      "columns": [
+        "return_id",
+        "order_id",
+        "return_date",
+        "return_reason_id",
+        "return_amount",
+        "quantity_returned"
+      ],
+      "rows": 200,
+      "sha256": "affd349604efcf457131584a6f9a394ddcf7e49679efb95e95c237abe8b8c511"
+    },
+    "fact_risk_attr_00": {
+      "bytes": 10781,
+      "columns": [
+        "attr_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "ce2e73994fbb91969cc6899e00ddfb513800ab33be762ddf7b4f2c4a210db38d"
+    },
+    "fact_risk_attr_01": {
+      "bytes": 10787,
+      "columns": [
+        "attr_id",
+        "attr_date",
+        "metric"
+      ],
+      "rows": 400,
+      "sha256": "6cc0c2b25b9dfedf7452e3a4a53cf78226fe44d98abf4e02e2d847c9362c8e78"
+    },
+    "fact_sales_by_hour": {
+      "bytes": 16348,
+      "columns": [
+        "hour_id",
+        "store_id",
+        "sales_date",
+        "revenue"
+      ],
+      "rows": 400,
+      "sha256": "b8737bc72080e982e53adce1b5df6580de33fefc5af81fe62be60f41778ba6c9"
+    },
+    "fact_search_event": {
+      "bytes": 176615,
+      "columns": [
+        "session_id",
+        "customer_id",
+        "traffic_source",
+        "session_date"
+      ],
+      "rows": 4000,
+      "sha256": "d9f370fc8c6d1c58f599e2c1019d1de683d68fcdf13aacde3028af93f5ede103"
+    },
+    "fact_shrinkage_event": {
+      "bytes": 17019,
+      "columns": [
+        "event_id",
+        "store_id",
+        "event_date",
+        "shrinkage_amount",
+        "unit_count"
+      ],
+      "rows": 400,
+      "sha256": "936ee736f2380696a18fa9b9bb25ab10c0698967fa8389dd5773a834a012edc2"
+    },
+    "fact_social_impression": {
+      "bytes": 14817,
+      "columns": [
+        "impression_id",
+        "campaign_id",
+        "impression_date",
+        "impression_count"
+      ],
+      "rows": 400,
+      "sha256": "4488851d57022f913887dfffcb5ac27dd68f2e43a8ba828af1dde0013b9f1a15"
+    },
+    "fact_stock_movement": {
+      "bytes": 17039,
+      "columns": [
+        "movement_id",
+        "product_id",
+        "warehouse_id",
+        "movement_date",
+        "movement_qty"
+      ],
+      "rows": 400,
+      "sha256": "4dae2b922d0b37e145cc4d10bbcd3cfa7d3aa2f70c67fd274d37798c2fbea162"
+    },
+    "fact_store_staffing_daily": {
+      "bytes": 12243,
+      "columns": [
+        "day",
+        "store_id",
+        "staff_hours",
+        "staff_count"
+      ],
+      "rows": 400,
+      "sha256": "249d3b8f726838eee5ef5c33477b843b47f067725f93bcc38ec19e76714da94e"
+    },
+    "fact_store_visit_census": {
+      "bytes": 16804,
+      "columns": [
+        "visit_id",
+        "store_id",
+        "visit_date",
+        "visitor_count",
+        "sqft"
+      ],
+      "rows": 400,
+      "sha256": "efb98480aefbd1741070aa24feaf6451b826dabba290e2faf9a3db69799d3858"
+    },
+    "fact_supplier_scorecard": {
+      "bytes": 18080,
+      "columns": [
+        "scorecard_id",
+        "supplier_id",
+        "scorecard_date",
+        "quality_score",
+        "delivery_score",
+        "cost_score"
+      ],
+      "rows": 400,
+      "sha256": "4db98ad0099164d0975aa45ed9bb4c94aed2b7dc7f3bc3554a52e5a4f57b5c6b"
+    },
+    "fact_tier_change": {
+      "bytes": 19747,
+      "columns": [
+        "change_id",
+        "customer_id",
+        "change_date",
+        "old_tier_id",
+        "new_tier_id",
+        "change_count"
+      ],
+      "rows": 400,
+      "sha256": "c98a4779293adca9c0a92d90b120a3d418a4ca31dffe4ce1a552720145b4476b"
+    },
+    "fact_till_reconciliation": {
+      "bytes": 15363,
+      "columns": [
+        "recon_id",
+        "store_id",
+        "recon_date",
+        "variance_amount"
+      ],
+      "rows": 400,
+      "sha256": "ebb3f2d9ac4e322cfc8cf7d3dd291405f7bff8e61860c8e9a37392f75c33f195"
+    },
+    "fact_training_completion": {
+      "bytes": 15848,
+      "columns": [
+        "completion_id",
+        "employee_id",
+        "completion_date",
+        "training_cost"
+      ],
+      "rows": 400,
+      "sha256": "2b01cd02b972cc26d3f8e500da582e111694b75970eb1a0b9354f56a8369ce12"
+    },
+    "fact_transaction_detail": {
+      "bytes": 15492,
+      "columns": [
+        "txn_id",
+        "store_id",
+        "txn_date",
+        "amount"
+      ],
+      "rows": 400,
+      "sha256": "0566b6f81258a08a88646f127f33f3f2a629920bf3317aee40a12a74d04814a3"
+    },
+    "fact_transfer_order": {
+      "bytes": 14825,
+      "columns": [
+        "transfer_id",
+        "from_warehouse_id",
+        "to_warehouse_id",
+        "transfer_date",
+        "transfer_qty"
+      ],
+      "rows": 400,
+      "sha256": "c9e5337cf72f1c45b8e334ab03e135347a491b34977ab76421dcf1535005e7ee"
+    },
+    "fact_utility_cost": {
+      "bytes": 15968,
+      "columns": [
+        "cost_id",
+        "store_id",
+        "cost_date",
+        "utility_cost"
+      ],
+      "rows": 400,
+      "sha256": "6773265a93eae831559224fc08a271aa6453a842761025520c888a96abbe9333"
+    },
+    "fact_waste_disposal": {
+      "bytes": 17632,
+      "columns": [
+        "disposal_id",
+        "store_id",
+        "disposal_date",
+        "disposal_cost",
+        "waste_tons"
+      ],
+      "rows": 400,
+      "sha256": "05379f762a75a7467425ebf8b484281443b86112b818fbbf4e7c8ed78577c748"
+    },
+    "fact_web_order_header": {
+      "bytes": 17520,
+      "columns": [
+        "order_id",
+        "order_date",
+        "customer_id",
+        "revenue",
+        "order_count"
+      ],
+      "rows": 400,
+      "sha256": "7d8e95f8580efc83e30ea25f1f7b2b6bb5f20f9cc3967668eb07d1876e55902c"
+    },
+    "fact_web_order_line": {
+      "bytes": 17453,
+      "columns": [
+        "order_line_id",
+        "order_id",
+        "product_id",
+        "quantity",
+        "revenue"
+      ],
+      "rows": 400,
+      "sha256": "31b9395bbdca9fc3cc735582e9aa164e96fbde8bbaa304a455b8676a8988b81a"
+    },
+    "fact_write_off": {
+      "bytes": 19423,
+      "columns": [
+        "writeoff_id",
+        "product_id",
+        "warehouse_id",
+        "writeoff_date",
+        "writeoff_qty",
+        "writeoff_cost"
+      ],
+      "rows": 400,
+      "sha256": "f25d773f7a06fde9dc529d46c957c3adad54c43c579072348a21aac68fcbb2f4"
+    }
+  },
+  "version": 1
+}

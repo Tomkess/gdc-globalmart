@@ -32,13 +32,16 @@ from globalmart.closure import MetricPolicy
 from globalmart.config import GlobalmartError, load_profile
 from globalmart.counts import count_objects
 from globalmart.coverage import check_coverage, raise_for_report
+from globalmart.dataload import load_data, verify_data
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
+from globalmart.registry import DEFAULT_DDL_PATH, build_registry
 from globalmart.sdk_client import make_sdk
 from globalmart.split import split_all
+from globalmart.sqlcheck import check_sql_datasets
 
 DEFAULT_LAYOUT_PATH = Path("layouts/workspaces/globalmart")
 DEFAULT_DOMAINS_PATH = Path("config/domains.yaml")
@@ -355,6 +358,59 @@ def cmd_publish_domains(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_data_verify(args: argparse.Namespace) -> int:
+    """Check the committed data against the manifest, and the SQL datasets against the DDL.
+
+    Entirely offline. The data lives in the repo, so there is nothing to download and no
+    credentials to hold — which is the whole point of taking custody.
+    """
+    result = verify_data()
+    _print_report("Data", result.summary_lines())
+
+    model = read_tree(Path(args.layout)) if Path(args.layout).exists() else None
+    registry = build_registry(Path(args.ddl), model=model)
+    print(f"\nDDL               : {len(registry.tables)} tables in {args.ddl}")
+
+    if model is not None:
+        report = check_sql_datasets(model, registry, schema=args.schema)
+        _print_report("\nSQL datasets", report.summary_lines())
+        if not report.ok():
+            print("\nerror: SQL-backed datasets reference tables that do not exist", file=sys.stderr)
+            return 1
+
+    if not result.ok():
+        print("\nerror: committed data does not match data/table-manifest.json", file=sys.stderr)
+        return 1
+
+    print("\nData is intact and every SQL dataset resolves.")
+    return 0
+
+
+def cmd_data_load(args: argparse.Namespace) -> int:
+    """Load the committed rows into a warehouse. Writes to a live warehouse, so --apply."""
+    profile = load_profile(args.target)
+    model = read_tree(Path(args.layout)) if Path(args.layout).exists() else None
+    only = set(args.only.split(",")) if args.only else None
+
+    report = load_data(
+        profile,
+        apply=args.apply,
+        only=only,
+        ddl_path=Path(args.ddl),
+        model=model,
+    )
+
+    if not args.apply:
+        print("REHEARSAL — no writes. Re-run with --apply to load.\n")
+
+    _print_report("Load", report.summary_lines())
+
+    if args.apply:
+        changed = [e for e in report.tables if e.rows_before != e.rows_after]
+        print(f"\n{len(changed)} table(s) changed row count")
+    return 0
+
+
 def cmd_targets_inspect(args: argparse.Namespace) -> int:
     """Discover what a host reports, so a new profile can be filled in from fact.
 
@@ -482,6 +538,33 @@ def build_parser() -> argparse.ArgumentParser:
         help="exit 1 if the committed children differ from what would be generated (the CI gate)",
     )
     split.set_defaults(func=cmd_split)
+
+    data = subparsers.add_parser("data", help="the committed row data")
+    data_actions = data.add_subparsers(dest="action", required=True)
+
+    data_verify = data_actions.add_parser(
+        "verify", help="check the committed data and that every SQL dataset resolves"
+    )
+    data_verify.add_argument("--ddl", default=str(DEFAULT_DDL_PATH))
+    data_verify.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    data_verify.add_argument(
+        "--schema", default="globalmart", help="the schema SQL statements are checked against"
+    )
+    data_verify.set_defaults(func=cmd_data_verify)
+
+    data_load = data_actions.add_parser(
+        "load", help="truncate-then-load the committed rows into a warehouse"
+    )
+    data_load.add_argument("--target", required=True)
+    data_load.add_argument("--ddl", default=str(DEFAULT_DDL_PATH))
+    data_load.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    data_load.add_argument("--only", default=None, help="comma-separated table names")
+    data_load.add_argument(
+        "--apply",
+        action="store_true",
+        help="actually truncate and load; without it this is a read-only rehearsal (ADR 002/004)",
+    )
+    data_load.set_defaults(func=cmd_data_load)
 
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)

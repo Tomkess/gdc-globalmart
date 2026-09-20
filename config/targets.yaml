@@ -19,6 +19,31 @@ targets:
     datasource_database: gd_demo
     # The NAME of the env var holding the token — never the value.
     datasource_secret_env: MOTHERDUCK_TOKEN
+    # Deliberately NOT data_owned. `globalmart data load` truncates every table it knows,
+    # and this schema is what both published orgs query. Loading here would empty the live
+    # demo data for the duration of the load, and leave it empty if the load failed
+    # halfway. Use demo-cloud-rebuild to exercise the load path.
+    data_owned: false
+
+  # The load target: same host, same MotherDuck database, a schema of its own.
+  #
+  # This exists so the cold-rebuild path can be proven end to end — apply the DDL into an
+  # empty schema, load all 215 tables, load again and get the same row counts — without
+  # touching the `globalmart` schema the live workspaces read. It is the only profile in
+  # this file with data_owned: true, and that is the point of the flag (ADR 004).
+  demo-cloud-rebuild:
+    host: https://petertomko.demo.cloud.gooddata.com
+    organization_id: gm-ddebmti
+    datasource_id: globalmart-motherduck
+    datasource_schema: globalmart_rebuild
+    parent_workspace_id: globalmart
+    warehouse_type: motherduck
+    datasource_name: GlobalMart MotherDuck (rebuild)
+    datasource_url: jdbc:duckdb:md:gd_demo
+    datasource_database: gd_demo
+    warehouse_database: gd_demo
+    datasource_secret_env: MOTHERDUCK_TOKEN
+    data_owned: true
 
   # Second demo org — the cross-org proof target. Publishing the same repo state
   # here and to demo-cloud must yield layouts identical except for the parameterized

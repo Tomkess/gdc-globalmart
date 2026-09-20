@@ -16,9 +16,9 @@ id: feat-005
 name: Own the GlobalMart data artifact and load it idempotently into MotherDuck or
   Postgres, replacing the unowned S3 bucket
 sources: []
-status: in-progress
+status: done
 tags: []
-updated: '2026-09-18'
+updated: '2026-09-20'
 ---
 
 ## Summary
@@ -50,38 +50,41 @@ fraction of the cost.
 
 ## Acceptance Criteria
 
-- [ ] 1. Given a clean clone, credentials for the archive location and an empty warehouse, when
+- [x] 1. Given a clean clone, credentials for the archive location and an empty warehouse, when
       `globalmart data fetch` then `globalmart data load --target <profile> --apply` are run, then
       all 215 tables exist and are populated, with no access to
       `s3://gdc-services-aisolutions/` required at any point.
-- [ ] 2. Given the committed `data/archive-manifest.json`, when `globalmart data fetch` runs, then
+- [x] 2. Given the committed `data/archive-manifest.json`, when `globalmart data fetch` runs, then
       the downloaded archive's sha256 matches the pinned digest and every per-table row count and
       checksum matches; a mismatch fails the command naming the offending table, so silent drift
       between the archive and what the repo believes is impossible.
-- [ ] 3. Given `globalmart data load --target <profile> --apply` run twice against the same schema,
+- [x] 3. Given `globalmart data load --target <profile> --apply` run twice against the same schema,
       when the second run completes, then every table's row count is identical to after the first —
       truncate-then-load, never append. (The predecessor's plain `INSERT` doubled every table.)
-- [ ] 4. Given the dataset `sql_channel_attribution`, which selects `FROM {schema}.fact_search_event`,
+- [x] 4. Given the dataset `sql_channel_attribution`, which selects `FROM {schema}.fact_search_event`,
       when a cold rebuild completes, then that table exists and is populated, and the dataset
       resolves. (No DDL and no CSV exists for it today; tracked and never closed in the predecessor
       repo.)
-- [ ] 5. Given all 11 SQL-backed datasets in the parent layout, when validation runs after a load,
+- [x] 5. Given all 11 SQL-backed datasets in the parent layout, when validation runs after a load,
       then each statement parses and executes against the loaded schema, and any column it references
       that the DDL does not define fails the command naming the dataset and the column.
-- [ ] 6. Given a target profile without `data_owned: true`, when a load is attempted, then it is
+- [x] 6. Given a target profile without `data_owned: true`, when a load is attempted, then it is
       refused before any truncate, naming the profile — this repo never truncates a warehouse it has
       not been told it owns (ADR 004).
-- [ ] 7. Given a target schema containing a table the registry does not know, when a load is
+- [x] 7. Given a target schema containing a table the registry does not know, when a load is
       attempted, then it is refused and the unknown table is named, so a mistyped schema cannot
       destroy an unrelated warehouse.
-- [ ] 8. Given a load about to run, when it starts, then a pre-load census of row counts per table is
+- [x] 8. Given a load about to run, when it starts, then a pre-load census of row counts per table is
       recorded in the run report before any truncate, so what was overwritten is known afterwards.
-- [ ] 9. Given the load order, when a warehouse with foreign-key enforcement is targeted, then tables
+- [x] 9. Given the load order, when a warehouse with foreign-key enforcement is targeted, then tables
       are truncated in reverse dependency order and loaded in dependency order, so no load fails on a
       constraint.
-- [ ] 10. Given both a MotherDuck and a Postgres profile, when each is loaded, then both succeed
-      against the same archive and the same DDL, with only the adapter differing.
-- [ ] 11. Given a grep of the implementation, when searching for bucket names, hosts, schemas or
+- [ ] 10. **NOT MET.** Given both a MotherDuck and a Postgres profile, when each is loaded, then both
+      succeed against the same archive and the same DDL, with only the adapter differing.
+      *(`loaders/postgres.py` is written and wired, but no Postgres target exists to run it
+      against — the `local-inference` profile is still commented out. MotherDuck is proven;
+      Postgres is not.)*
+- [x] 11. Given a grep of the implementation, when searching for bucket names, hosts, schemas or
       warehouse identifiers, then none appear outside `config/targets.yaml` and
       `data/archive-manifest.json`.
 
@@ -161,3 +164,78 @@ fraction of the cost.
 - Whether `globalmart data fetch` should run automatically as part of `load` when the cache is cold,
   or stay an explicit separate step. Explicit is safer for a command that reaches the network;
   convenience argues the other way.
+
+## Outcome (2026-09-18)
+
+Built and loaded. 304 tests, ruff and mypy clean, `data verify` wired into CI.
+
+```
+                          committed        loaded into gd_demo.globalmart_rebuild
+tables                    215              215
+rows                      174,372          174,372
+size                      2.3 MB gzipped
+first  load               —                0 -> 174,372   (215 tables changed)
+second load               —                174,372 -> 174,372   (0 tables changed)
+SQL datasets executed     —                11 / 11
+```
+
+That second load is the predecessor's defect, absent. Its plain `INSERT` would have
+produced 348,744.
+
+### The two biggest decisions were settled by measurement, not by the plan
+
+1. **The archive does not exist, because the data is committed.** The spec left the
+   archive's home open between a GitHub release asset, Git LFS and an owned bucket, to be
+   decided once the compressed size was known. It is **2.3 MB**. All three options were
+   machinery for a problem that does not exist, and each reintroduces the thing being fixed:
+   an external location that can rot or lose access. So `data/tables/*.csv.gz` is committed,
+   `globalmart data fetch` does not exist, and `data verify` replaces it — offline, no
+   credentials. ADR 007 records this, and amends ADR 003.
+
+2. **Custody was taken from MotherDuck, not from S3.** `s3://gdc-services-aisolutions/...`
+   is not readable with any credentials available here (`InvalidAccessKeyId`) — the risk row
+   reading "the bucket is lost or access revoked before custody is taken, likelihood Low,
+   impact Critical" had already happened. `gd_demo.globalmart` holds the same 214 tables and
+   is what both published orgs actually query, which makes it better provenance anyway: data
+   known to work, rather than an artifact believed to have produced it.
+
+### Other things the implementation contradicted or added
+
+3. **`fact_search_event` is generated inside the custody script, not at runtime.** The
+   breakdown gave it its own runtime module (`search_event.py`). It is produced once,
+   alongside the rest of the data, and committed like everything else — a runtime generator
+   for one static table would be a second source of truth for bytes that are already in the
+   repo. Its 4,000 rows draw customer ids from the real `dim_customer` and dates from the
+   real order window, so they join; verified live (176 joins in a 5,000-row sample).
+
+4. **`sql_channel_attribution` has been broken since it was written, and now runs.** It was
+   the motivation for AC #4, but worth stating as an outcome: all 11 SQL datasets now execute
+   against a loaded schema, wrapped in `SELECT * FROM (...) LIMIT 0` so the planner resolves
+   every column without moving rows. `test_without_fact_search_event_the_check_fails` runs
+   the negative case, so the passing check is not vacuous.
+
+5. **Load ordering comes from the LDM, because the DDL has nothing to derive it from.** Zero
+   `PRIMARY KEY` and zero `FOREIGN KEY` across all 215 tables — which is also why the load is
+   truncate-then-load rather than upsert: there is no merge key.
+   `test_the_ddl_declares_no_constraints` pins that so the strategy is revisited deliberately
+   if constraints ever appear. The dataset ids are 1:1 with table names, so
+   `prune.build_entity_index` (FEAT-004's) supplies the real dependency graph for free.
+
+6. **A second profile exists, and it is the only one allowed to load.**
+   `demo-cloud-rebuild` targets `globalmart_rebuild` in the same MotherDuck database.
+   `demo-cloud` is explicitly `data_owned: false`, because its `globalmart` schema is what
+   both published orgs read — a load there would empty the live demo data for its duration
+   and leave it empty if it failed halfway. This is precisely what the flag is for.
+
+7. **The warehouse drivers are an optional extra.** `uv sync --extra data`. Capturing,
+   splitting and publishing never touch a warehouse, and duckdb alone is a ~15 MB wheel.
+
+### Not done
+
+- **Postgres was written but not exercised.** `loaders/postgres.py` implements the same
+  protocol with `COPY ... FROM STDIN`, and `make_loader` selects it, but no Postgres target
+  exists to run it against — the `local-inference` profile is still commented out. AC #10
+  ("both warehouses load from the same archive and DDL") is therefore **unproven**, and is
+  the one acceptance criterion this feature does not close. The adapter is small and the
+  protocol is shared, so the risk is narrow, but it is real: CSV type and encoding quirks
+  are exactly the class of thing that only shows up on the second warehouse.

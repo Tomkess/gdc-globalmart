@@ -115,6 +115,15 @@ class TargetProfile:
     workspace_id_prefix: str = ""
     backup_dir: Path = Path("backups")
 
+    # --- data-load fields (FEAT-005) --------------------------------------
+    #: Opt-in, per ADR 004. `globalmart data load` truncates every table it knows before
+    #: loading, so it refuses outright against a profile that has not declared the warehouse
+    #: schema is this repo's to overwrite. Defaulting this to True would make a mistyped
+    #: --target a data-loss event.
+    data_owned: bool = False
+    #: MotherDuck database (`gd_demo`); Postgres takes it from datasource_database.
+    warehouse_database: str | None = None
+
     def warehouse_secret(self) -> str | None:
         """Read the warehouse secret from the environment named by the profile."""
         if not self.datasource_secret_env:
@@ -206,6 +215,8 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
         datasource_secret_env=entry.get("datasource_secret_env") or None,
         workspace_id_prefix=field("workspace_id_prefix", "GLOBALMART_WORKSPACE_ID_PREFIX"),
         backup_dir=Path(backup_dir),
+        data_owned=bool(entry.get("data_owned", False)),
+        warehouse_database=field("warehouse_database", "GLOBALMART_WAREHOUSE_DATABASE") or None,
     )
 
 
