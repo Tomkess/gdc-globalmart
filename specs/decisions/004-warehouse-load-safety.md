@@ -49,3 +49,22 @@ hand-authored content — which is why this deviation is scoped to the loader an
 If a target ever holds rows this repo did not generate — hand-loaded reference data, customer
 samples, anything irreplaceable — this deviation stops being safe. At that point either give that
 table class a real backup path or move it out of the generated schema entirely.
+
+## Triggered in reverse, 2026-09-21
+
+The trigger fired the other way. `demo-cloud` was `data_owned: false` precisely because the
+`globalmart` schema held rows this repo did not generate — the real inherited MotherDuck data, and
+the only copy of it after the S3 bucket became unreadable.
+
+**ADR 008 removed that condition.** Every row is now generated from a seed and an explicit window,
+so nothing in the schema is irreplaceable and a bad load costs a regeneration rather than the data.
+`demo-cloud` is therefore `data_owned: true`.
+
+The guard still matters for its other purpose — a mistyped `--target` must not truncate a warehouse
+this repo does not own — and that is unchanged. What has changed for this one profile is the
+severity of being wrong about it: it was data loss, it is now downtime. A truncate-then-load leaves
+the live workspaces reading an empty schema until it completes, and leaves them empty if it fails
+halfway. The mitigation is to run it again, and to not run it while someone is demoing.
+
+If a genuinely safer path is wanted later, load into a staging schema and repoint the datasource,
+which the publisher already parameterises.
