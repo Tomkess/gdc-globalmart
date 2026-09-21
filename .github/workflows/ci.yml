@@ -54,6 +54,13 @@ jobs:
       - name: Contract agrees with the DDL and SQL datasets resolve
         run: uv run globalmart data verify
 
+      # Every dashboard date filter must be bound to the date dataset its own content
+      # depends on. Unbound, a filter silently does nothing — which is how 32 dashboards
+      # shipped a date filter that changed no number for two years. A dashboard added
+      # without a bound filter fails the PR that added it. Offline.
+      - name: Dashboard date filters are bound
+        run: uv run globalmart datefilters bind --check
+
       # The compiled memory items must match the authored Markdown. Editing a knowledge
       # document without rebuilding fails here. Offline.
       - name: Knowledge is compiled

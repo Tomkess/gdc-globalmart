@@ -35,6 +35,7 @@ from globalmart.counts import count_objects
 from globalmart.coverage import check_coverage, raise_for_report
 from globalmart.dataload import DEFAULT_MAX_AGE_DAYS, check_freshness, load_data, verify_contract
 from globalmart.datasource import notify_upload
+from globalmart.datefilters import bind_date_filters
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
@@ -456,6 +457,59 @@ def cmd_data_load(args: argparse.Namespace) -> int:
         notify_upload(make_sdk(profile), profile)
         print("Upload notification sent — cached results invalidated.")
     return 0
+
+
+def cmd_datefilters_bind(args: argparse.Namespace) -> int:
+    """Bind every dashboard date filter to the date dataset its own content uses.
+
+    Offline: reads and rewrites the committed layout, never a live host. `--check` is the CI
+    gate — a dashboard added without a bound filter fails the pull request that added it,
+    instead of being discovered two years later by someone moving a slider.
+    """
+    source = Path(args.layout)
+    model = read_tree(source)
+    report = bind_date_filters(model, overrides=_date_overrides(args.overrides))
+
+    _print_report("Date filters", report.summary_lines())
+
+    if not report.ok():
+        print(
+            "\nerror: some dashboards do not resolve to exactly one date dataset. "
+            "Add an override rather than guessing — a filter bound to the wrong date is "
+            "worse than one that is obviously unbound.",
+            file=sys.stderr,
+        )
+        return 1
+
+    if args.check:
+        if report.bound:
+            print(
+                f"\nerror: {len(report.bound)} dashboard(s) would change. "
+                "Run `globalmart datefilters bind` and commit the result.",
+                file=sys.stderr,
+            )
+            return 1
+        print("\nEvery dashboard date filter is already bound.")
+        return 0
+
+    if report.bound:
+        write_tree(model, source)
+        print(f"\n{len(report.bound)} filter context(s) updated in {source}")
+    else:
+        print("\nNothing to do.")
+    return 0
+
+
+def _date_overrides(raw: str | None) -> dict[str, str]:
+    if not raw:
+        return {}
+    pairs = {}
+    for chunk in raw.split(","):
+        dashboard, _, dataset = chunk.partition("=")
+        if not dashboard.strip() or not dataset.strip():
+            raise GlobalmartError(f"bad --overrides entry {chunk!r}; expected dashboard=dataset")
+        pairs[dashboard.strip()] = dataset.strip()
+    return pairs
 
 
 def cmd_data_ensure(args: argparse.Namespace) -> int:
@@ -901,6 +955,21 @@ def build_parser() -> argparse.ArgumentParser:
     data_ensure.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     data_ensure.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
     data_ensure.set_defaults(func=cmd_data_ensure)
+
+    datefilters = subparsers.add_parser(
+        "datefilters", help="bind dashboard date filters to the date dataset they depend on"
+    )
+    datefilters_actions = datefilters.add_subparsers(dest="action", required=True)
+    df_bind = datefilters_actions.add_parser("bind", help="write dataSet into every date filter")
+    df_bind.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    df_bind.add_argument(
+        "--check", action="store_true", help="exit 1 if anything would change (the CI gate)"
+    )
+    df_bind.add_argument(
+        "--overrides",
+        help="dashboard=dataset pairs for dashboards that resolve to more than one date",
+    )
+    df_bind.set_defaults(func=cmd_datefilters_bind)
 
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)

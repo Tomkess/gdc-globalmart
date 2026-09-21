@@ -987,6 +987,12 @@
           "filters": [
             {
               "dateFilter": {
+                "dataSet": {
+                  "identifier": {
+                    "id": "transaction_date",
+                    "type": "dataset"
+                  }
+                },
                 "from": "-11",
                 "granularity": "GDC.time.month",
                 "to": "0",
@@ -1035,6 +1041,12 @@
           "filters": [
             {
               "dateFilter": {
+                "dataSet": {
+                  "identifier": {
+                    "id": "transaction_date",
+                    "type": "dataset"
+                  }
+                },
                 "from": "-11",
                 "granularity": "GDC.time.month",
                 "to": "0",
@@ -1083,6 +1095,12 @@
           "filters": [
             {
               "dateFilter": {
+                "dataSet": {
+                  "identifier": {
+                    "id": "transaction_date",
+                    "type": "dataset"
+                  }
+                },
                 "from": "-11",
                 "granularity": "GDC.time.month",
                 "to": "0",

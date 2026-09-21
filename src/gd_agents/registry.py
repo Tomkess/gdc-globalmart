@@ -77,9 +77,7 @@ class Registry:
     def load(cls, path: Path = DEFAULT_REGISTRY_PATH) -> Registry:
         path = Path(path)
         if not path.exists():
-            raise RegistryError(
-                f"No registry at {path}. Generate one with `gd-agents profile --apply`."
-            )
+            raise RegistryError(f"No registry at {path}. Generate one with `gd-agents profile --apply`.")
         raw: dict[str, Any] = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
 
         host = raw.get("host")
