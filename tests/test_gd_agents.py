@@ -592,3 +592,156 @@ def test_a_client_error_is_not_retried(monkeypatch: pytest.MonkeyPatch) -> None:
 
     assert not answer.ok()
     assert len(calls) == 1
+
+
+# --- merge checks -------------------------------------------------------------
+
+
+def shaped(
+    workspace: str,
+    *,
+    grain: str = "month",
+    units: str = "USD",
+    numbers: tuple[str, ...] = ("1",),
+    frm: str = "2026-04-01",
+    to: str = "2026-09-30",
+    data: bool = True,
+    filters: tuple[str, ...] = (),
+    error: str | None = None,
+) -> Answer:
+    return Answer(
+        workspace=workspace,
+        question="q",
+        text="t",
+        numbers=numbers,
+        error=error,
+        shape=Shape(grain=grain, units=units, time_from=frm, time_to=to, returned_data=data, filters=filters),
+    )
+
+
+def test_the_registry_declares_who_decides_each_check() -> None:
+    """Adding a ninth check must be a data entry, so the registry has to carry everything a
+    caller needs rather than the knowledge living in the merge code."""
+    from gd_agents.orchestrator.checks import CHECKS, Decider
+
+    assert len(CHECKS) == 8
+    assert {c.id for c in CHECKS if c.decided_by is Decider.MODEL} == {
+        "metric_identity",
+        "population_parity",
+    }
+    assert all(c.guards_against for c in CHECKS), "a check that cannot say what it guards"
+    assert all(
+        c.run is not None for c in CHECKS if c.decided_by is Decider.CODE and c.id != "numeric_provenance"
+    )
+
+
+def test_agreeing_lanes_are_combinable() -> None:
+    """Two lanes reporting the same grain is the strongest pass. An earlier version counted
+    distinct values, which made agreement indistinguishable from silence."""
+    from gd_agents.orchestrator.checks import Verdict, run_checks
+
+    report = run_checks([shaped("a"), shaped("b")])
+
+    assert report.combinable()
+    by_id = {r.check: r for r in report.results}
+    assert by_id["shared_dimension"].verdict is Verdict.PASS
+    assert by_id["unit_compatibility"].verdict is Verdict.PASS
+
+
+def test_different_grains_block_the_merge() -> None:
+    from gd_agents.orchestrator.checks import run_checks
+
+    report = run_checks([shaped("a", grain="month"), shaped("b", grain="store")])
+
+    assert not report.combinable()
+    assert "no common key" in report.reasons()
+
+
+def test_different_time_windows_block_the_merge() -> None:
+    from gd_agents.orchestrator.checks import run_checks
+
+    report = run_checks([shaped("a", to="2026-09-30"), shaped("b", to="2026-06-30")])
+
+    assert not report.combinable()
+    assert "windows differ" in report.reasons()
+
+
+def test_mixed_units_block_the_merge() -> None:
+    from gd_agents.orchestrator.checks import run_checks
+
+    assert not run_checks([shaped("a", units="USD"), shaped("b", units="EUR")]).combinable()
+
+
+def test_a_failed_lane_blocks_combination_and_says_what_to_do() -> None:
+    from gd_agents.orchestrator.checks import run_checks
+
+    report = run_checks([shaped("a"), shaped("b", error="boom")])
+
+    assert not report.combinable()
+    assert "Synthesise only from what answered" in report.reasons()
+
+
+def test_unknown_is_not_pass() -> None:
+    """A check cannot pass on an absence it never established, or a lane that reported
+    nothing would silently license any combination."""
+    from gd_agents.orchestrator.checks import Verdict, run_checks
+
+    report = run_checks([shaped("a", grain=""), shaped("b", grain="")])
+    by_id = {r.check: r for r in report.results}
+
+    assert by_id["shared_dimension"].verdict is Verdict.UNKNOWN
+    assert by_id["shared_dimension"].verdict is not Verdict.PASS
+
+
+def test_a_single_lane_has_nothing_to_combine() -> None:
+    from gd_agents.orchestrator.checks import run_checks
+
+    assert run_checks([shaped("a")]).combinable()
+
+
+# --- numeric provenance: the hard rule ----------------------------------------
+
+
+def test_an_answer_quoting_lane_numbers_passes() -> None:
+    from gd_agents.orchestrator.checks import check_provenance
+
+    lanes = [shaped("a", numbers=("11,944.45",)), shaped("b", numbers=("27.04",))]
+
+    assert check_provenance("Spend was 11,944.45 while NPS sat at 27.04.", lanes).ok()
+
+
+def test_a_ratio_across_workspaces_is_caught() -> None:
+    """ "Cost per NPS point" is the archetype: both inputs real, the quotient meaningless
+    because the grains and populations differ. No prompt can be trusted to refuse it."""
+    from gd_agents.orchestrator.checks import check_provenance
+
+    lanes = [shaped("a", numbers=("11944.45",)), shaped("b", numbers=("27.04",))]
+    result = check_provenance("Cost per NPS point was 441.73.", lanes)
+
+    assert not result.ok()
+    assert "441.73" in result.invented
+    assert "never compute" in result.as_result().reason
+
+
+def test_separators_do_not_count_as_invention() -> None:
+    """11,944.45 and 11944.45 are one number written two ways."""
+    from gd_agents.orchestrator.checks import check_provenance
+
+    assert check_provenance("Spend was 11944.45.", [shaped("a", numbers=("11,944.45",))]).ok()
+
+
+def test_years_are_not_treated_as_provenance() -> None:
+    """Counting them would licence any value between 1900 and 2200."""
+    from gd_agents.orchestrator.checks import check_provenance
+
+    assert check_provenance("In 2026 spend was 11,944.45.", [shaped("a", numbers=("11,944.45",))]).ok()
+
+
+def test_the_model_checks_are_posed_not_assumed() -> None:
+    """Judgement checks must reach the merge prompt explicitly, or they are just hope."""
+    from gd_agents.orchestrator.checks import model_check_prompt
+
+    prompt = model_check_prompt()
+
+    assert "metric_identity" in prompt
+    assert "population_parity" in prompt
