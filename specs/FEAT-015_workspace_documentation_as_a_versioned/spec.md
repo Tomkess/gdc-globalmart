@@ -19,7 +19,7 @@ name: 'Workspace documentation as a versioned, publishable corpus: author the wh
   AI Knowledge document API, and gate it on coverage against the live layout, published-state
   reconciliation and answer-level retrieval'
 sources: []
-status: in-progress
+status: done
 tags: []
 updated: '2026-09-21'
 ---
@@ -54,35 +54,35 @@ instead of a wiki page that quietly stops being true.
 
 ## Acceptance Criteria
 
-- [ ] Given the parent GlobalMart workspace's full inventory (datasets, metrics, visualizations,
+- [x] Given the parent GlobalMart workspace's full inventory (datasets, metrics, visualizations,
       dashboards, filter contexts, the data-refresh pipeline, the domain split), when the corpus
       is authored, then every one of those object classes has at least one Diátaxis-typed
       Markdown document under it, topic-grouped by directory, with front matter naming its kind,
       scope and owner.
-- [ ] Given the authored corpus, when `globalmart knowledge-docs build` runs, then it validates
+- [x] Given the authored corpus, when `globalmart knowledge-docs build` runs, then it validates
       front matter completeness, one Diátaxis kind per document, and per-document size against
       the retrieval-quality guidance (research notes: header-based sections, no section growing
       past self-contained), failing loudly and naming the file and violation.
-- [ ] Given a validated corpus and a target profile, when
+- [x] Given a validated corpus and a target profile, when
       `globalmart knowledge-docs publish --target <profile> --apply` runs, then every document is
       upserted (`PUT .../workspaces/{parent_workspace_id}/knowledge/documents`) tagged with a
       fixed ownership scope, and a second run with no repo changes reports zero changes
       (idempotent, mirroring FEAT-002's compare.py precedent).
-- [ ] Given the published corpus, when
+- [x] Given the published corpus, when
       `globalmart knowledge-docs verify --target <profile>` runs, then it reconciles repo against
       org by filename within the ownership scope: docs in the repo but not the org are reported
       missing, docs in the org carrying the ownership scope but absent from the repo are reported
       orphaned and prunable, and any document without the ownership scope is left untouched and
       unreported as ours.
-- [ ] Given the parent workspace's live inventory, when `globalmart knowledge-docs coverage` runs,
+- [x] Given the parent workspace's live inventory, when `globalmart knowledge-docs coverage` runs,
       then every metric, dataset, visualization and dashboard is confirmed referenced by at least
       one corpus document or explicitly excluded with a written reason in the manifest, exit
       non-zero otherwise — same shape as FEAT-003's `check_coverage`.
-- [ ] Given the published corpus and a fixed set of questions each answerable only from one
+- [x] Given the published corpus and a fixed set of questions each answerable only from one
       document, when the answer-level validation suite runs against the AI Assistant, then each
       answer is asserted (fact-containment, not exact match) to surface the expected document,
       and a real retrieval regression fails the suite rather than passing silently.
-- [ ] Given a cold rebuild into a fresh org (goal-01's acceptance bar), when
+- [x] Given a cold rebuild into a fresh org (goal-01's acceptance bar), when
       `globalmart rebuild --target <profile> --apply` completes, then the knowledge-docs publish
       step either runs as part of it or the rebuild report explicitly names it as a required
       separate step and why — the gap is stated, not silently left open.
