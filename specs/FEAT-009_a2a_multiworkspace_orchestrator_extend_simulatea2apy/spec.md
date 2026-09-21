@@ -10,6 +10,7 @@ cycle: null
 depends_on: []
 enables:
 - feat-010
+- feat-014
 goal: goal-02
 id: feat-009
 name: 'A2A multi-workspace orchestrator: extend simulate_a2a.py with a workspace registry,
@@ -281,7 +282,8 @@ It must cover, at minimum:
 - **Depends on:** nothing hard. In practice feat-013 makes the demo safe — current data, and
   dashboards whose numbers are worth showing.
 - **Enables:** feat-010, which swaps the execution runtime for LangGraph and is explicitly
-  droppable.
+  droppable, and feat-014, which reuses everything here over MCP to make the protocol comparison a
+  measurement rather than an opinion.
 
 ## Related Research
 
@@ -311,9 +313,10 @@ It must cover, at minimum:
   protocol recommendation changes.
 - How many questions make a credible routing measurement — ten, thirty? Too few and the hit rate is
   noise; too many and the set becomes the work.
-- Should the MCP contrast pane be built at all now that Infobip is protocol-agnostic? It stops
-  being persuasion and becomes internal evidence for our own recommendation, which may be worth
-  less than the time it costs.
+- **Answered 2026-09-21:** the MCP comparison is worth building, and is now FEAT-014 — the same
+  orchestrator over MCP, flat and nested, measured on this feature's question script. That makes
+  the `Lane` interface load-bearing rather than tidy: FEAT-014 reuses the router, decomposition,
+  merge checks and script unchanged, so only the transport varies.
 - Is a fifth workspace worth registering, since Infobip are already discussing one? Cheap to add
   if the registry is data, and it would make the five-workspace answer measured rather than
   extrapolated.
