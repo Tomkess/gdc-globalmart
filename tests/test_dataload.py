@@ -37,11 +37,18 @@ class FakeLoader:
 
     warehouse = "fake"
 
-    def __init__(self, *, existing: set[str] | None = None, latest: str | None = None) -> None:
+    def __init__(
+        self,
+        *,
+        existing: set[str] | None = None,
+        latest: str | None = None,
+        live_columns: dict[str, tuple[str, ...]] | None = None,
+    ) -> None:
         self.rows: dict[str, int] = dict.fromkeys(existing or set(), 0)
         self.calls: list[str] = []
         self.ddl_applied = False
         self.latest = latest
+        self.live_columns: dict[str, tuple[str, ...]] = live_columns or {}
 
     def connect(self) -> None:
         self.calls.append("connect")
@@ -61,6 +68,11 @@ class FakeLoader:
 
     def max_value(self, schema: str, table: str, column: str) -> str | None:
         return self.latest
+
+    def columns(self, schema: str, table: str) -> tuple[str, ...]:
+        """What the warehouse has. Defaults to whatever the DDL declares, so a test only
+        has to say so when it wants drift."""
+        return self.live_columns.get(table, ())
 
     def truncate(self, schema: str, table: str) -> None:
         self.calls.append(f"truncate:{table}")
@@ -425,3 +437,54 @@ def test_the_probe_is_a_dated_table_chosen_from_the_contract(registry) -> None: 
     table, column = probe
     declared = {c.name: c.sql_type.upper() for c in registry.require(table).columns}
     assert declared[column].startswith("DATE")
+
+
+def test_a_table_missing_a_declared_column_is_refused_before_any_truncate(registry, dataset) -> None:  # type: ignore[no-untyped-def]
+    """The 2026-09-21 incident, as a test.
+
+    Adding the wdf__ columns to the DDL left the warehouse behind, because `apply_ddl`
+    creates with IF NOT EXISTS and never alters an existing table. The mismatch surfaced at
+    insert time — after the truncate — so 215 tables were emptied, 215 inserts refused, and
+    the live workspaces read nothing until the schema was dropped and recreated.
+    """
+    stale = {
+        name: tuple(c for c in registry.require(name).column_names() if not c.startswith("wdf__"))
+        for name in registry.names()
+    }
+    loader = FakeLoader(existing=set(registry.names()), live_columns=stale)
+
+    with pytest.raises(DataIntegrityError) as caught:
+        load_data(
+            profile(),
+            apply=True,
+            loader=loader,
+            registry=registry,
+            tables_dir=dataset / "tables",
+            manifest_path=dataset / "table-manifest.json",
+            ddl_path=DDL,
+        )
+
+    assert "wdf__" in str(caught.value)
+    assert "Nothing was truncated" in str(caught.value)
+    assert not [call for call in loader.calls if call.startswith("truncate:")], (
+        "the guard fired but something was truncated anyway, which is the whole failure"
+    )
+
+
+def test_a_matching_schema_loads_normally(registry, dataset) -> None:  # type: ignore[no-untyped-def]
+    """The guard must not refuse a warehouse that is actually up to date."""
+    current = {name: registry.require(name).column_names() for name in registry.names()}
+    loader = FakeLoader(existing=set(registry.names()), live_columns=current)
+
+    report = load_data(
+        profile(),
+        apply=True,
+        loader=loader,
+        registry=registry,
+        tables_dir=dataset / "tables",
+        manifest_path=dataset / "table-manifest.json",
+        ddl_path=DDL,
+    )
+
+    assert report.column_drift == ()
+    assert all(entry.loaded for entry in report.tables)

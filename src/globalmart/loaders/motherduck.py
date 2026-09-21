@@ -74,6 +74,14 @@ class MotherDuckLoader:
         value = row[0] if row else None
         return None if value is None else str(value)
 
+    def columns(self, schema: str, table: str) -> tuple[str, ...]:
+        rows = self._require().execute(
+            "SELECT column_name FROM information_schema.columns "
+            "WHERE table_schema = ? AND table_name = ? ORDER BY ordinal_position",
+            [schema, table],
+        ).fetchall()
+        return tuple(row[0] for row in rows)
+
     def truncate(self, schema: str, table: str) -> None:
         self._require().execute(f'DELETE FROM "{schema}"."{table}"')
 

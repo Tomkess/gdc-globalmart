@@ -85,6 +85,20 @@ def build_data_source(
     )
 
 
+def notify_upload(sdk: GoodDataSdk, profile: TargetProfile) -> None:
+    """Tell GoodData the warehouse changed, so cached results are invalidated.
+
+    Without this a load is invisible: the rows change, every dashboard keeps serving the
+    numbers it cached, and the operator concludes the load did nothing. That is exactly what
+    happened on 2026-09-21 — 174,372 fresh rows landed and the dashboards showed the old
+    ones until the notification was sent by hand.
+
+    Cheap, idempotent, and only meaningful after a real load, so the caller gates it on
+    `--apply` rather than this function doing so.
+    """
+    sdk.catalog_data_source.register_upload_notification(profile.datasource_id)
+
+
 def ensure_data_source(
     sdk: GoodDataSdk, profile: TargetProfile, *, apply: bool = False
 ) -> DataSourceOutcome:

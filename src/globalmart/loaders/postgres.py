@@ -82,6 +82,15 @@ class PostgresLoader:
             value = row[0] if row else None
             return None if value is None else str(value)
 
+    def columns(self, schema: str, table: str) -> tuple[str, ...]:
+        with self._require().cursor() as cursor:
+            cursor.execute(
+                "SELECT column_name FROM information_schema.columns "
+                "WHERE table_schema = %s AND table_name = %s ORDER BY ordinal_position",
+                (schema, table),
+            )
+            return tuple(row[0] for row in cursor.fetchall())
+
     def truncate(self, schema: str, table: str) -> None:
         with self._require().cursor() as cursor:
             cursor.execute(f'TRUNCATE TABLE "{schema}"."{table}"')

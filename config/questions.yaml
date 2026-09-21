@@ -1,0 +1,142 @@
+# The question and conversation script.
+#
+# Three things at once, deliberately:
+#   * the demo runbook — what gets asked on the day, in order
+#   * the routing measurement input — `expect` is what a human says the question needs
+#   * the regression set — when a prompt changes, this is what says whether it got better
+#
+# Written before the prompts exist, so the routing expectations are a judgement about the
+# workspaces rather than a description of whatever the router happens to do.
+#
+# `expect` is the set of workspaces a competent analyst would consult. A router that returns
+# fewer has missed something; one that returns more is broadcasting, which is the failure the
+# whole exercise exists to avoid. Both count as misses.
+#
+# The four workspaces model Infobip's four products — one workspace per product, four
+# different data models:
+#   globalmart-customer    ~ Conversation   interaction detail: NPS, feedback, loyalty
+#   globalmart-marketing   ~ Moments        campaigns: spend, impressions, sends, clicks
+#   globalmart-store-ops   ~ Answers        service delivery: footfall, staffing, energy
+#   globalmart-ecommerce   ~ Overview       broad but thin: order count, average order value
+
+version: 1
+
+questions:
+  - id: single-ecommerce
+    kind: routing
+    question: How many online orders did we take last month?
+    expect: [globalmart-ecommerce]
+    shows: >
+      Routing selects rather than broadcasts. One workspace answers this completely, and a
+      router that calls all four has demonstrated nothing.
+
+  - id: single-customer
+    kind: routing
+    question: What is our NPS trend over the last six months?
+    expect: [globalmart-customer]
+    shows: >
+      A second single-workspace case in different vocabulary, so the first is not a fluke of
+      one phrasing.
+
+  - id: pair-campaign-satisfaction
+    kind: federation
+    question: >
+      Did the campaigns we spent the most on last quarter actually move customer
+      satisfaction?
+    expect: [globalmart-marketing, globalmart-customer]
+    shows: >
+      The core case. Neither workspace can answer it: marketing knows spend and knows nothing
+      about satisfaction, customer knows NPS and has never heard of a campaign. Decomposition
+      sends a different sub-question to each, and the merge combines them on month.
+
+  - id: pair-staffing-satisfaction
+    kind: federation
+    question: Were customers less happy in the weeks when stores were short-staffed?
+    expect: [globalmart-store-ops, globalmart-customer]
+    shows: >
+      A second federation pair across a different boundary, to show the first was not a
+      specially chosen question.
+
+  - id: wide-quarter-review
+    kind: latency
+    question: >
+      Give me a full picture of last quarter — sales, campaign performance, store operations
+      and customer sentiment.
+    expect:
+      - globalmart-ecommerce
+      - globalmart-marketing
+      - globalmart-store-ops
+      - globalmart-customer
+    shows: >
+      All four lanes, which is where latency is measured. Fan-out costs the slowest lane, so
+      this is the number that decides whether four-to-five workspaces is viable live.
+
+  - id: unmergeable-grain
+    kind: merge-refusal
+    question: Which campaigns performed best, and which stores had the most footfall?
+    expect: [globalmart-marketing, globalmart-store-ops]
+    shows: >
+      Two valid answers with nothing to join on — one is by campaign, the other by store.
+      The merge checks must refuse to connect them and say why, rather than inventing a
+      relationship. Presented separately, attributed, with the reason.
+
+  - id: overview-shallow
+    kind: overview-problem
+    question: How is our online business doing, and what is driving it?
+    expect: [globalmart-ecommerce, globalmart-marketing, globalmart-customer]
+    shows: >
+      Infobip's actual problem, reproduced. The thin workspace nominally covers "online
+      business" and answers shallowly — order count and average order value, no explanation.
+      "What is driving it" needs the detailed workspaces. This is why their own Overview
+      workspace was not sufficient, demonstrated rather than described.
+
+  - id: lane-failure
+    kind: degradation
+    question: Compare campaign spend and customer satisfaction for last quarter.
+    expect: [globalmart-marketing, globalmart-customer]
+    inject_failure: globalmart-customer
+    shows: >
+      One lane forced to fail. The answer must degrade honestly — report what marketing
+      returned, state plainly that customer did not answer, and never imply the missing half.
+
+  - id: no-data
+    kind: degradation
+    question: What were our order volumes in 2019?
+    expect: [globalmart-ecommerce]
+    shows: >
+      A lane that answers but finds nothing, which is not the same as failing. The reply must
+      say there is no data for the period rather than returning an empty-looking number.
+
+conversations:
+  - id: followup-reroute
+    shows: >
+      A follow-up that needs a workspace the first turn never touched. The router must run
+      again on the second turn rather than reusing the first turn's selection.
+    turns:
+      - question: How did our campaigns perform last quarter?
+        expect: [globalmart-marketing]
+      - question: And did any of that show up in customer satisfaction?
+        expect: [globalmart-customer]
+
+  - id: followup-same-lane
+    shows: >
+      A follow-up within the same workspace, which must reuse that lane's context_id so the
+      agent resolves "those" against its own earlier turn rather than starting cold.
+    turns:
+      - question: Which campaigns had the highest spend last quarter?
+        expect: [globalmart-marketing]
+      - question: How many impressions did those get?
+        expect: [globalmart-marketing]
+
+  - id: enrich-after-failure
+    shows: >
+      The enrich path. A lane fails, the answer is synthesised from what returned, and the
+      failed lane is retried alone — keeping the answers that succeeded rather than re-running
+      everything.
+    turns:
+      - question: Compare campaign spend against customer satisfaction last quarter.
+        expect: [globalmart-marketing, globalmart-customer]
+        inject_failure: globalmart-customer
+      - question: Try the satisfaction part again.
+        expect: [globalmart-customer]
+        enrich: true

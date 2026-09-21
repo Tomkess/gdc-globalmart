@@ -23,6 +23,12 @@ MANIFEST = REPO / "config" / "domains.yaml"
 ALLOWED = {
     "config/domains.yaml",
     "src/globalmart/domain_bootstrap.py",
+    # The A2A question script names *workspace ids* — `globalmart-customer` and friends —
+    # and a hyphen is a word boundary, so `\bcustomer\b` matches inside them. It is not a
+    # second copy of the domain list: it is a script of questions that happens to say which
+    # workspaces each one should reach, which is the whole point of the file.
+    "config/questions.yaml",
+    "config/agents.yaml",
 }
 
 

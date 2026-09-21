@@ -34,6 +34,7 @@ from globalmart.config import GlobalmartError, load_profile
 from globalmart.counts import count_objects
 from globalmart.coverage import check_coverage, raise_for_report
 from globalmart.dataload import DEFAULT_MAX_AGE_DAYS, check_freshness, load_data, verify_contract
+from globalmart.datasource import notify_upload
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
@@ -449,6 +450,11 @@ def cmd_data_load(args: argparse.Namespace) -> int:
     if args.apply:
         changed = [e for e in report.tables if e.rows_before != e.rows_after]
         print(f"\n{len(changed)} table(s) changed row count")
+
+        # The load is not finished until GoodData knows about it. Cached results survive a
+        # warehouse change, so without this the new rows are invisible in every dashboard.
+        notify_upload(make_sdk(profile), profile)
+        print("Upload notification sent — cached results invalidated.")
     return 0
 
 

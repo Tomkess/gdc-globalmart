@@ -354,7 +354,36 @@ def load_data(
                 "Refusing to truncate anything — check the profile's datasource_schema."
             )
 
-        # Guard 3: the census is taken before any write, and in a rehearsal too.
+        # Guard 3: the warehouse's tables must have the columns the DDL declares.
+        #
+        # `apply_ddl` creates with IF NOT EXISTS and therefore never alters a table that
+        # already exists, so a DDL that gained a column leaves the warehouse behind. Without
+        # this check the mismatch surfaces at insert time — which is *after* the truncate,
+        # and leaves the schema empty. That happened on 2026-09-21 when the wdf__ columns
+        # were added: 215 tables emptied, 215 inserts refused, live workspaces reading
+        # nothing until the tables were dropped and recreated.
+        drifted: list[str] = []
+        for table in wanted:
+            if table not in present:
+                continue
+            live = tuple(owned_loader.columns(schema, table))
+            if not live:
+                continue
+            missing = [c for c in table_registry.require(table).column_names() if c not in live]
+            if missing:
+                drifted.append(f"{table} (missing {', '.join(missing[:4])})")
+        report.column_drift = tuple(drifted)
+        if drifted:
+            raise DataIntegrityError(
+                f"{len(drifted)} table(s) in schema {schema!r} lack columns the DDL declares:\n  "
+                + "\n  ".join(drifted[:10])
+                + ("\n  ..." if len(drifted) > 10 else "")
+                + "\n\nNothing was truncated. CREATE TABLE IF NOT EXISTS cannot add a column to "
+                "an existing table, so the schema must be migrated or dropped and recreated "
+                "before loading."
+            )
+
+        # Guard 4: the census is taken before any write, and in a rehearsal too.
         report.census = _census(owned_loader, schema, wanted, present)
 
         if not apply:

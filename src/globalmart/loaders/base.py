@@ -42,6 +42,7 @@ class LoadReport:
     #: record of what was overwritten, and it is taken even in a rehearsal.
     census: dict[str, int] = field(default_factory=dict)
     unknown_tables: tuple[str, ...] = ()
+    column_drift: tuple[str, ...] = ()
 
     def rows_loaded(self) -> int:
         return sum(entry.rows_after for entry in self.tables)
@@ -59,6 +60,8 @@ class LoadReport:
         ]
         if self.unknown_tables:
             lines.append(f"UNKNOWN in schema : {', '.join(self.unknown_tables)}")
+        if self.column_drift:
+            lines.append(f"COLUMN DRIFT      : {', '.join(self.column_drift)}")
         failed = [entry.table for entry in self.tables if entry.error]
         if failed:
             lines.append(f"FAILED            : {', '.join(failed)}")
@@ -83,6 +86,14 @@ class WarehouseLoader(Protocol):
         """Every table currently in the schema, whether this repo knows it or not."""
 
     def row_count(self, schema: str, table: str) -> int: ...
+
+    def columns(self, schema: str, table: str) -> tuple[str, ...]:
+        """The table's columns as the warehouse currently has them, in order.
+
+        Needed because `apply_ddl` creates with IF NOT EXISTS and therefore never alters a
+        table that already exists. A DDL that gained a column leaves the warehouse behind,
+        and the mismatch is only discovered at insert time — after a truncate.
+        """
 
     def max_value(self, schema: str, table: str, column: str) -> str | None:
         """The largest value in one column, or ``None`` when the table is empty.
