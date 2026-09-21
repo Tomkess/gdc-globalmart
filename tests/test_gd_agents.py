@@ -916,3 +916,184 @@ def test_confirmation_can_be_switched_off(monkeypatch: pytest.MonkeyPatch) -> No
 
     assert answer.round_trips == 1
     assert not answer.shape.returned_data
+
+
+# --- session and the enrich path ----------------------------------------------
+
+
+def turn_of(*answers: Answer):  # type: ignore[no-untyped-def]
+    from gd_agents.orchestrator.session import Turn
+
+    return Turn(
+        question="q",
+        workspaces=tuple(a.workspace for a in answers),
+        reply="r",
+        answers=answers,
+    )
+
+
+def test_a_failed_retry_does_not_overwrite_a_good_answer() -> None:
+    """The point of keeping answers is holding on to what worked. A retry that fails should
+    leave the conversation no worse than before it."""
+    from gd_agents.orchestrator.session import Session
+
+    session = Session()
+    session.remember(turn_of(shaped("mkt", numbers=("100",))))
+    session.remember(turn_of(shaped("mkt", error="boom")))
+
+    assert session.answers["mkt"].numbers == ("100",)
+    assert session.answers["mkt"].ok()
+
+
+def test_a_bad_answer_is_recorded_where_there_was_nothing() -> None:
+    from gd_agents.orchestrator.session import Session
+
+    session = Session()
+    session.remember(turn_of(shaped("mkt", error="boom")))
+
+    assert "mkt" in session.answers
+    assert not session.answers["mkt"].ok()
+
+
+def test_contexts_are_per_lane_and_never_shared() -> None:
+    """A workspace engaged for the first time on turn three has no prior turn to resume, and
+    handing it another workspace's context would be worse than handing it none."""
+    from gd_agents.orchestrator.session import Session
+
+    session = Session(contexts={"mkt": "ctx-mkt"})
+
+    assert session.context_for(("mkt", "cust")) == {"mkt": "ctx-mkt"}
+
+
+def test_enrichable_names_lanes_that_contributed_nothing() -> None:
+    """Failed and empty are different to a reader and identical to a retry."""
+    from gd_agents.orchestrator.session import Session
+
+    session = Session()
+    session.remember(turn_of(shaped("a"), shaped("b", error="x"), shaped("c", data=False)))
+
+    assert set(session.enrichable()) == {"b", "c"}
+
+
+def test_the_union_keeps_answers_that_were_not_re_asked() -> None:
+    """This is what makes enrichment cheap: retrying one lane costs one call, not four."""
+    from gd_agents.orchestrator.session import Session
+
+    session = Session()
+    session.remember(turn_of(shaped("mkt", numbers=("100",)), shaped("cust", error="boom")))
+
+    fresh = (shaped("cust", numbers=("27",)),)
+    union = session.union_for(fresh)
+
+    assert {a.workspace for a in union} == {"mkt", "cust"}
+    assert next(a for a in union if a.workspace == "cust").numbers == ("27",)
+
+
+def test_enrich_refuses_an_empty_session() -> None:
+    from gd_agents.orchestrator.run import enrich
+    from gd_agents.orchestrator.session import Session
+
+    with pytest.raises(ValueError, match="no turns"):
+        enrich(plan_registry(), {}, Session())
+
+
+def test_enrich_re_asks_only_the_missing_lane() -> None:
+    from gd_agents.orchestrator.run import enrich
+    from gd_agents.orchestrator.session import Session
+
+    asked: list[str] = []
+
+    class Recording:
+        def __init__(self, workspace: str) -> None:
+            self.workspace = workspace
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            asked.append(self.workspace)
+            return shaped(self.workspace, numbers=("27",))
+
+    session = Session()
+    session.remember(turn_of(shaped("mkt", numbers=("100",)), shaped("cust", error="boom")))
+
+    run = enrich(
+        plan_registry(),
+        {"mkt": Recording("mkt"), "cust": Recording("cust")},
+        session,
+        client=FakeClient("Spend 100 alongside NPS 27."),
+        model="m",
+    )
+
+    assert asked == ["cust"], "an enrich that re-asks a working lane wastes a call"
+    assert run.enriched == ("cust",)
+    assert {a.workspace for a in run.merged.answers} == {"mkt", "cust"}
+
+
+def test_enrich_reuses_the_earlier_sub_question_verbatim() -> None:
+    """Re-planning would risk a differently worded sub-question, making the retry a
+    different query and the comparison with the kept answers invalid."""
+    from gd_agents.orchestrator.run import enrich
+    from gd_agents.orchestrator.session import Session
+
+    seen: list[str] = []
+
+    class Recording:
+        workspace = "cust"
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            seen.append(question)
+            return shaped("cust", numbers=("27",))
+
+    failed = Answer(workspace="cust", question="Show NPS by month for Q2", text="", error="boom")
+    session = Session()
+    session.remember(turn_of(shaped("mkt", numbers=("100",)), failed))
+
+    enrich(plan_registry(), {"cust": Recording()}, session, client=FakeClient("x"), model="m")
+
+    assert seen == ["Show NPS by month for Q2"]
+
+
+def test_enrich_with_nothing_missing_returns_the_previous_reply() -> None:
+    from gd_agents.orchestrator.run import enrich
+    from gd_agents.orchestrator.session import Session
+
+    session = Session()
+    session.remember(turn_of(shaped("mkt"), shaped("cust")))
+
+    run = enrich(plan_registry(), {}, session)
+
+    assert run.reply() == "r"
+    assert run.enriched == ()
+
+
+def test_a_turn_records_the_context_each_lane_ended_on() -> None:
+    """Without it a follow-up starts cold and the agent cannot resolve "those"."""
+    from gd_agents.orchestrator.fanout import FanoutReport
+    from gd_agents.orchestrator.run import _contexts
+
+    report = FanoutReport(
+        answers=(
+            Answer(workspace="a", question="q", text="t", context_id="ctx-a"),
+            Answer(workspace="b", question="q", text="t"),
+        )
+    )
+
+    assert _contexts(report) == {"a": "ctx-a"}
+
+
+def test_orchestrator_tokens_exclude_what_happens_inside_a_workspace() -> None:
+    """A2A does not report the agent's own cost. Under MCP that same work lands in this
+    number, which is most of what the protocol comparison is about."""
+    from gd_agents.orchestrator.merge import Merged
+    from gd_agents.orchestrator.plan import Plan
+    from gd_agents.orchestrator.run import Run
+
+    run = Run(question="q")
+    run.plan = Plan(question="q", tokens_in=1700, tokens_out=300)
+    run.merged = Merged(tokens_in=900, tokens_out=400)
+
+    assert run.tokens() == (2600, 700)

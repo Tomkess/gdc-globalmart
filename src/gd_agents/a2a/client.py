@@ -223,9 +223,7 @@ def shape_from_artifacts(artifacts: tuple[dict[str, Any], ...]) -> Shape:
     would invent a precision the agent never claimed, and comparing a resolved window with
     an unresolved one would fail for the wrong reason.
     """
-    visualization = next(
-        (a.get("data") for a in artifacts if a.get("name") == "visualization"), None
-    )
+    visualization = next((a.get("data") for a in artifacts if a.get("name") == "visualization"), None)
     if not isinstance(visualization, dict):
         return Shape()
 
@@ -440,6 +438,7 @@ class A2ALane:
             # Text narrates, artifacts carry the values — so provenance is the union.
             numbers=tuple(dict.fromkeys(numbers_from_artifacts(artifacts) + numbers_in(text))),
             artifacts=artifacts,
+            context_id=context_id_of(payload),
             latency_ms=elapsed,
             round_trips=attempts,
             error=None if state in {COMPLETED, INPUT_REQUIRED, ""} else f"agent state {state!r}",

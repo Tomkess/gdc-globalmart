@@ -84,6 +84,10 @@ class Answer:
 
     tokens_in: int = 0
     tokens_out: int = 0
+    context_id: str | None = None
+    """The conversation this lane ended on, so a follow-up resumes it rather than starting
+    cold. Per lane: each workspace runs its own A2A conversation."""
+
     error: str | None = None
 
     def ok(self) -> bool:
