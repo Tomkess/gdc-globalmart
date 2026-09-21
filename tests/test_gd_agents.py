@@ -141,3 +141,145 @@ def test_findings_name_only_real_entity_kinds() -> None:
 
     assert not any("globalmart-customer through the metadata API" in f for f in findings)
     assert any("metrics through the metadata API" in f for f in findings)
+
+
+# --- the A2A lane -------------------------------------------------------------
+#
+# Fixtures below are the real shape of a Task, taken from a live agent on 2026-09-21. The
+# ordering inside it is the whole point: the reply is in status.message, the values are in
+# the visualization-data artifact, and history is the agent thinking aloud.
+
+
+def completed_task() -> dict:
+    return {
+        "result": {
+            "kind": "task",
+            "contextId": "ctx-1",
+            "status": {
+                "state": "completed",
+                "message": {
+                    "role": "agent",
+                    "parts": [
+                        {
+                            "kind": "text",
+                            "text": (
+                                "Created a line chart showing "
+                                "{metric/metric_l1_total_campaign_spend} by month."
+                            ),
+                        }
+                    ],
+                },
+            },
+            "history": [
+                {"role": "user", "parts": [{"kind": "text", "text": "Show spend by month."}]},
+                {
+                    "role": "agent",
+                    "parts": [{"kind": "text", "text": "**Creating a chart**\n\nI need to focus on…"}],
+                },
+            ],
+            "artifacts": [
+                {"name": "visualization", "parts": [{"kind": "data", "data": {"type": "line"}}]},
+                {
+                    "name": "visualization-data",
+                    "parts": [
+                        {
+                            "kind": "data",
+                            "data": {
+                                "formattedRows": [
+                                    {"Month/Year": "2026-04", "Total Campaign Spend": "11,944.45"},
+                                    {"Month/Year": "2026-05", "Total Campaign Spend": "9,726.62"},
+                                ]
+                            },
+                        }
+                    ],
+                },
+            ],
+        }
+    }
+
+
+def test_the_answer_comes_from_status_not_history() -> None:
+    """History is chain-of-thought. Reading it — the obvious first guess, and what the
+    existing reference client does — presents reasoning as a result."""
+    from gd_agents.a2a.client import answer_text
+
+    text, source = answer_text(completed_task())
+
+    assert source == "status.message"
+    assert text.startswith("Created a line chart")
+    assert "I need to focus on" not in text
+
+
+def test_history_is_flagged_when_it_is_all_there_is() -> None:
+    from gd_agents.a2a.client import answer_text
+
+    task = completed_task()
+    task["result"]["status"] = {"state": "completed"}
+    task["result"]["artifacts"] = []
+    _, source = answer_text(task)
+
+    assert "reasoning" in source, "falling back to history must say what it is"
+
+
+def test_provenance_comes_from_the_data_artifact() -> None:
+    """The text narrates; the artifact carries the values. The no-computation rule needs the
+    values, or it has nothing to hold a merged answer to."""
+    from gd_agents.a2a.client import data_artifacts, numbers_from_artifacts
+
+    numbers = numbers_from_artifacts(data_artifacts(completed_task()))
+
+    assert "11,944.45" in numbers
+    assert "9,726.62" in numbers
+    assert not any(value.startswith("{") for value in numbers), (
+        "a dict row was stringified whole, which matches nothing a merge would write"
+    )
+
+
+def test_digits_inside_identifiers_are_not_provenance() -> None:
+    """`metric_l1_total_campaign_spend` must not contribute a "1"; a merge could then
+    justify any number that happens to appear in a metric id."""
+    from gd_agents.a2a.client import numbers_in
+
+    assert numbers_in("showing {metric/metric_l1_total_campaign_spend} by month") == ()
+    assert "6" in numbers_in("for the last 6 months")
+
+
+def test_years_are_not_provenance() -> None:
+    from gd_agents.a2a.client import numbers_in
+
+    assert numbers_in("revenue in 2026 was 11,944.45") == ("11,944.45",)
+
+
+def test_a_clarification_request_is_not_data(monkeypatch: pytest.MonkeyPatch) -> None:
+    """An agent asking which metric was meant has not answered. Treating the question as a
+    result is how a merge ends up narrating a prompt back to the user."""
+    from gd_agents.a2a.client import A2ALane
+    from gd_agents.transport import Host
+
+    task = completed_task()
+    task["result"]["status"]["state"] = "input-required"
+    task["result"]["artifacts"] = []
+
+    lane = A2ALane(host=Host(url="https://example.invalid", token="t"), workspace="w")
+    monkeypatch.setattr(type(lane.host), "post", lambda *a, **k: task)
+
+    answer = lane.ask("total spend?")
+
+    assert answer.ok(), "a clarification request is not a failure"
+    assert not answer.shape.returned_data
+
+
+def test_a_transport_failure_becomes_an_answer(monkeypatch: pytest.MonkeyPatch) -> None:
+    from gd_agents.a2a.client import A2ALane
+    from gd_agents.transport import Host, TransportError
+
+    def boom(*args: object, **kwargs: object) -> None:
+        raise TransportError("timed out")
+
+    lane = A2ALane(host=Host(url="https://example.invalid", token="t"), workspace="w")
+    monkeypatch.setattr(type(lane.host), "post", boom)
+
+    answer = lane.ask("anything")
+
+    assert not answer.ok()
+    assert "timed out" in (answer.error or "")
