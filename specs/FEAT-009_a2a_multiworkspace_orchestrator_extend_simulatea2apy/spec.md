@@ -23,8 +23,13 @@ updated: '2026-09-21'
 
 ## Summary
 
-One prompt, two GoodData workspaces with different data models, one merged answer that says which
-workspace each part came from. AIS-55, for Infobip.
+One prompt, a registry of **four** GoodData workspaces with four different data models, and one
+merged answer that says which workspace each part came from. AIS-55, for Infobip.
+
+Four rather than the ticket's two, because Infobip's case *is* four (a fifth is being discussed)
+and "done when" asks us to say what works at four to five. With four registered, that answer is
+evidence instead of extrapolation — and the router decides how many to call, so a question needing
+two calls two. A demo that always calls everything has not demonstrated routing at all.
 
 The orchestrator we build is a **stand-in for theirs**, not a product. That framing is the whole
 point and it changed on 2026-09-21.
@@ -61,20 +66,29 @@ choice all happen inside each workspace against its own model. The orchestrator 
 catalog. Infobip is explicitly fine with either protocol — the choice is ours, and Jan Brandejs'
 preliminary view after talking to Chris is that A2A fits better.
 
-### The demo pair
+### The four demo workspaces
 
-GlobalMart's domain workspaces have genuinely different pruned LDMs, so they model the shape
-rather than simulate it.
+GlobalMart's domain workspaces have genuinely different pruned LDMs, so they model the shape rather
+than simulate it. **Zero fact-table overlap across all six pairs**, while sharing date and customer
+dimensions — federation, with nothing to join on.
 
-| Workspace | Datasets | Metrics | Vocabulary |
-|---|---|---|---|
-| `globalmart-marketing` | 20 | 49 | Total Spend, Impressions, Email Sends, Paid Clicks |
-| `globalmart-customer` | 24 | 186 | NPS Score, Feedback Count, Loyalty Points, Tier Change |
+| Workspace | Facts | Metrics | Vocabulary | Infobip analogue |
+|---|---|---|---|---|
+| `globalmart-customer` | 6 | 186 | NPS, feedback, loyalty points, tier change | **Conversation** — interaction detail |
+| `globalmart-marketing` | 5 | 49 | spend, impressions, email sends, paid clicks | **Moments** — campaigns |
+| `globalmart-store-ops` | 5 | 63 | footfall, staffing hours, energy, maintenance | **Answers** — service delivery |
+| `globalmart-ecommerce` | 1 | 11 | order count, average order value | **Overview** — broad but thin |
 
-Zero fact-table overlap, shared date and customer dimensions, genuinely divergent vocabulary. A
-question like *"did the campaigns we spent most on last quarter actually move customer
-satisfaction?"* needs both and can be answered by neither alone. `globalmart-ecommerce` was
-considered and rejected: one fact table and eleven metrics is too thin to pass as a product.
+The last row is the one that earns its place. `globalmart-ecommerce` covers a broad topic with one
+fact table and eleven metrics — which is precisely Overview's character: nominally spans everything,
+lacks the detail. So the demo can reproduce **the failure Infobip actually hit**. Ask something
+Overview appears to cover, watch it answer shallowly, and have the orchestrator reach the detailed
+workspaces instead. That is their pain demonstrated rather than described, and it is a stronger
+beat than any amount of explaining why one aggregate workspace is not enough.
+
+A question like *"did the campaigns we spent most on last quarter actually move customer
+satisfaction?"* needs marketing and customer and neither alone. A question about order volumes
+should route to ecommerce alone — which is what proves the router is deciding.
 
 ## Appetite
 
@@ -84,15 +98,16 @@ multiplexing the stream, and keeping attribution intact through the merge.
 
 ## Acceptance Criteria
 
-1. A prompt entered in the front end returns **one merged answer** built from two workspace agents
-   over A2A — not two answers side by side — demoable without a walkthrough of the code.
-2. The workspaces consulted are **chosen from the question**. Hard-coding both calls fails this.
-   The router must be able to return one workspace when the question only needs one, which is what
-   proves the decision is real.
+1. A prompt entered in the front end returns **one merged answer** built from two or more workspace
+   agents over A2A — not answers side by side — demoable without a walkthrough of the code.
+2. The workspaces consulted are **chosen from the question**. Calling all four every time fails
+   this as surely as hard-coding would. The router must return a subset — one workspace when the
+   question needs one — which is what proves the decision is real.
 3. Every part of the merged answer is **attributed to the workspace it came from**, and attribution
    survives the merge structurally rather than by asking the model to be tidy.
-4. The two workspaces have **different LDMs**. A pair sharing a model does not test what Infobip
-   needs tested.
+4. The registry holds **four workspaces with four different LDMs**, matching Infobip's shape. A pair
+   sharing a model does not test what needs testing, and two workspaces cannot answer the
+   four-to-five question with evidence.
 5. A lane that fails or times out degrades the answer and says so. It never fails the whole query.
 6. Each lane's status, latency and artifacts are visible while it runs, so a viewer can see that
    the calls happened in parallel and against separate workspaces.
@@ -101,10 +116,12 @@ multiplexing the stream, and keeping attribution intact through the merge.
 8. **The gap list is written**, covering at minimum: agent discovery (findable or wired by hand),
    auth (one token or one per agent, and what happens when the caller can see only one workspace),
    routing reliability across different models, attribution of merged results, and measured latency
-   at two agents with a stated projection for four and five.
-9. Latency is **measured, not estimated** — per lane and end to end, across a set of questions, so
-   the four-to-five-workspace answer is evidence rather than a guess.
-10. Runnable by someone who is not its author, from a README, including whatever access is needed.
+   at four agents with a stated projection for five.
+9. Latency is **measured at four lanes**, per lane and end to end, across a set of questions. The
+   five-workspace answer is then a short extrapolation from four rather than a guess from two.
+10. One rehearsed beat shows the **Overview problem**: a question the thin workspace nominally
+    covers, answered shallowly by it and properly once the detailed workspaces are reached.
+11. Runnable by someone who is not its author, from a README, including whatever access is needed.
 
 ## Scope
 
@@ -112,10 +129,10 @@ multiplexing the stream, and keeping attribution intact through the merge.
 - `route(question, registry)`: one LLM call returning the chosen workspaces and its reasoning.
 - `fanout`: parallel A2A calls with a per-lane timeout and per-lane failure isolation.
 - `merge(question, results)`: one LLM call producing a single attributed answer.
-- De-globalising `_workspace` in `simulate_a2a.py` so two workspaces can be called concurrently at
-  all — the load-bearing refactor everything else depends on.
-- Multiplexed SSE so lanes stream independently into one page, with a routing banner and per-lane
-  panes.
+- De-globalising `_workspace` in `simulate_a2a.py` so several workspaces can be called concurrently
+  at all — the load-bearing refactor everything else depends on.
+- Multiplexed SSE so up to four lanes stream independently into one page, with a routing banner
+  and per-lane panes.
 - The gap list, written as the work happens rather than reconstructed afterwards.
 - A latency measurement pass.
 
@@ -139,7 +156,8 @@ multiplexing the stream, and keeping attribution intact through the merge.
 |---|---|---|---|
 | Routing picks the wrong workspaces on questions that span different vocabularies | Medium | High | This is the thing being tested, not a defect to hide. Measure it across a question set and report the failures in the gap list — a known hit rate is a better deliverable than a demo that only works on one rehearsed prompt |
 | The merge launders provenance and the answer cannot be traced | Medium | High | Keep each lane's answer verbatim and addressable; merge references them rather than absorbing them (AC 3) |
-| Latency at two lanes is fine and at five is not | Medium | High | Measure rather than assume (AC 9). A2A calls have run 20–80s in prior work, and fan-out costs the slowest lane. If five is untenable, that is a finding worth having early |
+| Latency at four lanes is untenable for a live demo | Medium | High | A2A calls have run 20–80s in prior work and fan-out costs the slowest lane, so four could mean a 90s wait on stage. Measure early (AC 9); if it is bad, that is a finding worth having — and the router calling two of four for most questions is the honest mitigation, not a trick |
+| Four live workspaces is more demo surface to keep working | Medium | Medium | They already exist and are published; the cost is keeping their data current, which is FEAT-013's job anyway |
 | The demo runs on data whose dates stop in 2024, so "last quarter" returns nothing | High without feat-013 | High | FEAT-013 moves the window to the present. Until it lands, avoid relative-date questions or the demo dies on the first prompt |
 | Artifact rendering assumes one workspace | Medium | Medium | Two lanes return their own visualization DataParts; the renderer needs a source label per artifact |
 | Effort goes into the orchestrator rather than the gap list | Medium | High | The gap list is what product and the customer actually receive. Write it continuously; it is AC 8, not a closing task |
@@ -182,5 +200,8 @@ multiplexing the stream, and keeping attribution intact through the merge.
 - Should the MCP contrast pane be built at all now that Infobip is protocol-agnostic? It stops
   being persuasion and becomes internal evidence for our own recommendation, which may be worth
   less than the time it costs.
-- Does the demo need a third workspace to make the four-to-five story credible, or does two plus a
-  measured latency curve carry it?
+- Is a fifth workspace worth registering, since Infobip are already discussing one? Cheap to add
+  if the registry is data, and it would make the five-workspace answer measured rather than
+  extrapolated.
+- Does the `globalmart-ecommerce`-as-Overview beat survive contact with a real question, or is its
+  thinness so obvious that the moment lands as contrived?
