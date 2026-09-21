@@ -54,6 +54,71 @@ an orchestrator can be built. It is whether GoodData is a good tool inside one s
 That makes the **gap list half the deliverable**, not an afterthought. The demo is evidence; the
 list of what an orchestrator needs from us is what goes to product and to the customer.
 
+### The shape
+
+```
+system prompt  ──  the four workspaces, each with a condensed description:
+                   what it covers, its key metrics, its vocabulary — at LLM
+                   level, not the raw catalog
+
+question  ──▶  LLM call #1  ──▶  route + plan
+                                 · which workspaces are relevant, and why
+                                 · what to ask each one  ← decomposition
+
+               fan out  ──▶  A2A per chosen workspace, in parallel
+                             each lane returns an answer *and its shape*
+
+               answers  ──▶  merge checks  ──▶  LLM call #2
+                                                combine where safe, attribute,
+                                                shape for the frontend
+```
+
+**Decomposition is the part that makes this federation.** The orchestrator does not forward the
+raw question to every chosen workspace — it writes a different sub-question per workspace, because
+each holds only part of the answer in its own vocabulary:
+
+> *"Did the campaigns we spent most on actually move customer satisfaction?"*
+> → marketing: *"top campaigns by spend last quarter"*
+> → customer: *"NPS trend by month last quarter"*
+
+Neither workspace is asked the original question, because neither can answer it.
+
+### Not fabricating the connection
+
+Two answers computed against different models are not automatically combinable, and a merge that
+invents a link is worse than one that declines. **The hard rule: the merge may not compute.** It
+compares, ranks, sequences and narrates; every number in its output must appear verbatim in a lane
+result. No sums across workspaces, no ratios spanning two sources. "Cost per NPS point" — marketing
+spend divided by a customer-workspace score — is the archetype: both numbers real, the quotient
+meaningless, because the grains and populations differ.
+
+That rule is checkable rather than aspirational, which is why it is the one that is enforced in
+code rather than asked for in a prompt.
+
+Around it sits a **registry of merge checks**, structured so that adding a ninth is a data entry
+and not a prompt rewrite. Each check has an id, what it guards against, and whether code or the
+model decides it; each produces the same verdict shape so the report is uniform:
+
+| id | guards against | decided by |
+|---|---|---|
+| `lane_completeness` | synthesising as if a failed lane had answered | code |
+| `time_window_match` | comparing last quarter against last month | code |
+| `shared_dimension` | claiming a link with no common key at the same grain | code |
+| `filter_parity` | one lane filtered to a region, the other not | code |
+| `unit_compatibility` | mixing currencies or units | code |
+| `numeric_provenance` | any number in the output that no lane produced | code |
+| `metric_identity` | assuming the same word means the same metric across models | model |
+| `population_parity` | comparing "customers who bought" against "all customers" | model |
+
+The first six are deterministic and gate the merge. The last two are judgement and are posed to the
+model as structured verdicts rather than left implicit. The set is deliberately open — these eight
+are a starting point, not a claim of completeness.
+
+**When the checks say no:** present both answers separately, attributed, with the one-line reason.
+The ticket forbids side-by-side as the *default*, but an honest "these do not combine, here is each"
+beats a fabricated link — especially for a customer whose own aggregate workspace already failed
+them.
+
 ### Why routing is the hard version here
 
 Four different products mean four different semantic models. The orchestrator cannot assume a
@@ -113,28 +178,77 @@ multiplexing the stream, and keeping attribution intact through the merge.
    the calls happened in parallel and against separate workspaces.
 7. The registry is data, not code: adding a workspace is a config entry with a description, and no
    orchestrator change.
-8. **The gap list is written**, covering at minimum: agent discovery (findable or wired by hand),
+8. Each lane returns its **shape** alongside its answer — sub-question, grain, time window,
+   filters, whether data came back — and the merge sees it.
+9. The merge **may not compute**. Every number in the merged output appears verbatim in a lane
+   result, asserted programmatically rather than requested in a prompt.
+10. Merge checks are a **registry**: adding one is a data entry, not a change to the merge code.
+    The eight named in this spec are the starting set.
+11. When the checks refuse, the answer presents each lane separately, attributed, with the reason —
+    it never invents a connection.
+12. A **question and conversation script** is committed, covering the cases listed in Scope, and is
+    used for both the demo and the routing measurement.
+13. **The gap list is written**, covering at minimum: agent discovery (findable or wired by hand),
    auth (one token or one per agent, and what happens when the caller can see only one workspace),
    routing reliability across different models, attribution of merged results, and measured latency
    at four agents with a stated projection for five.
-9. Latency is **measured at four lanes**, per lane and end to end, across a set of questions. The
-   five-workspace answer is then a short extrapolation from four rather than a guess from two.
-10. One rehearsed beat shows the **Overview problem**: a question the thin workspace nominally
+14. Latency is **measured at four lanes**, per lane and end to end, over the script. The
+    five-workspace answer is then a short extrapolation from four rather than a guess from two.
+15. One scripted beat shows the **Overview problem**: a question the thin workspace nominally
     covers, answered shallowly by it and properly once the detailed workspaces are reached.
-11. Runnable by someone who is not its author, from a README, including whatever access is needed.
+16. The condensed workspace descriptions are **generated by the profiler**, not hand-written, and
+    whatever the profiler had to reach for is recorded in the gap list.
+17. **Enrich works**: a failed lane can be retried alone and the answer re-synthesised over the
+    union, without re-running the lanes that succeeded.
+18. Runnable by someone who is not its author, from a README, including whatever access is needed.
 
 ## Scope
 
 - A workspace registry — id, description, endpoint — loaded from config.
-- `route(question, registry)`: one LLM call returning the chosen workspaces and its reasoning.
-- `fanout`: parallel A2A calls with a per-lane timeout and per-lane failure isolation.
-- `merge(question, results)`: one LLM call producing a single attributed answer.
+- A **profiler** that builds each workspace's condensed description by querying the workspace
+  itself — agent card, metric titles, AI memory — rather than by hand.
+- `plan(question, registry)`: one LLM call returning the chosen workspaces, the sub-question for
+  each, and its reasoning.
+- `fanout`: parallel A2A calls with a per-lane timeout and per-lane failure isolation. Each lane
+  returns its answer **and its shape**: sub-question asked, grain, time window, filters applied,
+  and whether it returned data at all.
+- A **merge-check registry** — the eight above, extensible by adding an entry — with the
+  deterministic ones gating and the judgement ones posed as structured verdicts.
+- `merge(question, results, verdicts)`: one LLM call producing a single attributed answer, or
+  separate attributed answers with a stated reason when the checks refuse.
+- **Enrich**: per-lane results held in session state by conversation, so a failed or missing lane
+  can be retried alone and re-synthesised over the union — reusing that lane's `context_id` rather
+  than starting cold.
+- **A question and conversation script** (see below), which is both the demo runbook and the
+  measurement input.
 - De-globalising `_workspace` in `simulate_a2a.py` so several workspaces can be called concurrently
   at all — the load-bearing refactor everything else depends on.
 - Multiplexed SSE so up to four lanes stream independently into one page, with a routing banner
   and per-lane panes.
 - The gap list, written as the work happens rather than reconstructed afterwards.
-- A latency measurement pass.
+- A latency measurement pass, run over the script.
+
+### The question and conversation script
+
+A committed file, not something improvised on the day. It serves three purposes at once: it is the
+demo runbook, it is the routing-reliability measurement input, and it is the regression set when a
+prompt changes.
+
+Each entry carries the question, the workspaces a human says it should reach, and what it exists to
+show. Conversations carry an ordered list of turns.
+
+It must cover, at minimum:
+
+- a question reaching **one** workspace — the proof that routing selects rather than broadcasts
+- a question needing **two**, where neither can answer alone
+- a question needing **three or four**, for the latency measurement
+- a pair that is **not safely mergeable**, so the checks are seen refusing
+- the **Overview beat**: something the thin workspace nominally covers, answered shallowly by it
+  and properly once the detailed workspaces are reached
+- a lane that **fails or times out**, and the answer degrading honestly
+- a **follow-up that re-routes** to a workspace not used in the first turn
+- a **follow-up that reuses** an engaged lane's `context_id`
+- an **enrich** case: a lane fails, is retried alone, and the answer is re-synthesised
 
 ## Out of Scope
 
