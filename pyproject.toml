@@ -26,8 +26,17 @@ data = [
     "psycopg[binary]>=3.2.0",
 ]
 
+# The A2A/MCP orchestrator (goal-02). Its transport is standard library on purpose — this
+# package is meant to be liftable into a customer's runtime — so the only dependency is the
+# model client the router and merge steps use. Someone who only publishes layouts does not
+# need an LLM SDK.
+agents = [
+    "anthropic>=0.112.0",
+]
+
 [project.scripts]
 globalmart = "globalmart.cli:main"
+gd-agents = "gd_agents.cli:main"
 
 [dependency-groups]
 dev = [
@@ -42,7 +51,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/globalmart"]
+packages = ["src/globalmart", "src/gd_agents"]
 
 [tool.ruff]
 line-length = 110
@@ -54,7 +63,7 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
-files = ["src/globalmart"]
+files = ["src/globalmart", "src/gd_agents"]
 
 [[tool.mypy.overrides]]
 module = ["gooddata_sdk.*"]

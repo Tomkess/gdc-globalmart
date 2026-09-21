@@ -1,0 +1,44 @@
+host: https://petertomko.demo.cloud.gooddata.com
+token_env: GLOBALMART_TOKEN__DEMO_CLOUD
+workspaces:
+- id: globalmart-customer
+  title: GlobalMart — Customers
+  description: Measures Customer Event, Customer Feedback, Loyalty Points Earned, Loyalty Points Redeemed,
+    NPS Response, Tier Change. Metrics include Average Total NPS Score, Total Event Count (Customer
+    Event), Total Event Value (Customer Event), Total Feedback Count (Customer Feedback), Total Sentiment
+    Score (Customer Feedback), Total Order Amount (Loyalty Points Earned), Total Points (Loyalty Points
+    Earned), Total Points Redeemed (Loyalty Points Redeemed), Total Reward Value (Loyalty Points Redeemed),
+    Total NPS Score (NPS Response), Total Response Count (NPS Response), Total Average Order Value
+    (Customer Lifetime Value) and 174 more. Has authored knowledge on Choosing a date dimension, Choosing
+    a revenue metric, Metric layers.
+  profiled_at: '2026-09-21'
+- id: globalmart-marketing
+  title: GlobalMart — Marketing
+  description: Measures Daily Campaign Spend, Display Impression, Email Open, Email Send, Paid Search
+    Click. Metrics include Total Spend Count (Daily Campaign Spend), Total Impression Count (Display
+    Impression), Total Open Count (Email Open), Total Send Count (Email Send), Total Click Cost (Paid
+    Search Click), Total Click Count (Paid Search Click), Total Spend (Campaign ROI), Total Campaign
+    Spend, Campaign Spend — In-Store Channel, Campaign Spend — Online Channel, Campaign Spend — North
+    Region, Spend Count (Daily Campaign Spend) — In-Store Channel and 37 more. Has authored knowledge
+    on Choosing a date dimension, Choosing a revenue metric, Metric layers.
+  profiled_at: '2026-09-21'
+- id: globalmart-store-ops
+  title: GlobalMart — Store Operations
+  description: Measures Energy Consumption, Maintenance Request, Shrinkage Event, Daily Store Staffing,
+    Store Visit Census. Metrics include Maximum Total kWh Consumed, Total Cost (Energy Consumption),
+    Total kWh (Energy Consumption), Total Downtime Hours (Maintenance Request), Total Maintenance
+    Cost (Maintenance Request), Total Shrinkage Amount (Shrinkage Event), Total Unit Count (Shrinkage
+    Event), Total Staff Count (Daily Store Staffing), Total Staff Hours (Daily Store Staffing), Total
+    Sq Ft (Store Visit Census), Total Visitor Count (Store Visit Census), Total Revenue per Sq Ft
+    (Operations Efficiency Summary) and 51 more. Has authored knowledge on Choosing a date dimension,
+    Choosing a revenue metric, Metric layers.
+  profiled_at: '2026-09-21'
+- id: globalmart-ecommerce
+  title: GlobalMart — E-commerce
+  description: 'Measures Online Order. Metrics include Average Order Value (Online Orders), Total
+    Order Count, Order Count — In-Store Channel, Order Count — Online Channel, Order Count — North
+    Region, MoM: Order Count — In-Store Channel, MoM: Order Count — Online Channel, MoM: Order Count
+    — North Region, YoY: Order Count — In-Store Channel, YoY: Order Count — Online Channel, YoY: Order
+    Count — North Region. Has authored knowledge on Choosing a date dimension, Choosing a revenue
+    metric, Metric layers.'
+  profiled_at: '2026-09-21'
