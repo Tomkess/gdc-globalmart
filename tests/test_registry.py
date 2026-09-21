@@ -38,6 +38,8 @@ def test_columns_are_parsed_in_order() -> None:
         "country_id",
         "store_format",
         "sqft",
+        "wdf__tenant_id",
+        "wdf__region",
     )
 
 
@@ -50,6 +52,8 @@ def test_the_215th_table_exists() -> None:
         "customer_id",
         "traffic_source",
         "session_date",
+        "wdf__tenant_id",
+        "wdf__region",
     )
 
 

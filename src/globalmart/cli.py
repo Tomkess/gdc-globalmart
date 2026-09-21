@@ -33,7 +33,7 @@ from globalmart.closure import MetricPolicy
 from globalmart.config import GlobalmartError, load_profile
 from globalmart.counts import count_objects
 from globalmart.coverage import check_coverage, raise_for_report
-from globalmart.dataload import load_data, verify_data
+from globalmart.dataload import load_data, verify_contract
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
@@ -374,11 +374,11 @@ def cmd_data_verify(args: argparse.Namespace) -> int:
     Entirely offline. The data lives in the repo, so there is nothing to download and no
     credentials to hold — which is the whole point of taking custody.
     """
-    result = verify_data()
-    _print_report("Data", result.summary_lines())
-
     model = read_tree(Path(args.layout)) if Path(args.layout).exists() else None
     registry = build_registry(Path(args.ddl), model=model)
+
+    result = verify_contract(registry)
+    _print_report("Contract", result.summary_lines())
     print(f"\nDDL               : {len(registry.tables)} tables in {args.ddl}")
 
     if model is not None:
@@ -389,10 +389,10 @@ def cmd_data_verify(args: argparse.Namespace) -> int:
             return 1
 
     if not result.ok():
-        print("\nerror: committed data does not match data/table-manifest.json", file=sys.stderr)
+        print("\nerror: the committed contract disagrees with the DDL", file=sys.stderr)
         return 1
 
-    print("\nData is intact and every SQL dataset resolves.")
+    print("\nThe contract agrees with the DDL and every SQL dataset resolves.")
     return 0
 
 

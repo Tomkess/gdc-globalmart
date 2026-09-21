@@ -88,8 +88,7 @@ def parse_ddl(path: Path = DEFAULT_DDL_PATH) -> dict[str, Table]:
     tables: dict[str, Table] = {}
     for name, body in _CREATE_RE.findall(text):
         columns = tuple(
-            Column(name=column, sql_type=sql_type.strip())
-            for column, sql_type in _COLUMN_RE.findall(body)
+            Column(name=column, sql_type=sql_type.strip()) for column, sql_type in _COLUMN_RE.findall(body)
         )
         if not columns:
             raise RegistryError(f"table {name!r} in {path} parsed with zero columns")
@@ -137,9 +136,7 @@ def _topological(names: list[str], edges: dict[str, tuple[str, ...]]) -> tuple[s
     return tuple(placed)
 
 
-def build_registry(
-    ddl_path: Path = DEFAULT_DDL_PATH, *, model: Any | None = None
-) -> TableRegistry:
+def build_registry(ddl_path: Path = DEFAULT_DDL_PATH, *, model: Any | None = None) -> TableRegistry:
     """The table registry, ordered by the LDM join graph when a model is supplied."""
     tables = parse_ddl(ddl_path)
     edges = _dependency_edges(model)
@@ -171,12 +168,19 @@ def foreign_key_target(column_name: str, known_tables: frozenset[str] | set[str]
     return None
 
 
-def own_key_column(table: Table) -> str | None:
+def own_key_column(table: Table, known_tables: frozenset[str] | set[str] | None = None) -> str | None:
     """The column that identifies a row of this table, if one is discernible.
 
     Prefers an `_id` column whose base matches the table's own name (`dim_customer` ->
     `customer_id`), and falls back to the first `_id` column. A table with none simply has
     no key space for others to draw from.
+
+    The fallback is only safe when the candidate is not a reference to somewhere else.
+    `fact_daily_store_sales` has no identity of its own — its grain is a date and a store —
+    and taking its first `_id` made it mint `store_id` values of its own instead of drawing
+    them from `dim_store`, so the table joined to nothing. Nine tables were affected. Pass
+    ``known_tables`` and a candidate that resolves to another table is rejected, leaving the
+    column free to be planned as the foreign key it is.
     """
     names = [column.name for column in table.columns if column.name.endswith("_id")]
     if not names:
@@ -186,4 +190,10 @@ def own_key_column(table: Table) -> str | None:
     preferred = f"{stem}_id"
     if preferred in names:
         return preferred
-    return names[0]
+
+    candidate = names[0]
+    if known_tables is not None:
+        target = foreign_key_target(candidate, known_tables)
+        if target is not None and target != table.name:
+            return None
+    return candidate

@@ -83,15 +83,74 @@ class VerifyResult:
         return lines
 
 
+@dataclass(frozen=True)
+class ContractResult:
+    """What `data verify` found in the committed contract.
+
+    ADR 008 moved the rows out of the repository, so there are no bytes to hash here. What
+    remains committed is the contract — which tables exist, how many rows each should have,
+    and what columns it declares — and the only meaningful offline check is that it agrees
+    with the DDL. Byte integrity still exists, but it belongs to a *generated* dataset and
+    is checked by `verify_data` at load time.
+    """
+
+    tables: int
+    rows: int
+    missing_from_ddl: tuple[str, ...] = ()
+    missing_from_contract: tuple[str, ...] = ()
+    column_drift: tuple[str, ...] = ()
+
+    def ok(self) -> bool:
+        return not (self.missing_from_ddl or self.missing_from_contract or self.column_drift)
+
+    def summary_lines(self) -> list[str]:
+        lines = [
+            f"tables            : {self.tables}",
+            f"rows contracted   : {self.rows:,}",
+        ]
+        for label, entries in (
+            ("NOT IN DDL", self.missing_from_ddl),
+            ("NOT CONTRACTED", self.missing_from_contract),
+            ("COLUMN DRIFT", self.column_drift),
+        ):
+            if entries:
+                lines.append(f"{label:18s}: {', '.join(entries)}")
+        return lines
+
+
+def verify_contract(registry: Any, *, manifest_path: Path = DEFAULT_MANIFEST_PATH) -> ContractResult:
+    """Check the committed contract against the DDL.
+
+    Runs offline with no credentials, which is the property ADR 007 gave `data verify` and
+    this keeps. What it can no longer say is whether the rows are intact, because the rows
+    are no longer here.
+    """
+    manifest = load_manifest(manifest_path)
+    contracted: dict[str, Any] = manifest["tables"]
+    declared = set(registry.names())
+
+    drift = []
+    for table in sorted(set(contracted) & declared):
+        columns = tuple(contracted[table].get("columns") or ())
+        if columns != registry.require(table).column_names():
+            drift.append(table)
+
+    return ContractResult(
+        tables=len(contracted),
+        rows=sum(int(entry["rows"]) for entry in contracted.values()),
+        missing_from_ddl=tuple(sorted(set(contracted) - declared)),
+        missing_from_contract=tuple(sorted(declared - set(contracted))),
+        column_drift=tuple(drift),
+    )
+
+
 def load_manifest(path: Path = DEFAULT_MANIFEST_PATH) -> dict[str, Any]:
     path = Path(path)
     if not path.exists():
         raise DataIntegrityError(f"No data manifest at {path}")
     manifest: dict[str, Any] = json.loads(path.read_text(encoding="utf-8"))
     if manifest.get("version") != 1:
-        raise DataIntegrityError(
-            f"{path}: manifest version {manifest.get('version')!r} is not supported"
-        )
+        raise DataIntegrityError(f"{path}: manifest version {manifest.get('version')!r} is not supported")
     return manifest
 
 
@@ -166,8 +225,7 @@ def load_data(
     verification = verify_data(tables_dir=tables_dir, manifest_path=manifest_path)
     if not verification.ok():
         raise DataIntegrityError(
-            "the committed data does not match the manifest:\n  "
-            + "\n  ".join(verification.summary_lines())
+            "the committed data does not match the manifest:\n  " + "\n  ".join(verification.summary_lines())
         )
 
     table_registry = registry or build_registry(ddl_path, model=model)

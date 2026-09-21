@@ -181,9 +181,7 @@ def test_referential_integrity_holds_across_every_table(generated, registry) -> 
 def test_dates_fall_inside_the_configured_window(tmp_path: Path, registry, counts) -> None:  # type: ignore[no-untyped-def]
     """Existing visualizations filter on dates; values outside the window match nothing."""
     window = (date(2024, 1, 1), date(2024, 12, 31))
-    generate_dataset(
-        registry, out_dir=tmp_path, seed=7, scale=1.0, base_counts=counts, window=window
-    )
+    generate_dataset(registry, out_dir=tmp_path, seed=7, scale=1.0, base_counts=counts, window=window)
 
     plans = plan_columns(registry.require("fact_order_header"), registry.names())
     date_columns = [p.column for p in plans if p.strategy is ColumnStrategy.DATE]
@@ -199,9 +197,7 @@ def test_dates_fall_inside_the_configured_window(tmp_path: Path, registry, count
 
 def test_the_output_is_what_feat005_s_loader_consumes(generated) -> None:  # type: ignore[no-untyped-def]
     """AC #6 without a warehouse: the loader's own verifier accepts the generated set."""
-    result = verify_data(
-        tables_dir=generated / "tables", manifest_path=generated / "table-manifest.json"
-    )
+    result = verify_data(tables_dir=generated / "tables", manifest_path=generated / "table-manifest.json")
 
     assert result.ok()
     assert result.tables == 215
@@ -286,3 +282,66 @@ def test_generated_values_match_their_declared_type(tmp_path: Path, registry, co
                     float(value)
                 elif declared.startswith("DATE"):
                     date.fromisoformat(value)
+
+
+# --- workspace data filter columns (ADR 008 / FEAT-012) -----------------------
+
+
+def test_every_table_carries_both_filter_columns(tmp_path: Path, registry, counts) -> None:  # type: ignore[no-untyped-def]
+    """A filter layer that silently misses tables is the failure FEAT-011 already cost us."""
+    from globalmart.generate import WDF_REGION_COLUMN, WDF_TENANT_COLUMN
+
+    generate_dataset(registry, out_dir=tmp_path, seed=5, scale=0.02, base_counts=counts)
+
+    for name in sorted(registry.names()):
+        columns = rows_of(tmp_path, name)[0].keys()
+        assert WDF_TENANT_COLUMN in columns, name
+        assert WDF_REGION_COLUMN in columns, name
+
+
+def test_filter_values_come_from_the_declared_vocabulary(tmp_path: Path, registry, counts) -> None:  # type: ignore[no-untyped-def]
+    from globalmart.generate import WDF_VOCABULARY
+
+    generate_dataset(registry, out_dir=tmp_path, seed=5, scale=0.02, base_counts=counts)
+
+    for name in sorted(registry.names()):
+        for row in rows_of(tmp_path, name)[:5]:
+            for column, vocabulary in WDF_VOCABULARY.items():
+                assert row[column] in vocabulary, f"{name}.{column} = {row[column]!r}"
+
+
+def test_a_fact_agrees_with_the_entity_it_references(tmp_path: Path, registry, counts) -> None:  # type: ignore[no-untyped-def]
+    """Coherence is the whole point: a tenant filter must not return half a store."""
+    from globalmart.generate import WDF_REGION_COLUMN, WDF_TENANT_COLUMN
+
+    generate_dataset(registry, out_dir=tmp_path, seed=5, scale=0.2, base_counts=counts)
+
+    stores = {
+        row["store_id"]: (row[WDF_TENANT_COLUMN], row[WDF_REGION_COLUMN])
+        for row in rows_of(tmp_path, "dim_store")
+    }
+    assert stores, "dim_store minted no keys, so this proves nothing"
+
+    linked = 0
+    for row in rows_of(tmp_path, "fact_daily_store_sales"):
+        if row["store_id"] not in stores:
+            continue
+        linked += 1
+        assert (row[WDF_TENANT_COLUMN], row[WDF_REGION_COLUMN]) == stores[row["store_id"]]
+
+    assert linked > 0, "no fact row referenced a real store, so nothing was checked"
+
+
+def test_a_table_without_its_own_identity_does_not_hijack_a_foreign_key() -> None:
+    """`fact_daily_store_sales` has no identity of its own — its grain is a date and a store.
+
+    Taking its first `_id` made it mint `store_id` values, so the table joined to nothing.
+    Nine tables were affected, including inventory and product performance.
+    """
+    from globalmart.registry import own_key_column
+
+    registry = build_registry(DDL)
+    known = frozenset(registry.names())
+
+    assert own_key_column(registry.require("fact_daily_store_sales"), known) is None
+    assert own_key_column(registry.require("dim_store"), known) == "store_id"

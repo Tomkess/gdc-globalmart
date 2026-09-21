@@ -1,24 +1,23 @@
 """A seeded, deterministic generator producing GlobalMart-shaped data at any scale.
 
-FEAT-005 took custody of the real rows, which solved the problem that actually existed:
-the bytes were unowned and unrebuildable. This is the other thing a dataset can need —
-being *reshapeable*. It produces data with GlobalMart's structure, keys and date windows at
-a chosen scale, in exactly the format FEAT-005's loader already consumes.
+Since ADR 008 this is the *only* source of GlobalMart's rows. The archive that FEAT-005
+committed is gone: committed data has no mechanism that keeps itself current, which is how
+it came to sit 21 months stale behind dashboards whose relative date filters resolved to an
+empty range. What stays in the repository is the contract — the DDL, and a manifest of row
+counts and columns. The payload is produced on demand.
 
-**What it guarantees:** determinism (one seed, one output), referential integrity by
-construction, row counts matching the real archive at scale 1, and dates inside the window
-the real data covers.
+**What it guarantees:** determinism, referential integrity by construction, row counts
+matching the contract at scale 1, a window that ends at the run date by default, values that
+behave like retail rather than like noise, and workspace-data-filter columns that agree with
+the entity each row belongs to.
 
-**What it does not:** plausibility. The distributions are uniform and unremarkable. A
-generated dataset has the right shape and the right keys; it does not have believable
-retail behaviour — no seasonality, no relationship between price and margin, no realistic
-basket composition. That is deliberate. FEAT-007 was parked precisely because inventing
-plausible retail data with no consumer able to judge it is how a dataset quietly becomes
-worse while every test still passes. This builds the substrate every use case shares and
-stops where judgement would be required.
+**Determinism means one seed and one window, not one set of bytes forever.** The window is
+an explicit parameter recorded in the generated manifest, so any run reproduces from what it
+reports — and two runs on different days differ, deliberately, because the window moved.
 
-**It never writes to `data/tables/`.** The committed archive is FEAT-005's. A generated
-variant is an alternative you select, never a substitute that appears.
+**Plausibility lives in `plausible.py`**, applied after the structural pass so keys, foreign
+keys and dates are settled before anything reshapes a number. GlobalMart faces prospects, and
+a revenue line that is visibly uniform reads as broken however valid each number is.
 """
 
 from __future__ import annotations
@@ -54,6 +53,20 @@ from globalmart.registry import (
 #: failing. Small on purpose: an unknown table is more likely reference data than a fact.
 DEFAULT_ROWS = 100
 
+#: Workspace-data-filter columns. The `wdf__` prefix follows the convention the
+#: `demo_ecommerce` workspace already established in the same org. Every table carries them,
+#: so a filter layer has nothing it silently fails to cover.
+WDF_PREFIX = "wdf__"
+WDF_TENANT_COLUMN = "wdf__tenant_id"
+WDF_REGION_COLUMN = "wdf__region"
+
+#: Fictional, and readable on purpose. A filter value a person recognises is worth more here
+#: than a minted key, and the rows are synthetic either way.
+WDF_VOCABULARY: dict[str, tuple[str, ...]] = {
+    WDF_TENANT_COLUMN: ("acme", "globex", "initech", "umbrella"),
+    WDF_REGION_COLUMN: ("EMEA", "AMER", "APAC"),
+}
+
 #: How much history a generated dataset covers when no explicit start is given. Two years
 #: is enough for a year-on-year metric to have something to compare against.
 DEFAULT_WINDOW_DAYS = 730
@@ -73,6 +86,7 @@ class ColumnStrategy(StrEnum):
     DECIMAL = "decimal"
     NAME = "name"
     CODE = "code"
+    FILTER = "filter"
 
 
 @dataclass(frozen=True)
@@ -94,6 +108,10 @@ class KeySpace:
     table: str
     column: str
     values: tuple[str, ...]
+    #: Each minted key's filter values, so a table that references this one inherits them
+    #: rather than drawing its own. This is what stops a fact disagreeing with the entity
+    #: it belongs to — the coherence a workspace data filter depends on.
+    filters: dict[str, dict[str, str]] = field(default_factory=dict)
 
 
 @dataclass
@@ -132,12 +150,18 @@ def plan_columns(table: Table, known_tables: frozenset[str] | set[str]) -> tuple
     the DDL plans without an edit here. That is the same property the registry has, and for
     the same reason.
     """
-    key_column = own_key_column(table)
+    key_column = own_key_column(table, known_tables)
     plans: list[ColumnPlan] = []
 
     for column in table.columns:
         name = column.name
         sql_type = column.sql_type.upper()
+
+        if name.startswith(WDF_PREFIX):
+            # Checked first: `wdf__tenant_id` ends in `_id` and would otherwise be read as
+            # a foreign key to a table that does not exist.
+            plans.append(ColumnPlan(name, ColumnStrategy.FILTER))
+            continue
 
         if name == key_column:
             plans.append(ColumnPlan(name, ColumnStrategy.OWN_KEY))
@@ -314,6 +338,48 @@ def _value(
     return f"{plan.column}_{index:05d}"
 
 
+def _assign_filters(
+    columns: list[str],
+    *,
+    values: dict[str, str],
+    foreign_plans: tuple[ColumnPlan, ...],
+    keyspaces: dict[str, KeySpace],
+) -> dict[str, str]:
+    """Resolve one row's filter values, inheriting wherever it can.
+
+    Precedence is inheritance first, assignment second. If the row references an entity that
+    already carries filter values, it takes them — so every order line under a store agrees
+    with that store, and a tenant filter never returns a row that half-belongs to it. Only a
+    row with nothing to inherit from assigns its own, deterministically from its key.
+
+    Tables are generated in dependency order, so a referenced table has always been assigned
+    before anything that references it.
+    """
+    for plan in foreign_plans:
+        space = keyspaces.get(plan.target or "")
+        if space is None or not space.filters:
+            continue
+        inherited = space.filters.get(values.get(plan.column, ""))
+        if inherited:
+            return dict(inherited)
+
+    seed_value = next(
+        (values[c] for c in values if c not in columns and values[c]),
+        "",
+    )
+    return {
+        column: _pick(WDF_VOCABULARY[column], f"{column}:{seed_value}")
+        for column in columns
+        if column in WDF_VOCABULARY
+    }
+
+
+def _pick(vocabulary: tuple[str, ...], key: str) -> str:
+    """A stable choice from a fixed vocabulary. blake2b, because `hash()` is salted."""
+    digest = hashlib.blake2b(key.encode("utf-8"), digest_size=8).digest()
+    return vocabulary[int.from_bytes(digest, "big") % len(vocabulary)]
+
+
 def _row_date(values: dict[str, str], date_columns: list[str]) -> date | None:
     """The date this row's numbers should follow, if it has one.
 
@@ -361,6 +427,9 @@ def generate_table(
     # The DDL decides how a number is written. Shaping changes what a value *means*, never
     # what type it is stored as.
     integers = frozenset(plan.column for plan in plans if plan.strategy is ColumnStrategy.INTEGER)
+    filter_columns = [plan.column for plan in plans if plan.strategy is ColumnStrategy.FILTER]
+    foreign_plans = tuple(p for p in plans if p.strategy is ColumnStrategy.FOREIGN_KEY)
+    minted_filters: dict[str, dict[str, str]] = {}
     shape = TimeShape(start=window[0], end=window[1])
     scale = TableScale.draw(rng)
 
@@ -369,6 +438,17 @@ def generate_table(
             plan.column: _value(plan, rng, table=table.name, index=index, keyspaces=keyspaces, window=window)
             for plan in plans
         }
+
+        if filter_columns:
+            assigned = _assign_filters(
+                filter_columns,
+                values=values,
+                foreign_plans=foreign_plans,
+                keyspaces=keyspaces,
+            )
+            values.update(assigned)
+            if key_plan is not None:
+                minted_filters[values[key_plan.column]] = assigned
 
         if numeric:
             when = _row_date(values, date_columns)
@@ -388,7 +468,12 @@ def generate_table(
         writer.writerow(row)
 
     space = (
-        KeySpace(table=table.name, column=key_plan.column, values=tuple(minted))
+        KeySpace(
+            table=table.name,
+            column=key_plan.column,
+            values=tuple(minted),
+            filters=minted_filters,
+        )
         if key_plan is not None
         else None
     )
