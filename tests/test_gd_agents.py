@@ -283,3 +283,131 @@ def test_a_transport_failure_becomes_an_answer(monkeypatch: pytest.MonkeyPatch) 
 
     assert not answer.ok()
     assert "timed out" in (answer.error or "")
+
+
+# --- plan: route and decompose ------------------------------------------------
+
+
+def plan_registry() -> Registry:
+    return Registry(
+        host="https://example.invalid",
+        token_env="TOKEN",
+        entries=(
+            WorkspaceEntry(id="mkt", title="Marketing", description="Measures Campaign Spend"),
+            WorkspaceEntry(id="cust", title="Customers", description="Measures NPS Response"),
+        ),
+    )
+
+
+def test_a_plan_carries_a_sub_question_per_workspace() -> None:
+    """Decomposition is what makes this federation: neither workspace is asked the user's
+    question, because neither can answer it."""
+    from gd_agents.orchestrator.plan import parse_plan
+
+    raw = (
+        '{"workspaces": ['
+        '{"id": "mkt", "question": "Show Total Campaign Spend by month", "why": "spend"},'
+        '{"id": "cust", "question": "Show Average NPS by month", "why": "satisfaction"}],'
+        ' "reasoning": "needs both", "combine_on": "month"}'
+    )
+    result = parse_plan("did spend move satisfaction?", raw, plan_registry())
+
+    assert result.workspaces() == ("mkt", "cust")
+    assert result.steps[0].question != "did spend move satisfaction?"
+    assert result.combine_on == "month"
+
+
+def test_a_hallucinated_workspace_is_dropped_and_noted() -> None:
+    """Calling a workspace the caller cannot see is a routing error. Dropping it silently
+    would hide it from the measurement, which is the point of measuring."""
+    from gd_agents.orchestrator.plan import parse_plan
+
+    raw = '{"workspaces": [{"id": "finance", "question": "x"}, {"id": "mkt", "question": "y"}]}'
+    result = parse_plan("q", raw, plan_registry())
+
+    assert result.workspaces() == ("mkt",)
+    assert any("finance" in note for note in result.notes)
+
+
+def test_a_plan_with_no_usable_workspace_is_an_error() -> None:
+    from gd_agents.orchestrator.plan import PlanError, parse_plan
+
+    with pytest.raises(PlanError):
+        parse_plan("q", '{"workspaces": []}', plan_registry())
+
+
+def test_not_combinable_is_distinct_from_unset() -> None:
+    """ "These do not combine" is a finding the merge must act on, so it cannot be confused
+    with the model having forgotten to say."""
+    from gd_agents.orchestrator.plan import parse_plan
+
+    raw = '{"workspaces": [{"id": "mkt", "question": "x"}], "combine_on": null}'
+    assert parse_plan("q", raw, plan_registry()).combine_on is None
+
+
+def test_code_fences_are_tolerated() -> None:
+    """Models add fences even when told not to; re-prompting costs more than stripping."""
+    from gd_agents.orchestrator.plan import parse_plan
+
+    raw = '```json\n{"workspaces": [{"id": "mkt", "question": "x"}]}\n```'
+    assert parse_plan("q", raw, plan_registry()).workspaces() == ("mkt",)
+
+
+def test_a_non_json_reply_is_an_error_naming_what_came_back() -> None:
+    from gd_agents.orchestrator.plan import PlanError, parse_plan
+
+    with pytest.raises(PlanError, match="not JSON"):
+        parse_plan("q", "I think you should ask marketing.", plan_registry())
+
+
+# --- the script ---------------------------------------------------------------
+
+
+def test_the_committed_script_loads_and_every_question_has_expectations() -> None:
+    """A question with no `expect` measures nothing, so it must not be loadable."""
+    from gd_agents.script import load_script
+
+    questions, conversations = load_script(Path("config/questions.yaml"))
+
+    assert len(questions) >= 9
+    assert conversations
+    assert all(question.expect for question in questions)
+    assert all(turn.expect for conversation in conversations for turn in conversation.turns)
+
+
+def test_a_question_without_expectations_is_refused(tmp_path: Path) -> None:
+    from gd_agents.script import ScriptError, load_script
+
+    path = tmp_path / "q.yaml"
+    path.write_text("questions:\n  - id: x\n    question: hello?\n", encoding="utf-8")
+    with pytest.raises(ScriptError, match="expect"):
+        load_script(path)
+
+
+def test_over_routing_and_under_routing_are_reported_separately() -> None:
+    """They are different problems with different fixes: one wastes latency and tokens, the
+    other returns an incomplete answer."""
+    from gd_agents.script import Question, compare
+
+    question = Question(id="x", question="q", expect=("a", "b"))
+
+    assert compare(question, ("a", "b")).exact()
+    assert compare(question, ("a",)).missed == ("b",)
+    assert compare(question, ("a", "b", "c")).extra == ("c",)
+    assert not compare(question, ("a", "b", "c")).exact()
+
+
+def test_the_script_covers_the_cases_the_spec_requires() -> None:
+    """The script is an acceptance criterion, so its coverage is asserted rather than
+    assumed: single-workspace routing, federation, all-lanes latency, a merge refusal, the
+    Overview beat, and degradation."""
+    from gd_agents.script import load_script
+
+    questions, _ = load_script(Path("config/questions.yaml"))
+    kinds = {question.kind for question in questions}
+
+    for required in ("routing", "federation", "latency", "merge-refusal", "overview-problem", "degradation"):
+        assert required in kinds, f"the script has no {required} case"
+    assert any(question.inject_failure for question in questions)
+    assert any(len(question.expect) == 1 for question in questions)
+    assert any(len(question.expect) == 4 for question in questions)

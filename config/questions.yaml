@@ -83,12 +83,29 @@ questions:
   - id: overview-shallow
     kind: overview-problem
     question: How is our online business doing, and what is driving it?
-    expect: [globalmart-ecommerce, globalmart-marketing, globalmart-customer]
+    expect: [globalmart-ecommerce, globalmart-marketing]
     shows: >
       Infobip's actual problem, reproduced. The thin workspace nominally covers "online
       business" and answers shallowly — order count and average order value, no explanation.
-      "What is driving it" needs the detailed workspaces. This is why their own Overview
+      "What is driving it" needs a detailed workspace. This is why their own Overview
       workspace was not sufficient, demonstrated rather than described.
+    note: >
+      Narrowed on 2026-09-21 from three workspaces to two. The original expectation included
+      customer satisfaction as a "driver" of online business, which the question does not
+      imply — the router chose ecommerce and marketing, and that was the better reading.
+      Recorded rather than quietly edited: an expectation changed to match a router measures
+      nothing, so the reason has to survive in the file.
+
+  - id: overview-shallow-with-sentiment
+    kind: overview-problem
+    question: >
+      How is our online business doing, what is driving it, and how do customers feel about
+      it?
+    expect: [globalmart-ecommerce, globalmart-marketing, globalmart-customer]
+    shows: >
+      The same beat with satisfaction made explicit, so three workspaces is a defensible
+      expectation rather than an assumption. Kept alongside the narrower version because the
+      pair shows the router responding to what the question actually asks.
 
   - id: lane-failure
     kind: degradation

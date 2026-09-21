@@ -76,6 +76,48 @@ def cmd_profile(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_route(args: argparse.Namespace) -> int:
+    """Measure routing across the whole script. No lanes are called.
+
+    Routing is a discrete decision, so it can be measured without a single A2A call — which
+    makes "how reliably does the question pick the right workspaces" answerable in a minute
+    for pennies, rather than an hour of real agent calls. That separability is the main
+    practical argument for an explicit router over a tool-calling loop.
+    """
+    from gd_agents.orchestrator.plan import PlanError, make_client, plan
+    from gd_agents.script import RouteReport, compare, load_script
+
+    registry = Registry.load(Path(args.registry))
+    questions, conversations = load_script(Path(args.script))
+    if args.turns:
+        questions = questions + tuple(turn for conversation in conversations for turn in conversation.turns)
+
+    client, model = make_client()
+    print(f"model  : {model}")
+    print(f"scoring: {len(questions)} question(s) against config/questions.yaml\n")
+
+    report = RouteReport()
+    for question in questions:
+        try:
+            result = plan(question.question, registry, client=client, model=model)
+        except PlanError as error:
+            outcome = compare(question, ())
+            outcome.error = str(error)[:160]
+            report.outcomes.append(outcome)
+            print(f"  {question.id:26} ERROR {str(error)[:80]}")
+            continue
+        outcome = compare(question, result.workspaces())
+        outcome.tokens_in, outcome.tokens_out = result.tokens_in, result.tokens_out
+        report.outcomes.append(outcome)
+        mark = "ok  " if outcome.exact() else "MISS"
+        print(f"  {question.id:26} {mark} -> {', '.join(outcome.chosen) or 'none'}")
+
+    print()
+    for line in report.summary_lines():
+        print(f"  {line}")
+    return 0 if report.exact() == len(report.outcomes) else 1
+
+
 def cmd_registry_show(args: argparse.Namespace) -> int:
     """Print the routing prompt block, so what the router sees is inspectable."""
     registry = Registry.load(Path(args.registry))
@@ -103,6 +145,14 @@ def main(argv: list[str] | None = None) -> int:
     profile.add_argument("--findings", default=str(FINDINGS_PATH))
     profile.add_argument("--apply", action="store_true", help="required to write anything")
     profile.set_defaults(func=cmd_profile)
+
+    route = actions.add_parser(
+        "route", help="measure routing across the question script, without calling any lane"
+    )
+    route.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
+    route.add_argument("--script", default="config/questions.yaml")
+    route.add_argument("--turns", action="store_true", help="also score every turn of every conversation")
+    route.set_defaults(func=cmd_route)
 
     show = actions.add_parser("registry", help="show the registry as the router sees it")
     show.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
