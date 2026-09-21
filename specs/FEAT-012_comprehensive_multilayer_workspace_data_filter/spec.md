@@ -1,6 +1,10 @@
 ---
-abandoned_at: null
-abandoned_reason: null
+abandoned_at: '2026-09-21'
+abandoned_reason: 'Parked 2026-09-21, not killed: Infobip''s four workspaces are four
+  products with different LDMs, not tenants of one model, so WDF and parent/child
+  creation are off the AIS-55 path. Revive for goal-01 when row-level isolation needs
+  demonstrating — the spec is complete and the demo_ecommerce reference implementation
+  is documented in it.'
 appetite: m
 blocked_at: null
 blocked_by: null
@@ -13,17 +17,16 @@ depends_on:
 - feat-005
 - feat-006
 - feat-013
-enables:
-- feat-009
+enables: []
 goal: goal-01
 id: feat-012
 name: 'Comprehensive multi-layer workspace data filter structure across GlobalMart:
   authored layers, compiled definitions and per-workspace assignments, coverage enforced
   and effect proven'
 sources: []
-status: draft
+status: abandoned
 tags: []
-updated: '2026-09-20'
+updated: '2026-09-21'
 ---
 
 ## Summary
@@ -203,9 +206,12 @@ protocol risk. The work that supplies the columns is **not** in this estimate �
   tables the layers claim, and be reloaded, before any apply can pass preflight. Also feat-001 (the parent layout that carries dataset references), feat-002 (the
   target-profile publish conventions this CLI follows), feat-005 (the warehouse load path the
   preflight inspects) and feat-006 (the execution harness the effect proof extends).
-- **Enables:** feat-009 — supplies the `tenants` scenario for the orchestrator registry, so the
-  AIS-55 demo can show that the same orchestrator crosses either axis with only the registry
-  descriptions changing.
+- **Enables:** nothing currently. This previously claimed to enable feat-009 by supplying a
+  `tenants` scenario. That claim died on 2026-09-21: Infobip's four workspaces are confirmed as
+  four *products* with four different LDMs, not tenants of one model, and the demo must show
+  federation across different models. Workspace data filters remain worth building for goal-01 —
+  GlobalMart can demonstrate nothing about row-level isolation today — but they are not on the
+  AIS-55 path.
 
 ## Related Research
 
