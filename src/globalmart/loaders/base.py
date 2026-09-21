@@ -84,6 +84,14 @@ class WarehouseLoader(Protocol):
 
     def row_count(self, schema: str, table: str) -> int: ...
 
+    def max_value(self, schema: str, table: str, column: str) -> str | None:
+        """The largest value in one column, or ``None`` when the table is empty.
+
+        Used to ask how recent the loaded data is. A warehouse that holds rows is not the
+        same as a warehouse that holds *current* rows, and only the second is useful to a
+        dashboard whose filters are relative.
+        """
+
     def truncate(self, schema: str, table: str) -> None: ...
 
     def load_csv(self, schema: str, table: str, csv_path: Path, columns: tuple[str, ...]) -> int:

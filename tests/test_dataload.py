@@ -37,10 +37,11 @@ class FakeLoader:
 
     warehouse = "fake"
 
-    def __init__(self, *, existing: set[str] | None = None) -> None:
+    def __init__(self, *, existing: set[str] | None = None, latest: str | None = None) -> None:
         self.rows: dict[str, int] = dict.fromkeys(existing or set(), 0)
         self.calls: list[str] = []
         self.ddl_applied = False
+        self.latest = latest
 
     def connect(self) -> None:
         self.calls.append("connect")
@@ -57,6 +58,9 @@ class FakeLoader:
 
     def row_count(self, schema: str, table: str) -> int:
         return self.rows.get(table, 0)
+
+    def max_value(self, schema: str, table: str, column: str) -> str | None:
+        return self.latest
 
     def truncate(self, schema: str, table: str) -> None:
         self.calls.append(f"truncate:{table}")
@@ -351,3 +355,73 @@ def test_the_manifest_digests_are_actually_correct(dataset) -> None:
     assert hashlib.sha256(raw).hexdigest() == entry["sha256"]
     assert rows == entry["rows"]
     assert header == entry["columns"]
+
+
+# --- freshness (ADR 008: something has to keep the warehouse current) ---------
+
+
+def test_an_empty_warehouse_is_stale(registry) -> None:  # type: ignore[no-untyped-def]
+    from globalmart.dataload import check_freshness
+
+    result = check_freshness(
+        profile(), registry=registry, manifest_path=MANIFEST, loader=FakeLoader()
+    )
+
+    assert not result.present
+    assert result.stale()
+
+
+def test_recent_data_is_current(registry) -> None:  # type: ignore[no-untyped-def]
+    from datetime import date
+
+    from globalmart.dataload import check_freshness, choose_probe
+
+    probe = choose_probe(registry, json.loads(MANIFEST.read_text(encoding="utf-8")))
+    assert probe is not None
+    loader = FakeLoader(existing={probe[0]}, latest="2026-09-10")
+
+    result = check_freshness(
+        profile(),
+        registry=registry,
+        manifest_path=MANIFEST,
+        loader=loader,
+        today=date(2026, 9, 20),
+    )
+
+    assert result.present
+    assert result.age_days == 10
+    assert not result.stale()
+
+
+def test_data_beyond_the_age_limit_is_stale(registry) -> None:  # type: ignore[no-untyped-def]
+    """The 21-month staleness that started all this, as a test rather than a discovery."""
+    from datetime import date
+
+    from globalmart.dataload import check_freshness, choose_probe
+
+    probe = choose_probe(registry, json.loads(MANIFEST.read_text(encoding="utf-8")))
+    assert probe is not None
+    loader = FakeLoader(existing={probe[0]}, latest="2024-12-28")
+
+    result = check_freshness(
+        profile(),
+        registry=registry,
+        manifest_path=MANIFEST,
+        loader=loader,
+        today=date(2026, 9, 20),
+    )
+
+    assert result.stale()
+    assert result.age_days is not None and result.age_days > 600
+
+
+def test_the_probe_is_a_dated_table_chosen_from_the_contract(registry) -> None:  # type: ignore[no-untyped-def]
+    """Chosen by size and declared type, so no table is named anywhere."""
+    from globalmart.dataload import choose_probe
+
+    probe = choose_probe(registry, json.loads(MANIFEST.read_text(encoding="utf-8")))
+
+    assert probe is not None
+    table, column = probe
+    declared = {c.name: c.sql_type.upper() for c in registry.require(table).columns}
+    assert declared[column].startswith("DATE")

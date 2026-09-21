@@ -33,7 +33,7 @@ from globalmart.closure import MetricPolicy
 from globalmart.config import GlobalmartError, load_profile
 from globalmart.counts import count_objects
 from globalmart.coverage import check_coverage, raise_for_report
-from globalmart.dataload import load_data, verify_contract
+from globalmart.dataload import DEFAULT_MAX_AGE_DAYS, check_freshness, load_data, verify_contract
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
@@ -452,6 +452,71 @@ def cmd_data_load(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_data_ensure(args: argparse.Namespace) -> int:
+    """Make sure the warehouse holds current data, generating and loading only if it does not.
+
+    What the scheduled workflow runs. ADR 008 moved the rows out of the repository, so
+    something has to keep the warehouse populated — and it has to be safe to run repeatedly,
+    which means asking before acting. A run that finds current data does nothing and says so.
+    """
+    import tempfile
+    from datetime import date
+
+    profile = load_profile(args.target)
+    model = read_tree(Path(args.layout)) if Path(args.layout).exists() else None
+    registry = build_registry(Path(args.ddl), model=model)
+
+    freshness = check_freshness(
+        profile,
+        registry=registry,
+        manifest_path=Path(args.manifest),
+        max_age_days=args.max_age_days,
+    )
+    _print_report("Freshness", freshness.summary_lines())
+
+    if not freshness.stale() and not args.force:
+        print("\nNothing to do — the warehouse holds current data.")
+        return 0
+
+    reason = "forced" if args.force and not freshness.stale() else "stale or empty"
+    print(f"\nRegenerating ({reason}).")
+
+    if not args.apply:
+        print("REHEARSAL — no writes. Re-run with --apply to generate and load.")
+        return 0
+
+    with tempfile.TemporaryDirectory(prefix="globalmart-ensure-") as tmp:
+        out = Path(tmp)
+        window = resolve_window(
+            date.fromisoformat(args.start_date) if args.start_date else None,
+            date.fromisoformat(args.end_date) if args.end_date else None,
+        )
+        generated = generate_dataset(
+            registry,
+            out_dir=out,
+            seed=args.seed,
+            scale=args.scale,
+            base_counts=base_row_counts(Path(args.manifest)),
+            window=window,
+        )
+        _print_report("\nGenerate", generated.summary_lines())
+        print(f"window            : {window[0]} .. {window[1]}")
+
+        report = load_data(
+            profile,
+            apply=True,
+            ddl_path=Path(args.ddl),
+            tables_dir=out / "tables",
+            manifest_path=out / "table-manifest.json",
+            model=model,
+            registry=registry,
+        )
+        _print_report("\nLoad", report.summary_lines())
+
+    print("\nWarehouse is current.")
+    return 0
+
+
 def cmd_verify(args: argparse.Namespace) -> int:
     """Read-only, so no --apply and no --dry-run. --list-only names objects without running."""
     profile = load_profile(args.target)
@@ -806,6 +871,30 @@ def build_parser() -> argparse.ArgumentParser:
         help="last date in the generated window (default: today, which is the point)",
     )
     data_generate.set_defaults(func=cmd_data_generate)
+
+    data_ensure = data_actions.add_parser(
+        "ensure",
+        help="generate and load only if the warehouse is empty or stale (what CI runs)",
+    )
+    data_ensure.add_argument("--target", required=True, help="target profile to check and load")
+    data_ensure.add_argument("--apply", action="store_true", help="required to generate and load")
+    data_ensure.add_argument(
+        "--max-age-days",
+        type=int,
+        default=DEFAULT_MAX_AGE_DAYS,
+        help="how stale the loaded data may be before it is regenerated",
+    )
+    data_ensure.add_argument(
+        "--force", action="store_true", help="regenerate even when the data is current"
+    )
+    data_ensure.add_argument("--seed", type=int, default=20260920)
+    data_ensure.add_argument("--scale", type=float, default=1.0)
+    data_ensure.add_argument("--start-date")
+    data_ensure.add_argument("--end-date")
+    data_ensure.add_argument("--ddl", default=str(DEFAULT_DDL_PATH))
+    data_ensure.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    data_ensure.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
+    data_ensure.set_defaults(func=cmd_data_ensure)
 
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)

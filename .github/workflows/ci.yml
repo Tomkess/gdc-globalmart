@@ -47,10 +47,11 @@ jobs:
       - name: Domain children are current
         run: uv run globalmart split --check
 
-      # The committed rows must match their manifest, and every SQL-backed dataset must
-      # reference a table the DDL defines. Offline — the data is in the repo, so this needs
-      # no credentials and no warehouse.
-      - name: Data is intact and SQL datasets resolve
+      # ADR 008 moved the rows out of the repo, so there are no bytes to hash. What is
+      # committed is the contract — which tables exist, their row counts and their columns —
+      # and it must agree with the DDL. Every SQL-backed dataset must also reference a table
+      # the DDL defines. Offline: no credentials, no warehouse.
+      - name: Contract agrees with the DDL and SQL datasets resolve
         run: uv run globalmart data verify
 
       # The compiled memory items must match the authored Markdown. Editing a knowledge

@@ -28,6 +28,7 @@ And, as everywhere else, `--apply` is the only path to a write.
 from __future__ import annotations
 
 import csv
+import datetime as dt
 import gzip
 import hashlib
 import io
@@ -142,6 +143,94 @@ def verify_contract(registry: Any, *, manifest_path: Path = DEFAULT_MANIFEST_PAT
         missing_from_contract=tuple(sorted(declared - set(contracted))),
         column_drift=tuple(drift),
     )
+
+
+#: How stale the loaded data may be before it is regenerated. A month is long enough that a
+#: scheduled run is usually a no-op, and short enough that a dashboard's "last 12 months"
+#: never lands in an empty range.
+DEFAULT_MAX_AGE_DAYS = 31
+
+
+@dataclass(frozen=True)
+class Freshness:
+    """Whether the warehouse holds data, and how recent it is."""
+
+    present: bool
+    probe_table: str | None
+    probe_column: str | None
+    latest: str | None
+    age_days: int | None
+    max_age_days: int
+
+    def stale(self) -> bool:
+        if not self.present or self.latest is None or self.age_days is None:
+            return True
+        return self.age_days > self.max_age_days
+
+    def summary_lines(self) -> list[str]:
+        if not self.present:
+            return ["warehouse         : empty — nothing loaded"]
+        return [
+            f"probe             : {self.probe_table}.{self.probe_column}",
+            f"latest date       : {self.latest}",
+            f"age               : {self.age_days} days (limit {self.max_age_days})",
+            f"verdict           : {'stale' if self.stale() else 'current'}",
+        ]
+
+
+def choose_probe(registry: Any, manifest: dict[str, Any]) -> tuple[str, str] | None:
+    """Pick the table whose dates best answer "is this data current?".
+
+    The biggest contracted table that declares a DATE column, with ties broken by name. No
+    table is named here: a probe chosen by hand would be one more place that has to be
+    edited when the schema moves.
+    """
+    candidates = []
+    for table in sorted(registry.names()):
+        if table not in manifest.get("tables", {}):
+            continue
+        dated = [c.name for c in registry.require(table).columns if c.sql_type.upper().startswith("DATE")]
+        if dated:
+            candidates.append((int(manifest["tables"][table]["rows"]), table, dated[0]))
+    if not candidates:
+        return None
+    _, table, column = max(candidates, key=lambda item: (item[0], item[1]))
+    return table, column
+
+
+def check_freshness(
+    profile: TargetProfile,
+    *,
+    registry: Any,
+    manifest_path: Path = DEFAULT_MANIFEST_PATH,
+    loader: Any | None = None,
+    max_age_days: int = DEFAULT_MAX_AGE_DAYS,
+    today: dt.date | None = None,
+) -> Freshness:
+    """Ask the warehouse whether it holds current data. Read-only."""
+    manifest = load_manifest(manifest_path)
+    probe = choose_probe(registry, manifest)
+    owned = loader if loader is not None else make_loader(profile)
+
+    owned.connect()
+    try:
+        existing = owned.existing_tables(profile.datasource_schema)
+        if probe is None or probe[0] not in existing:
+            return Freshness(False, None, None, None, None, max_age_days)
+        table, column = probe
+        latest = owned.max_value(profile.datasource_schema, table, column)
+    finally:
+        owned.close()
+
+    if not latest:
+        return Freshness(False, table, column, None, None, max_age_days)
+
+    stamp = str(latest)[:10]
+    try:
+        age = ((today or dt.date.today()) - dt.date.fromisoformat(stamp)).days
+    except ValueError:
+        return Freshness(True, table, column, stamp, None, max_age_days)
+    return Freshness(True, table, column, stamp, age, max_age_days)
 
 
 def load_manifest(path: Path = DEFAULT_MANIFEST_PATH) -> dict[str, Any]:

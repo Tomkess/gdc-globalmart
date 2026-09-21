@@ -1,0 +1,61 @@
+# Keeps the warehouse holding data that reaches the present.
+#
+# ADR 008 moved GlobalMart's rows out of the repository: committed data has no mechanism
+# that keeps itself current, which is how it came to sit 21 months stale behind dashboards
+# whose relative date filters resolved to an empty range. This is that mechanism.
+#
+# It asks before it acts. A run that finds current data does nothing and says so, so the
+# schedule is cheap and the log is honest about which runs mattered.
+name: Data currency
+
+on:
+  schedule:
+    # Weekly, early Monday. The freshness limit is a month, so most runs are a no-op — the
+    # cadence is about noticing quickly, not about regenerating often.
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Target profile to ensure"
+        required: true
+        default: demo-cloud-rebuild
+      force:
+        description: "Regenerate even if the data is current"
+        type: boolean
+        default: false
+      apply:
+        description: "Actually generate and load (unchecked = rehearsal)"
+        type: boolean
+        default: false
+
+# One at a time: two concurrent loads would truncate the same schema underneath each other.
+concurrency:
+  group: data-currency-${{ github.event.inputs.target || 'demo-cloud-rebuild' }}
+  cancel-in-progress: false
+
+jobs:
+  ensure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        run: uv sync --all-extras --dev
+
+      # Only a profile with data_owned: true can be truncated at all (ADR 004), so the
+      # blast radius of a wrong target is bounded by the config rather than by this file.
+      - name: Ensure the warehouse is current
+        env:
+          GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD }}
+          MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+        run: |
+          uv run globalmart data ensure \
+            --target "${{ github.event.inputs.target || 'demo-cloud-rebuild' }}" \
+            --max-age-days 31 \
+            ${{ github.event_name == 'schedule' && '--apply' || (github.event.inputs.apply == 'true' && '--apply' || '') }} \
+            ${{ github.event.inputs.force == 'true' && '--force' || '' }}

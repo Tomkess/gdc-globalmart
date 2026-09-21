@@ -68,6 +68,12 @@ class MotherDuckLoader:
         row = self._require().execute(f'SELECT count(*) FROM "{schema}"."{table}"').fetchone()
         return int(row[0]) if row else 0
 
+    def max_value(self, schema: str, table: str, column: str) -> str | None:
+        cursor = self._require().execute(f'SELECT MAX("{column}") FROM "{schema}"."{table}"')
+        row = cursor.fetchone()
+        value = row[0] if row else None
+        return None if value is None else str(value)
+
     def truncate(self, schema: str, table: str) -> None:
         self._require().execute(f'DELETE FROM "{schema}"."{table}"')
 

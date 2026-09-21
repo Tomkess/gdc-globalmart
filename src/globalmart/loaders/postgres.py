@@ -75,6 +75,13 @@ class PostgresLoader:
             row = cursor.fetchone()
             return int(row[0]) if row else 0
 
+    def max_value(self, schema: str, table: str, column: str) -> str | None:
+        with self._require().cursor() as cursor:
+            cursor.execute(f'SELECT MAX("{column}") FROM "{schema}"."{table}"')
+            row = cursor.fetchone()
+            value = row[0] if row else None
+            return None if value is None else str(value)
+
     def truncate(self, schema: str, table: str) -> None:
         with self._require().cursor() as cursor:
             cursor.execute(f'TRUNCATE TABLE "{schema}"."{table}"')
