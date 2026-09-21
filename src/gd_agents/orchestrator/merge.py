@@ -185,8 +185,10 @@ def merge(
         result.text = separate_answers(question, answers, checks)
         return result
 
-    if client is None:
-        client, resolved = make_client()
+    # Bound to its own name rather than reassigning the parameter — see `plan`.
+    caller: Any = client
+    if caller is None:
+        caller, resolved = make_client()
         model = model or resolved
     model = model or os.environ.get(MODEL_ENV, DEFAULT_MODEL)
 
@@ -194,7 +196,7 @@ def merge(
     if combine_on:
         context += f"\n\nThe plan expected these to combine on: {combine_on}"
 
-    response = client.messages.create(
+    response = caller.messages.create(
         model=model,
         max_tokens=MAX_TOKENS,
         system=SYSTEM_PROMPT.format(model_checks=model_check_prompt()),

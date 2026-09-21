@@ -43,6 +43,19 @@ class Shape:
     time_to: str | None = None
     """ISO date the answer covers to."""
 
+    grains: tuple[str, ...] = ()
+    """*Every* breakdown the answer contains, where it contains more than one.
+
+    One sub-question can legitimately ask for two things — "rank campaigns by spend, and
+    also give me spend by month" — and the workspace then returns two charts. Reading only
+    the first made such a lane look as if it had answered at the wrong grain, and the merge
+    refused a pair that did in fact share one. `grain` stays the first, for a reader; the
+    checks look for an overlap across these.
+    """
+
+    windows: tuple[str, ...] = ()
+    """Every period the answer covers, for the same reason as `grains`."""
+
     filters: tuple[str, ...] = ()
     """Filters applied, as the lane understood them. Order is not significant."""
 
@@ -89,6 +102,16 @@ class Answer:
     cold. Per lane: each workspace runs its own A2A conversation."""
 
     error: str | None = None
+
+    input_required: bool = False
+    """The lane stopped to ask the caller something, and `text` is that question.
+
+    Not a failure and not an answer — a third state the protocol has and most callers do
+    not model. Carried up so a host can put the question to a human and reply on the same
+    `context_id`, which is the only way the lane ever contributes. A fan-out with nobody
+    watching auto-confirms instead; that is a guess, and this field is what makes the
+    non-guessing path available.
+    """
 
     def ok(self) -> bool:
         return self.error is None

@@ -86,46 +86,90 @@ def _lane_completeness(answers: Sequence[Answer]) -> Result:
     return Result("lane_completeness", Verdict.PASS, "every lane answered with data")
 
 
-def _windows(answers: Sequence[Answer]) -> list[tuple[str, str, str]]:
-    return [
-        (a.workspace, a.shape.time_from or "", a.shape.time_to or "")
-        for a in answers
-        if a.shape.time_from or a.shape.time_to
+def _windows_of(answer: Answer) -> set[str]:
+    """Every period the lane covered, as it expressed them.
+
+    `time_from` and `time_to` are one window's two ends, so they collapse to a single
+    string. Reading them as two separate values would let a lane covering April–September
+    "share" a window with one covering April–June, on the strength of the start date alone.
+    """
+    if answer.shape.windows:
+        return set(answer.shape.windows)
+    if answer.shape.time_from or answer.shape.time_to:
+        return {f"{answer.shape.time_from or '?'}..{answer.shape.time_to or '?'}"}
+    return set()
+
+
+def _grains_of(answer: Answer) -> set[str]:
+    """Every breakdown the lane returned."""
+    if answer.shape.grains:
+        return set(answer.shape.grains)
+    return {answer.shape.grain} if answer.shape.grain else set()
+
+
+def _overlap(
+    check: str,
+    answers: Sequence[Answer],
+    of: Callable[[Answer], set[str]],
+    *,
+    noun: str,
+    on_fail: str,
+) -> Result:
+    """Pass when every reporting lane shares at least one value; fail when none is common.
+
+    An overlap rather than equality, because a lane can legitimately return more than one
+    chart. A sub-question may ask a workspace for a ranking *and* a monthly series, and a
+    lane holding {campaign_id, month} against one holding {month} does share a key — month.
+    Requiring a single value made the extra chart a reason to refuse, which punished the
+    lane for answering the question more fully than the minimum.
+
+    What it will not do is manufacture agreement: with nothing in common it still fails, and
+    with fewer than two lanes reporting it returns UNKNOWN rather than passing on an absence.
+    """
+    reported = [(a.workspace, of(a)) for a in answers if of(a)]
+    if len(reported) < 2:
+        return Result(check, Verdict.UNKNOWN, f"fewer than two lanes reported a {noun}")
+
+    common = set.intersection(*(values for _, values in reported))
+    if not common:
+        listed = "; ".join(f"{ws} {', '.join(sorted(values))}" for ws, values in reported)
+        return Result(check, Verdict.FAIL, f"{on_fail} ({listed})")
+
+    agreed = ", ".join(sorted(common))
+    extra = [
+        f"{ws} also returned {', '.join(sorted(values - common))}"
+        for ws, values in reported
+        if values - common
     ]
+    reason = f"common {noun} {agreed}"
+    if extra:
+        # Said out loud, because the merge is about to be handed material the lanes do not
+        # both hold, and a reader should know which part of it is comparable.
+        reason += " (" + "; ".join(extra) + ")"
+    return Result(check, Verdict.PASS, reason)
 
 
 def _time_window_match(answers: Sequence[Answer]) -> Result:
-    known = _windows(answers)
-    if len(known) < 2:
-        return Result("time_window_match", Verdict.UNKNOWN, "fewer than two lanes reported a window")
-    distinct = {(start, end) for _, start, end in known}
-    if len(distinct) > 1:
-        listed = "; ".join(f"{ws} {start}..{end}" for ws, start, end in known)
-        return Result(
-            "time_window_match",
-            Verdict.FAIL,
-            f"windows differ ({listed}). A comparison across different periods is invalid "
-            "however natural it reads.",
-        )
-    return Result("time_window_match", Verdict.PASS, "same window")
+    return _overlap(
+        "time_window_match",
+        answers,
+        _windows_of,
+        noun="window",
+        on_fail=(
+            "no shared period. A comparison across different periods is invalid however "
+            "natural it reads"
+        ),
+    )
 
 
 def _shared_dimension(answers: Sequence[Answer]) -> Result:
-    # Count the lanes that *reported*, not the distinct values. Two lanes both saying
-    # "month" is agreement — the strongest possible pass — and counting distinct values
-    # made it indistinguishable from nobody having said anything.
-    reported = [a.shape.grain for a in answers if a.shape.grain]
-    if len(reported) < 2:
-        return Result("shared_dimension", Verdict.UNKNOWN, "fewer than two lanes reported a grain")
-    grains = set(reported)
-    if len(grains) > 1:
-        return Result(
-            "shared_dimension",
-            Verdict.FAIL,
-            f"no common key: grains are {', '.join(sorted(grains))}. Report separately rather "
-            "than asserting a relationship.",
-        )
-    return Result("shared_dimension", Verdict.PASS, f"common grain {next(iter(grains))}")
+    return _overlap(
+        "shared_dimension",
+        answers,
+        _grains_of,
+        noun="grain",
+        on_fail="no common key. Report separately rather than asserting a relationship",
+    )
 
 
 def _filter_parity(answers: Sequence[Answer]) -> Result:

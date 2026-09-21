@@ -23,6 +23,7 @@ from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 
 from gd_agents.lane import Answer, Lane
+from gd_agents.orchestrator.events import Observer, emit
 from gd_agents.orchestrator.plan import Plan
 
 #: Long enough for a real agent call — 74s was observed live — with headroom, and short
@@ -100,6 +101,7 @@ def fanout(
     max_workers: int = MAX_WORKERS,
     only: frozenset[str] | None = None,
     inject_failure: str | None = None,
+    observe: Observer | None = None,
 ) -> FanoutReport:
     """Run the plan's steps concurrently and collect every answer, failures included.
 
@@ -113,6 +115,10 @@ def fanout(
 
     `inject_failure` forces one lane to fail, so the script's degradation case can be
     demonstrated without waiting for a real outage.
+
+    `observe` is told as each lane starts and finishes. Lanes finish out of order and are
+    reported that way, which is the point: it is how a watcher can see that the fan-out is
+    concurrent rather than take the wall-clock number on trust.
     """
     contexts = contexts or {}
     steps = [step for step in plan.steps if only is None or step.workspace in only]
@@ -129,7 +135,22 @@ def fanout(
     started = time.monotonic()
     collected: list[Answer] = []
 
+    def report_done(answer: Answer) -> None:
+        emit(
+            observe,
+            "lane_done",
+            workspace=answer.workspace,
+            ok=answer.ok(),
+            returned_data=answer.shape.returned_data,
+            input_required=answer.input_required,
+            latency_ms=answer.latency_ms,
+            round_trips=answer.round_trips,
+            grain=answer.shape.grain,
+            error=answer.error,
+        )
+
     def run(workspace: str, question: str) -> Answer:
+        emit(observe, "lane_start", workspace=workspace, question=question)
         if workspace == inject_failure:
             return Answer(
                 workspace=workspace,
@@ -147,18 +168,18 @@ def fanout(
         for future in as_completed(futures, timeout=None):
             workspace = futures[future]
             try:
-                collected.append(future.result(timeout=timeout))
+                answer = future.result(timeout=timeout)
             except Exception as error:  # noqa: BLE001 - a lane must never raise upward
                 # Includes the timeout. The lane is reported as failed and the query goes on;
                 # letting this propagate would fail the whole question over one slow agent.
-                collected.append(
-                    Answer(
-                        workspace=workspace,
-                        question=next(s.question for s in steps if s.workspace == workspace),
-                        text="",
-                        error=f"{type(error).__name__}: {error}"[:300],
-                    )
+                answer = Answer(
+                    workspace=workspace,
+                    question=next(s.question for s in steps if s.workspace == workspace),
+                    text="",
+                    error=f"{type(error).__name__}: {error}"[:300],
                 )
+            collected.append(answer)
+            report_done(answer)
 
     report.wall_ms = int((time.monotonic() - started) * 1000)
     # Plan order, not completion order: the report should read the way the plan was written.

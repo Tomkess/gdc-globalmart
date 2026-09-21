@@ -66,6 +66,7 @@ from dataclasses import dataclass, replace
 from typing import Any
 
 from gd_agents.lane import Answer, Shape
+from gd_agents.orchestrator.events import Observer, emit
 from gd_agents.transport import Host, TransportError
 
 #: The states the GoodData A2A server actually uses (`executor.py`).
@@ -222,42 +223,63 @@ def shape_from_artifacts(artifacts: tuple[dict[str, Any], ...]) -> Shape:
     relative. Two lanes both saying `-5..0 MONTH` agree; resolving them to absolute dates
     would invent a precision the agent never claimed, and comparing a resolved window with
     an unresolved one would fail for the wrong reason.
+
+    **Every visualization, not the first.** One sub-question can legitimately ask a workspace
+    for two things — "rank campaigns by spend, and also give me spend by month" — and the
+    agent returns two charts. Observed live 2026-09-21: reading only the first gave the
+    marketing lane a grain of `campaign_id` when it had also returned the monthly series the
+    plan asked for, so `shared_dimension` refused a pair that agreed on month. The first
+    chart remains `grain`/`time_from` for a reader; the full sets are what the checks use.
     """
-    visualization = next((a.get("data") for a in artifacts if a.get("name") == "visualization"), None)
-    if not isinstance(visualization, dict):
+    visualizations = [
+        a.get("data")
+        for a in artifacts
+        if a.get("name") == "visualization" and isinstance(a.get("data"), dict)
+    ]
+    if not visualizations:
         return Shape()
 
-    query = visualization.get("query") or {}
-    fields = query.get("fields") or {}
-
-    def using(key: str) -> str:
-        entry = fields.get(key) or {}
-        return str(entry.get("using") or key)
-
-    grains: list[str] = []
-    for key in visualization.get("view_by") or []:
-        reference = using(str(key))
-        # `label/transaction_date.month` -> `month`: the part after the last dot is the
-        # granularity, which is what two lanes have to agree on.
-        grains.append(reference.rsplit(".", 1)[-1] if "." in reference else reference.split("/")[-1])
-
-    windows: list[str] = []
+    all_grains: list[str] = []
+    all_windows: list[str] = []
     other: list[str] = []
-    for name, spec in (query.get("filter_by") or {}).items():
-        if not isinstance(spec, dict):
-            continue
-        if spec.get("type") == "date_filter":
-            granularity = str(spec.get("granularity") or "")
-            windows.append(f"{spec.get('from')}..{spec.get('to')} {granularity}".strip())
-        else:
-            other.append(f"{name}={spec.get('type') or 'filter'}")
 
-    window = windows[0] if windows else None
+    for visualization in visualizations:
+        assert isinstance(visualization, dict)  # noqa: S101 - narrowed by the filter above
+        query = visualization.get("query") or {}
+        fields = query.get("fields") or {}
+
+        def using(key: str, fields: dict[str, Any] = fields) -> str:
+            entry = fields.get(key) or {}
+            return str(entry.get("using") or key)
+
+        grains: list[str] = []
+        for key in visualization.get("view_by") or []:
+            reference = using(str(key))
+            # `label/transaction_date.month` -> `month`: the part after the last dot is the
+            # granularity, which is what two lanes have to agree on.
+            grains.append(reference.rsplit(".", 1)[-1] if "." in reference else reference.split("/")[-1])
+        if grains:
+            all_grains.append(", ".join(grains))
+
+        for name, spec in (query.get("filter_by") or {}).items():
+            if not isinstance(spec, dict):
+                continue
+            if spec.get("type") == "date_filter":
+                granularity = str(spec.get("granularity") or "")
+                all_windows.append(f"{spec.get('from')}..{spec.get('to')} {granularity}".strip())
+            else:
+                other.append(f"{name}={spec.get('type') or 'filter'}")
+
+    grain_set = tuple(dict.fromkeys(all_grains))
+    window_set = tuple(dict.fromkeys(all_windows))
+    window = window_set[0] if window_set else None
     return Shape(
-        grain=", ".join(grains) or None,
+        grain=grain_set[0] if grain_set else None,
         time_from=window,
         time_to=window,
-        filters=tuple(sorted(other)),
+        grains=grain_set,
+        windows=window_set,
+        filters=tuple(sorted(set(other))),
         units=None,
     )
 
@@ -339,6 +361,13 @@ class A2ALane:
     no reason attached, a caller cannot tell the two apart, which is itself the product ask.
     One retry is the cheaper mistake."""
 
+    observe: Observer | None = None
+    """Told what this lane is doing, round trip by round trip.
+
+    A lane is 30–120 seconds of silence otherwise, and the interesting part is *why* — one
+    POST, or a POST plus a confirmation, or a retry after a 502. Optional and inert by
+    default: the `Answer` is the result, this is only narration."""
+
     def describe(self) -> str:
         return self.description
 
@@ -348,11 +377,20 @@ class A2ALane:
     def agent_card(self) -> dict[str, Any]:
         return dict(self.host.get(self.endpoint()) or {})
 
+    def _step(self, step: str, detail: str = "", **extra: Any) -> None:
+        emit(self.observe, "lane_step", workspace=self.workspace, step=step, detail=detail, **extra)
+
     def ask(self, question: str, *, context_id: str | None = None) -> Answer:
         started = time.monotonic()
         attempts = 0
         payload = None
         last_error: TransportError | None = None
+
+        self._step(
+            "message/send",
+            f"POST {self.endpoint()}"
+            + (f" · resuming contextId {context_id[:8]}…" if context_id else " · new conversation"),
+        )
 
         while attempts <= self.retries:
             attempts += 1
@@ -365,12 +403,14 @@ class A2ALane:
                 last_error = error
                 if not is_transient(error) or attempts > self.retries:
                     break
+                self._step("retry", f"{error} — transient, asking once more")
 
         # A terminal `failed` carries no reason, so it is indistinguishable from a transient
         # one. Retried once, with the round trip counted.
         if self.retry_failed_state and payload is not None:
             first = _root(payload)
             if str(((first.get("status") or {}) or {}).get("state") or "") == FAILED:
+                self._step("retry", "agent reported state 'failed' with no detail — asking again")
                 try:
                     payload = self.host.post(
                         self.endpoint(),
@@ -382,6 +422,7 @@ class A2ALane:
                     pass  # keep the failed Task; the lane reports it honestly
 
         if payload is None:
+            self._step("failed", str(last_error))
             return Answer(
                 workspace=self.workspace,
                 question=question,
@@ -395,7 +436,14 @@ class A2ALane:
         state = str(((node.get("status") or {}) if isinstance(node, dict) else {}).get("state") or "")
         asked_for_clarification = state == INPUT_REQUIRED
 
+        if asked_for_clarification and not self.confirm_clarifications:
+            self._step(
+                "input-required",
+                "the agent stopped to ask a question — passing it to the caller",
+            )
+
         if asked_for_clarification and self.confirm_clarifications:
+            self._step("input-required", "the agent stopped to ask — auto-confirming")
             continued = context_id or context_id_of(payload)
             try:
                 payload = self.host.post(
@@ -411,6 +459,12 @@ class A2ALane:
 
         elapsed = int((time.monotonic() - started) * 1000)
         text, source = answer_text(payload)
+        pending = state == INPUT_REQUIRED
+        self._step(
+            "read",
+            f"state {state or '?'} · answer read from {source}",
+            latency_ms=elapsed,
+        )
 
         if state == FAILED:
             return Answer(
@@ -433,8 +487,9 @@ class A2ALane:
                 + (" (after confirming an assumption)" if asked_for_clarification else ""),
                 # An agent still asking has not answered, and a merge that treats the
                 # question as data would narrate a prompt back to the user.
-                returned_data=bool(text) and state != INPUT_REQUIRED,
+                returned_data=bool(text) and not pending,
             ),
+            input_required=pending,
             # Text narrates, artifacts carry the values — so provenance is the union.
             numbers=tuple(dict.fromkeys(numbers_from_artifacts(artifacts) + numbers_in(text))),
             artifacts=artifacts,

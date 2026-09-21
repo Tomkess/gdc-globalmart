@@ -67,6 +67,37 @@ Your job, for one user question:
 3. Say what you expect to do with the answers — whether they can be combined and on what
    shared dimension, or whether they will have to be reported separately.
 
+4. **If you intend to combine the answers, ask for them in the same shape.** This is the
+   rule most easily got wrong, and getting it wrong wastes the whole turn:
+
+   - Every sub-question must state the *same* time period, in the same words. If a wider
+     window is needed to see a change, widen it for every workspace, not one.
+   - Every sub-question must ask for the breakdown you named in `combine_on`. If you plan to
+     combine on month, each workspace must be asked "by month" — a ranking by campaign and a
+     trend by month have nothing to join on, however well each answers on its own.
+   - You may ask one workspace for two things ("by month, and also ranked by campaign") when
+     the reader needs both. Asking each for a different one is what cannot be merged.
+
+   Answers whose periods or breakdowns disagree are refused downstream and reported side by
+   side, which is an honest outcome and a worse one.
+
+5. **Before deciding that two answers cannot be combined, try time.** Every workspace
+   measures over time, so a shared time grain is almost always available even when nothing
+   else is. When a question asks whether two things moved together, influenced each other,
+   or explain each other, and the workspaces share no business key:
+
+   - Ask each workspace for its measure **by month** (or by week or quarter — the same one
+     for all of them) over **the same window**, and set `combine_on` to that grain.
+   - Where the reader also needs a ranking — "the campaigns we spent most on" — ask that
+     workspace for *both*: the ranking and the same monthly series. One workspace can be
+     asked two things; two workspaces cannot each be asked a different one.
+   - Only set `combine_on` to null when even a shared time grain would not help, for example
+     when the two answers are about different periods because the *user* asked for different
+     periods.
+
+   Reporting side by side is a real outcome and sometimes the only true one. It is not a
+   shortcut to reach for when a common time grain was there to be asked for.
+
 Reply with JSON only, no prose and no code fences:
 
 {"workspaces": [{"id": "<workspace id>", "question": "<sub-question>", "why": "<one line>"}],
@@ -176,7 +207,18 @@ def make_client() -> tuple[Any, str]:
 
     bedrock = os.environ.get(BEDROCK_MODEL_ENV, "")
     if bedrock:
-        return anthropic.AnthropicBedrock(), bedrock
+        # `AnthropicBedrock` is present only when the SDK's bedrock extra is installed, and
+        # the SDK does not re-export it from the package root in a way a type checker sees.
+        # Fetching it by name means asking for Bedrock without it fails with a sentence a
+        # reader can act on rather than an AttributeError.
+        constructor = getattr(anthropic, "AnthropicBedrock", None)
+        if constructor is None:
+            raise PlanError(
+                f"${BEDROCK_MODEL_ENV} is set but this anthropic install has no Bedrock "
+                "client. Install anthropic with its bedrock extra, or unset the variable "
+                "and use $ANTHROPIC_API_KEY."
+            )
+        return constructor(), bedrock
     if not os.environ.get("ANTHROPIC_API_KEY"):
         raise PlanError(f"No ANTHROPIC_API_KEY and no ${BEDROCK_MODEL_ENV}.")
     return anthropic.Anthropic(), os.environ.get(MODEL_ENV, DEFAULT_MODEL)
@@ -190,13 +232,16 @@ def plan(
     model: str | None = None,
 ) -> Plan:
     """Route and decompose, in one call."""
-    if client is None:
-        client, resolved = make_client()
+    # Bound to its own name rather than reassigning the parameter: a checker keeps the
+    # parameter's declared `Any | None` past the guard and then reports `.messages` on None.
+    caller: Any = client
+    if caller is None:
+        caller, resolved = make_client()
         model = model or resolved
     if not model:
         model = os.environ.get(MODEL_ENV, DEFAULT_MODEL)
 
-    response = client.messages.create(
+    response = caller.messages.create(
         model=model,
         max_tokens=MAX_TOKENS,
         system=SYSTEM_PROMPT,

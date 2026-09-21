@@ -124,6 +124,102 @@ questions:
       A lane that answers but finds nothing, which is not the same as failing. The reply must
       say there is no data for the period rather than returning an empty-looking number.
 
+  # --- the second ten -------------------------------------------------------
+  # Added on 2026-09-21 to give the demo a full bank of prompts rather than ten. The first
+  # ten each prove a distinct mechanism; these widen the vocabulary, cover the two merge
+  # refusals the first set did not reach (units and time window), and give the presenter
+  # single-workspace questions to open with while the audience is still reading the screen.
+
+  - id: single-marketing
+    kind: routing
+    question: Which campaign delivered the most impressions last month?
+    expect: [globalmart-marketing]
+    shows: >
+      A single workspace in marketing's own vocabulary. Useful as an opener: one lane, one
+      chart, twenty seconds, and the mechanism is visible before anything is federated.
+
+  - id: single-store-ops
+    kind: routing
+    question: Which stores had the highest footfall last quarter?
+    expect: [globalmart-store-ops]
+    shows: >
+      The fourth workspace on its own, so all four have been seen answering before any of
+      them is asked to combine.
+
+  - id: single-customer-feedback
+    kind: routing
+    question: What are customers complaining about most in their feedback?
+    expect: [globalmart-customer]
+    shows: >
+      A qualitative question rather than a metric one. The agent has to pick its own
+      breakdown, which is the part of the work the orchestrator never does.
+
+  - id: within-one-workspace
+    kind: routing
+    question: Did energy use track footfall across the stores last quarter?
+    expect: [globalmart-store-ops]
+    shows: >
+      Two measures that sound like two workspaces and are not — store operations holds both.
+      The correct answer is one lane, and a router that fans out has demonstrated the exact
+      habit this exercise exists to avoid. The single most useful negative case in the set.
+
+  - id: pair-footfall-orders
+    kind: federation
+    question: >
+      Are the stores with the most footfall in the regions where online orders are growing
+      fastest?
+    expect: [globalmart-store-ops, globalmart-ecommerce]
+    shows: >
+      A third federation pair, across the physical/digital boundary rather than the
+      marketing/customer one. Region is the common key, and whether the two lanes actually
+      report at the same grain is left to the checks rather than assumed.
+
+  - id: pair-loyalty-campaigns
+    kind: federation
+    question: Are our loyalty members responding to campaigns better than everyone else?
+    expect: [globalmart-customer, globalmart-marketing]
+    shows: >
+      Population parity, which is a model judgement rather than a code check. "Loyalty
+      members" and "everyone else" are two populations and only one workspace knows which
+      is which — so the merge has to say what it is comparing, or refuse.
+
+  - id: trio-sales-drivers
+    kind: federation
+    question: Sales are up this quarter — was it the campaigns or the stores?
+    expect: [globalmart-ecommerce, globalmart-marketing, globalmart-store-ops]
+    shows: >
+      Three lanes, and a question whose whole content is causal. The merge may sequence and
+      compare but not conclude: "spend rose in the same months" is supportable from the
+      lanes, "campaigns caused it" is not.
+
+  - id: unmergeable-units
+    kind: merge-refusal
+    question: Compare campaign spend against average customer satisfaction for last quarter.
+    expect: [globalmart-marketing, globalmart-customer]
+    shows: >
+      Currency against a score. Both real, the quotient meaningless — this is the case that
+      produces "cost per NPS point was 441.73" if nothing stops it. `unit_compatibility`
+      gates it, and `numeric_provenance` catches it afterwards even if the prompt is ignored.
+
+  - id: unmergeable-window
+    kind: merge-refusal
+    question: How do last month's online orders compare with campaign spend over the last six months?
+    expect: [globalmart-ecommerce, globalmart-marketing]
+    shows: >
+      The user asked for two different periods, so the lanes correctly answer over two
+      different periods — and `time_window_match` must refuse to present them as a
+      comparison. A refusal the *question* caused, not the data.
+
+  - id: clarification-needed
+    kind: clarification
+    question: Rank our campaigns by spend and show which of them had the best click-through.
+    expect: [globalmart-marketing]
+    shows: >
+      Observed live: the agent finds the spend metric, finds it has no campaign field to
+      rank by, proposes an alternative and stops for permission. With a human watching, the
+      question reaches the screen and the reply goes back on that lane's own contextId.
+      Unattended, the lane auto-confirms and the answer says it rested on an assumption.
+
 conversations:
   - id: followup-reroute
     shows: >
@@ -157,3 +253,30 @@ conversations:
       - question: Try the satisfaction part again.
         expect: [globalmart-customer]
         enrich: true
+
+  - id: clarify-then-answer
+    shows: >
+      The clarification loop, which is the one part of this a caller cannot paper over. Turn
+      one stops with the agent asking a question; the human answers it in the front end; the
+      reply goes to that workspace alone, on its own contextId, and the agent resumes where
+      it stopped. The other lanes are never re-asked — they already answered, and asking
+      again would compare two different moments.
+    turns:
+      - question: Rank our campaigns by spend and show which had the best click-through.
+        expect: [globalmart-marketing]
+      - question: Yes, use the campaign name — and say which fields you chose.
+        expect: [globalmart-marketing]
+
+  - id: narrowing-thread
+    shows: >
+      Three turns that narrow, which is how anyone actually uses an assistant. The route is
+      recomputed every turn: turn two stays in marketing, turn three leaves it entirely. A
+      session that remembered the first turn's selection would answer the third question
+      from the wrong workspace.
+    turns:
+      - question: How did our campaigns perform last quarter?
+        expect: [globalmart-marketing]
+      - question: Which of those had the highest spend per impression?
+        expect: [globalmart-marketing]
+      - question: And were customers any happier in the months those ran?
+        expect: [globalmart-customer]

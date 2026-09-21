@@ -26,6 +26,26 @@ whether GoodData is a good tool inside one somebody else owns. Which makes the g
 The viewer stands where Portal Copilot stands. It exists to make a turn watchable and is
 meant to be deleted. **The payload is the interface.**
 
+### Rendering what the agent actually sent
+
+An A2A answer carries two artifacts: a **`visualization`** — the agent's own chart type,
+title and query — and a **`visualization-data`** with columns, rows and `formattedRows`,
+paired by `visualizationId`. The viewer draws the chart the agent asked for rather than
+guessing one from the rows: it already decided this was a *line chart of Average Total NPS
+Score by Month*, and re-deriving that here would throw the decision away. Formatted values
+are used as sent, so `3,995` does not quietly become `3995` and disagree with the answer text
+above it.
+
+Line, area, bar, pie, headline and table are drawn as inline SVG or plain HTML — no charting
+library, which is the honest answer to *can a host that is not GoodData's UI render one of
+these*. Where a declared type cannot be told the truth about the data it was given — a
+scatter with one metric — it falls back to a table **and says so underneath**, because a
+silent downgrade reads as the agent having ignored the request.
+
+That rendering is under test: the page's chart functions are executed in node against the
+artifact shapes a live agent really returns, so "the charts work" is a claim with a gate
+behind it rather than a screenshot.
+
 ---
 
 ## Run it
@@ -64,6 +84,22 @@ Other commands:
 Expect **30–120 seconds** for a two-lane question. That is agent-side latency, not
 orchestration — see [`a2a-gaps.md`](a2a-gaps.md).
 
+### The three routes, and what each claims
+
+| route | for a host that | returns |
+|---|---|---|
+| `POST /ask` | has no streaming | the payload, after 30–120s of silence |
+| `POST /ask/stream` | can show progress | NDJSON events, the last one being that same payload |
+| `POST /reply` | has a human in front of it | the re-merged payload, after answering one lane |
+
+`/ask/stream` exists because a spinner held for ninety seconds reads as a hang, and because
+the interesting part is invisible otherwise: the router chose *these* workspaces, gave each a
+*different* sub-question, and they returned out of order. Its final event is exactly what
+`/ask` would have returned, so streaming adds narration and changes nothing about the result.
+
+`POST /reply {workspace, text}` answers a lane that stopped to ask something — see below. Send
+`{"ask_me": true}` with a question to get that behaviour; without it, lanes auto-confirm.
+
 ---
 
 ## How a turn works
@@ -89,8 +125,19 @@ question  ──▶  plan()   ──▶  route + decompose
 question to a workspace, because no workspace can answer it:
 
 > *"Did the campaigns we spent most on actually move customer satisfaction?"*
-> → marketing: *"List campaigns ranked by Total Campaign Spend for the last quarter"*
-> → customer: *"Show Average Total NPS Score by month for the last quarter"*
+> → marketing: *"Rank campaigns by Total Campaign Spend for last quarter, **and also** give
+>   Total Campaign Spend by month for the last 6 months"*
+> → customer: *"Show Average Total NPS Score by month for the last 6 months"*
+
+**A plan that intends to combine must ask for the same shape.** This is the rule most easily
+got wrong, and getting it wrong wastes the whole turn. Measured live: asked for spend *by
+campaign, last quarter* against satisfaction *by month, last two quarters* — each a good
+sub-question, nothing to join on, and a correct refusal after 46 seconds of fan-out. So
+`plan.py` requires the same period in the same words, the breakdown named in `combine_on`
+asked of every lane, and — before concluding two answers cannot be combined — that time be
+tried, because every workspace measures over time even where nothing else is shared. Where a
+ranking is also wanted, *that* workspace is asked for both. One workspace can be asked two
+things; two workspaces cannot each be asked a different one.
 
 ---
 
@@ -131,6 +178,37 @@ customer whose own aggregate workspace already failed them.
 **`UNKNOWN` is not `PASS`.** A check cannot pass on an absence it never established, or a
 lane that reported no shape would silently licence any combination.
 
+**A shared grain is an overlap, not an equality.** A sub-question can legitimately ask one
+workspace for two things, and the agent then returns two charts. A lane holding
+`{campaign_id, month}` against one holding `{month}` does share a key. `shared_dimension` and
+`time_window_match` pass on a non-empty intersection, name the grain they agreed on, and say
+out loud what one lane returned that the other did not — the merge is about to be handed
+material the lanes do not both hold, and a reader should know which part of it compares. No
+overlap is still a `FAIL`; fewer than two lanes reporting is still `UNKNOWN`.
+
+## What a workspace asks, and who answers it
+
+`input-required` is neither an answer nor a failure, and it is the state a caller is least
+likely to model. Asked to rank campaigns by spend, the marketing agent found the metric, found
+it had no campaign field, proposed two alternatives and stopped — 37.4s, no human in the lane.
+
+There are exactly two honest things to do with that, and both are implemented:
+
+| mode | what happens | when |
+|---|---|---|
+| auto-confirm (default) | the lane consents once on the same `contextId` and the answer records that it rested on an assumption | unattended fan-out |
+| `ask_me` | the question reaches the caller in `payload.pending`, and `POST /reply` sends the human's words to that one workspace | a host with a person in front of it |
+
+Auto-confirming is the orchestrator **guessing** that "yes" was right. Here it plainly was;
+nothing guarantees that in general.
+
+Measured: resuming took **16.3s against the 37.4s** the first turn cost, because the agent
+kept the work it had already done. So `input-required` is not doubled latency, it is latency
+plus a third — which is what makes asking a human viable. And the reply goes to *one*
+workspace: the others already answered, and re-asking them would pay the fan-out again to
+change nothing, or worse return different numbers and make the merge a comparison across two
+different moments.
+
 ---
 
 ## What survives a lane failing
@@ -161,8 +239,15 @@ the routing measurement input, and the regression set when a prompt changes. `ex
 human judgement, written before the prompts existed.
 
 ```bash
-uv run gd-agents route      # 10/10 exact, 0 over-routed, 0 under-routed
+uv run gd-agents route      # 20/20 exact, 0 over-routed, 0 under-routed
 ```
+
+Twenty questions and five conversations, served to the page as one-click prompts at
+`GET /questions` so a demo is not typed live and the runbook cannot drift from the buttons.
+The most useful single entry is a negative one: **`within-one-workspace`** — *"did energy use
+track footfall across the stores last quarter?"* sounds like two workspaces and is one, because
+store operations holds both measures. The correct answer is one lane, and a router that fans
+out has demonstrated exactly the habit this exercise exists to avoid.
 
 A router returning *fewer* workspaces than expected has missed something; one returning
 *more* is broadcasting. Both count as misses and are reported separately, because they are
@@ -210,7 +295,8 @@ src/gd_agents/
     checks.py              the eight merge checks, and provenance
     merge.py               one attributed answer, or several with a reason
     session.py             what a conversation remembers
-    run.py                 ask() and enrich(); Run.payload()
+    events.py              the progress feed — narration, never a source of truth
+    run.py                 ask(), respond(), enrich(); Run.payload()
   server/                  the minimal viewer
   cli.py                   gd-agents
 ```

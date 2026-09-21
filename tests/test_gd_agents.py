@@ -1,6 +1,8 @@
 # The orchestrator's foundations: the Lane contract, the registry, and the profiler.
 from __future__ import annotations
 
+import re
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -663,7 +665,7 @@ def test_different_time_windows_block_the_merge() -> None:
     report = run_checks([shaped("a", to="2026-09-30"), shaped("b", to="2026-06-30")])
 
     assert not report.combinable()
-    assert "windows differ" in report.reasons()
+    assert "no shared period" in report.reasons()
 
 
 def test_mixed_units_block_the_merge() -> None:
@@ -751,20 +753,24 @@ def test_the_model_checks_are_posed_not_assumed() -> None:
 
 
 class FakeMessages:
-    def __init__(self, reply: str) -> None:
-        self.reply = reply
+    """Replies in order, repeating the last one. A whole turn is two model calls — the plan
+    and the merge — so a single canned reply cannot stand in for both."""
+
+    def __init__(self, *replies: str) -> None:
+        self.replies = list(replies) or [""]
         self.calls = 0
 
     def create(self, **kwargs: object):  # type: ignore[no-untyped-def]
+        reply = self.replies[min(self.calls, len(self.replies) - 1)]
         self.calls += 1
-        block = type("B", (), {"type": "text", "text": self.reply})()
+        block = type("B", (), {"type": "text", "text": reply})()
         usage = type("U", (), {"input_tokens": 10, "output_tokens": 20})()
         return type("R", (), {"content": [block], "usage": usage})()
 
 
 class FakeClient:
-    def __init__(self, reply: str) -> None:
-        self.messages = FakeMessages(reply)
+    def __init__(self, *replies: str) -> None:
+        self.messages = FakeMessages(*replies)
 
 
 def test_a_clean_merge_is_returned_verbatim() -> None:
@@ -1244,3 +1250,499 @@ def test_a_single_lane_is_not_told_it_could_not_be_combined() -> None:
 
     assert "could not be combined" not in text
     assert text.startswith("From a single workspace")
+
+
+# --- input-required reaches the caller ---------------------------------------
+# A workspace agent can stop mid-task and ask. Auto-confirming is the orchestrator guessing
+# on the user's behalf, which is right in an unattended fan-out and wrong when somebody is
+# watching. Both paths have to exist, and the third state has to survive to the payload.
+
+
+class FakeHost:
+    """Hands back prepared Tasks in order, so a multi-round-trip lane can be exercised
+    without monkeypatching the transport."""
+
+    def __init__(self, *payloads: dict) -> None:
+        self.payloads = list(payloads)
+        self.sent: list[str] = []
+
+    def post(self, path: str, body: dict, **kwargs: object) -> dict:
+        self.sent.append(body["params"]["message"]["parts"][0]["text"])
+        return self.payloads[min(len(self.sent) - 1, len(self.payloads) - 1)]
+
+    def get(self, path: str, **kwargs: object) -> dict:
+        return {}
+
+
+def clarifying_task() -> dict:
+    return {
+        "result": {
+            "kind": "task",
+            "contextId": "ctx-ask",
+            "status": {
+                "state": "input-required",
+                "message": {
+                    "role": "agent",
+                    "parts": [
+                        {
+                            "kind": "text",
+                            "text": (
+                                "I found the spend metric but it has no campaign field. "
+                                "Shall I use {attribute/campaign_name} instead?"
+                            ),
+                        }
+                    ],
+                },
+            },
+        }
+    }
+
+
+def test_a_lane_that_asks_is_neither_an_answer_nor_a_failure() -> None:
+    from gd_agents.a2a.client import A2ALane
+
+    lane = A2ALane(host=FakeHost(clarifying_task()), workspace="mkt", confirm_clarifications=False)
+    answer = lane.ask("Rank campaigns by spend")
+
+    assert answer.ok(), "it did not fail — it asked"
+    assert answer.input_required
+    assert not answer.shape.returned_data, "a question is not data to merge"
+    assert "campaign field" in answer.text
+
+
+def test_auto_confirming_clears_the_pending_flag() -> None:
+    """The unattended path. The lane consents once, on the same conversation, and the answer
+    that comes back is a real one."""
+    from gd_agents.a2a.client import A2ALane
+
+    host = FakeHost(clarifying_task(), completed_task())
+    lane = A2ALane(host=host, workspace="mkt", confirm_clarifications=True)
+    answer = lane.ask("Rank campaigns by spend")
+
+    assert not answer.input_required
+    assert answer.shape.returned_data
+    assert answer.round_trips == 2
+
+
+def test_the_payload_carries_what_is_waiting_on_a_human() -> None:
+    """A host with a person in front of it can put the question to them; one without ignores
+    this list. Either way it must be in the interface, not only on our page."""
+    from gd_agents.orchestrator.fanout import FanoutReport
+    from gd_agents.orchestrator.run import Run
+
+    run = Run(question="q")
+    run.lanes = FanoutReport(
+        answers=(
+            Answer(
+                workspace="mkt",
+                question="Rank campaigns by spend",
+                text="Shall I use campaign name?",
+                input_required=True,
+                shape=Shape(returned_data=False),
+            ),
+        )
+    )
+    payload = run.payload()
+
+    assert payload["pending"] == [
+        {
+            "workspace": "mkt",
+            "question": "Rank campaigns by spend",
+            "asks": "Shall I use campaign name?",
+        }
+    ]
+    assert payload["lanes"][0]["input_required"] is True
+
+
+def test_respond_asks_only_the_lane_that_asked() -> None:
+    """The others already answered. Re-asking them costs a full fan-out to change nothing,
+    and might return different numbers — making the merge a comparison across two moments."""
+    from gd_agents.orchestrator.run import respond
+    from gd_agents.orchestrator.session import Session
+
+    asked: list[tuple[str, str, str | None]] = []
+
+    class Recording:
+        def __init__(self, workspace: str) -> None:
+            self.workspace = workspace
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            asked.append((self.workspace, question, context_id))
+            return shaped(self.workspace, numbers=("27",))
+
+    pending = Answer(
+        workspace="cust",
+        question="Show NPS by month for Q2",
+        text="Which NPS metric did you mean?",
+        input_required=True,
+        shape=Shape(returned_data=False),
+    )
+    session = Session()
+    session.remember(turn_of(shaped("mkt", numbers=("100",)), pending), contexts={"cust": "ctx-9"})
+
+    run = respond(
+        {"mkt": Recording("mkt"), "cust": Recording("cust")},
+        session,
+        "cust",
+        "The overall one, monthly.",
+        client=FakeClient("Spend 100 alongside NPS 27."),
+        model="m",
+    )
+
+    assert asked == [("cust", "The overall one, monthly.", "ctx-9")]
+    assert run.enriched == ("cust",)
+    assert {a.workspace for a in run.merged.answers} == {"mkt", "cust"}
+
+
+def test_respond_restores_the_original_sub_question() -> None:
+    """"The overall one, monthly" is not a question. Left in place it would read as nonsense
+    in an attribution line, and the merge needs to know what was actually asked."""
+    from gd_agents.orchestrator.run import respond
+    from gd_agents.orchestrator.session import Session
+
+    class Recording:
+        workspace = "cust"
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            return replace(shaped("cust", numbers=("27",)), question=question)
+
+    pending = Answer(
+        workspace="cust",
+        question="Show NPS by month for Q2",
+        text="Which metric?",
+        input_required=True,
+        shape=Shape(returned_data=False),
+    )
+    session = Session()
+    session.remember(turn_of(pending))
+
+    run = respond(
+        {"cust": Recording()}, session, "cust", "The overall one.", client=FakeClient("x"), model="m"
+    )
+
+    assert [a.question for a in run.merged.answers] == ["Show NPS by month for Q2"]
+
+
+def test_respond_refuses_a_workspace_with_no_lane() -> None:
+    from gd_agents.orchestrator.run import respond
+    from gd_agents.orchestrator.session import Session
+
+    session = Session()
+    session.remember(turn_of(shaped("mkt")))
+
+    with pytest.raises(ValueError, match="no lane configured"):
+        respond({}, session, "nope", "hi")
+
+
+# --- the progress feed --------------------------------------------------------
+# A turn takes 30-120 seconds, and one spinner for the whole of it hides the interesting
+# part. The feed is narration only: the payload remains the interface.
+
+
+def test_a_turn_narrates_the_router_the_lanes_and_the_merge() -> None:
+    from gd_agents.orchestrator.run import ask
+
+    seen: list[tuple[str, dict]] = []
+
+    class Quiet:
+        def __init__(self, workspace: str) -> None:
+            self.workspace = workspace
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            return shaped(self.workspace, numbers=("100",))
+
+    ask(
+        "did spend move satisfaction?",
+        plan_registry(),
+        {"mkt": Quiet("mkt"), "cust": Quiet("cust")},
+        client=FakeClient(
+            '{"workspaces":[{"id":"mkt","question":"Show spend by month"},'
+            '{"id":"cust","question":"Show NPS by month"}],"combine_on":"month"}',
+            "Spend 100 alongside NPS 100.",
+        ),
+        model="m",
+        observe=lambda kind, detail: seen.append((kind, detail)),
+    )
+
+    kinds = [kind for kind, _ in seen]
+    assert kinds[0] == "planning"
+    assert kinds[-1] == "done"
+    for expected in ("plan", "lane_start", "lane_done", "merge_start", "checks"):
+        assert expected in kinds, f"the feed never reports {expected}"
+    # The last event is the whole payload, so a streaming host and a blocking one end up
+    # holding exactly the same thing.
+    assert seen[-1][1]["payload"]["reply"]
+    assert {d["workspace"] for k, d in seen if k == "lane_done"} == {"mkt", "cust"}
+
+
+def test_a_broken_observer_does_not_cost_the_answer() -> None:
+    """It is caller-supplied code running inside a fan-out thread. A front end with a broken
+    renderer should lose its progress bar, not the reply."""
+    from gd_agents.orchestrator.events import emit
+
+    def explode(kind: str, detail: dict) -> None:
+        raise RuntimeError("renderer is on fire")
+
+    emit(explode, "plan", workspaces=[])  # must not raise
+
+
+def test_the_lane_reports_each_round_trip() -> None:
+    """One POST, or a POST plus a confirmation, or a retry after a 502 — the shape of the
+    wait is the thing worth showing during 90 seconds of silence."""
+    from gd_agents.a2a.client import A2ALane
+
+    steps: list[str] = []
+    lane = A2ALane(
+        host=FakeHost(clarifying_task(), completed_task()),
+        workspace="mkt",
+        observe=lambda kind, detail: steps.append(str(detail.get("step"))),
+    )
+    lane.ask("Rank campaigns by spend")
+
+    assert steps[0] == "message/send"
+    assert "input-required" in steps
+    assert steps[-1] == "read"
+
+
+# --- the page and the script --------------------------------------------------
+
+
+def test_the_page_renders_the_agents_own_chart_type() -> None:
+    """The agent already decided this was a line chart of Total Campaign Spend by month. A
+    page that re-guesses from the rows throws that decision away."""
+    from gd_agents.server.app import PAGE
+
+    html = PAGE.read_text(encoding="utf-8")
+
+    assert "visualizationId" in html, "the two artifacts must be paired by id"
+    for key in ("line_chart", "formattedRows", "columns", "pending", "input_required"):
+        assert key in html, f"the page never reads {key}"
+
+
+def test_the_script_is_served_as_the_pages_prompts() -> None:
+    """The runbook, the routing measurement and the demo buttons are one file, so they cannot
+    drift apart."""
+    from gd_agents.server.app import script_payload
+
+    payload = script_payload()
+
+    assert len(payload["questions"]) >= 20, "the demo needs a full bank of prompts"
+    assert all(q["question"] and q["expect"] for q in payload["questions"])
+    assert payload["conversations"], "follow-ups are half the point of a conversation"
+
+
+def test_a_missing_script_costs_the_buttons_and_nothing_else() -> None:
+    from gd_agents.server.app import script_payload
+
+    assert script_payload(Path("config/does-not-exist.yaml")) == {"questions": [], "conversations": []}
+
+
+# --- the charts, actually executed ---------------------------------------------
+# The rendering is the one part of this that cannot be checked by reading the payload, and
+# it is the part a viewer is judged on. So the page's chart functions are pulled out and run
+# against the artifact shapes a live agent really returns. Skipped where node is absent —
+# a missing tool must not read as a passing test.
+
+
+CHART_HARNESS = """
+const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;')
+  .replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function pill(cls, text){ return `<span class="pill ${cls}">${esc(text)}</span>`; }
+function colour(){ return 'var(--w0)'; }
+%s
+const out = {};
+function draw(name, type, title, columns, rows, formattedRows) {
+  out[name] = charts({workspace: 'w', artifacts: [
+    {name: 'visualization', data: {type, title, id: name}},
+    {name: 'visualization-data', data: {visualizationId: name, columns, rows,
+      formattedRows, rowCount: rows.length}},
+  ]})[0] || '';
+}
+const MONTHS = ['2026-04','2026-05','2026-06','2026-07','2026-08','2026-09'];
+const NPS = [32.31, 35.20, 55.17, 41.00, 38.40, 44.10];
+draw('line', 'line_chart', 'Average Total NPS Score by Month',
+  [{name:'Month/Year',type:'attribute'},{name:'Average Total NPS Score',type:'metric',format:'#,##0.00'}],
+  MONTHS.map((m,i) => ({'Month/Year': m, 'Average Total NPS Score': NPS[i]})),
+  MONTHS.map((m,i) => ({'Month/Year': m, 'Average Total NPS Score': NPS[i].toFixed(2)})));
+draw('bars', 'bar_chart', 'Top stores by footfall',
+  [{name:'Store',type:'attribute'},{name:'Footfall',type:'metric',format:'#,##0'}],
+  [{Store:'A',Footfall:900},{Store:'B',Footfall:450}],
+  [{Store:'A',Footfall:'900'},{Store:'B',Footfall:'450'}]);
+draw('headline', 'headline', 'Online orders',
+  [{name:'Online Orders',type:'metric',format:'#,##0'}],
+  [{'Online Orders':3995}], [{'Online Orders':'3,995'}]);
+draw('downgrade', 'scatter_chart', 'A scatter with one metric',
+  [{name:'Month',type:'attribute'},{name:'Spend',type:'metric',format:'#,##0'}],
+  [{Month:'A',Spend:1},{Month:'B',Spend:2}], null);
+draw('empty', 'line_chart', 'Nothing came back',
+  [{name:'Month',type:'attribute'},{name:'Spend',type:'metric'}], [], null);
+console.log(JSON.stringify(out));
+"""
+
+
+def rendered_charts() -> dict[str, str]:
+    """Run the page's chart code in node against real artifact shapes."""
+    import json
+    import re
+    import shutil
+    import subprocess
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("node is not installed; the chart rendering cannot be executed here")
+
+    from gd_agents.server.app import PAGE
+
+    script = re.search(r"<script>(.*)</script>", PAGE.read_text(encoding="utf-8"), re.S)
+    assert script, "the page has no script block"
+    # Everything from the chart section down is self-contained; above it is fetch and DOM.
+    body = script.group(1)
+    charts = body[body.index("// ── charts") :]
+
+    finished = subprocess.run(
+        [node, "-e", CHART_HARNESS % charts], capture_output=True, text=True, timeout=30
+    )
+    assert finished.returncode == 0, finished.stderr
+    return dict(json.loads(finished.stdout))
+
+
+def test_a_line_chart_is_drawn_as_a_line() -> None:
+    """Six months of NPS, as the live agent returns them: a declared `line_chart`, a title,
+    and formatted rows. The agent already made this decision and the page must honour it."""
+    drawn = rendered_charts()["line"]
+
+    assert "Average Total NPS Score by Month" in drawn, "the agent's own title"
+    assert re.search(r'<polyline class="ln" points="[\d., ]+"', drawn), "no line was drawn"
+    assert drawn.count('<circle class="pt"') == 6, "one mark per month"
+    assert "NaN" not in drawn, "a NaN in a coordinate silently collapses the chart"
+
+
+def test_a_bar_chart_is_drawn_to_scale() -> None:
+    drawn = rendered_charts()["bars"]
+
+    assert re.findall(r"width:([\d.]+)%", drawn) == ["100.0", "50.0"]
+
+
+def test_a_single_value_is_drawn_as_a_headline_with_its_format_kept() -> None:
+    """`3,995` not `3995`: the workspace applied a number format and re-deriving it here
+    would quietly disagree with the answer text above the chart."""
+    assert 'class="headline">3,995' in rendered_charts()["headline"]
+
+
+def test_a_chart_the_shape_cannot_support_falls_back_and_says_so() -> None:
+    """A scatter needs two metrics. Dropping to a table is right; doing it silently reads as
+    the agent having ignored the request, which is the one thing this is meant to disprove."""
+    drawn = rendered_charts()["downgrade"]
+
+    assert "<table" in drawn
+    assert "shown as a table" in drawn
+
+
+def test_no_rows_says_no_rows() -> None:
+    assert "no rows returned" in rendered_charts()["empty"]
+
+
+# --- a lane that returns two charts --------------------------------------------
+# Found live 2026-09-21. The plan asked marketing for a campaign ranking *and* a monthly
+# series, the agent returned both, and the shape read only the first — so the merge refused a
+# pair that agreed on month. Answering more fully than the minimum must not be a reason to
+# refuse.
+
+
+def two_chart_task() -> dict:
+    def viz(identifier: str, grain: str, granularity: str, frm: int, to: int) -> dict:
+        return {
+            "name": "visualization",
+            "parts": [
+                {
+                    "kind": "data",
+                    "data": {
+                        "id": identifier,
+                        "type": "bar_chart",
+                        "view_by": ["d"],
+                        "query": {
+                            "fields": {"d": {"using": grain}},
+                            "filter_by": {
+                                "w": {
+                                    "type": "date_filter",
+                                    "granularity": granularity,
+                                    "from": frm,
+                                    "to": to,
+                                }
+                            },
+                        },
+                    },
+                }
+            ],
+        }
+
+    task = completed_task()
+    task["result"]["artifacts"] = [
+        viz("ranking", "label/sql_campaign_roi.campaign_id", "QUARTER", -1, -1),
+        viz("series", "label/transaction_date.month", "MONTH", -5, 0),
+    ]
+    return task
+
+
+def test_every_chart_a_lane_returned_shapes_the_answer() -> None:
+    from gd_agents.a2a.client import data_artifacts, shape_from_artifacts
+
+    shape = shape_from_artifacts(data_artifacts(two_chart_task()))
+
+    assert shape.grains == ("campaign_id", "month")
+    assert shape.windows == ("-1..-1 QUARTER", "-5..0 MONTH")
+    assert shape.grain == "campaign_id", "the first chart still reads as the headline shape"
+
+
+def test_two_lanes_sharing_one_grain_may_be_combined() -> None:
+    """marketing {campaign_id, month} against customer {month} do share a key — month."""
+    from gd_agents.orchestrator.checks import run_checks
+
+    marketing = replace(
+        shaped("mkt"),
+        shape=Shape(
+            grains=("campaign_id", "month"),
+            windows=("-1..-1 QUARTER", "-5..0 MONTH"),
+            units="USD",
+        ),
+    )
+    customer = replace(
+        shaped("cust"),
+        shape=Shape(grains=("month",), windows=("-5..0 MONTH",), units="USD"),
+    )
+    report = run_checks([marketing, customer])
+
+    assert report.combinable()
+    reasons = " ".join(r.reason for r in report.results)
+    assert "common grain month" in reasons
+    assert "also returned campaign_id" in reasons, "the reader must know which part compares"
+
+
+def test_an_overlap_is_still_required() -> None:
+    """Looking for an overlap must not become looking for an excuse."""
+    from gd_agents.orchestrator.checks import run_checks
+
+    a = replace(shaped("a"), shape=Shape(grains=("campaign_id",), windows=("-1..-1 QUARTER",)))
+    b = replace(shaped("b"), shape=Shape(grains=("store_id",), windows=("-1..-1 QUARTER",)))
+
+    assert not run_checks([a, b]).combinable()
+
+
+def test_one_windows_two_ends_are_not_two_windows() -> None:
+    """April-September and April-June share a start date and no period. Reading `time_from`
+    and `time_to` as independent values let exactly that pass."""
+    from gd_agents.orchestrator.checks import run_checks
+
+    report = run_checks([shaped("a", to="2026-09-30"), shaped("b", to="2026-06-30")])
+
+    assert not report.combinable()
+    assert "no shared period" in report.reasons()

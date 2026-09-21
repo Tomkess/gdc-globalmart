@@ -31,6 +31,68 @@ in the lane. Left alone, that workspace contributes nothing to the answer.
   ambiguity and reports what it chose, rather than asking. The agent already names the
   alternative it would use — it has everything needed to proceed and say so.
 
+**The human-in-the-loop path now exists, and it works.** Measured 2026-09-21 on
+`globalmart-marketing`: the first turn reached `input-required` in 37.4s, the question was
+put on screen verbatim with the agent's own two options, a person answered it, and the reply
+went back on the same `contextId` — `completed` in 16.3s with both artifacts. Two observations
+from doing it:
+
+- **Resuming is much cheaper than asking.** 16.3s against 37.4s, because the agent kept the
+  work it had already done. So the round trip that `input-required` costs is not doubled
+  latency, it is latency plus a third — which makes asking a human genuinely viable in a host
+  that has one.
+- **The reply must go to one workspace, not to the turn.** The other lanes already answered.
+  Re-asking them would pay the full fan-out again to change nothing, and worse, could return
+  different numbers — making the merge a comparison across two different moments.
+- The question arrived structured enough to act on (two named alternatives) but as prose
+  inside a text part. A caller wanting to render buttons has to parse English. **Product ask:**
+  when an agent asks a question it could carry the options as data.
+
+## The router can defeat its own merge by asking for two different shapes
+
+Found 2026-09-21 running the flagship federation question live — *"did the campaigns we spent
+the most on last quarter actually move customer satisfaction?"* Both lanes answered in 46s,
+and the merge refused:
+
+> windows differ (marketing `-1..-1 QUARTER`; customer `-2..-1 QUARTER`) … no common key:
+> grains are `campaign_id`, `month`
+
+Neither lane was wrong. The router had asked marketing for spend *by campaign, last quarter*
+and customer for satisfaction *by month, last quarter and the one before* — the second
+deliberately wider, "to see whether customer satisfaction changed", which is exactly what a
+good analyst would want. And then nothing joined.
+
+These are orchestrator defects rather than protocol gaps, and they are recorded here because
+they are the failure mode most likely to be mistaken for one. Three of them, in layers, each
+uncovered by fixing the one above it:
+
+1. **The plan did not hold its lanes to its own `combine_on`.** Fixed in `plan.py`'s prompt:
+   if you intend to combine, ask for the same period in the same words and the breakdown you
+   named; and before concluding two answers cannot be combined, try time, because every
+   workspace measures over time even when nothing else is shared. Where a ranking is also
+   wanted, ask *that* workspace for both rather than each workspace for a different one.
+
+2. **A lane returning two charts had only its first one read.** With the plan fixed, marketing
+   was asked for a ranking *and* a monthly series and returned both — and
+   `shape_from_artifacts` took `next(...)`, so the lane's shape was `campaign_id` /
+   `-1..-1 QUARTER` and the monthly series it had also returned was invisible to the checks.
+
+3. **The checks required a single value where an overlap was the right test.** `{campaign_id,
+   month}` against `{month}` does share a key. Requiring equality punished the lane for
+   answering more fully than the minimum. Now: pass on a non-empty intersection, name the
+   agreed grain, and say out loud what one lane returned that the other did not — the merge is
+   about to be handed material the lanes do not both hold, and a reader should know which part
+   of it compares. Fewer than two lanes reporting is still `UNKNOWN`, and no overlap is still
+   `FAIL`.
+
+The same question now merges: `common grain month`, `common window -5..0 MONTH`, 23 numbers
+checked against the lanes, and a month-by-month narrative that attributes every figure and
+declines to claim the spend caused the movement. 64s.
+
+The checks were never wrong — the refusals were correct and said why. But a merge that can
+only ever refuse is not worth the fan-out that produced it, and two of the three faults were
+only visible because the layer above had been fixed first.
+
 ## Reliability: three distinct failure modes in roughly ten calls
 
 All observed 2026-09-21, against four workspaces on one org:

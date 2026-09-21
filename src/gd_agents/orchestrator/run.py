@@ -15,10 +15,11 @@ from __future__ import annotations
 
 import time
 from collections.abc import Mapping
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any
 
 from gd_agents.lane import Lane
+from gd_agents.orchestrator.events import Observer, emit
 from gd_agents.orchestrator.fanout import FanoutReport, fanout
 from gd_agents.orchestrator.merge import Merged, merge
 from gd_agents.orchestrator.plan import Plan, Step, plan
@@ -71,6 +72,14 @@ class Run:
             "reply": self.merged.text,
             "combinable": self.merged.combinable,
             "enriched": list(self.enriched),
+            # Lanes that stopped to ask something. A host with a human in front of it can
+            # put the question to them and reply on that lane's own conversation; a host
+            # without one ignores this and the lane simply did not contribute.
+            "pending": [
+                {"workspace": answer.workspace, "question": answer.question, "asks": answer.text}
+                for answer in self.lanes.answers
+                if answer.input_required
+            ],
             "routing": {
                 "workspaces": [
                     {"id": step.workspace, "question": step.question, "why": step.why}
@@ -87,6 +96,7 @@ class Run:
                     "text": answer.text,
                     "ok": answer.ok(),
                     "returned_data": answer.shape.returned_data,
+                    "input_required": answer.input_required,
                     "error": answer.error,
                     "latency_ms": answer.latency_ms,
                     "round_trips": answer.round_trips,
@@ -149,23 +159,49 @@ def ask(
     client: Any | None = None,
     model: str | None = None,
     inject_failure: str | None = None,
+    observe: Observer | None = None,
 ) -> Run:
     """One turn: plan, fan out, check, merge.
 
     The route is recomputed every turn. A follow-up like "and did any of that show up in
     customer satisfaction?" needs a workspace the previous turn never touched, so reusing the
     earlier selection would answer the wrong question from the wrong place.
+
+    `observe` is optional narration — see `events.py`. The payload is still the interface.
     """
     started = time.monotonic()
     session = session if session is not None else Session()
     run = Run(question=question)
 
+    emit(observe, "planning", question=question, workspaces=list(registry.ids()))
     run.plan = plan(question, registry, client=client, model=model)
+    emit(
+        observe,
+        "plan",
+        workspaces=[
+            {"id": step.workspace, "question": step.question, "why": step.why}
+            for step in run.plan.steps
+        ],
+        reasoning=run.plan.reasoning,
+        combine_on=run.plan.combine_on,
+        notes=list(run.plan.notes),
+        tokens_in=run.plan.tokens_in,
+        tokens_out=run.plan.tokens_out,
+    )
+
     run.lanes = fanout(
         run.plan,
         lanes,
         contexts=session.context_for(run.plan.workspaces()),
         inject_failure=inject_failure,
+        observe=observe,
+    )
+    emit(
+        observe,
+        "merge_start",
+        lanes=len(run.lanes.with_data()),
+        wall_ms=run.lanes.wall_ms,
+        slowest_ms=run.lanes.slowest_ms(),
     )
     run.merged = merge(
         question,
@@ -173,6 +209,15 @@ def ask(
         client=client,
         model=model,
         combine_on=run.plan.combine_on,
+    )
+    emit(
+        observe,
+        "checks",
+        combinable=run.merged.combinable,
+        results=[
+            {"check": r.check, "verdict": r.verdict.value, "reason": r.reason}
+            for r in run.merged.checks.results
+        ],
     )
 
     session.remember(
@@ -186,6 +231,86 @@ def ask(
         contexts=_contexts(run.lanes, session.contexts),
     )
     run.total_ms = int((time.monotonic() - started) * 1000)
+    emit(observe, "done", payload=run.payload())
+    return run
+
+
+def respond(
+    lanes: Mapping[str, Lane],
+    session: Session,
+    workspace: str,
+    reply: str,
+    *,
+    client: Any | None = None,
+    model: str | None = None,
+    observe: Observer | None = None,
+) -> Run:
+    """Answer a lane that asked a question, and re-merge with what the others already said.
+
+    A workspace agent can stop mid-task and ask — "I found the spend metric but it has no
+    campaign field; shall I use these instead?" A fan-out with nobody watching auto-confirms,
+    which is a guess. When there *is* somebody watching, this is the path: their words go to
+    that one workspace, on that workspace's own `contextId`, and the agent resumes where it
+    stopped.
+
+    Only the asking lane is called. The others already answered and re-asking them would
+    cost the full fan-out to change nothing — and, worse, might return different numbers,
+    making the merge a comparison across two different moments.
+
+    The lane's *original* sub-question is restored onto the answer afterwards. The reply
+    ("yes, use the campaign name") is not a question and would read as nonsense in an
+    attribution line, while the merge needs to know what was actually being asked.
+    """
+    if not session.turns:
+        raise ValueError("nothing to respond to: the session has no turns")
+    if workspace not in lanes:
+        raise ValueError(f"no lane configured for {workspace!r}")
+
+    last = session.turns[-1]
+    asked = next(
+        (a.question for a in last.answers if a.workspace == workspace),
+        last.question,
+    )
+
+    started = time.monotonic()
+    emit(observe, "lane_start", workspace=workspace, question=reply)
+    fresh = lanes[workspace].ask(reply, context_id=session.contexts.get(workspace))
+    fresh = replace(fresh, question=asked)
+    emit(
+        observe,
+        "lane_done",
+        workspace=workspace,
+        ok=fresh.ok(),
+        returned_data=fresh.shape.returned_data,
+        input_required=fresh.input_required,
+        latency_ms=fresh.latency_ms,
+        round_trips=fresh.round_trips,
+        grain=fresh.shape.grain,
+        error=fresh.error,
+    )
+
+    combined = session.union_for((fresh,))
+    run = Run(question=last.question, enriched=(workspace,))
+    run.lanes = FanoutReport(answers=combined, wall_ms=fresh.latency_ms)
+    run.plan = Plan(
+        question=last.question,
+        steps=tuple(Step(workspace=a.workspace, question=a.question) for a in combined),
+    )
+    emit(observe, "merge_start", lanes=len(run.lanes.with_data()), wall_ms=fresh.latency_ms)
+    run.merged = merge(last.question, combined, client=client, model=model)
+
+    session.remember(
+        Turn(
+            question=last.question,
+            workspaces=tuple(a.workspace for a in combined),
+            reply=run.merged.text,
+            answers=combined,
+            combinable=run.merged.combinable,
+        ),
+        contexts=_contexts(run.lanes, session.contexts),
+    )
+    run.total_ms = int((time.monotonic() - started) * 1000)
+    emit(observe, "done", payload=run.payload())
     return run
 
 
@@ -197,6 +322,7 @@ def enrich(
     only: tuple[str, ...] | None = None,
     client: Any | None = None,
     model: str | None = None,
+    observe: Observer | None = None,
 ) -> Run:
     """Re-ask the lanes whose part of the last answer is missing, and merge over the union.
 
@@ -232,10 +358,21 @@ def enrich(
         lanes,
         contexts=session.context_for(targets),
         only=frozenset(targets),
+        observe=observe,
     )
 
     combined = session.union_for(run.lanes.answers)
+    emit(observe, "merge_start", lanes=len(run.lanes.with_data()), wall_ms=run.lanes.wall_ms)
     run.merged = merge(last.question, combined, client=client, model=model)
+    emit(
+        observe,
+        "checks",
+        combinable=run.merged.combinable,
+        results=[
+            {"check": r.check, "verdict": r.verdict.value, "reason": r.reason}
+            for r in run.merged.checks.results
+        ],
+    )
 
     session.remember(
         Turn(
@@ -248,4 +385,5 @@ def enrich(
         contexts=_contexts(run.lanes, session.contexts),
     )
     run.total_ms = int((time.monotonic() - started) * 1000)
+    emit(observe, "done", payload=run.payload())
     return run
