@@ -1199,3 +1199,48 @@ def test_the_page_reads_only_the_payload() -> None:
         assert key in html, f"the page never reads {key}"
     assert "cdn" not in html.lower(), "no CDN: the page must work with no network"
     assert "<script src" not in html, "no external script"
+
+
+# --- provenance compared numerically, not textually ---------------------------
+
+
+def test_the_same_number_written_differently_is_not_invention() -> None:
+    """Found live: a lane returned `3,995.00`, the merge wrote `3,995`, and the first version
+    of this check — which compared normalised strings — rejected a perfectly honest
+    single-lane answer."""
+    from gd_agents.orchestrator.checks import check_provenance
+
+    lanes = [shaped("ecom", numbers=("3,995.00",))]
+
+    assert check_provenance("Last month we took 3,995 online orders.", lanes).ok()
+
+
+def test_numeric_comparison_still_catches_a_cross_workspace_ratio() -> None:
+    """Loosening the comparison must not cost the check its teeth."""
+    from gd_agents.orchestrator.checks import check_provenance
+
+    lanes = [shaped("mkt", numbers=("11944.45",)), shaped("cust", numbers=("27.04",))]
+
+    assert not check_provenance("Cost per NPS point was 441.73.", lanes).ok()
+
+
+def test_rounding_a_lane_value_is_still_caught() -> None:
+    """Rounding 11,944.45 to 11,944 changes the value, however innocuous it looks."""
+    from gd_agents.orchestrator.checks import check_provenance
+
+    lanes = [shaped("mkt", numbers=("11,944.45",))]
+
+    assert not check_provenance("Spend was 11,944.", lanes).ok()
+
+
+def test_a_single_lane_is_not_told_it_could_not_be_combined() -> None:
+    """One lane has nothing to combine with. Saying otherwise implies a failure that did not
+    happen."""
+    from gd_agents.orchestrator.checks import run_checks
+    from gd_agents.orchestrator.merge import separate_answers
+
+    lanes = [shaped("ecom")]
+    text = separate_answers("q", lanes, run_checks(lanes))
+
+    assert "could not be combined" not in text
+    assert text.startswith("From a single workspace")

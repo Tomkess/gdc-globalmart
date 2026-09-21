@@ -271,31 +271,51 @@ class Provenance:
         )
 
 
+def _as_number(value: str) -> float | None:
+    """The numeric value of a rendered number, or None if it is not one."""
+    bare = value.replace(",", "").replace(" ", "").rstrip("%").rstrip(".")
+    try:
+        return float(bare)
+    except ValueError:
+        return None
+
+
 def check_provenance(merged: str, answers: Sequence[Answer]) -> Provenance:
     """Every number in the merged answer must appear in some lane's result.
 
-    Separators are normalised before comparing, so "11,944.45" and "11944.45" are the same
-    number written two ways rather than one invented and one real. Years are already excluded
-    upstream: treating them as provenance would licence any value between 1900 and 2200.
+    **Compared numerically, not textually.** A lane returning `3,995.00` and a merge writing
+    `3,995` are the same number written two ways — the first version of this check compared
+    normalised strings and flagged that as invented, which would have rejected a perfectly
+    honest single-lane answer. Found by running it against a real question.
+
+    Numeric comparison keeps the teeth: 441.73 is not equal to 11944.45 or 27.04, so the
+    archetype — a ratio spanning two workspaces — is still caught. So is a merge that rounds
+    11,944.45 to 11,944, which is a changed value however innocuous it looks.
+
+    Years are excluded. Treating them as provenance would licence any value between 1900 and
+    2200.
     """
+    known: set[float] = set()
+    literals: set[str] = set()
+    for answer in answers:
+        for number in answer.numbers:
+            literals.add(number)
+            value = _as_number(number)
+            if value is not None:
+                known.add(value)
 
-    def normalise(value: str) -> str:
-        return value.replace(",", "").replace(" ", "").rstrip("%").rstrip(".")
-
-    known = {normalise(number) for answer in answers for number in answer.numbers}
     result = Provenance(known=len(known))
 
     invented: list[str] = []
     for match in _NUMBER.finditer(merged or ""):
         raw = match.group(0).strip()
-        bare = normalise(raw)
-        if not bare or bare.lstrip("-").replace(".", "").isdigit() is False:
+        value = _as_number(raw)
+        if value is None:
             continue
-        digits = bare.lstrip("-")
-        if digits.isdigit() and len(digits) == 4 and 1900 <= int(digits) <= 2200:
+        if value.is_integer() and 1900 <= value <= 2200 and "." not in raw:
             continue
         result.checked += 1
-        if bare not in known:
+        if value not in known and raw not in literals:
             invented.append(raw)
 
     result.invented = tuple(dict.fromkeys(invented))

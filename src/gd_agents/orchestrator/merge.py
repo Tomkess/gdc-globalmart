@@ -131,8 +131,17 @@ def separate_answers(question: str, answers: Sequence[Answer], checks: CheckRepo
     merge is rejected for inventing a number, and in the second case reaching for the model
     again would be asking the thing that just failed to try harder.
     """
-    reason = checks.reasons() or "these answers do not share a dimension that would let them be combined"
-    parts = [f"These results could not be combined: {reason}", ""]
+    if len(answers) == 1:
+        # One lane has nothing to combine with. Telling a reader it "could not be combined"
+        # is worse than saying nothing — it implies a failure that did not happen.
+        opening = "From a single workspace:"
+    else:
+        reason = (
+            checks.reasons()
+            or "these answers do not share a dimension that would let them be combined"
+        )
+        opening = f"These results could not be combined: {reason}"
+    parts = [opening, ""]
     for answer in answers:
         parts.append(f"**{answer.workspace}** — asked: {answer.question}")
         if not answer.ok():
