@@ -1,0 +1,13 @@
+version: 1
+parent_workspace_id: globalmart
+exclusions:
+  metrics:
+    - id: average_l1_bonus_cost_duplicate
+      reason: Accidental duplicate of average_l1_bonus_cost; kept only to exercise the near-duplicate detector.
+    - id: average_total_bonus_cost_variant
+      reason: Variant retained by the FEAT-001 capture to test near-duplicate classification, not a business metric.
+    - id: average_total_sales_amount_daily_store_sales_copy
+      reason: Exact copy fixture for the duplicate-metric test; documenting it would restate its original.
+  visualizations:
+    - id: viz_orphan_0001
+      reason: Deliberately sits on no dashboard, so the coverage fixture can exercise the orphan path.

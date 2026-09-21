@@ -65,3 +65,21 @@ jobs:
       # document without rebuilding fails here. Offline.
       - name: Knowledge is compiled
         run: uv run globalmart knowledge build --check
+
+      # The documentation corpus satisfies its authoring contract: front matter complete,
+      # one Diátaxis kind per document, header-based sections within the size bounds the
+      # retrieval research implies, no published-filename collision. Also checks that every
+      # retrieval question's expected facts still appear verbatim in the document they cite,
+      # so rewriting a load-bearing sentence fails here rather than degrading a live suite.
+      # Offline: no credentials, no host.
+      - name: Documentation corpus is valid
+        run: uv run globalmart knowledge-docs build
+
+      # The gate this feature exists for: every dataset, metric, visualization and dashboard
+      # in the parent is documented by docs/knowledge-corpus/ or excluded in
+      # config/corpus.yaml with a written reason. Renaming an object without touching its
+      # documentation fails the PR that renamed it, because the covers: pattern stops
+      # matching. --strict also rejects placeholder reasons. Offline, reads the committed
+      # tree and never a live host.
+      - name: Documentation covers the workspace
+        run: uv run globalmart knowledge-docs coverage --strict

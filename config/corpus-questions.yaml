@@ -1,0 +1,86 @@
+# Questions only this corpus answers, asserted against the live knowledge search.
+#
+# `globalmart knowledge-docs retrieval --target <profile>` asks each question of
+# GET /api/v1/ai/workspaces/{ws}/knowledge/search and asserts two things: the expected
+# document comes back within --limit, and the expected facts appear in *its* chunks. There
+# is no model in the loop, so a failure is a retrieval failure rather than a wording
+# opinion.
+#
+# `globalmart knowledge-docs build` additionally checks, offline, that every `expect_facts`
+# string still appears verbatim in the document it names, and that the document is marked
+# `anchor: true`. So rewriting a load-bearing sentence fails locally with the question id
+# instead of quietly degrading this suite.
+version: 1
+questions:
+  - id: q_fiscal_year_start
+    question: When does GlobalMart's fiscal year start?
+    expect_document: gm-corpus__explanation__date-datasets-and-the-fiscal-year.md
+    expect_facts:
+      - "fiscal year begins in February"
+
+  - id: q_fiscal_date_unused
+    question: Is the fiscal_date date instance used by anything?
+    expect_document: gm-corpus__explanation__date-datasets-and-the-fiscal-year.md
+    expect_facts:
+      - "referenced by no dashboard content and by no metric"
+
+  - id: q_net_revenue_transfers
+    question: Does net revenue include intra-company transfers?
+    expect_document: gm-corpus__reference__dashboards-finance.md
+    expect_facts:
+      - "excludes intra-company transfers"
+
+  - id: q_level_1_aggregation
+    question: What aggregation do the level-1 metrics use?
+    expect_document: gm-corpus__reference__metric-level-1-base-aggregations.md
+    expect_facts:
+      - "Every one of them is a SUM"
+
+  - id: q_headcount_snapshot_sum
+    question: Why is total headcount over a year far too large?
+    expect_document: gm-corpus__reference__metric-level-1-base-aggregations.md
+    expect_facts:
+      - "365 times the headcount"
+
+  - id: q_level_4_is_a_difference
+    question: Is a level-4 MoM metric a percentage or an absolute change?
+    expect_document: gm-corpus__reference__metric-level-4-period-over-period.md
+    expect_facts:
+      - "absolute change"
+      - "not a growth rate and not a percentage"
+
+  - id: q_data_is_synthetic
+    question: Is GlobalMart's data real?
+    expect_document: gm-corpus__explanation__where-the-data-comes-from.md
+    expect_facts:
+      - "No row in GlobalMart describes a real customer"
+
+  - id: q_data_is_generated
+    question: How does GlobalMart's warehouse data get refreshed?
+    expect_document: gm-corpus__how_to__refresh-the-warehouse.md
+    expect_facts:
+      - "generated, not stored"
+
+  - id: q_memory_versus_knowledge
+    question: What is the difference between an AI memory item and an AI Knowledge document?
+    expect_document: gm-corpus__explanation__ai-context-channels.md
+    expect_facts:
+      - "A fact belongs in exactly one channel"
+
+  - id: q_children_are_derived
+    question: Can I edit a domain workspace directly?
+    expect_document: gm-corpus__explanation__the-twelve-domain-workspaces.md
+    expect_facts:
+      - "A child is never authored"
+
+  - id: q_risk_workspace_size
+    question: How many datasets does the risk workspace carry?
+    expect_document: gm-corpus__explanation__the-twelve-domain-workspaces.md
+    expect_facts:
+      - "Risk reaches 9 of the parent's 227 datasets"
+
+  - id: q_sql_schema_placeholder
+    question: How is the warehouse schema handled in SQL-backed datasets?
+    expect_document: gm-corpus__reference__sql-datasets.md
+    expect_facts:
+      - "{{ datasource_schema }}"

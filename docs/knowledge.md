@@ -11,11 +11,26 @@ globalmart knowledge build --check    # CI gate: exit 1 if the tree is out of da
 
 Then publish as usual — the items are part of the layout, so `publish parent` carries them.
 
-## There is no document-upload API
+## Superseded: there *is* a document-upload API
 
-Checked against the GoodData API client and gdc-nas on 2026-09-18: no knowledge-document
-model, no file ingestion. So "uploading a document" means **compiling it into AI memory
-items**, and calling it anything else would promise a capability the platform does not have.
+This document originally stated that no knowledge-document API existed — "checked against
+the GoodData API client and gdc-nas on 2026-09-18: no knowledge-document model, no file
+ingestion". That was true of the Python SDK's surface and false of the platform. The AI
+Knowledge document API shipped 2026-03-26 and was re-verified on 2026-09-21:
+`PUT /api/v1/ai/workspaces/{id}/knowledge/documents` accepts whole Markdown files.
+
+FEAT-015 uses it, and the two channels now live side by side — see
+[ADR 009](../specs/decisions/009-two-ai-knowledge-channels.md) and
+`docs/knowledge-corpus/`:
+
+| | this page (memory items) | the corpus (knowledge documents) |
+|---|---|---|
+| Unit | a paragraph, ≤ 255 chars | a whole document |
+| Source | `docs/knowledge/*.md` | `docs/knowledge-corpus/<kind>/*.md` |
+| Command | `globalmart knowledge build` | `globalmart knowledge-docs publish` |
+| Travels by | the layout tree, copied per domain | its own API call, inherited at read time |
+
+Write a standing directive here. Write documentation to look up there. Do not write both.
 
 Memory items live under `analytics`, not `ldm` — knowledge is analytics-layer content, so
 none of this touches the semantic model.

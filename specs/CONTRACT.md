@@ -53,6 +53,10 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `equivalence.py` | FEAT-006 | `compare_orgs(...) -> EquivalenceReport`, `dict_diff` |
 | `rebuild.py` | FEAT-006 | `RebuildStep` chain — the "no manual step" proof |
 | `report.py` | FEAT-006 | The only module that knows about presentation |
+| `corpus.py` | FEAT-015 | `CorpusDocument`, `DiataxisKind`, `parse_corpus_document`, `load_corpus`, `published_filename` — the offline authoring model |
+| `corpus_coverage.py` | FEAT-015 | `CorpusManifest` + its strict loader, `check_corpus_coverage`, `raise_for_corpus_report` |
+| `knowledge_docs.py` | FEAT-015 | The only module that touches `/api/v1/ai/workspaces/{id}/knowledge/documents`; `publish_corpus`, `verify_corpus` |
+| `retrieval.py` | FEAT-015 | `RetrievalQuestion`, `run_retrieval` — answer-level validation over the published corpus |
 | `cli.py` | all | Subcommand registration only; no logic |
 
 FEAT-005 (sole owner), **as built 2026-09-18**: `registry.py`, `dataload.py`, `sqlcheck.py`
@@ -182,6 +186,16 @@ def key_kebab(key: str) -> str: ...        # store_ops -> store-ops
 class DomainManifestError(GlobalmartError): ...
 ```
 
+**`AiSelection.knowledge_ids` and `coverage.AI_CHANNELS`' `knowledge` entry stay dormant
+(FEAT-015, 2026-09-21).** They model an *in-layout* knowledge object — one the splitter copies
+into each child and `check_coverage` demands membership for. The AI Knowledge documents FEAT-015
+publishes are the opposite on both counts: they live outside the layout tree, are written by
+their own REST call, and reach children by read-time inheritance rather than by being copied.
+Wiring them here would make `domains validate` demand coverage of objects that are not in the
+layout at all. Per-domain grouping is expressed instead as `scopes` derived from a document's
+front-matter `domains:`. These two fields remain reserved for a future in-layout knowledge
+object, should the SDK ever model one.
+
 Consumers use the accessor methods; do not re-derive name resolution or flatten exclusions
 by hand. `domain.label` is never passed as a workspace name — call `resolve_workspace_name`.
 
@@ -205,7 +219,12 @@ Single entry point `globalmart`, subcommands registered in `cli.py`:
 | `globalmart data load --target <profile> [--apply] [--only <tables>]` | FEAT-005 |
 | `globalmart verify --target <profile> [--workspace <id>] [--max-workers N] [--list-only] [--fail-on-empty]` | FEAT-006 |
 | `globalmart verify equivalence --target-a <a> --target-b <b> [--workspace-id <id>]` | FEAT-006 |
-| `globalmart rebuild --target <profile> [--apply] [--allow-existing] [--skip-data]` | FEAT-006 |
+| `globalmart rebuild --target <profile> [--apply] [--allow-existing] [--skip-data] [--skip-knowledge-docs]` | FEAT-006 (+015) |
+| `globalmart knowledge-docs build [--corpus <dir>] [--manifest <path>] [--questions <path>]` | FEAT-015 |
+| `globalmart knowledge-docs coverage [--strict] [--layout <tree>] [--format json]` | FEAT-015 |
+| `globalmart knowledge-docs publish --target <profile> [--workspace-id <id>] [--per-child] [--apply]` | FEAT-015 |
+| `globalmart knowledge-docs verify --target <profile> [--prune] [--apply]` | FEAT-015 |
+| `globalmart knowledge-docs retrieval --target <profile> [--attempts N]` | FEAT-015 |
 
 **Flag convention (from STEERING.md, binding):** `--apply` gates writes to a live org — every such
 command is a read-only rehearsal by default. `--dry-run` belongs only to commands whose writes are
@@ -223,6 +242,9 @@ exit non-zero otherwise" and is the CI gate form.
 | `config/domains.yaml` | Domain membership manifest | yes |
 | `data/ddl/globalmart.sql` | **215**-table DDL, schema-only, `{schema_name}` templated (214 inherited + `fact_search_event`) | yes |
 | `data/table-manifest.json` | Per table: row count, columns, sha256 of the **uncompressed** CSV, byte size | yes |
+| `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge, **not** part of the layout tree | yes |
+| `config/corpus.yaml` | Corpus exclusion manifest — what is deliberately undocumented, with a reason | yes |
+| `config/corpus-questions.yaml` | The fixed answer-level retrieval question set | yes |
 | `backups/`, `reports/` | Runtime output | no |
 
 **JSON side (FEAT-004, added 2026-09-18):** `layout_io.write_model_json(model, path)` /
@@ -255,6 +277,7 @@ the parent or `domains.yaml` and regenerate.
 | `tests/fixtures/expected_children/` | FEAT-004 | — |
 | `tests/fixtures/data_manifest_scale_0_01.json` | FEAT-005 | determinism oracle |
 | `tests/fixtures/verification/` | FEAT-006 | — |
+| `tests/fixtures/corpus/` | FEAT-015 | miniature corpus + `corpus.yaml` + question set |
 
 Extend an existing fixture rather than adding a parallel one.
 

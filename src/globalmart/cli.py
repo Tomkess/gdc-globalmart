@@ -31,6 +31,18 @@ from pathlib import Path
 from globalmart.capture import capture_workspace
 from globalmart.closure import MetricPolicy
 from globalmart.config import GlobalmartError, load_profile
+from globalmart.corpus import (
+    DEFAULT_CORPUS_DIR,
+    DEFAULT_MANIFEST,
+    DEFAULT_QUESTIONS,
+    build_report,
+    load_corpus,
+)
+from globalmart.corpus_coverage import (
+    check_corpus_coverage,
+    load_corpus_manifest,
+    raise_for_corpus_report,
+)
 from globalmart.counts import count_objects
 from globalmart.coverage import check_coverage, raise_for_report
 from globalmart.dataload import DEFAULT_MAX_AGE_DAYS, check_freshness, load_data, verify_contract
@@ -41,6 +53,7 @@ from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
 from globalmart.generate import base_row_counts, generate_dataset, resolve_window
 from globalmart.knowledge import DEFAULT_SOURCE_DIR, build_knowledge
+from globalmart.knowledge_docs import HttpKnowledgeApi, publish_corpus, verify_corpus
 from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
@@ -52,6 +65,11 @@ from globalmart.registry import (
     build_registry,
 )
 from globalmart.report import write_reports
+from globalmart.retrieval import (
+    assert_questions_grounded,
+    load_questions,
+    run_retrieval,
+)
 from globalmart.sdk_client import make_sdk
 from globalmart.split import split_all
 from globalmart.sqlcheck import check_sql_datasets
@@ -652,8 +670,10 @@ def cmd_rebuild(args: argparse.Namespace) -> int:
             layout_path=Path(args.layout),
             generated_path=Path(args.generated),
             domains_path=Path(args.domains_file),
+            corpus_path=Path(args.corpus),
             skip_data=args.skip_data,
             allow_existing=args.allow_existing,
+            skip_knowledge_docs=args.skip_knowledge_docs,
         ),
     )
 
@@ -697,6 +717,170 @@ def cmd_knowledge_build(args: argparse.Namespace) -> int:
         return 0
 
     print(f"\nWrote {report.items} memory item(s) into {args.layout}")
+    return 0
+
+
+def cmd_knowledge_docs_build(args: argparse.Namespace) -> int:
+    """Validate the authored corpus and the question set's grounding in it.
+
+    Produces no artifact, so it has neither --apply nor --check: the build *is* the check.
+    There is nothing on disk that could be stale relative to the documents, because the
+    documents are the source and the API is the only sink.
+    """
+    documents = load_corpus(Path(args.corpus))
+    report = build_report(documents)
+    _print_report(f"Corpus — {args.corpus}", report.summary_lines())
+
+    questions = load_questions(Path(args.questions))
+    if questions:
+        assert_questions_grounded(questions, documents)
+        print(f"\n{len(questions)} retrieval question(s) still grounded in the corpus.")
+    else:
+        print(f"\nNo question set at {args.questions} — retrieval is unasserted.")
+
+    print(f"{report.documents} document(s) valid.")
+    return 0
+
+
+def cmd_knowledge_docs_coverage(args: argparse.Namespace) -> int:
+    """Is every object in the parent documented, or excluded with a reason?
+
+    Reads the committed layout tree, never a live org: the repo is the source of truth, so
+    this needs no --target and no network.
+    """
+    model = read_tree(Path(args.layout))
+    documents = load_corpus(Path(args.corpus))
+    manifest = load_corpus_manifest(Path(args.manifest))
+
+    report = check_corpus_coverage(model, documents, manifest)
+
+    if args.format == "json":
+        print(json.dumps(report.as_dict(), indent=2, sort_keys=True))
+    else:
+        _print_report("Corpus coverage", report.summary_lines())
+        print()
+        for line in report.table_lines():
+            print(f"  {line}")
+
+    if args.report_only:
+        if not report.is_clean(strict=args.strict):
+            print(
+                f"\nREPORT ONLY — {report.uncovered_total()} object(s) undocumented. "
+                "Drop --report-only to make this fatal.",
+                file=sys.stderr,
+            )
+        return 0
+
+    raise_for_corpus_report(report, strict=args.strict)
+    print("\nEvery object is documented or explicitly excluded.")
+    return 0
+
+
+def _corpus_workspaces(args: argparse.Namespace, profile: object) -> list[str]:
+    """Which workspaces to write to.
+
+    One — the parent — by default, because the write path does not copy into children and
+    children inherit at query time. `--per-child` is the fallback for a host where that
+    inheritance does not hold; it loops the identical upsert over the manifest's children.
+    """
+    parent = args.workspace_id or getattr(profile, "parent_workspace_id", "globalmart")
+    if not getattr(args, "per_child", False):
+        return [parent]
+    manifest = load_domains(Path(args.domains_file))
+    return [parent] + [
+        manifest.by_key(key).workspace_id
+        for key in manifest.keys()  # noqa: SIM118 - DomainManifest.keys() is a method
+    ]
+
+
+def cmd_knowledge_docs_publish(args: argparse.Namespace) -> int:
+    """Upsert the corpus into AI Knowledge. Rehearsal unless --apply (ADR 002)."""
+    profile = load_profile(args.target)
+    documents = load_corpus(Path(args.corpus))
+
+    failed = False
+    for workspace_id in _corpus_workspaces(args, profile):
+        api = HttpKnowledgeApi.for_profile(profile, workspace_id)
+        report = publish_corpus(
+            api,
+            documents,
+            workspace_id=workspace_id,
+            target=profile.name,
+            apply=args.apply,
+        )
+        if not args.apply:
+            print("REHEARSAL — no writes. Re-run with --apply to publish.\n")
+        _print_report(f"Knowledge documents — {workspace_id}", report.summary_lines())
+        if report.failed:
+            failed = True
+            print(f"\n{len(report.failed)} document(s) failed to upsert.", file=sys.stderr)
+
+    return 1 if failed else 0
+
+
+def cmd_knowledge_docs_verify(args: argparse.Namespace) -> int:
+    """Reconcile the repo against the org, and optionally prune our orphans."""
+    profile = load_profile(args.target)
+    documents = load_corpus(Path(args.corpus))
+    workspace_id = args.workspace_id or profile.parent_workspace_id
+
+    api = HttpKnowledgeApi.for_profile(profile, workspace_id)
+    report = verify_corpus(
+        api,
+        documents,
+        workspace_id=workspace_id,
+        target=profile.name,
+        prune=args.prune,
+        apply=args.apply,
+    )
+
+    if args.prune and not args.apply:
+        print("REHEARSAL — nothing deleted. Re-run with --prune --apply to remove orphans.\n")
+    _print_report(f"Knowledge documents — {workspace_id}", report.summary_lines())
+
+    if report.missing_in_org or report.orphaned_in_org or report.changed:
+        print(
+            "\nThe org does not match the repo. Run "
+            f"`globalmart knowledge-docs publish --target {profile.name} --apply`.",
+            file=sys.stderr,
+        )
+        return 1
+    print("\nThe published corpus matches the repo.")
+    return 0
+
+
+def cmd_knowledge_docs_retrieval(args: argparse.Namespace) -> int:
+    """Ask the live knowledge search the questions only the corpus answers.
+
+    Reads only: this asserts on retrieved chunks, not on generated prose, so there is no
+    model in the loop and nothing to gate behind --apply.
+    """
+    profile = load_profile(args.target)
+    documents = load_corpus(Path(args.corpus))
+    questions = load_questions(Path(args.questions))
+
+    if not questions:
+        print(f"No question set at {args.questions} — nothing to assert.", file=sys.stderr)
+        return 1
+
+    assert_questions_grounded(questions, documents)
+
+    workspace_id = args.workspace_id or profile.parent_workspace_id
+    api = HttpKnowledgeApi.for_profile(profile, workspace_id)
+    report = run_retrieval(
+        api,
+        questions,
+        workspace_id=workspace_id,
+        target=profile.name,
+        limit=args.limit,
+        min_score=args.min_score,
+    )
+
+    _print_report("Retrieval", report.summary_lines())
+    if not report.passed:
+        print(f"\n{len(report.failures)} question(s) failed.", file=sys.stderr)
+        return 1
+    print("\nEvery question retrieves its document and its facts.")
     return 0
 
 
@@ -881,6 +1065,12 @@ def build_parser() -> argparse.ArgumentParser:
     rebuild.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     rebuild.add_argument("--generated", default=str(DEFAULT_GENERATED_PATH))
     rebuild.add_argument("--skip-data", action="store_true")
+    rebuild.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
+    rebuild.add_argument(
+        "--skip-knowledge-docs",
+        action="store_true",
+        help="leave the documentation corpus unpublished; the report names the skip either way",
+    )
     rebuild.add_argument(
         "--allow-existing",
         action="store_true",
@@ -907,6 +1097,81 @@ def build_parser() -> argparse.ArgumentParser:
         help="exit 1 if the tree would change; writes nothing (the CI gate)",
     )
     knowledge_build.set_defaults(func=cmd_knowledge_build)
+
+    knowledge_docs = subparsers.add_parser(
+        "knowledge-docs",
+        help="the authored documentation corpus: validate, publish to AI Knowledge, reconcile",
+    )
+    kd_actions = knowledge_docs.add_subparsers(dest="action", required=True)
+
+    kd_build = kd_actions.add_parser(
+        "build", help="validate the corpus and the question set's grounding in it"
+    )
+    kd_build.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
+    kd_build.add_argument("--manifest", default=str(DEFAULT_MANIFEST))
+    kd_build.add_argument("--questions", default=str(DEFAULT_QUESTIONS))
+    kd_build.set_defaults(func=cmd_knowledge_docs_build)
+
+    kd_coverage = kd_actions.add_parser(
+        "coverage", help="every object documented or excluded with a reason (the CI gate)"
+    )
+    kd_coverage.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
+    kd_coverage.add_argument("--manifest", default=str(DEFAULT_MANIFEST))
+    kd_coverage.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    kd_coverage.add_argument(
+        "--strict",
+        action="store_true",
+        help="also fail on a placeholder exclusion reason ('TODO', 'n/a')",
+    )
+    kd_coverage.add_argument(
+        "--report-only",
+        action="store_true",
+        help="print the gap and exit 0 — for sizing the authoring job before the gate is live",
+    )
+    kd_coverage.add_argument("--format", choices=["text", "json"], default="text")
+    kd_coverage.set_defaults(func=cmd_knowledge_docs_coverage)
+
+    kd_publish = kd_actions.add_parser("publish", help="upsert the corpus into AI Knowledge")
+    kd_publish.add_argument("--target", required=True)
+    kd_publish.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
+    kd_publish.add_argument("--workspace-id", default=None)
+    kd_publish.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
+    kd_publish.add_argument(
+        "--per-child",
+        action="store_true",
+        help="also write into each domain child; only needed if read-time inheritance fails",
+    )
+    kd_publish.add_argument(
+        "--apply",
+        action="store_true",
+        help="actually write to the org; without it this is a read-only rehearsal (ADR 002)",
+    )
+    kd_publish.set_defaults(func=cmd_knowledge_docs_publish)
+
+    kd_verify = kd_actions.add_parser(
+        "verify", help="reconcile the repo against the org; never touches a foreign document"
+    )
+    kd_verify.add_argument("--target", required=True)
+    kd_verify.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
+    kd_verify.add_argument("--workspace-id", default=None)
+    kd_verify.add_argument(
+        "--prune", action="store_true", help="delete our orphaned documents (requires --apply)"
+    )
+    kd_verify.add_argument(
+        "--apply", action="store_true", help="actually delete; without it --prune only reports"
+    )
+    kd_verify.set_defaults(func=cmd_knowledge_docs_verify)
+
+    kd_retrieval = kd_actions.add_parser(
+        "retrieval", help="ask the live knowledge search the questions only the corpus answers"
+    )
+    kd_retrieval.add_argument("--target", required=True)
+    kd_retrieval.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
+    kd_retrieval.add_argument("--questions", default=str(DEFAULT_QUESTIONS))
+    kd_retrieval.add_argument("--workspace-id", default=None)
+    kd_retrieval.add_argument("--limit", type=int, default=10)
+    kd_retrieval.add_argument("--min-score", type=float, default=0.0)
+    kd_retrieval.set_defaults(func=cmd_knowledge_docs_retrieval)
 
     data_generate = data_actions.add_parser(
         "generate", help="produce a synthetic dataset at a chosen seed and scale"

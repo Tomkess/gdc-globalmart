@@ -29,6 +29,11 @@ ALLOWED = {
     # workspaces each one should reach, which is the whole point of the file.
     "config/questions.yaml",
     "config/agents.yaml",
+    # FEAT-015's retrieval question set. Its hits are ordinary English words in question
+    # text ("describes a real customer", "Risk reaches 9 of the parent's 227 datasets") and
+    # one document filename, `dashboards-finance.md`. Same case as the two files above: not
+    # a second copy of the domain list, just prose that happens to name a subject area.
+    "config/corpus-questions.yaml",
 }
 
 

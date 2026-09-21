@@ -90,8 +90,10 @@ class RebuildOptions:
     layout_path: Path = Path("layouts/workspaces/globalmart")
     generated_path: Path = Path("generated/workspaces")
     domains_path: Path = Path("config/domains.yaml")
+    corpus_path: Path = Path("docs/knowledge-corpus")
     skip_data: bool = False
     allow_existing: bool = False
+    skip_knowledge_docs: bool = False
     verify: bool = True
 
 
@@ -147,6 +149,12 @@ def cold_rebuild(
         return report
 
     for step in steps:
+        # A step planned as SKIPPED carries its reason already and has no runner. Skipping
+        # here rather than at plan time keeps the step visible in the report: the gap is
+        # named, which is the whole point of having it in the chain.
+        if step.status is StepStatus.SKIPPED:
+            continue
+
         started = time.monotonic()
         try:
             step.detail = step_runner(step.name)(sdk, profile, manifest, opts) or step.detail
@@ -188,6 +196,23 @@ def _plan(
             cli_equivalent=f"globalmart publish parent --target {profile.name} --apply",
         )
     )
+    # The documentation corpus is not part of the layout tree, so `publish parent` does not
+    # carry it — it is written by its own API call. That makes it a real step in the chain
+    # rather than a footnote: goal-01's "no manual step" bar has to be met literally, or the
+    # omission has to be named. It goes straight after the parent because it writes to the
+    # parent workspace and children inherit it at query time, so it does not wait on `split`.
+    corpus_step = RebuildStep(
+        name="publish-knowledge-docs",
+        cli_equivalent=f"globalmart knowledge-docs publish --target {profile.name} --apply",
+    )
+    if opts.skip_knowledge_docs:
+        corpus_step.status = StepStatus.SKIPPED
+        corpus_step.detail = "--skip-knowledge-docs"
+    elif not Path(opts.corpus_path).exists():
+        corpus_step.status = StepStatus.SKIPPED
+        corpus_step.detail = f"no {opts.corpus_path} — nothing to publish"
+    steps.append(corpus_step)
+
     steps.append(
         RebuildStep(
             name="split",
@@ -220,6 +245,7 @@ def step_runner(name: str) -> Any:
         "verify-data": _run_verify_data,
         "load-warehouse": _run_load_warehouse,
         "publish-parent": _run_publish_parent,
+        "publish-knowledge-docs": _run_publish_knowledge_docs,
         "split": _run_split,
         "publish-domains": _run_publish_domains,
         "verify": _run_verify,
@@ -261,6 +287,35 @@ def _run_publish_parent(
         sdk, model, profile, workspace_id=manifest.parent_workspace_id, apply=True
     )
     return f"{result.workspace_id} changed={result.changed}"
+
+
+def _run_publish_knowledge_docs(
+    sdk: Any, profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions
+) -> str:
+    """Publish the documentation corpus. A failed upsert stops the chain.
+
+    Not softened to a warning: a rebuild that reports success while the workspace it built
+    has no documentation is the kind of "done" this repo exists to stop. The only softening
+    is the absent-corpus case, and that is decided in `_plan` and printed as a skip.
+    """
+    from globalmart.corpus import load_corpus
+    from globalmart.knowledge_docs import HttpKnowledgeApi, publish_corpus
+
+    documents = load_corpus(opts.corpus_path)
+    api = HttpKnowledgeApi.for_profile(profile, manifest.parent_workspace_id)
+    report = publish_corpus(
+        api,
+        documents,
+        workspace_id=manifest.parent_workspace_id,
+        target=profile.name,
+        apply=True,
+    )
+    if report.failed:
+        raise GlobalmartError(
+            f"{len(report.failed)} knowledge document(s) failed to upsert: "
+            + ", ".join(report.failed)
+        )
+    return f"{len(report.results)} documents, changed={report.changed}"
 
 
 def _run_split(

@@ -19,7 +19,7 @@ name: 'Workspace documentation as a versioned, publishable corpus: author the wh
   AI Knowledge document API, and gate it on coverage against the live layout, published-state
   reconciliation and answer-level retrieval'
 sources: []
-status: draft
+status: in-progress
 tags: []
 updated: '2026-09-21'
 ---

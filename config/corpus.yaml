@@ -1,0 +1,21 @@
+# Which workspace objects are deliberately undocumented, and why.
+#
+# Empty is the goal state, and as of 2026-09-21 it is the actual state: all 227 datasets,
+# 1,091 metrics, 384 visualizations and 32 dashboards are documented by
+# docs/knowledge-corpus/. `globalmart knowledge-docs coverage --strict` enforces that.
+#
+# When an object genuinely should not be documented, add it here with a written reason. An
+# entry without one is refused, and a reason of "TODO", "n/a" or "-" fails under --strict:
+# a deliberate omission has to be justified in words, because an unexplained gap is
+# indistinguishable from an oversight.
+#
+# An `id` may be an exact identifier or an fnmatch pattern (`fact_tmp_*`). A pattern that
+# matches nothing is fatal — that is the case where the object was deleted and its excuse
+# outlived it.
+version: 1
+parent_workspace_id: globalmart
+exclusions:
+  datasets: []
+  metrics: []
+  visualizations: []
+  dashboards: []

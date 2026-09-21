@@ -1,0 +1,82 @@
+# Checks that the published documentation is actually retrievable.
+#
+# FEAT-008 ended with an open question it could not close: whether the assistant really
+# retrieves the knowledge it was given. This is that check, and it is separate from the
+# pre-merge gates in ci.yml for one reason — it needs a credentialed host and a corpus that
+# has already been published, neither of which a PR from a fork can have.
+#
+# It is *not* an LLM-in-the-loop test. `GET /knowledge/search` returns the matching chunks,
+# their filenames and their similarity scores, so each question asserts two concrete things:
+# the expected document came back within the limit, and the expected facts are in its
+# chunks. No generation, no sampling, nothing to retry. A failure names the question and the
+# document rather than offering an opinion about a paragraph.
+name: Knowledge retrieval
+
+on:
+  schedule:
+    # Weekly, after the data-currency run. The corpus changes when someone edits it, and the
+    # index is rebuilt server-side on publish, so this is about noticing a regression in
+    # retrieval rather than about validating every commit.
+    - cron: "37 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Target profile to query"
+        required: true
+        default: demo-cloud
+      publish:
+        description: "Publish the corpus first (writes to the org)"
+        type: boolean
+        default: false
+      limit:
+        description: "How many search results to consider per question"
+        default: "10"
+
+concurrency:
+  group: knowledge-retrieval-${{ github.event.inputs.target || 'demo-cloud' }}
+  cancel-in-progress: false
+
+jobs:
+  retrieval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        run: uv sync --all-extras --dev
+
+      # Offline first: if the corpus or the question set is broken, say so before spending a
+      # round trip on it.
+      - name: Corpus and question set are valid
+        run: uv run globalmart knowledge-docs build
+
+      # Off by default. A scheduled run asserts against whatever is published; publishing is
+      # an explicit choice, because it writes to the org (ADR 002).
+      - name: Publish the corpus
+        if: github.event.inputs.publish == 'true'
+        env:
+          GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
+        run: |
+          uv run globalmart knowledge-docs publish \
+            --target "${{ github.event.inputs.target || 'demo-cloud' }}" --apply
+
+      # Read-only: reconciles the repo against the org and reports drift. Does not prune.
+      - name: Published corpus matches the repo
+        env:
+          GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
+        run: |
+          uv run globalmart knowledge-docs verify \
+            --target "${{ github.event.inputs.target || 'demo-cloud' }}"
+
+      - name: Questions retrieve their documents
+        env:
+          GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
+        run: |
+          uv run globalmart knowledge-docs retrieval \
+            --target "${{ github.event.inputs.target || 'demo-cloud' }}" \
+            --limit "${{ github.event.inputs.limit || '10' }}"

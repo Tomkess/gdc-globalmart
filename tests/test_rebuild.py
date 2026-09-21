@@ -109,8 +109,17 @@ def test_allow_existing_permits_it_but_records_the_truth(manifest) -> None:  # t
 # --- the plan -----------------------------------------------------------------
 
 
-def test_a_rehearsal_plans_every_step_and_runs_none(manifest) -> None:  # type: ignore[no-untyped-def]
-    report = cold_rebuild(ProbeSdk([]), profile(), manifest, apply=False)
+def with_corpus(tmp_path: Path, **kwargs: Any) -> RebuildOptions:
+    """Options whose corpus directory exists, so the plan does not depend on the CWD."""
+    corpus = tmp_path / "knowledge-corpus"
+    corpus.mkdir(exist_ok=True)
+    return RebuildOptions(corpus_path=corpus, **kwargs)
+
+
+def test_a_rehearsal_plans_every_step_and_runs_none(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    report = cold_rebuild(
+        ProbeSdk([]), profile(), manifest, apply=False, options=with_corpus(tmp_path)
+    )
 
     names = [step.name for step in report.steps]
     assert names == [
@@ -118,12 +127,13 @@ def test_a_rehearsal_plans_every_step_and_runs_none(manifest) -> None:  # type: 
         "verify-data",
         "load-warehouse",
         "publish-parent",
+        "publish-knowledge-docs",
         "split",
         "publish-domains",
         "verify",
     ]
     # Only the probe actually ran; everything else is planned.
-    assert [s.status for s in report.steps[1:]] == [StepStatus.PLANNED] * 6
+    assert [s.status for s in report.steps[1:]] == [StepStatus.PLANNED] * 7
 
 
 def test_every_step_carries_the_command_that_reproduces_it(manifest) -> None:  # type: ignore[no-untyped-def]
@@ -188,7 +198,7 @@ def test_a_failing_step_stops_the_chain(manifest, monkeypatch: pytest.MonkeyPatc
 
 
 def test_a_successful_chain_runs_every_step_in_order(
-    manifest, monkeypatch: pytest.MonkeyPatch
+    manifest, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:  # type: ignore[no-untyped-def]
     import globalmart.rebuild as rebuild_module
 
@@ -203,12 +213,15 @@ def test_a_successful_chain_runs_every_step_in_order(
 
     monkeypatch.setattr(rebuild_module, "step_runner", runner_for)
 
-    report = cold_rebuild(ProbeSdk([]), profile(), manifest, apply=True)
+    report = cold_rebuild(
+        ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path)
+    )
 
     assert calls == [
         "verify-data",
         "load-warehouse",
         "publish-parent",
+        "publish-knowledge-docs",
         "split",
         "publish-domains",
         "verify",
@@ -216,3 +229,97 @@ def test_a_successful_chain_runs_every_step_in_order(
     assert report.passed
     assert all(step.status is StepStatus.OK for step in report.steps)
     assert all(step.detail for step in report.steps)
+
+
+# --- the documentation corpus step (FEAT-015) ---------------------------------
+
+
+def test_the_corpus_is_published_right_after_the_parent(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    """It writes to the parent workspace and children inherit at read time, so it does not
+    wait on `split`."""
+    report = cold_rebuild(
+        ProbeSdk([]), profile(), manifest, apply=False, options=with_corpus(tmp_path)
+    )
+
+    names = [step.name for step in report.steps]
+    assert names.index("publish-knowledge-docs") == names.index("publish-parent") + 1
+
+
+def test_an_absent_corpus_is_a_named_skip_not_an_omission(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    """The gap has to be visible. A step quietly missing from the plan is the failure mode."""
+    report = cold_rebuild(
+        ProbeSdk([]),
+        profile(),
+        manifest,
+        apply=False,
+        options=RebuildOptions(corpus_path=tmp_path / "does-not-exist"),
+    )
+
+    step = next(s for s in report.steps if s.name == "publish-knowledge-docs")
+    assert step.status is StepStatus.SKIPPED
+    assert "nothing to publish" in step.detail
+
+
+def test_skip_knowledge_docs_says_so_in_the_report(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    report = cold_rebuild(
+        ProbeSdk([]),
+        profile(),
+        manifest,
+        apply=False,
+        options=with_corpus(tmp_path, skip_knowledge_docs=True),
+    )
+
+    step = next(s for s in report.steps if s.name == "publish-knowledge-docs")
+    assert step.status is StepStatus.SKIPPED
+    assert step.detail == "--skip-knowledge-docs"
+
+
+def test_a_skipped_corpus_step_does_not_run_and_does_not_fail_the_chain(
+    manifest, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:  # type: ignore[no-untyped-def]
+    import globalmart.rebuild as rebuild_module
+
+    calls: list[str] = []
+
+    def runner_for(name: str) -> Any:
+        def run(sdk: Any, profile_: Any, manifest_: Any, opts: Any) -> str:
+            calls.append(name)
+            return "ok"
+
+        return run
+
+    monkeypatch.setattr(rebuild_module, "step_runner", runner_for)
+
+    report = cold_rebuild(
+        ProbeSdk([]),
+        profile(),
+        manifest,
+        apply=True,
+        options=RebuildOptions(corpus_path=tmp_path / "absent"),
+    )
+
+    assert "publish-knowledge-docs" not in calls
+    assert report.passed
+
+
+def test_a_failed_corpus_publish_stops_the_chain(
+    manifest, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:  # type: ignore[no-untyped-def]
+    """Not softened to a warning: a rebuild reporting success over an undocumented workspace
+    is the kind of "done" this repo exists to stop."""
+    import globalmart.rebuild as rebuild_module
+
+    def runner_for(name: str) -> Any:
+        def run(sdk: Any, profile_: Any, manifest_: Any, opts: Any) -> str:
+            if name == "publish-knowledge-docs":
+                raise RuntimeError("2 knowledge document(s) failed to upsert")
+            return "ok"
+
+        return run
+
+    monkeypatch.setattr(rebuild_module, "step_runner", runner_for)
+
+    with pytest.raises(RebuildAbortedError, match="publish-knowledge-docs"):
+        cold_rebuild(
+            ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path)
+        )

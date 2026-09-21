@@ -1,0 +1,15 @@
+version: 1
+questions:
+  - id: q_net_revenue_transfers
+    question: Does the average total sales amount include intra-company transfers?
+    expect_document: gm-corpus__reference__metric-hierarchy.md
+    expect_facts:
+      - "excludes intra-company transfers"
+
+  - id: q_nps_scale
+    question: How is the average NPS score calculated?
+    expect_document: gm-corpus__reference__metric-hierarchy.md
+    expect_facts:
+      - "eleven-point scale"
+      - "promoter-minus-detractor"
+    min_facts: 1
