@@ -29,6 +29,26 @@ list; handled here by reading status first and treating history as a last resort
 **Failure is a value, never an exception.** One dead lane must degrade the reply, not end
 the query, so a timeout or a refusal comes back as an `Answer` carrying `error`.
 
+**`input-required` is a wall, and the orchestrator has to climb it.** Observed live: asked
+to rank campaigns by spend, the agent replied
+
+    state: input-required
+    "I found the exact spend metric, but it does not have a campaign field available for
+     ranking. I can still create the list using {metric/…} and {attribute/…}. Should I
+     create the ranked campaign spend table with these fields?"
+
+It had done the work, found a viable path, and stopped for permission — with no human in the
+lane. Left alone that lane contributes nothing, and in a four-lane fan-out it is the
+difference between an answer and a shrug.
+
+So a lane confirms once, continuing the same `contextId`. Bounded to one confirmation so it
+cannot loop, counted in `round_trips` so the cost is visible, and the original question is
+recorded so the reply can say the answer rested on an assumption.
+
+This is a product ask, not just a workaround: an agent serving a programmatic caller needs a
+mode that resolves its own ambiguity rather than asking. Auto-confirming is us guessing that
+"yes" was the right answer, and sometimes it will not be.
+
 **One retry on a transient server error.** Observed live on 2026-09-21: a lane returned
 HTTP 502 while an identical request seconds later succeeded. Losing a workspace from an
 answer because the gateway hiccuped is not a finding about federation, it is noise — and on
@@ -95,6 +115,21 @@ def message_payload(text: str, context_id: str | None = None) -> dict[str, Any]:
 
 #: Server-side hiccups worth one more try. A 4xx means the request was wrong.
 _TRANSIENT = ("HTTP 500", "HTTP 502", "HTTP 503", "HTTP 504", "timed out", "timeout")
+
+
+#: What a lane says to get past an `input-required`. Deliberately content-free: the agent has
+#: already proposed what it would do, so the only thing to add is consent.
+CONFIRMATION = (
+    "Yes, proceed with the fields you proposed. Do not ask further questions — "
+    "there is no human available to answer. If something is ambiguous, choose the most "
+    "reasonable option and say which you chose."
+)
+
+
+def context_id_of(payload: Any) -> str | None:
+    """The conversation id to continue, from a Task."""
+    value = _root(payload).get("contextId")
+    return str(value) if value else None
 
 
 def is_transient(error: Exception) -> bool:
@@ -231,6 +266,10 @@ class A2ALane:
     retries: int = 1
     """Attempts *after* the first, and only for transient server errors."""
 
+    confirm_clarifications: bool = True
+    """Answer one `input-required` by telling the agent to proceed. Off makes a lane that
+    asks contribute nothing, which is honest but useless in a fan-out."""
+
     def describe(self) -> str:
         return self.description
 
@@ -268,9 +307,25 @@ class A2ALane:
                 error=str(last_error),
             )
 
-        elapsed = int((time.monotonic() - started) * 1000)
         node = _root(payload)
         state = str(((node.get("status") or {}) if isinstance(node, dict) else {}).get("state") or "")
+        asked_for_clarification = state == INPUT_REQUIRED
+
+        if asked_for_clarification and self.confirm_clarifications:
+            continued = context_id or context_id_of(payload)
+            try:
+                payload = self.host.post(
+                    self.endpoint(),
+                    message_payload(CONFIRMATION, continued),
+                    timeout=self.timeout,
+                )
+                attempts += 1
+                node = _root(payload)
+                state = str(((node.get("status") or {}) or {}).get("state") or "")
+            except TransportError:
+                pass  # keep the clarification as the answer; the lane still reports honestly
+
+        elapsed = int((time.monotonic() - started) * 1000)
         text, source = answer_text(payload)
 
         if state == FAILED:
@@ -289,9 +344,10 @@ class A2ALane:
             question=question,
             text=text,
             shape=Shape(
-                population=f"answer source: {source}",
-                # An agent asking for clarification has not answered, and a merge that
-                # treats the question as data would read as a finding.
+                population=f"answer source: {source}"
+                + (" (after confirming an assumption)" if asked_for_clarification else ""),
+                # An agent still asking has not answered, and a merge that treats the
+                # question as data would narrate a prompt back to the user.
                 returned_data=bool(text) and state != INPUT_REQUIRED,
             ),
             # Text narrates, artifacts carry the values — so provenance is the union.
@@ -304,5 +360,4 @@ class A2ALane:
 
     def context_id_of(self, payload: Any) -> str | None:
         """The conversation id to reuse for a follow-up to this workspace."""
-        value = _root(payload).get("contextId")
-        return str(value) if value else None
+        return context_id_of(payload)

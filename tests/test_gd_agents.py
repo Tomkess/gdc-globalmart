@@ -745,3 +745,174 @@ def test_the_model_checks_are_posed_not_assumed() -> None:
 
     assert "metric_identity" in prompt
     assert "population_parity" in prompt
+
+
+# --- merge --------------------------------------------------------------------
+
+
+class FakeMessages:
+    def __init__(self, reply: str) -> None:
+        self.reply = reply
+        self.calls = 0
+
+    def create(self, **kwargs: object):  # type: ignore[no-untyped-def]
+        self.calls += 1
+        block = type("B", (), {"type": "text", "text": self.reply})()
+        usage = type("U", (), {"input_tokens": 10, "output_tokens": 20})()
+        return type("R", (), {"content": [block], "usage": usage})()
+
+
+class FakeClient:
+    def __init__(self, reply: str) -> None:
+        self.messages = FakeMessages(reply)
+
+
+def test_a_clean_merge_is_returned_verbatim() -> None:
+    from gd_agents.orchestrator.merge import merge
+
+    lanes = [shaped("mkt", numbers=("11,944.45",)), shaped("cust", numbers=("27.04",))]
+    client = FakeClient("Spend of 11,944.45 in marketing sat alongside an NPS of 27.04 in customer.")
+
+    result = merge("q", lanes, client=client, model="m")
+
+    assert result.ok()
+    assert result.combinable
+    assert "11,944.45" in result.text
+    assert client.messages.calls == 1
+
+
+def test_a_merge_that_computes_is_rejected_and_replaced() -> None:
+    """The whole reason provenance is checked after the fact: a prompt cannot be held to
+    anything, so the output is verified and thrown away if it invented a number."""
+    from gd_agents.orchestrator.merge import merge
+
+    lanes = [shaped("mkt", numbers=("11944.45",)), shaped("cust", numbers=("27.04",))]
+    client = FakeClient("Cost per NPS point was 441.73, which is efficient.")
+
+    result = merge("q", lanes, client=client, model="m")
+
+    assert not result.ok()
+    assert result.rejected and "never compute" in result.rejected
+    assert "441.73" not in result.text
+    assert "could not be combined" in result.text
+
+
+def test_a_blocked_check_skips_the_model_entirely() -> None:
+    """Refusing is the answer. Calling the model here would invite it to argue around a
+    verdict the code already reached."""
+    from gd_agents.orchestrator.merge import merge
+
+    lanes = [shaped("mkt", grain="month"), shaped("cust", grain="store")]
+    client = FakeClient("they are clearly related")
+
+    result = merge("q", lanes, client=client, model="m")
+
+    assert client.messages.calls == 0
+    assert not result.combinable
+    assert "no common key" in result.text
+
+
+def test_a_failed_lane_is_named_not_implied() -> None:
+    from gd_agents.orchestrator.merge import merge
+
+    lanes = [shaped("mkt"), shaped("cust", error="agent reported failed")]
+    result = merge("q", lanes, client=FakeClient("x"), model="m")
+
+    assert "cust" in result.text
+    assert "did not answer" in result.text
+
+
+def test_a_lane_that_returned_no_data_says_so() -> None:
+    from gd_agents.orchestrator.merge import merge
+
+    lanes = [shaped("mkt"), shaped("cust", data=False)]
+    result = merge("q", lanes, client=FakeClient("x"), model="m")
+
+    assert "returned no data" in result.text
+
+
+def test_with_nothing_usable_the_reply_is_still_honest() -> None:
+    from gd_agents.orchestrator.merge import merge
+
+    lanes = [shaped("mkt", error="boom"), shaped("cust", error="boom")]
+    result = merge("q", lanes, client=FakeClient("x"), model="m")
+
+    assert not result.combinable
+    assert result.text.count("did not answer") == 2
+
+
+def test_the_prompt_carries_each_lane_shape_and_its_values() -> None:
+    """The checks need shape; provenance needs the values. A prompt without them asks the
+    model to judge combinability on prose alone."""
+    from gd_agents.orchestrator.checks import run_checks
+    from gd_agents.orchestrator.merge import user_prompt
+
+    lanes = [shaped("mkt", numbers=("11,944.45",))]
+    text = user_prompt("q", lanes, run_checks(lanes))
+
+    assert "grain: month" in text
+    assert "11,944.45" in text
+    assert "returned data: yes" in text
+
+
+def test_the_system_prompt_poses_the_judgement_checks() -> None:
+    from gd_agents.orchestrator.checks import model_check_prompt
+    from gd_agents.orchestrator.merge import SYSTEM_PROMPT
+
+    filled = SYSTEM_PROMPT.format(model_checks=model_check_prompt())
+
+    assert "metric_identity" in filled
+    assert "may not compute" in filled
+
+
+# --- clarification handling ---------------------------------------------------
+
+
+def test_one_clarification_is_confirmed_and_continued(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Observed live: the agent found a viable path, then stopped for permission with no
+    human in the lane. Unconfirmed, that workspace contributes nothing."""
+    from gd_agents.a2a.client import A2ALane
+    from gd_agents.transport import Host
+
+    asking = completed_task()
+    asking["result"]["status"]["state"] = "input-required"
+    asking["result"]["status"]["message"]["parts"][0]["text"] = "Should I use these fields?"
+    asking["result"]["artifacts"] = []
+
+    sent: list[str] = []
+
+    def respond(self: object, path: str, body: dict, **kwargs: object) -> dict:
+        sent.append(body["params"]["message"]["parts"][0]["text"])
+        return asking if len(sent) == 1 else completed_task()
+
+    lane = A2ALane(host=Host(url="https://example.invalid", token="t"), workspace="w")
+    monkeypatch.setattr(type(lane.host), "post", respond)
+
+    answer = lane.ask("rank campaigns by spend")
+
+    assert answer.shape.returned_data, "the confirmed answer should count as data"
+    assert answer.round_trips == 2
+    assert "no human available" in sent[1]
+    assert "confirming an assumption" in (answer.shape.population or "")
+
+
+def test_confirmation_can_be_switched_off(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Off is honest but useless in a fan-out, so it has to be a deliberate choice."""
+    from gd_agents.a2a.client import A2ALane
+    from gd_agents.transport import Host
+
+    asking = completed_task()
+    asking["result"]["status"]["state"] = "input-required"
+    asking["result"]["artifacts"] = []
+
+    lane = A2ALane(
+        host=Host(url="https://example.invalid", token="t"),
+        workspace="w",
+        confirm_clarifications=False,
+    )
+    monkeypatch.setattr(type(lane.host), "post", lambda *a, **k: asking)
+
+    answer = lane.ask("q")
+
+    assert answer.round_trips == 1
+    assert not answer.shape.returned_data
