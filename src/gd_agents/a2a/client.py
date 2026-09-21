@@ -65,6 +65,14 @@ import uuid
 from dataclasses import dataclass, replace
 from typing import Any
 
+from gd_agents.artifacts import (
+    chart_pairs,
+    filters_of,
+    grain_of,
+    label_map,
+    resolve_placeholders,
+    window_of,
+)
 from gd_agents.lane import Answer, Shape
 from gd_agents.orchestrator.events import Observer, emit
 from gd_agents.transport import Host, TransportError
@@ -231,44 +239,18 @@ def shape_from_artifacts(artifacts: tuple[dict[str, Any], ...]) -> Shape:
     plan asked for, so `shared_dimension` refused a pair that agreed on month. The first
     chart remains `grain`/`time_from` for a reader; the full sets are what the checks use.
     """
-    visualizations = [
-        a.get("data")
-        for a in artifacts
-        if a.get("name") == "visualization" and isinstance(a.get("data"), dict)
-    ]
-    if not visualizations:
-        return Shape()
-
     all_grains: list[str] = []
     all_windows: list[str] = []
     other: list[str] = []
 
-    for visualization in visualizations:
-        assert isinstance(visualization, dict)  # noqa: S101 - narrowed by the filter above
-        query = visualization.get("query") or {}
-        fields = query.get("fields") or {}
-
-        def using(key: str, fields: dict[str, Any] = fields) -> str:
-            entry = fields.get(key) or {}
-            return str(entry.get("using") or key)
-
-        grains: list[str] = []
-        for key in visualization.get("view_by") or []:
-            reference = using(str(key))
-            # `label/transaction_date.month` -> `month`: the part after the last dot is the
-            # granularity, which is what two lanes have to agree on.
-            grains.append(reference.rsplit(".", 1)[-1] if "." in reference else reference.split("/")[-1])
-        if grains:
-            all_grains.append(", ".join(grains))
-
-        for name, spec in (query.get("filter_by") or {}).items():
-            if not isinstance(spec, dict):
-                continue
-            if spec.get("type") == "date_filter":
-                granularity = str(spec.get("granularity") or "")
-                all_windows.append(f"{spec.get('from')}..{spec.get('to')} {granularity}".strip())
-            else:
-                other.append(f"{name}={spec.get('type') or 'filter'}")
+    for visualization, _ in chart_pairs(artifacts):
+        grain = grain_of(visualization)
+        if grain:
+            all_grains.append(grain)
+        window = window_of(visualization)
+        if window:
+            all_windows.append(window)
+        other += filters_of(visualization)
 
     grain_set = tuple(dict.fromkeys(all_grains))
     window_set = tuple(dict.fromkeys(all_windows))
@@ -477,6 +459,10 @@ class A2ALane:
             )
 
         artifacts = data_artifacts(payload)
+        # The agent writes object ids into its prose while the same response carries their
+        # labels in the data artifact's columns. Swapping one for the other resolves a name
+        # the agent already gave — an unmapped id is left exactly as written.
+        text = resolve_placeholders(text, label_map(artifacts))
         return Answer(
             workspace=self.workspace,
             question=question,

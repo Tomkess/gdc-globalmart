@@ -119,9 +119,25 @@ textarea:focus{border-color:var(--brand3);box-shadow:0 0 0 3px var(--brand2)}
 .pill.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:none;
   letter-spacing:0;font-weight:500}
 
-/* ── answer ─────────────────────────────────────────────────────────────── */
-.answer{font-size:15.5px;line-height:1.72;white-space:pre-wrap}
+/* ── answer, and the markdown the agents write ──────────────────────────── */
+.answer{font-size:15.5px;line-height:1.72}
 .answer.refused{border-left:3px solid var(--warnb);padding-left:12px}
+.md p{margin:0 0 4px}
+.md .mdgap{height:10px}
+.md .mdh{font-weight:600}
+.md ul{margin:2px 0 6px;padding-left:22px}
+.md ul ul{margin:2px 0 2px}
+.md li{margin:1px 0}
+.md b{font-weight:600}
+.md .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;
+  background:#F0F2F9;border:1px solid var(--bord2);border-radius:4px;padding:0 4px}
+.mdtable{border-collapse:collapse;font-size:13px;margin:6px 0 10px}
+.mdtable th{text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--tx3);padding:4px 14px 4px 0;border-bottom:1px solid var(--bord);
+  white-space:nowrap}
+.mdtable td{padding:4px 14px 4px 0;border-bottom:1px solid var(--bord2)}
+.mdtable th.num,.mdtable td.num{text-align:right;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12px}
 .q{color:var(--tx2);font-size:13px}
 .sub{font-size:13.5px;color:var(--tx);background:var(--surf2);border:1px dashed var(--bord);
   border-radius:7px;padding:7px 10px;margin:5px 0}
@@ -135,7 +151,33 @@ textarea:focus{border-color:var(--brand3);box-shadow:0 0 0 3px var(--brand2)}
 .lane:first-of-type{border-top:0;padding-top:2px}
 .lane .ws{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
   font-weight:600;color:var(--c)}
-.lane .txt{font-size:13.5px;margin-top:6px;white-space:pre-wrap}
+.lane .txt{font-size:13.5px;margin-top:6px}
+/* A lane's working is folded away by default: the merged answer is the answer, and four
+   lanes' reasoning unfolded pushes it off the screen. */
+.lanehead{cursor:pointer;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.lanehead:hover .ws{text-decoration:underline;text-underline-offset:3px}
+.chev{color:var(--tx3);font-size:11px;width:12px;display:inline-block}
+.lanebody{display:none;margin-top:8px}
+.lane.open .lanebody{display:block}
+.lane.open .chev{color:var(--c)}
+.trace{margin-top:8px;background:var(--surf2);border:1px solid var(--bord2);border-radius:7px;
+  padding:8px 10px}
+.trace .th{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--tx3);margin-bottom:4px}
+.trace .tr{display:flex;gap:8px;font-size:11.5px;color:var(--tx2);padding:1px 0}
+.trace .ts{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--c);min-width:112px}
+
+/* ── the aligned table ──────────────────────────────────────────────────── */
+.atable{border-collapse:collapse;font-size:13px;width:100%}
+.atable th{text-align:right;padding:6px 12px 6px 0;border-bottom:1px solid var(--bord);
+  font-weight:600;white-space:nowrap}
+.atable th:first-child,.atable td:first-child{text-align:left}
+.atable th .src{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:10px;font-weight:500;letter-spacing:.02em;color:var(--c)}
+.atable td{padding:5px 12px 5px 0;border-bottom:1px solid var(--bord2);text-align:right;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+.atable td:first-child{font-family:inherit;font-size:13px;color:var(--tx2)}
+.atable td.gap{color:var(--tx3)}
 
 /* ── progress feed ──────────────────────────────────────────────────────── */
 .feed{font-size:13px}
@@ -193,7 +235,7 @@ textarea:focus{border-color:var(--brand3);box-shadow:0 0 0 3px var(--brand2)}
   padding:12px 13px}
 .ask-head{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   color:var(--warn);margin-bottom:7px}
-.ask-q{font-size:13.5px;line-height:1.6;white-space:pre-wrap;margin-bottom:9px}
+.ask-q{font-size:13.5px;line-height:1.6;margin-bottom:9px}
 .ask-form{display:flex;gap:8px}
 .ask-form input{flex:1;border:1px solid var(--warnb);border-radius:7px;padding:8px 11px;
   font:inherit;font-size:13.5px;background:#fff;outline:none}
@@ -257,6 +299,85 @@ function colour(ws) {
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s)
   .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+// ── the markdown the agents write ────────────────────────────────────────────
+// Both the workspace agents and the merge answer in markdown, and rendering it as plain
+// text puts literal ** on screen. Escape first and then introduce only the handful of tags
+// below, so agent text can never inject markup.
+//
+// Bold, italic, inline code, bullets to two levels, and blank lines. Deliberately no
+// underscore emphasis: object ids are full of underscores (metric_l1_total_campaign_spend)
+// and would turn into italics halfway through a name.
+function inlineMd(s) {
+  return esc(s)
+    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<i>$2</i>')
+    .replace(/`([^`]+)`/g, '<span class="code">$1</span>');
+}
+function md(src) {
+  const out = [];
+  let depth = 0;
+  // A sub-list belongs inside the <li> above it, not beside it. So opening a deeper level
+  // reaches back and reopens that item, and closing one closes both.
+  const open = () => {
+    const last = out.length - 1;
+    if (depth > 0 && last >= 0 && out[last].endsWith('</li>'))
+      out[last] = out[last].slice(0, -5);
+    out.push('<ul>');
+    depth++;
+  };
+  const closeTo = d => { while (depth > d) { out.push(depth > 1 ? '</ul></li>' : '</ul>'); depth--; } };
+
+  const lines = String(src == null ? '' : src).split('\n').map(l => l.replace(/\s+$/, ''));
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // A pipe table. Workspace agents do return these — a six-row monthly series came back
+    // as one live — and left to the paragraph branch it reads as a wall of pipes.
+    if (PIPE_ROW.test(line) && (PIPE_RULE.test(lines[i + 1] || '') || PIPE_ROW.test(lines[i + 1] || ''))) {
+      closeTo(0);
+      const block = [];
+      while (i < lines.length && PIPE_ROW.test(lines[i])) block.push(lines[i++]);
+      i--;
+      out.push(pipeTable(block));
+      continue;
+    }
+
+    const bullet = line.match(/^(\s*)[-*•]\s+(.*)$/);
+    if (bullet) {
+      const want = bullet[1].length >= 2 ? 2 : 1;
+      while (depth < want) open();
+      closeTo(want);
+      out.push('<li>' + inlineMd(bullet[2]) + '</li>');
+      continue;
+    }
+    closeTo(0);
+    if (!line.trim()) { out.push('<div class="mdgap"></div>'); continue; }
+    const heading = line.match(/^#{1,4}\s+(.*)$/);
+    out.push(heading ? '<p class="mdh">' + inlineMd(heading[1]) + '</p>'
+                     : '<p>' + inlineMd(line) + '</p>');
+  }
+  closeTo(0);
+  return out.join('');
+}
+
+const PIPE_ROW = /^\s*\|.*\|\s*$/;
+const PIPE_RULE = /^\s*\|[\s:|-]+\|\s*$/;
+function pipeCells(line) {
+  return line.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+}
+function pipeTable(block) {
+  const ruled = PIPE_RULE.test(block[1] || '');
+  // The separator row carries the alignment the agent chose: `---:` is a number column.
+  const align = ruled ? pipeCells(block[1]).map(c => (c.endsWith(':') ? ' class="num"' : '')) : [];
+  const head = ruled ? pipeCells(block[0]) : null;
+  const body = block.slice(ruled ? 2 : 0).map(pipeCells);
+  const cells = (row, tag) => row.map((c, n) =>
+    `<${tag}${align[n] || ''}>${inlineMd(c)}</${tag}>`).join('');
+  return `<table class="mdtable">${
+    head ? `<thead><tr>${cells(head, 'th')}</tr></thead>` : ''
+  }<tbody>${body.map(r => `<tr>${cells(r, 'td')}</tr>`).join('')}</tbody></table>`;
+}
 
 // ── workspace strip and prompt chips ─────────────────────────────────────────
 fetch('/registry').then(r => r.json()).then(d => {
@@ -330,6 +451,9 @@ function send(route, body) {
   const turn = newTurn(body.question || (route === '/enrich' ? 'Retry the lanes that did not answer.'
                                                             : body.text));
   const feed = turn.querySelector('.feed');
+  // Per-lane round trips, kept so each lane can show its own trace once it is opened. The
+  // top feed is the turn's story; this is one lane's.
+  const trace = {};
   const started = Date.now();
   const tick = setInterval(() => {
     const t = turn.querySelector('.elapsed');
@@ -349,7 +473,7 @@ function send(route, body) {
       buffer = lines.pop();
       lines.filter(Boolean).forEach(line => {
         let event; try { event = JSON.parse(line); } catch { return; }
-        handle(event, turn, feed);
+        handle(event, turn, feed, trace);
       });
       return pump();
     });
@@ -385,8 +509,9 @@ function frow(state, name, detail, ms) {
 
 // Every event kind the orchestrator emits. Unknown kinds are ignored rather than rendered
 // as debris: the payload is the contract and this feed is narration.
-function handle(event, turn, feed) {
+function handle(event, turn, feed, trace) {
   const add = html => { feed.insertAdjacentHTML('beforeend', html); };
+  if (event.workspace) (trace[event.workspace] ||= []);
   switch (event.event) {
     case 'planning':
       add(frow('live', 'router', `one model call over ${event.workspaces.length} workspace descriptions`));
@@ -403,6 +528,7 @@ function handle(event, turn, feed) {
       add(frow('live', event.workspace, 'asking…'));
       break;
     case 'lane_step':
+      trace[event.workspace].push(event);
       add(frow('live', event.workspace, event.step + (event.detail ? ' — ' + event.detail : ''),
                event.latency_ms));
       break;
@@ -429,7 +555,7 @@ function handle(event, turn, feed) {
     }
     case 'done':
       feed.querySelectorAll('.fdot.live').forEach(d => d.classList.replace('live', 'ok'));
-      render(event.payload, turn.querySelector('.result'));
+      render(event.payload, turn.querySelector('.result'), trace);
       break;
     case 'error':
       add(frow('bad', 'orchestrator', event.error));
@@ -439,7 +565,8 @@ function handle(event, turn, feed) {
 }
 
 // ── the result ───────────────────────────────────────────────────────────────
-function render(d, into) {
+function render(d, into, trace) {
+  trace = trace || {};
   const pills = [];
   pills.push(pill(d.combinable ? 'ok' : 'warn', d.combinable ? 'combined' : 'not combined'));
   pills.push(pill('mono', d.timings.total_ms + ' ms total'));
@@ -449,11 +576,15 @@ function render(d, into) {
 
   let html = `<div class="card">
     <h2>Answer</h2>
-    <div class="answer${d.combinable ? '' : ' refused'}">${esc(d.reply)}</div>
+    <div class="answer md${d.combinable ? '' : ' refused'}">${md(d.reply)}</div>
     ${d.provenance && d.provenance.rejected
       ? `<div class="err" style="margin-top:9px">merge rejected — ${esc(d.provenance.rejected)}</div>` : ''}
     <div class="foot pills">${pills.join('')}</div>
   </div>`;
+
+  // The rows the answer was read off. Only where the lanes combine, because a table of two
+  // series implies they are comparable — which is the claim the checks gate.
+  if (d.table) html += alignedTable(d.table);
 
   // Whatever is still waiting on a human. Rendered before the detail, because it is the one
   // thing on the page that is asking the reader for something.
@@ -473,9 +604,9 @@ function render(d, into) {
     ${(d.routing.notes || []).map(n => `<div class="err">${esc(n)}</div>`).join('')}
   </div>`;
 
-  // Per lane, with its charts.
-  html += `<div class="card"><h2>Lanes<span class="note">${d.lanes.length} asked</span></h2>
-    ${d.lanes.map(ln => laneHTML(ln)).join('')}</div>`;
+  // Per lane, folded away. Click one open for its answer, its trace and its charts.
+  html += `<div class="card"><h2>Lanes<span class="note">${d.lanes.length} asked · click one to open it</span></h2>
+    ${d.lanes.map(ln => laneHTML(ln, trace[ln.workspace])).join('')}</div>`;
 
   // Checks, so a refusal is explained rather than merely delivered.
   html += `<div class="card"><h2>Merge checks
@@ -498,7 +629,23 @@ function render(d, into) {
 
 function pill(cls, text) { return `<span class="pill ${cls}">${esc(text)}</span>`; }
 
-function laneHTML(ln) {
+// The lanes' own series, side by side on the key they agreed on. Each column says which
+// workspace it came from, because that is the only thing holding the table together — it is
+// alignment on a shared grain, never a join.
+function alignedTable(t) {
+  const head = t.columns.map(c =>
+    `<th>${esc(c.name)}<span class="src" style="--c:${colour(c.workspace)}">${esc(c.workspace)}</span></th>`).join('');
+  const body = t.rows.map(r => `<tr><td>${esc(r.key)}</td>${
+    r.cells.map(v => v === '' ? '<td class="gap">—</td>' : `<td>${esc(v)}</td>`).join('')}</tr>`).join('');
+  return `<div class="card">
+    <h2>The rows behind the answer<span class="note">aligned on ${esc(t.grain)} — not a join</span></h2>
+    <table class="atable"><thead><tr><th>${esc(t.grain)}</th>${head}</tr></thead><tbody>${body}</tbody></table>
+    <div class="foot"><span class="mono">Each column is one workspace's own series at this grain, as that
+      workspace formatted it. A blank cell is a period one lane did not cover — never a zero.</span></div>
+  </div>`;
+}
+
+function laneHTML(ln, steps) {
   const state = !ln.ok ? ['bad', 'failed']
               : ln.input_required ? ['warn', 'needs input']
               : !ln.returned_data ? ['warn', 'no data']
@@ -508,13 +655,33 @@ function laneHTML(ln) {
   if (ln.grain) pills.push(pill('', 'by ' + ln.grain));
   if (ln.window) pills.push(pill('mono', ln.window));
   (ln.filters || []).forEach(f => pills.push(pill('mono', f)));
+  const chartCount = charts(ln).length;
+  if (chartCount) pills.push(pill('brand', chartCount + (chartCount === 1 ? ' chart' : ' charts')));
   return `<div class="lane" style="--c:${colour(ln.workspace)}">
-    <div class="pills"><span class="ws">${esc(ln.workspace)}</span>${pills.join('')}</div>
-    <div class="sub">${esc(ln.question)}</div>
-    ${ln.error ? `<div class="err">${esc(ln.error)}</div>` : ''}
-    ${ln.text ? `<div class="txt">${esc(ln.text)}</div>` : ''}
-    ${charts(ln).join('')}
-    ${ln.source ? `<div class="mono" style="margin-top:6px">${esc(ln.source)}</div>` : ''}
+    <div class="lanehead" onclick="this.parentNode.classList.toggle('open')">
+      <span class="chev">▶</span><span class="ws">${esc(ln.workspace)}</span>${pills.join('')}
+    </div>
+    <div class="lanebody">
+      <div class="sub">${esc(ln.question)}</div>
+      ${ln.error ? `<div class="err">${esc(ln.error)}</div>` : ''}
+      ${ln.text ? `<div class="txt md">${md(ln.text)}</div>` : ''}
+      ${traceHTML(steps, ln)}
+      ${charts(ln).join('')}
+      ${ln.source ? `<div class="mono" style="margin-top:6px">${esc(ln.source)}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+// What this one lane actually did, round trip by round trip. Only present for a streamed
+// turn — a blocking /ask has no steps to show, and inventing them would be worse than the
+// section being absent.
+function traceHTML(steps, ln) {
+  if (!steps || !steps.length) return '';
+  return `<div class="trace" style="--c:${colour(ln.workspace)}">
+    <div class="th">what this lane did</div>
+    ${steps.map(s => `<div class="tr"><span class="ts">${esc(s.step)}</span>
+      <span>${esc(s.detail || '')}</span>
+      ${s.latency_ms != null ? `<span style="margin-left:auto">${s.latency_ms} ms</span>` : ''}</div>`).join('')}
   </div>`;
 }
 
@@ -525,7 +692,7 @@ function laneHTML(ln) {
 function askBox(p) {
   return `<div class="ask">
     <div class="ask-head">${esc(p.workspace)} needs input</div>
-    <div class="ask-q">${esc(p.asks)}</div>
+    <div class="ask-q md">${md(p.asks)}</div>
     <div class="ask-quick">
       <button onclick="reply('${esc(p.workspace)}','Yes, go ahead with the fields you proposed.')">Yes, go ahead</button>
       <button onclick="reply('${esc(p.workspace)}','Yes, and tell me which fields you used.')">Yes — and say which fields</button>

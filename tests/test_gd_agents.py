@@ -1746,3 +1746,364 @@ def test_one_windows_two_ends_are_not_two_windows() -> None:
 
     assert not report.combinable()
     assert "no shared period" in report.reasons()
+
+
+# --- object ids resolved to the labels the same response carried ---------------
+# The agent writes "{metric/metric_l1_total_campaign_spend} did not have a campaign
+# breakdown" into its prose while the data artifact beside it calls that same object
+# "Total Campaign Spend". Showing the id to a reader is a rendering failure we can fix
+# without inventing anything.
+
+
+def two_chart_artifacts() -> tuple[dict, ...]:
+    from gd_agents.a2a.client import data_artifacts
+
+    task = completed_task()
+    task["result"]["artifacts"] = [
+        {
+            "name": "visualization",
+            "parts": [
+                {
+                    "kind": "data",
+                    "data": {
+                        "id": "series",
+                        "type": "line_chart",
+                        "metrics": ["m_spend"],
+                        "view_by": ["d_month"],
+                        "query": {
+                            "fields": {
+                                "m_spend": {"using": "metric/metric_l1_total_campaign_spend"},
+                                "d_month": {"using": "label/transaction_date.month"},
+                            },
+                            "filter_by": {
+                                "w": {
+                                    "type": "date_filter",
+                                    "granularity": "MONTH",
+                                    "from": -5,
+                                    "to": 0,
+                                }
+                            },
+                        },
+                    },
+                }
+            ],
+        },
+        {
+            "name": "visualization-data",
+            "parts": [
+                {
+                    "kind": "data",
+                    "data": {
+                        "visualizationId": "series",
+                        "columns": [
+                            {"name": "Month/Year", "type": "attribute"},
+                            {"name": "Total Campaign Spend", "type": "metric", "format": "#,##0.00"},
+                        ],
+                        "formattedRows": [
+                            {"Month/Year": "2026-04", "Total Campaign Spend": "11,944.45"},
+                            {"Month/Year": "2026-05", "Total Campaign Spend": "9,726.62"},
+                        ],
+                    },
+                }
+            ],
+        },
+    ]
+    return data_artifacts(task)
+
+
+def test_an_object_id_becomes_the_label_the_workspace_gave_it() -> None:
+    from gd_agents.artifacts import label_map, resolve_placeholders
+
+    labels = label_map(two_chart_artifacts())
+    text = "{metric/metric_l1_total_campaign_spend} by {label/transaction_date.month} returned:"
+
+    assert resolve_placeholders(text, labels) == "Total Campaign Spend by Month/Year returned:"
+
+
+def test_an_id_with_no_label_is_left_exactly_as_written() -> None:
+    """A plausible-looking label derived from an identifier would be a guess presented as a
+    fact. Leaving it visible is ugly and true, and it is on the gap list."""
+    from gd_agents.artifacts import label_map, resolve_placeholders, unresolved
+
+    text = "I could use {attribute/sql_campaign_roi.campaign_id} instead."
+    out = resolve_placeholders(text, label_map(two_chart_artifacts()))
+
+    assert out == text
+    assert unresolved(out) == ("{attribute/sql_campaign_roi.campaign_id}",)
+
+
+def test_the_lane_resolves_ids_before_the_answer_leaves_it() -> None:
+    """So every host gets readable prose, not just our page."""
+    from gd_agents.a2a.client import A2ALane
+
+    lane = A2ALane(host=FakeHost(spend_task()), workspace="mkt")
+    answer = lane.ask("Show spend by month")
+
+    assert "Total Campaign Spend" in answer.text
+    assert "{metric/" not in answer.text
+
+
+def spend_task() -> dict:
+    task = completed_task()
+    task["result"]["status"]["message"]["parts"][0]["text"] = (
+        "Created a line chart showing {metric/metric_l1_total_campaign_spend} by month."
+    )
+    task["result"]["artifacts"] = [
+        {
+            "name": "visualization",
+            "parts": [
+                {
+                    "kind": "data",
+                    "data": {
+                        "id": "series",
+                        "metrics": ["m_spend"],
+                        "view_by": ["d_month"],
+                        "query": {
+                            "fields": {
+                                "m_spend": {"using": "metric/metric_l1_total_campaign_spend"},
+                                "d_month": {"using": "label/transaction_date.month"},
+                            }
+                        },
+                    },
+                }
+            ],
+        },
+        {
+            "name": "visualization-data",
+            "parts": [
+                {
+                    "kind": "data",
+                    "data": {
+                        "visualizationId": "series",
+                        "columns": [
+                            {"name": "Month/Year", "type": "attribute"},
+                            {"name": "Total Campaign Spend", "type": "metric"},
+                        ],
+                        "formattedRows": [{"Month/Year": "2026-04", "Total Campaign Spend": "11,944.45"}],
+                    },
+                }
+            ],
+        },
+    ]
+    return task
+
+
+# --- the rows behind the answer -----------------------------------------------
+# The merge narrates a comparison; a reader wants the two series that sentence was read off.
+# Alignment on a shared grain, never a join.
+
+
+def charted(workspace: str, grain_using: str, key: str, metric: str, rows: list[dict]) -> Answer:
+    identifier = f"{workspace}-{metric}"
+    return Answer(
+        workspace=workspace,
+        question="q",
+        text="t",
+        shape=Shape(grains=(grain_using.rsplit(".", 1)[-1],), units="x"),
+        artifacts=(
+            {
+                "name": "visualization",
+                "data": {
+                    "id": identifier,
+                    "metrics": ["m"],
+                    "view_by": ["d"],
+                    "query": {"fields": {"m": {"using": f"metric/{metric}"}, "d": {"using": grain_using}}},
+                },
+            },
+            {
+                "name": "visualization-data",
+                "data": {
+                    "visualizationId": identifier,
+                    "columns": [
+                        {"name": key, "type": "attribute"},
+                        {"name": metric, "type": "metric"},
+                    ],
+                    "formattedRows": rows,
+                },
+            },
+        ),
+    )
+
+
+def test_two_lanes_become_one_table_on_the_shared_grain() -> None:
+    from gd_agents.orchestrator.align import align
+
+    spend = charted(
+        "mkt",
+        "label/transaction_date.month",
+        "Month/Year",
+        "Total Campaign Spend",
+        [
+            {"Month/Year": "2026-04", "Total Campaign Spend": "11,944.45"},
+            {"Month/Year": "2026-05", "Total Campaign Spend": "9,726.62"},
+        ],
+    )
+    nps = charted(
+        "cust",
+        "label/transaction_date.month",
+        "Month/Year",
+        "Average Total NPS Score",
+        [
+            {"Month/Year": "2026-04", "Average Total NPS Score": "32.31"},
+            {"Month/Year": "2026-05", "Average Total NPS Score": "35.20"},
+        ],
+    )
+    table = align([spend, nps], "month").payload()
+
+    assert table["grain"] == "month"
+    assert [c["workspace"] for c in table["columns"]] == ["mkt", "cust"]
+    assert table["rows"][0] == {"key": "2026-04", "cells": ["11,944.45", "32.31"]}
+
+
+def test_a_period_one_lane_did_not_cover_is_blank_not_zero() -> None:
+    """A zero would read as a measured value of nothing, which is a different claim."""
+    from gd_agents.orchestrator.align import align
+
+    long = charted(
+        "mkt",
+        "label/transaction_date.month",
+        "Month/Year",
+        "Spend",
+        [{"Month/Year": "2026-04", "Spend": "1"}, {"Month/Year": "2026-05", "Spend": "2"}],
+    )
+    short = charted(
+        "cust", "label/transaction_date.month", "Month/Year", "NPS", [{"Month/Year": "2026-04", "NPS": "9"}]
+    )
+    rows = align([long, short], "month").payload()["rows"]
+
+    assert rows[1] == {"key": "2026-05", "cells": ["2", ""]}
+
+
+def test_a_chart_at_another_grain_stays_out_of_the_table() -> None:
+    """A lane's campaign ranking has no place in a monthly table — putting it there would
+    imply a correspondence that does not exist."""
+    from gd_agents.orchestrator.align import align
+
+    ranking = charted(
+        "mkt",
+        "label/sql_campaign_roi.campaign_id",
+        "Campaign ID",
+        "Total Spend",
+        [{"Campaign ID": "c1", "Total Spend": "2,560.34"}],
+    )
+    series = charted(
+        "cust",
+        "label/transaction_date.month",
+        "Month/Year",
+        "NPS",
+        [{"Month/Year": "2026-04", "NPS": "9"}, {"Month/Year": "2026-05", "NPS": "8"}],
+    )
+    table = align([ranking, series], "month")
+
+    assert [c.name for c in table.columns] == ["NPS"]
+    assert not table.usable(), "one lane's series is not a comparison"
+
+
+def test_no_table_when_the_lanes_do_not_combine() -> None:
+    """A table of two series asserts they are comparable — the claim the checks gate."""
+    from gd_agents.orchestrator.merge import Merged
+    from gd_agents.orchestrator.run import Run
+
+    run = Run(question="q")
+    run.merged = Merged(combinable=False)
+
+    assert run.payload()["table"] is None
+
+
+# --- markdown, executed -------------------------------------------------------
+# The agents answer in markdown. Rendering it as plain text puts literal ** on screen; the
+# fix is a renderer, and a renderer handed agent text is an injection surface.
+
+
+MD_HARNESS = """
+const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;')
+  .replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+%s
+const lane = [
+ 'I created two charts.',
+ '',
+ '- **Campaign ranking:** returned one row with a blank campaign ID: **2,560.34**.',
+ '- **Monthly spend:** Total Campaign Spend by month returned:',
+ '  - **2026-04:** 11,944.45',
+ '  - **2026-05:** 9,726.62',
+ '',
+ 'I could not use fiscal date here.',
+].join('\\n');
+console.log(JSON.stringify({
+  lane: md(lane),
+  nasty: md('<img src=x onerror=alert(1)> **bold** <script>bad()</script>'),
+  ids: md('metric_l1_total_campaign_spend and fact_display_impression_000313'),
+  italic: md('a *word* here'),
+  table: md([
+    '| Month | Average Total NPS Score | Total Sentiment Score |',
+    '|---|---:|---:|',
+    '| 2026-04 | **32.31** | -0.37 |',
+    '| 2026-05 | 35.20 | 1.41 |',
+  ].join('\\n')),
+}));
+"""
+
+
+def rendered_markdown() -> dict[str, str]:
+    import json
+    import shutil
+    import subprocess
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("node is not installed; the markdown renderer cannot be executed here")
+
+    from gd_agents.server.app import PAGE
+
+    script = re.search(r"<script>(.*)</script>", PAGE.read_text(encoding="utf-8"), re.S)
+    assert script
+    body = script.group(1)
+    start = body.index("// ── the markdown the agents write")
+    end = body.index("// ── workspace strip")
+
+    finished = subprocess.run(
+        [node, "-e", MD_HARNESS % body[start:end]], capture_output=True, text=True, timeout=30
+    )
+    assert finished.returncode == 0, finished.stderr
+    return dict(json.loads(finished.stdout))
+
+
+def test_a_lanes_markdown_reaches_the_screen_as_formatting() -> None:
+    drawn = rendered_markdown()["lane"]
+
+    assert "**" not in drawn, "literal asterisks are the bug"
+    assert drawn.count("<b>") == 5
+    assert re.search(r"<li>[^<]*<b>Monthly spend:</b>[\s\S]*?<ul><li>", drawn), (
+        "the sub-list must sit inside the item it belongs to, not beside it"
+    )
+    assert drawn.count("<ul>") == drawn.count("</ul>")
+    assert drawn.count("<li>") == drawn.count("</li>")
+
+
+def test_agent_text_cannot_inject_markup() -> None:
+    """A renderer handed text from a remote agent is an injection surface. Escape first,
+    then introduce only the handful of tags the renderer owns."""
+    drawn = rendered_markdown()["nasty"]
+
+    assert "<img" not in drawn
+    assert "<script" not in drawn
+    assert "<b>bold</b>" in drawn
+
+
+def test_underscores_in_object_ids_do_not_become_italics() -> None:
+    """Which is why the renderer takes no underscore emphasis: `metric_l1_total_campaign_spend`
+    would turn italic halfway through its own name."""
+    assert "<i>" not in rendered_markdown()["ids"]
+    assert "<i>word</i>" in rendered_markdown()["italic"]
+
+
+def test_a_markdown_table_from_a_lane_is_drawn_as_a_table() -> None:
+    """Seen live: the customer lane answered a six-month series as a pipe table. Rendered as
+    paragraphs it is a wall of pipes."""
+    drawn = rendered_markdown()["table"]
+
+    assert "<table" in drawn
+    assert "|" not in drawn
+    assert drawn.count("<tr>") == 3, "header plus two rows"
+    assert drawn.count('<td class="num">') == 4, "the ---: columns are numeric"
+    assert "<b>32.31</b>" in drawn, "inline markdown inside a cell still renders"

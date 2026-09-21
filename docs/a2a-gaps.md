@@ -48,6 +48,36 @@ from doing it:
   inside a text part. A caller wanting to render buttons has to parse English. **Product ask:**
   when an agent asks a question it could carry the options as data.
 
+## An agent's prose carries object ids, not names
+
+Observed 2026-09-21 on every workspace. A completed answer reads:
+
+> *"`{metric/metric_l1_total_campaign_spend}` did not have a campaign breakdown available, so
+> I used `{metric/metric_l1_sql_campaign_roi_total_spend}` with
+> `{attribute/sql_campaign_roi.campaign_id}`."*
+
+The same response carries the human labels — *Total Campaign Spend*, *Total Spend (Campaign
+ROI)* — in the data artifact's `columns`. So the caller can resolve most of them: the mapping
+is positional and stated by the agent, `view_by` against the attribute columns and `metrics`
+against the metric columns. That is what `artifacts.label_map` does, and it clears every id
+that appears in a chart.
+
+What it cannot clear is an id the agent mentions **without charting it** — the alternative it
+rejected, or a field named in an `input-required` question, where there are no artifacts at
+all. Those stay on screen as raw ids, because deriving a label from an identifier would be a
+guess presented as a fact.
+
+- **Product ask:** write the label, not the id, into text meant for a human — or carry a
+  `{id: label}` map alongside the message. Every caller rendering an A2A answer will otherwise
+  reimplement this, and each will get the unmapped cases slightly differently.
+
+## Agents answer in markdown, and it is not declared
+
+A lane returned a six-month series as a **pipe table**; others use `**bold**`, bulleted lists
+and nested bullets. Nothing in the Task says the text part is markdown, so a caller either
+renders it and hopes, or shows the reader literal asterisks. We render it. Worth stating in
+the protocol which it is.
+
 ## The router can defeat its own merge by asking for two different shapes
 
 Found 2026-09-21 running the flagship federation question live — *"did the campaigns we spent

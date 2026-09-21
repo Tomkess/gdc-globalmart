@@ -19,6 +19,7 @@ from dataclasses import dataclass, field, replace
 from typing import Any
 
 from gd_agents.lane import Lane
+from gd_agents.orchestrator.align import align, shared_grain
 from gd_agents.orchestrator.events import Observer, emit
 from gd_agents.orchestrator.fanout import FanoutReport, fanout
 from gd_agents.orchestrator.merge import Merged, merge
@@ -53,6 +54,18 @@ class Run:
         plan_out = self.plan.tokens_out if self.plan else 0
         return (plan_in + self.merged.tokens_in, plan_out + self.merged.tokens_out)
 
+    def aligned(self) -> dict[str, Any] | None:
+        """The lanes' own series side by side on the grain they agreed on, or nothing.
+
+        Offered only when the checks let the answer combine: a table of two series implies
+        they are comparable, and that is precisely the claim the checks exist to gate. It is
+        alignment on a shared key, never a join — see `align.py`.
+        """
+        if not self.merged.combinable:
+            return None
+        table = align(self.lanes.answers, shared_grain(self.lanes.answers))
+        return table.payload() if table.usable() else None
+
     def payload(self) -> dict[str, Any]:
         """One turn as data, for a host to render however it likes.
 
@@ -72,6 +85,9 @@ class Run:
             "reply": self.merged.text,
             "combinable": self.merged.combinable,
             "enriched": list(self.enriched),
+            # The rows the merged answer was read off, aligned on the shared grain. Null
+            # when the lanes do not combine, or when there is nothing to compare.
+            "table": self.aligned(),
             # Lanes that stopped to ask something. A host with a human in front of it can
             # put the question to them and reply on that lane's own conversation; a host
             # without one ignores this and the lane simply did not contribute.

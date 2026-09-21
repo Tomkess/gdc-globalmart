@@ -46,6 +46,38 @@ That rendering is under test: the page's chart functions are executed in node ag
 artifact shapes a live agent really returns, so "the charts work" is a claim with a gate
 behind it rather than a screenshot.
 
+**Agents answer in markdown, so it is rendered.** Bold, bullets to two levels, inline code
+and pipe tables — a lane really did return a six-month series as a markdown table. The
+renderer escapes first and then introduces only the tags it owns, because text arriving from
+a remote agent is an injection surface. It deliberately takes no `_underscore_` emphasis:
+object ids are full of underscores and would turn italic halfway through their own name.
+
+**Object ids are resolved to the labels the same response carried.** The agent writes
+`{metric/metric_l1_total_campaign_spend}` into its prose while the data artifact beside it
+calls that object *Total Campaign Spend*. The mapping is positional and stated by the agent —
+`view_by` against the attribute columns, `metrics` against the metric columns — so this
+resolves a name the agent already gave rather than inventing one. Done in the lane, so every
+host gets readable prose and not just this page. **An id with no mapping is left exactly as
+written**, because a plausible label derived from an identifier would be a guess presented as
+a fact; it is on the gap list instead.
+
+## The rows behind the answer
+
+Where the lanes combine, the payload carries a `table`: each lane's own series listed against
+the grain the checks agreed on, one column per metric, labelled with the workspace it came
+from.
+
+**It is alignment, not a join.** No row of one workspace is matched to a row of another by
+any business key. Each lane returned an independent series broken down by the same time
+grain, and they are listed against that grain — exactly the claim the merge makes in prose.
+Two rules keep it honest: only the chart at the shared grain contributes, so a lane's campaign
+ranking stays out of a monthly table; and a period one lane did not cover is **blank, never
+zero**, because a zero reads as a measured value of nothing. Values are `formattedRows` as
+sent, so the table and the sentence above it show a number the same way.
+
+It is offered only when `combinable` is true. A table of two series asserts they are
+comparable, and that is precisely the claim the checks exist to gate.
+
 ---
 
 ## Run it
@@ -283,6 +315,7 @@ needing credentials beyond what an agent connection carries.
 ```
 src/gd_agents/
   lane.py                  the one interface both protocols implement
+  artifacts.py             reading GoodData DataParts — grains, windows, labels
   transport.py             HTTP and SSE, standard library only
   registry.py              which workspaces exist, and what each covers
   profile.py               builds the descriptions by querying the workspaces
@@ -290,6 +323,7 @@ src/gd_agents/
   a2a/client.py            one workspace over A2A
   mcp/                     empty — FEAT-014
   orchestrator/
+    align.py               the lanes' rows, side by side on the shared grain
     plan.py                route + decompose, one model call
     fanout.py              concurrent lanes, isolated failures
     checks.py              the eight merge checks, and provenance
