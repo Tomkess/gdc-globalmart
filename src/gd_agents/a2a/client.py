@@ -62,7 +62,7 @@ from __future__ import annotations
 import re
 import time
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any
 
 from gd_agents.lane import Answer, Shape
@@ -202,6 +202,68 @@ def data_artifacts(payload: Any) -> tuple[dict[str, Any], ...]:
     return tuple(found)
 
 
+def shape_from_artifacts(artifacts: tuple[dict[str, Any], ...]) -> Shape:
+    """Derive the answer's shape from the `visualization` artifact.
+
+    The merge checks are only as good as the shape they are given, and the answer *text*
+    does not carry it: "created a line chart showing spend by month" tells a reader the
+    grain and tells code nothing. Without this, `shared_dimension`, `time_window_match` and
+    `filter_parity` all return UNKNOWN on every real answer, which is not a passing check —
+    it is a check that never ran.
+
+    The artifact does carry it, in a form meant for rendering rather than reasoning:
+
+        view_by   ["d_month"]                      -> resolve through query.fields
+        fields    {"d_month": {"using": "label/transaction_date.month"}}
+        filter_by {"last_6_months": {"type": "date_filter", "granularity": "MONTH",
+                                     "from": -5, "to": 0, "using": "dataset/..."}}
+
+    Windows are kept in whatever form the agent expressed them — relative bounds stay
+    relative. Two lanes both saying `-5..0 MONTH` agree; resolving them to absolute dates
+    would invent a precision the agent never claimed, and comparing a resolved window with
+    an unresolved one would fail for the wrong reason.
+    """
+    visualization = next(
+        (a.get("data") for a in artifacts if a.get("name") == "visualization"), None
+    )
+    if not isinstance(visualization, dict):
+        return Shape()
+
+    query = visualization.get("query") or {}
+    fields = query.get("fields") or {}
+
+    def using(key: str) -> str:
+        entry = fields.get(key) or {}
+        return str(entry.get("using") or key)
+
+    grains: list[str] = []
+    for key in visualization.get("view_by") or []:
+        reference = using(str(key))
+        # `label/transaction_date.month` -> `month`: the part after the last dot is the
+        # granularity, which is what two lanes have to agree on.
+        grains.append(reference.rsplit(".", 1)[-1] if "." in reference else reference.split("/")[-1])
+
+    windows: list[str] = []
+    other: list[str] = []
+    for name, spec in (query.get("filter_by") or {}).items():
+        if not isinstance(spec, dict):
+            continue
+        if spec.get("type") == "date_filter":
+            granularity = str(spec.get("granularity") or "")
+            windows.append(f"{spec.get('from')}..{spec.get('to')} {granularity}".strip())
+        else:
+            other.append(f"{name}={spec.get('type') or 'filter'}")
+
+    window = windows[0] if windows else None
+    return Shape(
+        grain=", ".join(grains) or None,
+        time_from=window,
+        time_to=window,
+        filters=tuple(sorted(other)),
+        units=None,
+    )
+
+
 def numbers_from_artifacts(artifacts: tuple[dict[str, Any], ...]) -> tuple[str, ...]:
     """Values a `visualization-data` artifact returned, as rendered.
 
@@ -270,6 +332,15 @@ class A2ALane:
     """Answer one `input-required` by telling the agent to proceed. Off makes a lane that
     asks contribute nothing, which is honest but useless in a fan-out."""
 
+    retry_failed_state: bool = True
+    """Ask again once when the agent reports a terminal `failed` with no detail.
+
+    Not obviously right — a deterministic failure retried is only slower. But the observed
+    failures are not deterministic: the same workspace answered the same question in 27s and
+    then returned `failed` on a rephrasing of it minutes later. Since `failed` arrives with
+    no reason attached, a caller cannot tell the two apart, which is itself the product ask.
+    One retry is the cheaper mistake."""
+
     def describe(self) -> str:
         return self.description
 
@@ -296,6 +367,21 @@ class A2ALane:
                 last_error = error
                 if not is_transient(error) or attempts > self.retries:
                     break
+
+        # A terminal `failed` carries no reason, so it is indistinguishable from a transient
+        # one. Retried once, with the round trip counted.
+        if self.retry_failed_state and payload is not None:
+            first = _root(payload)
+            if str(((first.get("status") or {}) or {}).get("state") or "") == FAILED:
+                try:
+                    payload = self.host.post(
+                        self.endpoint(),
+                        message_payload(question, context_id),
+                        timeout=self.timeout,
+                    )
+                    attempts += 1
+                except TransportError:
+                    pass  # keep the failed Task; the lane reports it honestly
 
         if payload is None:
             return Answer(
@@ -343,7 +429,8 @@ class A2ALane:
             workspace=self.workspace,
             question=question,
             text=text,
-            shape=Shape(
+            shape=replace(
+                shape_from_artifacts(artifacts),
                 population=f"answer source: {source}"
                 + (" (after confirming an assumption)" if asked_for_clarification else ""),
                 # An agent still asking has not answered, and a merge that treats the

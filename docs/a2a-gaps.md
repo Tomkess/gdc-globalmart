@@ -39,7 +39,7 @@ All observed 2026-09-21, against four workspaces on one org:
 |---|---|---|
 | `HTTP 502 Bad Gateway` | one lane, 11.8s; an identical request seconds later succeeded | one retry on transient 5xx |
 | `input-required` | agent asked permission mid-task (above) | one auto-confirmation |
-| agent state `failed` | lane returned a terminal failure with no detail | reported, lane degraded |
+| agent state `failed` | lane returned a terminal failure with no detail | one retry, then reported |
 
 An orchestrator fanning out to four or five lanes will meet one of these on most runs, so
 per-lane failure isolation is not defensive programming — it is the normal case. The
@@ -63,3 +63,37 @@ or report. Either a reason or a retry hint would let a caller distinguish "ask a
 Fan-out cost is the slowest lane, which is the only reason four or five workspaces is
 viable. But a clarification doubles a lane, so the tail matters more than the average: one
 lane asking a question sets the wall clock for the whole answer.
+
+## `failed` is not deterministic, and looks like a timeout wearing the wrong name
+
+The same question, asked three times against one workspace:
+
+| # | wording | result |
+|---|---|---|
+| 1 | "What is Total Campaign Spend by month for the last 6 months?" | **`failed` after 89,968 ms** |
+| 2 | *identical wording* | ok, 36,944 ms |
+| 3 | "Show Total Campaign Spend by month for the last 6 months." | ok, 19,792 ms |
+
+Run 1 and run 2 are byte-identical requests with opposite outcomes, so `failed` is not a
+property of the question. And the failure took **90 seconds** against 37 and 20 for the
+successes — the failures are consistently the slow ones, which is what a server-side timeout
+surfacing as a generic `failed` would look like.
+
+Consequences for a caller:
+
+- **A retry is the only available response**, because nothing in the Task says whether asking
+  again might work. Implemented here, and it is a guess.
+- **It is expensive.** A failed lane costs ~90s before the retry even begins, so one flaky
+  lane can set a three-minute wall clock on an answer that would otherwise take 30 seconds.
+  Fan-out cost is the slowest lane, and a timing-out lane is always the slowest.
+- **Roughly half the multi-lane pipeline runs lost a lane** to one of the three modes. That
+  is the rate a demo has to survive, which is why the reply is assembled from what returned.
+
+**Product ask, in order of value to a caller:**
+
+1. Distinguish a timeout from a failure. They need different responses and currently look
+   identical.
+2. Attach a reason to `failed`. Without one, "retry" and "this cannot be answered here" are
+   indistinguishable, so a caller must retry everything and pay for it.
+3. Consider a server-side deadline a caller can set. An orchestrator fanning out to five
+   lanes would rather have a fast refusal than a slow one.
