@@ -58,7 +58,8 @@ or report. Either a reason or a retry hint would let a caller distinguish "ask a
 | single lane, after one clarification | 53s |
 | single lane, worst observed | 75s |
 | two lanes concurrent, wall | equal to the slowest lane (28.2s vs 58.3s sequential) |
-| full pipeline, plan + 2 lanes + merge | 56–81s |
+| full pipeline, plan + 2 lanes + merge | 56–120s |
+| single lane, worst observed (later run) | **107.7s** |
 
 Fan-out cost is the slowest lane, which is the only reason four or five workspaces is
 viable. But a clarification doubles a lane, so the tail matters more than the average: one
@@ -97,3 +98,38 @@ Consequences for a caller:
    indistinguishable, so a caller must retry everything and pay for it.
 3. Consider a server-side deadline a caller can set. An orchestrator fanning out to five
    lanes would rather have a fast refusal than a slow one.
+
+## The latency spread is the demo risk, not the average
+
+One two-lane question through the full pipeline, measured 2026-09-21:
+
+```
+routed        globalmart-marketing, globalmart-customer
+marketing      35,092 ms
+customer      107,698 ms
+fan-out wall  107,698 ms   (= slowest lane, so they did overlap)
+total         120,223 ms
+```
+
+Every check passed and the merge succeeded — the answer was correct and attributed. It took
+**two minutes**, because one lane took 107s.
+
+The same workspace answered comparable questions in 20s, 27s and 74s on other runs. So the
+spread within one workspace is roughly 5x, and fan-out pays the maximum of N draws from that
+distribution. Adding lanes does not raise the average much; it raises the chance that one of
+them is slow, which is the number the audience experiences.
+
+**This is the single biggest demo risk in AIS-55, and it is not in the orchestrator.** The
+orchestrator already does the only things it can: lanes run concurrently, a transient failure
+is retried, a clarification is confirmed, and a lane that never returns degrades the answer
+rather than blocking it. What remains is agent-side latency and its variance.
+
+**Worth raising with the A2A owners before the demo date**, because it changes what is safe
+to promise. Concretely:
+
+- Is ~100s expected for a two-metric, six-month, monthly-grain question, or is it a symptom?
+- Is there a caller-settable deadline? A fast refusal is more useful to an orchestrator than
+  a slow answer.
+- Does reasoning effort per message exist (GDAI-1805)? A routing-shaped sub-question does not
+  need the depth a free-form analytical question does, and an orchestrator is in the best
+  position to say so.

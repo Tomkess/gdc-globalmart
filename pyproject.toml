@@ -52,6 +52,9 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/globalmart", "src/gd_agents"]
+# The viewer page is data, not code, so it needs naming explicitly or a
+# wheel install has a `serve` command with no page to serve.
+artifacts = ["src/gd_agents/server/static/*.html"]
 
 [tool.ruff]
 line-length = 110

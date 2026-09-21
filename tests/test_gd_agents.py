@@ -1097,3 +1097,105 @@ def test_orchestrator_tokens_exclude_what_happens_inside_a_workspace() -> None:
     run.merged = Merged(tokens_in=900, tokens_out=400)
 
     assert run.tokens() == (2600, 700)
+
+
+# --- the payload: the actual interface ----------------------------------------
+
+
+def a_run():  # type: ignore[no-untyped-def]
+    from gd_agents.orchestrator.checks import run_checks
+    from gd_agents.orchestrator.merge import Merged
+    from gd_agents.orchestrator.plan import Plan, Step
+    from gd_agents.orchestrator.run import Run
+
+    answers = (
+        Answer(
+            workspace="mkt",
+            question="Show spend by month",
+            text="spend was 100",
+            numbers=("100",),
+            artifacts=(
+                {
+                    "name": "visualization-data",
+                    "data": {"formattedRows": [{"m": "2026-04", "v": "100"}]},
+                },
+            ),
+            latency_ms=1200,
+            shape=Shape(grain="month", time_from="-5..0 MONTH", time_to="-5..0 MONTH"),
+        ),
+        Answer(workspace="cust", question="Show NPS by month", text="", error="boom"),
+    )
+    run = Run(question="did spend move satisfaction?", total_ms=3400)
+    run.plan = Plan(
+        question=run.question,
+        steps=(Step("mkt", "Show spend by month", "spend lives here"), Step("cust", "Show NPS by month")),
+        reasoning="needs both",
+        combine_on="month",
+        tokens_in=1700,
+        tokens_out=300,
+    )
+    run.lanes.answers = answers
+    run.lanes.wall_ms = 2000
+    run.merged = Merged(text="reply", checks=run_checks(list(answers)), combinable=False, answers=answers)
+    return run
+
+
+def test_the_payload_carries_the_decomposition_not_just_the_route() -> None:
+    """A host that only learns which workspaces were called cannot show what made this
+    federation rather than broadcast."""
+    payload = a_run().payload()
+
+    assert [w["id"] for w in payload["routing"]["workspaces"]] == ["mkt", "cust"]
+    assert payload["routing"]["workspaces"][0]["question"] == "Show spend by month"
+    assert payload["routing"]["combine_on"] == "month"
+
+
+def test_the_payload_attributes_every_lane_whatever_the_merge_said() -> None:
+    """Attribution is structural: each lane stays addressable even if the merge paraphrased
+    or refused."""
+    lanes = {lane["workspace"]: lane for lane in a_run().payload()["lanes"]}
+
+    assert lanes["mkt"]["text"] == "spend was 100"
+    assert lanes["mkt"]["grain"] == "month"
+    assert lanes["cust"]["ok"] is False
+    assert lanes["cust"]["error"] == "boom"
+
+
+def test_the_payload_passes_artifacts_through_uninterpreted() -> None:
+    """They are GoodData-specific DataParts. A host renders or ignores them — which is the
+    product question, so they must arrive whole."""
+    artifacts = a_run().payload()["lanes"][0]["artifacts"]
+
+    assert artifacts[0]["name"] == "visualization-data"
+    assert artifacts[0]["data"]["formattedRows"][0]["v"] == "100"
+
+
+def test_the_payload_reports_checks_and_timings_for_the_reader() -> None:
+    payload = a_run().payload()
+
+    assert {c["check"] for c in payload["checks"]} >= {"lane_completeness", "shared_dimension"}
+    assert payload["timings"]["total_ms"] == 3400
+    assert payload["timings"]["fanout_wall_ms"] == 2000
+    assert payload["tokens"] == {"in": 1700, "out": 300}
+
+
+def test_the_payload_is_json_serialisable() -> None:
+    """It crosses HTTP, so a dataclass leaking into it breaks the page rather than a test."""
+    import json
+
+    assert json.loads(json.dumps(a_run().payload()))["question"]
+
+
+def test_the_page_reads_only_the_payload() -> None:
+    """The page must not depend on anything the interface does not carry, or the demo shows
+    more than a host could."""
+    from gd_agents.server.app import PAGE
+
+    html = PAGE.read_text(encoding="utf-8")
+    payload = a_run().payload()
+
+    for key in ("routing", "lanes", "checks", "timings", "tokens", "reply", "combinable"):
+        assert key in payload
+        assert key in html, f"the page never reads {key}"
+    assert "cdn" not in html.lower(), "no CDN: the page must work with no network"
+    assert "<script src" not in html, "no external script"

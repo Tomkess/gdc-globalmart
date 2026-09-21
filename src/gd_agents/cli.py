@@ -8,6 +8,7 @@ this package has to work against any GoodData org to be worth anything to a cust
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from pathlib import Path
@@ -118,6 +119,59 @@ def cmd_route(args: argparse.Namespace) -> int:
     return 0 if report.exact() == len(report.outcomes) else 1
 
 
+def _lanes(registry: Registry) -> dict[str, object]:
+    from gd_agents.a2a.client import A2ALane
+
+    token = os.environ.get(registry.token_env)
+    if not token:
+        raise RegistryError(f"No token in ${registry.token_env}.")
+    host = Host(url=registry.host, token=token)
+    return {
+        entry.id: A2ALane(host=host, workspace=entry.id, description=entry.description)
+        for entry in registry.entries
+    }
+
+
+def cmd_ask(args: argparse.Namespace) -> int:
+    """One question, answered from several workspaces, printed.
+
+    The command-line viewer. Enough to demo "prompt in, merged answer out" without a server,
+    and the same payload the page renders — so what is shown here is what a host would get.
+    """
+    from gd_agents.orchestrator.run import ask
+
+    registry = Registry.load(Path(args.registry))
+    run = ask(
+        args.question,
+        registry,
+        _lanes(registry),  # type: ignore[arg-type]
+        inject_failure=args.inject_failure,
+    )
+
+    if args.json:
+        print(json.dumps(run.payload(), indent=2))
+        return 0
+
+    for line in run.summary_lines():
+        print(f"  {line}")
+    print("\n--- answer ---\n")
+    print(run.reply())
+    return 0 if run.merged.ok() or not run.merged.combinable else 1
+
+
+def cmd_serve(args: argparse.Namespace) -> int:
+    """Serve the minimal viewer.
+
+    It stands where Portal Copilot stands and is meant to be deleted. Its only job is to
+    make a turn watchable; the payload is the actual interface.
+    """
+    from gd_agents.server.app import serve
+
+    registry = Registry.load(Path(args.registry))
+    serve(registry, _lanes(registry), host=args.host, port=args.port)  # type: ignore[arg-type]
+    return 0
+
+
 def cmd_registry_show(args: argparse.Namespace) -> int:
     """Print the routing prompt block, so what the router sees is inspectable."""
     registry = Registry.load(Path(args.registry))
@@ -153,6 +207,19 @@ def main(argv: list[str] | None = None) -> int:
     route.add_argument("--script", default="config/questions.yaml")
     route.add_argument("--turns", action="store_true", help="also score every turn of every conversation")
     route.set_defaults(func=cmd_route)
+
+    ask_cmd = actions.add_parser("ask", help="ask one question across the registered workspaces")
+    ask_cmd.add_argument("question")
+    ask_cmd.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
+    ask_cmd.add_argument("--json", action="store_true", help="print the payload a host would get")
+    ask_cmd.add_argument("--inject-failure", help="force one workspace to fail, for the demo")
+    ask_cmd.set_defaults(func=cmd_ask)
+
+    serve_cmd = actions.add_parser("serve", help="serve the minimal viewer")
+    serve_cmd.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
+    serve_cmd.add_argument("--host", default="127.0.0.1")
+    serve_cmd.add_argument("--port", type=int, default=8900)
+    serve_cmd.set_defaults(func=cmd_serve)
 
     show = actions.add_parser("registry", help="show the registry as the router sees it")
     show.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))

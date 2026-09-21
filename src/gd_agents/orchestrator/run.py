@@ -52,6 +52,71 @@ class Run:
         plan_out = self.plan.tokens_out if self.plan else 0
         return (plan_in + self.merged.tokens_in, plan_out + self.merged.tokens_out)
 
+    def payload(self) -> dict[str, Any]:
+        """One turn as data, for a host to render however it likes.
+
+        **This is the interface, not the page.** Infobip already has Portal Copilot, so what
+        matters is what GoodData hands back and whether their host can use it — not how we
+        draw it. Their team can read this shape and say in ten minutes whether their copilot
+        can consume it, which is a better answer than any screenshot.
+
+        Artifacts are passed through whole and uninterpreted. They are GoodData-specific
+        DataParts: `visualization` carries a chart definition in GoodData's own query
+        language, `visualization-data` carries rows. A host that is not GoodData's UI has to
+        render that itself or ignore it — which is a real product question and is on the gap
+        list.
+        """
+        return {
+            "question": self.question,
+            "reply": self.merged.text,
+            "combinable": self.merged.combinable,
+            "enriched": list(self.enriched),
+            "routing": {
+                "workspaces": [
+                    {"id": step.workspace, "question": step.question, "why": step.why}
+                    for step in (self.plan.steps if self.plan else ())
+                ],
+                "reasoning": self.plan.reasoning if self.plan else "",
+                "combine_on": self.plan.combine_on if self.plan else None,
+                "notes": list(self.plan.notes) if self.plan else [],
+            },
+            "lanes": [
+                {
+                    "workspace": answer.workspace,
+                    "question": answer.question,
+                    "text": answer.text,
+                    "ok": answer.ok(),
+                    "returned_data": answer.shape.returned_data,
+                    "error": answer.error,
+                    "latency_ms": answer.latency_ms,
+                    "round_trips": answer.round_trips,
+                    "grain": answer.shape.grain,
+                    "window": answer.shape.time_from,
+                    "filters": list(answer.shape.filters),
+                    "source": answer.shape.population,
+                    "numbers": list(answer.numbers),
+                    "artifacts": [dict(artifact) for artifact in answer.artifacts],
+                }
+                for answer in self.lanes.answers
+            ],
+            "checks": [
+                {"check": r.check, "verdict": r.verdict.value, "reason": r.reason}
+                for r in self.merged.checks.results
+            ],
+            "provenance": {
+                "ok": self.merged.provenance.ok(),
+                "checked": self.merged.provenance.checked,
+                "invented": list(self.merged.provenance.invented),
+                "rejected": self.merged.rejected,
+            },
+            "timings": {
+                "total_ms": self.total_ms,
+                "fanout_wall_ms": self.lanes.wall_ms,
+                "slowest_lane_ms": self.lanes.slowest_ms(),
+            },
+            "tokens": dict(zip(("in", "out"), self.tokens(), strict=True)),
+        }
+
     def summary_lines(self) -> list[str]:
         tokens_in, tokens_out = self.tokens()
         lines = [f"question          : {self.question}"]
