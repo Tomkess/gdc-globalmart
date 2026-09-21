@@ -2,11 +2,10 @@
 
 > Appetite: `l`  ·  Generated: 2026-09-21  ·  Machinery and corpus built 2026-09-21
 >
-> **32 of 36 done.** Open: tasks 16, 17, 31 and 34, which all need writes to or reads
-> from a live org and are deliberately unrun — STEERING forbids executing against a live
-> GoodData host unless asked. `knowledge-docs publish --target demo-cloud` (rehearsal,
-> read-only) succeeds and reports all 33 documents as missing in the org, so auth and the
-> endpoint are confirmed; only the `--apply` remains.
+> **All 36 done.** The live publish, the inheritance probe, the retrieval run and the
+> cold-rebuild rehearsal all ran against demo-cloud on 2026-09-21. The probe disproved
+> the inheritance assumption and changed the publish default — see the Outcome section
+> of spec.md and ADR 009.
 
 - [x] 1. Update `specs/CONTRACT.md`: add `corpus.py`, `corpus_coverage.py`, `knowledge_docs.py`,
        `retrieval.py` to the module-ownership table as FEAT-015; add the five `knowledge-docs`
@@ -97,12 +96,12 @@
         on `coverage`.
         Pre: task 3, task 9, task 13 complete
         AC: #2, #3, #4, #5
-- [ ] 16. Run the first live publish of the seed corpus (`knowledge-docs publish --target
+- [x] 16. Run the first live publish of the seed corpus (`knowledge-docs publish --target
         demo-cloud --apply`), then list a domain child workspace's documents to probe whether
         parent-level inheritance reaches it.
         Pre: task 15 complete
         AC: #3
-- [ ] 17. Record the inheritance-probe result (in `breakdown.md` or a note). If inheritance has
+- [x] 17. Record the inheritance-probe result (in `breakdown.md` or a note). If inheritance has
         exceptions, add a `--per-child` fallback flag to `publish_corpus` looping the same
         upsert over `manifest.keys()`.
         Pre: task 16 complete
@@ -163,7 +162,7 @@
         fails at load time, not at ask time.
         Pre: task 28, task 29 complete
         AC: #6
-- [ ] 31. Wire `globalmart knowledge-docs retrieval` into `cli.py` and run it live against
+- [x] 31. Wire `globalmart knowledge-docs retrieval` into `cli.py` and run it live against
         `demo-cloud` until the full question set passes.
         Pre: task 30 complete, task 16 (or 17) complete
         AC: #6
@@ -179,7 +178,7 @@
         step.
         Pre: task 32 complete
         AC: #7
-- [ ] 34. Run a cold-rebuild rehearsal (`globalmart rebuild --target <fresh-target> --apply`)
+- [x] 34. Run a cold-rebuild rehearsal (`globalmart rebuild --target <fresh-target> --apply`)
         and confirm `publish-knowledge-docs` appears among the planned/executed steps in the
         report.
         Pre: task 32 complete

@@ -16,7 +16,8 @@ The two channels are siblings, and a fact belongs to exactly one of them:
 - **here** — a paragraph under 255 characters, a standing directive, carried inside the
   layout tree, copied into each child by the splitter, selected by tag;
 - **`knowledge_docs.py`** — a whole document that explains something, published by its own
-  API call, inherited by children at query time, grouped by `scopes`.
+  API call to every workspace (GlobalMart has no workspace hierarchy, so nothing is
+  inherited — see ADR 009), grouped by `scopes`.
 
 Write a rule the assistant should always obey here. Write documentation a person or an agent
 should be able to look up there. Restating one in the other is the duplication this split

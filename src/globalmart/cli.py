@@ -777,14 +777,21 @@ def cmd_knowledge_docs_coverage(args: argparse.Namespace) -> int:
 
 
 def _corpus_workspaces(args: argparse.Namespace, profile: object) -> list[str]:
-    """Which workspaces to write to.
+    """Which workspaces to write to: the parent **and every domain workspace**.
 
-    One — the parent — by default, because the write path does not copy into children and
-    children inherit at query time. `--per-child` is the fallback for a host where that
-    inheritance does not hold; it loops the identical upsert over the manifest's children.
+    The API inherits knowledge documents down the workspace *hierarchy*, and GlobalMart has
+    no hierarchy — probed against demo-cloud on 2026-09-21, all 13 workspaces report
+    `parent=None`. "Parent" and "child" here name a derivation relationship in this
+    repository, not a GoodData one: the splitter emits twelve independent workspaces (ADR
+    001), which is what makes them publishable into any org on their own.
+
+    So a parent-only publish leaves all twelve domain workspaces undocumented, and those are
+    exactly where an assistant or an A2A lane is asked its questions. Writing to each is the
+    only thing that works; `--parent-only` restricts it for the case where someone wants the
+    parent alone.
     """
     parent = args.workspace_id or getattr(profile, "parent_workspace_id", "globalmart")
-    if not getattr(args, "per_child", False):
+    if getattr(args, "parent_only", False):
         return [parent]
     manifest = load_domains(Path(args.domains_file))
     return [parent] + [
@@ -819,28 +826,36 @@ def cmd_knowledge_docs_publish(args: argparse.Namespace) -> int:
 
 
 def cmd_knowledge_docs_verify(args: argparse.Namespace) -> int:
-    """Reconcile the repo against the org, and optionally prune our orphans."""
+    """Reconcile the repo against the org, and optionally prune our orphans.
+
+    Checks every workspace the publish writes to, because a corpus that is current in the
+    parent and stale in the twelve domain workspaces is exactly the drift this feature is
+    supposed to catch.
+    """
     profile = load_profile(args.target)
     documents = load_corpus(Path(args.corpus))
-    workspace_id = args.workspace_id or profile.parent_workspace_id
-
-    api = HttpKnowledgeApi.for_profile(profile, workspace_id)
-    report = verify_corpus(
-        api,
-        documents,
-        workspace_id=workspace_id,
-        target=profile.name,
-        prune=args.prune,
-        apply=args.apply,
-    )
 
     if args.prune and not args.apply:
         print("REHEARSAL — nothing deleted. Re-run with --prune --apply to remove orphans.\n")
-    _print_report(f"Knowledge documents — {workspace_id}", report.summary_lines())
 
-    if report.missing_in_org or report.orphaned_in_org or report.changed:
+    stale: list[str] = []
+    for workspace_id in _corpus_workspaces(args, profile):
+        api = HttpKnowledgeApi.for_profile(profile, workspace_id)
+        report = verify_corpus(
+            api,
+            documents,
+            workspace_id=workspace_id,
+            target=profile.name,
+            prune=args.prune,
+            apply=args.apply,
+        )
+        _print_report(f"Knowledge documents — {workspace_id}", report.summary_lines())
+        if report.missing_in_org or report.orphaned_in_org or report.changed:
+            stale.append(workspace_id)
+
+    if stale:
         print(
-            "\nThe org does not match the repo. Run "
+            f"\n{len(stale)} workspace(s) do not match the repo: {', '.join(stale)}. Run "
             f"`globalmart knowledge-docs publish --target {profile.name} --apply`.",
             file=sys.stderr,
         )
@@ -1137,9 +1152,9 @@ def build_parser() -> argparse.ArgumentParser:
     kd_publish.add_argument("--workspace-id", default=None)
     kd_publish.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
     kd_publish.add_argument(
-        "--per-child",
+        "--parent-only",
         action="store_true",
-        help="also write into each domain child; only needed if read-time inheritance fails",
+        help="write only to the parent; the domain workspaces then carry no documentation",
     )
     kd_publish.add_argument(
         "--apply",
@@ -1154,6 +1169,10 @@ def build_parser() -> argparse.ArgumentParser:
     kd_verify.add_argument("--target", required=True)
     kd_verify.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
     kd_verify.add_argument("--workspace-id", default=None)
+    kd_verify.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
+    kd_verify.add_argument(
+        "--parent-only", action="store_true", help="check only the parent workspace"
+    )
     kd_verify.add_argument(
         "--prune", action="store_true", help="delete our orphaned documents (requires --apply)"
     )

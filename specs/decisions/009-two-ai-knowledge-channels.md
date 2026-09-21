@@ -14,7 +14,7 @@ GlobalMart carries **two** AI knowledge channels, and they are not alternatives:
 | Purpose | a standing directive the assistant should obey | documentation a person or agent looks up |
 | Source | `docs/knowledge/*.md` | `docs/knowledge-corpus/<kind>/*.md` |
 | Transport | inside the layout tree; `publish parent` carries it | its own REST call to `/api/v1/ai/.../knowledge/documents` |
-| Reaches children | copied per-domain by the splitter, selected by tag | inherited at query time, not copied |
+| Reaches children | copied per-domain by the splitter, selected by tag | written to each workspace directly, one upsert each |
 | Grouping | `domain/<key>` and `knowledge/shared` tags | `scopes` |
 | Ownership marker | the reserved tag `knowledge` | the filename prefix `gm-corpus__` **and** the scope `globalmart-corpus` |
 
@@ -52,7 +52,33 @@ already says so, and its `("knowledge", ("ai_knowledge", "knowledge", "knowledge
 entry has always found nothing. Documents are written by their own endpoint and are not part
 of `get_declarative_workspace`.
 
-Three consequences, all accepted deliberately:
+### Inheritance does not apply here — probed, 2026-09-21
+
+The API inherits documents down the workspace hierarchy: a search from a workspace reaches
+its ancestors and the organization, and more local knowledge outranks inherited knowledge.
+This design initially relied on that, publishing once to `globalmart` and expecting the
+twelve domain workspaces to see it.
+
+They do not. Published to the parent on demo-cloud, a listing from `globalmart-finance`,
+`globalmart-risk` and `globalmart-ecommerce` returned **zero** documents, and
+`catalog_workspace.list_workspaces()` shows why: all thirteen workspaces report
+`parent=None`. GlobalMart has no GoodData workspace hierarchy at all. "Parent" and "child"
+here name a *derivation* relationship owned by this repository — the splitter emits twelve
+independent workspaces (ADR 001) — and that independence is the property which makes a
+domain workspace publishable into any org on its own. Inheritance was never going to reach
+them.
+
+So the corpus is written to **all thirteen workspaces**, one upsert each, and
+`--parent-only` narrows it. The `publish-knowledge-docs` rebuild step does the same. The
+cost is thirteen times the API calls and no other complexity: `publish_corpus` was already
+parameterised by workspace, so this was a default change rather than a redesign.
+
+The wider lesson matches the one at the top of this ADR. A documented platform behaviour was
+read correctly and applied to an architecture it did not fit, and only a ten-minute
+read-only probe against a real org distinguished the two. The probe was in the plan for that
+reason and it earned its place.
+
+Three further consequences, all accepted deliberately:
 
 1. **`publish parent` does not carry the corpus.** So `rebuild.py` gains a real
    `publish-knowledge-docs` step, which fails the chain when a corpus exists and the publish
@@ -103,10 +129,14 @@ such rather than gated.
 
 ## Alternatives rejected
 
-**Publish at organization level** (`/api/v1/ai/organization/knowledge`). Reaches every
-workspace in the org, including ones that have nothing to do with GlobalMart. The parent
-workspace plus documented read-time inheritance covers the twelve children with a smaller
-blast radius. `--per-child` exists as a fallback if inheritance turns out to have exceptions.
+**Publish at organization level** (`/api/v1/ai/organization/knowledge`). This is the one
+alternative the inheritance finding makes genuinely attractive: org-level documents *are*
+visible from every workspace regardless of hierarchy, so it would replace thirteen upserts
+with one. It is still rejected, because it reaches every workspace in the organization
+including those that have nothing to do with GlobalMart — the demo org hosts other content,
+and documentation asserting that "net revenue excludes intra-company transfers" is wrong
+everywhere else. Thirteen writes with a bounded blast radius beats one write with an
+unbounded one. Worth revisiting for an org dedicated solely to GlobalMart.
 
 **Compile the corpus into memory items too.** Rejected: a 24,000-character document becomes
 roughly a hundred 255-character directives, each retrieved without its neighbours. That is

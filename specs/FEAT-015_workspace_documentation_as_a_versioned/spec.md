@@ -184,3 +184,73 @@ See `summaries/research-notes.md` for full detail and sources. Key points:
   every time the corpus changes (coupling risk), or can it target stable, load-bearing facts only?
 - Should `rebuild.py` treat a missing knowledge-docs publish as a hard failure or a warned gap,
   given goal-01's "no manual step" bar was defined before this content existed?
+
+---
+
+## Outcome — 2026-09-21
+
+Built, published live to `demo-cloud`, and closed. 33 documents, 67,526 characters, seven
+topic groups. Coverage is green at `--strict` with an empty exclusion manifest: **1,734 of
+1,734 objects** documented — 227 datasets, 1,091 metrics, 384 visualizations, 32 dashboards.
+674 tests passing, ruff and mypy clean.
+
+### What the live run changed
+
+**AC 3's design assumption was wrong, and the probe is what found it.** The spec had the
+corpus published once to the parent, with the twelve domain workspaces inheriting it at
+query time — which is what the API documents. Published to `globalmart`, a listing from
+`globalmart-finance`, `-risk` and `-ecommerce` returned **zero** documents. The reason is
+architectural rather than a platform fault: `list_workspaces()` reports `parent=None` for
+all thirteen workspaces. GlobalMart has no GoodData workspace hierarchy at all — "parent"
+and "child" name a derivation relationship owned by this repository (ADR 001), and that
+independence is the property that makes a domain workspace publishable into any org alone.
+
+So `publish` now writes to **all thirteen workspaces** by default and `--parent-only`
+narrows it; `verify` checks all thirteen for the same reason; the `publish-knowledge-docs`
+rebuild step does the same. This was a default change rather than a redesign, because
+`publish_corpus` was already parameterised by workspace. ADR 009 records it, and the two
+corpus documents that asserted inheritance were corrected — which is the coverage-and-drift
+discipline this feature is about, applied to the feature's own documentation.
+
+The ten-minute read-only probe was in the task list precisely to answer this, and it earned
+its place: the documented behaviour was read correctly and applied to an architecture it did
+not fit, and nothing offline would have caught that.
+
+### Retrieval, measured
+
+`knowledge-docs retrieval` asserts against `GET /knowledge/search` rather than against
+generated prose, so there is no model in the loop. **12 of 12 questions pass**, from the
+parent and from `globalmart-finance` alike. Nine retrieve their document at rank 1 with
+scores of 0.66–0.91; three sit deeper — `q_children_are_derived` at rank 3–4,
+`q_net_revenue_transfers` at rank 5 (score 0.494) and `q_risk_workspace_size` at rank 6.
+Those three are worth watching: they pass because the expected document is inside the
+default limit of 10, and a corpus that grows could push one out. The honest reading is that
+retrieval works and has roughly a factor-of-two margin on its weakest question, not that it
+is comfortably solved.
+
+### Acceptance criteria
+
+| AC | Status |
+|---|---|
+| 1 — every object class documented, Diátaxis-typed, topic-grouped, with front matter | met |
+| 2 — `build` validates front matter, kind, structure and size | met |
+| 3 — `publish --apply` upserts with an ownership scope, idempotent on a second run | met, with the workspace set corrected from "parent" to "all thirteen" |
+| 4 — `verify` reconciles missing / orphaned / foreign, never touching a foreign document | met |
+| 5 — `coverage` accounts for every object or fails | met, 1,734/1,734, and wired as a CI gate |
+| 6 — answer-level validation, fact-containment, real regressions fail | met, 12/12, asserted on retrieved chunks rather than generated prose |
+| 7 — `rebuild` runs the publish or names the skip | met; the step is planned after `publish-parent`, hard-fails when a corpus exists, and reports a named `SKIPPED` when it does not |
+
+### Follow-ups, not blockers
+
+- **Org-level publish** (`/api/v1/ai/organization/knowledge`) would replace thirteen upserts
+  with one and is genuinely attractive now that inheritance is out. Rejected here because the
+  demo org hosts non-GlobalMart content; worth revisiting for a dedicated org.
+- **The three deep-ranked questions** above.
+- **Publish and verify are slow across thirteen workspaces.** Idempotency is decided by
+  downloading each existing document and hashing it, so a full run is 429 round trips and
+  takes minutes. The listing carries no content hash or ETag, and `numChunks` is too coarse
+  to substitute, so downloading is the only honest signal available — but the thirteen
+  workspaces are independent and could be published in parallel, which would cut it to
+  roughly the cost of one.
+- **`.gitignore` carries a stale comment** citing ADR 007 ("data/ IS committed"), superseded
+  by ADR 008. Untouched here — it predates this feature.

@@ -35,16 +35,24 @@ prompt.
 A fact belongs in exactly one channel. Restating a memory item inside a document duplicates
 maintenance and guarantees the two eventually disagree.
 
-## They reach children differently
+## They reach the domain workspaces differently
 
-Memory items are **copied** into each child workspace by the splitter, filtered by domain
+Memory items are **copied** into each domain workspace by the splitter, filtered by domain
 tag, so a finance memory item does not appear in the HR workspace. Knowledge documents are
-**inherited at read time**: they are written once to the parent, the children hold no copy,
-and a search from a child workspace reaches up the ancestor chain. More local knowledge
-ranks above inherited knowledge when both match.
+**written to each workspace directly** — one upsert per workspace, thirteen in total.
 
-The practical consequence: publishing a document to the parent makes it available in all
-twelve children immediately, with no split and no republish of the children.
+The API does support inheritance, and it does not apply here. Documents are inherited down
+the GoodData *workspace hierarchy*, and GlobalMart has no hierarchy: probed against
+demo-cloud on 2026-09-21, the parent and all twelve domain workspaces report `parent=None`.
+"Parent" and "child" in this repository name a derivation relationship — the splitter
+produces twelve independent workspaces — not a GoodData one, and that independence is
+deliberate, because it is what lets a single domain workspace be published into an org on
+its own.
+
+The practical consequence: publishing to the parent alone leaves the twelve domain
+workspaces with no documentation at all, which is precisely where an assistant or an A2A
+lane is asked its questions. `globalmart knowledge-docs publish` therefore writes to all
+thirteen by default, and `--parent-only` is the narrowing flag rather than the norm.
 
 ## Per-domain grouping
 

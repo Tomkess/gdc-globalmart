@@ -302,20 +302,33 @@ def _run_publish_knowledge_docs(
     from globalmart.knowledge_docs import HttpKnowledgeApi, publish_corpus
 
     documents = load_corpus(opts.corpus_path)
-    api = HttpKnowledgeApi.for_profile(profile, manifest.parent_workspace_id)
-    report = publish_corpus(
-        api,
-        documents,
-        workspace_id=manifest.parent_workspace_id,
-        target=profile.name,
-        apply=True,
-    )
-    if report.failed:
-        raise GlobalmartError(
-            f"{len(report.failed)} knowledge document(s) failed to upsert: "
-            + ", ".join(report.failed)
+
+    # Every workspace, not just the parent. The API inherits documents down the workspace
+    # hierarchy and GlobalMart has none — the twelve domain workspaces are derived siblings
+    # with `parent=None` (probed 2026-09-21), so a parent-only publish would leave each of
+    # them undocumented while reporting success.
+    workspaces = [manifest.parent_workspace_id] + [
+        manifest.by_key(key).workspace_id
+        for key in manifest.keys()  # noqa: SIM118 - DomainManifest.keys() is a method
+    ]
+
+    written = 0
+    for workspace_id in workspaces:
+        report = publish_corpus(
+            HttpKnowledgeApi.for_profile(profile, workspace_id),
+            documents,
+            workspace_id=workspace_id,
+            target=profile.name,
+            apply=True,
         )
-    return f"{len(report.results)} documents, changed={report.changed}"
+        if report.failed:
+            raise GlobalmartError(
+                f"{len(report.failed)} knowledge document(s) failed to upsert into "
+                f"{workspace_id}: " + ", ".join(report.failed)
+            )
+        written += len(report.results)
+
+    return f"{len(documents)} documents into {len(workspaces)} workspaces ({written} upserts)"
 
 
 def _run_split(

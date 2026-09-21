@@ -222,8 +222,8 @@ Single entry point `globalmart`, subcommands registered in `cli.py`:
 | `globalmart rebuild --target <profile> [--apply] [--allow-existing] [--skip-data] [--skip-knowledge-docs]` | FEAT-006 (+015) |
 | `globalmart knowledge-docs build [--corpus <dir>] [--manifest <path>] [--questions <path>]` | FEAT-015 |
 | `globalmart knowledge-docs coverage [--strict] [--layout <tree>] [--format json]` | FEAT-015 |
-| `globalmart knowledge-docs publish --target <profile> [--workspace-id <id>] [--per-child] [--apply]` | FEAT-015 |
-| `globalmart knowledge-docs verify --target <profile> [--prune] [--apply]` | FEAT-015 |
+| `globalmart knowledge-docs publish --target <profile> [--workspace-id <id>] [--parent-only] [--apply]` | FEAT-015 |
+| `globalmart knowledge-docs verify --target <profile> [--parent-only] [--prune] [--apply]` | FEAT-015 |
 | `globalmart knowledge-docs retrieval --target <profile> [--attempts N]` | FEAT-015 |
 
 **Flag convention (from STEERING.md, binding):** `--apply` gates writes to a live org — every such
@@ -242,7 +242,7 @@ exit non-zero otherwise" and is the CI gate form.
 | `config/domains.yaml` | Domain membership manifest | yes |
 | `data/ddl/globalmart.sql` | **215**-table DDL, schema-only, `{schema_name}` templated (214 inherited + `fact_search_event`) | yes |
 | `data/table-manifest.json` | Per table: row count, columns, sha256 of the **uncompressed** CSV, byte size | yes |
-| `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge, **not** part of the layout tree | yes |
+| `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge in **every** workspace (no GoodData hierarchy exists, so nothing is inherited — ADR 009), **not** part of the layout tree | yes |
 | `config/corpus.yaml` | Corpus exclusion manifest — what is deliberately undocumented, with a reason | yes |
 | `config/corpus-questions.yaml` | The fixed answer-level retrieval question set | yes |
 | `backups/`, `reports/` | Runtime output | no |

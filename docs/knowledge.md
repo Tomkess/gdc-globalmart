@@ -28,7 +28,7 @@ FEAT-015 uses it, and the two channels now live side by side — see
 | Unit | a paragraph, ≤ 255 chars | a whole document |
 | Source | `docs/knowledge/*.md` | `docs/knowledge-corpus/<kind>/*.md` |
 | Command | `globalmart knowledge build` | `globalmart knowledge-docs publish` |
-| Travels by | the layout tree, copied per domain | its own API call, inherited at read time |
+| Travels by | the layout tree, copied per domain | its own API call, one per workspace |
 
 Write a standing directive here. Write documentation to look up there. Do not write both.
 

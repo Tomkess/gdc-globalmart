@@ -80,3 +80,16 @@ jobs:
           uv run globalmart knowledge-docs retrieval \
             --target "${{ github.event.inputs.target || 'demo-cloud' }}" \
             --limit "${{ github.event.inputs.limit || '10' }}"
+
+      # And from a domain workspace, which is where an assistant or an A2A lane actually
+      # asks. There is no workspace hierarchy here, so a domain workspace inherits nothing
+      # from the parent (ADR 009) — if a publish ever silently skipped the children, the
+      # parent-only check above would still pass and this one would not.
+      - name: Questions retrieve from a domain workspace too
+        env:
+          GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
+        run: |
+          uv run globalmart knowledge-docs retrieval \
+            --target "${{ github.event.inputs.target || 'demo-cloud' }}" \
+            --workspace-id globalmart-finance \
+            --limit "${{ github.event.inputs.limit || '10' }}"
