@@ -28,6 +28,13 @@ list; handled here by reading status first and treating history as a last resort
 
 **Failure is a value, never an exception.** One dead lane must degrade the reply, not end
 the query, so a timeout or a refusal comes back as an `Answer` carrying `error`.
+
+**One retry on a transient server error.** Observed live on 2026-09-21: a lane returned
+HTTP 502 while an identical request seconds later succeeded. Losing a workspace from an
+answer because the gateway hiccuped is not a finding about federation, it is noise — and on
+stage it is indistinguishable from the feature being broken. Retried once, counted in
+`round_trips` so the cost stays visible. A 4xx is never retried: that is the server saying
+the request was wrong, and asking again will not change it.
 """
 
 from __future__ import annotations
@@ -84,6 +91,16 @@ def message_payload(text: str, context_id: str | None = None) -> dict[str, Any]:
         "method": "message/send",
         "params": {"message": message},
     }
+
+
+#: Server-side hiccups worth one more try. A 4xx means the request was wrong.
+_TRANSIENT = ("HTTP 500", "HTTP 502", "HTTP 503", "HTTP 504", "timed out", "timeout")
+
+
+def is_transient(error: Exception) -> bool:
+    """Whether asking again might plausibly work."""
+    text = str(error)
+    return any(marker in text for marker in _TRANSIENT)
 
 
 def _root(payload: Any) -> dict[str, Any]:
@@ -211,6 +228,8 @@ class A2ALane:
     workspace: str
     timeout: float = 120.0
     description: str = ""
+    retries: int = 1
+    """Attempts *after* the first, and only for transient server errors."""
 
     def describe(self) -> str:
         return self.description
@@ -223,17 +242,30 @@ class A2ALane:
 
     def ask(self, question: str, *, context_id: str | None = None) -> Answer:
         started = time.monotonic()
-        try:
-            payload = self.host.post(
-                self.endpoint(), message_payload(question, context_id), timeout=self.timeout
-            )
-        except TransportError as error:
+        attempts = 0
+        payload = None
+        last_error: TransportError | None = None
+
+        while attempts <= self.retries:
+            attempts += 1
+            try:
+                payload = self.host.post(
+                    self.endpoint(), message_payload(question, context_id), timeout=self.timeout
+                )
+                break
+            except TransportError as error:
+                last_error = error
+                if not is_transient(error) or attempts > self.retries:
+                    break
+
+        if payload is None:
             return Answer(
                 workspace=self.workspace,
                 question=question,
                 text="",
                 latency_ms=int((time.monotonic() - started) * 1000),
-                error=str(error),
+                round_trips=attempts,
+                error=str(last_error),
             )
 
         elapsed = int((time.monotonic() - started) * 1000)
@@ -247,6 +279,7 @@ class A2ALane:
                 question=question,
                 text=text,
                 latency_ms=elapsed,
+                round_trips=attempts,
                 error=f"agent reported {FAILED}",
             )
 
@@ -265,7 +298,7 @@ class A2ALane:
             numbers=tuple(dict.fromkeys(numbers_from_artifacts(artifacts) + numbers_in(text))),
             artifacts=artifacts,
             latency_ms=elapsed,
-            round_trips=1,
+            round_trips=attempts,
             error=None if state in {COMPLETED, INPUT_REQUIRED, ""} else f"agent state {state!r}",
         )
 

@@ -411,3 +411,184 @@ def test_the_script_covers_the_cases_the_spec_requires() -> None:
     assert any(question.inject_failure for question in questions)
     assert any(len(question.expect) == 1 for question in questions)
     assert any(len(question.expect) == 4 for question in questions)
+
+
+# --- fanout: parallel lanes, isolated failures --------------------------------
+
+
+def fake_plan(*workspaces: str):  # type: ignore[no-untyped-def]
+    from gd_agents.orchestrator.plan import Plan, Step
+
+    return Plan(
+        question="q",
+        steps=tuple(Step(workspace=w, question=f"ask {w}") for w in workspaces),
+    )
+
+
+class SlowLane:
+    """A lane that sleeps, so parallelism is observable rather than assumed."""
+
+    def __init__(self, workspace: str, seconds: float, fail: bool = False) -> None:
+        self.workspace = workspace
+        self.seconds = seconds
+        self.fail = fail
+
+    def describe(self) -> str:
+        return ""
+
+    def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+        import time as _time
+
+        _time.sleep(self.seconds)
+        if self.fail:
+            return Answer(workspace=self.workspace, question=question, text="", error="boom")
+        return Answer(
+            workspace=self.workspace, question=question, text="ok", latency_ms=int(self.seconds * 1000)
+        )
+
+
+def test_lanes_run_in_parallel_not_in_sequence() -> None:
+    """The cost of a fan-out must be the slowest lane, not the sum. Sequential lanes turn a
+    30-second answer into two minutes, which is the difference between a demo and a wait."""
+    from gd_agents.orchestrator.fanout import fanout
+
+    lanes = {"a": SlowLane("a", 0.3), "b": SlowLane("b", 0.3), "c": SlowLane("c", 0.3)}
+    report = fanout(fake_plan("a", "b", "c"), lanes)
+
+    assert len(report.answers) == 3
+    assert report.wall_ms < 700, f"lanes did not overlap: {report.wall_ms}ms for 3x300ms"
+
+
+def test_one_failing_lane_does_not_end_the_query() -> None:
+    from gd_agents.orchestrator.fanout import fanout
+
+    lanes = {"a": SlowLane("a", 0.01), "b": SlowLane("b", 0.01, fail=True)}
+    report = fanout(fake_plan("a", "b"), lanes)
+
+    assert len(report.ok()) == 1
+    assert len(report.failed()) == 1
+    assert report.failed()[0].workspace == "b"
+
+
+def test_a_lane_that_raises_is_reported_not_propagated() -> None:
+    """A lane must never raise upward. Failing a whole question because one agent threw is
+    the behaviour a demo cannot survive."""
+    from gd_agents.orchestrator.fanout import fanout
+
+    class Exploding:
+        workspace = "x"
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            raise RuntimeError("socket closed")
+
+    report = fanout(fake_plan("x"), {"x": Exploding()})
+
+    assert len(report.failed()) == 1
+    assert "socket closed" in (report.failed()[0].error or "")
+
+
+def test_answers_come_back_in_plan_order_not_completion_order() -> None:
+    """The report should read the way the plan was written, or a fast lane appears to have
+    been chosen first."""
+    from gd_agents.orchestrator.fanout import fanout
+
+    lanes = {"slow": SlowLane("slow", 0.25), "fast": SlowLane("fast", 0.01)}
+    report = fanout(fake_plan("slow", "fast"), lanes)
+
+    assert [a.workspace for a in report.answers] == ["slow", "fast"]
+
+
+def test_only_restricts_execution_for_the_enrich_path() -> None:
+    """Retrying a failed lane must not re-run the lanes that already succeeded."""
+    from gd_agents.orchestrator.fanout import fanout
+
+    lanes = {"a": SlowLane("a", 0.01), "b": SlowLane("b", 0.01)}
+    report = fanout(fake_plan("a", "b"), lanes, only=frozenset({"b"}))
+
+    assert [a.workspace for a in report.answers] == ["b"]
+
+
+def test_an_injected_failure_needs_no_outage() -> None:
+    """The script's degradation case has to be demonstrable on demand."""
+    from gd_agents.orchestrator.fanout import fanout
+
+    lanes = {"a": SlowLane("a", 0.01), "b": SlowLane("b", 0.01)}
+    report = fanout(fake_plan("a", "b"), lanes, inject_failure="b")
+
+    assert len(report.failed()) == 1
+    assert "injected" in (report.failed()[0].error or "")
+
+
+def test_a_missing_lane_is_noted_rather_than_crashing() -> None:
+    from gd_agents.orchestrator.fanout import fanout
+
+    report = fanout(fake_plan("a", "ghost"), {"a": SlowLane("a", 0.01)})
+
+    assert [a.workspace for a in report.answers] == ["a"]
+    assert any("ghost" in note for note in report.notes)
+
+
+def test_a_clarification_request_is_answered_but_holds_no_data() -> None:
+    """`with_data` is what the merge should synthesise from. A lane that asked a question
+    back is neither a failure nor a result."""
+    from gd_agents.orchestrator.fanout import FanoutReport
+
+    report = FanoutReport(
+        answers=(
+            Answer(workspace="a", question="q", text="here it is"),
+            Answer(workspace="b", question="q", text="which metric?", shape=Shape(returned_data=False)),
+        )
+    )
+
+    assert len(report.ok()) == 2
+    assert [a.workspace for a in report.with_data()] == ["a"]
+
+
+# --- transient retry ----------------------------------------------------------
+
+
+def test_a_transient_server_error_is_retried_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Observed live: a lane returned 502 while an identical request seconds later worked.
+    Losing a workspace because the gateway hiccuped is noise, not a finding."""
+    from gd_agents.a2a.client import A2ALane
+    from gd_agents.transport import Host, TransportError
+
+    calls: list[int] = []
+
+    def flaky(self: object, path: str, body: object, **kwargs: object) -> dict:
+        calls.append(1)
+        if len(calls) == 1:
+            raise TransportError("POST /x -> HTTP 502: Bad Gateway")
+        return completed_task()
+
+    lane = A2ALane(host=Host(url="https://example.invalid", token="t"), workspace="w")
+    monkeypatch.setattr(type(lane.host), "post", flaky)
+
+    answer = lane.ask("q")
+
+    assert answer.ok()
+    assert len(calls) == 2
+    assert answer.round_trips == 2, "the retry must stay visible in the cost"
+
+
+def test_a_client_error_is_not_retried(monkeypatch: pytest.MonkeyPatch) -> None:
+    """A 4xx is the server saying the request was wrong. Asking again will not fix it."""
+    from gd_agents.a2a.client import A2ALane
+    from gd_agents.transport import Host, TransportError
+
+    calls: list[int] = []
+
+    def refuse(self: object, path: str, body: object, **kwargs: object) -> dict:
+        calls.append(1)
+        raise TransportError("POST /x -> HTTP 400: Bad Request")
+
+    lane = A2ALane(host=Host(url="https://example.invalid", token="t"), workspace="w")
+    monkeypatch.setattr(type(lane.host), "post", refuse)
+
+    answer = lane.ask("q")
+
+    assert not answer.ok()
+    assert len(calls) == 1
