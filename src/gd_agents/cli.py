@@ -260,9 +260,15 @@ def cmd_rehearse(args: argparse.Namespace) -> int:
                 misroutes += 1
             failed = [a.workspace for a in run.lanes.answers if not a.ok()]
             pending = [a.workspace for a in run.lanes.answers if a.input_required]
+            # Total, and how much of it was the agents. The difference is the two model
+            # calls, and it is worth seeing separately: a slow turn is usually a slow lane,
+            # but not always — one measured turn spent 633s of which the lanes were a small
+            # part, and reading that as agent latency would have aimed the fix at the wrong
+            # layer.
+            orchestrator_ms = max(0, run.total_ms - run.lanes.wall_ms)
             state = (
                 f"{'combined' if run.merged.combinable else 'separate':9}"
-                f" {run.total_ms:>6} ms"
+                f" {run.total_ms:>6} ms  lanes {run.lanes.wall_ms:>6}  model {orchestrator_ms:>6}"
                 + (f"  FAILED {', '.join(failed)}" if failed else "")
                 + (f"  ASKS {', '.join(pending)}" if pending else "")
             )

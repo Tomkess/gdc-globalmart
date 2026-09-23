@@ -310,6 +310,15 @@ resumes its own conversation, and that a lost lane is recoverable without re-run
 that worked. `rehearse` runs them for real — same session, in order, live agents — which is
 what lets the file call them verified rather than hoped for.
 
+Last full rehearsal, 2026-09-23: **35 turns, 0 errored, 34 routed exactly.** Writing them is
+what found the router had no conversation, the fan-out deadline bounded nothing, and a
+timed-out lane was being retried at full cost — none of which was visible while the scripted
+conversations were two turns of self-contained questions.
+
+The two measurements answer different questions and can disagree. `route --turns` carries
+each turn's *expected* workspaces as history but no replies, so a follow-up whose referent is
+a number is resolved more thinly than in a real thread. Where they differ, believe `rehearse`.
+
 ### One shape for every entry
 
 Every entry carries the same keys in the same order, `question` is a folded block on all of

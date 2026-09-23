@@ -48,9 +48,18 @@
 #
 # `rehearse` is the expensive half and the reason the conversations below can be called
 # verified: each was run against the live agents, in order, over one session. Where the
-# router disagreed with an expectation and was right, the expectation was narrowed and the
+# router disagreed with an expectation and was right, the expectation was changed and the
 # reason written into that entry's `note` — an expectation edited to match a router measures
 # nothing, so the reason has to survive in the file.
+#
+# Last full rehearsal, 2026-09-23: **35 turns, 0 errored, 34 routed exactly.** The one miss is
+# `overview-problem turn-2`, which has come out two ways across four measurements; its `note`
+# says why that is left standing rather than tuned away.
+#
+# The two measurements answer different questions and can disagree. `route --turns` carries
+# each turn's *expected* workspaces as history but no replies, so a follow-up whose referent
+# is a number ("which of them converted best?") is resolved more thinly than it would be in a
+# real thread. Where they differ, believe `rehearse`.
 
 version: 1
 
@@ -568,12 +577,14 @@ conversations:
           "Driving" is not a thing the thin workspace measures. The router reaches past it to
           marketing, which is the whole argument in one turn.
         note: >-
-          Widened to three workspaces on 2026-09-22 and put back on 2026-09-23. One live run
-          reached customer as well, reading satisfaction as a driver; a second live run and
-          the lane-free scoring both chose ecommerce and marketing. Two of three measurements
-          agree, and the tighter reading matches the standalone `overview-shallow`
-          expectation. Recorded rather than quietly flipped, because the disagreement is the
-          honest state of it: this question sits on the edge of what "driving" includes.
+          The least stable entry in the script, and kept deliberately. Four measurements: two
+          chose ecommerce and marketing, two also reached customer. `expect` stays at the
+          tighter pair because that is the human judgement — the question does not mention how
+          customers feel, which is the same reading recorded for the standalone
+          `overview-shallow`. So the flapping is an over-routing finding about the router, not
+          a fault in the script, and `expect` is doing exactly the job it exists for by
+          surfacing it. The demo beat survives either way: what matters on screen is that
+          "what is driving it" reaches past the thin workspace at all.
       - question: >-
           And how do customers feel about it?
         expect: [globalmart-customer]
