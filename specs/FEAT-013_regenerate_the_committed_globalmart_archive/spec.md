@@ -15,12 +15,12 @@ enables:
 - feat-012
 goal: goal-01
 id: feat-013
-name: 'Rows leave the repository: generate GlobalMart data to the current date on demand,
-  with the filter columns, driven by a workflow that keeps the warehouse current'
+name: 'Rows leave the repository: generate GlobalMart data to the current date on
+  demand, with the filter columns, driven by a workflow that keeps the warehouse current'
 sources: []
-status: draft
+status: in-progress
 tags: []
-updated: '2026-09-20'
+updated: '2026-09-23'
 ---
 
 ## Summary
@@ -212,3 +212,66 @@ This needs deciding before implementation starts, not during.
 - Does anything outside this repo consume `data/tables/` — an eval harness, a notebook, a script
   in Misc? Deleting it is cheap to do and expensive to discover the consumers of afterwards.
 - Should the contract manifest keep `synthesised`, now that the answer is "all of them"?
+
+## Outcome — 2026-09-23 (15 of 16; AC 16 awaits a human)
+
+The rows left the repository, the generator reaches the present, the filter columns exist,
+and **the workflow that keeps the warehouse current has now run**. 732 tests, ruff and mypy
+clean.
+
+### The workflow, proven rather than merely written
+
+It had never executed. Two repo secrets were missing, so the first half of "finish it" was
+setting `MOTHERDUCK_TOKEN` and `GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD` — the rebuild target
+shares a host and organization with `demo-cloud`, so the same GoodData token serves both.
+
+Three runs against `demo-cloud-rebuild`, whose schema is `globalmart_rebuild` and therefore
+nowhere near the `globalmart` schema the live workspaces read:
+
+| run | what it did |
+|---|---|
+| rehearsal | probed freshness, found the schema stale, **wrote nothing** |
+| apply | 215 tables recreated, **174,372 rows** loaded, window 2024-09-23 .. 2026-09-23 |
+| apply again | `latest date 2026-09-22 · age 1 days · verdict current` → **"Nothing to do"** |
+
+That third run is AC 10's second half: safe to run repeatedly, and it does not reload
+needlessly. The weekly cron is `17 4 * * 1`; `workflow_dispatch` is proven three times over.
+The schedule itself has not yet fired — first Monday after 2026-09-23 — so "runs on a
+schedule" is configured rather than observed.
+
+### What the first live run found
+
+**The guard was a dead end.** `globalmart_rebuild` predated the `wdf__*` columns, and
+`CREATE TABLE IF NOT EXISTS` cannot add a column to a table that already exists. The load
+refused rather than truncating into a schema it could not then fill — correct, and exactly
+the guard added on 2026-09-21 after that failure mode emptied 215 live tables.
+
+But for an unattended weekly job, "the schema must be migrated or dropped and recreated" is
+a dead end: it would fail every Monday until somebody opened a SQL console, which is the
+manual step ADR 008 exists to remove. `--recreate-drifted` drops and rebuilds exactly the
+drifted tables and carries on. Safe in this one place and nowhere else — the profile owns its
+data, every table named is declared by this repo, the rows regenerate from a seed and a
+window, and the next thing the load does is put them back. Off by default at a terminal, on
+in the workflow, and the refusal message now names it.
+
+This is the whole argument for running a scheduled job at least once before calling it done.
+Nothing offline would have found it: the guard has tests, the workflow is well-formed, and
+the combination is still unusable.
+
+### Criteria
+
+- **AC 1–9, 12–15: met.** Archive deleted, manifest reduced to rows and columns, explicit
+  window required, data ends at the run date, reproducible from seed and window, `wdf__*`
+  inherited through the key graph rather than assigned independently, DDL declares them,
+  `data verify` still runs offline, FEAT-006 verification passed 768/768 against freshly
+  generated rows, and the plausibility work (trend, seasonality, weekday, derived measures
+  agreeing with their inputs, uneven dimensional spread) is in `plausible.py`.
+- **AC 10, 11: met today**, by running it. Previously written but unproven.
+- **AC 16: NOT MET.** A human has to open the real dashboards and judge whether the data
+  looks believable. No test decides this, which is why the criterion says so. It is the only
+  thing between this feature and done.
+
+### Follow-up
+
+Confirm the scheduled run fires on its first Monday. Everything else about the workflow is
+now demonstrated rather than asserted.
