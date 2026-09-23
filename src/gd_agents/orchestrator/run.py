@@ -2,8 +2,8 @@
 
 `ask` is a single turn: plan, fan out, check, merge. `enrich` is the retry path — re-ask only
 the lanes whose part is still missing, and merge the fresh answers against the ones already
-held. Given a lane fails on roughly half of multi-lane runs, that second function is not an
-edge case.
+held. A lane is lost on about 2% of turns — measured over 105 live turns — so that second
+function is not an edge case across a conversation of any length.
 
 Everything above this is the front end's business. Everything below is the protocol's. This
 module is what FEAT-014 will call unchanged over MCP, which is why it takes lanes as an

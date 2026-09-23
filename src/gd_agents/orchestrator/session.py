@@ -10,8 +10,8 @@ workspace's context would be worse than handing it none.
 
 **Each lane's last answer.** So a failed lane can be retried alone and the answer
 re-synthesised over the union, rather than re-running lanes that already succeeded. A retry
-of a four-lane question that re-asks all four costs four times what it needs to — and given
-a lane fails on roughly half of multi-lane runs, that path gets used.
+of a four-lane question that re-asks all four costs four times what it needs to, and a lane
+is lost on about 2% of turns, so that path gets used.
 
 **What it does not remember: the route.** Every turn plans again. "And did any of that show
 up in customer satisfaction?" needs a workspace the first turn never touched, so reusing the

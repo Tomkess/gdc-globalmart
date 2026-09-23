@@ -264,7 +264,9 @@ different moments.
 
 ## What survives a lane failing
 
-A lane fails on roughly **half** of multi-lane runs. Three modes observed:
+**About 2% of turns lose a lane.** Measured across three full rehearsals of the scripted
+conversations — 105 live turns — there were two genuine lane failures, plus one lane
+abandoned at the fan-out deadline. Three modes observed:
 
 | mode | response |
 |---|---|
@@ -272,9 +274,15 @@ A lane fails on roughly **half** of multi-lane runs. Three modes observed:
 | `input-required` — the agent asks permission mid-task | confirmed once, on the same `contextId` |
 | agent state `failed`, no detail | retried once, then reported |
 
-So per-lane isolation is not defensive programming, it is the normal case, and **every answer
-has to read correctly with a lane missing**. The reply is assembled from what returned, never
-from what was planned.
+An earlier figure of "roughly half of multi-lane runs" circulated in this repository and was
+wrong by more than an order of magnitude. It came from ad-hoc runs during early development,
+before the retry and deadline work; the rehearsal numbers replace it.
+
+Per-lane isolation still matters, for a less dramatic reason: a four-lane answer missing one
+lane is still an answer with a hole in it, and **every answer has to read correctly with a
+lane missing**. At 2% a turn, across four lanes and a five-turn conversation, you should
+expect to see it during a demo of any length. The reply is assembled from what returned,
+never from what was planned.
 
 `enrich` then re-asks only the lanes whose part is still missing and merges the fresh answers
 against the ones already held — one lane instead of four. It reuses the earlier sub-question

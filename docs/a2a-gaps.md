@@ -245,8 +245,13 @@ Consequences for a caller:
 - **It is expensive.** A failed lane costs ~90s before the retry even begins, so one flaky
   lane can set a three-minute wall clock on an answer that would otherwise take 30 seconds.
   Fan-out cost is the slowest lane, and a timing-out lane is always the slowest.
-- **Roughly half the multi-lane pipeline runs lost a lane** to one of the three modes. That
-  is the rate a demo has to survive, which is why the reply is assembled from what returned.
+- **About 2% of turns lose a lane** to one of the three modes — two genuine failures plus one
+  deadline abandonment across 105 live turns, measured over three full rehearsals of the
+  scripted conversations. An earlier figure of "roughly half of multi-lane runs" appeared in
+  this document and was wrong by more than an order of magnitude; it came from ad-hoc runs
+  during early development, before the retry and deadline work. Corrected 2026-09-23.
+  2% is still a rate a demo has to survive — over four lanes and five turns you should expect
+  to meet it — which is why the reply is assembled from what returned.
 
 **Product ask, in order of value to a caller:**
 
