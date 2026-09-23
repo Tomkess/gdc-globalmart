@@ -20,9 +20,9 @@ id: feat-011
 name: 'Dashboard date filters actually filter: bind every filter context to its date
   dataset, bring the data window to the present, and gate the regression'
 sources: []
-status: draft
+status: in-progress
 tags: []
-updated: '2026-09-20'
+updated: '2026-09-23'
 ---
 
 ## Summary
@@ -203,3 +203,63 @@ date-dataset derivation turned out to be ambiguous, which is the one genuine unk
   technique before this feature closes — if they are broken too, the scope judgement changes.
 - Is `fact_purchase_order_line` genuinely dateless, or is it missing an `order_date` the generator
   should have emitted? Unlike aged inventory, a PO line has a natural date.
+
+## Outcome — 2026-09-23 (partial — not closed as done)
+
+**The defect this feature existed for is fixed and proven live.** Dashboard date filters did
+nothing because every `dateFilter` in the layout was missing the `dataSet` that says *which*
+date it filters on. All 32 dashboards are now bound, the derivation is per dashboard rather
+than blanket, and the binding is checked in CI.
+
+Proven against `demo-cloud` by executing the same visualization under three windows and an
+out-of-range one: **960 / 262 / 168 / empty**. Before the fix, every window returned the same
+number.
+
+### Met
+
+- **AC 1** — every filter context carrying a `dateFilter` now carries a `dataSet` that exists
+  in that workspace's LDM.
+- **AC 2** — derived per dashboard by walking visualizations → metrics → facts → date
+  references. All 32 resolve to `transaction_date`; `globalmart-store-ops` carries both
+  `fiscal_date` and `transaction_date`, so the walk rather than a substitution is what makes
+  that workspace correct.
+- **AC 3** — derivation fails loudly, naming the dashboard, on zero or ambiguous resolution.
+- **AC 4** — FEAT-013 landed, so the shipped `-11..0` month windows cover real rows:
+  174,372 rows spanning 2024-09-21 → 2026-09-20.
+- **AC 6, partially** — `globalmart datefilters bind --check` runs in CI, so a dashboard added
+  without a bound filter fails the build. This covers the *binding*, not the behaviour.
+
+### NOT MET
+
+- **AC 5 — the regression gate does not exist.** The committed tests
+  (`tests/test_datefilters.py`) are structural: they assert every filter is bound, that each
+  dashboard resolves to exactly one date instance, that dates are reached through metrics, that
+  binding is idempotent and that an override wins. **None of them executes a visualization
+  under two windows and asserts the results differ.** That gate is the thing that would catch
+  this defect coming back, and it is precisely what the live investigation did by hand.
+- **AC 6, the rest** — with no AC-5 gate there is nothing to run across the parent and the 12
+  domain workspaces.
+- **AC 7 — `fact_aged_inventory` and `fact_purchase_order_line` are still undecided.** No date
+  column, no allowlist entry, no recorded reason. The spec said they must not be left
+  undecided, and they are.
+- **AC 8 — unverified.** The hand-patch applied to
+  `globalmart-ecommerce`/`filter_context_002` during the investigation was presumably
+  superseded by the subsequent publish, but nothing checked, and "presumably" is not the
+  standard this criterion set.
+
+### Why this is left open rather than closed
+
+Three of eight criteria are unmet and they are not cosmetic: together they are the difference
+between *fixed* and *fixed and protected*. A structural test proves the layout is well-formed;
+only a two-window execution proves the filter does anything. Closing this as done would record
+that the regression gate exists, and someone would later rely on it.
+
+The honest state is: the bug is fixed, the fix is proven by hand against live data, and the
+gate that would keep it fixed has not been built.
+
+### Follow-ups
+
+- Build the AC-5 two-window gate and wire it across all 13 workspaces (AC 6).
+- Decide `fact_aged_inventory` and `fact_purchase_order_line`: a date column from the
+  generator, or a named allowlist with the reason they are snapshots (AC 7).
+- Confirm no workspace still carries the investigation hand-patch (AC 8).

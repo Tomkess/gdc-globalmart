@@ -17,9 +17,9 @@ name: 'A2A multi-workspace orchestrator: extend simulate_a2a.py with a workspace
   question-driven routing, parallel fan-out and one merged answer attributed to its
   source workspaces'
 sources: []
-status: draft
+status: done
 tags: []
-updated: '2026-09-21'
+updated: '2026-09-23'
 ---
 
 ## Summary
@@ -322,3 +322,110 @@ It must cover, at minimum:
   extrapolated.
 - Does the `globalmart-ecommerce`-as-Overview beat survive contact with a real question, or is its
   thinness so obvious that the moment lands as contrived?
+
+## Outcome — 2026-09-23
+
+Built, measured against the live agents on four `demo-cloud` workspaces, and closed. **All 18
+acceptance criteria met.** 128 tests in `gd_agents`, 729 across the repo; ruff, mypy and
+pyright clean.
+
+Headline measurements, all from real runs rather than estimates:
+
+| | |
+|---|---|
+| routing, 20 standalone questions | 20/20 exact, 0 over-routed, 0 under-routed |
+| routing, questions + all 35 conversation turns | 53/54 exact |
+| full conversation rehearsal, live agents | **35 turns, 0 errored, 34 routed exactly** |
+| orchestrator cost | ~1,700 tokens to route a question; constant-size in workspace count |
+| single lane | 13–70 s |
+| four lanes | 57–67 s end to end |
+
+The router being measurable **without calling a lane** is the most practically useful
+property built here: reliability is answerable in a minute for pennies rather than an hour of
+real agent calls, and it is the strongest argument for an explicit router over a tool-calling
+loop.
+
+### What the live runs changed
+
+Nothing in this section was predicted. Each item was found by running the thing and reading
+what came back.
+
+**The answer is in `status.message`, not `history`.** Reading history — the obvious guess, and
+what the existing reference client does — returns the agent's chain-of-thought, which reads
+convincingly like a result. Fixed here and recorded as a gap.
+
+**A merge that invents a number is rejected after the fact.** `numeric_provenance` compares
+the merged text against what the lanes actually returned. Two follow-on defects came from
+this: the first version compared normalised *strings*, so a lane's `3,995.00` against a
+merge's `3,995` rejected an honest answer; and a single lane was being told its answer "could
+not be combined" when there was nothing to combine with.
+
+**Three defects in layers, each visible only once the one above it was fixed.** The plan did
+not hold its lanes to its own `combine_on`, so the flagship question refused after 46 s of
+fan-out. With that fixed, a lane returning two charts had only its first read. With that
+fixed, the checks demanded grain *equality* where an overlap was the right test — punishing a
+lane for answering more fully than the minimum. The same question now merges on month with 23
+numbers checked.
+
+**The router never saw the conversation.** Found by writing seven five-turn conversations:
+"which of them converted best?" has no antecedent, and the router correctly returned an empty
+plan. **Nine of thirty-five turns failed that way.** The *lane* had context throughout via its
+`contextId` — it was the orchestrator that could not tell which workspace a follow-up
+belonged to. Routing went 45/55 → 53/54.
+
+**The fan-out deadline bounded nothing.** One turn ran **726 seconds** with a 150 s timeout
+configured, because the timeout sat on `future.result`, which only starts counting once the
+loop reaches a future that has already finished. A timed-out lane was also being retried at
+full cost, turning 120 s into 244 s.
+
+### Built beyond the spec
+
+Driven by review of the running system rather than by the acceptance criteria:
+
+- `/ask/stream` — the turn narrated as it runs, ending with exactly the payload `/ask` would
+  have returned, so streaming adds narration and changes nothing.
+- `POST /reply` and `ask_me` — a workspace that stops to ask reaches a human, whose words go
+  to that lane alone on its own `contextId`. Measured: 37.4 s to reach the question, 16.3 s to
+  resume, because the agent keeps the work it had done.
+- Charts drawn from the agent's **own** declared type and title, paired to their rows by
+  `visualizationId`, with the markdown the agents write actually rendered and object ids
+  resolved to the labels the same response carried.
+- `payload.table` — the lanes' series aligned on the shared grain. Alignment, never a join.
+- `gd-agents rehearse` — every scripted conversation end to end against live agents, so
+  "verified" is a command anyone can re-run rather than a claim in a commit message.
+
+### Corrections to earlier claims in this repository
+
+**"A lane fails on roughly half of multi-lane runs" is not supported by the rehearsal data.**
+That figure came from ad-hoc runs early in the work. Across three full rehearsals — 105 turns
+— there were **two genuine lane failures**, plus one lane abandoned at the deadline and the
+deliberately injected one. Closer to 2% of turns than 50% of runs.
+
+The claim appears in `docs/a2a-federation.md`, `docs/a2a-gaps.md`, several module docstrings
+and the walkthrough deck. **It has not been swept yet** and should be, because per-lane
+isolation is still right for a different reason: one failure in a four-lane answer is still an
+answer with a hole in it.
+
+### Known limitations
+
+- **The rendered page has never been checked in a browser by its author.** The chart and
+  markdown functions are executed in node against real artifact shapes, and a test asserts the
+  page reads only keys the payload carries — but nobody has confirmed it *looks* right.
+- **"Answer from the conversation" is not reliably promptable.** The orchestrator can answer a
+  turn with no agent call from what it holds, and does whenever the router returns nothing.
+  Getting the router to *decide* that could not be made repeatable, even after rewording a
+  question to say "without querying anything again". Recorded in the gap list: a caller that
+  must not re-fetch has to enforce it in code above the router.
+- **One script entry routes two ways across four measurements** (`overview-problem` turn 2).
+  Left standing as an over-routing finding rather than tuned away.
+- **Latency is the demo risk and it is not ours.** The orchestrator already does concurrency,
+  retry and graceful degradation. What remains is agent-side variance, with three questions
+  written up for the A2A owners.
+
+### Follow-ups
+
+- Sweep the lane-failure-rate claim through the docs and the deck.
+- Raise `docs/a2a-gaps.md` with Jan Brandejs and Jakub Svehla before the demo.
+- FEAT-014 is unblocked: the orchestrator, checks and script are protocol-neutral, and
+  `lane.py` is the seam.
+- A fifth workspace would make the five-workspace answer measured rather than extrapolated.
