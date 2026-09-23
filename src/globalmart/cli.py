@@ -593,6 +593,14 @@ def cmd_data_ensure(args: argparse.Namespace) -> int:
         )
         _print_report("\nLoad", report.summary_lines())
 
+        # The load is not finished until GoodData knows about it. `data load` has always
+        # sent this; `ensure` did not, which meant the scheduled weekly run would replace
+        # every row and leave every dashboard serving the numbers it had cached. The
+        # operator would see a green workflow and stale charts, which is the failure mode
+        # notify_upload exists to prevent.
+        notify_upload(make_sdk(profile), profile)
+        print("Upload notification sent — cached results invalidated.")
+
     print("\nWarehouse is current.")
     return 0
 
