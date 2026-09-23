@@ -188,6 +188,39 @@ def cmd_ask(args: argparse.Namespace) -> int:
     return 0 if run.merged.ok() or not run.merged.combinable else 1
 
 
+def cmd_mcp_tools(args: argparse.Namespace) -> int:
+    """Fetch the tool definitions a sub-agent ships with, once, into config/mcp-tools.json.
+
+    `tools/list` does not name the analytical tools, so their schemas come from
+    `search_tools`. Doing that per question would measure our impatience rather than the
+    protocol — a real integrator ships these the way any MCP host does.
+    """
+    from gd_agents.mcp.client import MCPClient
+    from gd_agents.mcp.tools import DEFAULT_TOOLS_PATH, describe, fetch_definitions, write_definitions
+
+    registry = Registry.load(Path(args.registry))
+    token = os.environ.get(registry.token_env)
+    if not token:
+        raise RegistryError(f"No token in ${registry.token_env}.")
+
+    workspace = args.workspace or next(iter(registry.ids()))
+    client = MCPClient(host=Host(url=registry.host, token=token), workspace=workspace)
+    definitions = fetch_definitions(client)
+
+    print(f"fetched {len(definitions)} tool definition(s) from {workspace}")
+    for line in describe(definitions):
+        print(line)
+    print(f"  {'one-off discovery cost':28} {client.chars_in() // 4:>6,} tok")
+
+    out = Path(args.out or DEFAULT_TOOLS_PATH)
+    if not args.apply:
+        print(f"\nREHEARSAL — nothing written. Re-run with --apply to write {out}.")
+        return 0
+    write_definitions(definitions, out)
+    print(f"\nWrote {out}")
+    return 0
+
+
 def cmd_mcp_probe(args: argparse.Namespace) -> int:
     """Measure what the MCP endpoint offers and what each discovery route costs.
 
@@ -386,6 +419,15 @@ def main(argv: list[str] | None = None) -> int:
     mcp_probe.add_argument("--out", default="docs/mcp-findings.md")
     mcp_probe.add_argument("--apply", action="store_true", help="write the findings file")
     mcp_probe.set_defaults(func=cmd_mcp_probe)
+
+    mcp_tools = actions.add_parser(
+        "mcp-tools", help="fetch the MCP tool definitions a sub-agent ships with"
+    )
+    mcp_tools.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
+    mcp_tools.add_argument("--workspace", default="", help="which workspace to ask; any will do")
+    mcp_tools.add_argument("--out", default="")
+    mcp_tools.add_argument("--apply", action="store_true", help="write the definitions file")
+    mcp_tools.set_defaults(func=cmd_mcp_tools)
 
     ask_cmd = actions.add_parser("ask", help="ask one question across the registered workspaces")
     ask_cmd.add_argument("question")

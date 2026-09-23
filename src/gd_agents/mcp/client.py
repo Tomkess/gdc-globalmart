@@ -123,6 +123,27 @@ class MCPClient:
         result = self._rpc("tools/list") or {}
         return tuple(str(t.get("name")) for t in result.get("tools") or [] if t.get("name"))
 
+    def call_gateway(self, tool: str, **arguments: Any) -> str:
+        """Call one of the three tools the endpoint advertises, directly.
+
+        Separate from `call` because these are not the analytical surface under measurement:
+        `search_tools` is how a client discovers schemas it would normally ship, and paying
+        for that per question would measure our impatience rather than the protocol.
+        """
+        if tool not in GATEWAY_TOOLS:
+            raise MCPError(f"{tool!r} is not one of the gateway tools ({', '.join(GATEWAY_TOOLS)})")
+
+        # Recorded like any other call — it is real traffic and a real cost, and a client
+        # whose own discovery is free in its own accounting is not measuring itself. The
+        # `gateway:` prefix is what keeps it out of a per-question figure.
+        record = ToolCall(tool=f"gateway:{tool}", arguments=dict(arguments))
+        started = time.monotonic()
+        text = text_of(self._rpc("tools/call", {"name": tool, "arguments": arguments}))
+        record.chars = len(text)
+        record.latency_ms = int((time.monotonic() - started) * 1000)
+        self.calls.append(record)
+        return text
+
     def call(self, tool: str, **arguments: Any) -> str:
         """Dispatch one tool through the gateway and return its text content.
 

@@ -1,0 +1,761 @@
+{
+  "ai_search": {
+    "description": "Get AI-generated insights by asking natural language questions about workspace data.\n\nWHEN TO CALL:\n- User asks \"What were sales last quarter?\" or similar data questions\n- User wants insights/analysis without knowing exact metric names\n- User needs quick answers about workspace data\n- NOT for creating visualizations (use ai_chat instead)\n\nDEFAULT BEHAVIOR:\n- Searches through metrics, attributes, and visualizations in the workspace\n- Returns AI-generated insights based on available data\n- Scoped to current workspace with user's permissions\n\nReturns:\n    AiSearchResponse containing:\n    - results: Structured AI search results and insights\n    - question: The original question that was asked\n    - message: Human-readable status message\n\nRaises:\n    ValidationError: If question missing or empty.\n    ServiceError: If AI Search API unavailable.\n      \u2192 Recovery: Rephrase question or verify workspace has data\n\nExamples:\n    ai_search(question=\"What were the total sales last quarter?\")\n    ai_search(question=\"Who are the top 10 customers by revenue?\")",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "question": {
+          "description": "Natural language question to search for. Be clear and specific for best results.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "question"
+      ],
+      "type": "object"
+    },
+    "name": "ai_search"
+  },
+  "execute_query": {
+    "description": "Run an adhoc analytics query against the current workspace and return rows.\n\nWHEN TO CALL:\n- The user asks any data question that needs concrete tabular rows.\n- You have resolved metric / attribute / label identifiers via the discovery tools.\n- You do NOT need a visualization spec (that's ai_chat) or a label-only lookup\n  (that's compute_label_elements).\n\nFLOW (mirrors ``execute_visualization``):\n1. Translate the AAC ``query`` to an AFM execute body via gooddata-code-convertors.\n2. POST to afm-exec-api to obtain a signed execution result id.\n3. Fetch the Arrow table via afm-exec-api's audited ``/binary`` endpoint.\n\nIDENTIFIER FORMAT:\n- ``fields[X].using`` and ``attribute_filter.using`` / ``date_filter.using`` /\n  ``text_filter.using`` take TYPED identifiers: ``\"label/<id>\"``, ``\"metric/<id>\"``,\n  ``\"fact/<id>\"``, ``\"dataset/<id>\"``.\n- ``ranking_filter.using``, ``metric_value_filter.using``, ``metric_sort.metrics[i]``,\n  ``attribute_sort.by`` take BARE local identifiers \u2014 the keys you defined in ``fields:``.\n\nA ``ranking_filter`` and a ``metric_value_filter`` cannot coexist in one query \u2014 the\nbackend rejects the pair unless ``enableRankingWithMvf`` is on, and it is off by default.\n\nReturns:\n    ExecutionDataResponse \u2014 same shape as ``execute_visualization`` and\n    ``fetch_execution_data``.\n\nRaises:\n    ValidationError: Query rejected by Pydantic / gooddata-code-convertors.\n    NotFoundError: Referenced workspace object missing, or the result is no\n      longer available.\n    ServiceError: For any other backend failure.\n\nExample (top 4 Customer City by Net Sales filtered by Customer State = California):\n    execute_query(\n      query={\n        \"fields\": {\n          \"city\": {\"using\": \"label/customer_city\"},\n          \"net_sales\": {\"using\": \"metric/net_sales\"}\n        },\n        \"filter_by\": {\n          \"state\": {\"type\": \"attribute_filter\", \"using\": \"label/customer_state\",\n                    \"state\": {\"include\": [\"California\"]}},\n          \"top4\":  {\"type\": \"ranking_filter\", \"using\": \"net_sales\", \"top\": 4}\n        },\n        \"sort_by\": [{\"type\": \"metric_sort\", \"direction\": \"DESC\", \"metrics\": [\"net_sales\"]}]\n      },\n      limit=4\n    )",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "limit": {
+          "default": 50,
+          "description": "Maximum rows to return (default: 50).",
+          "exclusiveMinimum": 0,
+          "maximum": 10000,
+          "type": "integer"
+        },
+        "offset": {
+          "default": 0,
+          "description": "Skip N rows for pagination (default: 0).",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "output_format": {
+          "default": "xtab",
+          "description": "Output shape: \"xtab\" (default) returns a cross-tab with separate row_labels and a metric data matrix; \"rows\" returns named-dict rows.",
+          "enum": [
+            "xtab",
+            "rows"
+          ],
+          "type": "string"
+        },
+        "query": {
+          "additionalProperties": false,
+          "description": "AAC query (fields + optional filter_by + sort_by) describing the analytics request. The `using` of a field or attribute/date/text filter must be a TYPED workspace identifier \u2014 e.g. \"label/customer_city\", \"metric/net_sales\", \"fact/return_volume\", \"dataset/order_date\". Local references \u2014 ranking_filter.using, metric_value_filter.using, metric_sort.metrics, attribute_sort.by \u2014 refer to keys in `fields` and stay bare. ranking_filter and metric_value_filter cannot be combined by default; the backend accepts both only when enableRankingWithMvf is enabled. Resolve identifiers via list_workspace_metrics / list_workspace_attributes / ai_search; see knowledge topic `execute-query` for worked examples.",
+          "properties": {
+            "fields": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "aggregation": {
+                        "anyOf": [
+                          {
+                            "enum": [
+                              "SUM",
+                              "AVG",
+                              "MIN",
+                              "MAX",
+                              "MEDIAN",
+                              "COUNT"
+                            ],
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null
+                      },
+                      "using": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "using"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "using": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "using"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            "filter_by": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "state": {
+                            "anyOf": [
+                              {
+                                "additionalProperties": false,
+                                "properties": {
+                                  "include": {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "minItems": 1,
+                                    "type": "array"
+                                  }
+                                },
+                                "required": [
+                                  "include"
+                                ],
+                                "type": "object"
+                              },
+                              {
+                                "additionalProperties": false,
+                                "properties": {
+                                  "exclude": {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "minItems": 1,
+                                    "type": "array"
+                                  }
+                                },
+                                "required": [
+                                  "exclude"
+                                ],
+                                "type": "object"
+                              }
+                            ]
+                          },
+                          "type": {
+                            "const": "attribute_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "state"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "from": {
+                            "type": "string"
+                          },
+                          "to": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "const": "date_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "from",
+                          "to"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "from": {
+                            "type": "integer"
+                          },
+                          "granularity": {
+                            "description": "Granularity of a relative date filter, which counts whole periods back from the current period. For a recurring bucket, keep the date filter and add an attribute_filter on a periodical label such as label/order_date.dayOfWeek.",
+                            "enum": [
+                              "SECOND",
+                              "MINUTE",
+                              "HOUR",
+                              "DAY",
+                              "WEEK_US",
+                              "MONTH",
+                              "QUARTER",
+                              "YEAR",
+                              "FISCAL_YEAR",
+                              "FISCAL_QUARTER",
+                              "FISCAL_MONTH"
+                            ],
+                            "type": "string"
+                          },
+                          "to": {
+                            "type": "integer"
+                          },
+                          "type": {
+                            "const": "date_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "granularity",
+                          "from",
+                          "to"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "attribute": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "top": {
+                            "type": "integer"
+                          },
+                          "type": {
+                            "const": "ranking_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "top"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "attribute": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "bottom": {
+                            "type": "integer"
+                          },
+                          "type": {
+                            "const": "ranking_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "bottom"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "condition": {
+                            "enum": [
+                              "GREATER_THAN",
+                              "GREATER_THAN_OR_EQUAL_TO",
+                              "LESS_THAN",
+                              "LESS_THAN_OR_EQUAL_TO",
+                              "EQUAL_TO",
+                              "NOT_EQUAL_TO"
+                            ],
+                            "type": "string"
+                          },
+                          "null_values_as_zero": {
+                            "anyOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "type": {
+                            "const": "metric_value_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "integer"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "condition",
+                          "value"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "condition": {
+                            "enum": [
+                              "BETWEEN",
+                              "NOT_BETWEEN"
+                            ],
+                            "type": "string"
+                          },
+                          "from": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "integer"
+                              }
+                            ]
+                          },
+                          "null_values_as_zero": {
+                            "anyOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "integer"
+                              }
+                            ]
+                          },
+                          "type": {
+                            "const": "metric_value_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "condition",
+                          "from",
+                          "to"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "case_sensitive": {
+                            "anyOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "condition": {
+                            "enum": [
+                              "is",
+                              "isNot"
+                            ],
+                            "type": "string"
+                          },
+                          "type": {
+                            "const": "text_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          },
+                          "values": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "minItems": 1,
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "condition",
+                          "values"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "case_sensitive": {
+                            "anyOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "condition": {
+                            "enum": [
+                              "contains",
+                              "doesNotContain",
+                              "startsWith",
+                              "doesNotStartWith",
+                              "endsWith",
+                              "doesNotEndWith"
+                            ],
+                            "type": "string"
+                          },
+                          "type": {
+                            "const": "text_filter",
+                            "type": "string"
+                          },
+                          "using": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "minLength": 1,
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "using",
+                          "condition",
+                          "value"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "sort_by": {
+              "anyOf": [
+                {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "aggregation": {
+                            "anyOf": [
+                              {
+                                "const": "SUM",
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "by": {
+                            "type": "string"
+                          },
+                          "direction": {
+                            "enum": [
+                              "ASC",
+                              "DESC"
+                            ],
+                            "type": "string"
+                          },
+                          "type": {
+                            "const": "attribute_sort",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "by",
+                          "direction"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "direction": {
+                            "enum": [
+                              "ASC",
+                              "DESC"
+                            ],
+                            "type": "string"
+                          },
+                          "metrics": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "by": {
+                                      "type": "string"
+                                    },
+                                    "element": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ],
+                                      "default": null
+                                    },
+                                    "function": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ],
+                                      "default": null
+                                    }
+                                  },
+                                  "required": [
+                                    "by"
+                                  ],
+                                  "type": "object"
+                                }
+                              ]
+                            },
+                            "type": "array"
+                          },
+                          "type": {
+                            "const": "metric_sort",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "direction",
+                          "metrics"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "type": "object"
+    },
+    "name": "execute_query"
+  },
+  "get_workspace_info": {
+    "description": "Get current workspace information (name, ID, description, organization).\n\nWHEN TO CALL:\n- User asks \"What workspace am I in?\" or \"Show me workspace info\"\n- Need workspace metadata for display or other operations\n- Verifying workspace access and context\n\nDEFAULT BEHAVIOR:\n- No parameters required - uses current user's workspace context\n- Returns workspace metadata including ID, name, description, organization details\n- Includes current user's access context and hostname/environment information\n\nReturns:\n    Workspace object with workspace metadata.\n\nRaises:\n    DataParsingError: If workspace data cannot be parsed.\n    ServiceError: If service communication fails.\n\nExamples:\n    get_workspace_info()  # Get current workspace information",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "type": "object"
+    },
+    "name": "get_workspace_info"
+  },
+  "list_workspace_attributes": {
+    "description": "List all attributes in the workspace (returns list of attribute objects with IDs and titles).\n\nWHEN TO CALL:\n- Need attribute IDs for filtering, slicing, or other operations\n- User asks \"What attributes are available?\" or \"Show me all dimensions\"\n- Exploring workspace data model structure\n\nDEFAULT BEHAVIOR:\n- Returns all attributes if no filters specified\n- Only shows attributes the current user has access to\n- Supports pagination via limit parameter\n\nReturns:\n    AttributesListResponse with attributes list (each has id, title), count, and message.\n\nRaises:\n    ValidationError: If parameters invalid.\n    ServiceError: If service communication fails.\n\nExamples:\n    list_workspace_attributes()  # All attributes\n    list_workspace_attributes(rsql_filter=\"title=like=*customer*\")  # Search\n    list_workspace_attributes(include=[\"labels\", \"datasets\"])  # With relationships",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "include": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional related entity types to include. Example: [\"labels\", \"datasets\"]"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional maximum attributes to return. Recommended: 10-50 for browsing."
+        },
+        "rsql_filter": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional RSQL filter. Operators: ==, =in=, =like=, =contains=, =containsic=. Example: title=like=*customer* or id==customer.name"
+        }
+      },
+      "type": "object"
+    },
+    "name": "list_workspace_attributes"
+  },
+  "list_workspace_metrics": {
+    "description": "List metrics in the workspace with optional relation validation.\n\nWHEN TO CALL:\n- Need metric IDs for create_metric_alert or other operations\n- User asks \"What metrics are available?\" or \"Show me all metrics\"\n- Searching for specific metrics by name\n- Get a single metric by ID: use rsql_filter=\"id==<metric_id>\"\n- Validate metric health: use validate_relations=True\n- NOT for getting full analytics model (use get_workspace_analytics instead)\n\nRELATION VALIDATION (validate_relations=True):\n- Performs runtime validation against the database for all returned metrics\n- Checks if all referenced objects (facts, attributes, metrics in MAQL) exist\n- Each metric's areRelationsValid=true if all references are valid\n- Each metric's areRelationsValid=false if any referenced object is missing\n- Useful for detecting broken metrics after LDM changes or object deletions\n\nDEFAULT BEHAVIOR:\n- Returns all metrics if no filters specified\n- Only shows metrics the current user has access to\n- Supports pagination via limit parameter\n\nReturns:\n    MetricsListResponse with metrics list (each has id, title, maql), count, and message.\n    When validate_relations=True, each metric includes areRelationsValid field.\n    Use metric.id in create_metric_alert.\n\nRaises:\n    ValidationError: If parameters invalid.\n    ServiceError: If service communication fails.\n\nExamples:\n    list_workspace_metrics()  # All metrics\n    list_workspace_metrics(rsql_filter=\"id==revenue\")  # Single metric by ID\n    list_workspace_metrics(rsql_filter=\"id==revenue\", validate_relations=True)  # With validation\n    list_workspace_metrics(rsql_filter=\"title=like=*revenue*\", limit=50)  # Search with pagination\n    list_workspace_metrics(include=[\"facts\", \"attributes\"])  # With relationships",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "include": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional related entity types to include. Example: [\"facts\", \"attributes\"]"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional maximum metrics to return. Recommended: 10-50 for browsing."
+        },
+        "rsql_filter": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional RSQL filter. Operators: ==, =in=, =like=, =contains=, =containsic=. Use id==<metric_id> to get a single metric. Example: title=like=*revenue* or id==my-metric"
+        },
+        "validate_relations": {
+          "default": false,
+          "description": "If True, validates all object references in the metrics (e.g., facts, attributes, other metrics referenced in MAQL). Each metric's areRelationsValid field will be populated: true if all references are valid, false if any referenced object is missing or broken. Use this to check metric health before using them in reports or alerts.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "name": "list_workspace_metrics"
+  }
+}

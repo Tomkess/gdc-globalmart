@@ -4,6 +4,7 @@ from __future__ import annotations
 import re
 from dataclasses import replace
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -2512,3 +2513,144 @@ def test_the_probe_reports_the_gateway_and_the_cost_gap() -> None:
     assert "gateway" in said
     assert "43,299" in said, "the worst case has to be named, not averaged away"
     assert "cheaper" in said
+
+
+# --- the MCP sub-agent ---------------------------------------------------------
+# What A2A hands over for free. The loop has to resolve identifiers, write a query, run it
+# and turn rows into an answer — and it has to produce the same Shape and artifacts, or the
+# merge checks would return UNKNOWN on every MCP answer and the arm would look more
+# combinable by being less checkable.
+
+
+class FakeBlock:
+    def __init__(self, **fields: Any) -> None:
+        self.__dict__.update(fields)
+
+
+class ScriptedModel:
+    """Replies from a script: each entry is a list of content blocks."""
+
+    def __init__(self, *turns: list[Any]) -> None:
+        self.turns = list(turns)
+        self.calls = 0
+        self.messages = self
+
+    def create(self, **kwargs: Any) -> Any:
+        blocks = self.turns[min(self.calls, len(self.turns) - 1)]
+        self.calls += 1
+        usage = FakeBlock(input_tokens=1000, output_tokens=50)
+        return FakeBlock(content=blocks, usage=usage)
+
+
+def a_tool_use(name: str, arguments: dict, identifier: str = "t1") -> FakeBlock:
+    return FakeBlock(type="tool_use", id=identifier, name=name, input=arguments)
+
+
+def a_text(value: str) -> FakeBlock:
+    return FakeBlock(type="text", text=value)
+
+
+SPEND_QUERY = {
+    "fields": {
+        "m": {"using": "metric/metric_l1_total_campaign_spend"},
+        "d": {"using": "label/transaction_date.month"},
+    },
+    "filter_by": {"w": {"type": "date_filter", "granularity": "MONTH", "from": -5, "to": 0}},
+}
+
+TOOL_DEFS = {
+    name: {"name": name, "description": "d", "input_schema": {"type": "object", "properties": {}}}
+    for name in ("get_workspace_info", "ai_search", "list_workspace_metrics",
+                 "list_workspace_attributes", "execute_query")
+}
+
+
+def mcp_lane(model: ScriptedModel, rows: str) -> Any:
+    from gd_agents.mcp.lane import MCPLane
+
+    return MCPLane(
+        host=FakeMCPHost(text=rows),  # type: ignore[arg-type]
+        workspace="mkt",
+        client=model,
+        model="m",
+        definitions=TOOL_DEFS,
+    )
+
+
+def test_the_sub_agent_resolves_then_queries_then_answers() -> None:
+    rows = '{"data": [{"Month/Year": "2026-04", "Spend": 11944.45}]}'
+    model = ScriptedModel(
+        [a_tool_use("ai_search", {"question": "campaign spend"})],
+        [a_tool_use("execute_query", {"query": SPEND_QUERY}, "t2")],
+        [a_text("Total Campaign Spend was 11,944.45 in April 2026.")],
+    )
+    answer = mcp_lane(model, rows).ask("Show spend by month")
+
+    assert answer.ok() and answer.shape.returned_data
+    assert answer.round_trips == 3, "model turns are where MCP's cost concentrates"
+    assert "11,944.45" in answer.text
+
+
+def test_the_shape_comes_from_the_query_the_sub_agent_actually_ran() -> None:
+    """Not from the question, and not from the prose. The merge checks compare like with
+    like across both arms only if both read the same AAC query language."""
+    rows = '{"data": [{"Month/Year": "2026-04", "Spend": 1}]}'
+    model = ScriptedModel(
+        [a_tool_use("execute_query", {"query": SPEND_QUERY})],
+        [a_text("done")],
+    )
+    answer = mcp_lane(model, rows).ask("q")
+
+    assert answer.shape.grain == "month"
+    assert answer.shape.time_from == "-5..0 MONTH"
+
+
+def test_rows_become_the_same_artifacts_the_a2a_lane_returns() -> None:
+    """Presentation parity: the viewer, the aligned table and provenance all read these."""
+    rows = '{"data": [{"Month/Year": "2026-04", "Spend": 11944.45}]}'
+    model = ScriptedModel([a_tool_use("execute_query", {"query": SPEND_QUERY})], [a_text("done")])
+    answer = mcp_lane(model, rows).ask("q")
+
+    names = [a["name"] for a in answer.artifacts]
+    assert names == ["visualization", "visualization-data"]
+    data = answer.artifacts[1]["data"]
+    assert data["visualizationId"] == answer.artifacts[0]["data"]["id"], "pairing must hold"
+    assert "11944.45" in " ".join(answer.numbers)
+
+
+def test_running_out_of_turns_is_a_failure_not_an_answer() -> None:
+    """Found live 2026-09-23: the loop exhausted its turns mid-reasoning and the last text
+    block — "Let me try the standard date-dimension suffixes" — was reported as the answer.
+    The same mistake the A2A lane makes if it reads history instead of status.message."""
+    rows = '{"data": [{"Month/Year": "2026-04", "Spend": 1}]}'
+    model = ScriptedModel(
+        [a_text("Let me try the standard date suffixes."), a_tool_use("ai_search", {"question": "x"})],
+    )
+    answer = mcp_lane(model, rows).ask("q")
+
+    assert not answer.ok()
+    assert "no answer within" in (answer.error or "")
+    assert not answer.shape.returned_data, "a lane that never finished did not contribute"
+    assert answer.text, "what it was stuck on is still worth keeping"
+
+
+def test_a_tool_error_does_not_end_the_loop() -> None:
+    """A refused tool is information the sub-agent can act on — it should try another route,
+    the way a person would, rather than the lane collapsing."""
+    from gd_agents.mcp.lane import MCPLane
+
+    model = ScriptedModel(
+        [a_tool_use("run_key_driver_analysis", {})],
+        [a_text("That tool is not available to me, so here is nothing.")],
+    )
+    lane = MCPLane(
+        host=FakeMCPHost(text="{}"),  # type: ignore[arg-type]
+        workspace="mkt",
+        client=model,
+        model="m",
+        definitions=TOOL_DEFS,
+    )
+    answer = lane.ask("q")
+
+    assert answer.ok(), "a refused tool is not a dead lane"
+    assert not answer.shape.returned_data, "but it returned no rows, so it contributed nothing"
