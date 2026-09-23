@@ -2396,3 +2396,119 @@ def test_a_timeout_is_not_retried() -> None:
 
     assert is_transient(TransportError("HTTP 502 from the gateway"))
     assert not is_transient(TransportError("the request timed out after 120s"))
+
+
+# --- the MCP surface ----------------------------------------------------------
+# FEAT-014's spec was written expecting seventeen tools with four selected. A live
+# `tools/list` on 2026-09-23 returned three: the endpoint is a gateway, and everything else
+# is reached through `call_tool` by name.
+
+
+class FakeMCPHost:
+    """Answers MCP JSON-RPC, recording what was dispatched."""
+
+    def __init__(self, *, tools: tuple[str, ...] = ("create_visualization", "search_tools", "call_tool"),
+                 text: str = "{}") -> None:
+        self.tools = tools
+        self.text = text
+        self.dispatched: list[tuple[str, dict]] = []
+
+    def post(self, path: str, body: dict, **kwargs: object) -> dict:
+        if body["method"] == "tools/list":
+            return {"result": {"tools": [{"name": name} for name in self.tools]}}
+        inner = body["params"]["arguments"]
+        self.dispatched.append((str(inner["name"]), dict(inner.get("arguments") or {})))
+        return {"result": {"content": [{"type": "text", "text": self.text}]}}
+
+
+def test_the_endpoint_advertises_a_gateway_not_a_catalogue() -> None:
+    from gd_agents.mcp.client import GATEWAY_TOOLS, MCPClient
+
+    client = MCPClient(host=FakeMCPHost(), workspace="w")  # type: ignore[arg-type]
+
+    assert client.list_tools() == GATEWAY_TOOLS
+    assert "execute_query" not in client.list_tools(), (
+        "a caller trusting tools/list would conclude GoodData's MCP only draws charts"
+    )
+
+
+def test_every_tool_goes_through_call_tool_by_name() -> None:
+    from gd_agents.mcp.client import MCPClient
+
+    host = FakeMCPHost(text='{"metrics": []}')
+    client = MCPClient(host=host, workspace="w")  # type: ignore[arg-type]
+    client.call("list_workspace_metrics", limit=5)
+
+    assert host.dispatched == [("list_workspace_metrics", {"limit": 5})]
+
+
+def test_a_tool_outside_the_set_is_refused() -> None:
+    """The restriction is the experiment. A tool set that can quietly grow measures nothing,
+    and the comparison rests on this arm having a small, stated one."""
+    from gd_agents.mcp.client import MCPClient, MCPError
+
+    host = FakeMCPHost()
+    client = MCPClient(host=host, workspace="w", tools=("execute_query",))  # type: ignore[arg-type]
+
+    with pytest.raises(MCPError, match="not in this lane's tool set"):
+        client.call("run_key_driver_analysis")
+    assert host.dispatched == [], "the refusal must happen before the call, not after"
+
+
+def test_what_each_call_put_into_context_is_recorded() -> None:
+    """Under A2A this number does not exist — the catalogue never leaves the workspace. It is
+    the clearest difference between the protocols and it lands on whoever pays for the model."""
+    from gd_agents.mcp.client import MCPClient
+
+    client = MCPClient(host=FakeMCPHost(text="x" * 4000), workspace="w")  # type: ignore[arg-type]
+    client.call("ai_search", question="q")
+    client.call("execute_query", query={})
+
+    assert client.round_trips() == 2
+    assert client.chars_in() == 8000
+    assert client.calls[0].approx_tokens() == 1000
+
+
+def test_a_failed_tool_is_still_counted_as_a_round_trip() -> None:
+    """A lane that spent a call and got nothing still spent the call. Dropping it would
+    flatter whichever protocol failed more."""
+    from gd_agents.mcp.client import MCPClient, MCPError
+
+    class Broken(FakeMCPHost):
+        def post(self, path: str, body: dict, **kwargs: object) -> dict:
+            if body["method"] == "tools/list":
+                return super().post(path, body, **kwargs)
+            return {"error": {"code": -32000, "message": "nope"}}
+
+    client = MCPClient(host=Broken(), workspace="w")  # type: ignore[arg-type]
+    with pytest.raises(MCPError):
+        client.call("execute_query", query={})
+
+    assert client.round_trips() == 1
+    assert not client.calls[0].ok()
+
+
+def test_the_probe_reports_the_gateway_and_the_cost_gap() -> None:
+    from gd_agents.mcp.probe import WorkspaceProbe, findings
+
+    probe = WorkspaceProbe(
+        workspace="cust",
+        advertised=("create_visualization", "search_tools", "call_tool"),
+    )
+    from gd_agents.mcp.probe import ToolCost
+
+    probe.costs = [
+        ToolCost(tool="ai_search", chars=800),
+        ToolCost(tool="list_workspace_metrics", chars=173_199),
+    ]
+    other = WorkspaceProbe(workspace="mkt", advertised=probe.advertised)
+    other.costs = [
+        ToolCost(tool="ai_search", chars=1600),
+        ToolCost(tool="list_workspace_metrics", chars=42_000),
+    ]
+
+    said = " ".join(findings([probe, other]))
+
+    assert "gateway" in said
+    assert "43,299" in said, "the worst case has to be named, not averaged away"
+    assert "cheaper" in said

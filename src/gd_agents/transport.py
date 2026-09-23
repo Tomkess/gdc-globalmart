@@ -31,12 +31,20 @@ class Host:
         if not self.url.startswith(("http://", "https://")):
             raise TransportError(f"host url must be absolute, got {self.url!r}")
 
-    def _request(self, path: str, *, method: str, body: Any | None, timeout: float) -> Any:
+    def _request(
+        self,
+        path: str,
+        *,
+        method: str,
+        body: Any | None,
+        timeout: float,
+        accept: str = "application/json",
+    ) -> Any:
         url = self.url.rstrip("/") + path
         data = json.dumps(body).encode() if body is not None else None
         headers = {
             "Authorization": f"Bearer {self.token}",
-            "Accept": "application/json",
+            "Accept": accept,
         }
         if data is not None:
             headers["Content-Type"] = "application/json"
@@ -45,6 +53,7 @@ class Host:
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 raw = response.read()
+                content_type = response.headers.get("Content-Type", "")
         except urllib.error.HTTPError as error:
             detail = error.read().decode("utf-8", "replace")[:400]
             raise TransportError(f"{method} {path} -> HTTP {error.code}: {detail}") from error
@@ -53,6 +62,8 @@ class Host:
 
         if not raw:
             return None
+        if "event-stream" in content_type:
+            return _last_sse_result(raw.decode("utf-8", "replace"), where=f"{method} {path}")
         try:
             return json.loads(raw)
         except json.JSONDecodeError as error:
@@ -63,9 +74,49 @@ class Host:
             path = f"{path}?{urllib.parse.urlencode(params)}"
         return self._request(path, method="GET", body=None, timeout=timeout)
 
-    def post(self, path: str, body: Any, *, timeout: float = 120.0) -> Any:
-        """A2A calls run long — the timeout default is generous for that reason."""
-        return self._request(path, method="POST", body=body, timeout=timeout)
+    def post(
+        self,
+        path: str,
+        body: Any,
+        *,
+        timeout: float = 120.0,
+        accept: str = "application/json",
+    ) -> Any:
+        """A2A calls run long — the timeout default is generous for that reason.
+
+        `accept` exists for MCP, whose streamable-http transport may answer either as JSON
+        or as an SSE stream for the same request. The A2A path keeps the plain default.
+        """
+        return self._request(path, method="POST", body=body, timeout=timeout, accept=accept)
+
+
+def _last_sse_result(text: str, *, where: str) -> Any:
+    """The final `result` frame of an SSE response.
+
+    MCP's streamable-http transport may answer one request as JSON and the next as a stream,
+    so a client has to read both. Only frames carrying `result` are kept: the rest are
+    progress notifications, and the last one is the answer.
+
+    A stream that carries no result at all is a transport failure and says so. Returning
+    `None` would travel outward as "the workspace had nothing", which is a different and
+    much worse claim.
+    """
+    found: Any = None
+    for line in text.splitlines():
+        if not line.startswith("data:"):
+            continue
+        chunk = line[5:].strip()
+        if not chunk or chunk == "[DONE]":
+            continue
+        try:
+            frame = json.loads(chunk)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(frame, dict) and ("result" in frame or "error" in frame):
+            found = frame
+    if found is None:
+        raise TransportError(f"{where} -> SSE stream carried no result frame ({len(text)} bytes)")
+    return found
 
 
 def entities(host: Host, workspace: str, kind: str, *, size: int = 250) -> list[dict[str, Any]]:

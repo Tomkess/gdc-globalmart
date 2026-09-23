@@ -188,6 +188,39 @@ def cmd_ask(args: argparse.Namespace) -> int:
     return 0 if run.merged.ok() or not run.merged.combinable else 1
 
 
+def cmd_mcp_probe(args: argparse.Namespace) -> int:
+    """Measure what the MCP endpoint offers and what each discovery route costs.
+
+    FEAT-014's counterpart to FEAT-009's profiler, and it earned its place immediately: the
+    spec was written expecting seventeen tools with four selected, and the endpoint
+    advertises three. Everything downstream depends on knowing that, so it is established by
+    asking rather than by reading.
+    """
+    from gd_agents.mcp.probe import probe_all, report
+
+    registry = Registry.load(Path(args.registry))
+    workspaces = [w.strip() for w in args.workspaces.split(",") if w.strip()] or list(registry.ids())
+    token = os.environ.get(registry.token_env)
+    if not token:
+        raise RegistryError(f"No token in ${registry.token_env}.")
+
+    probes = probe_all(Host(url=registry.host, token=token), workspaces)
+    for probe in probes:
+        for line in probe.summary_lines():
+            print(f"  {line}")
+        print()
+
+    body = report(probes)
+    if not args.apply:
+        print(f"REHEARSAL — nothing written. Re-run with --apply to write {args.out}.")
+        return 0
+    path = Path(args.out)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(body, encoding="utf-8")
+    print(f"Wrote {path}")
+    return 0
+
+
 def cmd_rehearse(args: argparse.Namespace) -> int:
     """Run the scripted conversations end to end, against the live agents.
 
@@ -344,6 +377,15 @@ def main(argv: list[str] | None = None) -> int:
     rehearse.add_argument("--only", default="", help="comma-separated conversation ids")
     rehearse.add_argument("-v", "--verbose", action="store_true", help="print each question and reply")
     rehearse.set_defaults(func=cmd_rehearse)
+
+    mcp_probe = actions.add_parser(
+        "mcp-probe", help="measure what each workspace's MCP endpoint offers, and what it costs"
+    )
+    mcp_probe.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
+    mcp_probe.add_argument("--workspaces", default="", help="comma-separated; defaults to the registry")
+    mcp_probe.add_argument("--out", default="docs/mcp-findings.md")
+    mcp_probe.add_argument("--apply", action="store_true", help="write the findings file")
+    mcp_probe.set_defaults(func=cmd_mcp_probe)
 
     ask_cmd = actions.add_parser("ask", help="ask one question across the registered workspaces")
     ask_cmd.add_argument("question")
