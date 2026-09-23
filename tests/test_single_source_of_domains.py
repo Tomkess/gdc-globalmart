@@ -34,6 +34,12 @@ ALLOWED = {
     # one document filename, `dashboards-finance.md`. Same case as the two files above: not
     # a second copy of the domain list, just prose that happens to name a subject area.
     "config/corpus-questions.yaml",
+    # FEAT-014's MCP tool definitions, fetched from the endpoint and committed. Every hit is
+    # GoodData's own documentation prose inside a tool description — `title=like=*customer*`
+    # as an rsql example, "What were sales last quarter?" as a sample question. Vendor text,
+    # copied verbatim on purpose so the measurement uses the descriptions a real integrator
+    # would ship, and not ours to reword.
+    "config/mcp-tools.json",
 }
 
 
