@@ -43,6 +43,8 @@ class LoadReport:
     census: dict[str, int] = field(default_factory=dict)
     unknown_tables: tuple[str, ...] = ()
     column_drift: tuple[str, ...] = ()
+    recreated: tuple[str, ...] = ()
+    """Tables dropped and rebuilt because the DDL had gained a column they lacked."""
 
     def rows_loaded(self) -> int:
         return sum(entry.rows_after for entry in self.tables)
@@ -62,6 +64,8 @@ class LoadReport:
             lines.append(f"UNKNOWN in schema : {', '.join(self.unknown_tables)}")
         if self.column_drift:
             lines.append(f"COLUMN DRIFT      : {', '.join(self.column_drift)}")
+        if self.recreated:
+            lines.append(f"recreated         : {len(self.recreated)} table(s) dropped and rebuilt")
         failed = [entry.table for entry in self.tables if entry.error]
         if failed:
             lines.append(f"FAILED            : {', '.join(failed)}")
@@ -104,6 +108,15 @@ class WarehouseLoader(Protocol):
         """
 
     def truncate(self, schema: str, table: str) -> None: ...
+
+    def drop_table(self, schema: str, table: str) -> None:
+        """Remove a table entirely, so the DDL can recreate it with its current columns.
+
+        Only ever called for a table this repo declares, on a profile that owns its data,
+        and only to repair column drift — `CREATE TABLE IF NOT EXISTS` cannot add a column
+        to a table that already exists.
+        """
+        ...
 
     def load_csv(self, schema: str, table: str, csv_path: Path, columns: tuple[str, ...]) -> int:
         """Insert every row of an uncompressed CSV. Returns the number of rows inserted."""

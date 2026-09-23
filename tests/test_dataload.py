@@ -78,6 +78,13 @@ class FakeLoader:
         self.calls.append(f"truncate:{table}")
         self.rows[table] = 0
 
+    def drop_table(self, schema: str, table: str) -> None:
+        self.calls.append(f"drop:{table}")
+        self.rows.pop(table, None)
+        # A dropped table comes back from the DDL with the columns it declares, which is
+        # the entire point of dropping it.
+        self.live_columns.pop(table, None)
+
     def load_csv(self, schema: str, table: str, csv_path: Path, columns: tuple[str, ...]) -> int:
         with csv_path.open(encoding="utf-8") as handle:
             inserted = max(sum(1 for _ in handle) - 1, 0)
@@ -488,3 +495,75 @@ def test_a_matching_schema_loads_normally(registry, dataset) -> None:  # type: i
 
     assert report.column_drift == ()
     assert all(entry.loaded for entry in report.tables)
+
+
+def test_recreate_drifted_repairs_the_schema_instead_of_refusing(registry, dataset) -> None:  # type: ignore[no-untyped-def]
+    """The guard is right to refuse, but for an unattended weekly job a refusal is a dead
+    end: it would fail every Monday until somebody opened a SQL console. Dropping and
+    rebuilding exactly the drifted tables costs a regeneration, because the rows are
+    generated from a seed and a window."""
+    stale = {name: registry.require(name).column_names() for name in registry.names()}
+    stale["dim_store"] = tuple(c for c in stale["dim_store"] if not c.startswith("wdf__"))
+    loader = FakeLoader(existing=set(registry.names()), live_columns=dict(stale))
+
+    report = load_data(
+        profile(),
+        apply=True,
+        loader=loader,
+        registry=registry,
+        tables_dir=dataset / "tables",
+        manifest_path=dataset / "table-manifest.json",
+        ddl_path=DDL,
+        recreate_drifted=True,
+    )
+
+    assert report.recreated == ("dim_store",), "only the drifted table is rebuilt"
+    assert report.column_drift == (), "the drift was repaired, so it must not still be reported"
+    assert "drop:dim_store" in loader.calls
+    assert loader.calls.index("drop:dim_store") < loader.calls.index("truncate:dim_store"), (
+        "the table must be rebuilt before anything is loaded into it"
+    )
+    assert all(entry.loaded for entry in report.tables)
+
+
+def test_recreating_is_off_unless_asked_for(registry, dataset) -> None:  # type: ignore[no-untyped-def]
+    """A person running a load by hand should be told about drift, not have tables dropped
+    under them."""
+    stale = {name: registry.require(name).column_names() for name in registry.names()}
+    stale["dim_store"] = tuple(c for c in stale["dim_store"] if not c.startswith("wdf__"))
+    loader = FakeLoader(existing=set(registry.names()), live_columns=dict(stale))
+
+    with pytest.raises(DataIntegrityError) as caught:
+        load_data(
+            profile(),
+            apply=True,
+            loader=loader,
+            registry=registry,
+            tables_dir=dataset / "tables",
+            manifest_path=dataset / "table-manifest.json",
+            ddl_path=DDL,
+        )
+
+    assert "--recreate-drifted" in str(caught.value), "the error must name the way out"
+    assert not [call for call in loader.calls if call.startswith("drop:")]
+
+
+def test_a_rehearsal_never_drops_anything(registry, dataset) -> None:  # type: ignore[no-untyped-def]
+    """`--recreate-drifted` without `--apply` must still be a read-only run."""
+    stale = {name: registry.require(name).column_names() for name in registry.names()}
+    stale["dim_store"] = tuple(c for c in stale["dim_store"] if not c.startswith("wdf__"))
+    loader = FakeLoader(existing=set(registry.names()), live_columns=dict(stale))
+
+    with pytest.raises(DataIntegrityError):
+        load_data(
+            profile(),
+            apply=False,
+            loader=loader,
+            registry=registry,
+            tables_dir=dataset / "tables",
+            manifest_path=dataset / "table-manifest.json",
+            ddl_path=DDL,
+            recreate_drifted=True,
+        )
+
+    assert not [call for call in loader.calls if call.startswith("drop:")]

@@ -49,6 +49,14 @@ jobs:
 
       # Only a profile with data_owned: true can be truncated at all (ADR 004), so the
       # blast radius of a wrong target is bounded by the config rather than by this file.
+      #
+      # `--recreate-drifted` is on here and off for a human at a terminal. When the DDL
+      # gains a column, `CREATE TABLE IF NOT EXISTS` cannot add it to a table that already
+      # exists, and the load refuses rather than truncating into a schema it cannot fill.
+      # That refusal is right, and for an unattended weekly job it is also a dead end: it
+      # would fail every Monday until somebody opened a SQL console, which is the manual
+      # step ADR 008 exists to remove. The rows are generated from a seed and a window, so
+      # dropping and rebuilding a table costs a regeneration and nothing else.
       - name: Ensure the warehouse is current
         env:
           GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD }}
@@ -57,5 +65,6 @@ jobs:
           uv run globalmart data ensure \
             --target "${{ github.event.inputs.target || 'demo-cloud-rebuild' }}" \
             --max-age-days 31 \
+            --recreate-drifted \
             ${{ github.event_name == 'schedule' && '--apply' || (github.event.inputs.apply == 'true' && '--apply' || '') }} \
             ${{ github.event.inputs.force == 'true' && '--force' || '' }}

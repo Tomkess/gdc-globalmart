@@ -459,6 +459,7 @@ def cmd_data_load(args: argparse.Namespace) -> int:
         tables_dir=Path(args.tables_dir),
         manifest_path=Path(args.manifest),
         model=model,
+        recreate_drifted=args.recreate_drifted,
     )
 
     if not args.apply:
@@ -588,6 +589,7 @@ def cmd_data_ensure(args: argparse.Namespace) -> int:
             manifest_path=out / "table-manifest.json",
             model=model,
             registry=registry,
+            recreate_drifted=args.recreate_drifted,
         )
         _print_report("\nLoad", report.summary_lines())
 
@@ -1040,6 +1042,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     data_load.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
     data_load.add_argument(
+        "--recreate-drifted",
+        action="store_true",
+        help="drop and rebuild tables whose columns the DDL has outgrown (requires --apply)",
+    )
+    data_load.add_argument(
         "--apply",
         action="store_true",
         help="actually truncate and load; without it this is a read-only rehearsal (ADR 002/004)",
@@ -1230,6 +1237,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     data_ensure.add_argument(
         "--force", action="store_true", help="regenerate even when the data is current"
+    )
+    data_ensure.add_argument(
+        "--recreate-drifted",
+        action="store_true",
+        help="drop and rebuild tables whose columns the DDL has outgrown (requires --apply)",
     )
     data_ensure.add_argument("--seed", type=int, default=20260920)
     data_ensure.add_argument("--scale", type=float, default=1.0)

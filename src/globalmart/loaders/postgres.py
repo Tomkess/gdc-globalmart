@@ -95,6 +95,10 @@ class PostgresLoader:
         with self._require().cursor() as cursor:
             cursor.execute(f'TRUNCATE TABLE "{schema}"."{table}"')
 
+    def drop_table(self, schema: str, table: str) -> None:
+        with self._require().cursor() as cursor:
+            cursor.execute(f'DROP TABLE IF EXISTS "{schema}"."{table}" CASCADE')
+
     def load_csv(self, schema: str, table: str, csv_path: Path, columns: tuple[str, ...]) -> int:
         column_list = ", ".join(f'"{column}"' for column in columns)
         statement = f'COPY "{schema}"."{table}" ({column_list}) FROM STDIN WITH (FORMAT csv, HEADER true)'

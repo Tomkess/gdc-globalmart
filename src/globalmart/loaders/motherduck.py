@@ -85,6 +85,9 @@ class MotherDuckLoader:
     def truncate(self, schema: str, table: str) -> None:
         self._require().execute(f'DELETE FROM "{schema}"."{table}"')
 
+    def drop_table(self, schema: str, table: str) -> None:
+        self._require().execute(f'DROP TABLE IF EXISTS "{schema}"."{table}"')
+
     def load_csv(self, schema: str, table: str, csv_path: Path, columns: tuple[str, ...]) -> int:
         connection = self._require()
         # read_csv with an explicit column list, so a CSV whose column order drifted from the

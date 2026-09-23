@@ -302,8 +302,16 @@ def load_data(
     model: Any | None = None,
     loader: WarehouseLoader | None = None,
     registry: TableRegistry | None = None,
+    recreate_drifted: bool = False,
 ) -> LoadReport:
-    """Apply the DDL, then truncate-then-load every table. Rehearsal unless ``apply``."""
+    """Apply the DDL, then truncate-then-load every table. Rehearsal unless ``apply``.
+
+    ``recreate_drifted`` lets the load repair a schema whose tables lack a column the DDL
+    has since gained, by dropping and rebuilding exactly those tables. Off by default: a
+    person running this by hand should be told about drift rather than have tables dropped
+    under them. The scheduled workflow turns it on, because the alternative is a job that
+    fails every week until somebody opens a SQL console.
+    """
     if apply and not profile.data_owned:
         raise DataOwnershipError(
             f"Profile {profile.name!r} does not declare `data_owned: true`, and loading "
@@ -373,6 +381,23 @@ def load_data(
             if missing:
                 drifted.append(f"{table} (missing {', '.join(missing[:4])})")
         report.column_drift = tuple(drifted)
+        if drifted and recreate_drifted and apply:
+            # The sanctioned repair. Without it the guard is a dead end: a DDL that gains a
+            # column leaves the scheduled workflow failing every week until somebody opens a
+            # SQL console, which is exactly the manual step ADR 008 set out to remove.
+            #
+            # Safe here and nowhere else: the profile owns its data, every table named is one
+            # this repo declares, the rows are regenerable from a seed and a window, and the
+            # very next thing this function does is load them back.
+            names = [entry.split(" ", 1)[0] for entry in drifted]
+            for table in names:
+                owned_loader.drop_table(schema, table)
+            owned_loader.apply_ddl(render_ddl(ddl_path, schema))
+            present = owned_loader.existing_tables(schema)
+            report.recreated = tuple(names)
+            report.column_drift = ()
+            drifted = []
+
         if drifted:
             raise DataIntegrityError(
                 f"{len(drifted)} table(s) in schema {schema!r} lack columns the DDL declares:\n  "
@@ -380,7 +405,8 @@ def load_data(
                 + ("\n  ..." if len(drifted) > 10 else "")
                 + "\n\nNothing was truncated. CREATE TABLE IF NOT EXISTS cannot add a column to "
                 "an existing table, so the schema must be migrated or dropped and recreated "
-                "before loading."
+                "before loading. Re-run with --recreate-drifted to drop and rebuild exactly "
+                "these tables."
             )
 
         # Guard 4: the census is taken before any write, and in a rehearsal too.
