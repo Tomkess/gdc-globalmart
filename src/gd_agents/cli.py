@@ -399,6 +399,7 @@ def cmd_serve(args: argparse.Namespace) -> int:
         _lanes(registry, _protocol(args)),  # type: ignore[arg-type]
         host=args.host,
         port=args.port,
+        protocol=_protocol(args),
     )
     return 0
 

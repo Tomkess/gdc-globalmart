@@ -44,6 +44,9 @@ body{background:var(--bg);color:var(--tx);font:14px/1.6 'Segoe UI',system-ui,-ap
   display:flex;flex-direction:column;min-height:100vh;-webkit-font-smoothing:antialiased}
 
 /* ── header ─────────────────────────────────────────────────────────────── */
+/* One glance has to say which arm you are looking at, from across a room. */
+body.mcp header{background:linear-gradient(95deg,#B4530A,#D97706 46%,#B21E6B)}
+body.mcp .you{background:#B4530A;box-shadow:0 1px 4px rgba(180,83,10,.26)}
 header{background:linear-gradient(95deg,#4C34E0,#7B4DFF 46%,#0E8F8F);color:#fff;
   padding:12px 22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
   box-shadow:0 1px 10px rgba(30,20,90,.18);position:sticky;top:0;z-index:5}
@@ -263,7 +266,7 @@ textarea:focus{border-color:var(--brand3);box-shadow:0 0 0 3px var(--brand2)}
 
 <header>
   <span class="logo">GoodData</span>
-  <span class="tag">A2A</span>
+  <span class="tag" id="proto">A2A</span>
   <span class="sub">multi-workspace federation</span>
   <span class="hspace"></span>
   <label class="toggle" title="A workspace agent can stop mid-task and ask a question. On: it reaches you. Off: the lane auto-confirms and says so.">
@@ -381,6 +384,12 @@ function pipeTable(block) {
 
 // ── workspace strip and prompt chips ─────────────────────────────────────────
 fetch('/registry').then(r => r.json()).then(d => {
+  // Two of these run side by side during the demo. An unlabelled tab is worse than no tab:
+  // the whole point is which protocol answered, and the pages are otherwise identical.
+  const protocol = (d.protocol || 'a2a').toUpperCase();
+  $('#proto').textContent = protocol;
+  document.title = protocol + ' federation — GlobalMart';
+  if (protocol === 'MCP') document.body.classList.add('mcp');
   d.workspaces.forEach(w => colour(w.id));   // fix the colours in registry order
   $('#strip').innerHTML = d.workspaces.map(w => `
     <div class="wscard" style="--c:${colour(w.id)}" onclick="this.classList.toggle('open')"

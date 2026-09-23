@@ -55,6 +55,11 @@ class Orchestrator:
 
     registry: Registry
     lanes: Mapping[str, Lane]
+    protocol: str = "a2a"
+    """Which lane implementation is behind this server. Shown on the page because the demo
+    runs two of these side by side, and two identical-looking tabs answering the same
+    question differently is a trap rather than a comparison."""
+
     client: Any | None = None
     model: str | None = None
     sessions: dict[str, Session] = field(default_factory=dict)
@@ -139,6 +144,7 @@ def _handler(orchestrator: Orchestrator) -> type[BaseHTTPRequestHandler]:
                     200,
                     {
                         "host": orchestrator.registry.host,
+                        "protocol": orchestrator.protocol,
                         "workspaces": [
                             {"id": e.id, "title": e.title, "description": e.description}
                             for e in orchestrator.registry.entries
@@ -304,11 +310,14 @@ def serve(
     port: int = 8900,
     client: Any | None = None,
     model: str | None = None,
+    protocol: str = "a2a",
 ) -> None:
     """Run until interrupted. Threaded, so four lanes are not serialised by the HTTP layer."""
-    orchestrator = Orchestrator(registry=registry, lanes=lanes, client=client, model=model)
+    orchestrator = Orchestrator(
+        registry=registry, lanes=lanes, client=client, model=model, protocol=protocol
+    )
     server = ThreadingHTTPServer((host, port), _handler(orchestrator))
-    print(f"listening on http://{host}:{port}")
+    print(f"listening on http://{host}:{port}  [{protocol.upper()}]")
     print(f"workspaces: {', '.join(registry.ids())}")
     try:
         server.serve_forever()
