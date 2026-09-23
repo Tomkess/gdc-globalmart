@@ -113,6 +113,7 @@ Other commands:
 | `gd-agents rehearse` | every scripted conversation, end to end, against the live agents |
 | `gd-agents ask --json` | the payload a host would receive |
 | `gd-agents ask --inject-failure <workspace>` | force a lane to fail, to show degradation |
+| `--protocol a2a\|mcp` | on `ask`, `serve` and `rehearse` — which lane implementation to use |
 
 Expect **30–120 seconds** for a two-lane question. That is agent-side latency, not
 orchestration — see [`a2a-gaps.md`](a2a-gaps.md).
@@ -311,6 +312,12 @@ The most useful single entry is a negative one: **`within-one-workspace`** — *
 track footfall across the stores last quarter?"* sounds like two workspaces and is one, because
 store operations holds both measures. The correct answer is one lane, and a router that fans
 out has demonstrated exactly the habit this exercise exists to avoid.
+
+**The same script runs over MCP.** `--protocol mcp` swaps the lane and nothing else: the
+router, the decomposition, the eight checks, the merge prompt and this file are the same
+code either way. That is FEAT-014's first acceptance criterion, and it is what makes the
+comparison a comparison rather than two demos. A question added here is automatically part
+of it.
 
 **The conversations are where the mechanism actually shows.** A single question demonstrates
 routing; only a thread shows that the route is recomputed every turn, that each workspace

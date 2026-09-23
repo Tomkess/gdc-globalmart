@@ -148,17 +148,49 @@ def cmd_route(args: argparse.Namespace) -> int:
     return 0 if report.exact() == len(report.outcomes) else 1
 
 
-def _lanes(registry: Registry) -> dict[str, object]:
-    from gd_agents.a2a.client import A2ALane
+def _lanes(registry: Registry, protocol: str = "a2a") -> dict[str, object]:
+    """One lane per registered workspace, over the chosen protocol.
 
+    The protocol is the *only* thing that varies between FEAT-014's arms. Everything above
+    this line — the router, the decomposition, the eight checks, the merge, the question
+    script — is the same code either way, which is what makes the comparison a comparison
+    rather than two demos.
+    """
     token = os.environ.get(registry.token_env)
     if not token:
         raise RegistryError(f"No token in ${registry.token_env}.")
     host = Host(url=registry.host, token=token)
-    return {
-        entry.id: A2ALane(host=host, workspace=entry.id, description=entry.description)
-        for entry in registry.entries
-    }
+
+    if protocol == "a2a":
+        from gd_agents.a2a.client import A2ALane
+
+        return {
+            entry.id: A2ALane(host=host, workspace=entry.id, description=entry.description)
+            for entry in registry.entries
+        }
+
+    if protocol == "mcp":
+        from gd_agents.mcp.lane import MCPLane
+        from gd_agents.mcp.tools import load_definitions
+
+        # Loaded once and shared: the definitions are the same for every workspace, and
+        # re-reading them per lane would put a file read inside the latency measurement.
+        definitions = load_definitions()
+        return {
+            entry.id: MCPLane(
+                host=host,
+                workspace=entry.id,
+                description=entry.description,
+                definitions=definitions,
+            )
+            for entry in registry.entries
+        }
+
+    raise RegistryError(f"unknown protocol {protocol!r}: expected 'a2a' or 'mcp'")
+
+
+def _protocol(args: argparse.Namespace) -> str:
+    return str(getattr(args, "protocol", "a2a") or "a2a")
 
 
 def cmd_ask(args: argparse.Namespace) -> int:
@@ -173,7 +205,7 @@ def cmd_ask(args: argparse.Namespace) -> int:
     run = ask(
         args.question,
         registry,
-        _lanes(registry),  # type: ignore[arg-type]
+        _lanes(registry, _protocol(args)),  # type: ignore[arg-type]
         inject_failure=args.inject_failure,
     )
 
@@ -280,7 +312,7 @@ def cmd_rehearse(args: argparse.Namespace) -> int:
             print(f"error: no conversation matching {args.only}", file=sys.stderr)
             return 1
 
-    lanes = _lanes(registry)
+    lanes = _lanes(registry, _protocol(args))
     client, model = make_client()
     print(f"model   : {model}")
     print(f"running : {len(conversations)} conversation(s), "
@@ -362,7 +394,12 @@ def cmd_serve(args: argparse.Namespace) -> int:
     from gd_agents.server.app import serve
 
     registry = Registry.load(Path(args.registry))
-    serve(registry, _lanes(registry), host=args.host, port=args.port)  # type: ignore[arg-type]
+    serve(
+        registry,
+        _lanes(registry, _protocol(args)),  # type: ignore[arg-type]
+        host=args.host,
+        port=args.port,
+    )
     return 0
 
 
@@ -409,6 +446,12 @@ def main(argv: list[str] | None = None) -> int:
     rehearse.add_argument("--script", default="config/questions.yaml")
     rehearse.add_argument("--only", default="", help="comma-separated conversation ids")
     rehearse.add_argument("-v", "--verbose", action="store_true", help="print each question and reply")
+    rehearse.add_argument(
+        "--protocol",
+        default="a2a",
+        choices=("a2a", "mcp"),
+        help="which lane implementation to use; everything above the lane is identical",
+    )
     rehearse.set_defaults(func=cmd_rehearse)
 
     mcp_probe = actions.add_parser(
@@ -434,12 +477,24 @@ def main(argv: list[str] | None = None) -> int:
     ask_cmd.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     ask_cmd.add_argument("--json", action="store_true", help="print the payload a host would get")
     ask_cmd.add_argument("--inject-failure", help="force one workspace to fail, for the demo")
+    ask_cmd.add_argument(
+        "--protocol",
+        default="a2a",
+        choices=("a2a", "mcp"),
+        help="which lane implementation to use; everything above the lane is identical",
+    )
     ask_cmd.set_defaults(func=cmd_ask)
 
     serve_cmd = actions.add_parser("serve", help="serve the minimal viewer")
     serve_cmd.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     serve_cmd.add_argument("--host", default="127.0.0.1")
     serve_cmd.add_argument("--port", type=int, default=8900)
+    serve_cmd.add_argument(
+        "--protocol",
+        default="a2a",
+        choices=("a2a", "mcp"),
+        help="which lane implementation to use; everything above the lane is identical",
+    )
     serve_cmd.set_defaults(func=cmd_serve)
 
     show = actions.add_parser("registry", help="show the registry as the router sees it")
