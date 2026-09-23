@@ -32,3 +32,7 @@ __pycache__/
 *.pyc
 .cache/globalmart-data/
 # Secrets
+
+# Meridian tooling — installed globally, see meridian ADR-007
+.claude/commands/meridian/
+.meridian.toml

@@ -1,7 +1,0 @@
-[meridian]
-project        = "gdc-globalmart"   # scopes this repo's rows in the shared index
-specs_path     = "specs"
-lancedb_path   = "~/.meridian/lancedb"
-ollama_model   = "mxbai-embed-large"
-reranker_model = "BAAI/bge-reranker-v2-m3"
-ollama_vision_model = ""   # optional: fallback describer for `enrich --vision`
