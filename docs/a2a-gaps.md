@@ -102,6 +102,37 @@ follow, and the second is the one that matters to a host:
   about 13 seconds. On a cold fan-out the same turn costs a minute to re-derive what was
   already in hand.
 
+## MCP: the tool descriptions do not say how to filter by date
+
+Measured 2026-09-23, building FEAT-014's MCP arm. Two scripted questions failed outright,
+not for want of the right metric but for want of the right filter syntax. One lane's trace:
+two `ai_search` calls, **five** `list_workspace_attributes` calls, two rejected
+`execute_query` attempts, and the loop ended mid-sentence on "Need full date format:".
+
+`execute_query`'s `filter_by` accepts two shapes, and a caller has to know which:
+
+    absolute  {"type":"date_filter","using":"dataset/…","from":"2026-04-01","to":"2026-06-30"}
+    relative  {"type":"date_filter","using":"dataset/…","granularity":"MONTH","from":-3,"to":-1}
+
+`from`/`to` are **strings** in the first and **integers** in the second. `using` is required
+in both and takes the date *dataset*, while the breakdown in `fields` takes the date *label*
+— `dataset/transaction_date` against `label/transaction_date.month`. Neither the tool
+description nor the schema's prose says any of this, so a model discovers it by failing, and
+each failure costs a round trip and a full re-send of the conversation.
+
+Both forms work once you know them; nothing here is broken. The cost is entirely in the
+finding out.
+
+- **Product ask:** put one worked example of each form in `execute_query`'s description. It
+  is the single highest-leverage sentence available — every MCP integrator will otherwise
+  pay several turns to rediscover it, on every model, forever.
+- A validation error naming the *branch it tried* would help nearly as much. The error
+  currently reports failures against every union member at once — 48 of them for one missing
+  field — which reads as "everything is wrong" rather than "you omitted `using`".
+
+Worth noting against A2A: this budget does not exist there. The workspace agent resolves
+filters server-side against a model it already knows, in one round trip.
+
 ## The fan-out deadline bounded nothing
 
 Found 2026-09-23 by rehearsing seven five-turn conversations. One turn ran **726 seconds**

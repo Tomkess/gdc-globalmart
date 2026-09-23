@@ -57,9 +57,17 @@ from gd_agents.orchestrator.events import Observer, emit
 from gd_agents.orchestrator.plan import DEFAULT_MODEL, MODEL_ENV, make_client
 from gd_agents.transport import Host
 
-#: Turns before the loop gives up. Generous: the documented flow is discover then execute,
-#: which is two, and a lane that has not answered in eight is not one turn from doing so.
-MAX_TURNS = 8
+#: Turns before the loop gives up.
+#:
+#: Was eight, on the reasoning that the documented flow is discover-then-execute and a lane
+#: that has not answered in eight is not one turn from doing so. Measurement disagreed twice:
+#: one question answered correctly on the **eleventh** turn, and two more hit the ceiling
+#: mid-recovery with the right identifiers already in hand. The documented flow is two turns;
+#: the observed flow is two turns plus however many it takes to get a filter past the schema.
+#:
+#: Sixteen, then — and the number itself is a finding. Under A2A this budget does not exist,
+#: because the workspace agent resolves all of it server-side in one round trip.
+MAX_TURNS = 16
 
 MAX_TOKENS = 4000
 
@@ -79,6 +87,24 @@ The efficient order, and the one to prefer:
    listing can return tens of thousands of tokens.
 3. `execute_query` with the identifiers you resolved. Typed identifiers (`metric/...`,
    `label/...`) in `using`; bare local keys in sorts and ranking filters.
+
+**Use identifiers exactly as a tool returned them.** `ai_search` gives you the real id —
+`metric/average_total_nps_score`. Do not reconstruct one from a title or a pattern you have
+seen elsewhere; an invented id fails with "objects are either inaccessible or not existing",
+and it is indistinguishable from the object genuinely not being there.
+
+**Filtering by date has exactly two forms, and both need `using`:**
+
+    absolute  {"type": "date_filter", "using": "dataset/<date dataset>",
+               "from": "2026-04-01", "to": "2026-06-30"}      full YYYY-MM-DD, strings
+
+    relative  {"type": "date_filter", "using": "dataset/<date dataset>",
+               "granularity": "MONTH", "from": -3, "to": -1}  whole periods back, integers
+
+`from`/`to` are strings in the first and integers in the second — mixing them fails
+validation, and so does omitting `using`. The date *dataset* goes in `using`
+(`dataset/transaction_date`); the date *label* goes in `fields` for the breakdown
+(`label/transaction_date.month`). They are different things and both are usually needed.
 
 Then answer in prose, for a reader. State the numbers you actually got. Name the metric by
 its title rather than its identifier. Say the period and the breakdown you used.
