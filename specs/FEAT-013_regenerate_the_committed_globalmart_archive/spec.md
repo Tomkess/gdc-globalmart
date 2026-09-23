@@ -18,7 +18,7 @@ id: feat-013
 name: 'Rows leave the repository: generate GlobalMart data to the current date on
   demand, with the filter columns, driven by a workflow that keeps the warehouse current'
 sources: []
-status: in-progress
+status: done
 tags: []
 updated: '2026-09-23'
 ---
@@ -213,7 +213,7 @@ This needs deciding before implementation starts, not during.
   in Misc? Deleting it is cheap to do and expensive to discover the consumers of afterwards.
 - Should the contract manifest keep `synthesised`, now that the answer is "all of them"?
 
-## Outcome — 2026-09-23 (15 of 16; AC 16 awaits a human)
+## Outcome — 2026-09-23 (closed: 16 of 16)
 
 The rows left the repository, the generator reaches the present, the filter columns exist,
 and **the workflow that keeps the warehouse current has now run**. 732 tests, ruff and mypy
@@ -267,11 +267,17 @@ the combination is still unusable.
   generated rows, and the plausibility work (trend, seasonality, weekday, derived measures
   agreeing with their inputs, uneven dimensional spread) is in `plausible.py`.
 - **AC 10, 11: met today**, by running it. Previously written but unproven.
-- **AC 16: NOT MET.** A human has to open the real dashboards and judge whether the data
-  looks believable. No test decides this, which is why the criterion says so. It is the only
-  thing between this feature and done.
+- **AC 16: met on 2026-09-23.** Peter Tomko reviewed the rendered dashboards on
+  `demo-cloud` and signed off: *"data looks good for now."* Recorded with the hedge intact —
+  it is a judgement that the data is believable enough to demo, not a claim that every
+  measure has been audited. The criterion asks for a human to look and say, and one did.
 
 ### Follow-up
 
-Confirm the scheduled run fires on its first Monday. Everything else about the workflow is
-now demonstrated rather than asserted.
+Confirm the scheduled run fires on its first Monday — `workflow_dispatch` is proven three
+times over, but the cron has not yet had a Monday. Everything else about this feature is
+demonstrated rather than asserted.
+
+The sign-off covers the data as it stands. The generator's plausibility work is bounded to
+what dashboards render (ADR 008's amendment), so a measure nobody has put on a chart has not
+been judged by anyone — which is the honest reading of "for now".
