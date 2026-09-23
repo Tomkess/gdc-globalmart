@@ -345,3 +345,51 @@ def test_a_table_without_its_own_identity_does_not_hijack_a_foreign_key() -> Non
 
     assert own_key_column(registry.require("fact_daily_store_sales"), known) is None
     assert own_key_column(registry.require("dim_store"), known) == "store_id"
+
+
+def test_generation_is_ordered_by_reference_not_by_load_order(registry) -> None:  # type: ignore[no-untyped-def]
+    """Found 2026-09-23. `load_order` orders tables for loading into a warehouse, and once a
+    layout model is supplied it comes from the LDM's dataset references — which placed a fact
+    table before the dimension it draws keys from. The fact found an empty key space and
+    wrote an empty string into every row of that column."""
+    from globalmart.generate import ColumnStrategy, generation_order, plan_columns
+
+    order = generation_order(registry)
+    position = {name: index for index, name in enumerate(order)}
+
+    assert sorted(order) == sorted(registry.load_order), "every table must still be generated"
+    for name in order:
+        for plan in plan_columns(registry.require(name), registry.names()):
+            if plan.strategy is ColumnStrategy.FOREIGN_KEY and plan.target in position:
+                assert position[plan.target] < position[name], (
+                    f"{name}.{plan.column} draws from {plan.target}, which is generated later"
+                )
+
+
+def test_an_unfillable_reference_is_reported_rather_than_left_blank(registry) -> None:  # type: ignore[no-untyped-def]
+    """Emitting a plausible key would break referential integrity; emitting nothing quietly
+    is how nine empty columns reached a live workspace. The report has to say so."""
+    from globalmart.generate import ColumnPlan, ColumnStrategy, generate_table
+
+    table = next(
+        t
+        for t in (registry.require(n) for n in registry.names())
+        if any(c.name.endswith("_id") for c in t.columns)
+    )
+    column = next(c.name for c in table.columns if c.name.endswith("_id"))
+    plans = (ColumnPlan(column, ColumnStrategy.FOREIGN_KEY, "a_table_that_minted_nothing"),)
+
+    missing: set[str] = set()
+    raw, _ = generate_table(
+        table,
+        plans,
+        rows=2,
+        keyspaces={},
+        seed=1,
+        window=(date(2026, 1, 1), date(2026, 3, 31)),
+        unresolved=missing,
+    )
+
+    assert missing == {column}, "the unfilled reference must be named, not merely counted"
+    cells = [row[0] for row in csv.reader(io.StringIO(raw.decode()))][1:]
+    assert cells == ["", ""], "and the value is still empty, never a plausible-looking invention"

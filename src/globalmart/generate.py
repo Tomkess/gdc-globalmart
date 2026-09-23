@@ -122,15 +122,33 @@ class GenerationReport:
     scale: float = 1.0
     out_dir: Path | None = None
     per_table: dict[str, int] = field(default_factory=dict)
+    unresolved: dict[str, str] = field(default_factory=dict)
+    """`table.column -> target` for a reference that could not be filled.
+
+    Empty is the only acceptable value. It is reported rather than merely counted because a
+    single unfilled column silently disables every question about that dimension: on
+    2026-09-23, nine columns referencing one dimension came out empty, and every question
+    that grouped by it was unanswerable — in both agent protocols — until someone looked at
+    a chart and noticed the axis was blank."""
+
+    def ok(self) -> bool:
+        return not self.unresolved
 
     def summary_lines(self) -> list[str]:
-        return [
+        lines = [
             f"seed              : {self.seed}",
             f"scale             : {self.scale}",
             f"tables            : {self.tables}",
             f"rows              : {self.rows:,}",
             f"out               : {self.out_dir}",
         ]
+        if self.unresolved:
+            lines.append(f"UNRESOLVED REFS   : {len(self.unresolved)}")
+            for where, target in sorted(self.unresolved.items())[:10]:
+                lines.append(f"  {where} -> {target} (target minted no keys)")
+            if len(self.unresolved) > 10:
+                lines.append(f"  ... and {len(self.unresolved) - 10} more")
+        return lines
 
 
 # --- planning -----------------------------------------------------------------
@@ -218,6 +236,48 @@ def table_seed(seed: int, table_name: str) -> int:
 
 
 # --- row counts ---------------------------------------------------------------
+
+
+def generation_order(registry: TableRegistry) -> list[str]:
+    """Tables ordered so a key space exists before anything draws from it.
+
+    **Not `load_order`.** That orders tables for loading into a warehouse, and once a layout
+    model is supplied it is derived from the LDM's dataset references — which on 2026-09-23
+    placed a fact table at position 52 and the dimension it references at 71. The fact was
+    generated first, found an empty key space, and wrote an empty string into every row of
+    that column. Fourteen columns across nine tables, silently.
+
+    So the order is derived from the references the generator itself will follow: a
+    depth-first walk over the foreign keys `plan_columns` resolves. A cycle cannot be
+    satisfied by any order, so it is broken at the point it is found and the reference that
+    loses simply comes out unfilled — and `GenerationReport.unresolved` will say so.
+    """
+    names = registry.names()
+    edges: dict[str, list[str]] = {}
+    for name in registry.load_order:
+        plans = plan_columns(registry.require(name), names)
+        edges[name] = [
+            plan.target
+            for plan in plans
+            if plan.strategy is ColumnStrategy.FOREIGN_KEY and plan.target and plan.target != name
+        ]
+
+    ordered: list[str] = []
+    state: dict[str, int] = {}  # 1 = visiting, 2 = done
+
+    def visit(name: str) -> None:
+        if state.get(name) == 2 or state.get(name) == 1:
+            return
+        state[name] = 1
+        for target in edges.get(name, ()):
+            if target in edges:
+                visit(target)
+        state[name] = 2
+        ordered.append(name)
+
+    for name in registry.load_order:
+        visit(name)
+    return ordered
 
 
 def base_row_counts(manifest_path: Path = DEFAULT_MANIFEST_PATH) -> dict[str, int]:
@@ -309,6 +369,7 @@ def _value(
     index: int,
     keyspaces: dict[str, KeySpace],
     window: tuple[date, date],
+    unresolved: set[str],
 ) -> str:
     if plan.strategy is ColumnStrategy.OWN_KEY:
         return f"{table}_{index:06d}"
@@ -317,7 +378,10 @@ def _value(
         space = keyspaces.get(plan.target or "")
         if space is None or not space.values:
             # The target exists in the DDL but minted no keys. Emitting a plausible-looking
-            # value would be the referential-integrity bug this design exists to prevent.
+            # value would be the referential-integrity bug this design exists to prevent —
+            # but emitting nothing *quietly* is how nine empty reference columns reached a
+            # live workspace. The caller records it; see `GenerationReport.unresolved`.
+            unresolved.add(plan.column)
             return ""
         return rng.choice(space.values)
 
@@ -404,8 +468,14 @@ def generate_table(
     keyspaces: dict[str, KeySpace],
     seed: int,
     window: tuple[date, date],
+    unresolved: set[str] | None = None,
 ) -> tuple[bytes, KeySpace | None]:
-    """Generate one table's CSV bytes and the key space it mints."""
+    """Generate one table's CSV bytes and the key space it mints.
+
+    `unresolved` collects the columns whose reference could not be filled, so the caller can
+    report them rather than shipping empty foreign keys in silence.
+    """
+    unresolved = unresolved if unresolved is not None else set()
     rng = random.Random(table_seed(seed, table.name))
 
     buffer = io.StringIO(newline="")
@@ -435,7 +505,15 @@ def generate_table(
 
     for index in range(rows):
         values = {
-            plan.column: _value(plan, rng, table=table.name, index=index, keyspaces=keyspaces, window=window)
+            plan.column: _value(
+                plan,
+                rng,
+                table=table.name,
+                index=index,
+                keyspaces=keyspaces,
+                window=window,
+                unresolved=unresolved,
+            )
             for plan in plans
         }
 
@@ -516,15 +594,27 @@ def generate_dataset(
     entries: dict[str, dict[str, object]] = {}
     report = GenerationReport(seed=seed, scale=scale, out_dir=out_dir)
 
-    # Load order, so a target's keys exist before anything references them.
-    for name in registry.load_order:
+    for name in generation_order(registry):
         table = registry.require(name)
         plans = plan_columns(table, registry.names())
         rows = row_count_for(name, counts, scale)
 
+        missing: set[str] = set()
         raw, space = generate_table(
-            table, plans, rows=rows, keyspaces=keyspaces, seed=seed, window=effective_window
+            table,
+            plans,
+            rows=rows,
+            keyspaces=keyspaces,
+            seed=seed,
+            window=effective_window,
+            unresolved=missing,
         )
+        for column in sorted(missing):
+            target = next(
+                (p.target for p in plans if p.column == column and p.target),
+                "unknown",
+            )
+            report.unresolved[f"{name}.{column}"] = target
         if space is not None:
             keyspaces[name] = space
 
