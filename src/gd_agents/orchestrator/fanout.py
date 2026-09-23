@@ -160,26 +160,48 @@ def fanout(
             )
         return lanes[workspace].ask(question, context_id=contexts.get(workspace))
 
-    with ThreadPoolExecutor(max_workers=min(max_workers, len(steps))) as pool:
+    asked = {step.workspace: step.question for step in steps}
+
+    def gave_up(workspace: str, why: str) -> Answer:
+        return Answer(workspace=workspace, question=asked[workspace], text="", error=why[:300])
+
+    pool = ThreadPoolExecutor(max_workers=min(max_workers, len(steps)))
+    try:
         futures: dict[Future[Answer], str] = {}
         for step in steps:
             futures[pool.submit(run, step.workspace, step.question)] = step.workspace
 
-        for future in as_completed(futures, timeout=None):
-            workspace = futures[future]
-            try:
-                answer = future.result(timeout=timeout)
-            except Exception as error:  # noqa: BLE001 - a lane must never raise upward
-                # Includes the timeout. The lane is reported as failed and the query goes on;
-                # letting this propagate would fail the whole question over one slow agent.
-                answer = Answer(
-                    workspace=workspace,
-                    question=next(s.question for s in steps if s.workspace == workspace),
-                    text="",
-                    error=f"{type(error).__name__}: {error}"[:300],
-                )
-            collected.append(answer)
-            report_done(answer)
+        # The deadline is on `as_completed`, not on each `future.result`. Putting it on the
+        # result was the same mistake as having no deadline at all: by the time the loop
+        # reaches a future it has already finished, so the timeout counted against a wait
+        # that was over. Measured 2026-09-22, a single turn ran **726 seconds** with a 150s
+        # timeout set and nothing enforcing it.
+        done: set[str] = set()
+        try:
+            for future in as_completed(futures, timeout=timeout):
+                workspace = futures[future]
+                done.add(workspace)
+                try:
+                    answer = future.result()
+                except Exception as error:  # noqa: BLE001 - a lane must never raise upward
+                    # Letting this propagate would fail the whole question over one lane.
+                    answer = gave_up(workspace, f"{type(error).__name__}: {error}")
+                collected.append(answer)
+                report_done(answer)
+        except TimeoutError:
+            for workspace in asked:
+                if workspace not in done:
+                    answer = gave_up(workspace, f"no answer within {timeout:.0f}s")
+                    collected.append(answer)
+                    report_done(answer)
+            report.notes.append(
+                f"{len(asked) - len(done)} lane(s) passed the {timeout:.0f}s deadline and were abandoned"
+            )
+    finally:
+        # Not a `with` block: its exit waits for every worker, which would reinstate exactly
+        # the unbounded wait this deadline exists to prevent. A lane still running is left to
+        # finish into a result nobody reads — the turn is what must not be held up.
+        pool.shutdown(wait=False, cancel_futures=True)
 
     report.wall_ms = int((time.monotonic() - started) * 1000)
     # Plan order, not completion order: the report should read the way the plan was written.

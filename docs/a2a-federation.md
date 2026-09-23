@@ -110,6 +110,7 @@ Other commands:
 |---|---|
 | `gd-agents registry` | the routing prompt, exactly as the router sees it |
 | `gd-agents route` | routing accuracy across the whole question script, **without calling any lane** |
+| `gd-agents rehearse` | every scripted conversation, end to end, against the live agents |
 | `gd-agents ask --json` | the payload a host would receive |
 | `gd-agents ask --inject-failure <workspace>` | force a lane to fail, to show degradation |
 
@@ -152,6 +153,24 @@ question  ──▶  plan()   ──▶  route + decompose
                merge()  ──▶  one attributed answer, or several with a reason
                              then provenance: did it invent a number?
 ```
+
+**The router is given the conversation, and still plans from scratch.** Those are not the
+same thing, and the difference is the whole of multi-turn. Without the conversation a
+follow-up cannot be routed at all: measured on 2026-09-22, *"which of them converted best?"*
+made the router return an empty plan reasoning "there is no prior context" — correct, and
+useless. Nine of thirty-five scripted turns failed that way.
+
+With it, the router knows what "them" refers to and writes a sub-question naming the thing
+rather than the pronoun. What it must **not** do is reuse the earlier route: *"and did any of
+that show up in customer satisfaction?"* follows a marketing turn and belongs to customer. So
+every turn re-plans, knowing the thread. The last four turns are shown, each with a short
+excerpt of its reply.
+
+**A turn may legitimately need no workspace.** *"Summarise what we have established so far"*
+asks about the conversation, and the router says so by choosing nothing. That used to be an
+error; it is now answered from the answers already held — no agent call, about three seconds,
+and the same merge runs over them so attribution and provenance still apply. With nothing
+held it is still an error, because then the router really did fail.
 
 **Decomposition is what makes this federation.** The orchestrator never forwards the user's
 question to a workspace, because no workspace can answer it:
@@ -271,15 +290,45 @@ the routing measurement input, and the regression set when a prompt changes. `ex
 human judgement, written before the prompts existed.
 
 ```bash
-uv run gd-agents route      # 20/20 exact, 0 over-routed, 0 under-routed
+uv run gd-agents route            # 20 questions, routing only — no lane called, ~1 minute
+uv run gd-agents route --turns    # and every turn of every conversation, in its thread
+uv run gd-agents rehearse         # every conversation end to end, against the live agents
 ```
 
-Twenty questions and five conversations, served to the page as one-click prompts at
-`GET /questions` so a demo is not typed live and the runbook cannot drift from the buttons.
+**Twenty questions and seven conversations of five turns each**, served to the page as
+one-click prompts at `GET /questions` so a demo is not typed live and the runbook cannot
+drift from the buttons.
+
 The most useful single entry is a negative one: **`within-one-workspace`** — *"did energy use
 track footfall across the stores last quarter?"* sounds like two workspaces and is one, because
 store operations holds both measures. The correct answer is one lane, and a router that fans
 out has demonstrated exactly the habit this exercise exists to avoid.
+
+**The conversations are where the mechanism actually shows.** A single question demonstrates
+routing; only a thread shows that the route is recomputed every turn, that each workspace
+resumes its own conversation, and that a lost lane is recoverable without re-running the ones
+that worked. `rehearse` runs them for real — same session, in order, live agents — which is
+what lets the file call them verified rather than hoped for.
+
+### One shape for every entry
+
+Every entry carries the same keys in the same order, `question` is a folded block on all of
+them however short, and `load_script` **refuses an unknown key** rather than ignoring it. A
+key the loader drops silently is debris the next reader has to guess about. There is a test
+asserting the file uses one form, because this drifted once already.
+
+| key | |
+|---|---|
+| `id` | required, unique across questions and conversations |
+| `kind` | groups the entry; the viewer uses it as a heading |
+| `question` | required, always `>-` |
+| `expect` | required — the workspaces a competent analyst would consult |
+| `shows` | what a reader should watch for |
+| `note` | a decision about the entry itself, usually why `expect` changed |
+| `inject_failure` | force one lane to fail |
+| `enrich` | this turn retries the missing lanes instead of asking anew |
+| `reply_to` | this turn answers that workspace's `input-required` question |
+| `from_memory` | this turn needs no workspace, so `expect` is empty |
 
 A router returning *fewer* workspaces than expected has missed something; one returning
 *more* is broadcasting. Both count as misses and are reported separately, because they are

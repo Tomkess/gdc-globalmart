@@ -542,6 +542,12 @@ function handle(event, turn, feed, trace) {
       add(frow(state, event.workspace, said, event.latency_ms));
       break;
     }
+    case 'from_memory':
+      // No workspace was needed. Saying so is the point — the turn took three seconds
+      // instead of sixty, and it did not silently skip the agents.
+      add(frow('ok', 'router', 'no workspace needed — answering from '
+        + (event.lanes || []).join(', ') + ' already held in this conversation'));
+      break;
     case 'merge_start':
       add(frow('live', 'merge', `${event.lanes} lane(s) with data · fan-out wall ${event.wall_ms} ms, slowest lane ${event.slowest_ms ?? '?'} ms`));
       break;

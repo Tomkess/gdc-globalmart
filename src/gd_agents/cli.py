@@ -85,33 +85,62 @@ def cmd_route(args: argparse.Namespace) -> int:
     for pennies, rather than an hour of real agent calls. That separability is the main
     practical argument for an explicit router over a tool-calling loop.
     """
-    from gd_agents.orchestrator.plan import PlanError, make_client, plan
-    from gd_agents.script import RouteReport, compare, load_script
+    from gd_agents.orchestrator.plan import PlanError, Prior, make_client, plan
+    from gd_agents.script import Question, RouteReport, compare, load_script
 
     registry = Registry.load(Path(args.registry))
     questions, conversations = load_script(Path(args.script))
-    if args.turns:
-        questions = questions + tuple(turn for conversation in conversations for turn in conversation.turns)
 
+    # A conversation's turns are scored *in their thread*. Scoring them standalone measures
+    # a question nobody asked: "which of them converted best?" has no antecedent on its own,
+    # and the router rightly returns nothing. The history given here is the expectation, not
+    # a real reply — which keeps this lane-free while still resolving the references.
+    threads: list[tuple[str, list[tuple[Question, tuple[Prior, ...]]]]] = [
+        ("", [(q, ()) for q in questions])
+    ]
+    if args.turns:
+        for conversation in conversations:
+            scored: list[tuple[Question, tuple[Prior, ...]]] = []
+            history: list[Prior] = []
+            for turn in conversation.turns:
+                # A `reply_to` turn is not routed at all — it answers one workspace's
+                # question on that workspace's own conversation. Scoring it as a routing
+                # decision measures something that never happens.
+                if not turn.reply_to:
+                    scored.append((turn, tuple(history)))
+                history.append(Prior(question=turn.question, workspaces=tuple(turn.expect)))
+            threads.append((conversation.id, scored))
+
+    total = sum(len(items) for _, items in threads)
     client, model = make_client()
     print(f"model  : {model}")
-    print(f"scoring: {len(questions)} question(s) against config/questions.yaml\n")
+    print(f"scoring: {total} question(s) against {args.script}\n")
 
     report = RouteReport()
-    for question in questions:
-        try:
-            result = plan(question.question, registry, client=client, model=model)
-        except PlanError as error:
-            outcome = compare(question, ())
-            outcome.error = str(error)[:160]
+    for label, items in threads:
+        if label:
+            print(f"  -- {label}")
+        for question, prior in items:
+            try:
+                result = plan(question.question, registry, client=client, model=model, history=prior)
+            except PlanError as error:
+                # A `from_memory` turn is *meant* to route nowhere — "summarise what we have
+                # established" asks about the conversation. Choosing no workspace is the
+                # right answer there, and scoring it as a failure would teach the prompt the
+                # wrong lesson.
+                outcome = compare(question, ())
+                if not outcome.exact():
+                    outcome.error = str(error)[:160]
+                report.outcomes.append(outcome)
+                mark = "ok  " if outcome.exact() else "ERROR"
+                detail = "no workspace needed" if outcome.exact() else str(error)[:80]
+                print(f"  {question.id:34} {mark} {detail}")
+                continue
+            outcome = compare(question, result.workspaces())
+            outcome.tokens_in, outcome.tokens_out = result.tokens_in, result.tokens_out
             report.outcomes.append(outcome)
-            print(f"  {question.id:26} ERROR {str(error)[:80]}")
-            continue
-        outcome = compare(question, result.workspaces())
-        outcome.tokens_in, outcome.tokens_out = result.tokens_in, result.tokens_out
-        report.outcomes.append(outcome)
-        mark = "ok  " if outcome.exact() else "MISS"
-        print(f"  {question.id:26} {mark} -> {', '.join(outcome.chosen) or 'none'}")
+            mark = "ok  " if outcome.exact() else "MISS"
+            print(f"  {question.id:34} {mark} -> {', '.join(outcome.chosen) or 'none'}")
 
     print()
     for line in report.summary_lines():
@@ -157,6 +186,99 @@ def cmd_ask(args: argparse.Namespace) -> int:
     print("\n--- answer ---\n")
     print(run.reply())
     return 0 if run.merged.ok() or not run.merged.combinable else 1
+
+
+def cmd_rehearse(args: argparse.Namespace) -> int:
+    """Run the scripted conversations end to end, against the live agents.
+
+    `route` measures the router alone and is cheap. This is the expensive half: every turn
+    actually asked, in order, over one session — so contexts carry, follow-ups resolve
+    "those" against a real earlier turn, and the enrich and reply paths are exercised rather
+    than described.
+
+    It exists because "verified" has to mean something reproducible. A conversation in the
+    script that nobody has run is a guess about what the agents will do, and the agents are
+    the part we do not control.
+    """
+    from gd_agents.orchestrator.plan import make_client
+    from gd_agents.orchestrator.run import ask, enrich, respond
+    from gd_agents.orchestrator.session import Session
+    from gd_agents.script import compare, load_script
+
+    registry = Registry.load(Path(args.registry))
+    _, conversations = load_script(Path(args.script))
+    wanted = {c.strip() for c in (args.only or "").split(",") if c.strip()}
+    if wanted:
+        conversations = tuple(c for c in conversations if c.id in wanted)
+        if not conversations:
+            print(f"error: no conversation matching {args.only}", file=sys.stderr)
+            return 1
+
+    lanes = _lanes(registry)
+    client, model = make_client()
+    print(f"model   : {model}")
+    print(f"running : {len(conversations)} conversation(s), "
+          f"{sum(len(c.turns) for c in conversations)} turn(s) — this calls live agents\n")
+
+    misroutes = 0
+    broken = 0
+    for conversation in conversations:
+        print(f"== {conversation.id}  ({len(conversation.turns)} turns)")
+        session = Session()
+        for number, turn in enumerate(conversation.turns, start=1):
+            try:
+                if turn.enrich:
+                    run = enrich(registry, lanes, session, client=client, model=model)  # type: ignore[arg-type]
+                elif turn.reply_to:
+                    run = respond(
+                        lanes,  # type: ignore[arg-type]
+                        session,
+                        turn.reply_to,
+                        turn.question,
+                        client=client,
+                        model=model,
+                    )
+                else:
+                    run = ask(
+                        turn.question,
+                        registry,
+                        lanes,  # type: ignore[arg-type]
+                        session=session,
+                        client=client,
+                        model=model,
+                        inject_failure=turn.inject_failure,
+                    )
+            except Exception as error:  # noqa: BLE001 - one bad turn must not end the rehearsal
+                broken += 1
+                print(f"  {number}. ERROR {type(error).__name__}: {str(error)[:100]}")
+                continue
+
+            chosen = tuple(a.workspace for a in run.lanes.answers)
+            outcome = compare(turn, chosen)
+            mark = "ok  " if outcome.exact() else "MISS"
+            if not outcome.exact():
+                misroutes += 1
+            failed = [a.workspace for a in run.lanes.answers if not a.ok()]
+            pending = [a.workspace for a in run.lanes.answers if a.input_required]
+            state = (
+                f"{'combined' if run.merged.combinable else 'separate':9}"
+                f" {run.total_ms:>6} ms"
+                + (f"  FAILED {', '.join(failed)}" if failed else "")
+                + (f"  ASKS {', '.join(pending)}" if pending else "")
+            )
+            print(f"  {number}. {mark} {', '.join(chosen) or 'none':52} {state}")
+            if not outcome.exact():
+                print(f"       expected {', '.join(turn.expect)}")
+            if args.verbose:
+                print(f"       q: {turn.question}")
+                print(f"       a: {run.reply()[:300]}")
+        print()
+
+    print(f"  conversations     : {len(conversations)}")
+    print(f"  turns             : {sum(len(c.turns) for c in conversations)}")
+    print(f"  routing misses    : {misroutes}")
+    print(f"  turns that errored: {broken}")
+    return 0 if not broken else 1
 
 
 def cmd_serve(args: argparse.Namespace) -> int:
@@ -207,6 +329,15 @@ def main(argv: list[str] | None = None) -> int:
     route.add_argument("--script", default="config/questions.yaml")
     route.add_argument("--turns", action="store_true", help="also score every turn of every conversation")
     route.set_defaults(func=cmd_route)
+
+    rehearse = actions.add_parser(
+        "rehearse", help="run the scripted conversations end to end against the live agents"
+    )
+    rehearse.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
+    rehearse.add_argument("--script", default="config/questions.yaml")
+    rehearse.add_argument("--only", default="", help="comma-separated conversation ids")
+    rehearse.add_argument("-v", "--verbose", action="store_true", help="print each question and reply")
+    rehearse.set_defaults(func=cmd_rehearse)
 
     ask_cmd = actions.add_parser("ask", help="ask one question across the registered workspaces")
     ask_cmd.add_argument("question")

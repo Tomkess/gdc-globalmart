@@ -371,10 +371,17 @@ def test_the_committed_script_loads_and_every_question_has_expectations() -> Non
 
     questions, conversations = load_script(Path("config/questions.yaml"))
 
-    assert len(questions) >= 9
-    assert conversations
+    assert len(questions) >= 20
+    assert len(conversations) >= 5, "the demo needs threads, not only one-shot questions"
+    assert all(len(c.turns) >= 5 for c in conversations), "a conversation under five turns"
     assert all(question.expect for question in questions)
-    assert all(turn.expect for conversation in conversations for turn in conversation.turns)
+    # A `from_memory` turn is the one entry that legitimately expects no workspace: it asks
+    # about the conversation. Everything else must say what it expects.
+    assert all(
+        turn.expect or turn.from_memory
+        for conversation in conversations
+        for turn in conversation.turns
+    )
 
 
 def test_a_question_without_expectations_is_refused(tmp_path: Path) -> None:
@@ -2107,3 +2114,285 @@ def test_a_markdown_table_from_a_lane_is_drawn_as_a_table() -> None:
     assert drawn.count("<tr>") == 3, "header plus two rows"
     assert drawn.count('<td class="num">') == 4, "the ---: columns are numeric"
     assert "<b>32.31</b>" in drawn, "inline markdown inside a cell still renders"
+
+
+# --- the script's format is enforced, not merely documented --------------------
+
+
+def script_file(tmp_path: Path, body: str) -> Path:
+    path = tmp_path / "q.yaml"
+    path.write_text(body, encoding="utf-8")
+    return path
+
+
+def test_an_unknown_key_is_refused_rather_than_ignored(tmp_path: Path) -> None:
+    """A key the loader drops silently is debris the next reader has to guess about."""
+    from gd_agents.script import ScriptError, load_script
+
+    path = script_file(
+        tmp_path,
+        "questions:\n  - id: x\n    question: hi?\n    expect: [a]\n    expects: [b]\n",
+    )
+    with pytest.raises(ScriptError, match="unknown key"):
+        load_script(path)
+
+
+def test_two_entries_cannot_share_an_id(tmp_path: Path) -> None:
+    """Ids name a result. Two of them silently merge one measurement into another."""
+    from gd_agents.script import ScriptError, load_script
+
+    path = script_file(
+        tmp_path,
+        "questions:\n  - id: x\n    question: a?\n    expect: [a]\n"
+        "  - id: x\n    question: b?\n    expect: [a]\n",
+    )
+    with pytest.raises(ScriptError, match="used twice"):
+        load_script(path)
+
+
+def test_a_from_memory_turn_may_expect_nothing_but_nothing_else_may(tmp_path: Path) -> None:
+    from gd_agents.script import ScriptError, load_script
+
+    ok = script_file(
+        tmp_path / "a", "questions:\n  - id: x\n    question: summarise?\n    from_memory: true\n"
+    ) if (tmp_path / "a").mkdir() or True else None
+    questions, _ = load_script(ok)
+    assert questions[0].from_memory and questions[0].expect == ()
+
+    clash = script_file(
+        tmp_path,
+        "questions:\n  - id: x\n    question: summarise?\n    from_memory: true\n    expect: [a]\n",
+    )
+    with pytest.raises(ScriptError, match="must be empty"):
+        load_script(clash)
+
+
+def test_a_conversation_with_no_turns_is_refused(tmp_path: Path) -> None:
+    from gd_agents.script import ScriptError, load_script
+
+    path = script_file(tmp_path, "conversations:\n  - id: c\n    turns: []\n")
+    with pytest.raises(ScriptError, match="no turns"):
+        load_script(path)
+
+
+def test_the_committed_script_uses_one_shape_for_every_question() -> None:
+    """The complaint that started this: `question:` was inline on short entries and a folded
+    block on long ones, so the file looked different every few lines."""
+    body = Path("config/questions.yaml").read_text(encoding="utf-8")
+    forms = {
+        line.split("question:", 1)[1].strip()
+        for line in body.splitlines()
+        if re.match(r"^\s+-?\s*question:", line)
+    }
+
+    assert forms == {">-"}, f"questions are written more than one way: {sorted(forms)}"
+
+
+# --- the router is given the conversation --------------------------------------
+# Measured 2026-09-22: without it, nine of thirty-five scripted turns returned an empty plan
+# with the reasoning "there is no prior context". Correct, and useless.
+
+
+def test_the_router_is_shown_what_a_follow_up_refers_to() -> None:
+    from gd_agents.orchestrator.plan import Prior, user_prompt
+
+    prompt = user_prompt(
+        "Which of them converted best?",
+        plan_registry(),
+        [Prior(question="Which campaigns had the highest spend?", workspaces=("mkt",), reply="A, B, C.")],
+    )
+
+    assert "Which campaigns had the highest spend?" in prompt
+    assert "answered by: mkt" in prompt
+    assert "A, B, C." in prompt
+
+
+def test_only_the_last_few_turns_reach_the_router() -> None:
+    """Every turn kept is tokens spent on every later question, and a reference reaching
+    further back than a few turns is rare."""
+    from gd_agents.orchestrator.plan import HISTORY_TURNS, Prior, history_block
+
+    block = history_block([Prior(question=f"turn {n}") for n in range(12)])
+
+    assert "turn 11" in block
+    assert "turn 0" not in block
+    assert block.count("user asked:") == HISTORY_TURNS
+
+
+def test_giving_the_router_history_is_not_reusing_the_route() -> None:
+    """The documented promise. A follow-up may need a workspace the last turn never touched,
+    so the plan is recomputed — it is simply recomputed knowing what "that" means."""
+    from gd_agents.orchestrator.run import ask
+    from gd_agents.orchestrator.session import Session
+
+    class Quiet:
+        def __init__(self, workspace: str) -> None:
+            self.workspace = workspace
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            return shaped(self.workspace, numbers=("1",))
+
+    session = Session()
+    session.remember(turn_of(shaped("mkt", numbers=("1",))))
+    client = FakeClient(
+        '{"workspaces":[{"id":"cust","question":"Show NPS by month"}]}',
+        "NPS was 1.",
+    )
+
+    run = ask(
+        "And did any of that show up in customer satisfaction?",
+        plan_registry(),
+        {"mkt": Quiet("mkt"), "cust": Quiet("cust")},
+        session=session,
+        client=client,
+        model="m",
+    )
+
+    assert run.plan is not None
+    assert run.plan.workspaces() == ("cust",), "the previous turn's route must not be reused"
+
+
+# --- a turn that needs no workspace --------------------------------------------
+
+
+def test_a_question_about_the_conversation_is_answered_from_it() -> None:
+    """"Summarise what we have established" asks about the conversation, and the router says
+    so by choosing nothing. Fanning out anyway would re-fetch what is already in hand."""
+    from gd_agents.orchestrator.run import ask
+    from gd_agents.orchestrator.session import Session
+
+    called: list[str] = []
+
+    class Loud:
+        workspace = "mkt"
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            called.append(question)
+            return shaped("mkt")
+
+    session = Session()
+    session.remember(turn_of(shaped("mkt", numbers=("100",))))
+    client = FakeClient('{"workspaces":[]}', "So far: spend was 100.")
+
+    run = ask(
+        "Summarise what we have established so far.",
+        plan_registry(),
+        {"mkt": Loud()},
+        session=session,
+        client=client,
+        model="m",
+    )
+
+    assert called == [], "no workspace should have been called"
+    assert "100" in run.reply()
+    assert run.plan is not None and "already holds" in run.plan.reasoning
+
+
+def test_an_empty_plan_with_nothing_held_is_still_an_error() -> None:
+    """With no earlier turn there is nothing to answer from, so an empty plan is the router
+    failing and must be reported as one rather than dressed up as a reply."""
+    from gd_agents.orchestrator.plan import PlanError
+    from gd_agents.orchestrator.run import ask
+    from gd_agents.orchestrator.session import Session
+
+    with pytest.raises(PlanError):
+        ask(
+            "Summarise what we have established so far.",
+            plan_registry(),
+            {},
+            session=Session(),
+            client=FakeClient('{"workspaces":[]}'),
+            model="m",
+        )
+
+
+# --- the fan-out deadline actually bounds the fan-out --------------------------
+# Measured 2026-09-22: one turn ran 726 seconds with a 150s timeout set. The deadline was on
+# `future.result`, which only starts counting once the loop reaches that future — by which
+# time it has already finished. It bounded nothing.
+
+
+def test_a_hung_lane_does_not_hold_the_whole_turn() -> None:
+    import threading
+
+    from gd_agents.orchestrator.fanout import fanout
+    from gd_agents.orchestrator.plan import Plan, Step
+
+    release = threading.Event()
+
+    class Hung:
+        def __init__(self, workspace: str, slow: bool) -> None:
+            self.workspace = workspace
+            self.slow = slow
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            if self.slow:
+                release.wait(30)  # released by the test, never by the deadline
+            return shaped(self.workspace)
+
+    plan = Plan(
+        question="q",
+        steps=(Step("fast", "a"), Step("slow", "b")),
+    )
+    try:
+        report = fanout(
+            plan,
+            {"fast": Hung("fast", slow=False), "slow": Hung("slow", slow=True)},
+            timeout=0.4,
+        )
+    finally:
+        release.set()
+
+    assert report.wall_ms < 5000, "the deadline did not bound the wait"
+    assert {a.workspace for a in report.ok()} == {"fast"}
+    slow = next(a for a in report.answers if a.workspace == "slow")
+    assert not slow.ok()
+    assert "deadline" in " ".join(report.notes)
+
+
+def test_an_abandoned_lane_keeps_the_question_it_was_asked() -> None:
+    """The reply has to be able to say what the missing lane was for, and enrich reuses that
+    sub-question verbatim when it retries."""
+    import threading
+
+    from gd_agents.orchestrator.fanout import fanout
+    from gd_agents.orchestrator.plan import Plan, Step
+
+    release = threading.Event()
+
+    class Hung:
+        workspace = "slow"
+
+        def describe(self) -> str:
+            return ""
+
+        def ask(self, question: str, *, context_id: str | None = None) -> Answer:
+            release.wait(30)
+            return shaped("slow")
+
+    try:
+        report = fanout(Plan(question="q", steps=(Step("slow", "Show NPS by month"),)),
+                        {"slow": Hung()}, timeout=0.3)
+    finally:
+        release.set()
+
+    assert report.answers[0].question == "Show NPS by month"
+
+
+def test_a_timeout_is_not_retried() -> None:
+    """Retrying one costs the whole budget again — 120s became 244s live. A 502 comes back in
+    milliseconds and is still worth another try."""
+    from gd_agents.a2a.client import is_transient
+    from gd_agents.transport import TransportError
+
+    assert is_transient(TransportError("HTTP 502 from the gateway"))
+    assert not is_transient(TransportError("the request timed out after 120s"))

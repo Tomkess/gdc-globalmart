@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import json
 import os
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -98,6 +99,32 @@ Your job, for one user question:
    Reporting side by side is a real outcome and sometimes the only true one. It is not a
    shortcut to reach for when a common time grain was there to be asked for.
 
+6. **A follow-up is routed on what it refers to.** Where a conversation is given, "those",
+   "that one", "the same period" and "any of that" point at an earlier turn, and the
+   sub-question you write must name what they point at — the workspace agent cannot read
+   your mind, and a sub-question containing a dangling pronoun is unanswerable.
+
+   The earlier turn tells you what is being referred to. It does **not** tell you where to
+   route: "and did any of that show up in customer satisfaction?" follows a marketing turn
+   and belongs to customer. Decide the route from this question, every time.
+
+   Never answer with an empty workspace list because a question looks contextless. If it
+   refers to an earlier turn, resolve the reference and route it.
+
+7. **A question about the conversation itself needs no workspace.** Return an empty list for
+   these and only these: "summarise what we have established", "what did you just tell me",
+   "which of those answers was least certain", "where should we be looking". They ask about
+   what has already been *said*.
+
+   This is a narrow exception and easy to over-apply. A question naming a metric, a period, a
+   breakdown or a comparison is an analytical question and **must be routed**, even where a
+   previous turn happened to fetch something similar — "which month had the biggest gap
+   between the two?" is a new question about the data, not a question about the conversation.
+   When in doubt, route it.
+
+   The exception applies only where a conversation is given. A question with no history
+   behind it is never answerable this way.
+
 Reply with JSON only, no prose and no code fences:
 
 {"workspaces": [{"id": "<workspace id>", "question": "<sub-question>", "why": "<one line>"}],
@@ -143,8 +170,50 @@ class Plan:
         return lines
 
 
-def user_prompt(question: str, registry: Registry) -> str:
-    return f"Workspaces available to this caller:\n\n{registry.prompt_block()}\n\nUser question: {question}"
+@dataclass(frozen=True)
+class Prior:
+    """One earlier turn, as the router needs to see it.
+
+    Deliberately thin: what was asked, which workspaces answered, and enough of the reply to
+    resolve a reference. Not the sub-questions, and not the shapes — the router is being
+    given the conversation so it can understand *this* question, not a plan to copy.
+    """
+
+    question: str
+    workspaces: tuple[str, ...] = ()
+    reply: str = ""
+
+
+#: How much of an earlier reply the router sees. Enough to resolve "the top one" against the
+#: thing that was actually top; short enough that four turns do not crowd out the registry.
+REPLY_EXCERPT = 700
+
+#: Turns kept. A reference reaching further back than this is rare, and every turn kept is
+#: tokens spent on every subsequent question.
+HISTORY_TURNS = 4
+
+
+def history_block(history: Sequence[Prior]) -> str:
+    kept = list(history)[-HISTORY_TURNS:]
+    if not kept:
+        return ""
+    lines = ["Conversation so far, oldest first:"]
+    for number, turn in enumerate(kept, start=1):
+        lines.append(f"\n[{number}] user asked: {turn.question}")
+        if turn.workspaces:
+            lines.append(f"    answered by: {', '.join(turn.workspaces)}")
+        if turn.reply:
+            excerpt = " ".join(turn.reply.split())[:REPLY_EXCERPT]
+            lines.append(f"    the answer given: {excerpt}")
+    return "\n".join(lines) + "\n\n"
+
+
+def user_prompt(question: str, registry: Registry, history: Sequence[Prior] = ()) -> str:
+    return (
+        f"Workspaces available to this caller:\n\n{registry.prompt_block()}\n\n"
+        f"{history_block(history)}"
+        f"User question: {question}"
+    )
 
 
 def _strip_fences(text: str) -> str:
@@ -230,8 +299,20 @@ def plan(
     *,
     client: Any | None = None,
     model: str | None = None,
+    history: Sequence[Prior] = (),
 ) -> Plan:
-    """Route and decompose, in one call."""
+    """Route and decompose, in one call.
+
+    `history` is the conversation so far. Without it a follow-up cannot be routed at all:
+    measured on 2026-09-22, "which of them converted best?" made the router return an empty
+    plan with the reasoning "there is no prior context" — correct, and useless. Nine of
+    thirty-five scripted turns failed that way.
+
+    Giving the router the conversation is **not** the same as reusing the route. Every turn
+    still plans from scratch; it simply knows what "them" means. A session that reused the
+    previous selection would answer "and did any of that show up in customer satisfaction?"
+    from marketing, confidently and from the wrong place.
+    """
     # Bound to its own name rather than reassigning the parameter: a checker keeps the
     # parameter's declared `Any | None` past the guard and then reports `.messages` on None.
     caller: Any = client
@@ -245,7 +326,7 @@ def plan(
         model=model,
         max_tokens=MAX_TOKENS,
         system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_prompt(question, registry)}],
+        messages=[{"role": "user", "content": user_prompt(question, registry, history)}],
     )
 
     text = "".join(block.text for block in response.content if getattr(block, "type", "") == "text")

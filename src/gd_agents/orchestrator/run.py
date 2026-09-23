@@ -23,7 +23,7 @@ from gd_agents.orchestrator.align import align, shared_grain
 from gd_agents.orchestrator.events import Observer, emit
 from gd_agents.orchestrator.fanout import FanoutReport, fanout
 from gd_agents.orchestrator.merge import Merged, merge
-from gd_agents.orchestrator.plan import Plan, Step, plan
+from gd_agents.orchestrator.plan import Plan, PlanError, Step, plan
 from gd_agents.orchestrator.session import Session, Turn
 from gd_agents.registry import Registry
 
@@ -166,6 +166,49 @@ def _contexts(report: FanoutReport, previous: Mapping[str, str] | None = None) -
     return carried
 
 
+def _from_memory(
+    question: str,
+    session: Session,
+    run: Run,
+    started: float,
+    *,
+    client: Any | None = None,
+    model: str | None = None,
+    observe: Observer | None = None,
+) -> Run:
+    """Answer from what the conversation already holds, calling no workspace.
+
+    The closing move of most real threads — "so where should we actually be looking?" — asks
+    about the conversation rather than for new data, and the router says so by choosing
+    nothing. Fanning out anyway would spend four agent calls to re-fetch what is already in
+    hand; erroring would fail a turn that is perfectly answerable.
+
+    The same merge runs over the held answers, so the same rules apply: attribution stays,
+    and provenance still refuses a number no lane produced.
+    """
+    held = session.held()
+    emit(observe, "from_memory", lanes=[a.workspace for a in held])
+    run.lanes = FanoutReport(answers=held)
+    run.plan = Plan(
+        question=question,
+        steps=tuple(Step(workspace=a.workspace, question=a.question) for a in held),
+        reasoning="No workspace was needed: answered from what this conversation already holds.",
+    )
+    run.merged = merge(question, held, client=client, model=model)
+    session.remember(
+        Turn(
+            question=question,
+            workspaces=tuple(a.workspace for a in held),
+            reply=run.merged.text,
+            answers=held,
+            combinable=run.merged.combinable,
+        )
+    )
+    run.total_ms = int((time.monotonic() - started) * 1000)
+    emit(observe, "done", payload=run.payload())
+    return run
+
+
 def ask(
     question: str,
     registry: Registry,
@@ -190,7 +233,16 @@ def ask(
     run = Run(question=question)
 
     emit(observe, "planning", question=question, workspaces=list(registry.ids()))
-    run.plan = plan(question, registry, client=client, model=model)
+    try:
+        run.plan = plan(question, registry, client=client, model=model, history=session.prior())
+    except PlanError:
+        # A question that needs no workspace is a real turn, not a failure — "summarise what
+        # we have established" asks about the conversation, and the conversation is here.
+        # Only ever after a turn that did fetch something: with nothing held, an empty plan
+        # is the router failing and must be reported as one.
+        if not session.held():
+            raise
+        return _from_memory(question, session, run, started, client=client, model=model, observe=observe)
     emit(
         observe,
         "plan",

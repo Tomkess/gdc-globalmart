@@ -264,9 +264,10 @@ def script_payload(path: Path | None = None) -> dict[str, Any]:
             {
                 "id": q.id,
                 "kind": q.kind,
-                "question": " ".join(q.question.split()),
+                "question": q.question,
                 "expect": list(q.expect),
                 "shows": q.shows,
+                "note": q.note,
                 "inject_failure": q.inject_failure,
             }
             for q in questions
@@ -274,12 +275,17 @@ def script_payload(path: Path | None = None) -> dict[str, Any]:
         "conversations": [
             {
                 "id": c.id,
+                "kind": c.kind,
                 "shows": c.shows,
+                "note": c.note,
                 "turns": [
                     {
-                        "question": " ".join(t.question.split()),
+                        "question": t.question,
                         "expect": list(t.expect),
+                        "shows": t.shows,
                         "enrich": t.enrich,
+                        "reply_to": t.reply_to,
+                        "from_memory": t.from_memory,
                         "inject_failure": t.inject_failure,
                     }
                     for t in c.turns

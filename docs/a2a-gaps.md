@@ -78,6 +78,53 @@ and nested bullets. Nothing in the Task says the text part is markdown, so a cal
 renders it and hopes, or shows the reader literal asterisks. We render it. Worth stating in
 the protocol which it is.
 
+## "Answer from the conversation" is not reliably promptable
+
+The orchestrator can answer a turn with no agent call at all, from the answers it already
+holds — the right behaviour for *"summarise what we have established"*, which asks about the
+conversation rather than for data. It engages whenever the router returns no workspace, and
+it is tested.
+
+What could not be made reliable is the router *deciding* to do that. Across three
+measurements of the same turn: the lane-free scoring chose no workspace, and two live runs
+re-asked both workspaces — the second of those after the question was reworded to
+*"**Without querying anything again**, summarise what we have established so far"*,
+specifically to remove the ambiguity. The prompt rule is explicit. It is not obeyed.
+
+Both readings are defensible, which is the problem: a demo turn must not be a coin flip. So
+the capability stays and the scripted turn now records what actually happens. Two things
+follow, and the second is the one that matters to a host:
+
+- A caller cannot depend on a routing prompt to suppress fetching. If not re-fetching is a
+  requirement — cost, rate limits, a frozen result set — it has to be enforced in code above
+  the router, not asked for inside it.
+- The wasted call is cheap *here* only because the lanes have warm contexts and answer in
+  about 13 seconds. On a cold fan-out the same turn costs a minute to re-derive what was
+  already in hand.
+
+## The fan-out deadline bounded nothing
+
+Found 2026-09-23 by rehearsing seven five-turn conversations. One turn ran **726 seconds**
+with a 150-second timeout configured. The deadline was on `future.result(timeout=…)`, which
+only starts counting once the loop reaches that future — by which time it has already
+finished. `as_completed` was called with `timeout=None`, so the wait was unbounded and the
+timeout was decorative.
+
+Two further details worth knowing if you write the same loop:
+
+- Moving the deadline to `as_completed` is necessary but not sufficient. A `with
+  ThreadPoolExecutor(...)` block waits for every worker on exit, which reinstates the
+  unbounded wait one line later. The pool has to be shut down with `wait=False`.
+- A lane abandoned at the deadline is still running. It finishes into a result nobody reads.
+  That is the right trade for a demo — the turn is what must not be held up — but it means
+  the process can outlive the answer.
+
+Fixed, with a test that hangs a lane and asserts the turn returns anyway. The same rehearsal
+also showed a lane failing at **244 seconds** against a 120-second timeout, because a timeout
+counted as transient and was retried: the retry spends the whole budget a second time. A 502
+comes back in milliseconds and is still worth another try; a timeout has already waited as
+long as anyone will.
+
 ## The router can defeat its own merge by asking for two different shapes
 
 Found 2026-09-21 running the flagship federation question live — *"did the campaigns we spent
@@ -93,8 +140,27 @@ deliberately wider, "to see whether customer satisfaction changed", which is exa
 good analyst would want. And then nothing joined.
 
 These are orchestrator defects rather than protocol gaps, and they are recorded here because
-they are the failure mode most likely to be mistaken for one. Three of them, in layers, each
-uncovered by fixing the one above it:
+they are the failure mode most likely to be mistaken for one. Four of them, the first three in
+layers, each uncovered by fixing the one above it:
+
+0. **The router never saw the conversation.** Found 2026-09-22 by writing seven five-turn
+   conversations and scoring them. A follow-up — *"which of them converted best?"*, *"show me
+   the monthly trend for the top one"* — has no antecedent on its own, and the router
+   correctly returned an empty plan. **Nine of thirty-five turns failed this way**, and none
+   of it was visible while the scripted conversations were two turns of self-contained
+   questions.
+
+   Worth separating from the protocol: the *lane* had context all along, because the
+   `contextId` lets the workspace agent resolve "those" against its own earlier turn. It was
+   the orchestrator that did not, so it could not decide **which** workspace to send the
+   follow-up to. A2A gave us per-workspace memory and nothing else, which is the right
+   division — the orchestrator's memory is the orchestrator's problem.
+
+   Fixed by passing the last four turns to the router. Routing over the same thirty-five
+   turns went from 45/55 to 53/55, and then to 55/55 once the two remaining disagreements
+   were resolved. Note what is *not* done: the earlier route is never reused, because
+   "and did any of that show up in customer satisfaction?" follows a marketing turn and
+   belongs to customer.
 
 1. **The plan did not hold its lanes to its own `combine_on`.** Fixed in `plan.py`'s prompt:
    if you intend to combine, ask for the same period in the same words and the breakdown you

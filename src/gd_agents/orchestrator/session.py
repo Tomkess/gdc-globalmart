@@ -22,6 +22,7 @@ one call and is the difference between a conversation and a transcript.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Any
 
 from gd_agents.lane import Answer
 
@@ -85,6 +86,25 @@ class Session:
         that workspace to resume.
         """
         return {w: self.contexts[w] for w in workspaces if w in self.contexts}
+
+    def prior(self) -> tuple[Any, ...]:
+        """The conversation so far, in the shape the router needs.
+
+        The route is still recomputed every turn — this is what the new plan is *about*, not
+        a plan to copy. Without it a follow-up cannot be routed at all: "which of them
+        converted best?" has no antecedent, and the router correctly and uselessly returns
+        nothing.
+        """
+        from gd_agents.orchestrator.plan import Prior
+
+        return tuple(
+            Prior(question=turn.question, workspaces=turn.workspaces, reply=turn.reply)
+            for turn in self.turns
+        )
+
+    def held(self) -> tuple[Answer, ...]:
+        """Every lane answer the conversation still holds, for a turn that needs no new data."""
+        return tuple(a for a in self.answers.values() if a.ok() and a.shape.returned_data)
 
     def enrichable(self) -> tuple[str, ...]:
         """Workspaces whose part of the last answer is still missing."""

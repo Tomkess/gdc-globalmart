@@ -123,7 +123,12 @@ def message_payload(text: str, context_id: str | None = None) -> dict[str, Any]:
 
 
 #: Server-side hiccups worth one more try. A 4xx means the request was wrong.
-_TRANSIENT = ("HTTP 500", "HTTP 502", "HTTP 503", "HTTP 504", "timed out", "timeout")
+#:
+#: **A timeout is not on this list, and used to be.** Retrying one costs the whole budget
+#: again: measured 2026-09-22, a lane that timed out at 120s reported failure at 244s, and
+#: the turn around it ran four minutes. A 502 comes back in milliseconds and asking again is
+#: nearly free; a timeout has already waited as long as anyone is willing to.
+_TRANSIENT = ("HTTP 500", "HTTP 502", "HTTP 503", "HTTP 504")
 
 
 #: What a lane says to get past an `input-required`. Deliberately content-free: the agent has

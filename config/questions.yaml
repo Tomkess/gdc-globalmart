@@ -18,48 +18,161 @@
 #   globalmart-marketing   ~ Moments        campaigns: spend, impressions, sends, clicks
 #   globalmart-store-ops   ~ Answers        service delivery: footfall, staffing, energy
 #   globalmart-ecommerce   ~ Overview       broad but thin: order count, average order value
+#
+# ── The format ────────────────────────────────────────────────────────────────
+#
+# Every entry has the same keys in the same order, and no entry has a key no other entry
+# could have. `load_script` refuses an unknown key rather than ignoring it, because a key
+# the loader drops silently is debris the next reader has to guess about.
+#
+#   id              required, unique across questions and conversations
+#   kind            groups the entry; the viewer uses it as a heading
+#   question        required; always a folded block, however short
+#   expect          required; the workspaces a competent analyst would consult
+#   shows           what a reader should watch for
+#   note            optional; a decision about the entry itself, usually why `expect` changed
+#   inject_failure  optional; force one lane to fail, to show degradation
+#   enrich          optional; this turn retries the missing lanes instead of asking anew
+#   reply_to        optional; this turn answers that workspace's `input-required` question
+#   from_memory     optional; this turn needs no workspace, so `expect` is empty
+#
+# `question` is a folded block (`>-`) on every single entry, including one-liners. Switching
+# style by length is what made this file inconsistent in the first place.
+#
+# ── Verification ──────────────────────────────────────────────────────────────
+#
+#   uv run gd-agents route                  # routing only — no lane is called, ~1 minute
+#   uv run gd-agents route --turns          # and every turn of every conversation
+#   uv run gd-agents rehearse               # every conversation, end to end, live agents
+#   uv run gd-agents rehearse --only <id>   # one of them
+#
+# `rehearse` is the expensive half and the reason the conversations below can be called
+# verified: each was run against the live agents, in order, over one session. Where the
+# router disagreed with an expectation and was right, the expectation was narrowed and the
+# reason written into that entry's `note` — an expectation edited to match a router measures
+# nothing, so the reason has to survive in the file.
 
 version: 1
 
 questions:
+  # ── single workspace ────────────────────────────────────────────────────────
+  # Routing selects rather than broadcasts. Each of these is answerable completely by one
+  # workspace, and a router that calls all four has demonstrated nothing.
+
   - id: single-ecommerce
     kind: routing
-    question: How many online orders did we take last month?
+    question: >-
+      How many online orders did we take last month?
     expect: [globalmart-ecommerce]
-    shows: >
-      Routing selects rather than broadcasts. One workspace answers this completely, and a
-      router that calls all four has demonstrated nothing.
+    shows: >-
+      One workspace answers this completely. The baseline case, and the fastest — about 25
+      seconds, which is useful to establish before anything is federated.
 
   - id: single-customer
     kind: routing
-    question: What is our NPS trend over the last six months?
+    question: >-
+      What is our NPS trend over the last six months?
     expect: [globalmart-customer]
-    shows: >
+    shows: >-
       A second single-workspace case in different vocabulary, so the first is not a fluke of
-      one phrasing.
+      one phrasing. Returns a line chart, so it is the one to open the demo with.
+
+  - id: single-marketing
+    kind: routing
+    question: >-
+      Which campaign delivered the most impressions last month?
+    expect: [globalmart-marketing]
+    shows: >-
+      Marketing's own vocabulary. One lane, one chart, and the mechanism is visible before
+      anything has to be combined.
+
+  - id: single-store-ops
+    kind: routing
+    question: >-
+      Which stores had the highest footfall last quarter?
+    expect: [globalmart-store-ops]
+    shows: >-
+      The fourth workspace on its own, so all four have been seen answering before any of
+      them is asked to combine.
+
+  - id: single-customer-feedback
+    kind: routing
+    question: >-
+      What are customers complaining about most in their feedback?
+    expect: [globalmart-customer]
+    shows: >-
+      A qualitative question rather than a metric one. The agent picks its own breakdown,
+      which is the part of the work the orchestrator never does.
+
+  - id: within-one-workspace
+    kind: routing
+    question: >-
+      Did energy use track footfall across the stores last quarter?
+    expect: [globalmart-store-ops]
+    shows: >-
+      Two measures that sound like two workspaces and are not — store operations holds both.
+      The correct answer is one lane, and a router that fans out has demonstrated exactly the
+      habit this exercise exists to avoid. The most useful negative case in the set.
+
+  # ── federation ──────────────────────────────────────────────────────────────
+  # Neither workspace can answer alone. Decomposition sends a different sub-question to each
+  # and the merge combines them on a shared grain.
 
   - id: pair-campaign-satisfaction
     kind: federation
-    question: >
+    question: >-
       Did the campaigns we spent the most on last quarter actually move customer
       satisfaction?
     expect: [globalmart-marketing, globalmart-customer]
-    shows: >
-      The core case. Neither workspace can answer it: marketing knows spend and knows nothing
-      about satisfaction, customer knows NPS and has never heard of a campaign. Decomposition
-      sends a different sub-question to each, and the merge combines them on month.
+    shows: >-
+      The core case. Marketing knows spend and nothing about satisfaction; customer knows NPS
+      and has never heard of a campaign. Both lanes are asked for a monthly series over the
+      same window so month is a real shared key, and marketing is additionally asked for the
+      campaign ranking — one workspace can be asked two things.
 
   - id: pair-staffing-satisfaction
     kind: federation
-    question: Were customers less happy in the weeks when stores were short-staffed?
+    question: >-
+      Were customers less happy in the weeks when stores were short-staffed?
     expect: [globalmart-store-ops, globalmart-customer]
-    shows: >
+    shows: >-
       A second federation pair across a different boundary, to show the first was not a
       specially chosen question.
 
+  - id: pair-footfall-orders
+    kind: federation
+    question: >-
+      Are the stores with the most footfall in the regions where online orders are growing
+      fastest?
+    expect: [globalmart-store-ops, globalmart-ecommerce]
+    shows: >-
+      A third pair, across the physical/digital boundary rather than the marketing/customer
+      one. Whether the two lanes actually report at the same grain is left to the checks
+      rather than assumed.
+
+  - id: pair-loyalty-campaigns
+    kind: federation
+    question: >-
+      Are our loyalty members responding to campaigns better than everyone else?
+    expect: [globalmart-customer, globalmart-marketing]
+    shows: >-
+      Population parity, which is a model judgement rather than a code check. "Loyalty
+      members" and "everyone else" are two populations and only one workspace knows which is
+      which, so the merge has to say what it is comparing, or refuse.
+
+  - id: trio-sales-drivers
+    kind: federation
+    question: >-
+      Sales are up this quarter — was it the campaigns or the stores?
+    expect: [globalmart-ecommerce, globalmart-marketing, globalmart-store-ops]
+    shows: >-
+      Three lanes, and a question whose whole content is causal. The merge may sequence and
+      compare but not conclude: "spend rose in the same months" is supportable from the lanes,
+      "campaigns caused it" is not.
+
   - id: wide-quarter-review
     kind: latency
-    question: >
+    question: >-
       Give me a full picture of last quarter — sales, campaign performance, store operations
       and customer sentiment.
     expect:
@@ -67,29 +180,25 @@ questions:
       - globalmart-marketing
       - globalmart-store-ops
       - globalmart-customer
-    shows: >
+    shows: >-
       All four lanes, which is where latency is measured. Fan-out costs the slowest lane, so
-      this is the number that decides whether four-to-five workspaces is viable live.
+      this is the number that decides whether four-to-five workspaces is viable live. Expect
+      60–120 seconds and assume one lane may drop.
 
-  - id: unmergeable-grain
-    kind: merge-refusal
-    question: Which campaigns performed best, and which stores had the most footfall?
-    expect: [globalmart-marketing, globalmart-store-ops]
-    shows: >
-      Two valid answers with nothing to join on — one is by campaign, the other by store.
-      The merge checks must refuse to connect them and say why, rather than inventing a
-      relationship. Presented separately, attributed, with the reason.
+  # ── the Overview problem ────────────────────────────────────────────────────
+  # Infobip's actual complaint, reproduced: their aggregate workspace answers shallowly.
 
   - id: overview-shallow
     kind: overview-problem
-    question: How is our online business doing, and what is driving it?
+    question: >-
+      How is our online business doing, and what is driving it?
     expect: [globalmart-ecommerce, globalmart-marketing]
-    shows: >
-      Infobip's actual problem, reproduced. The thin workspace nominally covers "online
-      business" and answers shallowly — order count and average order value, no explanation.
-      "What is driving it" needs a detailed workspace. This is why their own Overview
-      workspace was not sufficient, demonstrated rather than described.
-    note: >
+    shows: >-
+      The thin workspace nominally covers "online business" and answers shallowly — order
+      count and average order value, no explanation. "What is driving it" needs a detailed
+      workspace. This is why their own Overview workspace was not sufficient, demonstrated
+      rather than described.
+    note: >-
       Narrowed on 2026-09-21 from three workspaces to two. The original expectation included
       customer satisfaction as a "driver" of online business, which the question does not
       imply — the router chose ecommerce and marketing, and that was the better reading.
@@ -98,185 +207,397 @@ questions:
 
   - id: overview-shallow-with-sentiment
     kind: overview-problem
-    question: >
+    question: >-
       How is our online business doing, what is driving it, and how do customers feel about
       it?
     expect: [globalmart-ecommerce, globalmart-marketing, globalmart-customer]
-    shows: >
+    shows: >-
       The same beat with satisfaction made explicit, so three workspaces is a defensible
       expectation rather than an assumption. Kept alongside the narrower version because the
       pair shows the router responding to what the question actually asks.
 
+  # ── the merge refusing ──────────────────────────────────────────────────────
+  # Two valid answers that must not be connected. Refusing is the answer.
+
+  - id: unmergeable-grain
+    kind: merge-refusal
+    question: >-
+      Which campaigns performed best, and which stores had the most footfall?
+    expect: [globalmart-marketing, globalmart-store-ops]
+    shows: >-
+      Two valid answers with nothing to join on — one is by campaign, the other by store. The
+      checks refuse to connect them and say why, rather than inventing a relationship.
+      Presented separately, attributed, with the reason.
+
+  - id: unmergeable-units
+    kind: merge-refusal
+    question: >-
+      Compare campaign spend against average customer satisfaction for last quarter.
+    expect: [globalmart-marketing, globalmart-customer]
+    shows: >-
+      Currency against a score. Both real, the quotient meaningless — this is the case that
+      produces "cost per NPS point was 441.73" if nothing stops it. `unit_compatibility` gates
+      it, and `numeric_provenance` catches it afterwards even if the prompt is ignored.
+
+  - id: unmergeable-window
+    kind: merge-refusal
+    question: >-
+      How do last month's online orders compare with campaign spend over the last six months?
+    expect: [globalmart-ecommerce, globalmart-marketing]
+    shows: >-
+      The user asked for two different periods, so the lanes correctly answer over two
+      different periods — and `time_window_match` refuses to present them as a comparison. A
+      refusal the question caused, not the data.
+
+  # ── degradation ─────────────────────────────────────────────────────────────
+
   - id: lane-failure
     kind: degradation
-    question: Compare campaign spend and customer satisfaction for last quarter.
+    question: >-
+      Compare campaign spend and customer satisfaction for last quarter.
     expect: [globalmart-marketing, globalmart-customer]
     inject_failure: globalmart-customer
-    shows: >
+    shows: >-
       One lane forced to fail. The answer must degrade honestly — report what marketing
       returned, state plainly that customer did not answer, and never imply the missing half.
 
   - id: no-data
     kind: degradation
-    question: What were our order volumes in 2019?
+    question: >-
+      What were our order volumes in 2019?
     expect: [globalmart-ecommerce]
-    shows: >
-      A lane that answers but finds nothing, which is not the same as failing. The reply must
-      say there is no data for the period rather than returning an empty-looking number.
-
-  # --- the second ten -------------------------------------------------------
-  # Added on 2026-09-21 to give the demo a full bank of prompts rather than ten. The first
-  # ten each prove a distinct mechanism; these widen the vocabulary, cover the two merge
-  # refusals the first set did not reach (units and time window), and give the presenter
-  # single-workspace questions to open with while the audience is still reading the screen.
-
-  - id: single-marketing
-    kind: routing
-    question: Which campaign delivered the most impressions last month?
-    expect: [globalmart-marketing]
-    shows: >
-      A single workspace in marketing's own vocabulary. Useful as an opener: one lane, one
-      chart, twenty seconds, and the mechanism is visible before anything is federated.
-
-  - id: single-store-ops
-    kind: routing
-    question: Which stores had the highest footfall last quarter?
-    expect: [globalmart-store-ops]
-    shows: >
-      The fourth workspace on its own, so all four have been seen answering before any of
-      them is asked to combine.
-
-  - id: single-customer-feedback
-    kind: routing
-    question: What are customers complaining about most in their feedback?
-    expect: [globalmart-customer]
-    shows: >
-      A qualitative question rather than a metric one. The agent has to pick its own
-      breakdown, which is the part of the work the orchestrator never does.
-
-  - id: within-one-workspace
-    kind: routing
-    question: Did energy use track footfall across the stores last quarter?
-    expect: [globalmart-store-ops]
-    shows: >
-      Two measures that sound like two workspaces and are not — store operations holds both.
-      The correct answer is one lane, and a router that fans out has demonstrated the exact
-      habit this exercise exists to avoid. The single most useful negative case in the set.
-
-  - id: pair-footfall-orders
-    kind: federation
-    question: >
-      Are the stores with the most footfall in the regions where online orders are growing
-      fastest?
-    expect: [globalmart-store-ops, globalmart-ecommerce]
-    shows: >
-      A third federation pair, across the physical/digital boundary rather than the
-      marketing/customer one. Region is the common key, and whether the two lanes actually
-      report at the same grain is left to the checks rather than assumed.
-
-  - id: pair-loyalty-campaigns
-    kind: federation
-    question: Are our loyalty members responding to campaigns better than everyone else?
-    expect: [globalmart-customer, globalmart-marketing]
-    shows: >
-      Population parity, which is a model judgement rather than a code check. "Loyalty
-      members" and "everyone else" are two populations and only one workspace knows which
-      is which — so the merge has to say what it is comparing, or refuse.
-
-  - id: trio-sales-drivers
-    kind: federation
-    question: Sales are up this quarter — was it the campaigns or the stores?
-    expect: [globalmart-ecommerce, globalmart-marketing, globalmart-store-ops]
-    shows: >
-      Three lanes, and a question whose whole content is causal. The merge may sequence and
-      compare but not conclude: "spend rose in the same months" is supportable from the
-      lanes, "campaigns caused it" is not.
-
-  - id: unmergeable-units
-    kind: merge-refusal
-    question: Compare campaign spend against average customer satisfaction for last quarter.
-    expect: [globalmart-marketing, globalmart-customer]
-    shows: >
-      Currency against a score. Both real, the quotient meaningless — this is the case that
-      produces "cost per NPS point was 441.73" if nothing stops it. `unit_compatibility`
-      gates it, and `numeric_provenance` catches it afterwards even if the prompt is ignored.
-
-  - id: unmergeable-window
-    kind: merge-refusal
-    question: How do last month's online orders compare with campaign spend over the last six months?
-    expect: [globalmart-ecommerce, globalmart-marketing]
-    shows: >
-      The user asked for two different periods, so the lanes correctly answer over two
-      different periods — and `time_window_match` must refuse to present them as a
-      comparison. A refusal the *question* caused, not the data.
+    shows: >-
+      A lane that answers but finds nothing, which is not the same as failing. The reply says
+      there is no data for the period rather than returning an empty-looking number.
 
   - id: clarification-needed
     kind: clarification
-    question: Rank our campaigns by spend and show which of them had the best click-through.
+    question: >-
+      Rank our campaigns by spend and show which of them had the best click-through.
     expect: [globalmart-marketing]
-    shows: >
-      Observed live: the agent finds the spend metric, finds it has no campaign field to
-      rank by, proposes an alternative and stops for permission. With a human watching, the
-      question reaches the screen and the reply goes back on that lane's own contextId.
-      Unattended, the lane auto-confirms and the answer says it rested on an assumption.
+    shows: >-
+      Observed live: the agent finds the spend metric, finds it has no campaign field to rank
+      by, proposes alternatives and stops for permission. With a human watching, the question
+      reaches the screen and the reply goes back on that lane's own contextId. Unattended, the
+      lane auto-confirms and the answer says it rested on an assumption.
 
 conversations:
-  - id: followup-reroute
-    shows: >
-      A follow-up that needs a workspace the first turn never touched. The router must run
-      again on the second turn rather than reusing the first turn's selection.
+  # Every conversation below runs five or six turns over one session, and each was rehearsed
+  # against the live agents rather than written and hoped for. They are the demo: a single
+  # question shows routing, but only a thread shows that the route is recomputed every turn,
+  # that each workspace resumes its own conversation, and that a lost lane is recoverable
+  # without re-running the ones that worked.
+
+  - id: quarter-review
+    kind: narrowing
+    shows: >-
+      The opening beat. A broad question that needs every workspace, then four turns that
+      narrow into one workspace at a time. The route is recomputed on every turn, so turn
+      three reaches a workspace turn two never touched. Start here if there is time for only
+      one thread.
     turns:
-      - question: How did our campaigns perform last quarter?
+      - question: >-
+          Give me a full picture of last quarter — sales, campaign performance, store
+          operations and customer sentiment.
+        expect:
+          - globalmart-ecommerce
+          - globalmart-marketing
+          - globalmart-store-ops
+          - globalmart-customer
+        shows: >-
+          Four lanes at once. Watch the fan-out wall against the slowest lane: they should be
+          close, which is what proves the lanes ran in parallel.
+      - question: >-
+          Which campaigns drove most of that spend?
         expect: [globalmart-marketing]
-      - question: And did any of that show up in customer satisfaction?
+        shows: >-
+          "That spend" resolves against the previous turn inside marketing's own conversation.
+          One lane now, not four — the router narrowed with the question.
+      - question: >-
+          And how did customer satisfaction move over the same months?
         expect: [globalmart-customer]
+        shows: >-
+          A workspace the previous turn never touched, so it is asked cold while marketing
+          keeps its context. A session that reused turn two's selection would answer this from
+          marketing and be confidently wrong.
+      - question: >-
+          Put those two together — did the heavy spend months line up with the happier months?
+        expect: [globalmart-marketing, globalmart-customer]
+        shows: >-
+          Back to two lanes, and the merge has a real shared grain. This is where the table of
+          rows behind the answer appears.
+      - question: >-
+          Were the stores any busier in those same months?
+        expect: [globalmart-store-ops]
+        shows: >-
+          A third workspace brought in late. Each lane has now been engaged at a different
+          point in the thread, which is exactly the case a single per-session context would
+          get wrong.
 
-  - id: followup-same-lane
-    shows: >
-      A follow-up within the same workspace, which must reuse that lane's context_id so the
-      agent resolves "those" against its own earlier turn rather than starting cold.
+  - id: campaign-deep-dive
+    kind: same-lane
+    shows: >-
+      Five turns that never leave marketing. Each one leans on the last — "those", "that one",
+      "the same period" — so it fails visibly if the lane's contextId is not being reused. The
+      cheapest conversation to run and the clearest proof of per-workspace memory.
     turns:
-      - question: Which campaigns had the highest spend last quarter?
+      - question: >-
+          Which campaigns had the highest spend last quarter?
         expect: [globalmart-marketing]
-      - question: How many impressions did those get?
+        shows: >-
+          Establishes the set everything after refers to.
+      - question: >-
+          How many impressions did those get?
         expect: [globalmart-marketing]
+        shows: >-
+          "Those" has no referent outside marketing's own conversation. If this returns the
+          wrong campaigns, the contextId is not being carried.
+      - question: >-
+          Which of them had the best click-through rate?
+        expect: [globalmart-marketing]
+        shows: >-
+          A second pronoun, one turn further from its referent.
+        note: >-
+          Reworded on 2026-09-22 from "which of them converted best?". Live, the router read
+          "converted" as conversion of orders and called ecommerce as well — reasonably, since
+          the word belongs to both workspaces. A demo question that turns on an ambiguous verb
+          measures the vocabulary, not the routing, so the question was made specific rather
+          than the expectation widened.
+      - question: >-
+          Show me the monthly trend for the top one.
+        expect: [globalmart-marketing]
+        shows: >-
+          "The top one" depends on two turns back. Returns a line chart, so the rendering is
+          on screen at the point the audience is paying most attention.
+      - question: >-
+          Was that trend any different in the quarter before?
+        expect: [globalmart-marketing]
+        shows: >-
+          A period shift inside an established thread — the hardest of the five, and the one
+          most likely to need a clarification.
 
-  - id: enrich-after-failure
-    shows: >
-      The enrich path. A lane fails, the answer is synthesised from what returned, and the
-      failed lane is retried alone — keeping the answers that succeeded rather than re-running
-      everything.
+  - id: satisfaction-investigation
+    kind: narrowing
+    shows: >-
+      An investigation that crosses three workspaces, following the evidence rather than a
+      plan. Every turn is a plausible next question from a real analyst, which is what makes
+      it the most convincing thread to demo.
     turns:
-      - question: Compare campaign spend against customer satisfaction last quarter.
+      - question: >-
+          Has customer satisfaction dropped recently?
+        expect: [globalmart-customer]
+        shows: >-
+          A single lane, and the answer sets up everything after it.
+      - question: >-
+          What are people actually complaining about?
+        expect: [globalmart-customer]
+        shows: >-
+          Stays in customer, moving from a metric to its qualitative breakdown.
+      - question: >-
+          Were the stores short-staffed in those months?
+        expect: [globalmart-store-ops]
+        shows: >-
+          The investigation crosses into operations. Nothing joins customer to store-ops, so
+          the orchestrator asks a new sub-question rather than forwarding the old one.
+      - question: >-
+          Compare the staffing levels against the satisfaction scores month by month.
+        expect: [globalmart-store-ops, globalmart-customer]
+        shows: >-
+          Explicitly asks for the comparison, so both lanes are asked for the same grain over
+          the same window. The merge may line them up; it may not claim one caused the other.
+      - question: >-
+          Was there any campaign running at the same time that might explain it?
+        expect: [globalmart-marketing]
+        shows: >-
+          A fourth turn reaching a third workspace, and a question inviting a causal claim the
+          merge has to decline.
+        note: >-
+          Left at marketing alone after 2026-09-22. `route --turns` scored this as needing
+          both workspaces and `rehearse` chose marketing only — and the live run is the one to
+          believe. The difference is the history each sees: lane-free scoring carries the
+          expected workspaces but no replies, while a real thread already holds the
+          satisfaction series from turns one and two, so only the campaign half is still
+          missing. Lane-free routing is an approximation of a thread, and this entry is where
+          that shows.
+
+  - id: store-performance
+    kind: narrowing
+    shows: >-
+      The physical/digital boundary, which is the pair least like the marketing/customer one
+      and therefore the better test that federation is not tuned to a single question shape.
+    turns:
+      - question: >-
+          Which stores had the highest footfall last quarter?
+        expect: [globalmart-store-ops]
+        shows: >-
+          Opens in operations.
+      - question: >-
+          How much energy did those stores use over the same period?
+        expect: [globalmart-store-ops]
+        shows: >-
+          Still one lane: operations holds both measures. A router that fans out here has
+          broadcast.
+      - question: >-
+          How did online orders do over the same months?
+        expect: [globalmart-ecommerce]
+        shows: >-
+          Crosses to the thin workspace, which will answer shallowly — which is the point.
+      - question: >-
+          Line the footfall up against the online orders by month.
+        expect: [globalmart-store-ops, globalmart-ecommerce]
+        shows: >-
+          Two lanes at a shared monthly grain. The aligned table is the deliverable here, not
+          the prose.
+      - question: >-
+          Which of those two is actually growing faster?
+        expect: [globalmart-store-ops, globalmart-ecommerce]
+        shows: >-
+          A comparison question over two workspaces with different units. The merge may rank
+          and narrate; it may not compute a ratio across them.
+
+  - id: degradation-and-recovery
+    kind: degradation
+    shows: >-
+      What a lost lane looks like, and what recovery costs. A lane fails on roughly half of
+      multi-lane runs live, so this is not a contrived case — it is the one worth rehearsing
+      most.
+    turns:
+      - question: >-
+          Compare campaign spend and customer satisfaction for last quarter.
         expect: [globalmart-marketing, globalmart-customer]
         inject_failure: globalmart-customer
-      - question: Try the satisfaction part again.
+        shows: >-
+          One lane forced to fail. The reply reports what marketing returned and says plainly
+          that customer did not answer — it never implies the missing half.
+      - question: >-
+          Try the satisfaction part again.
         expect: [globalmart-customer]
         enrich: true
+        shows: >-
+          Only the failed lane is re-asked, reusing its original sub-question verbatim, and
+          merged against the answer marketing already gave. One call instead of two.
+      - question: >-
+          Now show me both by month.
+        expect: [globalmart-marketing, globalmart-customer]
+        shows: >-
+          A normal turn after a recovery, to show the conversation is not poisoned by the
+          failure.
+      - question: >-
+          Which month had the biggest gap between the two?
+        expect: [globalmart-marketing, globalmart-customer]
+        shows: >-
+          Invites arithmetic across workspaces. "Biggest gap" between a currency and a score
+          is not a number the merge may produce — watch provenance.
+      - question: >-
+          Fine — just tell me the highest spend month and the highest satisfaction month.
+        expect: [globalmart-marketing, globalmart-customer]
+        shows: >-
+          The same information asked in a form that is answerable: two facts, each from one
+          workspace, no arithmetic between them.
 
-  - id: clarify-then-answer
-    shows: >
-      The clarification loop, which is the one part of this a caller cannot paper over. Turn
-      one stops with the agent asking a question; the human answers it in the front end; the
-      reply goes to that workspace alone, on its own contextId, and the agent resumes where
-      it stopped. The other lanes are never re-asked — they already answered, and asking
-      again would compare two different moments.
+  - id: clarify-then-continue
+    kind: clarification
+    shows: >-
+      The human-in-the-loop path, which is the one part of this a caller cannot paper over.
+      Run the viewer with "ask me when a workspace needs input" switched on. Turn two is a
+      reply to a workspace, not a new question — it goes to that lane alone on its own
+      contextId, and the other lanes are never re-asked.
+    note: >-
+      Turn two's `reply_to` only applies when the agent actually stopped to ask. Auto-confirm
+      is the default everywhere else, so with the toggle off this conversation still runs —
+      turn two simply reads as a follow-up.
     turns:
-      - question: Rank our campaigns by spend and show which had the best click-through.
+      - question: >-
+          Rank our campaigns by spend and show which of them had the best click-through.
         expect: [globalmart-marketing]
-      - question: Yes, use the campaign name — and say which fields you chose.
+        shows: >-
+          The agent finds the spend metric, finds it has no campaign field to rank by,
+          proposes alternatives and stops. About 37 seconds to reach the question.
+      - question: >-
+          Use the campaign-level spend measure, and tell me which fields you chose.
         expect: [globalmart-marketing]
+        reply_to: globalmart-marketing
+        shows: >-
+          The reply resumes the same conversation, so the agent keeps the work it had already
+          done — about 16 seconds against the 37 it took to ask. Latency plus a third, not
+          doubled.
+      - question: >-
+          Which of those campaigns had the best click-through?
+        expect: [globalmart-marketing]
+        shows: >-
+          The original second half of the question, now answerable.
+      - question: >-
+          Did the spend on those campaigns show up in customer satisfaction?
+        expect: [globalmart-marketing, globalmart-customer]
+        shows: >-
+          The thread widens to two lanes after a clarification, so the recovered context is
+          carried forward rather than dropped.
+      - question: >-
+          Without querying anything again, summarise what we have established so far.
+        expect: [globalmart-marketing, globalmart-customer]
+        shows: >-
+          The closing turn, and an honest limitation on screen: asked not to query, the
+          router queries anyway. It is fast — about thirteen seconds, because both lanes have
+          warm contexts — and the answer is right, but the instruction was not obeyed.
+        note: >-
+          Marked `from_memory` on 2026-09-22 and unmarked on 2026-09-23 after three
+          measurements disagreed. Lane-free scoring chose no workspace; two live runs re-asked
+          both, including after the question was reworded to say "without querying anything
+          again" specifically to make it unambiguous. The capability is real and tested — the
+          orchestrator answers from held answers whenever the router returns nothing — but it
+          cannot be relied on from the prompt, and a demo turn must not be a coin flip. So the
+          expectation records what actually happens. See docs/a2a-gaps.md.
 
-  - id: narrowing-thread
-    shows: >
-      Three turns that narrow, which is how anyone actually uses an assistant. The route is
-      recomputed every turn: turn two stays in marketing, turn three leaves it entirely. A
-      session that remembered the first turn's selection would answer the third question
-      from the wrong workspace.
+  - id: overview-problem
+    kind: overview-problem
+    shows: >-
+      Infobip's own complaint, played out over five turns: the aggregate workspace answers,
+      the answer is thin, and every follow-up needs a workspace it does not contain. The
+      thread to run if only one person in the room cares about the architecture.
     turns:
-      - question: How did our campaigns perform last quarter?
-        expect: [globalmart-marketing]
-      - question: Which of those had the highest spend per impression?
-        expect: [globalmart-marketing]
-      - question: And were customers any happier in the months those ran?
+      - question: >-
+          How is our online business doing?
+        expect: [globalmart-ecommerce]
+        shows: >-
+          The thin workspace answers — order count, average order value. Correct, and not
+          enough. Let it land before the next turn.
+      - question: >-
+          What is driving it?
+        expect: [globalmart-ecommerce, globalmart-marketing]
+        shows: >-
+          "Driving" is not a thing the thin workspace measures. The router reaches past it to
+          marketing, which is the whole argument in one turn.
+        note: >-
+          Widened to three workspaces on 2026-09-22 and put back on 2026-09-23. One live run
+          reached customer as well, reading satisfaction as a driver; a second live run and
+          the lane-free scoring both chose ecommerce and marketing. Two of three measurements
+          agree, and the tighter reading matches the standalone `overview-shallow`
+          expectation. Recorded rather than quietly flipped, because the disagreement is the
+          honest state of it: this question sits on the edge of what "driving" includes.
+      - question: >-
+          And how do customers feel about it?
         expect: [globalmart-customer]
+        shows: >-
+          A third workspace, for a question the aggregate workspace has no data for at all.
+      - question: >-
+          Is any of that visible in the stores?
+        expect: [globalmart-store-ops]
+        shows: >-
+          The fourth. By this point every workspace has been engaged, one turn at a time,
+          without the user ever naming one.
+      - question: >-
+          So where should we actually be looking?
+        expect:
+          - globalmart-ecommerce
+          - globalmart-marketing
+          - globalmart-store-ops
+          - globalmart-customer
+        shows: >-
+          A closing question that legitimately needs everything. The contrast with turn one —
+          same subject, four lanes instead of one — is the demo's closing argument.
+        note: >-
+          Briefly marked `from_memory` on 2026-09-22 and reverted on 2026-09-23. Lane-free
+          scoring read it as a question about the conversation; the live thread read it as a
+          fresh question needing all four workspaces. Unlike the `clarify-then-continue`
+          closer it was not worth disambiguating, because the four-lane reading is the beat
+          this conversation exists for.
