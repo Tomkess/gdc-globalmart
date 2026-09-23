@@ -147,8 +147,11 @@ class MCPLane:
         the A2A lane makes if it reads `history` instead of `status.message`."""
 
         error: str | None = None
-        queries: list[dict[str, Any]] = []
-        rows: list[dict[str, Any]] = []
+        # Query and result together, appended in the same breath. Keeping two lists and
+        # indexing across them is what produced the first version of this bug: a query that
+        # failed still landed in `queries`, every later result paired with the wrong query,
+        # and the answer's grain came from a query that returned nothing.
+        runs: list[tuple[dict[str, Any], dict[str, Any]]] = []
 
         self._step("mcp/loop", f"{len(self.tools)} tools, up to {self.max_turns} turns")
 
@@ -181,12 +184,12 @@ class MCPLane:
             results = []
             for request in requests:
                 arguments = dict(request.input or {})
-                if request.name == "execute_query" and isinstance(arguments.get("query"), dict):
-                    queries.append(arguments["query"])
                 try:
                     output = mcp.call(request.name, **arguments)
-                    if request.name == "execute_query":
-                        rows.append(_parse_rows(output))
+                    if request.name == "execute_query" and isinstance(arguments.get("query"), dict):
+                        parsed = _parse_rows(output)
+                        if "error" not in parsed:
+                            runs.append((arguments["query"], parsed))
                 except MCPError as failure:
                     # Including a tool outside the set, which is refused before any request
                     # is made — so there may be no recorded call to read a latency from.
@@ -219,8 +222,8 @@ class MCPLane:
             self.contexts[context_id] = history
 
         elapsed = int((time.monotonic() - started) * 1000)
-        artifacts = _artifacts(queries, rows, question)
-        shape = _shape(queries)
+        artifacts = _artifacts(runs, question)
+        shape = _shape([query for query, _ in runs])
         self._step(
             "read",
             f"{mcp.round_trips()} tool call(s), {mcp.chars_in() // 4:,} tok of context",
@@ -241,7 +244,7 @@ class MCPLane:
                 windows=shape.windows,
                 filters=shape.filters,
                 population=f"mcp: {mcp.round_trips()} tool call(s), {turns} model turn(s)",
-                returned_data=settled and bool(text) and bool(rows),
+                returned_data=settled and bool(text) and bool(runs),
             ),
             numbers=tuple(dict.fromkeys(numbers_from_artifacts(artifacts) + numbers_in(text))),
             artifacts=artifacts,
@@ -320,21 +323,26 @@ def _view_by(query: dict[str, Any]) -> list[str]:
 
 
 def _artifacts(
-    queries: list[dict[str, Any]], results: list[dict[str, Any]], question: str
+    runs: list[tuple[dict[str, Any], dict[str, Any]]], question: str
 ) -> tuple[dict[str, Any], ...]:
     """The rows, in the DataPart shape the A2A lane returns.
 
     Presentation parity rather than invention: the viewer, the aligned table and provenance
     all read these, and an MCP answer that could not be rendered would look worse than it is
     for a reason that has nothing to do with the protocol.
+
+    A result whose shape is not recognised yields **no artifact at all**. That is the whole
+    lesson of the first version: it guessed, and a guess here does not fail visibly — it
+    renders a table of real numbers under the wrong headings, which is worse than an empty
+    panel by a wide margin.
     """
     built: list[dict[str, Any]] = []
-    for index, result in enumerate(results):
-        query = queries[index] if index < len(queries) else {}
-        identifier = f"mcp_{index}"
-        columns, rows = _columns_and_rows(result)
-        if not columns:
+    for index, (query, result) in enumerate(runs):
+        columns, rows, formatted = _read_xtab(result)
+        if not columns or not rows:
             continue
+        identifier = f"mcp_{index}"
+        dimensions = _view_by(query)
         built.append(
             {
                 "name": "visualization",
@@ -342,8 +350,8 @@ def _artifacts(
                     "id": identifier,
                     "type": "table",
                     "title": question[:120],
-                    "view_by": _view_by(query),
-                    "metrics": [k for k in (query.get("fields") or {}) if k not in _view_by(query)],
+                    "view_by": dimensions,
+                    "metrics": [k for k in (query.get("fields") or {}) if k not in dimensions],
                     "query": query,
                 },
             }
@@ -355,44 +363,67 @@ def _artifacts(
                     "visualizationId": identifier,
                     "columns": columns,
                     "rows": rows,
-                    "formattedRows": rows,
+                    "formattedRows": formatted,
                     "rowCount": len(rows),
+                    "truncated": bool(result.get("truncated")),
                 },
             }
         )
     return tuple(built)
 
 
-def _columns_and_rows(result: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Read `execute_query`'s response into columns and row dicts.
+def _read_xtab(
+    result: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    """`execute_query`'s xtab result: columns, plus two parallel arrays of values.
 
-    The response shape is the workspace's, not ours, and it varies. Anything that cannot be
-    read as a table yields no columns, and the caller skips it — an artifact built from a
-    guess would render numbers nobody returned.
+    The shape, measured 2026-09-23:
+
+        columns        [{name, type: attribute|metric, format?}]  attributes first
+        row_labels     [["2026-04"], ["2026-05"], ...]            the attribute values
+        data           [[11944.45], [9726.62], ...]               the metric values
+        formatted_data [["11,944.45"], ["9,726.62"], ...]         as the workspace formats them
+
+    The labels and the values are **separate arrays**, which is what the first version of
+    this function missed: it zipped the column names against the metric row, so `Month/Year`
+    took the first metric's value, every metric shifted one place left, and the last one
+    vanished. The table rendered, the numbers were real, and every one of them was under the
+    wrong heading.
+
+    So the widths are checked rather than assumed. A row that does not carry exactly as many
+    labels as there are attribute columns, and as many values as there are metric columns, is
+    a shape this function does not understand — and it returns nothing rather than something.
     """
-    data = result.get("data") if isinstance(result.get("data"), list) else result.get("rows")
-    if not isinstance(data, list) or not data:
-        return [], []
+    columns = result.get("columns")
+    labels = result.get("row_labels")
+    values = result.get("data")
+    formatted_values = result.get("formatted_data") or values
+    if not (isinstance(columns, list) and isinstance(labels, list) and isinstance(values, list)):
+        return [], [], []
 
-    if isinstance(data[0], dict):
-        names = list(data[0])
-        columns = [
-            {"name": name, "type": "attribute" if isinstance(data[0][name], str) else "metric"}
-            for name in names
-        ]
-        return columns, [{name: row.get(name) for name in names} for row in data if isinstance(row, dict)]
+    attribute_names = [
+        str(c.get("name")) for c in columns if isinstance(c, dict) and c.get("type") == "attribute"
+    ]
+    metric_names = [
+        str(c.get("name")) for c in columns if isinstance(c, dict) and c.get("type") != "attribute"
+    ]
+    if not metric_names:
+        return [], [], []
 
-    headers = result.get("columns") or result.get("headers")
-    if not isinstance(headers, list) or not headers:
-        return [], []
-    names = [str(h.get("name") if isinstance(h, dict) else h) for h in headers]
-    columns = [
-        {"name": name, "type": "attribute" if index == 0 else "metric"}
-        for index, name in enumerate(names)
-    ]
-    rows = [
-        dict(zip(names, row, strict=False))
-        for row in data
-        if isinstance(row, list)
-    ]
-    return columns, rows
+    def build(value_rows: list[Any]) -> list[dict[str, Any]] | None:
+        out: list[dict[str, Any]] = []
+        for label_row, value_row in zip(labels, value_rows, strict=False):
+            if not isinstance(label_row, list) or not isinstance(value_row, list):
+                return None
+            if len(label_row) != len(attribute_names) or len(value_row) != len(metric_names):
+                return None
+            row: dict[str, Any] = dict(zip(attribute_names, label_row, strict=True))
+            row.update(dict(zip(metric_names, value_row, strict=True)))
+            out.append(row)
+        return out
+
+    rows = build(values)
+    formatted = build(formatted_values if isinstance(formatted_values, list) else values)
+    if rows is None or formatted is None or not rows:
+        return [], [], []
+    return [dict(c) for c in columns if isinstance(c, dict)], rows, formatted

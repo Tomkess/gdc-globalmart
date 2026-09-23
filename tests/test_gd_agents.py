@@ -1,6 +1,7 @@
 # The orchestrator's foundations: the Lane contract, the registry, and the profiler.
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import replace
 from pathlib import Path
@@ -2522,6 +2523,24 @@ def test_the_probe_reports_the_gateway_and_the_cost_gap() -> None:
 # combinable by being less checkable.
 
 
+def xtab_result() -> dict:
+    """The shape `execute_query` actually returns, measured against the live endpoint."""
+    return {
+        "output_format": "xtab",
+        "columns": [
+            {"name": "Month/Year", "type": "attribute"},
+            {"name": "Total Campaign Spend", "type": "metric", "format": "#,##0.00"},
+            {"name": "Total Impression Count", "type": "metric"},
+        ],
+        "rows": None,
+        "row_labels": [["2026-04"], ["2026-05"]],
+        "data": [[11944.45, 2988.0], [9726.62, 1692.0]],
+        "formatted_data": [["11,944.45", "2,988"], ["9,726.62", "1,692"]],
+        "row_count": 2,
+        "truncated": False,
+    }
+
+
 class FakeBlock:
     def __init__(self, **fields: Any) -> None:
         self.__dict__.update(fields)
@@ -2578,7 +2597,7 @@ def mcp_lane(model: ScriptedModel, rows: str) -> Any:
 
 
 def test_the_sub_agent_resolves_then_queries_then_answers() -> None:
-    rows = '{"data": [{"Month/Year": "2026-04", "Spend": 11944.45}]}'
+    rows = json.dumps(xtab_result())
     model = ScriptedModel(
         [a_tool_use("ai_search", {"question": "campaign spend"})],
         [a_tool_use("execute_query", {"query": SPEND_QUERY}, "t2")],
@@ -2594,12 +2613,11 @@ def test_the_sub_agent_resolves_then_queries_then_answers() -> None:
 def test_the_shape_comes_from_the_query_the_sub_agent_actually_ran() -> None:
     """Not from the question, and not from the prose. The merge checks compare like with
     like across both arms only if both read the same AAC query language."""
-    rows = '{"data": [{"Month/Year": "2026-04", "Spend": 1}]}'
     model = ScriptedModel(
         [a_tool_use("execute_query", {"query": SPEND_QUERY})],
         [a_text("done")],
     )
-    answer = mcp_lane(model, rows).ask("q")
+    answer = mcp_lane(model, json.dumps(xtab_result())).ask("q")
 
     assert answer.shape.grain == "month"
     assert answer.shape.time_from == "-5..0 MONTH"
@@ -2607,15 +2625,17 @@ def test_the_shape_comes_from_the_query_the_sub_agent_actually_ran() -> None:
 
 def test_rows_become_the_same_artifacts_the_a2a_lane_returns() -> None:
     """Presentation parity: the viewer, the aligned table and provenance all read these."""
-    rows = '{"data": [{"Month/Year": "2026-04", "Spend": 11944.45}]}'
     model = ScriptedModel([a_tool_use("execute_query", {"query": SPEND_QUERY})], [a_text("done")])
-    answer = mcp_lane(model, rows).ask("q")
+    answer = mcp_lane(model, json.dumps(xtab_result())).ask("q")
 
     names = [a["name"] for a in answer.artifacts]
     assert names == ["visualization", "visualization-data"]
     data = answer.artifacts[1]["data"]
     assert data["visualizationId"] == answer.artifacts[0]["data"]["id"], "pairing must hold"
-    assert "11944.45" in " ".join(answer.numbers)
+    assert "11,944.45" in answer.numbers, (
+        "provenance reads formattedRows, as the A2A lane does — so a merge writing "
+        "`11,944.45` is checked against the same string either protocol produced"
+    )
 
 
 def test_running_out_of_turns_is_a_failure_not_an_answer() -> None:
@@ -2654,3 +2674,111 @@ def test_a_tool_error_does_not_end_the_loop() -> None:
 
     assert answer.ok(), "a refused tool is not a dead lane"
     assert not answer.shape.returned_data, "but it returned no rows, so it contributed nothing"
+
+
+# --- execute_query returns xtab, and a guess at it renders wrong numbers -------
+# Found 2026-09-23 by looking at the aligned table on screen: the key column held campaign
+# spend values where months should be. The first parser zipped the column names against the
+# *metric* row, so `Month/Year` took the first metric, every metric shifted one place left,
+# and the last one vanished. The table rendered. The numbers were real. Every one of them
+# was under the wrong heading.
+
+
+def test_the_labels_and_the_values_are_separate_arrays() -> None:
+    from gd_agents.mcp.lane import _read_xtab
+
+    columns, rows, formatted = _read_xtab(xtab_result())
+
+    assert [c["name"] for c in columns] == [
+        "Month/Year",
+        "Total Campaign Spend",
+        "Total Impression Count",
+    ]
+    assert rows[0] == {
+        "Month/Year": "2026-04",
+        "Total Campaign Spend": 11944.45,
+        "Total Impression Count": 2988.0,
+    }
+    assert formatted[0]["Total Campaign Spend"] == "11,944.45", (
+        "the workspace's own formatting, so the table and the prose show a number the same way"
+    )
+
+
+def test_a_shape_that_is_not_understood_yields_no_artifact() -> None:
+    """The lesson of the first version: a guess here does not fail visibly, it renders a
+    table of real numbers under the wrong headings. An empty panel is far better."""
+    from gd_agents.mcp.lane import _read_xtab
+
+    widths_disagree = xtab_result()
+    widths_disagree["data"] = [[11944.45], [9726.62]]  # two metrics declared, one value given
+
+    assert _read_xtab(widths_disagree) == ([], [], [])
+    assert _read_xtab({"columns": [], "row_labels": [], "data": []}) == ([], [], [])
+    assert _read_xtab({"data": [[1]], "columns": [{"name": "x", "type": "metric"}]}) == ([], [], [])
+
+
+def test_the_months_survive_into_the_artifact_and_the_aligned_table() -> None:
+    """End to end: the bug was only visible on screen, so the test goes as far as the table."""
+    from gd_agents.mcp.lane import MCPLane
+    from gd_agents.orchestrator.align import align
+
+    model = ScriptedModel(
+        [a_tool_use("execute_query", {"query": SPEND_QUERY})],
+        [a_text("Spend was 11,944.45 in April.")],
+    )
+    lane = MCPLane(
+        host=FakeMCPHost(text=json.dumps(xtab_result())),  # type: ignore[arg-type]
+        workspace="mkt",
+        client=model,
+        model="m",
+        definitions=TOOL_DEFS,
+    )
+    answer = lane.ask("spend by month")
+    table = align([answer], "month").payload()
+
+    assert [row["key"] for row in table["rows"]] == ["2026-04", "2026-05"], (
+        "the key column held metric values in the shipped version"
+    )
+    assert table["rows"][0]["cells"][0] == "11,944.45"
+    assert "11,944.45" in answer.numbers, "provenance reads the formatted rows"
+
+
+def test_a_failed_query_does_not_shift_every_later_result_onto_the_wrong_query() -> None:
+    """Found 2026-09-23, one layer under the xtab bug. A query that failed still landed in
+    the query list while only successes landed in the results, so result *i* paired with
+    query *i* — and the answer's grain came from a query that had returned nothing. Query and
+    result are now appended together or not at all."""
+    from gd_agents.mcp.lane import MCPLane
+
+    by_year = {"fields": {"d": {"using": "label/transaction_date.yearMonth"}}}
+
+    class SometimesBroken(FakeMCPHost):
+        def __init__(self) -> None:
+            super().__init__(text=json.dumps(xtab_result()))
+            self.seen = 0
+
+        def post(self, path: str, body: dict, **kwargs: object) -> dict:
+            if body["method"] == "tools/list":
+                return super().post(path, body, **kwargs)
+            self.seen += 1
+            if self.seen == 1:  # the first execute_query fails
+                return {"result": {"content": [{"type": "text", "text": "ERROR: bad identifier"}]}}
+            return super().post(path, body, **kwargs)
+
+    model = ScriptedModel(
+        [a_tool_use("execute_query", {"query": by_year}, "t1")],
+        [a_tool_use("execute_query", {"query": SPEND_QUERY}, "t2")],
+        [a_text("Spend was 11,944.45 in April.")],
+    )
+    lane = MCPLane(
+        host=SometimesBroken(),  # type: ignore[arg-type]
+        workspace="mkt",
+        client=model,
+        model="m",
+        definitions=TOOL_DEFS,
+    )
+    answer = lane.ask("spend by month")
+
+    assert answer.shape.grain == "month", "the failed query's grain must not describe the answer"
+    assert answer.shape.grains == ("month",)
+    assert len(answer.artifacts) == 2, "one chart, from the one query that returned rows"
