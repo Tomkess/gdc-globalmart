@@ -62,9 +62,16 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 FEAT-005 (sole owner), **as built 2026-09-18**: `registry.py`, `dataload.py`, `sqlcheck.py`
 and the `loaders/` submodule (`base.py`, `motherduck.py`, `postgres.py`), plus the one-shot
 `scripts/take_custody.py`, which is not part of the runtime CLI. `archive.py` and
-`search_event.py` were planned and do not exist: the data is committed rather than archived
-(ADR 007), so there is nothing to fetch, and the one synthesised table is generated inside
-the custody script rather than at runtime.
+`search_event.py` were planned and do not exist: there is no archive to fetch from, and the one
+synthesised table is generated inside the custody script rather than at runtime. The rows
+themselves are no longer committed either — ADR 008 superseded ADR 007 on 2026-09-20 and
+`generate.py` (FEAT-013) produces them on demand.
+
+**Modules absent from the table above, found 2026-09-24 (FEAT-016):** `generate.py` (FEAT-013),
+`datefilters.py` (FEAT-011), `knowledge.py` (FEAT-008) and `plausible.py` are all in
+`src/globalmart/` and own CLI commands, but have no ownership row. Recorded here as a finding
+rather than fixed: FEAT-016's amendment was scoped to the CLI surface, and backfilling module
+ownership needs each owning feature's confirmation, not a documentation pass's guess.
 
 > **`verify.py` collision — resolved 2026-09-18, when FEAT-004 was built.** FEAT-004 kept
 > `verify.py` for `verify_child(child, domain_key, *, closure) -> None`; FEAT-006 takes
@@ -205,31 +212,79 @@ caller ends up using the one that skips the per-domain override.
 
 ## CLI surface
 
-Single entry point `globalmart`, subcommands registered in `cli.py`:
+*Amended 2026-09-24 (FEAT-016) — reconciled row by row against `src/globalmart/cli.py` and
+`src/gd_agents/cli.py` by running `--help` on every command. Five `globalmart` subcommands were
+absent, four rows understated their flags, and the `gd-agents` surface was undocumented here
+entirely.*
 
-| Command | Feature |
+**The parser wins.** Where a row below and the argparse parser disagree, the parser is correct and
+this table is stale — fix the table, never the parser, unless the interface change is the point.
+
+**Staleness rule.** This table is amended in the same commit as any change to either parser.
+`tests/test_cli.py` is where that is enforced.
+
+**Write gating** (column `Writes`), following STEERING's binding convention:
+
+| Value | Meaning |
 |---|---|
-| `globalmart bootstrap` | FEAT-001 |
-| `globalmart normalize [--check]` | FEAT-001 (`--check` is a CI gate) |
-| `globalmart publish parent --target <profile> [--workspace-id <id>] [--apply]` | FEAT-002 |
-| `globalmart domains validate \| bootstrap [--manifest config/domains.yaml]` | FEAT-003 |
-| `globalmart split [--domains-file ...] [--from <layout>] [--check]` | FEAT-004 |
-| `globalmart publish domains --target <profile> [--apply]` | FEAT-004 |
-| `globalmart data verify [--ddl ...] [--layout ...] [--schema ...]` | FEAT-005 (replaces the planned `data fetch` — the data is committed, so there is nothing to fetch) |
-| `globalmart data load --target <profile> [--apply] [--only <tables>]` | FEAT-005 |
-| `globalmart verify --target <profile> [--workspace <id>] [--max-workers N] [--list-only] [--fail-on-empty]` | FEAT-006 |
-| `globalmart verify equivalence --target-a <a> --target-b <b> [--workspace-id <id>]` | FEAT-006 |
-| `globalmart rebuild --target <profile> [--apply] [--allow-existing] [--skip-data] [--skip-knowledge-docs]` | FEAT-006 (+015) |
-| `globalmart knowledge-docs build [--corpus <dir>] [--manifest <path>] [--questions <path>]` | FEAT-015 |
-| `globalmart knowledge-docs coverage [--strict] [--layout <tree>] [--format json]` | FEAT-015 |
-| `globalmart knowledge-docs publish --target <profile> [--workspace-id <id>] [--parent-only] [--apply]` | FEAT-015 |
-| `globalmart knowledge-docs verify --target <profile> [--parent-only] [--prune] [--apply]` | FEAT-015 |
-| `globalmart knowledge-docs retrieval --target <profile> [--attempts N]` | FEAT-015 |
+| `live --apply` | Writes to a live org. Read-only rehearsal by default; `--apply` is the only path to a write |
+| `local` | Writes local files only. Takes `--dry-run`, never `--apply` |
+| `read-only` | Writes nothing. A `read-only (live)` command reads a live org but never writes |
 
-**Flag convention (from STEERING.md, binding):** `--apply` gates writes to a live org — every such
-command is a read-only rehearsal by default. `--dry-run` belongs only to commands whose writes are
-local files. **No command has both.** `--check` means "verify the committed artifact is current,
-exit non-zero otherwise" and is the CI gate form.
+**No command has both `--apply` and `--dry-run`.** `--check` means "verify the committed artifact is
+current, exit non-zero otherwise" and is the CI gate form. No flag appears in prose anywhere in this
+file that is absent from a row below.
+
+### `globalmart` — builds the workspaces
+
+Single entry point `globalmart`, subcommands registered in `cli.py` (registration only, no logic).
+
+| Command | Flags | Module | Writes | Feature |
+|---|---|---|---|---|
+| `globalmart bootstrap` | `--target` (req), `--workspace-id`, `--out`, `--dry-run`, `--wdf-policy {drop,keep}`, `--allow-unparameterized-sql` | `capture.py`, `normalize.py` | local | FEAT-001 |
+| `globalmart normalize` | `--path`, `--datasource-schema`, `--check`, `--wdf-policy {drop,keep}`, `--allow-unparameterized-sql` | `normalize.py` | local | FEAT-001 |
+| `globalmart domains validate` | `--manifest`, `--layout`, `--strict`, `--format {table,json}` | `domains.py`, `coverage.py` | read-only | FEAT-003 |
+| `globalmart domains bootstrap` | `--layout`, `--out`, `--dry-run`, `--force` | `domain_bootstrap.py` | local | FEAT-003 |
+| `globalmart split` | `--domains-file`, `--source` (`--from` is an alias — `dest="source"`), `--out`, `--only`, `--metric-policy {reachable,dataset-fit}`, `--dry-run`, `--check` | `split.py`, `closure.py`, `prune.py`, `verify.py` | local | FEAT-004 |
+| `globalmart data verify` | `--ddl`, `--layout`, `--schema` | `sqlcheck.py` | read-only | FEAT-005 |
+| `globalmart data load` | `--target` (req), `--ddl`, `--layout`, `--only`, `--tables-dir`, `--manifest`, `--recreate-drifted`, `--apply` | `dataload.py`, `loaders/` | live `--apply` | FEAT-005 |
+| `globalmart data generate` | `--out` (req), `--seed`, `--scale`, `--ddl`, `--layout`, `--manifest`, `--start-date`, `--end-date` | `generate.py` | local | FEAT-007 (+013) |
+| `globalmart data ensure` | `--target` (req), `--apply`, `--max-age-days`, `--force`, `--recreate-drifted`, `--seed`, `--scale`, `--start-date`, `--end-date`, `--ddl`, `--layout`, `--manifest` | `dataload.py`, `generate.py` | live `--apply` | FEAT-013 |
+| `globalmart publish parent` | `--target` (req), `--source`, `--workspace-id`, `--workspace-name`, `--apply`, `--no-backup`, `--standalone-copy` | `publish.py` | live `--apply` | FEAT-002 |
+| `globalmart publish domains` | `--target` (req), `--domains-file`, `--source`, `--only`, `--apply`, `--no-backup`, `--standalone-copy`, `--keep-going` | `publish.py` | live `--apply` | FEAT-004 |
+| `globalmart verify` | `--target`, `--domains-file`, `--layout`, `--generated`, `--workspace`, `--max-workers`, `--viz-timeout`, `--max-retries`, `--fail-on-empty`, `--list-only`, `--output-dir` | `verification.py`, `execute.py` | read-only (live) | FEAT-006 |
+| `globalmart verify equivalence` | `--target-a` (req), `--target-b` (req), `--workspace-id` | `equivalence.py` | read-only (live) | FEAT-006 |
+| `globalmart rebuild` | `--target` (req), `--domains-file`, `--layout`, `--generated`, `--skip-data`, `--corpus`, `--skip-knowledge-docs`, `--allow-existing`, `--apply` | `rebuild.py` | live `--apply` | FEAT-006 (+013, +015) |
+| `globalmart knowledge build` | `--source`, `--layout`, `--check` | `knowledge.py` | local | FEAT-008 |
+| `globalmart knowledge-docs build` | `--corpus`, `--manifest`, `--questions` | `corpus.py` | local | FEAT-015 |
+| `globalmart knowledge-docs coverage` | `--corpus`, `--manifest`, `--layout`, `--strict`, `--report-only`, `--format {text,json}` | `corpus_coverage.py` | read-only | FEAT-015 |
+| `globalmart knowledge-docs publish` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--apply` | `knowledge_docs.py` | live `--apply` | FEAT-015 |
+| `globalmart knowledge-docs verify` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--prune`, `--apply` | `knowledge_docs.py` | live `--apply` (`--prune` deletes) | FEAT-015 |
+| `globalmart knowledge-docs retrieval` | `--target` (req), `--corpus`, `--questions`, `--workspace-id`, `--limit`, `--min-score` | `retrieval.py` | read-only (live) | FEAT-015 |
+| `globalmart datefilters bind` | `--layout`, `--check`, `--overrides` | `datefilters.py` | local | FEAT-011 |
+| `globalmart targets inspect` | `--target` (req) | `config.py`, `sdk_client.py` | read-only (live) | FEAT-002 |
+
+### `gd-agents` — talks to the workspaces
+
+Second entry point, `src/gd_agents/cli.py`. Separate from `globalmart` on purpose: that package
+builds workspaces, this one queries them, and they share no code so the orchestrator stays liftable
+into a customer's runtime. Its registry is `config/agents.yaml`, not `config/targets.yaml`.
+
+| Command | Flags | Module | Writes | Feature |
+|---|---|---|---|---|
+| `gd-agents profile` | `--host` (req), `--token-env`, `--workspaces` (req), `--out`, `--findings`, `--apply` | `profile.py` | local `--apply` (writes `config/agents.yaml`) | FEAT-009 |
+| `gd-agents route` | `--registry`, `--script`, `--turns` | `orchestrator/plan.py`, `script.py` | read-only (model call, no lane) | FEAT-009 |
+| `gd-agents rehearse` | `--registry`, `--script`, `--only`, `-v/--verbose`, `--protocol {a2a,mcp}` | `orchestrator/run.py` | read-only (live agents) | FEAT-009 (+014) |
+| `gd-agents ask` | `question` (positional, req), `--registry`, `--json`, `--inject-failure`, `--protocol {a2a,mcp}` | `orchestrator/run.py` | read-only (live agents) | FEAT-009 (+014) |
+| `gd-agents serve` | `--registry`, `--host`, `--port`, `--protocol {a2a,mcp}` | `server/app.py` | read-only (live agents) | FEAT-009 (+014) |
+| `gd-agents registry` | `--registry` | `registry.py` | read-only | FEAT-009 |
+| `gd-agents mcp-probe` | `--registry`, `--workspaces`, `--out`, `--apply` | `mcp/probe.py` | local `--apply` | FEAT-014 |
+| `gd-agents mcp-tools` | `--registry`, `--workspace`, `--out`, `--apply` | `mcp/tools.py` | local `--apply` | FEAT-014 |
+
+`--protocol` selects the lane implementation and exists on `ask`, `serve` and `rehearse` only —
+`route` never calls a lane, so it has no protocol to choose. `--token-env` names the env var holding
+the token, never the token itself; `gd-agents profile` defaults it to
+`GLOBALMART_TOKEN__DEMO_CLOUD`.
 
 ## On-disk paths
 
@@ -237,7 +292,7 @@ exit non-zero otherwise" and is the CI gate form.
 |---|---|---|
 | `layouts/workspaces/globalmart/` | Parent workspace, SDK native YAML tree, one file per object. Neutral path — **no org id** | yes |
 | `generated/workspaces/globalmart-<domain>.json` | The 12 derived children, declarative JSON | yes (ADR 003) |
-| `data/tables/<table>.csv.gz` | The rows themselves, one gzipped CSV per table — 215 files, 2.3 MB | yes (ADR 007) |
+| `data/tables/<table>.csv.gz` | The rows themselves, one gzipped CSV per table — 215 files. **Not in the repository** (ADR 008 supersedes ADR 007): generated on demand by `globalmart data generate` / `data ensure`, verified against `data/table-manifest.json` | no (ADR 008) |
 | `config/targets.yaml` | Publish target profiles. Zero secrets | yes |
 | `config/domains.yaml` | Domain membership manifest | yes |
 | `data/ddl/globalmart.sql` | **215**-table DDL, schema-only, `{schema_name}` templated (214 inherited + `fact_search_event`) | yes |
