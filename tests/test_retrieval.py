@@ -181,6 +181,27 @@ def test_a_question_passes_when_its_document_and_facts_come_back() -> None:
     assert outcome.top_score == pytest.approx(0.9)
 
 
+def test_an_organization_level_hit_satisfies_a_question() -> None:
+    """ADR 010: a hit is matched by filename, not by where the document is stored.
+
+    Under `knowledge_scope: organization` every chunk a workspace search returns reports
+    `workspaceId: null` (probed 2026-09-25), and it must count exactly as a local one does.
+    """
+    api = FakeKnowledgeApi()
+    org_level = chunk(ANCHOR, "Net revenue excludes intra-company transfers, so ...")
+    assert org_level.workspace_id is None
+    api.search_results = [org_level]
+    questions = [
+        RetrievalQuestion(
+            id="q", question="?", expect_document=ANCHOR, expect_facts=("excludes intra-company transfers",)
+        )
+    ]
+
+    report = run_retrieval(api, questions, workspace_id="globalmart-finance")
+
+    assert report.passed
+
+
 def test_a_question_fails_when_the_document_is_not_returned() -> None:
     api = FakeKnowledgeApi()
     api.search_results = [chunk("gm-corpus__reference__data-model.md", "dimensions and facts")]

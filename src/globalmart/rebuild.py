@@ -199,8 +199,9 @@ def _plan(
     # The documentation corpus is not part of the layout tree, so `publish parent` does not
     # carry it — it is written by its own API call. That makes it a real step in the chain
     # rather than a footnote: goal-01's "no manual step" bar has to be met literally, or the
-    # omission has to be named. It goes straight after the parent because it writes to the
-    # parent workspace and children inherit it at query time, so it does not wait on `split`.
+    # omission has to be named. Where it is written — every GlobalMart workspace, or once at
+    # organization level — is the profile's `knowledge_scope` (ADR 010). There is no
+    # workspace hierarchy to inherit through (ADR 009), so nothing reaches a child for free.
     corpus_step = RebuildStep(
         name="publish-knowledge-docs",
         cli_equivalent=f"globalmart knowledge-docs publish --target {profile.name} --apply",
@@ -299,36 +300,36 @@ def _run_publish_knowledge_docs(
     is the absent-corpus case, and that is decided in `_plan` and printed as a skip.
     """
     from globalmart.corpus import load_corpus
-    from globalmart.knowledge_docs import HttpKnowledgeApi, publish_corpus
+    from globalmart.knowledge_docs import corpus_workspaces, publish_for_target
 
     documents = load_corpus(opts.corpus_path)
-
-    # Every workspace, not just the parent. The API inherits documents down the workspace
-    # hierarchy and GlobalMart has none — the twelve domain workspaces are derived siblings
-    # with `parent=None` (probed 2026-09-21), so a parent-only publish would leave each of
-    # them undocumented while reporting success.
-    workspaces = [manifest.parent_workspace_id] + [
-        manifest.by_key(key).workspace_id
-        for key in manifest.keys()  # noqa: SIM118 - DomainManifest.keys() is a method
-    ]
-
-    written = 0
-    for workspace_id in workspaces:
-        report = publish_corpus(
-            HttpKnowledgeApi.for_profile(profile, workspace_id),
-            documents,
-            workspace_id=workspace_id,
-            target=profile.name,
-            apply=True,
+    report = publish_for_target(
+        profile, documents, workspaces=corpus_workspaces(manifest), apply=True
+    )
+    if report.failed:
+        raise GlobalmartError(
+            f"{len(report.failed)} knowledge document(s) failed to upsert: "
+            + ", ".join(report.failed)
         )
-        if report.failed:
-            raise GlobalmartError(
-                f"{len(report.failed)} knowledge document(s) failed to upsert into "
-                f"{workspace_id}: " + ", ".join(report.failed)
-            )
-        written += len(report.results)
+    if report.cleanup_incomplete:
+        # The same "no partial success" rule: a leftover local copy outranks the inherited
+        # one, so an unfinished cleanup can leave the assistant answering from stale text.
+        raise GlobalmartError(
+            "knowledge corpus published, but our copies could not be removed from "
+            + ", ".join(report.cleanup_incomplete)
+        )
 
-    return f"{len(documents)} documents into {len(workspaces)} workspaces ({written} upserts)"
+    written = sum(len(level.results) for level in report.levels)
+    removed = sum(len(c.deleted) for c in report.cleanup)
+    where = (
+        "organization level"
+        if len(report.levels) == 1 and report.levels[0].workspace_id is None
+        else f"{len(report.levels)} workspaces"
+    )
+    return (
+        f"scope={report.scope.value}: {len(documents)} documents into {where} "
+        f"({written} upserts); other level {len(report.cleanup)} checked, {removed} removed"
+    )
 
 
 def _run_split(

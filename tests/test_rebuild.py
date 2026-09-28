@@ -323,3 +323,68 @@ def test_a_failed_corpus_publish_stops_the_chain(
         cold_rebuild(
             ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path)
         )
+
+
+# --- the corpus step under knowledge_scope (FEAT-017) ---------------------------
+
+
+def _fake_levels(monkeypatch: pytest.MonkeyPatch) -> Any:
+    """Route every level the step builds a client for into one in-memory org."""
+    from globalmart.knowledge_docs import HttpKnowledgeApi
+    from tests.test_knowledge_docs import FakeOrg
+
+    org = FakeOrg()
+    monkeypatch.setattr(
+        HttpKnowledgeApi, "for_level", classmethod(lambda cls, profile_, level: org(level))
+    )
+    return org
+
+
+CORPUS_FIXTURE = Path(__file__).parent / "fixtures" / "corpus" / "corpus"
+
+
+@pytest.mark.parametrize(
+    ("scope", "where"),
+    [("workspaces", "13 workspaces"), ("organization", "organization level")],
+)
+def test_the_corpus_step_detail_names_the_scope(
+    manifest, monkeypatch: pytest.MonkeyPatch, scope: str, where: str
+) -> None:  # type: ignore[no-untyped-def]
+    from dataclasses import replace
+
+    import globalmart.rebuild as rebuild_module
+    from globalmart.config import KnowledgeScope
+
+    _fake_levels(monkeypatch)
+    scoped = replace(profile(), knowledge_scope=KnowledgeScope(scope))
+
+    detail = rebuild_module._run_publish_knowledge_docs(
+        None, scoped, manifest, RebuildOptions(corpus_path=CORPUS_FIXTURE)
+    )
+
+    assert detail.startswith(f"scope={scope}:")
+    assert where in detail
+
+
+def test_a_failed_corpus_cleanup_fails_the_chain(
+    manifest, monkeypatch: pytest.MonkeyPatch
+) -> None:  # type: ignore[no-untyped-def]
+    """No partial success: a leftover local copy outranks the fresh inherited one."""
+    from dataclasses import replace
+
+    import globalmart.rebuild as rebuild_module
+    from globalmart.config import GlobalmartError, KnowledgeScope
+    from globalmart.corpus import load_corpus
+    from globalmart.knowledge_docs import corpus_workspaces
+
+    org = _fake_levels(monkeypatch)
+    documents = load_corpus(CORPUS_FIXTURE)
+    stuck = corpus_workspaces(manifest)[5]
+    org.seed_corpus(stuck, documents)
+    org.at(stuck).fail_delete = {documents[0].filename}
+    scoped = replace(profile(), knowledge_scope=KnowledgeScope.ORGANIZATION)
+
+    with pytest.raises(GlobalmartError, match=stuck):
+        rebuild_module._run_publish_knowledge_docs(
+            None, scoped, manifest, RebuildOptions(corpus_path=CORPUS_FIXTURE)
+        )

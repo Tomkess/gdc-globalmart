@@ -30,7 +30,7 @@ from pathlib import Path
 
 from globalmart.capture import capture_workspace
 from globalmart.closure import MetricPolicy
-from globalmart.config import GlobalmartError, load_profile
+from globalmart.config import GlobalmartError, TargetProfile, load_profile
 from globalmart.corpus import (
     DEFAULT_CORPUS_DIR,
     DEFAULT_MANIFEST,
@@ -53,7 +53,14 @@ from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
 from globalmart.generate import base_row_counts, generate_dataset, resolve_window
 from globalmart.knowledge import DEFAULT_SOURCE_DIR, build_knowledge
-from globalmart.knowledge_docs import HttpKnowledgeApi, publish_corpus, verify_corpus
+from globalmart.knowledge_docs import (
+    HttpKnowledgeApi,
+    ScopedCorpusReport,
+    check_scope_flags,
+    corpus_workspaces,
+    publish_for_target,
+    verify_for_target,
+)
 from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
@@ -786,87 +793,85 @@ def cmd_knowledge_docs_coverage(args: argparse.Namespace) -> int:
     return 0
 
 
-def _corpus_workspaces(args: argparse.Namespace, profile: object) -> list[str]:
-    """Which workspaces to write to: the parent **and every domain workspace**.
+def _corpus_workspaces(args: argparse.Namespace, profile: TargetProfile) -> tuple[list[str], bool]:
+    """`(workspaces, narrowed)`: the parent **and every domain workspace**, unless narrowed.
 
-    The API inherits knowledge documents down the workspace *hierarchy*, and GlobalMart has
-    no hierarchy — probed against demo-cloud on 2026-09-21, all 13 workspaces report
-    `parent=None`. "Parent" and "child" here name a derivation relationship in this
-    repository, not a GoodData one: the splitter emits twelve independent workspaces (ADR
-    001), which is what makes them publishable into any org on their own.
-
-    So a parent-only publish leaves all twelve domain workspaces undocumented, and those are
-    exactly where an assistant or an A2A lane is asked its questions. Writing to each is the
-    only thing that works; `--parent-only` restricts it for the case where someone wants the
-    parent alone.
+    GlobalMart has no GoodData workspace hierarchy (all 13 report `parent=None`, probed
+    2026-09-21), so each workspace is its own level. Under `knowledge_scope: workspaces` these
+    are written; under `organization` they are the levels our old copies are removed from
+    (ADR 010). `--workspace-id` / `--parent-only` narrow a `workspaces` publish to one, and
+    `check_scope_flags` has already refused them under `organization`.
     """
-    parent = args.workspace_id or getattr(profile, "parent_workspace_id", "globalmart")
-    if getattr(args, "parent_only", False):
-        return [parent]
-    manifest = load_domains(Path(args.domains_file))
-    return [parent] + [
-        manifest.by_key(key).workspace_id
-        for key in manifest.keys()  # noqa: SIM118 - DomainManifest.keys() is a method
-    ]
+    parent = args.workspace_id or profile.parent_workspace_id
+    if args.workspace_id or getattr(args, "parent_only", False):
+        return [parent], True
+    return corpus_workspaces(load_domains(Path(args.domains_file))), False
+
+
+def _print_scoped(report: ScopedCorpusReport) -> None:
+    _print_report("Knowledge documents", report.header_lines())
+    for level in report.levels:
+        _print_report(f"Knowledge documents — {level.level_label}", level.summary_lines())
+    cleanup = report.cleanup_lines()
+    if cleanup:
+        _print_report("Other level", cleanup)
 
 
 def cmd_knowledge_docs_publish(args: argparse.Namespace) -> int:
-    """Upsert the corpus into AI Knowledge. Rehearsal unless --apply (ADR 002)."""
+    """Upsert the corpus into AI Knowledge at the target's scope. Rehearsal unless --apply."""
     profile = load_profile(args.target)
+    check_scope_flags(profile, parent_only=args.parent_only, workspace_id=args.workspace_id)
     documents = load_corpus(Path(args.corpus))
+    workspaces, narrowed = _corpus_workspaces(args, profile)
 
-    failed = False
-    for workspace_id in _corpus_workspaces(args, profile):
-        api = HttpKnowledgeApi.for_profile(profile, workspace_id)
-        report = publish_corpus(
-            api,
-            documents,
-            workspace_id=workspace_id,
-            target=profile.name,
-            apply=args.apply,
+    if not args.apply:
+        print("REHEARSAL — no writes, no deletes. Re-run with --apply to publish.\n")
+    report = publish_for_target(
+        profile, documents, workspaces=workspaces, narrowed=narrowed, apply=args.apply
+    )
+    _print_scoped(report)
+
+    if report.failed:
+        print(f"\n{len(report.failed)} document(s) failed to upsert.", file=sys.stderr)
+    if report.cleanup_incomplete:
+        print(
+            f"\ncleanup incomplete: {', '.join(report.cleanup_incomplete)} — run "
+            f"`globalmart knowledge-docs publish --target {profile.name} --apply` again.",
+            file=sys.stderr,
         )
-        if not args.apply:
-            print("REHEARSAL — no writes. Re-run with --apply to publish.\n")
-        _print_report(f"Knowledge documents — {workspace_id}", report.summary_lines())
-        if report.failed:
-            failed = True
-            print(f"\n{len(report.failed)} document(s) failed to upsert.", file=sys.stderr)
-
-    return 1 if failed else 0
+    return 0 if report.ok else 1
 
 
 def cmd_knowledge_docs_verify(args: argparse.Namespace) -> int:
     """Reconcile the repo against the org, and optionally prune our orphans.
 
-    Checks every workspace the publish writes to, because a corpus that is current in the
-    parent and stale in the twelve domain workspaces is exactly the drift this feature is
-    supposed to catch.
+    Checks every level the publish writes to, because a corpus that is current in the parent
+    and stale in the twelve domain workspaces is exactly the drift this feature is supposed
+    to catch — and reads the other level too, where a leftover copy of ours would shadow or
+    duplicate the published one (ADR 010).
     """
     profile = load_profile(args.target)
+    check_scope_flags(profile, parent_only=args.parent_only, workspace_id=args.workspace_id)
     documents = load_corpus(Path(args.corpus))
+    workspaces, narrowed = _corpus_workspaces(args, profile)
 
     if args.prune and not args.apply:
         print("REHEARSAL — nothing deleted. Re-run with --prune --apply to remove orphans.\n")
 
-    stale: list[str] = []
-    for workspace_id in _corpus_workspaces(args, profile):
-        api = HttpKnowledgeApi.for_profile(profile, workspace_id)
-        report = verify_corpus(
-            api,
-            documents,
-            workspace_id=workspace_id,
-            target=profile.name,
-            prune=args.prune,
-            apply=args.apply,
-        )
-        _print_report(f"Knowledge documents — {workspace_id}", report.summary_lines())
-        if report.missing_in_org or report.orphaned_in_org or report.changed:
-            stale.append(workspace_id)
+    report = verify_for_target(
+        profile,
+        documents,
+        workspaces=workspaces,
+        narrowed=narrowed,
+        prune=args.prune,
+        apply=args.apply,
+    )
+    _print_scoped(report)
 
-    if stale:
+    if report.stale:
         print(
-            f"\n{len(stale)} workspace(s) do not match the repo: {', '.join(stale)}. Run "
-            f"`globalmart knowledge-docs publish --target {profile.name} --apply`.",
+            f"\n{len(report.stale)} level(s) do not match the repo: {', '.join(report.stale)}. "
+            f"Run `globalmart knowledge-docs publish --target {profile.name} --apply`.",
             file=sys.stderr,
         )
         return 1

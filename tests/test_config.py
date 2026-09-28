@@ -10,6 +10,7 @@ import yaml
 from globalmart.config import (
     DEFAULT_TARGETS_PATH,
     GlobalmartError,
+    KnowledgeScope,
     MissingTokenError,
     ProfileNotFoundError,
     load_profile,
@@ -85,6 +86,58 @@ def test_missing_required_key_is_named(tmp_path: Path, monkeypatch: pytest.Monke
     message = str(excinfo.value)
     assert "organization_id" in message
     assert "datasource_id" in message
+
+
+def _scoped_targets(tmp_path: Path, scope_line: str) -> Path:
+    path = tmp_path / "targets.yaml"
+    path.write_text(
+        "targets:\n"
+        "  dedicated:\n"
+        "    host: https://x.example.com\n"
+        "    organization_id: org\n"
+        "    datasource_id: ds\n"
+        "    datasource_schema: globalmart\n"
+        f"{scope_line}"
+    )
+    return path
+
+
+def test_knowledge_scope_defaults_to_workspaces_when_absent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("GLOBALMART_TOKEN", "tok")
+    profile = load_profile("dedicated", targets_path=_scoped_targets(tmp_path, ""))
+    assert profile.knowledge_scope is KnowledgeScope.WORKSPACES
+
+
+def test_knowledge_scope_organization_is_parsed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("GLOBALMART_TOKEN", "tok")
+    path = _scoped_targets(tmp_path, "    knowledge_scope: organization\n")
+    assert load_profile("dedicated", targets_path=path).knowledge_scope is KnowledgeScope.ORGANIZATION
+
+
+def test_an_unknown_knowledge_scope_raises_at_profile_load(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("GLOBALMART_TOKEN", "tok")
+    path = _scoped_targets(tmp_path, "    knowledge_scope: org\n")
+    with pytest.raises(GlobalmartError) as excinfo:
+        load_profile("dedicated", targets_path=path)
+    message = str(excinfo.value)
+    assert "'org'" in message
+    assert "workspaces" in message and "organization" in message
+
+
+def test_knowledge_scope_ignores_the_environment(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Widening the blast radius is a committed decision, never an exported variable."""
+    monkeypatch.setenv("GLOBALMART_TOKEN", "tok")
+    monkeypatch.setenv("GLOBALMART_KNOWLEDGE_SCOPE", "organization")
+    profile = load_profile("dedicated", targets_path=_scoped_targets(tmp_path, ""))
+    assert profile.knowledge_scope is KnowledgeScope.WORKSPACES
 
 
 def test_targets_file_contains_no_token_at_any_depth() -> None:

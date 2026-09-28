@@ -453,3 +453,46 @@ def test_data_generate_has_no_apply() -> None:
 
     assert "apply" not in {a.dest for a in actions["generate"]._actions}
     assert "tables_dir" in {a.dest for a in actions["load"]._actions}
+
+
+# --- knowledge-docs under knowledge_scope (FEAT-017) ---------------------------
+
+
+@pytest.mark.parametrize("command", ["publish", "verify"])
+@pytest.mark.parametrize(
+    ("flag", "flag_args"),
+    [("--parent-only", ["--parent-only"]), ("--workspace-id", ["--workspace-id", "globalmart-risk"])],
+)
+def test_knowledge_docs_under_organization_scope_rejects_one_workspace_flags(
+    command: str,
+    flag: str,
+    flag_args: list[str],
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    import globalmart.cli as cli
+    from globalmart.config import KnowledgeScope, TargetProfile
+    from globalmart.knowledge_docs import HttpKnowledgeApi
+
+    profile = TargetProfile(
+        name="dedicated",
+        host="https://example.gooddata.com",
+        token="tok",
+        organization_id="org",
+        datasource_id="ds",
+        datasource_schema="globalmart",
+        knowledge_scope=KnowledgeScope.ORGANIZATION,
+    )
+    monkeypatch.setattr(cli, "load_profile", lambda name: profile)
+
+    def no_network(*args: object, **kwargs: object) -> HttpKnowledgeApi:
+        raise AssertionError("a rejected flag must fail before any API client is built")
+
+    monkeypatch.setattr(HttpKnowledgeApi, "for_level", no_network)
+    monkeypatch.setattr(HttpKnowledgeApi, "for_profile", no_network)
+
+    assert main(["knowledge-docs", command, "--target", "dedicated", *flag_args]) == 1
+
+    err = capsys.readouterr().err
+    assert "knowledge_scope: organization" in err
+    assert flag in err

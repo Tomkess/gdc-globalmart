@@ -23,7 +23,7 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 
 | Module | Owner | Concern |
 |---|---|---|
-| `config.py` | FEAT-001 (+002, +005) | `TargetProfile`, `WarehouseType`, `load_profile`, `validate_for_publish` |
+| `config.py` | FEAT-001 (+002, +005, +017) | `TargetProfile`, `WarehouseType`, `KnowledgeScope`, `load_profile`, `validate_for_publish` |
 | `sdk_client.py` | FEAT-001 | `make_sdk(profile) -> GoodDataSdk` — the only place touching credentials |
 | `capture.py` | FEAT-001 | `capture_workspace(sdk, workspace_id) -> CatalogDeclarativeWorkspaceModel` |
 | `normalize.py` | FEAT-001 | Six-pass in-memory scrub; owns the placeholder tokens |
@@ -55,7 +55,7 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `report.py` | FEAT-006 | The only module that knows about presentation |
 | `corpus.py` | FEAT-015 | `CorpusDocument`, `DiataxisKind`, `parse_corpus_document`, `load_corpus`, `published_filename` — the offline authoring model |
 | `corpus_coverage.py` | FEAT-015 | `CorpusManifest` + its strict loader, `check_corpus_coverage`, `raise_for_corpus_report` |
-| `knowledge_docs.py` | FEAT-015 | The only module that touches `/api/v1/ai/workspaces/{id}/knowledge/documents`; `publish_corpus`, `verify_corpus` |
+| `knowledge_docs.py` | FEAT-015 (+017) | The only module that touches `/api/v1/ai/{workspaces/{id}\|organization}/knowledge/documents`; `publish_corpus`, `verify_corpus`, `remove_ours`, `publish_for_target`, `verify_for_target`, `check_scope_flags`, `corpus_workspaces`. A level is a workspace id or `None` (organization) |
 | `retrieval.py` | FEAT-015 | `RetrievalQuestion`, `run_retrieval` — answer-level validation over the published corpus |
 | `cli.py` | all | Subcommand registration only; no logic |
 
@@ -105,6 +105,7 @@ One entry in `config/targets.yaml`. Tokens and secrets are **env-only**, never i
 | `workspace_id_prefix`, `backup_dir` | `str` | FEAT-002 |
 | `warehouse_database` | `str \| None` (MotherDuck `gd_demo`) | FEAT-005 |
 | `data_owned` | `bool`, default `False` — opt-in before any truncate (ADR 004) | FEAT-005 |
+| `knowledge_scope` | `KnowledgeScope`, default `WORKSPACES`. YAML only, **no env override**. Unknown value raises at profile-load (ADR 010) | FEAT-017 |
 
 `load_profile(name: str) -> TargetProfile` keeps its FEAT-001 signature; only the dataclass grows.
 `validate_for_publish(profile) -> list[str]` returns the names of missing publish-required keys,
@@ -112,6 +113,11 @@ including an unresolved secret env var.
 
 `WarehouseType` (`StrEnum`): `MOTHERDUCK = "motherduck"`, `POSTGRES = "postgres"`. Any other value
 raises at **profile-load** time, not at publish time.
+
+`KnowledgeScope` (`StrEnum`): `WORKSPACES = "workspaces"` (the corpus is upserted into every
+GlobalMart workspace), `ORGANIZATION = "organization"` (upserted once at organization level, where
+every workspace in the org sees it — only for an org holding nothing but GlobalMart). Same
+profile-load validation as `WarehouseType`. Never inferred from what the org contains (ADR 010).
 
 `organization_id`, `datasource_id` and `datasource_schema` are read in both directions — what to
 scrub out on capture, what to substitute back in on publish. That symmetry is what makes the
@@ -197,7 +203,9 @@ class DomainManifestError(GlobalmartError): ...
 (FEAT-015, 2026-09-21).** They model an *in-layout* knowledge object — one the splitter copies
 into each child and `check_coverage` demands membership for. The AI Knowledge documents FEAT-015
 publishes are the opposite on both counts: they live outside the layout tree, are written by
-their own REST call, and reach children by read-time inheritance rather than by being copied.
+their own REST call, and are upserted into every workspace directly — or once at organization
+level, per the target's `knowledge_scope` (ADR 010) — rather than being copied by the splitter — there is no GoodData workspace hierarchy to inherit through (all thirteen report
+`parent=None`; ADR 009).
 Wiring them here would make `domains validate` demand coverage of objects that are not in the
 layout at all. Per-domain grouping is expressed instead as `scopes` derived from a document's
 front-matter `domains:`. These two fields remain reserved for a future in-layout knowledge
@@ -254,12 +262,12 @@ Single entry point `globalmart`, subcommands registered in `cli.py` (registratio
 | `globalmart publish domains` | `--target` (req), `--domains-file`, `--source`, `--only`, `--apply`, `--no-backup`, `--standalone-copy`, `--keep-going` | `publish.py` | live `--apply` | FEAT-004 |
 | `globalmart verify` | `--target`, `--domains-file`, `--layout`, `--generated`, `--workspace`, `--max-workers`, `--viz-timeout`, `--max-retries`, `--fail-on-empty`, `--list-only`, `--output-dir` | `verification.py`, `execute.py` | read-only (live) | FEAT-006 |
 | `globalmart verify equivalence` | `--target-a` (req), `--target-b` (req), `--workspace-id` | `equivalence.py` | read-only (live) | FEAT-006 |
-| `globalmart rebuild` | `--target` (req), `--domains-file`, `--layout`, `--generated`, `--skip-data`, `--corpus`, `--skip-knowledge-docs`, `--allow-existing`, `--apply` | `rebuild.py` | live `--apply` | FEAT-006 (+013, +015) |
+| `globalmart rebuild` | `--target` (req), `--domains-file`, `--layout`, `--generated`, `--skip-data`, `--corpus`, `--skip-knowledge-docs`, `--allow-existing`, `--apply` | `rebuild.py` | live `--apply` | FEAT-006 (+013, +015, +017) |
 | `globalmart knowledge build` | `--source`, `--layout`, `--check` | `knowledge.py` | local | FEAT-008 |
 | `globalmart knowledge-docs build` | `--corpus`, `--manifest`, `--questions` | `corpus.py` | local | FEAT-015 |
 | `globalmart knowledge-docs coverage` | `--corpus`, `--manifest`, `--layout`, `--strict`, `--report-only`, `--format {text,json}` | `corpus_coverage.py` | read-only | FEAT-015 |
-| `globalmart knowledge-docs publish` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--apply` | `knowledge_docs.py` | live `--apply` | FEAT-015 |
-| `globalmart knowledge-docs verify` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--prune`, `--apply` | `knowledge_docs.py` | live `--apply` (`--prune` deletes) | FEAT-015 |
+| `globalmart knowledge-docs publish` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--apply` | `knowledge_docs.py` | live `--apply` | FEAT-015 (+017) |
+| `globalmart knowledge-docs verify` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--prune`, `--apply` | `knowledge_docs.py` | live `--apply` (`--prune` deletes) | FEAT-015 (+017) |
 | `globalmart knowledge-docs retrieval` | `--target` (req), `--corpus`, `--questions`, `--workspace-id`, `--limit`, `--min-score` | `retrieval.py` | read-only (live) | FEAT-015 |
 | `globalmart datefilters bind` | `--layout`, `--check`, `--overrides` | `datefilters.py` | local | FEAT-011 |
 | `globalmart targets inspect` | `--target` (req) | `config.py`, `sdk_client.py` | read-only (live) | FEAT-002 |
@@ -297,7 +305,7 @@ the token, never the token itself; `gd-agents profile` defaults it to
 | `config/domains.yaml` | Domain membership manifest | yes |
 | `data/ddl/globalmart.sql` | **215**-table DDL, schema-only, `{schema_name}` templated (214 inherited + `fact_search_event`) | yes |
 | `data/table-manifest.json` | Per table: row count, columns, sha256 of the **uncompressed** CSV, byte size | yes |
-| `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge in **every** workspace (no GoodData hierarchy exists, so nothing is inherited — ADR 009), **not** part of the layout tree | yes |
+| `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge per the target's `knowledge_scope`: in **every** workspace by default (no GoodData hierarchy exists, so nothing is inherited — ADR 009), or once at organization level for a dedicated org (ADR 010). **Not** part of the layout tree | yes |
 | `config/corpus.yaml` | Corpus exclusion manifest — what is deliberately undocumented, with a reason | yes |
 | `config/corpus-questions.yaml` | The fixed answer-level retrieval question set | yes |
 | `backups/`, `reports/` | Runtime output | no |

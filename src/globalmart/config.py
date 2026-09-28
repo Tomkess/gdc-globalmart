@@ -79,6 +79,17 @@ class WarehouseType(StrEnum):
     POSTGRES = "postgres"
 
 
+class KnowledgeScope(StrEnum):
+    """Where the AI Knowledge corpus is published for a target (ADR 010).
+
+    ``ORGANIZATION`` reaches every workspace in the org, GlobalMart or not, so it is only for
+    an org that holds nothing but GlobalMart. It is never inferred from what the org contains.
+    """
+
+    WORKSPACES = "workspaces"
+    ORGANIZATION = "organization"
+
+
 def token_env_var(profile_name: str) -> str:
     """Per-target token variable, e.g. ``demo-cloud`` -> ``GLOBALMART_TOKEN__DEMO_CLOUD``."""
     suffix = profile_name.upper().replace("-", "_")
@@ -123,6 +134,12 @@ class TargetProfile:
     data_owned: bool = False
     #: MotherDuck database (`gd_demo`); Postgres takes it from datasource_database.
     warehouse_database: str | None = None
+
+    # --- knowledge-document fields (FEAT-017) -----------------------------
+    #: Read from the YAML entry only, never from the environment, as `data_owned` is.
+    #: Widening a publish to every workspace in an org is a reviewed, committed decision,
+    #: not something a stray exported variable should be able to make.
+    knowledge_scope: KnowledgeScope = KnowledgeScope.WORKSPACES
 
     def warehouse_secret(self) -> str | None:
         """Read the warehouse secret from the environment named by the profile."""
@@ -197,6 +214,16 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
             f"Supported: {supported}."
         ) from error
 
+    raw_scope = str(entry.get("knowledge_scope") or KnowledgeScope.WORKSPACES.value)
+    try:
+        knowledge_scope = KnowledgeScope(raw_scope)
+    except ValueError as error:
+        supported = ", ".join(s.value for s in KnowledgeScope)
+        raise GlobalmartError(
+            f"Profile {name!r} has unsupported knowledge_scope {raw_scope!r}. "
+            f"Supported: {supported}."
+        ) from error
+
     backup_dir = field("backup_dir", "GLOBALMART_BACKUP_DIR") or "backups"
 
     return TargetProfile(
@@ -217,6 +244,7 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
         backup_dir=Path(backup_dir),
         data_owned=bool(entry.get("data_owned", False)),
         warehouse_database=field("warehouse_database", "GLOBALMART_WAREHOUSE_DATABASE") or None,
+        knowledge_scope=knowledge_scope,
     )
 
 
