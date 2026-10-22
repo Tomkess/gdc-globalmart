@@ -66,6 +66,9 @@ def test_the_domain_list_lives_in_exactly_two_files() -> None:
         if relative in ALLOWED:
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
+        # "data product" is gdcloud's vocabulary for a released workspace (FEAT-019), never the
+        # `product` domain. The phrase is dropped, not the file, so a real mention still counts.
+        text = re.sub(r"\bdata[ -]products?\b", "", text, flags=re.IGNORECASE)
         hits = {key for key in keys if re.search(rf"\b{re.escape(key)}\b", text)}
         hits |= {label for label in labels if label in text}
         if hits:

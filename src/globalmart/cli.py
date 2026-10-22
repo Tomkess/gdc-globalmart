@@ -25,7 +25,7 @@ import json
 import sys
 import tempfile
 from collections.abc import Sequence
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 from globalmart.capture import capture_workspace
@@ -51,6 +51,13 @@ from globalmart.datefilters import bind_date_filters
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
+from globalmart.gdcloud_bridge import (
+    DEFAULT_RELEASE_CONFIG_PATH,
+    ReleaseConfigError,
+    load_release_config,
+    release_scope_from_tags,
+)
+from globalmart.gdcloud_project import DEFAULT_OUT_PATH, diff_projection, project_parent, write_projection
 from globalmart.generate import base_row_counts, generate_dataset, resolve_window
 from globalmart.knowledge import DEFAULT_SOURCE_DIR, build_knowledge
 from globalmart.knowledge_docs import (
@@ -564,6 +571,12 @@ def cmd_data_ensure(args: argparse.Namespace) -> int:
         print("\nNothing to do — the warehouse holds current data.")
         return 0
 
+    if args.check:
+        # The PR gate (FEAT-019): data before workspace before knowledge. A merge would deploy
+        # a workspace onto a warehouse that is about to be regenerated, so it must not happen.
+        print("\nThe warehouse is stale or empty: a write is planned. Run `data ensure --apply`.")
+        return 3
+
     reason = "forced" if args.force and not freshness.stale() else "stale or empty"
     print(f"\nRegenerating ({reason}).")
 
@@ -946,6 +959,56 @@ def cmd_targets_inspect(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_gdcloud_project(args: argparse.Namespace) -> int:
+    """Project the parent layout into gd_data_product/<dp>/, the tree gdcloud releases (ADR 011)."""
+    config = load_release_config(Path(args.config))
+    projection = project_parent(config, Path(args.layout))
+    out = Path(args.out)
+
+    if args.check:
+        problems = diff_projection(projection, out)
+        if problems:
+            print(f"{out / projection.dp_id} is NOT current with {args.layout}:")
+            for problem in problems[:50]:
+                print(f"  {problem}")
+            if len(problems) > 50:
+                print(f"  … and {len(problems) - 50} more")
+            print("\nRun `globalmart gdcloud project` (or `make project`) and commit the result.")
+            return 1
+        print(f"{out / projection.dp_id} is current ({len(projection.files)} files).")
+        return 0
+
+    changed = write_projection(projection, out, dry_run=args.dry_run)
+    verb = "Would write or remove" if args.dry_run else "Wrote or removed"
+    print(f"{verb} {len(changed)} of {len(projection.files)} files in {out / projection.dp_id}")
+    return 0
+
+
+def cmd_gdcloud_scope(args: argparse.Namespace) -> int:
+    """Which environment and version a gdcloud deploy just shipped, read back from its tag."""
+    config = load_release_config(Path(args.config))
+    since = datetime.fromisoformat(args.since)
+    if since.tzinfo is None:
+        raise ReleaseConfigError(f"--since needs a timezone, e.g. {args.since}Z")
+    scope = release_scope_from_tags(config, since, environment=args.environment)
+
+    if args.format == "json":
+        payload = {} if scope is None else {
+            "environment": scope.environment,
+            "version": scope.version,
+            "workspace_id": scope.workspace_id,
+            "github_environment": config.github_environments[scope.environment],
+        }
+        print(json.dumps(payload))
+        return 0
+
+    if scope is None:
+        print(f"No deploy of {config.dp_id!r} since {since.isoformat()} — nothing to follow up.")
+    else:
+        print(f"{scope.environment}: {scope.version} -> {scope.workspace_id}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="globalmart", description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -1241,7 +1304,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="generate and load only if the warehouse is empty or stale (what CI runs)",
     )
     data_ensure.add_argument("--target", required=True, help="target profile to check and load")
-    data_ensure.add_argument("--apply", action="store_true", help="required to generate and load")
+    ensure_mode = data_ensure.add_mutually_exclusive_group()
+    ensure_mode.add_argument("--apply", action="store_true", help="required to generate and load")
+    ensure_mode.add_argument(
+        "--check",
+        action="store_true",
+        help="read-only; exit 3 if a generate-and-load would be planned (the CI gate)",
+    )
     data_ensure.add_argument(
         "--max-age-days",
         type=int,
@@ -1287,6 +1356,30 @@ def build_parser() -> argparse.ArgumentParser:
     )
     inspect.add_argument("--target", required=True)
     inspect.set_defaults(func=cmd_targets_inspect)
+
+    gdcloud = subparsers.add_parser("gdcloud", help="the gdcloud release of the parent (FEAT-019)")
+    gdcloud_actions = gdcloud.add_subparsers(dest="action", required=True)
+
+    gc_project = gdcloud_actions.add_parser(
+        "project", help="derive gd_data_product/globalmart/ from the parent layout (local)"
+    )
+    gc_project.add_argument("--config", default=str(DEFAULT_RELEASE_CONFIG_PATH))
+    gc_project.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    gc_project.add_argument("--out", default=str(DEFAULT_OUT_PATH))
+    gc_project.add_argument("--dry-run", action="store_true", help="report what would change")
+    gc_project.add_argument(
+        "--check", action="store_true", help="exit 1 if the committed projection is stale (the CI gate)"
+    )
+    gc_project.set_defaults(func=cmd_gdcloud_project)
+
+    gc_scope = gdcloud_actions.add_parser(
+        "scope", help="the environment and version a deploy shipped, from its tag (read-only)"
+    )
+    gc_scope.add_argument("--config", default=str(DEFAULT_RELEASE_CONFIG_PATH))
+    gc_scope.add_argument("--environment", choices=["dev", "test", "preprod", "prod"])
+    gc_scope.add_argument("--since", required=True, help="ISO timestamp with timezone, e.g. a run's start")
+    gc_scope.add_argument("--format", choices=["text", "json"], default="text")
+    gc_scope.set_defaults(func=cmd_gdcloud_scope)
 
     publish = subparsers.add_parser("publish", help="publish into a live org")
     publish_targets = publish.add_subparsers(dest="what", required=True)

@@ -4,8 +4,9 @@ gdcloud owns the release (FEAT-019, ADR 011): versions, promotion, the generated
 has no concept of — projecting the parent into ``gd_data_product/``, publishing the knowledge
 corpus after a deploy — still need to know which workspace each environment deploys to and which
 data source the projection resolves to. This is the only module in the package that reads
-``config.yml``, and it reads the YAML directly: ``globalmart`` never imports ``gdcloud``, which
-stays a CI and tooling dependency.
+``config.yml``, and it reads the YAML directly rather than through gdcloud's config loader. The
+one place the package imports ``gdcloud`` is ``gdcloud_project``, for byte parity with its YAML
+normalizers.
 
 GlobalMart releases exactly one data product, the parent. The 12 domain workspaces are local
 artifacts redeployed on demand with ``publish domains``, so a second catalog entry is a defect
