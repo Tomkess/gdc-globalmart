@@ -51,6 +51,7 @@ from globalmart.datefilters import bind_date_filters
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
+from globalmart.gdcloud_bootstrap import bootstrap_environment
 from globalmart.gdcloud_bridge import (
     DEFAULT_RELEASE_CONFIG_PATH,
     ReleaseConfigError,
@@ -993,6 +994,17 @@ def cmd_gdcloud_project(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_gdcloud_bootstrap(args: argparse.Namespace) -> int:
+    """Room, ownership, data source and a titled master, before an environment's first deploy."""
+    profile = load_profile(f"gdcloud-{args.environment}")
+    release = load_release_config(Path(args.config))
+    report = bootstrap_environment(
+        make_sdk(profile), profile, release, apply=args.apply, take_backup=not args.no_backup
+    )
+    _print_report(f"gdcloud bootstrap — {profile.host}", report.summary_lines())
+    return 0
+
+
 def cmd_gdcloud_scope(args: argparse.Namespace) -> int:
     """Which environment and version a gdcloud deploy just shipped, read back from its tag."""
     config = load_release_config(Path(args.config))
@@ -1380,6 +1392,21 @@ def build_parser() -> argparse.ArgumentParser:
         "--check", action="store_true", help="exit 1 if the committed projection is stale (the CI gate)"
     )
     gc_project.set_defaults(func=cmd_gdcloud_project)
+
+    gc_bootstrap = gdcloud_actions.add_parser(
+        "bootstrap", help="prepare an environment before its first deploy (live; --apply to write)"
+    )
+    gc_bootstrap.add_argument("--environment", required=True, choices=["dev", "test", "preprod", "prod"])
+    gc_bootstrap.add_argument("--config", default=str(DEFAULT_RELEASE_CONFIG_PATH))
+    gc_bootstrap.add_argument(
+        "--apply",
+        action="store_true",
+        help="actually write to the org; without it this is a read-only rehearsal (ADR 002)",
+    )
+    gc_bootstrap.add_argument(
+        "--no-backup", action="store_true", help="skip the backup before retitling an existing master"
+    )
+    gc_bootstrap.set_defaults(func=cmd_gdcloud_bootstrap)
 
     gc_scope = gdcloud_actions.add_parser(
         "scope", help="the environment and version a deploy shipped, from its tag (read-only)"
