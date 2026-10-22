@@ -23,7 +23,7 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 
 | Module | Owner | Concern |
 |---|---|---|
-| `config.py` | FEAT-001 (+002, +005, +017) | `TargetProfile`, `WarehouseType`, `KnowledgeScope`, `load_profile`, `validate_for_publish` |
+| `config.py` | FEAT-001 (+002, +005, +017, +019) | `TargetProfile`, `WarehouseType`, `KnowledgeScope`, `load_profile`, `validate_for_publish` |
 | `sdk_client.py` | FEAT-001 | `make_sdk(profile) -> GoodDataSdk` — the only place touching credentials |
 | `capture.py` | FEAT-001 | `capture_workspace(sdk, workspace_id) -> CatalogDeclarativeWorkspaceModel` |
 | `normalize.py` | FEAT-001 | Six-pass in-memory scrub; owns the placeholder tokens |
@@ -57,6 +57,9 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `corpus_coverage.py` | FEAT-015 | `CorpusManifest` + its strict loader, `check_corpus_coverage`, `raise_for_corpus_report` |
 | `knowledge_docs.py` | FEAT-015 (+017) | The only module that touches `/api/v1/ai/{workspaces/{id}\|organization}/knowledge/documents`; `publish_corpus`, `verify_corpus`, `remove_ours`, `publish_for_target`, `verify_for_target`, `check_scope_flags`, `corpus_workspaces`. A level is a workspace id or `None` (organization) |
 | `retrieval.py` | FEAT-015 | `RetrievalQuestion`, `run_retrieval` — answer-level validation over the published corpus |
+| `gdcloud_bridge.py` | FEAT-019 | The only module that reads gdcloud's `config.yml`: `ReleaseConfig`, `load_release_config`, `master_workspace_id`, `parse_deploy_tag`, `release_scope_from_tags`. Refuses any catalog but exactly one data product (ADR 011) |
+| `gdcloud_project.py` | FEAT-019 | `project_parent`, `write_projection`, `diff_projection` — the parent layout projected into `gd_data_product/globalmart/`, byte-identical to `gd-store`. The one module that imports `gdcloud` (its YAML normalizers, lazily) |
+| `gdcloud_bootstrap.py` | FEAT-019 | `bootstrap_environment`, `fetch_capacity` — workspace-cap check, collision audit, data source, env-titled master, before an environment's first deploy |
 | `cli.py` | all | Subcommand registration only; no logic |
 
 FEAT-005 (sole owner), **as built 2026-09-18**: `registry.py`, `dataload.py`, `sqlcheck.py`
@@ -106,6 +109,7 @@ One entry in `config/targets.yaml`. Tokens and secrets are **env-only**, never i
 | `warehouse_database` | `str \| None` (MotherDuck `gd_demo`) | FEAT-005 |
 | `data_owned` | `bool`, default `False` — opt-in before any truncate (ADR 004) | FEAT-005 |
 | `knowledge_scope` | `KnowledgeScope`, default `WORKSPACES`. YAML only, **no env override**. Unknown value raises at profile-load (ADR 010) | FEAT-017 |
+| `gdcloud_environment` | `str \| None`, default `None`. YAML only. Set, the profile is a gdcloud release target (`gdcloud-dev` …): it must name an environment in `config.yml`, `parent_workspace_id` must be that environment's master, and `knowledge_scope: organization` is refused — all at profile-load. Knowledge publish/verify then reach that master only (ADR 011) | FEAT-019 |
 
 `load_profile(name: str) -> TargetProfile` keeps its FEAT-001 signature; only the dataclass grows.
 `validate_for_publish(profile) -> list[str]` returns the names of missing publish-required keys,
@@ -257,7 +261,7 @@ Single entry point `globalmart`, subcommands registered in `cli.py` (registratio
 | `globalmart data verify` | `--ddl`, `--layout`, `--schema` | `sqlcheck.py` | read-only | FEAT-005 |
 | `globalmart data load` | `--target` (req), `--ddl`, `--layout`, `--only`, `--tables-dir`, `--manifest`, `--recreate-drifted`, `--apply` | `dataload.py`, `loaders/` | live `--apply` | FEAT-005 |
 | `globalmart data generate` | `--out` (req), `--seed`, `--scale`, `--ddl`, `--layout`, `--manifest`, `--start-date`, `--end-date` | `generate.py` | local | FEAT-007 (+013) |
-| `globalmart data ensure` | `--target` (req), `--apply`, `--max-age-days`, `--force`, `--recreate-drifted`, `--seed`, `--scale`, `--start-date`, `--end-date`, `--ddl`, `--layout`, `--manifest` | `dataload.py`, `generate.py` | live `--apply` | FEAT-013 |
+| `globalmart data ensure` | `--target` (req), `--apply` \| `--check` (exclusive; `--check` exits 3 when a write is planned — the PR gate), `--max-age-days`, `--force`, `--recreate-drifted`, `--seed`, `--scale`, `--start-date`, `--end-date`, `--ddl`, `--layout`, `--manifest` | `dataload.py`, `generate.py` | live `--apply` | FEAT-013 (+019) |
 | `globalmart publish parent` | `--target` (req), `--source`, `--workspace-id`, `--workspace-name`, `--apply`, `--no-backup`, `--standalone-copy` | `publish.py` | live `--apply` | FEAT-002 |
 | `globalmart publish domains` | `--target` (req), `--domains-file`, `--source`, `--only`, `--apply`, `--no-backup`, `--standalone-copy`, `--keep-going` | `publish.py` | live `--apply` | FEAT-004 |
 | `globalmart verify` | `--target`, `--domains-file`, `--layout`, `--generated`, `--workspace`, `--max-workers`, `--viz-timeout`, `--max-retries`, `--fail-on-empty`, `--list-only`, `--output-dir` | `verification.py`, `execute.py` | read-only (live) | FEAT-006 |
@@ -271,6 +275,9 @@ Single entry point `globalmart`, subcommands registered in `cli.py` (registratio
 | `globalmart knowledge-docs retrieval` | `--target` (req), `--corpus`, `--questions`, `--workspace-id`, `--limit`, `--min-score` | `retrieval.py` | read-only (live) | FEAT-015 |
 | `globalmart datefilters bind` | `--layout`, `--check`, `--overrides` | `datefilters.py` | local | FEAT-011 |
 | `globalmart targets inspect` | `--target` (req) | `config.py`, `sdk_client.py` | read-only (live) | FEAT-002 |
+| `globalmart gdcloud project` | `--config`, `--layout`, `--out`, `--dry-run`, `--check` | `gdcloud_project.py` | local | FEAT-019 |
+| `globalmart gdcloud bootstrap` | `--environment {dev,test,preprod,prod}` (req), `--config`, `--apply`, `--no-backup` | `gdcloud_bootstrap.py` | live `--apply` | FEAT-019 |
+| `globalmart gdcloud scope` | `--since` (req, tz-aware ISO), `--environment`, `--config`, `--format {text,json}` | `gdcloud_bridge.py` | read-only (git tags) | FEAT-019 |
 
 ### `gd-agents` — talks to the workspaces
 
@@ -299,7 +306,7 @@ the token, never the token itself; `gd-agents profile` defaults it to
 | Path | What | Committed? |
 |---|---|---|
 | `layouts/workspaces/globalmart/` | Parent workspace, SDK native YAML tree, one file per object. Neutral path — **no org id** | yes |
-| `generated/workspaces/globalmart-<domain>.json` | The 12 derived children, declarative JSON | yes (ADR 003) |
+| `generated/workspaces/globalmart-<domain>.json` | The 12 derived children, declarative JSON. **Local-only since 2026-10-22** (ADR 011): never released by gdcloud, redeployed on demand with `publish domains` | yes (ADR 003) |
 | `data/tables/<table>.csv.gz` | The rows themselves, one gzipped CSV per table — 215 files. **Not in the repository** (ADR 008 supersedes ADR 007): generated on demand by `globalmart data generate` / `data ensure`, verified against `data/table-manifest.json` | no (ADR 008) |
 | `config/targets.yaml` | Publish target profiles. Zero secrets | yes |
 | `config/domains.yaml` | Domain membership manifest | yes |
@@ -308,6 +315,10 @@ the token, never the token itself; `gd-agents profile` defaults it to
 | `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge per the target's `knowledge_scope`: in **every** workspace by default (no GoodData hierarchy exists, so nothing is inherited — ADR 009), or once at organization level for a dedicated org (ADR 010). **Not** part of the layout tree | yes |
 | `config/corpus.yaml` | Corpus exclusion manifest — what is deliberately undocumented, with a reason | yes |
 | `config/corpus-questions.yaml` | The fixed answer-level retrieval question set | yes |
+| `config.yml` | gdcloud project config: one data product `globalmart`, four environments on two orgs, `org_release`/`organization_snapshot` off (ADR 011, ecommerce ADR 002). No secrets | yes |
+| `gd_data_product/config.env.yml` | gdcloud env overrides (none) plus `globalmart_canonical`, the data source the projection resolves to | yes |
+| `gd_data_product/globalmart/` | **Derived** from `layouts/workspaces/globalmart/` by `globalmart gdcloud project`; what gdcloud releases. Hand edits fail `--check` and the `projection_current` gd-ci check | yes |
+| `gd_plugin/checks/` | GlobalMart's gd-ci checks (`org_scope`, `projection_current`), registered via the `gdcloud.ci_checks` entry point | yes |
 | `backups/`, `reports/` | Runtime output | no |
 
 **JSON side (FEAT-004, added 2026-09-18):** `layout_io.write_model_json(model, path)` /

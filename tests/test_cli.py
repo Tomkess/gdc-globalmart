@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import shutil
 from pathlib import Path
 from typing import Any
@@ -496,3 +497,50 @@ def test_knowledge_docs_under_organization_scope_rejects_one_workspace_flags(
     err = capsys.readouterr().err
     assert "knowledge_scope: organization" in err
     assert flag in err
+
+
+def _leaf_parsers(
+    parser: argparse.ArgumentParser, path: tuple[str, ...] = ()
+) -> dict[str, argparse.ArgumentParser]:
+    """Every runnable command in the tree, keyed by its words, e.g. "gdcloud project"."""
+    subparsers = [a for a in parser._actions if isinstance(a, argparse._SubParsersAction)]
+    if not subparsers:
+        return {" ".join(path): parser}
+    leaves: dict[str, argparse.ArgumentParser] = {}
+    for name, child in subparsers[0].choices.items():
+        leaves.update(_leaf_parsers(child, (*path, name)))
+    if not subparsers[0].required:
+        leaves[" ".join(path)] = parser
+    return leaves
+
+
+def _dests(command: str) -> set[str]:
+    return {a.dest for a in _leaf_parsers(build_parser())[command]._actions}
+
+
+def test_no_command_has_both_apply_and_dry_run() -> None:
+    """STEERING's binding convention, checked across the whole tree rather than per command."""
+    both = [
+        name
+        for name, parser in _leaf_parsers(build_parser()).items()
+        if {"apply", "dry_run"} <= {a.dest for a in parser._actions}
+    ]
+    assert both == []
+
+
+def test_gdcloud_project_is_local() -> None:
+    assert {"dry_run", "check"} <= _dests("gdcloud project")
+    assert "apply" not in _dests("gdcloud project")
+
+
+def test_gdcloud_bootstrap_writes_only_under_apply() -> None:
+    assert {"apply", "no_backup", "environment"} <= _dests("gdcloud bootstrap")
+    assert "dry_run" not in _dests("gdcloud bootstrap")
+
+
+def test_gdcloud_scope_is_read_only() -> None:
+    assert not {"apply", "dry_run"} & _dests("gdcloud scope")
+
+
+def test_data_ensure_check_is_the_ci_form() -> None:
+    assert {"apply", "check"} <= _dests("data ensure")
