@@ -816,6 +816,15 @@ def _corpus_workspaces(args: argparse.Namespace, profile: TargetProfile) -> tupl
     `check_scope_flags` has already refused them under `organization`.
     """
     parent = args.workspace_id or profile.parent_workspace_id
+    if profile.gdcloud_environment is not None:
+        # A release target is one workspace, whatever the flags say: the domains are local-only
+        # (ADR 011), so a forgotten --parent-only must not aim the corpus at them.
+        if args.workspace_id and args.workspace_id != profile.parent_workspace_id:
+            raise GlobalmartError(
+                f"Profile {profile.name!r} releases {profile.parent_workspace_id!r} only; "
+                f"--workspace-id {args.workspace_id!r} is not it."
+            )
+        return [profile.parent_workspace_id], True
     if args.workspace_id or getattr(args, "parent_only", False):
         return [parent], True
     return corpus_workspaces(load_domains(Path(args.domains_file))), False

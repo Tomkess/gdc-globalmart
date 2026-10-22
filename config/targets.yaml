@@ -79,6 +79,80 @@ targets:
     datasource_secret_env: MOTHERDUCK_TOKEN
     # No knowledge_scope: this profile keeps the default (workspaces) exercised by a real entry.
 
+  # --- gdcloud release targets (FEAT-019, ADR 011) -------------------------------------------
+  #
+  # One per environment in config.yml. gdcloud deploys the workspace content itself; these let the
+  # project-owned steps around it (the knowledge corpus publish, `verify`, `data ensure`) address
+  # the same workspace. `gdcloud_environment` ties each to config.yml, and profile-load refuses a
+  # `parent_workspace_id` that disagrees with it. Tokens: GLOBALMART_TOKEN__GDCLOUD_<ENV>.
+  #
+  # All four read the one MotherDuck schema the legacy profiles read, through a data source of
+  # their own, `gdc_ds_globalmart_motherduck` (the sibling demo repo's ADR 002 naming), created by
+  # `globalmart gdcloud bootstrap`. Both orgs are shared, so knowledge is never org-level.
+  gdcloud-dev:
+    host: https://petertomko.demo.cloud.gooddata.com
+    organization_id: gm-ddebmti
+    datasource_id: gdc_ds_globalmart_motherduck
+    datasource_schema: globalmart
+    parent_workspace_id: globalmart_dev
+    warehouse_type: motherduck
+    datasource_name: GlobalMart MotherDuck (gdcloud)
+    datasource_url: jdbc:duckdb:md:gd_demo
+    datasource_database: gd_demo
+    warehouse_database: gd_demo
+    datasource_secret_env: MOTHERDUCK_TOKEN
+    data_owned: true
+    knowledge_scope: workspaces
+    gdcloud_environment: dev
+
+  gdcloud-test:
+    host: https://petertomko.demo.cloud.gooddata.com
+    organization_id: gm-ddebmti
+    datasource_id: gdc_ds_globalmart_motherduck
+    datasource_schema: globalmart
+    parent_workspace_id: globalmart_test
+    warehouse_type: motherduck
+    datasource_name: GlobalMart MotherDuck (gdcloud)
+    datasource_url: jdbc:duckdb:md:gd_demo
+    datasource_database: gd_demo
+    warehouse_database: gd_demo
+    datasource_secret_env: MOTHERDUCK_TOKEN
+    data_owned: true
+    knowledge_scope: workspaces
+    gdcloud_environment: test
+
+  gdcloud-preprod:
+    host: https://usecases-ai.demo.cloud.gooddata.com
+    organization_id: w2r-kigdm6
+    datasource_id: gdc_ds_globalmart_motherduck
+    datasource_schema: globalmart
+    parent_workspace_id: globalmart_preprod
+    warehouse_type: motherduck
+    datasource_name: GlobalMart MotherDuck (gdcloud)
+    datasource_url: jdbc:duckdb:md:gd_demo
+    datasource_database: gd_demo
+    warehouse_database: gd_demo
+    datasource_secret_env: MOTHERDUCK_TOKEN
+    data_owned: true
+    knowledge_scope: workspaces
+    gdcloud_environment: preprod
+
+  gdcloud-prod:
+    host: https://usecases-ai.demo.cloud.gooddata.com
+    organization_id: w2r-kigdm6
+    datasource_id: gdc_ds_globalmart_motherduck
+    datasource_schema: globalmart
+    parent_workspace_id: globalmart_master
+    warehouse_type: motherduck
+    datasource_name: GlobalMart MotherDuck (gdcloud)
+    datasource_url: jdbc:duckdb:md:gd_demo
+    datasource_database: gd_demo
+    warehouse_database: gd_demo
+    datasource_secret_env: MOTHERDUCK_TOKEN
+    data_owned: true
+    knowledge_scope: workspaces
+    gdcloud_environment: prod
+
   # Local-inference host. Filled in by FEAT-002 when the Postgres datasource
   # fields (warehouse_type, url, username, secret env var) are added.
   # local-inference:
