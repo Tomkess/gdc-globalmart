@@ -36,3 +36,6 @@ __pycache__/
 # Meridian tooling — installed globally, see meridian ADR-007
 .claude/commands/meridian/
 .meridian.toml
+
+# gdcloud's local scratch output (FEAT-019)
+gd_output/
