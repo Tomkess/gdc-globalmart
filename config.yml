@@ -1,0 +1,94 @@
+# gdcloud project config (FEAT-019, ADR 011): where GlobalMart's one data product is released.
+#
+# Same shape and hosts as gd-ecommerce-demo (its ADR 001): four environments on two shared orgs,
+# separated by workspace id. NO SECRETS: the *_variable keys name environment variables; in
+# GitHub Actions the selected Environment supplies TOKEN_GOODDATA.
+#
+# The 12 domain workspaces are deliberately absent. They are local artifacts
+# (config/domains.yaml + generated/workspaces/), redeployed on demand with
+# `globalmart publish domains --target <t> --apply`, never by a gdcloud workflow.
+
+default_git_branch: "main"
+
+# gdcloud maps a MotherDuck data source to sqlglot's duckdb dialect.
+sql_dialect: duckdb
+
+github_token_variable: "TOKEN_GITHUB_ADMIN"
+github_dependency_token_variable: "TOKEN_GITHUB_GDCLOUD"
+
+# ecommerce ADR 002: org-level objects (agents, themes, …) are released ONLY by the org repo.
+# Both orgs are shared, and gdcloud's org release deletes every object of a released kind that
+# git does not hold. gd_plugin/checks/org_scope.py fails gd-ci if either flag becomes true.
+automation:
+  org_release:
+    enabled: false
+  organization_snapshot:
+    enabled: false
+  version_comparison:
+    enabled: true
+  scheduled_model_validation:
+    enabled: false
+  translation_source:
+    enabled: false
+  tag_documentation:
+    enabled: false
+  metadata_export:
+    enabled: false
+
+# A parent-only change must still run gd-ci: the projection under gd_data_product/ is derived
+# from layouts/, so a layouts/ edit is a content change.
+workflows:
+  check_ci_checks:
+    additional_paths: '^gd_plugin/|^config\.yml$|^pyproject\.toml$|^layouts/workspaces/globalmart/|^gd_data_product/([^/]+/)?config\.env\.yml$'
+
+primary_data_product: "globalmart"
+
+data_products:
+  globalmart:
+    label: GM
+
+# delete_invalid_*: false — the offline gates own consistency, so a deploy never silently
+# makes the org diverge from git. create_clone: false — GlobalMart has no tenant clones, and a
+# clone would spend a workspace slot on a capped org.
+environments:
+  dev:
+    host: "https://petertomko.demo.cloud.gooddata.com"
+    gooddata_token_variable: "GLOBALMART_TOKEN__GDCLOUD_DEV"
+    github_environment: "develop"
+    data_products:
+      globalmart:
+        master_workspace_id: "globalmart_dev"
+        delete_invalid_metrics: false
+        delete_invalid_visualizations: false
+        create_clone: false
+  test:
+    host: "https://petertomko.demo.cloud.gooddata.com"     # same org as dev
+    gooddata_token_variable: "GLOBALMART_TOKEN__GDCLOUD_TEST"
+    github_environment: "staging"
+    data_products:
+      globalmart:
+        master_workspace_id: "globalmart_test"
+        delete_invalid_metrics: false
+        delete_invalid_visualizations: false
+        create_clone: false
+  preprod:
+    host: "https://usecases-ai.demo.cloud.gooddata.com"
+    gooddata_token_variable: "GLOBALMART_TOKEN__GDCLOUD_PREPROD"
+    github_environment: "preprod"
+    data_products:
+      globalmart:
+        master_workspace_id: "globalmart_preprod"
+        delete_invalid_metrics: false
+        delete_invalid_visualizations: false
+        create_clone: false
+  prod:
+    host: "https://usecases-ai.demo.cloud.gooddata.com"    # same org as preprod
+    gooddata_token_variable: "GLOBALMART_TOKEN__GDCLOUD_PROD"
+    github_environment: "production"
+    protected: true
+    data_products:
+      globalmart:
+        master_workspace_id: "globalmart_master"
+        delete_invalid_metrics: false
+        delete_invalid_visualizations: false
+        create_clone: false
