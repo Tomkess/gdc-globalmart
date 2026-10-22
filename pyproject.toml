@@ -90,6 +90,11 @@ files = ["src/globalmart", "src/gd_agents", "gd_plugin"]
 module = ["gooddata_sdk.*"]
 ignore_missing_imports = true
 
+# gdcloud ships no type information (no py.typed). Only gd_plugin/ and gdcloud_project import it.
+[[tool.mypy.overrides]]
+module = ["gdcloud.*"]
+ignore_missing_imports = true
+
 # Optional warehouse drivers (the `data` extra). They are imported inside functions so the
 # package works without them, which means a type-check run in an environment that lacks
 # them must not fail.

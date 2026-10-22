@@ -124,7 +124,7 @@ def _assert_portable(model: CatalogDeclarativeWorkspaceModel) -> None:
 
 def _format_like_gdcloud(dp_dir: Path) -> None:
     """Run gdcloud's own normalizers over the staged tree, so the bytes match gd-store's."""
-    from gdcloud.formatting_yaml import (  # type: ignore[import-untyped]  # lazily: see module docstring
+    from gdcloud.formatting_yaml import (  # lazily: see the module docstring
         normalize_analytics_model,
         normalize_ldm,
         normalize_wdf_json,
