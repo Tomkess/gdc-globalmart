@@ -19,80 +19,80 @@ The following decisions were settled on 2026-10-22:
 - [x] 3. Spike: live round trip of the projected parent through scratch `globalmart_spike` (`gd-upload` → `gd-store`). Nothing lost: 1766 files differ in formatting only, 14 memory-item `keywords` lists differ in order only, and `workspace_data_filters.json` comes back as `{"data": []}`. Scratch workspace deleted
        Pre: task 2 complete
        AC: #5
-- [ ] 4. Write `specs/decisions/011-gdcloud-release-of-globalmart.md`. It records: one DP, the domains as local-only artifacts, the Stage A projection, the ID scheme, the new data source, `org_release` off, the LDM cycle fix, and the spike results
+- [x] 4. Write `specs/decisions/011-gdcloud-release-of-globalmart.md`. It records: one DP, the domains as local-only artifacts, the Stage A projection, the ID scheme, the new data source, `org_release` off, the LDM cycle fix, and the spike results
        Pre: task 3 complete
        AC: #2, #3, #10
-- [ ] 5. Update `pyproject.toml`: pin gdcloud `v0.51.0`, `requires-python = ">=3.14"`, mypy `python_version = "3.14"`, `[tool.uv] package = true`, `[tool.hatch.metadata] allow-direct-references = true`, the `gdcloud.ci_checks` entry point, and `gd_plugin` in the wheel packages. Add `.python-version`. Run `uv sync --all-extras --dev` and confirm 789 tests pass
+- [x] 5. Update `pyproject.toml`: pin gdcloud `v0.51.0`, `requires-python = ">=3.14"`, mypy `python_version = "3.14"`, `[tool.uv] package = true`, `[tool.hatch.metadata] allow-direct-references = true`, the `gdcloud.ci_checks` entry point, and `gd_plugin` in the wheel packages. Add `.python-version`. Run `uv sync --all-extras --dev` and confirm 789 tests pass
        Pre: none
        AC: #1
-- [ ] 6. Add `Makefile` (`dev`, `adopt`, `store`, `upload`, `validate`, `ci`, `format`, `lint`, `help`, `project`, `project-check`), `.yamllint`, and `gd_output/` in `.gitignore`. Move the `ci.yml` interpreter to 3.14
+- [x] 6. Add `Makefile` (`dev`, `adopt`, `store`, `upload`, `validate`, `ci`, `format`, `lint`, `help`, `project`, `project-check`), `.yamllint`, and `gd_output/` in `.gitignore`. Move the `ci.yml` interpreter to 3.14
        Pre: task 5 complete
        AC: #1
-- [ ] 7. Write `config.yml` per breakdown Data Model §2: one DP `globalmart` (label `GM`), four environments, `protected: true` on prod, `sql_dialect: duckdb`, `create_clone: false`, and the `automation` block with `org_release` and `organization_snapshot` set to `false`. Use `gd-init --pull` into a scratch dir only to compare keys
+- [x] 7. Write `config.yml` per breakdown Data Model §2: one DP `globalmart` (label `GM`), four environments, `protected: true` on prod, `sql_dialect: duckdb`, `create_clone: false`, and the `automation` block with `org_release` and `organization_snapshot` set to `false`. Use `gd-init --pull` into a scratch dir only to compare keys
        Pre: task 5 complete
        AC: #2, #3
-- [ ] 8. Add `gd_data_product/config.env.yml` with `globalmart_canonical: {datasource_id: gdc_ds_globalmart_motherduck, datasource_schema: globalmart}` and run `gd-validate` against it. If gdcloud rejects the unknown key, remove it and record the fallback to code defaults in ADR 011
+- [x] 8. Add `gd_data_product/config.env.yml` with `globalmart_canonical: {datasource_id: gdc_ds_globalmart_motherduck, datasource_schema: globalmart}` and run `gd-validate` against it. If gdcloud rejects the unknown key, remove it and record the fallback to code defaults in ADR 011
        Pre: task 7 complete
        AC: #4
-- [ ] 9. Create `src/globalmart/gdcloud_bridge.py` with `ReleaseConfig`, `load_release_config`, `master_workspace_id`, and `ReleaseConfigError`. It raises when there is not exactly one DP, an environment lacks the DP, or a master ID is not `globalmart_<suffix>`. It reads the canonical data source from task 8's location
+- [x] 9. Create `src/globalmart/gdcloud_bridge.py` with `ReleaseConfig`, `load_release_config`, `master_workspace_id`, and `ReleaseConfigError`. It raises when there is not exactly one DP, an environment lacks the DP, or a master ID is not `globalmart_<suffix>`. It reads the canonical data source from task 8's location
        Pre: task 8 complete
        AC: #2
-- [ ] 10. Add `ReleaseScope` and `release_scope_from_tags(env, since, *, repo)` to `gdcloud_bridge.py`. It parses `deploy-{env}-globalmart-{ver}-{ts}` (including hotfix `v1.N.M`) and returns `None` when no tag is newer than `since`
+- [x] 10. Add `ReleaseScope` and `release_scope_from_tags(env, since, *, repo)` to `gdcloud_bridge.py`. It parses `deploy-{env}-globalmart-{ver}-{ts}` (including hotfix `v1.N.M`) and returns `None` when no tag is newer than `since`
        Pre: task 9 complete
        AC: #9
-- [ ] 11. Write unit tests for `gdcloud_bridge.py`: it loads the committed `config.yml`; there is one DP labelled `GM`; masters are `globalmart_{dev,test,preprod,master}`; host pairs dev/test and preprod/prod match; `prod.protected` is set; tag parsing works, including hotfix and the `None` case; an unknown environment raises
+- [x] 11. Write unit tests for `gdcloud_bridge.py`: it loads the committed `config.yml`; there is one DP labelled `GM`; masters are `globalmart_{dev,test,preprod,master}`; host pairs dev/test and preprod/prod match; `prod.protected` is set; tag parsing works, including hotfix and the `None` case; an unknown environment raises
        Pre: task 10 complete
        AC: #2, #9
-- [ ] 12. Create `src/globalmart/gdcloud_project.py` with `Projection`, `project_parent`, and `ProjectionError`. It reads `layouts/workspaces/globalmart/` with `read_tree`, resolves placeholders against the canonical data source via `resolve_placeholders` and `assert_fully_resolved`, and asserts there are no `createdBy`/`modifiedBy` fields
+- [x] 12. Create `src/globalmart/gdcloud_project.py` with `Projection`, `project_parent`, and `ProjectionError`. It reads `layouts/workspaces/globalmart/` with `read_tree`, resolves placeholders against the canonical data source via `resolve_placeholders` and `assert_fully_resolved`, and asserts there are no `createdBy`/`modifiedBy` fields
        Pre: task 9 complete
        AC: #4
-- [ ] 13. Add `write_projection` and `diff_projection` to `gdcloud_project.py`. They emit `gd_data_product/globalmart/{ldm,analytics_model}/` in gdcloud's YAML style (`gd-format-yaml` output) and `workspace_data_filters.json` = `{"data": []}`, as the spike showed. They delete stale files inside the two content folders only and never touch `config.*.yml`
+- [x] 13. Add `write_projection` and `diff_projection` to `gdcloud_project.py`. They emit `gd_data_product/globalmart/{ldm,analytics_model}/` in gdcloud's YAML style (`gd-format-yaml` output) and `workspace_data_filters.json` = `{"data": []}`, as the spike showed. They delete stale files inside the two content folders only and never touch `config.*.yml`
        Pre: task 12 complete
        AC: #4
-- [ ] 14. Register `globalmart gdcloud project` in `cli.py` with `--layout`, `--out`, `--dry-run`, and `--check`
+- [x] 14. Register `globalmart gdcloud project` in `cli.py` with `--layout`, `--out`, `--dry-run`, and `--check`
        Pre: task 13 complete
        AC: #4
-- [ ] 15. Write unit tests for the projector on `tests/fixtures/mini_globalmart/`. Cover: no `{{ }}` placeholder survives; every `dataSourceId` is canonical; `dataSourceTableId.path` order is preserved; a second run is byte-identical; `--check` fails on a hand edit, a stale extra file, and a missing dataset; `--dry-run` writes nothing; `config.env.yml` is untouched
+- [x] 15. Write unit tests for the projector on `tests/fixtures/mini_globalmart/`. Cover: no `{{ }}` placeholder survives; every `dataSourceId` is canonical; `dataSourceTableId.path` order is preserved; a second run is byte-identical; `--check` fails on a hand edit, a stale extra file, and a missing dataset; `--dry-run` writes nothing; `config.env.yml` is untouched
        Pre: task 14 complete
        AC: #4
-- [ ] 16. Run `globalmart gdcloud project` on the real tree and commit `gd_data_product/globalmart/`. Confirm `gd-format-yaml --check` is clean
+- [x] 16. Run `globalmart gdcloud project` on the real tree and commit `gd_data_product/globalmart/`. Confirm `gd-format-yaml --check` is clean
        Pre: task 15 complete
        AC: #4
-- [ ] 17. Register `globalmart gdcloud scope` (`--environment`, `--since` (required), `--format {text,json}`; read-only, wraps `release_scope_from_tags`) and add `--check` to `globalmart data ensure` (exit 3 when a write is planned; mutually exclusive with `--apply`)
+- [x] 17. Register `globalmart gdcloud scope` (`--environment`, `--since` (required), `--format {text,json}`; read-only, wraps `release_scope_from_tags`) and add `--check` to `globalmart data ensure` (exit 3 when a write is planned; mutually exclusive with `--apply`)
        Pre: task 10 complete
        AC: #9
-- [ ] 18. Write unit tests for `data ensure --check`: exit 0 when the data is current, exit 3 when a write is planned, and a usage error when combined with `--apply`
+- [x] 18. Write unit tests for `data ensure --check`: exit 0 when the data is current, exit 3 when a write is planned, and a usage error when combined with `--apply`
        Pre: task 17 complete
        AC: #9
-- [ ] 19. Add `TargetProfile.gdcloud_environment` to `config.py`. Raise at profile-load when it names an environment missing from `config.yml`, when `parent_workspace_id` differs from that environment's master, or when it is combined with `knowledge_scope: organization`
+- [x] 19. Add `TargetProfile.gdcloud_environment` to `config.py`. Raise at profile-load when it names an environment missing from `config.yml`, when `parent_workspace_id` differs from that environment's master, or when it is combined with `knowledge_scope: organization`
        Pre: task 9 complete
        AC: #9
-- [ ] 20. Add the `gdcloud-dev`, `gdcloud-test`, `gdcloud-preprod`, and `gdcloud-prod` profiles to `config/targets.yaml` (breakdown Data Model §5). Branch `knowledge_docs.corpus_workspaces` so that when `gdcloud_environment` is set it returns only `(parent_workspace_id,)`
+- [x] 20. Add the `gdcloud-dev`, `gdcloud-test`, `gdcloud-preprod`, and `gdcloud-prod` profiles to `config/targets.yaml` (breakdown Data Model §5). Branch `knowledge_docs.corpus_workspaces` so that when `gdcloud_environment` is set it returns only `(parent_workspace_id,)`
        Pre: task 19 complete
        AC: #9
-- [ ] 21. Write unit tests: each of the three profile-load errors raises; all four `gdcloud-*` profiles load; `corpus_workspaces` returns `("globalmart_test",)` for `gdcloud-test` even with `--domains-file`, and is unchanged for `demo-cloud`
+- [x] 21. Write unit tests: each of the three profile-load errors raises; all four `gdcloud-*` profiles load; `corpus_workspaces` returns `("globalmart_test",)` for `gdcloud-test` even with `--domains-file`, and is unchanged for `demo-cloud`
        Pre: task 20 complete
        AC: #9
-- [ ] 22. Create `gd_plugin/checks/org_scope.py` and `gd_plugin/checks/projection_current.py`, and export `CHECKS` from `gd_plugin/checks/__init__.py`. Run `uv sync` and confirm `gd-ci list` shows both
+- [x] 22. Create `gd_plugin/checks/org_scope.py` and `gd_plugin/checks/projection_current.py`, and export `CHECKS` from `gd_plugin/checks/__init__.py`. Run `uv sync` and confirm `gd-ci list` shows both
        Pre: tasks 13, 16 complete
        AC: #3, #4
-- [ ] 23. Write unit tests for the `gd_plugin` checks. `org_scope` fails, fails, fails, then passes across: `org_release` on, snapshot on, `gd_organization/` present, clean config. `projection_current` fails on a hand edit under `gd_data_product/globalmart/`
+- [x] 23. Write unit tests for the `gd_plugin` checks. `org_scope` fails, fails, fails, then passes across: `org_release` on, snapshot on, `gd_organization/` present, clean config. `projection_current` fails on a hand edit under `gd_data_product/globalmart/`
        Pre: task 22 complete
        AC: #3, #4
-- [ ] 24. Run `gd-validate` and `gd-ci run --all` offline against the committed projection and fix any findings in the projector, never in the projected files
+- [x] 24. Run `gd-validate` and `gd-ci run --all` offline against the committed projection and fix any findings in the projector, never in the projected files
        Pre: task 23 complete
        AC: #5
-- [ ] 25. Create `src/globalmart/gdcloud_bootstrap.py` and register `globalmart gdcloud bootstrap` (`--environment` required, `--apply`, `--no-backup`). It runs four steps, in order:
+- [x] 25. Create `src/globalmart/gdcloud_bootstrap.py` and register `globalmart gdcloud bootstrap` (`--environment` required, `--apply`, `--no-backup`). It runs four steps, in order:
        (a) a capacity check comparing the `entitlements` `WorkspaceCount` against `collectUsage` (raw REST; note the SDK gap in a comment)
        (b) a collision audit that fails on a foreign-titled master
        (c) `ensure_data_source` for `gdc_ds_globalmart_motherduck`
        (d) pre-creating the master with its environment title, taking a backup before any overwrite
        Pre: tasks 9, 20 complete
        AC: #2
-- [ ] 26. Write unit tests for the bootstrap (mocked SDK and REST): the rehearsal writes nothing; titles are correct per environment; the capacity check fails at the cap and passes when the master already exists; the audit aborts on a foreign-titled `globalmart_test`; the backup runs before an overwrite
+- [x] 26. Write unit tests for the bootstrap (mocked SDK and REST): the rehearsal writes nothing; titles are correct per environment; the capacity check fails at the cap and passes when the master already exists; the audit aborts on a foreign-titled `globalmart_test`; the backup runs before an overwrite
        Pre: task 25 complete
        AC: #2
-- [ ] 27. Update `specs/CONTRACT.md`. Add module rows for `gdcloud_bridge.py`, `gdcloud_project.py`, and `gdcloud_bootstrap.py`, and the `TargetProfile.gdcloud_environment` row. Add CLI rows for `gdcloud project`, `gdcloud bootstrap`, `gdcloud scope`, and `data ensure --check`. Add path rows for `config.yml`, `gd_data_product/globalmart/`, and `gd_plugin/`. Extend `tests/test_cli.py` (new rows parse; no command has both `--apply` and `--dry-run`)
+- [x] 27. Update `specs/CONTRACT.md`. Add module rows for `gdcloud_bridge.py`, `gdcloud_project.py`, and `gdcloud_bootstrap.py`, and the `TargetProfile.gdcloud_environment` row. Add CLI rows for `gdcloud project`, `gdcloud bootstrap`, `gdcloud scope`, and `data ensure --check`. Add path rows for `config.yml`, `gd_data_product/globalmart/`, and `gd_plugin/`. Extend `tests/test_cli.py` (new rows parse; no command has both `--apply` and `--dry-run`)
        Pre: tasks 14, 17, 21, 25 complete
        AC: none directly — STEERING requires CONTRACT to change in the same commit
 - [ ] 28. Live: run `gdcloud bootstrap --environment dev` and `--environment test` as a rehearsal, then with `--apply`. Expect `GlobalMart (DEV)` / `(TEST)` to exist, the data source to be present, and demo.cloud at 16/25 [DECISION NEEDED: live write — confirm with the user before `--apply`]
