@@ -36,6 +36,8 @@ concurrency:
 jobs:
   ensure:
     runs-on: ubuntu-latest
+    outputs:
+      loaded: ${{ steps.ensure.outputs.loaded }}
     # gdcloud-dev's GoodData token lives in the `develop` Environment; the load ends with a cache
     # invalidation on that org (FEAT-019). Schema `globalmart` backs all four gdcloud environments.
     environment: develop
@@ -69,14 +71,52 @@ jobs:
       # step ADR 008 exists to remove. The rows are generated from a seed and a window, so
       # dropping and rebuilding a table costs a regeneration and nothing else.
       - name: Ensure the warehouse is current
+        id: ensure
         env:
           GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD }}
           GLOBALMART_TOKEN__GDCLOUD_DEV: ${{ secrets.TOKEN_GOODDATA }}
           MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
         run: |
+          set -o pipefail
           uv run globalmart data ensure \
             --target "${{ github.event.inputs.target || 'gdcloud-dev' }}" \
             --max-age-days 31 \
             --recreate-drifted \
             ${{ github.event_name == 'schedule' && '--apply' || (github.event.inputs.apply == 'true' && '--apply' || '') }} \
-            ${{ github.event.inputs.force == 'true' && '--force' || '' }}
+            ${{ github.event.inputs.force == 'true' && '--force' || '' }} \
+            | tee ensure.log
+          # `ensure` prints this only after a real load; a no-op or a rehearsal never does.
+          if grep -q "Upload notification sent" ensure.log; then
+            echo "loaded=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  # The schema behind all four gdcloud environments is read by two orgs. `ensure` invalidated the
+  # cache on the org it loaded through (demo.cloud); preprod and prod on AI Usecases read the same
+  # rows through their own data source and keep serving cached numbers until told too. One notify
+  # covers both: they share the org's data source. Only after a real load.
+  notify-ai-usecases:
+    needs: ensure
+    if: needs.ensure.outputs.loaded == 'true'
+    runs-on: ubuntu-latest
+    environment: production-post
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        env:
+          GH_DEP_TOKEN: ${{ secrets.TOKEN_GITHUB_GDCLOUD }}
+        run: |
+          dep_url="url.https://x-access-token:${GH_DEP_TOKEN}@github.com/gooddata/"
+          trap 'git config --global --remove-section "$dep_url" 2>/dev/null || true' EXIT
+          git config --global "${dep_url}.insteadOf" "https://github.com/gooddata/"
+          uv sync --locked --all-extras --dev
+
+      - name: Invalidate cached results on AI Usecases
+        env:
+          GLOBALMART_TOKEN__GDCLOUD_PROD: ${{ secrets.TOKEN_GOODDATA }}
+        run: uv run globalmart data notify --target gdcloud-prod --apply

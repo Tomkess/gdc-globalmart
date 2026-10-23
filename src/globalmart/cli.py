@@ -71,6 +71,7 @@ from globalmart.knowledge_docs import (
 )
 from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.normalize import WdfPolicy, normalize_workspace
+from globalmart.preflight import check_organization
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
 from globalmart.rebuild import RebuildOptions, cold_rebuild
 from globalmart.registry import (
@@ -544,6 +545,24 @@ def _date_overrides(raw: str | None) -> dict[str, str]:
             raise GlobalmartError(f"bad --overrides entry {chunk!r}; expected dashboard=dataset")
         pairs[dashboard.strip()] = dataset.strip()
     return pairs
+
+
+def cmd_data_notify(args: argparse.Namespace) -> int:
+    """Invalidate a target's cached results after a load that was made through another target.
+
+    `data ensure` notifies the org it loaded through. The warehouse schema behind the gdcloud
+    environments is shared by two orgs, so the other org's data source keeps serving cached
+    numbers until it is told too (FEAT-019). Rehearsal by default, like every live write.
+    """
+    profile = load_profile(args.target)
+    sdk = make_sdk(profile)
+    check_organization(sdk, profile)
+    if not args.apply:
+        print(f"REHEARSAL — would invalidate cached results of {profile.datasource_id!r} on {profile.host}.")
+        return 0
+    notify_upload(sdk, profile)
+    print(f"Cached results of {profile.datasource_id!r} on {profile.host} invalidated.")
+    return 0
 
 
 def cmd_data_ensure(args: argparse.Namespace) -> int:
@@ -1354,6 +1373,17 @@ def build_parser() -> argparse.ArgumentParser:
     data_ensure.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     data_ensure.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
     data_ensure.set_defaults(func=cmd_data_ensure)
+
+    data_notify = data_actions.add_parser(
+        "notify", help="invalidate a target's cached results after a load made elsewhere"
+    )
+    data_notify.add_argument("--target", required=True)
+    data_notify.add_argument(
+        "--apply",
+        action="store_true",
+        help="actually notify the org; without it this is a read-only rehearsal (ADR 002)",
+    )
+    data_notify.set_defaults(func=cmd_data_notify)
 
     datefilters = subparsers.add_parser(
         "datefilters", help="bind dashboard date filters to the date dataset they depend on"

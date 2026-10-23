@@ -90,3 +90,14 @@ def test_the_merge_gate_is_looser_than_the_refresh() -> None:
         s.get("run", "") for s in _load(WORKFLOWS / "data-currency.yml")["jobs"]["ensure"]["steps"]
     )
     assert _max_age(gate) >= _max_age(refresh) + 7, "the gate needs at least a week of slack"
+
+
+def test_a_refresh_also_invalidates_the_other_orgs_cache() -> None:
+    """Both orgs read the one schema; the second must be told after a real load, and only then."""
+    jobs = _load(WORKFLOWS / "data-currency.yml")["jobs"]
+    notify = jobs["notify-ai-usecases"]
+    assert notify["needs"] == "ensure" and "loaded == 'true'" in notify["if"]
+    assert notify["environment"] == "production-post"
+    runs = " ".join(step.get("run", "") for step in notify["steps"])
+    assert "data notify --target gdcloud-prod --apply" in runs
+    assert jobs["ensure"]["outputs"]["loaded"] == "${{ steps.ensure.outputs.loaded }}"
