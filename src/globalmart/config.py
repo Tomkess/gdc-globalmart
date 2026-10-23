@@ -141,6 +141,12 @@ class TargetProfile:
     #: not something a stray exported variable should be able to make.
     knowledge_scope: KnowledgeScope = KnowledgeScope.WORKSPACES
 
+    # --- gdcloud release fields (FEAT-019) --------------------------------
+    #: The gdcloud environment (config.yml) this profile addresses, e.g. "dev". Set, the profile
+    #: is a release target: `parent_workspace_id` must be that environment's master, and the
+    #: project-owned steps (knowledge publish, verify) touch that one workspace only. YAML only.
+    gdcloud_environment: str | None = None
+
     def warehouse_secret(self) -> str | None:
         """Read the warehouse secret from the environment named by the profile."""
         if not self.datasource_secret_env:
@@ -153,8 +159,7 @@ def _resolve_token(profile_name: str) -> str:
     token = os.environ.get(specific) or os.environ.get(GENERIC_TOKEN_ENV)
     if not token:
         raise MissingTokenError(
-            f"No API token for profile {profile_name!r}. "
-            f"Set {specific} (preferred) or {GENERIC_TOKEN_ENV}."
+            f"No API token for profile {profile_name!r}. Set {specific} (preferred) or {GENERIC_TOKEN_ENV}."
         )
     return token
 
@@ -200,9 +205,7 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
         if not value
     ]
     if missing:
-        raise GlobalmartError(
-            f"Profile {name!r} is missing required key(s): {', '.join(missing)}"
-        )
+        raise GlobalmartError(f"Profile {name!r} is missing required key(s): {', '.join(missing)}")
 
     raw_warehouse = field("warehouse_type", "GLOBALMART_WAREHOUSE_TYPE")
     try:
@@ -210,8 +213,7 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
     except ValueError as error:
         supported = ", ".join(w.value for w in WarehouseType)
         raise GlobalmartError(
-            f"Profile {name!r} has unsupported warehouse_type {raw_warehouse!r}. "
-            f"Supported: {supported}."
+            f"Profile {name!r} has unsupported warehouse_type {raw_warehouse!r}. Supported: {supported}."
         ) from error
 
     raw_scope = str(entry.get("knowledge_scope") or KnowledgeScope.WORKSPACES.value)
@@ -220,11 +222,14 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
     except ValueError as error:
         supported = ", ".join(s.value for s in KnowledgeScope)
         raise GlobalmartError(
-            f"Profile {name!r} has unsupported knowledge_scope {raw_scope!r}. "
-            f"Supported: {supported}."
+            f"Profile {name!r} has unsupported knowledge_scope {raw_scope!r}. Supported: {supported}."
         ) from error
 
     backup_dir = field("backup_dir", "GLOBALMART_BACKUP_DIR") or "backups"
+
+    gdcloud_environment = str(entry.get("gdcloud_environment") or "") or None
+    if gdcloud_environment is not None:
+        _check_release_target(name, gdcloud_environment, parent_workspace_id, knowledge_scope, path)
 
     return TargetProfile(
         name=name,
@@ -245,7 +250,40 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
         data_owned=bool(entry.get("data_owned", False)),
         warehouse_database=field("warehouse_database", "GLOBALMART_WAREHOUSE_DATABASE") or None,
         knowledge_scope=knowledge_scope,
+        gdcloud_environment=gdcloud_environment,
     )
+
+
+def _check_release_target(
+    name: str,
+    environment: str,
+    parent_workspace_id: str,
+    knowledge_scope: KnowledgeScope,
+    targets_path: Path,
+) -> None:
+    """A profile naming a gdcloud environment must agree with config.yml (FEAT-019, ADR 011).
+
+    Raised at profile-load, before any network call, like every other profile error. Both orgs
+    the release uses are shared with other demos, so organization-level knowledge is refused
+    outright (ADR 010).
+    """
+    from globalmart.gdcloud_bridge import (  # here, not at module top: the bridge imports this module
+        load_release_config,
+        master_workspace_id,
+    )
+
+    if knowledge_scope is KnowledgeScope.ORGANIZATION:
+        raise GlobalmartError(
+            f"Profile {name!r}: knowledge_scope: organization cannot be combined with "
+            "gdcloud_environment — the release orgs are shared (ADR 010)."
+        )
+    release = load_release_config(targets_path.parent.parent / "config.yml")
+    expected = master_workspace_id(release, environment)
+    if parent_workspace_id != expected:
+        raise GlobalmartError(
+            f"Profile {name!r}: parent_workspace_id is {parent_workspace_id!r}, but config.yml "
+            f"deploys {environment!r} to {expected!r}."
+        )
 
 
 def validate_for_publish(profile: TargetProfile) -> list[str]:

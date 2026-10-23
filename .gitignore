@@ -1,3 +1,9 @@
+# Added by gd-workflows adopt — new entries from the toolkit scaffold.
+venv/
+*.egg-info/
+.vscode/
+.idea/
+
 # Meridian — generated from tracked files (spec frontmatter, goals/, decisions/).
 # Committing it protected nothing and conflicted on nearly every merge.
 specs/REGISTRY.md
@@ -36,3 +42,6 @@ __pycache__/
 # Meridian tooling — installed globally, see meridian ADR-007
 .claude/commands/meridian/
 .meridian.toml
+
+# gdcloud's local scratch output (FEAT-019)
+gd_output/

@@ -247,8 +247,7 @@ def ask(
         observe,
         "plan",
         workspaces=[
-            {"id": step.workspace, "question": step.question, "why": step.why}
-            for step in run.plan.steps
+            {"id": step.workspace, "question": step.question, "why": step.why} for step in run.plan.steps
         ],
         reasoning=run.plan.reasoning,
         combine_on=run.plan.combine_on,

@@ -10242,7 +10242,7 @@
         ],
         "sql": {
           "dataSourceId": "{{ datasource_id }}",
-          "statement": "\nSELECT\n    COALESCE(oh.order_date, woh.order_date) AS order_date,\n    oh.store_id AS store_id,\n    cm.channel_type,\n    SUM(COALESCE(ol.revenue, wol.revenue)) AS total_revenue,\n    COUNT(DISTINCT COALESCE(oh.order_id, woh.order_id)) AS order_count\nFROM {{ datasource_schema }}.fact_order_header oh\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN {{ datasource_schema }}.dim_channel_master cm ON oh.channel_id = cm.channel_id\nFULL OUTER JOIN {{ datasource_schema }}.fact_web_order_header woh ON oh.order_date = woh.order_date\nLEFT JOIN {{ datasource_schema }}.fact_web_order_line wol ON woh.order_id = wol.order_id\nWHERE COALESCE(oh.order_date, woh.order_date) IS NOT NULL\nGROUP BY 1, 2, 3\n"
+          "statement": "\nSELECT\n    COALESCE(oh.order_date, woh.order_date) AS order_date,\n    oh.store_id AS store_id,\n    oh.channel_id AS channel_id,\n    cm.channel_type,\n    SUM(COALESCE(ol.revenue, wol.revenue)) AS total_revenue,\n    COUNT(DISTINCT COALESCE(oh.order_id, woh.order_id)) AS order_count\nFROM {{ datasource_schema }}.fact_order_header oh\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN {{ datasource_schema }}.dim_channel_master cm ON oh.channel_id = cm.channel_id\nFULL OUTER JOIN {{ datasource_schema }}.fact_web_order_header woh ON oh.order_date = woh.order_date\nLEFT JOIN {{ datasource_schema }}.fact_web_order_line wol ON woh.order_id = wol.order_id\nWHERE COALESCE(oh.order_date, woh.order_date) IS NOT NULL\nGROUP BY 1, 2, 3, 4\n"
         },
         "tags": [
           "Blended Daily Revenue"

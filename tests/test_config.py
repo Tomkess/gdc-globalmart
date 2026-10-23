@@ -110,9 +110,7 @@ def test_knowledge_scope_defaults_to_workspaces_when_absent(
     assert profile.knowledge_scope is KnowledgeScope.WORKSPACES
 
 
-def test_knowledge_scope_organization_is_parsed(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_knowledge_scope_organization_is_parsed(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("GLOBALMART_TOKEN", "tok")
     path = _scoped_targets(tmp_path, "    knowledge_scope: organization\n")
     assert load_profile("dedicated", targets_path=path).knowledge_scope is KnowledgeScope.ORGANIZATION
@@ -130,9 +128,7 @@ def test_an_unknown_knowledge_scope_raises_at_profile_load(
     assert "workspaces" in message and "organization" in message
 
 
-def test_knowledge_scope_ignores_the_environment(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_knowledge_scope_ignores_the_environment(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Widening the blast radius is a committed decision, never an exported variable."""
     monkeypatch.setenv("GLOBALMART_TOKEN", "tok")
     monkeypatch.setenv("GLOBALMART_KNOWLEDGE_SCOPE", "organization")

@@ -71,9 +71,7 @@ def write_definitions(definitions: dict[str, Any], path: Path = DEFAULT_TOOLS_PA
 
 def load_definitions(path: Path = DEFAULT_TOOLS_PATH) -> dict[str, Any]:
     if not path.exists():
-        raise ToolsetError(
-            f"No tool definitions at {path}. Run `gd-agents mcp-tools --apply` to fetch them."
-        )
+        raise ToolsetError(f"No tool definitions at {path}. Run `gd-agents mcp-tools --apply` to fetch them.")
     try:
         return dict(json.loads(path.read_text(encoding="utf-8")))
     except json.JSONDecodeError as error:

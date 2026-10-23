@@ -387,9 +387,7 @@ def test_prune_deletes_exactly_the_orphans(documents: list[CorpusDocument]) -> N
     publish_corpus(api, documents, workspace_id=WORKSPACE, apply=True)
     orphan = api.seed("gm-corpus__reference__orphan.md", "stale")
     foreign = api.seed("handbook.pdf", "not ours", scopes=())
-    inherited = api.seed(
-        "gm-corpus__reference__inherited.md", "upstream", workspace_id="other-workspace"
-    )
+    inherited = api.seed("gm-corpus__reference__inherited.md", "upstream", workspace_id="other-workspace")
 
     report = verify_corpus(api, documents, workspace_id=WORKSPACE, prune=True, apply=True)
 

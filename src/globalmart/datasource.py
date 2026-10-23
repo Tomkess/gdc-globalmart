@@ -51,9 +51,7 @@ def build_data_source(
             schema=profile.datasource_schema,
             url=profile.datasource_url,
             credentials=TokenCredentialsFromEnvVar(env_var_name=profile.datasource_secret_env),
-            db_specific_attributes=MotherDuckAttributes(
-                db_name=profile.datasource_database or ""
-            ),
+            db_specific_attributes=MotherDuckAttributes(db_name=profile.datasource_database or ""),
         )
 
     if profile.warehouse_type is WarehouseType.POSTGRES:
@@ -99,9 +97,7 @@ def notify_upload(sdk: GoodDataSdk, profile: TargetProfile) -> None:
     sdk.catalog_data_source.register_upload_notification(profile.datasource_id)
 
 
-def ensure_data_source(
-    sdk: GoodDataSdk, profile: TargetProfile, *, apply: bool = False
-) -> DataSourceOutcome:
+def ensure_data_source(sdk: GoodDataSdk, profile: TargetProfile, *, apply: bool = False) -> DataSourceOutcome:
     """Create or update the datasource, reporting which it was.
 
     The probe is a read, so it runs even in a rehearsal; only the write is gated.

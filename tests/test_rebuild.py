@@ -117,9 +117,7 @@ def with_corpus(tmp_path: Path, **kwargs: Any) -> RebuildOptions:
 
 
 def test_a_rehearsal_plans_every_step_and_runs_none(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
-    report = cold_rebuild(
-        ProbeSdk([]), profile(), manifest, apply=False, options=with_corpus(tmp_path)
-    )
+    report = cold_rebuild(ProbeSdk([]), profile(), manifest, apply=False, options=with_corpus(tmp_path))
 
     names = [step.name for step in report.steps]
     assert names == [
@@ -137,7 +135,7 @@ def test_a_rehearsal_plans_every_step_and_runs_none(manifest, tmp_path: Path) ->
 
 
 def test_every_step_carries_the_command_that_reproduces_it(manifest) -> None:  # type: ignore[no-untyped-def]
-    """"The script did it" is a poor answer when one step fails."""
+    """ "The script did it" is a poor answer when one step fails."""
     report = cold_rebuild(ProbeSdk([]), profile(), manifest, apply=False)
 
     for step in report.steps:
@@ -213,9 +211,7 @@ def test_a_successful_chain_runs_every_step_in_order(
 
     monkeypatch.setattr(rebuild_module, "step_runner", runner_for)
 
-    report = cold_rebuild(
-        ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path)
-    )
+    report = cold_rebuild(ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path))
 
     assert calls == [
         "verify-data",
@@ -237,9 +233,7 @@ def test_a_successful_chain_runs_every_step_in_order(
 def test_the_corpus_is_published_right_after_the_parent(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
     """It writes to the parent workspace and children inherit at read time, so it does not
     wait on `split`."""
-    report = cold_rebuild(
-        ProbeSdk([]), profile(), manifest, apply=False, options=with_corpus(tmp_path)
-    )
+    report = cold_rebuild(ProbeSdk([]), profile(), manifest, apply=False, options=with_corpus(tmp_path))
 
     names = [step.name for step in report.steps]
     assert names.index("publish-knowledge-docs") == names.index("publish-parent") + 1
@@ -320,9 +314,7 @@ def test_a_failed_corpus_publish_stops_the_chain(
     monkeypatch.setattr(rebuild_module, "step_runner", runner_for)
 
     with pytest.raises(RebuildAbortedError, match="publish-knowledge-docs"):
-        cold_rebuild(
-            ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path)
-        )
+        cold_rebuild(ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path))
 
 
 # --- the corpus step under knowledge_scope (FEAT-017) ---------------------------
@@ -334,9 +326,7 @@ def _fake_levels(monkeypatch: pytest.MonkeyPatch) -> Any:
     from tests.test_knowledge_docs import FakeOrg
 
     org = FakeOrg()
-    monkeypatch.setattr(
-        HttpKnowledgeApi, "for_level", classmethod(lambda cls, profile_, level: org(level))
-    )
+    monkeypatch.setattr(HttpKnowledgeApi, "for_level", classmethod(lambda cls, profile_, level: org(level)))
     return org
 
 
@@ -366,9 +356,7 @@ def test_the_corpus_step_detail_names_the_scope(
     assert where in detail
 
 
-def test_a_failed_corpus_cleanup_fails_the_chain(
-    manifest, monkeypatch: pytest.MonkeyPatch
-) -> None:  # type: ignore[no-untyped-def]
+def test_a_failed_corpus_cleanup_fails_the_chain(manifest, monkeypatch: pytest.MonkeyPatch) -> None:  # type: ignore[no-untyped-def]
     """No partial success: a leftover local copy outranks the fresh inherited one."""
     from dataclasses import replace
 

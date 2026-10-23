@@ -179,9 +179,7 @@ def _pass_3_parameterize_schema(
     return parameterized, unparameterized
 
 
-def _pass_3b_parameterize_table_paths(
-    model: CatalogDeclarativeWorkspaceModel, schema: str
-) -> int:
+def _pass_3b_parameterize_table_paths(model: CatalogDeclarativeWorkspaceModel, schema: str) -> int:
     """Replace the literal schema in every table-backed dataset's ``path``.
 
     The counterpart to pass 3, for the datasets that name their table structurally instead

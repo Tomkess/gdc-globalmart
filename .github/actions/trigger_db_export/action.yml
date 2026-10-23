@@ -1,0 +1,73 @@
+name: 'Trigger DB Export'
+description: 'Coalescing trigger for the self-scoping (stale) metadata DB export (ops_db_export.yml)'
+
+inputs:
+  environment:
+    description: 'Environment (dev, test, prod, preprod)'
+    required: true
+  github_token:
+    description: 'GitHub token for API calls (needs actions:read + workflow dispatch)'
+    required: true
+  default_branch:
+    description: >-
+      Branch to dispatch at. Pass steps.config.outputs.default_branch. Optional
+      so the pinned contract stays backward compatible; the event payload is
+      only a fallback, and github.event.repository.default_branch is absent
+      from some payloads (schedule) and is the repo default, not config.yml's.
+    required: false
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Trigger DB Export Workflow (stale scope, coalesced)
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        # Dispatch at the default branch, never github.ref: workflow_dispatch
+        # requires the workflow file to exist on the target ref. Keeping ops
+        # dispatches on the default branch also avoids stale workflow filenames
+        # when a caller operates on content from an old release. The export
+        # reads live workspace state, so master's scripts are always right.
+        DISPATCH_REF: ${{ inputs.default_branch || github.event.repository.default_branch || 'master' }}
+      run: |
+        set -euo pipefail
+
+        # Coalescing. Deploy workflows 4/5 are per-DP, so a multi-DP release
+        # fires this once per DP. Each scope=stale export covers whatever is
+        # stale WHEN IT STARTS, so a not-yet-started one will pick up this DP
+        # too — queuing a second behind it (queue: max keeps both) is pure
+        # waste. So: skip if one is already pending. Two constraints on the
+        # match, both load-bearing:
+        #   * pending states only, never in_progress — a running export may
+        #     have snapshotted its stale set before this deploy landed, so with
+        #     none pending we still dispatch and become the covering run.
+        #   * only [STALE] runs — a pending explicit export (e.g.
+        #     "[example_dp] @ test") is scoped to fixed DPs and would not pick
+        #     up this one, so it must not suppress us. The run-name suffix
+        #     "[STALE] @ <env>" encodes both scope and env.
+        PENDING=$(gh run list --workflow ops_db_export.yml --limit 40 \
+          --json status,displayTitle \
+          --jq "[.[]
+                 | select(.status==\"queued\" or .status==\"waiting\"
+                          or .status==\"pending\" or .status==\"requested\")
+                 | select(.displayTitle | endswith(\"[STALE] @ ${ENVIRONMENT}\"))]
+                | length" 2>/dev/null || echo 0)
+
+        if [ "${PENDING:-0}" -gt 0 ]; then
+          echo "⏭️  A DB export for ${ENVIRONMENT} is already pending — it will"
+          echo "    self-scope and cover this deploy. Skipping duplicate dispatch."
+          exit 0
+        fi
+
+        echo "🔄 Triggering self-scoping metadata DB export (stale scope)..."
+        echo "  Environment: ${ENVIRONMENT}"
+        gh workflow run ops_db_export.yml \
+          --ref "$DISPATCH_REF" \
+          -f environment="${ENVIRONMENT}" \
+          -f publish_pages="true" \
+          -f scope="stale" \
+          || { echo "::warning::DB export dispatch failed — metadata DB will be stale"; exit 1; }
+
+        echo "✅ DB export (stale scope) triggered for ${ENVIRONMENT}"

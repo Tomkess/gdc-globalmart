@@ -1,0 +1,259 @@
+quote	author	tags
+Talk is cheap. Show me the code.	Linus Torvalds	
+Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.	Martin Golding	
+Any fool can write code that a computer can understand. Good programmers write code that humans can understand.	Martin Fowler	
+Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.	Brian W. Kernighan	debugging
+The first 90% of the code accounts for the first 90% of the development time. The remaining 10% accounts for the other 90%.	Tom Cargill	
+There are only two kinds of languages: the ones people complain about and the ones nobody uses.	Bjarne Stroustrup	
+Given enough eyeballs, all bugs are shallow.	Linus Torvalds	debugging
+Nine people can't make a baby in a month.	Fred Brooks	
+Some people, when confronted with a problem, think 'I know, I'll use regular expressions.' Now they have two problems.	Jamie Zawinski	
+If builders built buildings the way programmers wrote programs, then the first woodpecker that came along would destroy civilization.	Gerald Weinberg	
+Programming is like sex. One mistake and you have to support it for the rest of your life.	Michael Sinz	humor
+There are only two hard things in Computer Science: cache invalidation and naming things.	Phil Karlton	
+It works on my machine.	Every Developer Ever	
+A ship in port is safe, but that's not what ships are built for.	Grace Hopper	
+Optimism is an occupational hazard of programming. Feedback is the treatment.	Kent Beck	
+I'm not a great programmer. I'm just a good programmer with great habits.	Kent Beck	
+Being a good software engineer is 3% talent, 97% not being distracted by the internet.	Unknown	
+In case of fire: git commit, git push, leave the building.	Unknown	git
+May the --force be with you.	Unknown	
+git-blame: ruining friendships since 2006.	Unknown	git
+The problem with Git jokes? Everyone has their own version.	Unknown	git;humor
+Commit early, commit often. A tip for version control — not for relationships.	Unknown	git
+Never trust a computer you can't throw out a window.	Steve Wozniak	
+A clever person solves a problem. A wise person avoids it.	Albert Einstein	
+The best error message is the one that never shows up.	Thomas Fuchs	debugging
+Code is like humor. When you have to explain it, it's bad.	Cory House	
+The most disastrous thing that you can ever learn is your first programming language.	Alan Kay	
+Walking on water and developing software from a specification are easy if both are frozen.	Edward V. Berard	
+In theory, theory and practice are the same. In practice, they're not.	Yogi Berra	
+Before software can be reusable it first has to be usable.	Ralph Johnson	
+LGTM. I didn't actually read it but the diff was green.	Every Reviewer Ever	git
+Deleted code is debugged code.	Jeff Sickel	
+If debugging is the process of removing bugs, then programming must be the process of putting them in.	Edsger Dijkstra	debugging
+Software and cathedrals are much the same — first we build them, then we pray.	Sam Redwine	
+It's not a bug — it's an undocumented feature.	Unknown	debugging
+The only way to go fast is to go well.	Robert C. Martin	optimization
+Any sufficiently advanced technology is indistinguishable from magic.	Arthur C. Clarke	
+When in doubt, use brute force.	Ken Thompson	
+Measuring programming progress by lines of code is like measuring aircraft building progress by weight.	Bill Gates	
+There is no cloud — it's just someone else's computer.	Unknown	devops
+There are only 10 types of people in the world: those who understand binary and those who don't.	Unknown	
+Programming is 10% writing code and 90% understanding why it doesn't work.	Unknown	
+When I wrote this code, only God and I understood what I did. Now only God knows.	Unknown	
+Debugging is like being the detective in a crime movie where you're also the murderer.	Unknown	debugging
+There's no place like 127.0.0.1.	Unknown	humor
+Why do programmers prefer dark mode? Because light attracts bugs.	Unknown	debugging;humor
+Programmer: A machine that turns coffee into code.	Unknown	humor
+Weeks of coding can save you hours of planning.	Unknown	
+99 little bugs in the code, 99 bugs in the code. Take one down, patch it around… 127 little bugs in the code.	Unknown	debugging
+The best thing about a boolean is even if you are wrong, you are only off by a bit.	Unknown	
+Make it work, make it right, make it fast.	Kent Beck	optimization
+Programming is thinking, not typing.	Unknown	
+Real programmers count from 0.	Unknown	
+There are two ways to write error-free programs; only the third one works.	Alan J. Perlis	debugging
+Give a man a program, frustrate him for a day. Teach a man to program, frustrate him for a lifetime.	Muhammad Waseem	
+I don't always test my code, but when I do, I do it in production.	Unknown	debugging;devops
+If it wasn't for the last minute, nothing would get done.	Unknown	
+Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday's code.	Dan Salomon	debugging
+Fix the cause, not the symptom.	Steve Maguire	
+When all else fails… reboot.	Unknown	
+There is no Ctrl-Z in production.	Unknown	devops
+Junior developer: Writes 100 lines. Senior developer: Deletes 100 lines.	Unknown	
+Junior devs ask 'How do I do this?' Senior devs ask 'Should we do this?'	Unknown	
+We need it by Friday.	Manager who just discovered the project on Thursday	management
+Can you just add this small feature?	The beginning of every four-month death march	
+Works in dev, works in staging, fails in production — the 2025 trilogy.	Unknown	devops
+ChatGPT wrote this code. I just asked it to make it worse.	Unknown	ai
+AI won't replace programmers, but programmers who use AI will replace those who don't.	Unknown	ai
+My code doesn't have bugs. It has unexpected features written by an AI.	Unknown	debugging;ai
+A good API is not just easy to use but also hard to misuse.	JBD	
+In carpentry you measure twice and cut once. In software development you never measure and make cuts until you run out of time.	Adam Morse	
+What one programmer can do in one month, two programmers can do in two months.	Fred Brooks	
+Software being 'Done' is like lawn being 'Mowed'.	Jim Benson	
+Bad programmers worry about the code. Good programmers worry about data structures.	Linus Torvalds	
+The competent programmer is fully aware of the strictly limited size of his own skull.	Edsger Dijkstra	
+UNIX is simple. It just takes a genius to understand its simplicity.	Dennis Ritchie	design
+Hardware eventually fails. Software eventually works.	Michael Hartung	
+Every great developer you know got there by solving problems they were unqualified to solve.	Patrick McKenzie	
+There's nothing more permanent than a temporary hack.	Kyle Simpson	
+It can be better to copy a little code than to pull in a big library for one function.	Rob Pike	
+Telling a programmer there's already a library to do X is like telling a songwriter there's already a song about love.	Pete Cordell	
+A Fallacy of Software: If it works, and we don't change anything, it will keep working.	Jessica Kerr	
+Things that are impossible just take longer.	Ian Hickson	
+Data dominates. If you've chosen the right data structures, the algorithms will almost always be self-evident.	Rob Pike	
+No code is faster than no code.	Unknown	optimization
+When in doubt, leave it out.	Joshua Bloch	
+I hate code, and I want as little of it as possible in our product.	Jack Diederich	
+The craft of programming begins with empathy, not formatting or languages or tools.	Kent Beck	
+I know testers who make good devs. I know devs who make good testers. I know Scrum Masters who make good coffee.	David Evans	management;humor
+Promoting a good developer to management is often a twofold bad move.	Mario Fusco	
+Big data is like teenage sex: everyone talks about it, nobody really knows how to do it.	Dan Ariely	humor
+The best way to get the right answer on the internet is not to ask a question; it's to post the wrong answer.	Cunningham's Law	
+If you say 'I told you so', you are the one who has failed.	Robert C. Martin	
+The key to making programs fast is to make them do practically nothing.	Mike Haertel	optimization
+Good software, like wine, takes time.	Joel Spolsky	
+It's important to remember that when you start from scratch there is absolutely no reason to believe you will do a better job.	Joel Spolsky	
+First do it, then do it right, then do it better.	Addy Osmani	
+The value of a prototype is in the education it gives you, not in the code itself.	Alan Cooper	
+First, solve the problem. Then, write the code.	John Johnson	
+No matter how slick the demo is in rehearsal, when you do it in front of a live audience the probability of a flawless presentation is inversely proportional to the number of people watching.	Mark Gibbs	
+Tests are the Programmer's stone, transmuting fear into boredom.	Kent Beck	
+Perl: The only language that looks the same before and after RSA encryption.	Keith Bostic	
+If Java had true garbage collection, most programs would delete themselves upon execution.	Robert Sewell	
+One of my most productive days was throwing away 1000 lines of code.	Ken Thompson	
+When debugging, novices insert corrective code; experts remove defective code.	Richard Pattis	sql;debugging
+The first step of any project is to grossly underestimate its complexity and difficulty.	Nicoll Hunt	design
+Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a framework.	John Carmack	design
+The most secure code in the world is code which is never written.	Colin Percival	
+If we have data, let's look at data. If all we have are opinions, let's go with mine.	Jim Barksdale	
+The proper use of comments is to compensate for our failure to express ourselves in code.	Robert C. Martin	code-quality
+Linux is only free if your time has no value.	Jamie Zawinski	
+One of the best programming skills you can have is knowing when to walk away for awhile.	Oscar Godson	
+'That hardly ever happens' is another way of saying 'it happens'.	Douglas Crockford	
+Any app that can be written in JavaScript, will eventually be written in JavaScript.	Jeff Atwood	javascript
+Later equals never.	LeBlanc's Law	
+The secret to building large apps is never build large apps. Break your applications into small pieces.	Justin Meyer	
+JavaScript is the only language that people feel they don't need to learn before they start using it.	Douglas Crockford	javascript
+The older I get, the more I believe that the only way to become a better programmer is by not programming.	Jeff Atwood	
+The code you write makes you a programmer. The code you delete makes you a good one.	Mario Fusco	
+Eagleson's Law: Any code of your own that you haven't looked at for six or more months might as well have been written by someone else.	Alan Eagleson	
+Hope is not a plan.	Jonathan Rosenberg	
+All programming languages are shit. But the good ones fertilize your mind.	Reg Braithwaite	
+Hiring bad developers is like drinking seawater. It seems to satisfy a need while actually increasing it.	Michael Nygard	management
+A language that doesn't affect the way you think about programming is not worth knowing.	Alan J. Perlis	
+Without requirements or design, programming is the art of adding bugs to an empty text file.	Louis Srygley	debugging;design
+In order to understand recursion, one must first understand recursion.	Unknown	
+A complex system that works is invariably found to have evolved from a simple system that worked.	John Gall	design
+The standard rule is, when you're in a hole, stop digging; that seems not to apply to software.	Ron Minnich	
+The trick is to fix the problem you have, rather than the problem you want.	Bram Cohen	
+I love deadlines. I like the whooshing sound they make as they fly by.	Douglas Adams	management
+A computer lets you make more mistakes faster than any other invention in human history.	Mitch Ratcliffe	optimization
+I am rarely happier than when spending an entire day programming my computer to perform automatically a task that would otherwise take me a good ten seconds to do by hand.	Douglas Adams	
+Theory and practice sometimes clash. And when that happens, theory loses. Every single time.	Linus Torvalds	
+Anything that can possibly go wrong, will go wrong.	Murphy's Law	
+There is not now, nor has there ever been, nor will there ever be, any programming language in which it is the least bit difficult to write bad code.	Flon's Law	
+The strength of JavaScript is that you can do anything. The weakness is that you will.	Reg Braithwaite	javascript
+I don't care if it works on your machine! We are not shipping your machine!	Vidiu Platon	
+Code never lies, comments sometimes do.	Ron Jeffries	code-quality
+Testing can show the presence of errors, but not their absence.	Edsger Dijkstra	debugging
+Premature optimization is the root of all evil in programming.	Donald Knuth	optimization
+Compatibility means deliberately repeating other people's mistakes.	David Wheeler	
+Simplicity is prerequisite for reliability.	Edsger Dijkstra	design
+If you're willing to restrict the flexibility of your approach, you can almost always do something better.	John Carmack	
+Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.	Antoine de Saint-Exupery	
+Computer Science is no more about computers than astronomy is about telescopes.	Edsger Dijkstra	
+Don't comment bad code — rewrite it.	Brian W. Kernighan	code-quality
+Functions should do one thing. They should do it well. They should do it only.	Robert C. Martin	
+Don't live with broken windows.	Andy Hunt & Dave Thomas	
+Refuctoring: the process of taking a well-designed piece of code and making it completely unmaintainable by anyone except yourself.	Jason Gorman	
+To iterate is human, to recurse divine.	L. Peter Deutsch	
+Controlling complexity is the essence of computer programming.	Brian W. Kernighan	design
+Complexity kills. It sucks the life out of developers, it makes products difficult to plan, build, and test.	Ray Ozzie	debugging;design
+The trouble with programmers is that you can never tell what a programmer is doing until it's too late.	Seymour Cray	
+Never trust a programmer in a suit.	Unknown	
+Profanity is the one language all programmers know best.	Unknown	
+Good code is its own best documentation.	Steve McConnell	code-quality
+Beta: Software undergoes beta testing shortly before it's released. Beta is Latin for 'still doesn't work'.	Unknown	debugging
+A good programmer is someone who always looks both ways before crossing a one-way street.	Doug Linder	
+Another effective technique is to explain your code to someone else. This will often cause you to explain the bug to yourself.	Brian W. Kernighan	debugging
+All programmers are playwrights and all computers are lousy actors.	Unknown	
+Object-oriented design is the roman numerals of computing.	Rob Pike	design
+At the source of every error which is blamed on the computer you will find at least two human errors.	Unknown	debugging
+After you finish the first 90% of a project, you have to finish the other 90%.	Michael Abrash	
+The best way to predict the future is to implement it.	Alan Kay	
+I've finally learned what 'upward compatible' means. It means we get to keep all our old mistakes.	Dennie van Tassel	
+Real programmers can write assembly code in any language.	Larry Wall	
+Most of you are familiar with the virtues of a programmer. There are three, of course: laziness, impatience, and hubris.	Larry Wall	
+The programmer, like the poet, works only slightly removed from pure thought-stuff.	Fred Brooks	
+In the one and only true way. The object-oriented version of 'Spaghetti code' is, of course, 'Lasagna code'. Too many layers.	Roberto Waltman	
+One man's crappy software is another man's full-time job.	Jessica Gaston	
+A computer is a stupid machine with the ability to do incredibly smart things, while computer programmers are smart people with the ability to do incredibly stupid things.	Unknown	
+It's okay to figure out murder mysteries, but you shouldn't need to figure out code.	Steve McConnell	
+Great software, likewise, requires a fanatical devotion to beauty.	Paul Graham	
+Good programming is good writing.	John Shore	
+Incorrect documentation is often worse than no documentation.	Bertrand Meyer	code-quality
+The sooner you start to code, the longer the program will take.	Roy Carlson	
+Every program has two purposes: the one for which it was written and another for which it wasn't.	Alan J. Perlis	
+Fools ignore complexity. Pragmatists suffer it. Some can avoid it. Geniuses remove it.	Alan J. Perlis	design
+The question of whether Machines Can Think is about as relevant as the question of whether Submarines Can Swim.	Edsger Dijkstra	
+Machines should work. People should think.	IBM Pollyanna Principle	
+Make everything as simple as possible, but not simpler.	Albert Einstein	design
+Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.	Rick Cook	
+That's the thing about people who think they hate computers. What they really hate is lousy programmers.	Larry Niven	
+Adding manpower to a late software project makes it later.	Fred Brooks	management
+Rules of Optimization: Rule 1: Don't do it. Rule 2 (for experts only): Don't do it yet.	Michael A. Jackson	optimization
+The most exciting phrase to hear in science is not 'Eureka!' but 'That's funny...'	Isaac Asimov	
+Ready, fire, aim: the fast approach to software development.	Unknown	optimization
+Programs must be written for people to read, and only incidentally for machines to execute.	Harold Abelson	
+A most important, but also most elusive, aspect of any tool is its influence on the habits of those who train themselves in its use.	Edsger Dijkstra	
+An evolving system increases its complexity unless work is done to reduce it.	Meir Lehman	design
+Workaholics aren't heroes. They don't save the day, they just use it up.	37Signals	
+Feature-based releases expand to fill all available time until someone feels guilty.	chromatic	
+Users who want critical bug fixes and new features without actually upgrading their software also want magic flying candy-dropping ponies.	chromatic	debugging
+The art of programming is the art of organizing complexity.	Edsger Dijkstra	design
+Simplicity is about subtracting the obvious and adding the meaningful.	John Maeda	design
+90% of the functionality delivered now is better than 100% delivered never.	Brian W. Kernighan	
+Each new user of a new system uncovers a new class of bugs.	Brian W. Kernighan	debugging
+We build systems like the Wright brothers built airplanes — build the whole thing, push it off the cliff.	NATO Software Engineering Conference '68	
+If McDonald's were run like a software company, one out of every hundred Big Macs would give you food poisoning.	Mark Minasi	
+Deploying on Friday is like boarding the Titanic — you're optimistic at first, but deep down, you know you're doomed.	Unknown	management;devops
+Deploy early, deploy often — but maybe not at 4 PM on a Friday.	Unknown	management;devops
+Half of DevOps is slapping a version number on chaos.	Unknown	devops
+There are only two industries that refer to their customers as 'users'.	Edward Tufte	
+That's what's cool about working with computers. They don't argue, they remember everything, and they don't drink all your beer.	Paul Leary	humor
+Most software today is very much like an Egyptian pyramid with millions of bricks piled on top of each other.	Alan Kay	
+Features, quality, time: pick two.	Unknown	
+XML is like violence — if it doesn't solve your problems, you are not using enough of it.	Unknown	
+Constraints are advantages in disguise. Limited resources force you to make do with what you've got.	37Signals	
+A lack of planning on your part does not constitute an emergency on my part.	Unknown	
+git pull a day keeps the conflicts away.	Unknown	git
+You can checkout any time you like, but you can never diff.	Unknown	git
+git happens.	Unknown	git
+Fork it until you make it.	Unknown	git
+May the forks be with you.	Unknown	
+git: Multiplayer Notepad.	Unknown	git
+git-stash: The sock drawer of version control.	Unknown	git
+Once you go git, you never go back.	Unknown	git
+All your rebase are belong to us.	Unknown	git
+git: history is written by the committers.	Unknown	git
+Python is the second best language for everything.	Unknown	
+JavaScript is to Java what car is to carpet.	Unknown	javascript
+I wanted to learn React, so I started with vanilla JavaScript. Now I'm learning assembly.	Unknown	javascript
+null > 0 is false, null == 0 is false, null >= 0 is true. JavaScript, everybody.	Unknown	sql;javascript
+I have not failed. I've just found 10,000 ways that won't work.	Thomas Edison	
+Your task is not to foresee the future, but to enable it.	Antoine de Saint-Exupery	
+It's not at all important to get it right the first time. It's vitally important to get it right the last time.	Andy Hunt & Dave Thomas	
+First learn computer science and all the theory. Next develop a programming style. Then forget all that and just hack.	George Carrette	
+In programming, the hard part isn't solving problems, but deciding what problems to solve.	Paul Graham	
+The difference between theory and practice is smaller in theory than in practice.	Unknown	
+Estimate always goes wrong. That too in one way.	Sumit Agrawal	
+And the users exclaimed with a laugh and a taunt: It's just what we asked for but not what we want.	Unknown	
+Better train people and risk they leave — than do nothing and risk they stay.	Unknown	
+Why do we never have time to do it right, but always have time to do it over?	Unknown	
+A SQL query walks into a bar, sees two tables and asks, 'Can I JOIN you?'	Unknown	sql
+SELECT * FROM users WHERE clue > 0. (0 rows returned)	Unknown	sql
+Why did the SQL table go to therapy? It had too many relationships.	Unknown	sql
+SQL developers don't die, they just lose their connections.	Unknown	sql
+Why do SQL developers always carry backup? Because they are afraid of committing.	Unknown	sql
+Why did the SQL developer go broke? He lost all his keys.	Unknown	sql
+SQL developers don't have a 9 to 5 job. They have a 1 to many relationship.	Unknown	sql
+SELECT jokes FROM database WHERE funny = true… No result found.	Unknown	sql;humor
+Why did the SQL query get a ticket? It didn't have enough constraints.	Unknown	sql
+Why was the SQL developer so good at dodgeball? He knew how to escape characters.	Unknown	sql
+SQL's favorite film: 'Finding NULL'.	Unknown	sql
+The optimist says the database is half full. The pessimist says it's half empty. The DBA says the size is just fine.	Unknown	sql
+Why do SQL developers make great bakers? They are good at rolling back.	Unknown	sql
+Why are SQL developers always ready to party? Because they DROP it like it's hot.	Unknown	sql
+How do SQL programmers keep their pants up? With a primary key.	Unknown	sql
+What's the most dangerous thing for a SQL database? A DROP bear.	Unknown	sql
+SQL: The query language that keeps asking you the same question until you give up.	Unknown	sql
+I don't see why people hate SQL injections. I find them quite INSERTing.	Unknown	sql
+Keep calm and query on.	Every DBA Ever	sql
+I may not have gone where I intended to go, but I think I have ended up where I needed to be.	Douglas Adams
+The story so far: In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.	Douglas Adams	humor
+I refuse to answer that question on the grounds that I don't know the answer.	Douglas Adams	humor
+Time is an illusion. Lunchtime doubly so.	Douglas Adams	humor
+Software is like sex: it's better when it's free.	Linus Torvalds	humor
+Intelligence is the ability to avoid doing work, yet getting the work done.	Linus Torvalds

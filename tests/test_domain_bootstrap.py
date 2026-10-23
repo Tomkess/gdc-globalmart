@@ -60,10 +60,7 @@ def test_nothing_is_omitted(model) -> None:  # type: ignore[no-untyped-def]
 
     assert report.unmatched_visualizations == ("viz_orphan_0001",)
     assert manifest.unassigned_ids() >= {"viz_orphan_0001", "mem_sales_definitions"}
-    assert all(
-        exclusion.reason.startswith("TODO:")
-        for exclusion in manifest.unassigned.all_exclusions()
-    )
+    assert all(exclusion.reason.startswith("TODO:") for exclusion in manifest.unassigned.all_exclusions())
     assert report.ai_objects_parked == 1
     assert report.matched_visualizations == 4
 
@@ -91,9 +88,7 @@ def test_generation_is_deterministic(tmp_path: Path, model) -> None:  # type: ig
     assert load_domains(a).domains == load_domains(b).domains
 
 
-def test_a_generated_manifest_covers_everything_but_fails_strict(
-    tmp_path: Path, model
-) -> None:  # type: ignore[no-untyped-def]
+def test_a_generated_manifest_covers_everything_but_fails_strict(tmp_path: Path, model) -> None:  # type: ignore[no-untyped-def]
     """The guard: an unreviewed bootstrap must not go green in CI."""
     manifest, _ = bootstrap_manifest(model, seed=FIXTURE_SEED)
     reloaded = load_domains(dump_domains(manifest, tmp_path / "generated.yaml"))

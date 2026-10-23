@@ -63,8 +63,7 @@ def _rows(payload: Any) -> list[dict[str, Any]]:
 
 def _describe(rows: list[dict[str, Any]]) -> list[str]:
     return [
-        f"    {row.get('filename')!s:55s} workspaceId={row.get('workspaceId')!r} "
-        f"scopes={row.get('scopes')!r}"
+        f"    {row.get('filename')!s:55s} workspaceId={row.get('workspaceId')!r} scopes={row.get('scopes')!r}"
         for row in rows[:15]
     ]
 
@@ -93,8 +92,7 @@ def main(argv: list[str] | None = None) -> int:
     else:
         org_rows = _rows(org_payload)
         findings.append(
-            f"P1 org listing    : OK, {len(org_rows)} document(s), "
-            f"keys={sorted((org_payload or {}).keys())}"
+            f"P1 org listing    : OK, {len(org_rows)} document(s), keys={sorted((org_payload or {}).keys())}"
         )
         findings.extend(_describe(org_rows))
         findings.append("P5 access         : readable with this token")
@@ -121,9 +119,7 @@ def main(argv: list[str] | None = None) -> int:
         title = str(org_level[0].get("title") or org_level[0].get("filename"))
         hits = workspace.search(title, limit=10)
         from_org = [h for h in hits if h.workspace_id in (None, "")]
-        findings.append(
-            f"P4 search (ro)    : query={title!r}: {len(hits)} hit(s), {len(from_org)} org-level"
-        )
+        findings.append(f"P4 search (ro)    : query={title!r}: {len(hits)} hit(s), {len(from_org)} org-level")
     elif not args.apply:
         findings.append("P4 search         : not answered — no org-level document exists; needs --apply")
     else:
@@ -148,9 +144,10 @@ def _probe_write(workspace: HttpKnowledgeApi) -> list[str]:
         payload, content_type = _multipart(
             filename=PROBE_FILENAME, body=body, title="GlobalMart org-level probe", scopes=()
         )
-        answer = org._request(
-            f"{org.base}/documents", method="PUT", payload=payload, content_type=content_type
-        ) or {}
+        answer = (
+            org._request(f"{org.base}/documents", method="PUT", payload=payload, content_type=content_type)
+            or {}
+        )
         document_id = str(answer.get("id", ""))
         out.append(f"P4 org upsert     : {answer!r}")
 
@@ -179,8 +176,7 @@ def _probe_write(workspace: HttpKnowledgeApi) -> list[str]:
             time.sleep(SEARCH_INTERVAL)
         else:
             out.append(
-                f"P4 search         : NOT FOUND from {workspace.workspace_id} "
-                f"after {SEARCH_RETRIES} tries"
+                f"P4 search         : NOT FOUND from {workspace.workspace_id} after {SEARCH_RETRIES} tries"
             )
     except KnowledgeDocsError as error:
         out.append(f"P4 write          : FAILED — {error}")

@@ -48,9 +48,7 @@ class AiContextSelection:
     unmatched_tags: tuple[str, ...] = ()
 
     def ids(self) -> frozenset[str]:
-        return frozenset(
-            str(obj.id) for objects in self.objects.values() for obj in objects
-        )
+        return frozenset(str(obj.id) for objects in self.objects.values() for obj in objects)
 
     def counts(self) -> dict[str, int]:
         return {channel: len(objects) for channel, objects in self.objects.items()}
@@ -69,9 +67,7 @@ def _selected_ids(selection: AiSelection, field_name: str) -> tuple[str, ...]:
     return tuple(getattr(selection, field_name))
 
 
-def filter_ai_context(
-    model: Any, domain: Domain, manifest: DomainManifest
-) -> AiContextSelection:
+def filter_ai_context(model: Any, domain: Domain, manifest: DomainManifest) -> AiContextSelection:
     """`domain.ai` ∪ `manifest.shared.ai`, resolved against the parent."""
     selections = (domain.ai, manifest.shared.ai)
     objects: dict[str, tuple[Any, ...]] = {}

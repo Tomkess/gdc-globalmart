@@ -46,9 +46,8 @@ def _offending_lines() -> list[str]:
 
 def test_no_identifier_appears_in_executable_code() -> None:
     offenders = _offending_lines()
-    assert offenders == [], (
-        "org/host/datasource identifiers must come from config, not code:\n"
-        + "\n".join(offenders)
+    assert offenders == [], "org/host/datasource identifiers must come from config, not code:\n" + "\n".join(
+        offenders
     )
 
 

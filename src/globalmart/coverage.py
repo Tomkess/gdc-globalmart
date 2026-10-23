@@ -127,9 +127,7 @@ class CoverageReport:
             "visualizations_total": self.visualizations_total,
             "ai_objects_total": self.ai_objects_total,
             "assigned_dashboards": {k: list(v) for k, v in self.assigned_dashboards.items()},
-            "assigned_visualizations": {
-                k: list(v) for k, v in self.assigned_visualizations.items()
-            },
+            "assigned_visualizations": {k: list(v) for k, v in self.assigned_visualizations.items()},
             "assigned_ai": {k: list(v) for k, v in self.assigned_ai.items()},
             "multi_homed": {k: list(v) for k, v in self.multi_homed.items()},
             "shared_ids": list(self.shared_ids),
@@ -139,9 +137,7 @@ class CoverageReport:
             "uncovered_ai": list(self.uncovered_ai),
             "unknown_ids": dict(self.unknown_ids),
             "placeholder_reasons": dict(self.placeholder_reasons),
-            "redundant_visualizations": {
-                k: list(v) for k, v in self.redundant_visualizations.items()
-            },
+            "redundant_visualizations": {k: list(v) for k, v in self.redundant_visualizations.items()},
             "cross_domain_tiles": {k: list(v) for k, v in self.cross_domain_tiles.items()},
             "per_domain": {k: v.as_dict() for k, v in self.per_domain.items()},
         }
@@ -219,9 +215,7 @@ def _freeze(mapping: dict[str, set[str]]) -> dict[str, tuple[str, ...]]:
     return {identifier: tuple(sorted(keys)) for identifier, keys in sorted(mapping.items())}
 
 
-def check_coverage(
-    model: CatalogDeclarativeWorkspaceModel, manifest: DomainManifest
-) -> CoverageReport:
+def check_coverage(model: CatalogDeclarativeWorkspaceModel, manifest: DomainManifest) -> CoverageReport:
     """Classify every dashboard, visualization and AI object in the parent."""
     report = CoverageReport()
 
@@ -383,9 +377,7 @@ def check_coverage(
     return report
 
 
-def _select_ai(
-    selection: Any, ai_objects: dict[str, dict[str, tuple[str, ...]]]
-) -> set[str]:
+def _select_ai(selection: Any, ai_objects: dict[str, dict[str, tuple[str, ...]]]) -> set[str]:
     """Which AI object ids a selection resolves to — id lists plus the tag rule."""
     selected: set[str] = set()
     for channel, selector in _CHANNEL_SELECTOR.items():
@@ -423,9 +415,7 @@ def _domain_ai_counts(
     shared = _select_ai(manifest.shared.ai, ai_objects)
     received = selected | shared
 
-    return {
-        channel: len(received & set(objects)) for channel, objects in ai_objects.items()
-    }
+    return {channel: len(received & set(objects)) for channel, objects in ai_objects.items()}
 
 
 def raise_for_report(report: CoverageReport, *, strict: bool = False) -> None:
@@ -444,9 +434,7 @@ def raise_for_report(report: CoverageReport, *, strict: bool = False) -> None:
             )
 
     if report.unknown_ids:
-        listed = "\n    ".join(
-            f"{identifier}  ({path})" for identifier, path in report.unknown_ids.items()
-        )
+        listed = "\n    ".join(f"{identifier}  ({path})" for identifier, path in report.unknown_ids.items())
         problems.append(
             f"{len(report.unknown_ids)} manifest id(s) do not exist in the parent — a stale "
             f"id after a parent edit:\n    {listed}"

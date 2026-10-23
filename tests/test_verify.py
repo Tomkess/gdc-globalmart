@@ -52,9 +52,7 @@ def test_a_correct_child_passes(model, manifest) -> None:  # type: ignore[no-unt
 def test_a_metric_reaching_a_pruned_dataset_fails(model, manifest) -> None:  # type: ignore[no-untyped-def]
     """The failure that would otherwise surface in a dashboard tile at execution time."""
     child, closure = built(model, manifest, "hr")
-    child.ldm = prune_ldm(
-        child.ldm, closure.dataset_ids - {"fact_headcount"}, closure.date_instance_ids
-    )
+    child.ldm = prune_ldm(child.ldm, closure.dataset_ids - {"fact_headcount"}, closure.date_instance_ids)
 
     with pytest.raises(ChildVerificationError) as excinfo:
         verify_child(child, "hr", closure=closure)

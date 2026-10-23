@@ -121,9 +121,7 @@ def audit_resolution(
     return unresolved, foreign
 
 
-def assert_fully_resolved(
-    model: CatalogDeclarativeWorkspaceModel, *, datasource_id: str
-) -> None:
+def assert_fully_resolved(model: CatalogDeclarativeWorkspaceModel, *, datasource_id: str) -> None:
     """Raise unless every placeholder is gone and every datasource id is the target's.
 
     This is the guard the predecessor lacked. It runs on every publish path, including the
@@ -156,9 +154,7 @@ def resolve_and_assert(
     datasource_schema: str,
 ) -> ResolveResult:
     """Resolve, then prove it worked. The only resolution entry point callers should use."""
-    result = resolve_placeholders(
-        model, datasource_id=datasource_id, datasource_schema=datasource_schema
-    )
+    result = resolve_placeholders(model, datasource_id=datasource_id, datasource_schema=datasource_schema)
     assert_fully_resolved(model, datasource_id=datasource_id)
     result.unresolved_paths, result.foreign_datasource_ids = [], {}
     return result

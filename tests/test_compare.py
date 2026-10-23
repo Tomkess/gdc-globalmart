@@ -108,9 +108,7 @@ def test_server_owned_audit_fields_are_ignored() -> None:
     live = read_tree(FIXTURE)  # carries audit fields, as a live capture does
     ours = read_tree(FIXTURE)
     normalize_workspace(ours, datasource_schema=SOURCE_SCHEMA)
-    resolve_and_assert(
-        ours, datasource_id="globalmart-motherduck", datasource_schema=SOURCE_SCHEMA
-    )
+    resolve_and_assert(ours, datasource_id="globalmart-motherduck", datasource_schema=SOURCE_SCHEMA)
 
     assert model_diff(live, ours) == []
     assert model_digest(live) == model_digest(ours)
@@ -121,9 +119,7 @@ def test_a_real_content_change_is_still_detected() -> None:
     live = read_tree(FIXTURE)
     ours = read_tree(FIXTURE)
     normalize_workspace(ours, datasource_schema=SOURCE_SCHEMA)
-    resolve_and_assert(
-        ours, datasource_id="globalmart-motherduck", datasource_schema=SOURCE_SCHEMA
-    )
+    resolve_and_assert(ours, datasource_id="globalmart-motherduck", datasource_schema=SOURCE_SCHEMA)
     ours.analytics.metrics[0].title = "Genuinely different"
 
     assert model_diff(live, ours) != []

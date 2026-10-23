@@ -39,17 +39,7 @@ grain:
 - id: dim_department.department_id
   type: attribute
 id: dim_department
-references:
-- identifier:
-    id: dim_employee
-    type: dataset
-  multivalue: false
-  sources:
-  - column: manager_id
-    dataType: STRING
-    target:
-      id: dim_employee.employee_id
-      type: attribute
+references: []
 tags:
 - Department
 title: Department

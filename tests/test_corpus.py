@@ -149,9 +149,7 @@ def test_duplicate_headings_are_indistinguishable_when_retrieved(tmp_path: Path)
 
 
 def test_a_document_over_the_size_ceiling_is_a_topic_group(tmp_path: Path) -> None:
-    sections = "".join(
-        f"\n## Section {index}\n\n" + "x" * 2_000 + "\n" for index in range(15)
-    )
+    sections = "".join(f"\n## Section {index}\n\n" + "x" * 2_000 + "\n" for index in range(15))
     text = "---\nkind: reference\ntitle: T\nscope: s\nowner: o\n---\n\n# T\n" + sections
     path = write(tmp_path / "huge.md", text)
     with pytest.raises(CorpusError, match="topic group"):

@@ -30,9 +30,7 @@ LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
 GENERATED = REPO / "generated" / "workspaces"
 MANIFEST = REPO / "config" / "domains.yaml"
 
-pytestmark = pytest.mark.skipif(
-    not (LAYOUT.exists() and GENERATED.exists()), reason="artifacts not present"
-)
+pytestmark = pytest.mark.skipif(not (LAYOUT.exists() and GENERATED.exists()), reason="artifacts not present")
 
 
 @pytest.fixture(scope="module")

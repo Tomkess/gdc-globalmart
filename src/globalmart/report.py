@@ -113,12 +113,9 @@ def render_markdown(run: VerificationRun | dict[str, Any]) -> str:
     lines.append("## Coverage and pruning")
     lines.append("")
     coverage = data["coverage"]
+    lines.append(f"- dashboards covered: {coverage['covered_dashboards']}/{coverage['parent_dashboards']}")
     lines.append(
-        f"- dashboards covered: {coverage['covered_dashboards']}/{coverage['parent_dashboards']}"
-    )
-    lines.append(
-        f"- visualizations covered: {coverage['covered_visualizations']}"
-        f"/{coverage['parent_visualizations']}"
+        f"- visualizations covered: {coverage['covered_visualizations']}/{coverage['parent_visualizations']}"
     )
     if coverage["missing_dashboard_ids"]:
         lines.append(f"- **missing dashboards**: {', '.join(coverage['missing_dashboard_ids'])}")
@@ -127,10 +124,7 @@ def render_markdown(run: VerificationRun | dict[str, Any]) -> str:
         lines.append(f"- **missing visualizations**: {listed}")
     lines.append(f"- pruning violations: {len(data['pruning_violations'])}")
     for violation in data["pruning_violations"][:20]:
-        lines.append(
-            f"  - `{violation['workspace_id']}` {violation['dataset_id']} "
-            f"({violation['reason']})"
-        )
+        lines.append(f"  - `{violation['workspace_id']}` {violation['dataset_id']} ({violation['reason']})")
     lines.append("")
 
     for entry in data["workspaces"]:
@@ -230,9 +224,7 @@ def write_reports(run: VerificationRun, output_dir: Path) -> tuple[Path, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     json_path = output_dir / "verification_result.json"
-    json_path.write_text(
-        json.dumps(render_json(run), indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    json_path.write_text(json.dumps(render_json(run), indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     markdown_path = output_dir / "verification_report.md"
     markdown_path.write_text(render_markdown(run), encoding="utf-8")

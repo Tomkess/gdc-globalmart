@@ -156,8 +156,7 @@ def _time_window_match(answers: Sequence[Answer]) -> Result:
         _windows_of,
         noun="window",
         on_fail=(
-            "no shared period. A comparison across different periods is invalid however "
-            "natural it reads"
+            "no shared period. A comparison across different periods is invalid however natural it reads"
         ),
     )
 

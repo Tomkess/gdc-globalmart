@@ -1,0 +1,17 @@
+# gd-tagging configuration (content policy — common layer).
+# Per-DP overrides: gd_data_product/<dp>/config.tagging.yml (deep-merged).
+# No rules configured = gd-tagging sync does nothing (rules are opt-in).
+#
+# rules:
+#   pattern_tags:                    # declarative id-glob tagging, no SQL
+#     enabled: true
+#     patterns:
+#       - {tag: financial, object_type: metrics, match_any: ["*_amount*"]}
+#   sql_based:                       # tags from your v_tags_to_apply view
+#     enabled: true
+#
+# docs:                              # gd-tagging docs catalogue tables
+#   catalogue:
+#     metrics:
+#       view: v_my_tags_catalogue_metrics
+#       flags: [{column: has_yoy, label: YoY}]

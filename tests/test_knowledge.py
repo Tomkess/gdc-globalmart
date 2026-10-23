@@ -125,9 +125,7 @@ def test_a_section_may_exceed_the_limit_if_its_paragraphs_do_not(tmp_path: Path)
 
 def test_a_heading_inside_a_code_fence_is_not_a_heading(tmp_path: Path) -> None:
     path = tmp_path / "fenced.md"
-    path.write_text(
-        "## Real\n\n```\n## not a heading\n```\n\nafter\n", encoding="utf-8"
-    )
+    path.write_text("## Real\n\n```\n## not a heading\n```\n\nafter\n", encoding="utf-8")
     document = parse_document(path)
 
     assert [s.heading for s in document.sections] == ["Real"]
@@ -237,7 +235,7 @@ def test_a_build_never_touches_an_item_it_does_not_own() -> None:
     report = apply_to_tree(model, items)
 
     surviving = {item.id for item in model.analytics.memory_items}
-    assert "captured_by_bootstrap" in surviving          # untagged: untouched
+    assert "captured_by_bootstrap" in surviving  # untagged: untouched
     assert "net_revenue_removed_section" not in surviving  # owned and gone: removed
     assert report.removed == ["net_revenue_removed_section"]
 
@@ -388,12 +386,8 @@ def test_feat004_filters_the_compiled_items_by_domain(tmp_path: Path) -> None:
     from globalmart.domains import SharedSelection
 
     bare = dataclasses.replace(manifest, shared=SharedSelection())
-    finance = dataclasses.replace(
-        bare.by_key("sales"), ai=AiSelection(memory_item_tags=("domain/finance",))
-    )
+    finance = dataclasses.replace(bare.by_key("sales"), ai=AiSelection(memory_item_tags=("domain/finance",)))
     other = dataclasses.replace(bare.by_key("hr"), ai=AiSelection(memory_item_tags=("domain/hr",)))
 
-    assert filter_ai_context(model, finance, bare).ids() == {
-        "with_front_matter_gross_margin_bridge"
-    }
+    assert filter_ai_context(model, finance, bare).ids() == {"with_front_matter_gross_margin_bridge"}
     assert filter_ai_context(model, other, bare).ids() == set()

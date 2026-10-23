@@ -188,17 +188,13 @@ def prune_ldm(ldm: Any, dataset_ids: frozenset[str], date_instance_ids: frozense
     if hasattr(pruned, "dataset_extensions"):
         pruned.dataset_extensions = [
             copy.deepcopy(extension)
-            for extension in sorted(
-                getattr(ldm, "dataset_extensions", None) or [], key=lambda e: str(e.id)
-            )
+            for extension in sorted(getattr(ldm, "dataset_extensions", None) or [], key=lambda e: str(e.id))
             if str(extension.id) in dataset_ids
         ]
     return pruned
 
 
-def dataset_column_usage(
-    ldm: Any, used_entity_ids: frozenset[str]
-) -> dict[str, tuple[int, int, int, int]]:
+def dataset_column_usage(ldm: Any, used_entity_ids: frozenset[str]) -> dict[str, tuple[int, int, int, int]]:
     """Per dataset: ``(attributes used, attributes total, facts used, facts total)``.
 
     Evidence, not a pruning input. Columns are never pruned; this exists so that a future
@@ -214,10 +210,7 @@ def dataset_column_usage(
             1
             for attribute in attributes
             if str(attribute.id) in used_entity_ids
-            or any(
-                str(label.id) in used_entity_ids
-                for label in (getattr(attribute, "labels", None) or [])
-            )
+            or any(str(label.id) in used_entity_ids for label in (getattr(attribute, "labels", None) or []))
         )
         facts_used = sum(1 for fact in facts if str(fact.id) in used_entity_ids)
         usage[str(dataset.id)] = (attributes_used, len(attributes), facts_used, len(facts))

@@ -129,9 +129,7 @@ def _date_window(path: Path) -> tuple[date, date]:
         return default
     with path.open(encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
-        field = next(
-            (name for name in (reader.fieldnames or []) if name.endswith("date")), None
-        )
+        field = next((name for name in (reader.fieldnames or []) if name.endswith("date")), None)
         if field is None:
             return default
         seen = [row[field] for row in reader if row.get(field)]
@@ -208,9 +206,7 @@ def main() -> int:
         "tables": dict(sorted(entries.items())),
     }
     manifest_path = out / "table-manifest.json"
-    manifest_path.write_text(
-        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     total_rows = sum(entry["rows"] for entry in entries.values())
     print(f"\n{len(entries)} tables, {total_rows:,} rows")

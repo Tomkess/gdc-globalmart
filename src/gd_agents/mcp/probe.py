@@ -55,9 +55,7 @@ class WorkspaceProbe:
             if entry.error:
                 lines.append(f"  {entry.tool:26} FAILED {entry.error[:70]}")
             else:
-                lines.append(
-                    f"  {entry.tool:26} {entry.approx_tokens():>7,} tok  {entry.latency_ms:>6} ms"
-                )
+                lines.append(f"  {entry.tool:26} {entry.approx_tokens():>7,} tok  {entry.latency_ms:>6} ms")
         return lines
 
 

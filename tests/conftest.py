@@ -225,9 +225,7 @@ class FakeSdk:
                 return object()
 
             def create_or_update_data_source(self, data_source: Any) -> None:
-                outer.calls.append(
-                    ("create_or_update_data_source", {"id": getattr(data_source, "id", None)})
-                )
+                outer.calls.append(("create_or_update_data_source", {"id": getattr(data_source, "id", None)}))
                 outer._datasource_exists = True
 
         class _Organization:

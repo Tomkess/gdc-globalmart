@@ -21,9 +21,7 @@ from globalmart.config import TargetProfile
 from globalmart.layout_io import write_tree
 
 
-def backup_workspace(
-    sdk: GoodDataSdk, profile: TargetProfile, workspace_id: str
-) -> Path | None:
+def backup_workspace(sdk: GoodDataSdk, profile: TargetProfile, workspace_id: str) -> Path | None:
     """Write the target's current layout to a timestamped folder.
 
     Returns ``None`` when the workspace does not exist yet — a first publish has nothing to

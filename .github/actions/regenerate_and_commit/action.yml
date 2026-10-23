@@ -1,0 +1,74 @@
+name: Regenerate and commit derived artifact
+description: >
+  Regenerate a derived, mechanically-produced artifact (not manually reviewed)
+  and auto-commit it to the current branch. Handles the non-fast-forward race —
+  an ordinary PR merging onto the branch mid-run — by re-syncing to the new tip,
+  re-running the regenerate command (the artifact is a pure function of the
+  tree), and retrying the push. Shared by the auto_update_* workflows (tag docs,
+  en-US translation source). The caller must have checked out with a token that
+  can push to the branch.
+
+inputs:
+  command:
+    description: >
+      Shell command that (re)generates the artifact. Run once up front and again
+      after each push rejection (against the re-synced tip). May be multi-line.
+    required: true
+  paths:
+    description: >
+      Space-separated pathspecs to stage and commit; also scopes the
+      "anything changed?" check so unrelated tree state is never committed.
+    required: true
+  commit-message:
+    description: Commit message. Include "[skip ci]" so the push doesn't re-trigger.
+    required: true
+  actor:
+    description: GitHub actor for the commit author (noreply email derived from it).
+    required: true
+  attempts:
+    description: Push attempts before failing (each re-syncs and regenerates).
+    default: '5'
+
+runs:
+  using: composite
+  steps:
+    - name: Regenerate and push if changed
+      shell: bash
+      env:
+        REGEN_COMMAND: ${{ inputs.command }}
+        PATHS: ${{ inputs.paths }}
+        COMMIT_MESSAGE: ${{ inputs.commit-message }}
+        ACTOR: ${{ inputs.actor }}
+        ATTEMPTS: ${{ inputs.attempts }}
+      run: |
+        set -euo pipefail
+        git config user.email "${ACTOR}@users.noreply.github.com"
+        git config user.name "${ACTOR}"
+
+        for i in $(seq 1 "$ATTEMPTS"); do
+          eval "$REGEN_COMMAND"
+          # Clear any caller-inherited index so this scoped commit can only
+          # contain $PATHS — `git commit` below commits everything staged.
+          git reset -q
+          # Stage first, then test the *staged* diff: `git diff --quiet` alone
+          # ignores untracked files, so a brand-new file (new DP/page) would be
+          # silently skipped. `-A` also captures deletions. $PATHS is intentionally
+          # unquoted so multiple pathspecs word-split.
+          git add -A -- $PATHS
+          if git diff --cached --quiet -- $PATHS; then
+            echo "✅ Already up to date — nothing to commit"
+            exit 0
+          fi
+          git commit -m "$COMMIT_MESSAGE"
+          if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+            echo "📝 Committed and pushed to ${GITHUB_REF_NAME}"
+            exit 0
+          fi
+          echo "⚠️  Push rejected (branch moved) — attempt ${i}/${ATTEMPTS};" \
+               "re-syncing and regenerating"
+          git fetch origin "${GITHUB_REF_NAME}"
+          git reset --hard "origin/${GITHUB_REF_NAME}"
+        done
+
+        echo "❌ Could not push after ${ATTEMPTS} attempts (branch kept moving)"
+        exit 1

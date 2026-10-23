@@ -25,9 +25,7 @@ REPO = Path(__file__).resolve().parents[1]
 DDL = REPO / "data" / "ddl" / "globalmart.sql"
 LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
 
-pytestmark = pytest.mark.skipif(
-    not (DDL.exists() and LAYOUT.exists()), reason="DDL or layout not present"
-)
+pytestmark = pytest.mark.skipif(not (DDL.exists() and LAYOUT.exists()), reason="DDL or layout not present")
 
 
 @pytest.fixture(scope="module")

@@ -64,10 +64,7 @@ def test_workspace_name_comes_from_the_template_and_can_be_overridden() -> None:
 
     # The exact string FEAT-002's --workspace-name expects for a child.
     assert manifest.resolve_workspace_name(manifest.by_key("sales")) == "GlobalMart — Sales"
-    assert (
-        manifest.resolve_workspace_name(manifest.by_key("store_ops"))
-        == "GlobalMart Store Ops (pilot)"
-    )
+    assert manifest.resolve_workspace_name(manifest.by_key("store_ops")) == "GlobalMart Store Ops (pilot)"
 
 
 def test_accessors() -> None:

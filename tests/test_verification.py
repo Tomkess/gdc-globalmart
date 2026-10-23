@@ -26,9 +26,7 @@ LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
 GENERATED = REPO / "generated" / "workspaces"
 MANIFEST = REPO / "config" / "domains.yaml"
 
-pytestmark = pytest.mark.skipif(
-    not (LAYOUT.exists() and GENERATED.exists()), reason="artifacts not present"
-)
+pytestmark = pytest.mark.skipif(not (LAYOUT.exists() and GENERATED.exists()), reason="artifacts not present")
 
 
 @pytest.fixture(scope="module")
@@ -120,9 +118,7 @@ def test_a_workspace_the_org_lacks_is_a_failure_not_a_skip(manifest) -> None:  #
         sdk,
         profile(),
         manifest,
-        options=VerifyOptions(
-            layout_path=LAYOUT, generated_path=GENERATED, list_only=True, max_workers=2
-        ),
+        options=VerifyOptions(layout_path=LAYOUT, generated_path=GENERATED, list_only=True, max_workers=2),
     )
 
     missing = [w for w in run.workspaces if not w.present]
@@ -180,9 +176,7 @@ def test_empty_results_pass_by_default_and_fail_under_the_flag(manifest) -> None
     assert lenient.total_empty > 0
     assert lenient.total_ok == 0
 
-    strict = verify_target(
-        sdk, profile(), manifest, options=VerifyOptions(fail_on_empty=True, **options)
-    )
+    strict = verify_target(sdk, profile(), manifest, options=VerifyOptions(fail_on_empty=True, **options))
     assert not strict.passed
     assert any("no rows" in reason for reason in strict.failure_reasons)
 
@@ -216,7 +210,9 @@ def test_one_shared_cause_is_reported_as_one_finding(manifest) -> None:  # type:
         profile(),
         manifest,
         options=VerifyOptions(
-            layout_path=LAYOUT, generated_path=GENERATED, max_workers=4,
+            layout_path=LAYOUT,
+            generated_path=GENERATED,
+            max_workers=4,
             workspaces=("globalmart-risk",),
         ),
     )
@@ -235,9 +231,7 @@ def test_list_only_executes_nothing(manifest) -> None:  # type: ignore[no-untype
         sdk,
         profile(),
         manifest,
-        options=VerifyOptions(
-            layout_path=LAYOUT, generated_path=GENERATED, list_only=True, max_workers=2
-        ),
+        options=VerifyOptions(layout_path=LAYOUT, generated_path=GENERATED, list_only=True, max_workers=2),
     )
 
     assert run.total_viz == 0
@@ -258,9 +252,7 @@ def test_a_count_mismatch_fails_the_run(manifest) -> None:  # type: ignore[no-un
         sdk,
         profile(),
         manifest,
-        options=VerifyOptions(
-            layout_path=LAYOUT, generated_path=GENERATED, list_only=True, max_workers=2
-        ),
+        options=VerifyOptions(layout_path=LAYOUT, generated_path=GENERATED, list_only=True, max_workers=2),
     )
 
     assert not run.passed
@@ -275,8 +267,12 @@ def test_the_run_records_its_own_options(manifest) -> None:  # type: ignore[no-u
         profile(),
         manifest,
         options=VerifyOptions(
-            layout_path=LAYOUT, generated_path=GENERATED, list_only=True,
-            max_workers=3, viz_timeout=42, max_retries=1,
+            layout_path=LAYOUT,
+            generated_path=GENERATED,
+            list_only=True,
+            max_workers=3,
+            viz_timeout=42,
+            max_retries=1,
         ),
     )
 
@@ -287,3 +283,43 @@ def test_the_run_records_its_own_options(manifest) -> None:  # type: ignore[no-u
         "fail_on_empty": False,
     }
     assert run.schema_version == 1
+
+
+# --- FEAT-019: a gdcloud release target, and a filter that would verify nothing ------------
+
+
+def release_profile() -> TargetProfile:
+    return TargetProfile(
+        name="gdcloud-dev",
+        host="https://example.invalid",
+        token="tok",
+        organization_id="org",
+        datasource_id="ds",
+        datasource_schema="globalmart",
+        parent_workspace_id="globalmart_dev",
+        gdcloud_environment="dev",
+    )
+
+
+def test_a_release_target_is_verified_as_its_master_alone(manifest) -> None:  # type: ignore[no-untyped-def]
+    # The domains are local-only (ADR 011): their absence on a release org is not a finding.
+    run = verify_target(
+        VerifySdk({}),
+        release_profile(),
+        manifest,
+        options=VerifyOptions(layout_path=LAYOUT, generated_path=GENERATED),
+    )
+    assert [(w.workspace_id, w.role) for w in run.workspaces] == [("globalmart_dev", "parent")]
+
+
+def test_a_filter_matching_nothing_is_refused(manifest) -> None:  # type: ignore[no-untyped-def]
+    # It used to verify zero workspaces and report a pass.
+    from globalmart.config import GlobalmartError
+
+    with pytest.raises(GlobalmartError, match="not planned"):
+        verify_target(
+            VerifySdk({}),
+            release_profile(),
+            manifest,
+            options=VerifyOptions(layout_path=LAYOUT, generated_path=GENERATED, workspaces=("globalmart",)),
+        )

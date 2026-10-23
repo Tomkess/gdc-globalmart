@@ -1,0 +1,49 @@
+name: 'Upload org objects'
+description: >-
+  Run `gd-org upload --yes` for one environment and copy its output into the
+  job summary. Needs setup_python and TOKEN_GOODDATA; the caller checks out
+  the gd_organization/ it means to upload.
+
+inputs:
+  environment:
+    description: 'Target environment (config.yml environments key)'
+    required: true
+  version:
+    description: 'Version being uploaded, for the summary heading'
+    required: false
+    default: ''
+  allow_empty:
+    description: >-
+      'true' to succeed with a notice when nothing is stored for a released
+      kind, as after a PR that only moved an old snapshot out of gd_organization/
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Upload org objects
+      shell: bash
+      env:
+        TARGET_ENV: ${{ inputs.environment }}
+        VERSION: ${{ inputs.version }}
+        ALLOW_EMPTY: ${{ inputs.allow_empty }}
+      run: |
+        if [[ "$ALLOW_EMPTY" == "true" ]]; then
+          # An assignment fails the step when python does (-e): a config error
+          # must not read as "nothing stored" and get tracked as deployed.
+          # load_desired, not a *.yaml glob: knowledge documents are any file.
+          stored=$(python -c 'from gdcloud.org_config.kinds import released_kinds; from gdcloud.org_config.release import load_desired; print(any(load_desired(k) for k in released_kinds()))')
+          if [[ "$stored" == "False" ]]; then
+            echo "::notice::nothing is stored for a released kind — nothing to upload."
+            exit 0
+          fi
+        fi
+        {
+          echo "### Org objects ${VERSION:+$VERSION }→ ${TARGET_ENV}"
+          echo '```'
+        } >> "$GITHUB_STEP_SUMMARY"
+        status=0
+        gd-org upload --env "$TARGET_ENV" --yes 2>&1 | tee -a "$GITHUB_STEP_SUMMARY" || status=$?
+        echo '```' >> "$GITHUB_STEP_SUMMARY"
+        exit "$status"

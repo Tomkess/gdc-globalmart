@@ -1,0 +1,14 @@
+# gd-validate data-source registry (infrastructure — project root).
+# Which data sources exist and how validation treats them.
+# Full reference: docs/configuration.md in gooddata/gd-cloud-tooling.
+#
+# data_sources:
+#   my-warehouse:
+#     scan_sql: true                 # false = skip ldm-sql, keep ldm-now/deploy
+
+
+data_sources:
+  # GlobalMart's one data source (ADR 011), created on both orgs by `globalmart gdcloud bootstrap`.
+  gdc_ds_globalmart_motherduck:
+    environments: [dev, test, preprod, prod]
+    scan_sql: true

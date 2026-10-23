@@ -380,9 +380,7 @@ def test_the_committed_script_loads_and_every_question_has_expectations() -> Non
     # A `from_memory` turn is the one entry that legitimately expects no workspace: it asks
     # about the conversation. Everything else must say what it expects.
     assert all(
-        turn.expect or turn.from_memory
-        for conversation in conversations
-        for turn in conversation.turns
+        turn.expect or turn.from_memory for conversation in conversations for turn in conversation.turns
     )
 
 
@@ -1407,7 +1405,7 @@ def test_respond_asks_only_the_lane_that_asked() -> None:
 
 
 def test_respond_restores_the_original_sub_question() -> None:
-    """"The overall one, monthly" is not a question. Left in place it would read as nonsense
+    """ "The overall one, monthly" is not a question. Left in place it would read as nonsense
     in an attribution line, and the merge needs to know what was actually asked."""
     from gd_agents.orchestrator.run import respond
     from gd_agents.orchestrator.session import Session
@@ -2155,9 +2153,13 @@ def test_two_entries_cannot_share_an_id(tmp_path: Path) -> None:
 def test_a_from_memory_turn_may_expect_nothing_but_nothing_else_may(tmp_path: Path) -> None:
     from gd_agents.script import ScriptError, load_script
 
-    ok = script_file(
-        tmp_path / "a", "questions:\n  - id: x\n    question: summarise?\n    from_memory: true\n"
-    ) if (tmp_path / "a").mkdir() or True else None
+    ok = (
+        script_file(
+            tmp_path / "a", "questions:\n  - id: x\n    question: summarise?\n    from_memory: true\n"
+        )
+        if (tmp_path / "a").mkdir() or True
+        else None
+    )
     questions, _ = load_script(ok)
     assert questions[0].from_memory and questions[0].expect == ()
 
@@ -2261,7 +2263,7 @@ def test_giving_the_router_history_is_not_reusing_the_route() -> None:
 
 
 def test_a_question_about_the_conversation_is_answered_from_it() -> None:
-    """"Summarise what we have established" asks about the conversation, and the router says
+    """ "Summarise what we have established" asks about the conversation, and the router says
     so by choosing nothing. Fanning out anyway would re-fetch what is already in hand."""
     from gd_agents.orchestrator.run import ask
     from gd_agents.orchestrator.session import Session
@@ -2382,8 +2384,9 @@ def test_an_abandoned_lane_keeps_the_question_it_was_asked() -> None:
             return shaped("slow")
 
     try:
-        report = fanout(Plan(question="q", steps=(Step("slow", "Show NPS by month"),)),
-                        {"slow": Hung()}, timeout=0.3)
+        report = fanout(
+            Plan(question="q", steps=(Step("slow", "Show NPS by month"),)), {"slow": Hung()}, timeout=0.3
+        )
     finally:
         release.set()
 
@@ -2409,8 +2412,12 @@ def test_a_timeout_is_not_retried() -> None:
 class FakeMCPHost:
     """Answers MCP JSON-RPC, recording what was dispatched."""
 
-    def __init__(self, *, tools: tuple[str, ...] = ("create_visualization", "search_tools", "call_tool"),
-                 text: str = "{}") -> None:
+    def __init__(
+        self,
+        *,
+        tools: tuple[str, ...] = ("create_visualization", "search_tools", "call_tool"),
+        text: str = "{}",
+    ) -> None:
         self.tools = tools
         self.text = text
         self.dispatched: list[tuple[str, dict]] = []
@@ -2579,8 +2586,13 @@ SPEND_QUERY = {
 
 TOOL_DEFS = {
     name: {"name": name, "description": "d", "input_schema": {"type": "object", "properties": {}}}
-    for name in ("get_workspace_info", "ai_search", "list_workspace_metrics",
-                 "list_workspace_attributes", "execute_query")
+    for name in (
+        "get_workspace_info",
+        "ai_search",
+        "list_workspace_metrics",
+        "list_workspace_attributes",
+        "execute_query",
+    )
 }
 
 

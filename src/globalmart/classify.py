@@ -48,8 +48,7 @@ HINTS: dict[FailureCategory, str] = {
         "reports it above the per-object list."
     ),
     FailureCategory.PROTECTED: (
-        "Restricted by access/security rules — check the user's data-access permissions "
-        "on the workspace."
+        "Restricted by access/security rules — check the user's data-access permissions on the workspace."
     ),
     FailureCategory.INVALID_IDENTIFIER: (
         "Dangling or renamed identifier — inspect the visualization definition and fix or "
@@ -57,20 +56,16 @@ HINTS: dict[FailureCategory, str] = {
         "the split dropped something the visualization still references."
     ),
     FailureCategory.LDM_MAPPING: (
-        "LDM mapping warning after a schema change — review the LDM mapping and re-sync "
-        "the datasets."
+        "LDM mapping warning after a schema change — review the LDM mapping and re-sync the datasets."
     ),
     FailureCategory.DATA_LIMIT: (
-        "Dimension exceeds the row limit (default 10k) — add a metric or a filter to "
-        "reduce cardinality."
+        "Dimension exceeds the row limit (default 10k) — add a metric or a filter to reduce cardinality."
     ),
     FailureCategory.CALC_ERROR: (
         "SQL or calculation error — verify the data source's permissions and that the "
         "warehouse schema actually holds the tables the LDM points at."
     ),
-    FailureCategory.TOO_LARGE_TIMEOUT: (
-        "Unbounded date range — narrow the date filter (avoid 'All Time')."
-    ),
+    FailureCategory.TOO_LARGE_TIMEOUT: ("Unbounded date range — narrow the date filter (avoid 'All Time')."),
     FailureCategory.TRANSIENT_5XX: (
         "Intermittent infrastructure failure — retried automatically; not a deterministic "
         "visualization defect."
@@ -85,8 +80,7 @@ HINTS: dict[FailureCategory, str] = {
         "visualization' claim is not quietly narrowed."
     ),
     FailureCategory.TIMEOUT: (
-        "Execution hung past the per-visualization timeout — investigate query complexity. "
-        "Treated as broken."
+        "Execution hung past the per-visualization timeout — investigate query complexity. Treated as broken."
     ),
     FailureCategory.EMPTY_RESULT: (
         "Executed successfully and returned zero rows. Often legitimate; if most of a "
@@ -128,21 +122,13 @@ def classify(error: str, status: int | None = None) -> Failure:
     if "report is too large" in lowered or "all time" in lowered:
         return _as(FailureCategory.TOO_LARGE_TIMEOUT)
     # 6. Dangling or renamed identifier, or a missing object.
-    if (
-        "can't find this visualization" in lowered
-        or "not found" in lowered
-        or status == 404
-    ):
+    if "can't find this visualization" in lowered or "not found" in lowered or status == 404:
         return _as(FailureCategory.INVALID_IDENTIFIER)
     # 7. LDM mapping warning after a schema change.
     if "unmapped" in lowered or "mapping" in lowered:
         return _as(FailureCategory.LDM_MAPPING)
     # 8. SQL or calculation error, typically HTTP 400.
-    if (
-        "while calculating" in lowered
-        or "calculating the result" in lowered
-        or "general error" in lowered
-    ):
+    if "while calculating" in lowered or "calculating the result" in lowered or "general error" in lowered:
         return _as(FailureCategory.CALC_ERROR)
     # 9. for_visualization() on an unsupported type raises a bare KeyError('properties').
     if stripped in ("'properties'", '"properties"') or "keyerror: 'properties'" in lowered:

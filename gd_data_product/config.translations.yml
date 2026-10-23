@@ -1,0 +1,4 @@
+# gd-translate configuration (content policy — common layer).
+#
+# variant_index_patterns:            # collapse indexed title families to one
+#   - '^Series(\d*)(?= )'            # translatable key; group 1 = the digits

@@ -1,0 +1,31 @@
+name: 'Load Database Config'
+description: 'Load metadata database paths from Python config. Requires setup_python to run first.'
+
+outputs:
+  output_dir:
+    description: 'Output directory for databases'
+    value: ${{ steps.load.outputs.output_dir }}
+  single_filename:
+    description: 'Filename for single-source database'
+    value: ${{ steps.load.outputs.single_filename }}
+  single_db_path:
+    description: 'Full path to single-source database'
+    value: ${{ steps.load.outputs.single_db_path }}
+  combined_filename:
+    description: 'Filename for combined database'
+    value: ${{ steps.load.outputs.combined_filename }}
+  combined_db_path:
+    description: 'Full path to combined database'
+    value: ${{ steps.load.outputs.combined_db_path }}
+  per_dp_filename_template:
+    description: 'Filename template for per-data-product databases (contains {data_product_id})'
+    value: ${{ steps.load.outputs.per_dp_filename_template }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Load database paths
+      id: load
+      shell: bash
+      run: |
+        gd-db-paths >> $GITHUB_OUTPUT

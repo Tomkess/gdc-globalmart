@@ -64,9 +64,7 @@ def a_run(*, passed: bool = True) -> VerificationRun:
         viz_broken=1 if not passed else 0,
         viz_skipped=1,
         visualizations=[broken, ok, empty, skipped] if not passed else [ok, empty, skipped],
-        count_mismatches=(
-            [CountMismatch("globalmart-sales", "metrics", 10, 9)] if not passed else []
-        ),
+        count_mismatches=([CountMismatch("globalmart-sales", "metrics", 10, 9)] if not passed else []),
     )
 
     return VerificationRun(

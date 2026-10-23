@@ -88,9 +88,7 @@ def test_the_workspace_id_prefix_applies_to_children(manifest, models, monkeypat
 
 def test_only_publishes_a_subset(manifest, models) -> None:  # type: ignore[no-untyped-def]
     sdk = FakeSdk()
-    publish_domains(
-        sdk, manifest, load_profile("demo-cloud"), models=models, only={"hr"}, apply=True
-    )
+    publish_domains(sdk, manifest, load_profile("demo-cloud"), models=models, only={"hr"}, apply=True)
 
     puts = [args["id"] for name, args in sdk.calls if name == "put_declarative_workspace"]
     assert puts == ["globalmart-hr"]

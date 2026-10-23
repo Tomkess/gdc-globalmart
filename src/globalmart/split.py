@@ -156,9 +156,7 @@ def assemble_child(
     _set_channel(
         analytics,
         "analytical_dashboard_extensions",
-        _retain(
-            channel(model, "analytical_dashboard_extensions"), closure.dashboard_extension_ids
-        ),
+        _retain(channel(model, "analytical_dashboard_extensions"), closure.dashboard_extension_ids),
     )
 
     for channel_name, attributes, _field in AI_CHANNELS:
@@ -250,9 +248,7 @@ def split_all(
     if only:
         unknown = sorted(only - set(manifest.keys()))  # noqa: SIM118 - DomainManifest.keys() is a method, not a mapping
         if unknown:
-            raise GlobalmartError(
-                f"--only names domain(s) absent from the manifest: {', '.join(unknown)}"
-            )
+            raise GlobalmartError(f"--only names domain(s) absent from the manifest: {', '.join(unknown)}")
 
     children: list[tuple[Any, DomainSplitResult]] = []
     failures: list[str] = []
@@ -260,9 +256,7 @@ def split_all(
     for key in keys:
         domain = manifest.by_key(key)
         try:
-            children.append(
-                split_domain(model, domain, manifest, index=index, metric_policy=metric_policy)
-            )
+            children.append(split_domain(model, domain, manifest, index=index, metric_policy=metric_policy))
         except GlobalmartError as error:
             failures.append(f"[{key}] {error}")
 
@@ -284,9 +278,7 @@ def split_all(
     if write and out is not None:
         for (child, split_result), key in zip(children, keys, strict=True):
             domain = manifest.by_key(key)
-            split_result.path = write_model_json(
-                child, Path(out) / f"{domain.workspace_id}.json"
-            )
+            split_result.path = write_model_json(child, Path(out) / f"{domain.workspace_id}.json")
 
     return result
 

@@ -1,0 +1,32 @@
+name: Sticky PR Comment
+description: >
+  Create or update a single marker-identified PR comment in place. An empty
+  body rewrites an existing comment to a clean result.
+
+inputs:
+  marker:
+    description: >
+      Unique HTML-comment marker identifying this comment
+      (e.g. '<!-- my-check -->'). Prepended to the body; the body must not
+      contain it.
+    required: true
+  body:
+    description: >
+      Full findings body (Markdown). Leave empty to mark an existing comment
+      clean. Requires pull-requests: write.
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/github-script@v9
+      if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+      env:
+        STICKY_MARKER: ${{ inputs.marker }}
+        STICKY_BODY: ${{ inputs.body }}
+      with:
+        script: |
+          const publish = require('./.github/scripts/sticky_comment.cjs');
+          await publish({ github, context, core,
+            marker: process.env.STICKY_MARKER, body: process.env.STICKY_BODY });

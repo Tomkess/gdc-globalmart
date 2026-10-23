@@ -16,8 +16,7 @@ from .conftest import workspace_payload
 
 def _relative_contents(root: Path) -> dict[str, str]:
     return {
-        str(path.relative_to(root)): path.read_text(encoding="utf-8")
-        for path in sorted(root.rglob("*.yaml"))
+        str(path.relative_to(root)): path.read_text(encoding="utf-8") for path in sorted(root.rglob("*.yaml"))
     }
 
 

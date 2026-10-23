@@ -1,0 +1,93 @@
+name: 'Check PR Paths'
+description: >-
+  Path-aware gate evaluated against the PR's full diff (head vs base). Returns
+  `changed=true` if any changed file matches the supplied `grep -E` pattern.
+  Designed to replace trigger-level `paths:` filters whose evaluation is scoped
+  to the synchronize push delta — that scope causes workflows to silently skip
+  rebases that don't re-touch the gated paths in the new push, even when the PR
+  carries those changes overall (see PR #1075 / model_validation regression).
+
+  The file list comes from `.github/scripts/pr_changed_files.sh` (local git
+  diff), so callers must check out with `fetch-depth: 0` + `filter: blob:none`.
+
+inputs:
+  patterns:
+    description: >-
+      grep -E regex matched against each changed file path. One alternative per
+      line; blank lines are dropped and the rest are joined with `|`, so a
+      caller can list an alternative that an unset input compiles away without
+      leaving an empty alternative behind — `a||b` matches every path. A
+      single-line value is still a whole regex, e.g.
+      '^gd_data_product/[^/]+/(ldm/|config\.env\.yml$)'.
+    required: true
+  base_sha:
+    description: >-
+      After a merge only: the PR's base commit
+      (`github.event.pull_request.base.sha`). With `head_sha`, the diff is
+      `base_sha...head_sha` instead of `origin/<base>...HEAD`, which is empty
+      once the base contains the merge.
+    required: false
+    default: ''
+  head_sha:
+    description: 'After a merge only: the PR head commit (`github.event.pull_request.head.sha`).'
+    required: false
+    default: ''
+
+outputs:
+  changed:
+    description: 'true if any changed file matches `patterns`, else false'
+    value: ${{ steps.check.outputs.changed }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Match PR file list against patterns
+      id: check
+      shell: bash
+      env:
+        GITHUB_BASE_REF: ${{ github.base_ref }}
+        PR_BASE_SHA: ${{ inputs.base_sha }}
+        PR_HEAD_SHA: ${{ inputs.head_sha }}
+        INPUT_PATTERNS: ${{ inputs.patterns }}
+      run: |
+        # This gate must never fail OPEN. Every failure here — an unresolvable
+        # diff, a malformed pattern — would otherwise look identical to "no
+        # files matched", emit changed=false, SKIP the gated job, and leave the
+        # PR green having validated nothing: the PR #1075 failure mode in a
+        # different hat. So each step distinguishes "no" from "couldn't tell".
+        #
+        # Join first: a multi-line value is one alternative per line, and an
+        # empty line would otherwise become an empty alternative — which grep
+        # matches against every path, gating nothing.
+        # `|| true` is load-bearing: GitHub runs this with `-eo pipefail`, and
+        # grep exits 1 when every line is blank — which killed the script one
+        # line before the annotation that explains why.
+        pattern=$(printf '%s\n' "${INPUT_PATTERNS}" \
+          | sed 's/[[:space:]]*$//' | grep -v '^$' | paste -sd '|' - || true)
+        if [[ -z "$pattern" ]]; then
+          echo "::error::check_pr_paths was given no pattern to match"
+          exit 1
+        fi
+        # Resolve first, match second: piping straight into `grep … || true`
+        # puts the `|| true` on the whole pipeline and hides a resolve failure.
+        if ! files=$(bash "${GITHUB_WORKSPACE}/.github/scripts/pr_changed_files.sh"); then
+          echo "::error::check_pr_paths could not resolve the PR's changed files"
+          exit 1
+        fi
+        # grep: 0 = matched, 1 = no match (a real answer), >1 = grep itself
+        # failed, e.g. an unbalanced group in `patterns`. Only 1 may be treated
+        # as "nothing to do" — a bare `|| true` would swallow 2 as well.
+        status=0
+        hits=$(printf '%s\n' "$files" | grep -E "${pattern}") || status=$?
+        if [[ "$status" -gt 1 ]]; then
+          echo "::error::check_pr_paths: grep exited ${status} — check the \`patterns\` regex: ${pattern}"
+          exit 1
+        fi
+        if [[ -z "$hits" ]]; then
+          echo "No changed files match: ${pattern}"
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "Matched files:"
+          echo "$hits" | sed 's/^/  /'
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+        fi

@@ -114,7 +114,5 @@ def test_writing_a_normalized_tree_twice_is_byte_stable(tmp_path: Path) -> None:
     write_tree(read_tree(first), second)
 
     left = {str(p.relative_to(first)): p.read_text(encoding="utf-8") for p in first.rglob("*.yaml")}
-    right = {
-        str(p.relative_to(second)): p.read_text(encoding="utf-8") for p in second.rglob("*.yaml")
-    }
+    right = {str(p.relative_to(second)): p.read_text(encoding="utf-8") for p in second.rglob("*.yaml")}
     assert left == right

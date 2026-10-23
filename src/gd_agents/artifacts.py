@@ -31,12 +31,8 @@ def chart_pairs(artifacts: Any) -> list[tuple[dict[str, Any], dict[str, Any] | N
     charts and their order is the agent's, not ours. A definition with no rows still comes
     back — it is an answer that returned nothing, which is different from no answer.
     """
-    definitions = [
-        d for a in artifacts or () if (d := data_of(a)) and a.get("name") == "visualization"
-    ]
-    rows = [
-        d for a in artifacts or () if (d := data_of(a)) and a.get("name") == "visualization-data"
-    ]
+    definitions = [d for a in artifacts or () if (d := data_of(a)) and a.get("name") == "visualization"]
+    rows = [d for a in artifacts or () if (d := data_of(a)) and a.get("name") == "visualization-data"]
     by_id = {str(d.get("visualizationId")): d for d in rows if d.get("visualizationId")}
 
     pairs: list[tuple[dict[str, Any], dict[str, Any] | None]] = []

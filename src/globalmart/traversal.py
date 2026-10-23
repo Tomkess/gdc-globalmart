@@ -171,15 +171,9 @@ def _collect_visualization_refs(node: Any, found: set[str]) -> None:
             _collect_visualization_refs(item, found)
 
 
-def dashboard_visualization_ids(
-    model: CatalogDeclarativeWorkspaceModel, dashboard_id: str
-) -> set[str]:
+def dashboard_visualization_ids(model: CatalogDeclarativeWorkspaceModel, dashboard_id: str) -> set[str]:
     """Every visualization one dashboard references."""
-    return {
-        viz_id
-        for owner, viz_id in iter_dashboard_insight_refs(model)
-        if owner == dashboard_id
-    }
+    return {viz_id for owner, viz_id in iter_dashboard_insight_refs(model) if owner == dashboard_id}
 
 
 def iter_all_string_fields(model: CatalogDeclarativeWorkspaceModel) -> Iterator[tuple[str, str]]:
