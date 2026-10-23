@@ -16,7 +16,7 @@ being discovered to be wrong at that moment.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -63,6 +63,9 @@ class TableRegistry:
     tables: dict[str, Table]
     #: Load order: a table appears after everything it references.
     load_order: tuple[str, ...]
+    #: `table -> {column: referenced table}`, from the LDM's dataset references (FEAT-020).
+    #: Empty without a model, and then foreign keys fall back to naming inference.
+    foreign_keys: dict[str, dict[str, str]] = field(default_factory=dict)
 
     def names(self) -> frozenset[str]:
         return frozenset(self.tables)
@@ -70,6 +73,10 @@ class TableRegistry:
     def truncate_order(self) -> tuple[str, ...]:
         """Reverse of the load order, so a dependent is emptied before its dimension."""
         return tuple(reversed(self.load_order))
+
+    def references_of(self, name: str) -> dict[str, str]:
+        """`column -> referenced table` the LDM declares for one table; empty if none or no model."""
+        return self.foreign_keys.get(name, {})
 
     def require(self, name: str) -> Table:
         table = self.tables.get(name)
@@ -109,6 +116,32 @@ def _dependency_edges(model: Any | None) -> dict[str, tuple[str, ...]]:
     return dict(index.references)
 
 
+def _column_references(model: Any | None, tables: dict[str, Table]) -> dict[str, dict[str, str]]:
+    """`table -> {column: referenced table}`, exactly as the LDM's dataset references declare it.
+
+    The DDL declares no foreign keys, and naming inference (`foreign_key_target`) only works
+    when a column is named after its table. `channel_id` -> `dim_channel` does not exist; the LDM
+    says `dim_channel_master`. On 2026-10-23 the naming rule missed 36 of the 184 references
+    between tables, and each one was filled with values that matched nothing. The LDM states every
+    relationship, so it decides; naming stays the fallback for a column the LDM does not name.
+
+    A reference to a date dataset, or to anything that is not a table, is not a key to draw from.
+    """
+    if model is None or model.ldm is None:
+        return {}
+    mapping: dict[str, dict[str, str]] = {}
+    for dataset in model.ldm.datasets or []:
+        if dataset.id not in tables:
+            continue
+        for reference in dataset.references or []:
+            target = reference.identifier.id
+            if target not in tables or target == dataset.id:
+                continue
+            for source in reference.sources or []:
+                mapping.setdefault(dataset.id, {})[source.column] = target
+    return mapping
+
+
 def _topological(names: list[str], edges: dict[str, tuple[str, ...]]) -> tuple[str, ...]:
     """Referenced tables first, then their dependants. Alphabetical within a tier.
 
@@ -141,7 +174,7 @@ def build_registry(ddl_path: Path = DEFAULT_DDL_PATH, *, model: Any | None = Non
     tables = parse_ddl(ddl_path)
     edges = _dependency_edges(model)
     order = _topological(sorted(tables), {k: v for k, v in edges.items() if k in tables})
-    return TableRegistry(tables=tables, load_order=order)
+    return TableRegistry(tables=tables, load_order=order, foreign_keys=_column_references(model, tables))
 
 
 def render_ddl(ddl_path: Path, schema: str) -> str:

@@ -29,6 +29,7 @@ import io
 import json
 import math
 import random
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 from enum import StrEnum
@@ -161,14 +162,26 @@ INTEGER_NAME_FAMILIES = ("_count", "_qty", "_quantity", "_days", "_day", "_point
 DECIMAL_NAME_FAMILIES = ("_amount", "_cost", "_revenue", "_value", "_metric", "_price", "_rate")
 
 
-def plan_columns(table: Table, known_tables: frozenset[str] | set[str]) -> tuple[ColumnPlan, ...]:
+def plan_columns(
+    table: Table,
+    known_tables: frozenset[str] | set[str],
+    references: Mapping[str, str] | None = None,
+) -> tuple[ColumnPlan, ...]:
     """Choose a strategy per column from its SQL type and its name.
 
     Patterns only — no table and no column is named in this function, so a table added to
     the DDL plans without an edit here. That is the same property the registry has, and for
     the same reason.
+
+    ``references`` is the LDM's `column -> referenced table` for this table
+    (`TableRegistry.references_of`). Where it names a column, it decides the foreign key; naming
+    inference only covers what it does not name (FEAT-020).
     """
+    references = references or {}
     key_column = own_key_column(table, known_tables)
+    if key_column is not None and references.get(key_column, table.name) != table.name:
+        # The LDM says this column points elsewhere, so it is not this table's identity.
+        key_column = None
     plans: list[ColumnPlan] = []
 
     for column in table.columns:
@@ -185,7 +198,7 @@ def plan_columns(table: Table, known_tables: frozenset[str] | set[str]) -> tuple
             plans.append(ColumnPlan(name, ColumnStrategy.OWN_KEY))
             continue
 
-        target = foreign_key_target(name, known_tables)
+        target = references.get(name) or foreign_key_target(name, known_tables)
         if target is not None and target != table.name:
             plans.append(ColumnPlan(name, ColumnStrategy.FOREIGN_KEY, target))
             continue
@@ -255,7 +268,7 @@ def generation_order(registry: TableRegistry) -> list[str]:
     names = registry.names()
     edges: dict[str, list[str]] = {}
     for name in registry.load_order:
-        plans = plan_columns(registry.require(name), names)
+        plans = plan_columns(registry.require(name), names, registry.references_of(name))
         edges[name] = [
             plan.target
             for plan in plans
@@ -596,7 +609,7 @@ def generate_dataset(
 
     for name in generation_order(registry):
         table = registry.require(name)
-        plans = plan_columns(table, registry.names())
+        plans = plan_columns(table, registry.names(), registry.references_of(name))
         rows = row_count_for(name, counts, scale)
 
         missing: set[str] = set()
