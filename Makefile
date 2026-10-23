@@ -28,4 +28,4 @@ project-check:  ## Fail if gd_data_product/globalmart/ is stale (the CI gate)
 
 # Routine releases go through workflows 3/4/5, not this.
 upload: guard-DP guard-GD_ENV  ## Deploy the committed projection to GD_ENV's master by hand
-	$(RUN) gd-upload --data-product-id $(DP) --environment $(GD_ENV) --branch main
+	$(RUN) gd-upload --data-product-id $(DP) --environment $(GD_ENV) --branch master

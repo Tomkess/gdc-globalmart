@@ -8,7 +8,7 @@
 # (config/domains.yaml + generated/workspaces/), redeployed on demand with
 # `globalmart publish domains --target <t> --apply`, never by a gdcloud workflow.
 
-default_git_branch: "main"
+default_git_branch: "master"
 
 # gdcloud maps a MotherDuck data source to sqlglot's duckdb dialect.
 sql_dialect: duckdb
