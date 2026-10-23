@@ -81,6 +81,10 @@ src = ["src", "tests", "."]
 # so they keep gdcloud's own formatting, never this project's.
 extend-exclude = [".github"]
 
+[tool.ruff.format]
+# Code blocks in the specs are hand-aligned interface listings, not source to format.
+exclude = ["*.md"]
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
 

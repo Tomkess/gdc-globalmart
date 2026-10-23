@@ -8,7 +8,7 @@ any org from a clean clone.
 workspace to rebuild GlobalMart. Two packages, two jobs: `src/globalmart/` builds the workspaces,
 `src/gd_agents/` talks to them.
 
-[Vision](specs/VISION.md) · [Feature registry](specs/REGISTRY.md) ·
+[Vision](specs/VISION.md) · [Feature specs](specs/) ·
 [Steering constraints](specs/STEERING.md) · [Interface contract](specs/CONTRACT.md)
 
 ## Why it exists

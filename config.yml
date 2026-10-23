@@ -43,6 +43,9 @@ workflows:
     auto_org_snapshot.yml:
       reason: "org-level objects are owned by the separate org repo (ecommerce ADR 002, ADR 011)"
       since: v0.51.0
+    slack_notify_pr_ready.yml:
+      reason: "no Slack workspace for this demo repo; it could only ever fail"
+      since: v0.51.0
   # A parent-only change must still run gd-ci: the projection under gd_data_product/ is derived
   # from layouts/, so a layouts/ edit is a content change.
   check_ci_checks:
