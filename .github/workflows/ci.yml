@@ -123,8 +123,13 @@ jobs:
       # The freshness check reads the warehouse only. Loading the profile still requires a
       # GoodData token, which this job never uses, so it gets a placeholder rather than a
       # secret. MOTHERDUCK_TOKEN is the read-write one until a read-only token exists.
+      #
+      # 45 days, deliberately looser than data-currency.yml's 31. The weekly refresh only fires
+      # once data is past 31 days, so a gate at 31 would go red the day the data ages out and stay
+      # red until the next Monday run. At 45 the gate fails only when the refresh itself has been
+      # failing for two weeks — which is the thing worth blocking merges over.
       - name: Warehouse is current
         env:
           GLOBALMART_TOKEN__GDCLOUD_DEV: unused-by-the-freshness-check
           MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
-        run: uv run globalmart data ensure --target gdcloud-dev --max-age-days 31 --check
+        run: uv run globalmart data ensure --target gdcloud-dev --max-age-days 45 --check

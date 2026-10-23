@@ -8,6 +8,7 @@ that red.
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import yaml
@@ -73,3 +74,19 @@ def test_ci_blocks_a_merge_onto_a_stale_warehouse() -> None:
     job = _load(WORKFLOWS / "ci.yml")["jobs"]["data-current"]
     runs = " ".join(step.get("run", "") for step in job["steps"])
     assert "data ensure --target gdcloud-dev" in runs and "--check" in runs and "--apply" not in runs
+
+
+def _max_age(runs: str) -> int:
+    match = re.search(r"--max-age-days (\d+)", runs)
+    assert match, runs
+    return int(match.group(1))
+
+
+def test_the_merge_gate_is_looser_than_the_refresh() -> None:
+    """A gate as strict as the refresh would block every PR from the day data ages out until the next
+    scheduled refresh, which only fires once the data is already past its limit."""
+    gate = " ".join(s.get("run", "") for s in _load(WORKFLOWS / "ci.yml")["jobs"]["data-current"]["steps"])
+    refresh = " ".join(
+        s.get("run", "") for s in _load(WORKFLOWS / "data-currency.yml")["jobs"]["ensure"]["steps"]
+    )
+    assert _max_age(gate) >= _max_age(refresh) + 7, "the gate needs at least a week of slack"
