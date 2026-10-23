@@ -120,18 +120,21 @@ The following decisions were settled on 2026-10-22:
 - [x] 35. Write `tests/test_release_wiring.py`. Assert: the `name:` values of generated workflows 3, 4, and 5 are a subset of the post-deploy `workflow_run.workflows`; no 4a, 5a, `org_release`, or `auto_org_snapshot` workflow exists; `ci.yml` runs `split --check`, `domains validate --strict`, and `gdcloud project --check`; the post-deploy environment mapping equals `config.yml`
        Pre: tasks 32, 33 complete
        AC: #6, #9, #10
-- [ ] 36. Turn on branch protection on `main` with the required checks: PR label, CI checks, AFM, YAML formatting, yamllint, `CI / check`, and `CI / data-current`
+- [x] 36. Turn on branch protection on `main` with the required checks: PR label, CI checks, AFM, YAML formatting, yamllint, `CI / check`, and `CI / data-current`
        Pre: task 35 complete, with the workflows having run once on a PR
        AC: #7
-- [ ] 37. Integration: open a PR that edits one parent metric, labelled `GM`, and merge it. Expect a `v1.N` tag, `deploy-dev-globalmart-v1.N-…`, and the post-deploy job publishing and verifying the corpus in `globalmart_dev` only
+       DONE 2026-10-23: 10 required checks on `main` (check, data-current, check-labels, ci-checks, check-ci-payload, afm-smoke, viz-smoke, check-formatting, lint, validation-summary); enforce_admins off
+- [x] 37. Integration: open a PR that edits one parent metric, labelled `GM`, and merge it. Expect a `v1.N` tag, `deploy-dev-globalmart-v1.N-…`, and the post-deploy job publishing and verifying the corpus in `globalmart_dev` only
        Pre: tasks 29, 36 complete
        AC: #7, #9
+       DONE 2026-10-23: PR #1 (labelled GM) merged → workflow 3 tagged v1.0, deployed globalmart_dev (`deploy-dev-globalmart-v1.0-20261023-102903`); post-deploy published 33 documents and verified them
 - [ ] 38. Integration: a `TOOLING`-only PR deploys nothing, and the post-deploy job exits 0. A hand edit under `gd_data_product/globalmart/` turns `CI / check` and `projection_current` red
        Pre: task 37 complete
        AC: #4, #7
-- [ ] 39. Integration: workflow 4 promotes `v1.N` to `globalmart_test` and post-deploy runs there. Capture `globalmart_dev`'s layout and `modifiedAt` before the promotion and confirm they are byte-identical after it (isolation)
+- [x] 39. Integration: workflow 4 promotes `v1.N` to `globalmart_test` and post-deploy runs there. Capture `globalmart_dev`'s layout and `modifiedAt` before the promotion and confirm they are byte-identical after it (isolation)
        Pre: task 37 complete
        AC: #8
+       DONE 2026-10-23: workflow 4 deployed v1.0 to globalmart_test (`deploy-test-globalmart-v1.0-20261023-104507`), post-deploy published 33; globalmart_dev layout byte-identical before/after; dev and test content identical except server-set `createdAt`
 - [ ] 40. Integration: simulate a stale schema with a scratch profile so that `data-current` goes red, and confirm the merge is blocked
        Pre: task 36 complete
        AC: #9
@@ -148,9 +151,11 @@ The following decisions were settled on 2026-10-22:
 - [ ] 44. Integration: `gd-hotfix` cuts `hotfix/*` from the last prod tag and ships `v1.N.1` to prod through `production`, without unreleased `main` changes
        Pre: task 42 complete
        AC: #11
-- [ ] 45. Update the README with a release section: the environment ↔ org ↔ workspace table, the `GM`/`TOOLING` label rules, promotion and hotfix how-to, a note that org-level objects are owned by the org repo, that domains are local-only (with `publish domains --target <t> --apply`), and that the A2A/MCP demo needs those domains redeployed. Merge the gdcloud-seeded `AGENTS.md`
+- [x] 45. Update the README with a release section: the environment ↔ org ↔ workspace table, the `GM`/`TOOLING` label rules, promotion and hotfix how-to, a note that org-level objects are owned by the org repo, that domains are local-only (with `publish domains --target <t> --apply`), and that the A2A/MCP demo needs those domains redeployed. Merge the gdcloud-seeded `AGENTS.md`
        Pre: task 42 complete
        AC: #3, #10
-- [ ] 46. Amend `specs/STEERING.md`. Change Python 3.11+ to 3.14. Add the rules "never enable `org_release`/`organization_snapshot`", "`gd_data_product/globalmart/` is derived — regenerate with `gdcloud project`", and "domain workspaces are local-only, never released". Mark ADR 011 Accepted
+       DONE 2026-10-23: README release section, map rows, orchestrator note
+- [x] 46. Amend `specs/STEERING.md`. Change Python 3.11+ to 3.14. Add the rules "never enable `org_release`/`organization_snapshot`", "`gd_data_product/globalmart/` is derived — regenerate with `gdcloud project`", and "domain workspaces are local-only, never released". Mark ADR 011 Accepted
        Pre: task 45 complete
        AC: #3, #10
+       DONE 2026-10-23

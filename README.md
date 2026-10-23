@@ -79,8 +79,11 @@ flowchart TB
 | Path | What | Committed? |
 |---|---|---|
 | [`layouts/workspaces/globalmart/`](layouts/workspaces/globalmart) | Parent workspace, SDK-native YAML, one file per object. No org id in the path | yes |
-| [`generated/workspaces/`](generated/workspaces) | The 12 derived children, declarative JSON. Derived, never authored — fix the parent and regenerate | yes ([ADR 003](specs/decisions/003-generated-artifacts-committed-vs-regenerated.md)) |
+| [`generated/workspaces/`](generated/workspaces) | The 12 derived children, declarative JSON. Derived, never authored — fix the parent and regenerate. Local-only: deployed on demand, never released ([ADR 011](specs/decisions/011-gdcloud-release-of-globalmart.md)) | yes ([ADR 003](specs/decisions/003-generated-artifacts-committed-vs-regenerated.md)) |
 | [`data/`](data) | `ddl/globalmart.sql` (215 tables) and `table-manifest.json`. The rows themselves are generated on demand, not stored | DDL + manifest yes; rows no ([ADR 008](specs/decisions/008-data-generated-not-committed.md)) |
+| [`config.yml`](config.yml) | gdcloud release config: one data product, four environments on two orgs | yes |
+| [`gd_data_product/globalmart/`](gd_data_product/globalmart) | What gdcloud releases. Derived from the parent layout by `globalmart gdcloud project` — never edited | yes |
+| [`gd_plugin/`](gd_plugin) | GlobalMart's own gd-ci checks (`org_scope`, `projection_current`) | yes |
 | [`config/`](config) | `targets.yaml` (publish targets, zero secrets), `domains.yaml` (domain membership), `agents.yaml` (orchestrator registry), corpus manifests | yes |
 | [`src/globalmart/`](src/globalmart) | Capture, normalize, split, publish, verify, data generation, knowledge compilation | yes |
 | [`src/gd_agents/`](src/gd_agents) | The A2A/MCP orchestrator: registry, router, lanes, merge checks, viewer | yes |
@@ -124,12 +127,54 @@ files, and no command has both. Details: [publish targets](docs/publish-targets.
 [verification](docs/verification.md) · [the data](docs/data-custody.md) ·
 [the domain split](docs/domain-split.md).
 
+## Release GlobalMart (gdcloud)
+
+The parent workspace is released by [gdcloud](https://github.com/gooddata/gd-cloud-tooling), the
+same toolkit and process as gd-ecommerce-demo on the same orgs ([ADR 011](specs/decisions/011-gdcloud-release-of-globalmart.md)):
+one data product, `globalmart`, promoted by version tag through four environments.
+
+| Env | Org | Workspace | Deployed by | GitHub Environment |
+|---|---|---|---|---|
+| dev | petertomko.demo.cloud | `globalmart_dev` | workflow 3, on merge of a `GM`-labelled PR | `develop` |
+| test | petertomko.demo.cloud | `globalmart_test` | workflow 4, manual | `staging` |
+| preprod | usecases-ai.demo.cloud | `globalmart_preprod` | workflow 5, manual | `preprod` |
+| prod | usecases-ai.demo.cloud | `globalmart_master` | workflow 5, after approval | `production` |
+
+```
+edit layouts/workspaces/globalmart/ ─► globalmart split ─► globalmart gdcloud project ─► PR (label GM)
+   CI: split/project --check, warehouse current, gdcloud gates ─► merge ─► v1.N ─► dev
+   ─► workflow 4 ─► test ─► workflow 5 ─► preprod ─► prod (approval)
+   after every deploy: globalmart_post_deploy publishes + verifies the knowledge corpus there
+```
+
+```bash
+make project            # regenerate gd_data_product/globalmart/ after a parent change; commit both
+make project-check      # what CI checks
+make ci                 # gdcloud's offline gates, plus ours
+```
+
+- **Labels decide what ships.** `GM` deploys the data product; `TOOLING` (docs, CI, code) deploys
+  nothing. A PR that changes `gd_data_product/` without `GM` cannot merge.
+- **Promote** with *Actions → 4 / 5 → Run workflow*. Leave the version empty for the latest, or name
+  one (`v1.4`) to roll back. **Hotfix** a prod defect with `gd-hotfix`, which cuts `hotfix/*` from
+  the last prod release and ships `v1.N.1`.
+- **Never edit `gd_data_product/globalmart/`** — it is derived. Change the layout and re-project;
+  `projection_current` fails the build otherwise.
+- **Org-level objects** (agents, themes) are not released from this repo: both orgs are shared, and
+  a separate org repo owns them (gd-ecommerce-demo ADR 002). `org_scope` enforces it.
+- **The 12 domain workspaces are local-only** — derived, gated, never released, so they spend none
+  of the orgs' workspace cap. Deploy them when you need them (the orchestrator below does):
+  `globalmart publish domains --target demo-cloud --apply`.
+- First deploy to a new org: `globalmart gdcloud bootstrap --environment <env>` (rehearsal, then
+  `--apply`) checks the workspace cap, creates the data source and the titled master.
+
 ## Run the orchestrator
 
 One GoodData agent is scoped to one workspace. Every customer with more than one hits that wall, so
 `gd-agents` federates: route the question, fan out to the workspaces that can answer it, merge one
 attributed answer. Same questions run over A2A or MCP, which is how the two are compared rather
-than argued about.
+than argued about. It reads the domain workspaces, which are not deployed by default — run
+`globalmart publish domains --target demo-cloud --apply` first.
 
 ```bash
 uv sync --extra agents
