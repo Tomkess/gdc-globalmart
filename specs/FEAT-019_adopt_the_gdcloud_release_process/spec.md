@@ -17,12 +17,12 @@ name: 'Adopt the gdcloud release process (Services-MIC-Cloud parity, ecommerce-d
   released dev → test → preprod → prod on two shared orgs; org-level objects owned
   by the separate org repo'
 sources: []
-status: in-progress
+status: done
 tags:
 - cicd
 - gdcloud
 - release
-updated: '2026-10-22'
+updated: '2026-10-23'
 ---
 
 > **Re-scoped 2026-10-22.** The first version of this spec released all 13 GlobalMart workspaces

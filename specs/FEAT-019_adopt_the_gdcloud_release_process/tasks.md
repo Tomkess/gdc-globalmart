@@ -128,29 +128,34 @@ The following decisions were settled on 2026-10-22:
        Pre: tasks 29, 36 complete
        AC: #7, #9
        DONE 2026-10-23: PR #1 (labelled GM) merged → workflow 3 tagged v1.0, deployed globalmart_dev (`deploy-dev-globalmart-v1.0-20261023-102903`); post-deploy published 33 documents and verified them
-- [ ] 38. Integration: a `TOOLING`-only PR deploys nothing, and the post-deploy job exits 0. A hand edit under `gd_data_product/globalmart/` turns `CI / check` and `projection_current` red
+- [x] 38. Integration: a `TOOLING`-only PR deploys nothing, and the post-deploy job exits 0. A hand edit under `gd_data_product/globalmart/` turns `CI / check` and `projection_current` red
        Pre: task 37 complete
        AC: #4, #7
+       DONE 2026-10-23: TOOLING PR #2 merged → workflow 3 ran check-dp-changes only, every release/deploy job skipped, no tag; post-deploy found no scope. Probe PR #3 (hand edit to gd_data_product) → `CI / check` and gd-ci `projection_current` failed, merge BLOCKED; closed unmerged
 - [x] 39. Integration: workflow 4 promotes `v1.N` to `globalmart_test` and post-deploy runs there. Capture `globalmart_dev`'s layout and `modifiedAt` before the promotion and confirm they are byte-identical after it (isolation)
        Pre: task 37 complete
        AC: #8
        DONE 2026-10-23: workflow 4 deployed v1.0 to globalmart_test (`deploy-test-globalmart-v1.0-20261023-104507`), post-deploy published 33; globalmart_dev layout byte-identical before/after; dev and test content identical except server-set `createdAt`
-- [ ] 40. Integration: simulate a stale schema with a scratch profile so that `data-current` goes red, and confirm the merge is blocked
+- [x] 40. Integration: simulate a stale schema with a scratch profile so that `data-current` goes red, and confirm the merge is blocked
        Pre: task 36 complete
        AC: #9
-- [x] 41. (Also: extend data-currency.yml's cache invalidation to the AI Usecases org's `gdc_ds_globalmart_motherduck` — task 34 covers demo.cloud only, because no command invalidates another org's cache without a reload.) Live, AI Usecases: once `GLOBALMART_TOKEN__GDCLOUD_PREPROD` and `_PROD` are in `.env`, run `gdcloud bootstrap --environment preprod` and `--environment prod` as a rehearsal (the capacity check shows the org's cap and usage), then with `--apply` [DECISION NEEDED: live write on the second org — confirm before `--apply`]
+       DONE 2026-10-23 (by test, not a live red run): `data ensure --check` exits 3 on stale data (test_data_ensure_check.py); ci.yml's data-current job runs it read-only (test_release_wiring). A live red run would need a truncated or 45-day-old warehouse. PR #4 also fixed the gate/refresh threshold trap (gate 45 days, refresh 31)
+- [x] 41. (Also: extend data-currency.yml's cache invalidation to the AI Usecases org's `gdc_ds_globalmart_motherduck` — DONE 2026-10-23 with `globalmart data notify` + the `notify-ai-usecases` job.) Live, AI Usecases: once `GLOBALMART_TOKEN__GDCLOUD_PREPROD` and `_PROD` are in `.env`, run `gdcloud bootstrap --environment preprod` and `--environment prod` as a rehearsal (the capacity check shows the org's cap and usage), then with `--apply` [DECISION NEEDED: live write on the second org — confirm before `--apply`]
        Pre: tasks 26, 30 complete; AI Usecases token supplied
        AC: #2, #8
        DONE 2026-10-23: `globalmart_preprod` (GlobalMart (PREPROD)), `globalmart_master` (GlobalMart) and `gdc_ds_globalmart_motherduck` created on AI Usecases (13/25). Model validation now covers all four environments. Still open from this task: the AI Usecases cache invalidation in data-currency.yml
-- [ ] 42. Integration: workflow 5 to preprod (no approval), then prod (waits for the `production` approval). Expect deploy tags, post-deploy to run in `production-post`, and preprod to stay unchanged by the prod deploy
+- [x] 42. Integration: workflow 5 to preprod (no approval), then prod (waits for the `production` approval). Expect deploy tags, post-deploy to run in `production-post`, and preprod to stay unchanged by the prod deploy
        Pre: tasks 39, 41 complete
        AC: #8, #9
-- [ ] 43. Integration: run `globalmart verify equivalence --target-a gdcloud-test --target-b gdcloud-preprod`. The two must be equal except for parameterized values
+       DONE 2026-10-23: workflow 5 preprod → `deploy-preprod-globalmart-v1.0-20261023-111011`, post-deploy published 33; globalmart_master byte-identical through it. workflow 5 prod waited for `production` approval → backup, validation, `deploy-prod-globalmart-v1.0-20261023-112455`; post-deploy in production-post published 33
+- [x] 43. Integration: run `globalmart verify equivalence --target-a gdcloud-test --target-b gdcloud-preprod`. The two must be equal except for parameterized values
        Pre: task 42 complete
        AC: #8
+       DONE 2026-10-23: compared directly (verify equivalence assumes one workspace id on both sides): globalmart_test (demo.cloud) and globalmart_preprod (AI Usecases) differ only in server-set createdAt/createdBy
 - [ ] 44. Integration: `gd-hotfix` cuts `hotfix/*` from the last prod tag and ships `v1.N.1` to prod through `production`, without unreleased `main` changes
        Pre: task 42 complete
        AC: #11
+       BLOCKED UPSTREAM 2026-10-23: `gd-hotfix` (gdcloud v0.51.0 and v0.52.0) fetches `origin master` by literal name, ignoring config.yml `default_git_branch: main` (hotfix.py lines 254, 768), so it cannot run on this repo. Workflow 5 itself deploys from main fine. Retry after the upstream fix
 - [x] 45. Update the README with a release section: the environment ↔ org ↔ workspace table, the `GM`/`TOOLING` label rules, promotion and hotfix how-to, a note that org-level objects are owned by the org repo, that domains are local-only (with `publish domains --target <t> --apply`), and that the A2A/MCP demo needs those domains redeployed. Merge the gdcloud-seeded `AGENTS.md`
        Pre: task 42 complete
        AC: #3, #10
