@@ -34,8 +34,10 @@ through `channel_id`, and the layout under `layouts/` holds that fact. The gener
 for this decision. The registry already reads the LDM's references for **load order**
 (`_dependency_edges`), but not for **which key a column draws from**.
 
-Measured 2026-10-23 against the committed layout and DDL: the naming rule misses **36 of 184
-table-backed LDM references (19%) across 32 datasets**. The most-missed targets are
+Measured 2026-10-23 against the committed layout and DDL: the naming rule misses **35 of the 174
+LDM references between tables (20%) across 31 tables**. (A first count said 36 of 184; it also
+counted the 10 references made by SQL datasets, which the generator does not fill. One of them,
+`sql_blended_daily_revenue`, was the SQL fix in FEAT-019.) The most-missed targets are
 `dim_company_entity` (11), `dim_geography_country` (7), `dim_channel_master` (3) and
 `dim_geography_city` (3). In the warehouse, `fact_order_header.channel_id` holds 35,872 distinct
 values on 35,872 orders and matches none of `dim_channel_master`'s 6 ids. So every breakdown by
@@ -52,12 +54,12 @@ silently empty"). That fix corrected the *order*; this one corrects the *target*
 ## Acceptance Criteria
 - [ ] Given the committed layout, when the registry is built with the model, then every column a
       dataset reference names maps to the referenced table and that table's key column from the
-      reference's `target` attribute, for all 184 table-backed references. The naming rule applies
+      reference's `target` attribute, for all 174 references between tables. The naming rule applies
       only to `_id` columns that no reference names
 - [ ] Given a reference whose target key column differs from the source column, when generating,
       then the source column draws from the target's actual key column
 - [ ] Given the regenerated dataset, when every table-backed LDM reference is checked, then 0 of
-      184 have a source value that is not in the target's key column. Nullable references may be
+      174 have a source value that is not in the target's key column. Nullable references may be
       empty, but never dangling
 - [ ] Given `fact_order_header`, when joined to `dim_channel_master` on `channel_id`, then every
       order matches one of the channels. `sql_blended_daily_revenue` returns its intended grain:
@@ -75,7 +77,7 @@ silently empty"). That fix corrected the *order*; this one corrects the *target*
 - `registry.py`: derive a column-level foreign-key map
   (`table.column -> (target_table, target_column)`) from the LDM references, using the existing
   `build_entity_index` / reference data. `plan_columns` consults it before `foreign_key_target`
-- A regression test over the committed layout: the 184-reference audit above, as an assertion
+- A regression test over the committed layout: the 174-reference audit above, as an assertion
 - One forced regeneration and reload of the shared `globalmart` schema, which `data-currency`
   would otherwise only do when the data is stale
 
@@ -88,7 +90,7 @@ silently empty"). That fix corrected the *order*; this one corrects the *target*
 ## Key Risks
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
-| A reference whose target column has a different name from the source column (`entity_id` → `dim_company_entity.company_entity_id`) is mis-mapped | Medium | Medium | Take the target column from the reference's `target` attribute's `sourceColumn`, never from the source column name. The 184-reference audit asserts it |
+| A reference whose target column has a different name from the source column (`entity_id` → `dim_company_entity.company_entity_id`) is mis-mapped | Medium | Medium | Take the target column from the reference's `target` attribute's `sourceColumn`, never from the source column name. The 174-reference audit asserts it |
 | Reference cycles in the LDM leave a column unfilled | Low | Low | The only cycle (dim_department ↔ dim_employee) was removed in FEAT-019. `GenerationReport.unresolved` already reports leftovers |
 | Correct keys change dashboard numbers people have seen | Certain | Low | That is the fix: the numbers were empty. Note it in the release that ships the reload |
 | The reload truncates the schema all four environments read | Medium | Medium | `data_owned: true` (ADR 004/008). The reload takes minutes. Run it off-hours via `data-currency` `force=true`, which then invalidates both orgs' caches |
