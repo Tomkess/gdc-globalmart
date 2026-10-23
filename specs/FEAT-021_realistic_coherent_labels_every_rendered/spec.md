@@ -17,7 +17,7 @@ name: 'Realistic, coherent labels: every rendered text attribute (channel, curre
   a realistic value from a config vocabulary, and geography is coherent — a row''s
   references agree with the references of the rows they point at'
 sources: []
-status: in-progress
+status: done
 tags: []
 updated: '2026-10-23'
 ---
@@ -101,3 +101,14 @@ This feature fixes both, without naming a table or column in code:
 ## Open Questions
 - None blocking. Vocabulary content (which countries, cities and product words) is a demo-taste
   choice, kept in config so it can change without code
+
+## Outcome (2026-10-23)
+- PR #11: coherence pass plus `config/vocabulary.yaml`. 897 tests pass.
+- Forced reload (run 39982585680, commit 0d24055): 174,372 rows. Both orgs' caches invalidated.
+- Warehouse: 0 placeholder labels across the 12 rendered columns, 0 incoherent cities (was 54/100),
+  0 incoherent stores (was 11/20). United States pays in USD, Canada in CAD. Orders split by real
+  channel names.
+- `verify --target gdcloud-dev --fail-on-empty`: 384/384 ok, 0 empty.
+- Observed, not changed: Canada gets 5 of the 8 regions by draw, so most cities and stores, and
+  ~70% of orders, are Canadian. If the demo should read as US-led, weight the country draw (or pin
+  regions by record) in the vocabulary; it is content, not code.
