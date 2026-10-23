@@ -1,0 +1,22 @@
+# gd-validate afm configuration (content policy — common layer).
+# Per-DP scenarios: gd_data_product/<dp>/config.afm.yml (replace-by-name).
+#
+# defaults:
+#   date:
+#     dataset: my_date_dataset       # default date dataset for --date-* flags
+#
+# profiles:                          # `afm dashboard --profile NAME`
+#   my_dev:
+#     env: dev
+#     data_product_id: my_product
+#     filters: {region_code: EU}
+#
+# scenarios:                         # `afm scenario` checks with expect:
+#   - name: "Revenue > 0"
+#     metric: total_revenue
+#     expect: {min_rows: 1}
+#
+# compile_skip:                      # optional external-service proxy metrics
+#   metrics: ["external_proxy_*"]    # no patterns enabled by default
+#   applies_to: [explain]            # retain execute/both/preview/scenarios
+# Per-DP compile_skip.metrics append; applies_to replaces the common setting.

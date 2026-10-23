@@ -1,0 +1,278 @@
+name: 'Load Configuration'
+description: 'Loads configuration variables from config.yml with hierarchical lookup support'
+
+inputs:
+  keys:
+    description: 'Optional: Comma-separated list of configuration keys to retrieve (e.g., "host,master_workspace_id")'
+    required: false
+  environment:
+    description: 'Optional: Environment name for hierarchical lookup (e.g., dev, test, prod)'
+    required: false
+  data_product_id:
+    description: 'Optional: Data product ID for hierarchical lookup. If not provided, auto-detected from branch name.'
+    required: false
+
+outputs:
+  default_branch:
+    description: 'The name of the default branch (always loaded)'
+    value: ${{ steps.load-config.outputs.default_branch }}
+  is_default_branch:
+    description: >-
+      'true' when the running branch is the configured default branch
+      (config.yml via is_default_branch). Gate on this, never on a literal.
+    value: ${{ steps.load-config.outputs.is_default_branch }}
+  github_token_variable:
+    description: 'The name of the GitHub token variable (always loaded)'
+    value: ${{ steps.load-config.outputs.github_token_variable }}
+  data_product_id:
+    description: 'Data product ID (from input or auto-detected from branch name)'
+    value: ${{ steps.load-config.outputs.data_product_id }}
+  branch:
+    description: 'Branch suffix (auto-detected from branch name, e.g., "feature_x" from "example_dp--feature_x")'
+    value: ${{ steps.load-config.outputs.branch }}
+  branch_name:
+    description: 'Full git branch name'
+    value: ${{ steps.load-config.outputs.branch_name }}
+  github_environment:
+    description: >-
+      GitHub Environment for write/deploy jobs (always loaded). Workflows use
+      the sync-compiled mapping because jobs select an Environment before steps.
+    value: ${{ steps.load-config.outputs.github_environment }}
+  github_environment_readonly:
+    description: >-
+      GitHub Environment for validation/export/backup jobs (always loaded).
+      Falls back to github_environment.
+    value: ${{ steps.load-config.outputs.github_environment_readonly }}
+  host:
+    description: 'The host URL (when requested via keys)'
+    value: ${{ steps.load-config.outputs.host }}
+  master_workspace_id:
+    description: 'The master workspace ID (when requested via keys)'
+    value: ${{ steps.load-config.outputs.master_workspace_id }}
+  data_product_environments:
+    description: 'JSON array of environments where the data product is configured (e.g., ["dev","test"])'
+    value: ${{ steps.load-config.outputs.data_product_environments }}
+  data_product_all:
+    description: 'Space-separated list of data product IDs (filtered by environment if provided, otherwise all)'
+    value: ${{ steps.load-config.outputs.data_product_all }}
+  slack_webhook_variable:
+    description: |
+      Name of the secret holding the Slack webhook (always loaded).
+      Same indirection as github_token_variable: config.yml names the secret,
+      the repo holds its value, so a project chooses its own secret names and one
+      with no Slack simply omits the key — notify_slack then skips.
+    value: ${{ steps.load-config.outputs.slack_webhook_variable }}
+  slack_webhook_deploy_variable:
+    description: >-
+      Secret name for DEPLOY notifications (always loaded). Falls back to
+      slack_webhook_variable. Keyed on purpose, not environment.
+    value: ${{ steps.load-config.outputs.slack_webhook_deploy_variable }}
+  slack_review_subteam_id:
+    description: 'Slack subteam ID mentioned by the PR-ready notification (always loaded)'
+    value: ${{ steps.load-config.outputs.slack_review_subteam_id }}
+
+runs:
+  using: "composite"
+  steps:
+    # Note: Requires setup_python to be called before this action
+    - name: Load Configuration
+      id: load-config
+      shell: bash
+      env:
+        # Pass GitHub env vars to Python for branch detection
+        GITHUB_HEAD_REF: ${{ github.head_ref }}
+        GITHUB_REF_NAME: ${{ github.ref_name }}
+        INPUT_ENVIRONMENT: ${{ inputs.environment }}
+        INPUT_DATA_PRODUCT_ID: ${{ inputs.data_product_id }}
+        INPUT_KEYS: ${{ inputs.keys }}
+      run: |
+        python << 'PYTHON_SCRIPT'
+        import json
+        import os
+        import sys
+
+        # Add project root to path so we can import as a proper module
+        sys.path.insert(0, os.getcwd())
+        from gdcloud.utils.config import (
+            get_available_data_products,
+            get_available_environments,
+            get_config_value,
+            get_data_product_id_from_branch,
+            get_branch_suffix,
+            is_default_branch,
+        )
+
+        try:
+            # Get environment and data_product_id from inputs (if provided)
+            environment = os.environ.get("INPUT_ENVIRONMENT") or None
+            data_product_id = os.environ.get("INPUT_DATA_PRODUCT_ID") or None
+
+            # Get branch name from GitHub env vars (works in detached HEAD state)
+            # GITHUB_HEAD_REF is set for PRs, GITHUB_REF_NAME for direct pushes
+            branch_name = os.environ.get("GITHUB_HEAD_REF") or os.environ.get("GITHUB_REF_NAME") or ""
+
+            # Parse data_product_id and branch suffix using shared utils
+            detected_dp = get_data_product_id_from_branch(branch_name)
+            detected_branch = get_branch_suffix(branch_name, detected_dp)
+
+            if not data_product_id and detected_dp:
+                data_product_id = detected_dp
+                print(f"Auto-detected data_product_id from branch: {data_product_id}")
+
+            # Always use detected branch suffix (can't be overridden via input)
+            branch = detected_branch or ""
+
+            # Always load common configurations (used by multiple workflows)
+            default_branch = get_config_value(
+                "default_git_branch",
+                environment=environment,
+                data_product_id=data_product_id,
+                default="main"
+            )
+            # The one place branch == default is decided; workflows gate on it.
+            branch_is_default = is_default_branch(branch_name, default_branch)
+
+            # Always written: a keys-only output reads '' when nobody asks for it.
+            github_environment = get_config_value(
+                "github_environment",
+                environment=environment,
+                data_product_id=data_product_id,
+                default=environment or "",
+            )
+            github_environment_readonly = get_config_value(
+                "github_environment_readonly",
+                environment=environment,
+                data_product_id=data_product_id,
+                default=github_environment,
+            )
+
+            slack_webhook_variable = get_config_value(
+                "slack_webhook_variable",
+                environment=environment,
+                data_product_id=data_product_id,
+            ) or ""
+            slack_webhook_deploy_variable = get_config_value(
+                "slack_webhook_deploy_variable",
+                environment=environment,
+                data_product_id=data_product_id,
+                default=slack_webhook_variable,
+            ) or ""
+            slack_review_subteam_id = get_config_value(
+                "slack_review_subteam_id",
+                environment=environment,
+                data_product_id=data_product_id,
+            ) or ""
+
+            github_token_variable = get_config_value(
+                "github_token_variable",
+                environment=environment,
+                data_product_id=data_product_id,
+                default="TOKEN_GITHUB"
+            )
+
+            # Compute environments where this data product is configured
+            if data_product_id:
+                all_envs = get_available_environments()
+                dp_environments = [
+                    env for env in all_envs
+                    if data_product_id in get_available_data_products(environment=env)
+                ]
+            else:
+                dp_environments = []
+
+            data_product_all = get_available_data_products(environment=environment)
+
+            print(f"Loaded configurations:")
+            print(f"  - branch_name: {branch_name or '(not set)'}")
+            print(f"  - data_product_id: {data_product_id or '(not set)'}")
+            print(f"  - branch: {branch or '(not set)'}")
+            print(f"  - default_branch: {default_branch}")
+            print(f"  - is_default_branch: {str(branch_is_default).lower()}")
+            # Prints the secret NAME (e.g. "TOKEN_GITHUB"), not the secret value
+            print(f"  - github_token_variable: {github_token_variable}")
+            print(f"  - github_environment: {github_environment}")
+            print(
+                f"  - github_environment_readonly: {github_environment_readonly}"
+            )
+            print(f"  - slack webhook secret: {slack_webhook_variable or '(unset)'}")
+            print(
+                f"  - slack deploy webhook secret: "
+                f"{slack_webhook_deploy_variable or '(unset)'}"
+            )
+            print(f"  - review subteam: {slack_review_subteam_id or '(unset)'}")
+            print(f"  - data_product_all: {' '.join(data_product_all)}")
+            print(f"  - data_product_environments: {dp_environments}")
+
+            # Written unconditionally, with defaults; see the `keys:` loop.
+            ALWAYS_WRITTEN = {
+                "branch_name",
+                "data_product_id",
+                "branch",
+                "default_branch",
+                "is_default_branch",
+                "github_token_variable",
+                "github_environment",
+                "github_environment_readonly",
+                "slack_webhook_variable",
+                "slack_webhook_deploy_variable",
+                "slack_review_subteam_id",
+                "data_product_all",
+                "data_product_environments",
+            }
+
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                print(f"branch_name={branch_name}", file=fh)
+                print(f"data_product_id={data_product_id or ''}", file=fh)
+                print(f"branch={branch}", file=fh)
+                print(f"default_branch={default_branch}", file=fh)
+                print(f"is_default_branch={str(branch_is_default).lower()}", file=fh)
+                print(f"github_token_variable={github_token_variable}", file=fh)
+                print(f"github_environment={github_environment}", file=fh)
+                print(
+                    f"github_environment_readonly={github_environment_readonly}",
+                    file=fh,
+                )
+                print(
+                    f"slack_webhook_variable={slack_webhook_variable}", file=fh
+                )
+                print(
+                    f"slack_webhook_deploy_variable="
+                    f"{slack_webhook_deploy_variable}",
+                    file=fh,
+                )
+                print(
+                    f"slack_review_subteam_id={slack_review_subteam_id}", file=fh
+                )
+                print(f"data_product_all={' '.join(data_product_all)}", file=fh)
+                print(f"data_product_environments={json.dumps(dp_environments)}", file=fh)
+
+            # Load additional keys if requested.
+            #
+            # ALWAYS_WRITTEN keys are skipped: they were emitted above with
+            # their defaults (TOKEN_GOODDATA, main, ...), and GITHUB_OUTPUT is
+            # last-write-wins. Re-resolving one here goes through the
+            # no-default lookup below, so a config.yml that does not name the
+            # key would append an EMPTY value and silently overwrite the
+            # default — turning secrets[...outputs.gooddata_token_variable]
+            # into secrets[''] in every workflow that listed it under `keys:`.
+            keys_input = os.environ.get("INPUT_KEYS", "")
+            if keys_input:
+                keys = [k.strip() for k in keys_input.split(',') if k.strip()]
+                for key in keys:
+                    if key in ALWAYS_WRITTEN:
+                        print(f"  - {key}: (already loaded above)")
+                        continue
+                    value = get_config_value(
+                        key=key,
+                        environment=environment,
+                        data_product_id=data_product_id
+                    )
+                    formatted_value = value if value is not None else ''
+                    print(f"  - {key}: {formatted_value}")
+                    with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                        print(f"{key}={formatted_value}", file=fh)
+
+        except Exception as e:
+            print(f"Error loading configuration: {type(e).__name__}: {e}")
+            raise
+        PYTHON_SCRIPT

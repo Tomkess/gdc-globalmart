@@ -35,9 +35,16 @@ automation:
   metadata_export:
     enabled: false
 
-# A parent-only change must still run gd-ci: the projection under gd_data_product/ is derived
-# from layouts/, so a layouts/ edit is a content change.
 workflows:
+  # Generated even with organization_snapshot off: its schedule is disabled, but a manual dispatch
+  # would still commit gd_organization_snapshot/ — exactly what org_scope forbids. This repo owns
+  # no org-level objects (ecommerce ADR 002), so the file is unsubscribed and deleted.
+  unsubscribed:
+    auto_org_snapshot.yml:
+      reason: "org-level objects are owned by the separate org repo (ecommerce ADR 002, ADR 011)"
+      since: v0.51.0
+  # A parent-only change must still run gd-ci: the projection under gd_data_product/ is derived
+  # from layouts/, so a layouts/ edit is a content change.
   check_ci_checks:
     additional_paths: '^gd_plugin/|^config\.yml$|^pyproject\.toml$|^layouts/workspaces/globalmart/|^gd_data_product/([^/]+/)?config\.env\.yml$'
 

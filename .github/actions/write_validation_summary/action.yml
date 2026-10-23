@@ -1,0 +1,143 @@
+name: 'Write Validation Summary'
+description: 'Writes model validation summary to GitHub Step Summary'
+
+inputs:
+  mode:
+    description: 'Validation mode (ldm-now, ldm-deploy, etc.)'
+    required: true
+  environment:
+    description: 'Target environment'
+    required: true
+  data_product_id:
+    description: 'Data product being validated'
+    required: true
+  validation_outcome:
+    description: 'Validation step outcome (success/failure)'
+    required: true
+  validation_result:
+    description: 'Validation result string (optional, shown as Result row)'
+    required: false
+  critical_issues:
+    description: 'Critical issues found string (optional, shown as Critical Issues row)'
+    required: false
+  overrides_outcome:
+    description: 'Overrides check step outcome (optional)'
+    required: false
+  validation_log:
+    description: 'Path to validation log file'
+    required: false
+    default: 'validation.log'
+  overrides_log:
+    description: 'Path to overrides log file (optional)'
+    required: false
+    default: 'overrides.log'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Write summary
+      shell: bash
+      env:
+        MODE: ${{ inputs.mode }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        DATA_PRODUCT_ID: ${{ inputs.data_product_id }}
+        VALIDATION_OUTCOME: ${{ inputs.validation_outcome }}
+        VALIDATION_RESULT: ${{ inputs.validation_result }}
+        CRITICAL_ISSUES: ${{ inputs.critical_issues }}
+        OVERRIDES_OUTCOME: ${{ inputs.overrides_outcome }}
+        VALIDATION_LOG: ${{ inputs.validation_log }}
+        OVERRIDES_LOG: ${{ inputs.overrides_log }}
+      run: |
+        # Validate required inputs
+        for var in MODE ENVIRONMENT DATA_PRODUCT_ID VALIDATION_OUTCOME; do
+          if [[ -z "${!var}" ]]; then
+            echo "::error::write_validation_summary: missing required input: $var"
+            exit 1
+          fi
+        done
+
+        # Determine status icon based on validation outcome
+        if [[ "$VALIDATION_OUTCOME" == "success" ]]; then
+          status_icon="✅"
+        else
+          status_icon="❌"
+        fi
+
+        # Helper function to output log with truncation and consistent error handling
+        # Usage: output_log "path/to/log" max_lines
+        output_log() {
+          local log_file="$1"
+          local max_lines="${2:-200}"
+
+          if [[ ! -e "$log_file" ]]; then
+            echo "No output captured (file not found)"
+          elif [[ ! -r "$log_file" ]]; then
+            echo "No output captured (file not readable)"
+          elif [[ ! -s "$log_file" ]]; then
+            echo "(empty)"
+          else
+            local total_lines
+            total_lines=$(wc -l < "$log_file")
+            if [[ "$total_lines" -gt "$max_lines" ]]; then
+              head -n "$max_lines" "$log_file"
+              echo ""
+              echo "... truncated ($total_lines total lines, showing first $max_lines)"
+            else
+              cat "$log_file"
+            fi
+          fi
+        }
+
+        {
+          echo "## $status_icon Model Validation: $ENVIRONMENT"
+          echo ""
+          echo "| Field | Value |"
+          echo "|-------|-------|"
+          echo "| Mode | $MODE |"
+          echo "| Environment | $ENVIRONMENT |"
+          echo "| Data Product | $DATA_PRODUCT_ID |"
+
+          # Show validation status - prefer result string if available, else outcome
+          if [[ -n "$VALIDATION_RESULT" ]]; then
+            echo "| Result | $VALIDATION_RESULT |"
+          else
+            echo "| Validation | $VALIDATION_OUTCOME |"
+          fi
+
+          # Show critical issues if provided
+          if [[ -n "$CRITICAL_ISSUES" ]]; then
+            echo "| Critical Issues | $CRITICAL_ISSUES |"
+          fi
+
+          # For overrides-check mode, the check ran as the main validation step
+          # For other modes, show the separate overrides step outcome (if provided)
+          if [[ "$MODE" == "overrides-check" ]]; then
+            echo "| Overrides Check | $VALIDATION_OUTCOME |"
+          elif [[ -n "$OVERRIDES_OUTCOME" ]]; then
+            echo "| Overrides Check | $OVERRIDES_OUTCOME |"
+          fi
+          echo ""
+
+          # Output section - label based on mode
+          if [[ "$MODE" == "overrides-check" ]]; then
+            echo "### Overrides Check Output"
+          else
+            echo "### Validation Output"
+          fi
+          echo ""
+          echo '```text'
+          output_log "$VALIDATION_LOG" 200
+          echo '```'
+
+          # Show separate overrides output if log exists and has content
+          # Only for modes that run overrides as a second step (e.g. ldm-deploy in PR validation)
+          # In overrides-check mode, the main validation log IS the overrides output
+          if [[ "$MODE" != "overrides-check" && -f "$OVERRIDES_LOG" && -s "$OVERRIDES_LOG" ]]; then
+            echo ""
+            echo "### Overrides Check Output"
+            echo ""
+            echo '```text'
+            output_log "$OVERRIDES_LOG" 100
+            echo '```'
+          fi
+        } >> "$GITHUB_STEP_SUMMARY"

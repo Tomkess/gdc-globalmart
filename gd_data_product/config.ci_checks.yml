@@ -1,0 +1,14 @@
+# gd-ci configuration (content policy — common layer).
+# Per-DP overrides: gd_data_product/<dp>/config.ci_checks.yml (deep-merged).
+# Every key is optional; with nothing set, core checks run with empty
+# exclusions and policy checks (e.g. dashboard_plugin) skip.
+# Full reference: docs/configuration.md in gooddata/gd-cloud-tooling.
+#
+# dashboard_plugin:
+#   enabled: true
+#   required_plugin_id: "my-plugin-uuid"
+#
+# objects_non_existent:
+#   exclude_metrics: []
+#   exclude_visualizations: []
+#   exclude_dashboards: []

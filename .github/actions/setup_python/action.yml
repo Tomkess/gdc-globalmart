@@ -1,0 +1,171 @@
+name: 'Custom Python Setup'
+description: 'Sets up Python environment with uv and installs dependencies'
+
+inputs:
+  full_deps:
+    description: 'Sync ALL of the project''s extras (whatever its pyproject defines). Default uses core deps only.'
+    required: false
+    default: 'false'
+
+  dev_deps:
+    description: 'Also install the dev extra (pytest, ruff). Needed by any workflow that runs the test suite or lints.'
+    required: false
+    default: 'false'
+
+  all_extras:
+    description: 'Install every extra. Simpler than listing them when a job exercises the whole toolkit (e.g. its full test suite); overrides the flags above.'
+    required: false
+    default: 'false'
+
+  cache_suffix:
+    description: >-
+      Suffix for this job's uv cache key. Defaults to the dependency set the
+      flags above select, so every job installing the same tree shares one
+      cache entry. Set it explicitly only to split a cache apart.
+    required: false
+    default: ''
+  save_cache:
+    description: >-
+      Write the uv cache at job end. Parallel jobs on one key race to save it
+      and the losers log "Unable to reserve cache"; set 'false' on all but one.
+    required: false
+    default: 'true'
+  github_token:
+    description: >-
+      Credential that can clone the private `gdcloud` package pin for any
+      `git+https://` pin
+      under github.com/gooddata/. Callers pass a secret of their own: the
+      workflow templates ship a placeholder name that `gd-workflows sync`
+      rewrites from `github_dependency_token_variable` in config.yml, which
+      adoption defaults to `github_token_variable`. There is no runtime
+      fallback: the compiled name is the only credential forwarded, so prefer
+      a clone-only secret when the push token is broader. Empty skips the
+      credential step; uv then uses the runner's git authentication.
+    required: false
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install uv and Python
+      # setup-uv v8+ has no major/minor tags; keep this immutable full-version pin.
+      # uv provides the interpreter: 3.14 is in no runner toolcache, so
+      # actions/setup-python downloaded it per job (~9s of an ~11s step) while
+      # uv holds the same build in its own cache. `python-version` also feeds
+      # setup-uv's cache key directly, which keeps it out of the `unknown`
+      # bucket without a prior step and drops the patch level, so a 3.14.x bump
+      # no longer invalidates every entry.
+      # Keep the default unpruned cache so restored wheels need no PyPI download.
+      # `auto` excludes self-hosted runners, so enable caching explicitly.
+      # Closed PR runs can restore but cannot write the default-branch cache:
+      # https://github.blog/changelog/2026-06-26-read-only-actions-cache-for-untrusted-triggers/
+      # Some workflows call this twice around a checkout; GITHUB_ENV persists,
+      # so the marker avoids duplicate setup and post-job cache saves.
+      if: env.GDCLOUD_UV_CACHE_INITIALIZED != 'true'
+      uses: astral-sh/setup-uv@v10.3.0
+      with:
+        python-version: "3.14"
+        enable-cache: true
+        cache-dependency-glob: |
+          pyproject.toml
+          uv.lock
+        # Key on what gets installed, not on who installs it. The suffix used
+        # to default to `github.job`, so the three sync variants below were
+        # stored once per job id — ~35MB of an identical tree per caller, and
+        # a first-run miss for every new job name. Jobs sharing a suffix run in
+        # parallel and all miss together on a cold key; the losers of the save
+        # race warn "Unable to reserve cache" unless `save_cache` is off for them.
+        cache-suffix: ${{ inputs.cache_suffix || ((inputs.all_extras == 'true' || inputs.full_deps == 'true') && 'all-extras') || (inputs.dev_deps == 'true' && 'dev') || 'core' }}
+        save-cache: ${{ inputs.save_cache != 'false' && (github.event_name != 'pull_request' || github.event.action != 'closed') }}
+
+    - name: Mark uv cache initialized
+      shell: bash
+      run: echo "GDCLOUD_UV_CACHE_INITIALIZED=true" >> "$GITHUB_ENV"
+
+    - name: Install dependencies
+      shell: bash
+      env:
+        # Via env, not inline: keeps the value out of the command line that
+        # Actions renders before running the step.
+        GH_DEP_TOKEN: ${{ inputs.github_token }}
+        # Same reason as the token: composite inputs are free-form strings, so
+        # a caller-supplied value must not be substituted into the script body.
+        ALL_EXTRAS: ${{ inputs.all_extras }}
+        FULL_DEPS: ${{ inputs.full_deps }}
+        DEV_DEPS: ${{ inputs.dev_deps }}
+      run: |
+        # `uv sync` shells out to plain `git clone` and has nowhere to take a
+        # credential, so the URL prefix is rewritten instead. Global, not
+        # --local, because uv clones into its own cache rather than here.
+        #
+        # Hence the trap: left standing the rewrite persists the PAT in
+        # ~/.gitconfig past the job on a self-hosted runner, and re-scopes
+        # every later github.com/gooddata/* push — including the ones
+        # auto_update_* make with a different, project-scoped token.
+        #
+        # Prefix stays `github.com/gooddata/`; a bare one would leak the token
+        # to third-party clones.
+        if [[ -n "$GH_DEP_TOKEN" ]]; then
+          dep_url="url.https://x-access-token:${GH_DEP_TOKEN}@github.com/gooddata/"
+          trap 'git config --global --remove-section "$dep_url" 2>/dev/null || true' EXIT
+          git config --global "${dep_url}.insteadOf" "https://github.com/gooddata/"
+        fi
+
+        # `--locked`, not `--frozen`: frozen installs the lock while ignoring
+        # pyproject.toml, so a pin bumped without re-locking would silently
+        # install the release being replaced. No lock: resolve as before.
+        sync=(uv sync)
+        if [[ -f uv.lock ]]; then
+          sync+=(--locked)
+        fi
+
+        # Explicit `if`, not `[[ ... ]] && ...`: steps run under `bash -e`,
+        # where a false test as a whole command aborts the step. The && form
+        # would fail the build whenever an input is left at its default.
+        if [[ "$ALL_EXTRAS" == "true" ]]; then
+          "${sync[@]}" --all-extras
+          exit 0
+        fi
+        # full_deps syncs --all-extras: WHICH extras exist is the consuming
+        # project's business (it may define none at all) — naming the source
+        # repo's extras here broke every consumer that lacked them.
+        if [[ "$FULL_DEPS" == "true" ]]; then
+          "${sync[@]}" --all-extras
+        elif [[ "$DEV_DEPS" == "true" ]]; then
+          "${sync[@]}" --extra dev
+        else
+          "${sync[@]}"
+        fi
+
+    # The generated CI workflows and the gdcloud package are one release.
+    # `gd-workflows adopt` records the version it rendered them from
+    # in .github/gdcloud-ci.version; a project whose pin moved without
+    # re-adopting (or the reverse) would otherwise run new workflows against
+    # old code in silence. No file — a project's own workflow, or this
+    # toolkit's CI — means nothing to check.
+    - name: Check the CI workflows match the installed gdcloud
+      shell: bash
+      run: |
+        marker="${GITHUB_WORKSPACE}/.github/gdcloud-ci.version"
+        if [[ ! -f "$marker" ]]; then
+          exit 0
+        fi
+        expected=$(tr -d '[:space:]' < "$marker")
+        expected="${expected#v}"
+        installed=$(uv run --no-sync python -c \
+          "import importlib.metadata as m; print(m.version('gdcloud'))" 2>/dev/null || true)
+        if [[ -z "$installed" ]]; then
+          echo "::error::gdcloud is not installed in this project's environment, so its CI workflows cannot run."
+          exit 1
+        fi
+        if [[ "$installed" != "$expected" ]]; then
+          echo "::error::The CI workflows were rendered from gdcloud v${expected} but the project installs gdcloud v${installed}. Workflows and package are one release: bump the gdcloud pin in pyproject.toml, run 'uv lock' and 'gd-workflows adopt .', then commit."
+          exit 1
+        fi
+        echo "CI workflows v${expected} match the installed gdcloud"
+
+    # Add .venv/bin to PATH so entry points work without 'uv run' prefix
+    # This makes workflows tool-agnostic (works with uv, pip, etc.)
+    - name: Add venv to PATH
+      shell: bash
+      run: echo "${{ github.workspace }}/.venv/bin" >> $GITHUB_PATH

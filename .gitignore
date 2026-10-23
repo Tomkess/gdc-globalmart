@@ -1,3 +1,9 @@
+# Added by gd-workflows adopt — new entries from the toolkit scaffold.
+venv/
+*.egg-info/
+.vscode/
+.idea/
+
 # Meridian — generated from tracked files (spec frontmatter, goals/, decisions/).
 # Committing it protected nothing and conflicted on nearly every merge.
 specs/REGISTRY.md

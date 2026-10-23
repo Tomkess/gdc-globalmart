@@ -1,87 +1,31 @@
-# GlobalMart's make targets, on the Services-MIC-Cloud / gd-ecommerce-demo pattern (FEAT-019).
-# The gd-* targets run the pinned gdcloud toolkit; `project` / `project-check` run GlobalMart's
-# own projection of the parent layout into gd_data_product/globalmart/ (ADR 011).
+# GlobalMart's make targets (FEAT-019). The toolkit's own targets — dev, adopt, store, validate,
+# ci, format, lint, tag, db, help — come from .github/gdcloud.mk, which `gd-workflows adopt`
+# rewrites on every pin bump, so they never go stale here. Only GlobalMart's targets live below.
 
-.PHONY: dev dev-core install adopt test lint lint-ruff lint-yaml format-yaml project project-check \
-	store upload validate ci help
+# The one data product, and the environment `make store` / `make upload` address by default.
+DP ?= globalmart
+GD_ENV ?= dev
 
-# How to invoke the installed CLIs. `uv run` locally; override with `make <tgt> RUN=`
-# when the venv is already activated and the entry points are on PATH.
-RUN ?= uv run
+include .github/gdcloud.mk
 
-# Refresh the pinned toolkit's CI after installing. Set ADOPT_CI=0 to skip it.
-ADOPT_CI ?= 1
+.PHONY: test quality project project-check upload
 
-# =============================================================================
-# Setup
-# =============================================================================
-
-# No --upgrade, unlike MIC: gooddata-sdk is pinned exactly for byte-stable layouts (FEAT-001),
-# and gdcloud moves only through its pin (auto_gdcloud_pin.yml).
-dev:
-	uv sync --all-extras --dev
-	@if [ "$(ADOPT_CI)" = "1" ]; then $(MAKE) adopt; fi
-
-dev-core install:
-	uv sync
-
-adopt:  ## Install the pinned toolkit's CI workflows, actions and scripts
-	@$(RUN) gd-workflows adopt .
-
-# =============================================================================
-# Testing and code quality
-# =============================================================================
-
-test:
+test:  ## Run the test suite
 	$(RUN) pytest tests/ -q
 
-lint: lint-ruff lint-yaml
+quality:  ## ruff, mypy and yamllint over the whole repo
+	$(RUN) ruff check src tests gd_plugin
+	$(RUN) mypy
+	$(RUN) yamllint .
 
-lint-ruff:
-	@$(RUN) ruff check src tests gd_plugin
-	@$(RUN) mypy
-
-# gd_data_product/ is machine-written by `project`; gd-format-yaml checks its shape.
-lint-yaml:
-	$(RUN) gd-format-yaml --check --data-product-all
-	@$(RUN) yamllint .
-
-format-yaml:
-	$(RUN) gd-format-yaml
-
-# =============================================================================
-# The parent data product
-# =============================================================================
-
-# layouts/workspaces/globalmart/ is the authoring surface; gd_data_product/globalmart/ is
-# derived from it. Regenerate after every parent change, and commit both.
-project:
+# layouts/workspaces/globalmart/ is the authoring surface; gd_data_product/globalmart/ is derived
+# from it (ADR 011). Regenerate after every parent change, and commit both.
+project:  ## Derive gd_data_product/globalmart/ from the parent layout
 	$(RUN) globalmart gdcloud project
 
-project-check:
+project-check:  ## Fail if gd_data_product/globalmart/ is stale (the CI gate)
 	$(RUN) globalmart gdcloud project --check
 
-# =============================================================================
-# GoodData operations (gdcloud)
-# =============================================================================
-
-# Routine releases go through the workflows, not these. `store` exists for gdcloud's
-# feature-branch flow; under Stage A a store into gd_data_product/globalmart/ is drift,
-# and the projection_current check says so.
-store:
-	$(RUN) gd-store
-
-upload:
-	$(RUN) gd-upload
-
-validate:
-	$(RUN) gd-validate
-
-ci:
-	$(RUN) gd-ci run
-
-help:
-	@echo "Setup:      make dev | dev-core | adopt"
-	@echo "Quality:    make test | lint | format-yaml"
-	@echo "Parent DP:  make project | project-check"
-	@echo "gdcloud:    make validate | ci | upload | store"
+# Routine releases go through workflows 3/4/5, not this.
+upload: guard-DP guard-GD_ENV  ## Deploy the committed projection to GD_ENV's master by hand
+	$(RUN) gd-upload --data-product-id $(DP) --environment $(GD_ENV) --branch main

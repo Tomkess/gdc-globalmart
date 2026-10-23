@@ -1,0 +1,102 @@
+name: 'Notify Slack'
+description: 'Sends a Block Kit message to Slack via webhook'
+
+inputs:
+  webhook_url:
+    description: 'Slack Incoming Webhook URL. Empty means the project has no Slack configured — see on_missing.'
+    required: false
+    default: ''
+  on_missing:
+    description: |
+      What to do when webhook_url is empty: 'skip' (default) reports a notice and
+      succeeds; 'error' fails the step. Skip is the default because notification
+      is an accessory to the job that produced it — a project with no Slack
+      should not get a red build for declining an optional integration. Choose
+      'error' where the notification IS the deliverable, e.g. an alerting
+      workflow whose only job is to tell someone.
+    required: false
+    default: 'skip'
+  header:
+    description: 'Optional plain-text header (prepended as Block Kit header block)'
+    required: false
+    default: ''
+  payload:
+    description: 'Block Kit blocks JSON array string'
+    required: true
+
+outputs:
+  sent:
+    description: "'true' if a message was delivered, 'false' if skipped."
+    value: ${{ steps.slack.outputs.sent }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Send Slack Notification
+      id: slack
+      shell: bash
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.webhook_url }}
+        SLACK_HEADER: ${{ inputs.header }}
+        SLACK_PAYLOAD: ${{ inputs.payload }}
+        ON_MISSING: ${{ inputs.on_missing }}
+      run: |
+        # No webhook configured. Not an error by default: see on_missing.
+        if [[ -z "$SLACK_WEBHOOK_URL" ]]; then
+          echo "sent=false" >> "$GITHUB_OUTPUT"
+          if [[ "$ON_MISSING" == "error" ]]; then
+            echo "::error::webhook_url is empty and on_missing=error"
+            exit 1
+          fi
+          echo "::notice::No Slack webhook configured — notification skipped."
+          exit 0
+        fi
+
+        # Print masked webhook URL for debugging (first 8 + last 4 chars)
+        URL_LEN=${#SLACK_WEBHOOK_URL}
+        if [[ $URL_LEN -gt 12 ]]; then
+          echo "🔗 Webhook: ${SLACK_WEBHOOK_URL:0:8}...${SLACK_WEBHOOK_URL: -4} (${URL_LEN} chars)"
+        fi
+        if [[ -z "$SLACK_PAYLOAD" ]]; then
+          echo "::error::payload is required"
+          exit 1
+        fi
+
+        # Build the blocks array: optionally prepend header block
+        # Use files instead of --argjson to avoid shell escaping issues with special chars
+        echo "$SLACK_PAYLOAD" > /tmp/slack_payload.json
+        if [[ -n "$SLACK_HEADER" ]]; then
+          BLOCKS=$(jq -n \
+            --arg header "$SLACK_HEADER" \
+            --slurpfile payload /tmp/slack_payload.json \
+            '[{type: "header", text: {type: "plain_text", text: $header, emoji: true}}] + $payload[0]')
+        else
+          BLOCKS="$SLACK_PAYLOAD"
+        fi
+
+        # Build final message body
+        echo "$BLOCKS" > /tmp/slack_blocks.json
+        BODY=$(jq -n --slurpfile blocks /tmp/slack_blocks.json '{blocks: $blocks[0]}')
+
+        # Send to Slack. Without timeouts curl waits its 300s default on a
+        # hung connection and the -e shell aborts with curl's raw exit code
+        # before reaching the warning below — cap each attempt and retry
+        # transient failures instead.
+        CURL_EXIT=0
+        HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+          --connect-timeout 10 --max-time 20 \
+          --retry 3 --retry-delay 2 --retry-all-errors \
+          -X POST "$SLACK_WEBHOOK_URL" \
+          -H "Content-Type: application/json" \
+          -d "$BODY") || CURL_EXIT=$?
+
+        # `sent` must describe delivery, not the attempt: callers wrap this in
+        # continue-on-error and branch on the output.
+        if [[ "$CURL_EXIT" -eq 0 && "$HTTP_STATUS" -ge 200 && "$HTTP_STATUS" -lt 300 ]]; then
+          echo "sent=true" >> "$GITHUB_OUTPUT"
+          echo "✅ Slack notification sent (HTTP $HTTP_STATUS)"
+        else
+          echo "sent=false" >> "$GITHUB_OUTPUT"
+          echo "::warning::Slack notification failed (HTTP $HTTP_STATUS, curl exit $CURL_EXIT)"
+          exit 1
+        fi

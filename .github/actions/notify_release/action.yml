@@ -1,0 +1,92 @@
+name: 'Notify Release'
+description: 'Sends the standard Workspaces Release card to Slack (prod deploy + test)'
+
+inputs:
+  webhook_url:
+    description: 'Slack Incoming Webhook URL'
+    required: true
+  header:
+    description: 'Plain-text header (prepended as Block Kit header block)'
+    required: true
+  data_product:
+    description: 'Data product id shown on the card'
+    required: true
+  validation:
+    description: 'Validation status line (e.g. "✅ Passed" / "⚠️ Skipped")'
+    required: false
+    default: '✅ Passed'
+
+  # Organisation-specific destinations. Empty by default: they used to be
+  # hardcoded to one company's Slack channel and Grafana dashboard, which is
+  # both wrong for anyone else and internal detail this repo should not carry.
+  # A link is only rendered when its URL is supplied.
+  chat_channel_url:
+    description: 'Optional link to the team chat channel shown on the card.'
+    required: false
+    default: ''
+  dashboard_url:
+    description: 'Optional link to a health/observability dashboard shown on the card.'
+    required: false
+    default: ''
+  timezone:
+    description: 'IANA timezone for the release timestamp.'
+    required: false
+    default: 'Europe/Prague'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build Release Card
+      id: card
+      shell: bash
+      env:
+        REPO: ${{ github.repository }}
+        REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+        BRANCH: ${{ github.ref_name }}
+        ACTOR: ${{ github.actor }}
+        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        DATA_PRODUCT: ${{ inputs.data_product }}
+        VALIDATION: ${{ inputs.validation }}
+        CHAT_URL: ${{ inputs.chat_channel_url }}
+        DASH_URL: ${{ inputs.dashboard_url }}
+        TIMEZONE: ${{ inputs.timezone }}
+      run: |
+        # Release timestamp. TZ is a team preference, so it is an input with
+        # the previous value as the default rather than a fixed choice.
+        TIMESTAMP=$(TZ="${TIMEZONE:-Europe/Prague}" date '+%Y-%m-%d %H:%M:%S %Z')
+
+        # Build via jq --arg so dynamic values are escaped into valid JSON.
+        # -c keeps it single-line so it passes cleanly through GITHUB_OUTPUT.
+        PAYLOAD=$(jq -nc \
+          --arg repo "$REPO" \
+          --arg repo_url "$REPO_URL" \
+          --arg branch "$BRANCH" \
+          --arg dp "$DATA_PRODUCT" \
+          --arg validation "$VALIDATION" \
+          --arg ts "$TIMESTAMP" \
+          --arg actor "$ACTOR" \
+          --arg run_url "$RUN_URL" \
+          --arg chat_url "$CHAT_URL" \
+          --arg dash_url "$DASH_URL" \
+          '[
+            {type: "section", text: {type: "mrkdwn", text: "*Release Type:* Workspaces Release"}},
+            {type: "section", fields: [
+              {type: "mrkdwn", text: ("*Repository:*\n<" + $repo_url + "|" + $repo + ">")},
+              {type: "mrkdwn", text: ("*Branch:*\n" + $branch)},
+              {type: "mrkdwn", text: ("*Data Product:*\n" + $dp)},
+              {type: "mrkdwn", text: ("*Validation:*\n" + $validation)},
+              {type: "mrkdwn", text: ("*Release Time:*\n" + $ts)},
+              {type: "mrkdwn", text: ("*Deployed by:*\n" + $actor)}
+            ]},
+            {type: "section", text: {type: "mrkdwn", text: ("*Links:*\n<" + $run_url + "|Release Action>"
+              + (if $chat_url != "" then "  |  <" + $chat_url + "|Team Channel>" else "" end)
+              + (if $dash_url != "" then "  |  <" + $dash_url + "|Health Dashboard>" else "" end))}}
+          ]')
+        echo "json=$PAYLOAD" >> "$GITHUB_OUTPUT"
+
+    - name: Send to Slack
+      uses: ./.github/actions/notify_slack
+      with:
+        webhook_url: ${{ inputs.webhook_url }}
+        header: ${{ inputs.header }}
+        payload: ${{ steps.card.outputs.json }}

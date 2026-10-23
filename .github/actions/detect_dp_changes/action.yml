@@ -1,0 +1,224 @@
+name: 'Detect Changed Data Products'
+description: >
+  Resolves the data products in scope for a PR, in one of two modes:
+
+    * `source: diff` (default) — (DPs from the PR file diff) ∪ (primary DP from
+      a `{dp}--{suffix}` branch). PR-check semantics ("did I break what I
+      touched?"); mirrors `gd-validate precommit` so local and CI agree. Uses
+      `git diff --name-only origin/<base>...HEAD`, so the caller must checkout
+      with `fetch-depth: 0 + filter: blob:none`.
+    * `source: labels` — the PR's GH labels mapped to each DP's `label` in the
+      config.yml `data_products` catalog (`gd-detect-dp --labels`). Merge-time
+      deploy scope: explicit and auditable, not diff-inferred. `check_pr_label`
+      guarantees the labels cover the diff before merge.
+
+  Diff-path expansions to all DPs (the labels path does none): a common config
+  (`gd_data_product/config.*.yml`) signals all DPs via the `__all__` sentinel;
+  a >3000-file diff also expands (defensive — such PRs are cross-cutting), with
+  the precise diff-derived set still logged.
+
+  Outputs both JSON-array (matrix) and space-joined (shell) forms. `primary_dp`
+  is always the branch DP regardless of `source` (feature-workspace cleanup is
+  branch-tied, not deploy-tied).
+
+inputs:
+  source:
+    description: 'Resolution source: "diff" (default; PR-check semantics) or "labels" (release scope from PR labels)'
+    required: false
+    default: 'diff'
+
+outputs:
+  has_changes:
+    description: 'Whether any data product is in scope (true/false)'
+    value: ${{ steps.detect.outputs.has_changes }}
+  data_products:
+    description: 'JSON array of in-scope DPs (e.g. ["example_dp","derived_dp"])'
+    value: ${{ steps.detect.outputs.data_products }}
+  dp_list:
+    description: 'Space-joined DP IDs for shell loops (empty when has_changes=false)'
+    value: ${{ steps.detect.outputs.dp_list }}
+  dp_count:
+    description: 'Integer count of in-scope DPs (0 when has_changes=false)'
+    value: ${{ steps.detect.outputs.dp_count }}
+  primary_dp:
+    description: 'Branch primary DP (empty when not a {dp}--{suffix} branch)'
+    value: ${{ steps.detect.outputs.primary_dp }}
+  source:
+    description: 'Resolution source actually used (echoes the input for downstream logging)'
+    value: ${{ steps.detect.outputs.source }}
+
+runs:
+  using: "composite"
+  steps:
+    # Note: Requires checkout + setup_python before this action. For the
+    # diff path (default), the checkout must use `fetch-depth: 0` and
+    # `filter: blob:none` — otherwise `git diff origin/<base>...HEAD`
+    # has no merge base and the action errors out at the rev-parse guard.
+    # Filesystem is used by gd-detect-dp to discover known DP IDs.
+    - name: Detect data products in scope
+      id: detect
+      shell: bash
+      env:
+        # GITHUB_HEAD_REF feeds gd-detect-dp's branch-name parser. Same env var
+        # load_config consults — keeps the auto-detect logic in one Python helper.
+        GITHUB_HEAD_REF: ${{ github.head_ref }}
+        # GITHUB_BASE_REF anchors the diff-path `git diff origin/<base>...HEAD`.
+        # Empty on non-PR events; the diff branch below errors loud if so.
+        GITHUB_BASE_REF: ${{ github.base_ref }}
+        # Release-scope mode reads labels off the PR event. JSON array of
+        # label-name strings; the `gd-detect-dp --labels …` invocation is
+        # safe regardless of label content because labels are passed as a
+        # quoted bash array (`"${LABELS[@]}"`) — no word-splitting, no
+        # shell interpretation. Nothing in this action enforces the label
+        # catalog's `[A-Za-z0-9 _-]+` shape; quoting alone keeps it safe.
+        SOURCE: ${{ inputs.source }}
+        PR_LABELS_JSON: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+      run: |
+        # Make the bash contract explicit: -e (fail fast), -u (catch unset
+        # vars before they silently expand to empty), -o pipefail (catch
+        # mid-pipeline failures like `... | gd-detect-dp | jq`). GH Actions'
+        # composite default is `-eo pipefail` without -u; flipping -u on
+        # here means any future edit that drops a `:-default` accessor
+        # blows up at the action layer instead of producing an empty
+        # SCOPE_DPS_JSON downstream.
+        set -euo pipefail
+
+        # Preflight: the action depends on the project venv being on PATH
+        # (see header comment). Without setup_python, the python -c below
+        # fails with an opaque ModuleNotFoundError — turn it into an
+        # actionable error pointing at the missing setup step.
+        if ! command -v gd-detect-dp >/dev/null 2>&1; then
+          echo "::error::gd-detect-dp not on PATH — run ./.github/actions/setup_python before this action"
+          exit 1
+        fi
+
+        # Validate the source input early so a typo doesn't silently fall
+        # through to one branch.
+        case "${SOURCE}" in
+          diff|labels) ;;
+          *)
+            echo "::error::Invalid source='${SOURCE}' (expected 'diff' or 'labels')"
+            exit 1
+            ;;
+        esac
+
+        # ─── Diff-path-only helper ───────────────────────────────────
+        # Exists solely for the diff path's `__all__` sentinel expansion
+        # (common-config touched → all DPs). The labels path has no analog
+        # by design: the user's label set IS the audit trail, and
+        # `check_pr_label.yml` already enforced "labels cover every DP
+        # the diff touched" before merge. The `_diff_` prefix is kept
+        # as a reminder; if a future "labels-side expansion" requirement
+        # appears, it gets its own helper rather than reusing this.
+        #
+        # If `gd-detect-dp` ever returns an empty list (broken checkout,
+        # gd_data_product/ renamed, empty config.yml), the downstream
+        # deploy silently does nothing — fail loud here instead.
+        _diff_expand_all_dps_or_die() {
+          local context="$1"
+          local json
+          json=$(python -c "from gdcloud.dp_affected import all_known_dps_json; print(all_known_dps_json())")
+          if [[ "$(echo "$json" | jq 'length')" -eq 0 ]]; then
+            echo "::error::${context} but no DPs resolved from config.yml — refusing to silently skip"
+            exit 1
+          fi
+          printf '%s' "$json"
+        }
+
+        # Primary DP from `{dp}--{suffix}` branch name. Always derived,
+        # regardless of source — feature-workspace cleanup in workflow 3
+        # is keyed off the branch, not the deploy intent. An empty result
+        # is normal (any non-DP branch like `feat/foo` resolves to "").
+        if ! PRIMARY_DP=$(gd-detect-dp --branch "${GITHUB_HEAD_REF:-}"); then
+          echo "::error::gd-detect-dp --branch crashed (not the expected empty-result path)"
+          exit 1
+        fi
+
+        if [[ "${SOURCE}" == "labels" ]]; then
+          # Release scope: map PR labels to DPs via each DP's config.yml
+          # data_products `label`. Labels that don't match a known DP (incl.
+          # `TOOLING` and unrelated repo labels like `bug`) collapse to the
+          # empty set. check_pr_label.yml is what enforces "labels cover the
+          # diff" before merge; once merged, this label set IS the deploy
+          # set — no __all__ expansion needed (the gate already required
+          # all 5 DP labels for common-config PRs).
+          mapfile -t LABELS < <(printf '%s' "${PR_LABELS_JSON}" | jq -r '.[]')
+          # Explicit empty-array short-circuit: a PR with zero labels would
+          # otherwise rely on argparse's nargs="*" accepting an empty
+          # invocation. That works today but couples the action to a
+          # CLI-shape detail that should be free to change.
+          if [[ "${#LABELS[@]}" -eq 0 ]]; then
+            SCOPE_DPS_JSON='[]'
+          else
+            SCOPE_DPS_JSON=$(gd-detect-dp --labels "${LABELS[@]}" --json)
+          fi
+          SOURCE_LABEL="labels"
+        else
+          # Diff path: the shared resolver's `git diff origin/<base>...HEAD`
+          # → DP set via gd-detect-dp. Same approach gd-validate precommit uses
+          # locally, so local + CI agree byte-for-byte on the DP set.
+          # The resolver owns the pull_request-context and fetch-depth guards
+          # (both fail loud rather than yielding an empty, silently-passing set).
+          CHANGED_FILES=$(bash "${GITHUB_WORKSPACE}/.github/scripts/pr_changed_files.sh")
+          # Defensive cap: at this scale a PR is almost certainly cross-cutting
+          # in this repo (every >3000-file PR in the last 100 was a shared-
+          # library refactor). Expanding to all DPs guarantees no DP is
+          # silently missed even if the diff somehow under-reports. The
+          # precise diff-derived set is still logged below as an audit trail,
+          # so we can tune the threshold from real data later.
+          if [[ -n "$CHANGED_FILES" ]]; then
+            FILE_COUNT=$(printf '%s\n' "$CHANGED_FILES" | grep -c '.')
+          else
+            FILE_COUNT=0
+          fi
+
+          if [[ "$FILE_COUNT" -gt 3000 ]]; then
+            # Compute the precise set anyway so it lands in the CI log —
+            # makes the expansion auditable and lets future tuning of the
+            # threshold (or removal) be data-driven.
+            PRECISE_DPS_JSON=$(printf '%s\n' "$CHANGED_FILES" | gd-detect-dp --from-stdin --json)
+            echo "::warning::PR has ${FILE_COUNT} files (>3000) — expanding to all DPs as a defensive fallback. Precise diff would have resolved to: ${PRECISE_DPS_JSON}"
+            SCOPE_DPS_JSON=$(_diff_expand_all_dps_or_die "PR exceeded >3000-file defensive cap")
+          else
+            SCOPE_DPS_JSON=$(printf '%s\n' "$CHANGED_FILES" | gd-detect-dp --from-stdin --json)
+
+            if [[ "$SCOPE_DPS_JSON" == '["__all__"]' ]]; then
+              echo "Common config files touched — expanding to all DPs"
+              SCOPE_DPS_JSON=$(_diff_expand_all_dps_or_die "Common config touched")
+            fi
+          fi
+          SOURCE_LABEL="diff"
+        fi
+
+        # Combine scope DPs with branch primary DP for the diff path only.
+        # Diff path keeps the union — PR-time checks should run for both the
+        # branch DP and any DP the diff incidentally reached. Labels path is
+        # left as-is: the user's label set IS the deploy intent, and we
+        # don't second-guess it with "but the branch name implies another DP too".
+        # Workflow 3 still consumes `primary_dp` separately for the
+        # feature-workspace cleanup step, so a DP-branch with mismatched
+        # labels still gets its workspace cleaned up via that path — the
+        # cleanup is keyed on `primary_dp != ''`, not on dp_list membership.
+        if [[ "${SOURCE_LABEL}" == "diff" ]]; then
+          UNION=$(echo "$SCOPE_DPS_JSON" | jq -c --arg p "$PRIMARY_DP" '
+            (if ($p | length) > 0 then . + [$p] else . end) | unique
+          ')
+        else
+          UNION="$SCOPE_DPS_JSON"
+        fi
+        COUNT=$(echo "$UNION" | jq 'length')
+        DP_LIST=$(echo "$UNION" | jq -r '.[]' | tr '\n' ' ' | sed 's/ $//')
+
+        echo "Source:     ${SOURCE_LABEL}"
+        echo "Scope DPs:  $SCOPE_DPS_JSON"
+        echo "Primary DP: ${PRIMARY_DP:-(none)}"
+        echo "Affected:   $UNION (count=$COUNT)"
+
+        {
+          echo "primary_dp=${PRIMARY_DP}"
+          echo "data_products=$UNION"
+          echo "dp_list=$DP_LIST"
+          echo "dp_count=$COUNT"
+          echo "has_changes=$([[ "$COUNT" -gt 0 ]] && echo true || echo false)"
+          echo "source=${SOURCE_LABEL}"
+        } >> "$GITHUB_OUTPUT"

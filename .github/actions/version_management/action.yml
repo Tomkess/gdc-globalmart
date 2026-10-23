@@ -1,0 +1,94 @@
+name: 'Version Management'
+description: 'Creates version tags and tracks deployment versions across environments'
+
+inputs:
+  action:
+    description: 'Action to perform: create_tag, create_hotfix_tag, predict_hotfix_version, validate_hotfix_baseline, validate_hotfix_promotion, get_latest_version, validate_version, or track_deployment'
+    required: true
+  skip_setup:
+    description: 'Skip Python setup if already done by the workflow'
+    required: false
+    default: 'false'
+  version:
+    description: 'Specific version to validate or track (for validate_version and track_deployment actions)'
+    required: false
+  ref:
+    description: 'Git ref containing a hotfix candidate (workflow itself stays on master)'
+    required: false
+    default: ''
+  environment:
+    description: 'Target environment for deployment tracking (dev, test, prod)'
+    required: false
+  data_product_id:
+    description: 'Data product ID for deployment tracking'
+    required: false
+  github_token:
+    description: 'GitHub token for API access (required for tag-pushing actions)'
+    required: false
+  dependency_token:
+    description: >-
+      Credential for installing the private package pins, used only when this
+      action does its own Python setup (skip_setup not true). Deliberately
+      separate from github_token: that is the repo token for tag pushes and is
+      often github.token, which cannot read another private repo. Callers pass
+      the same secret they hand setup_python's github_token; `gd-workflows
+      sync` rewrites it from `github_dependency_token_variable` in config.yml.
+    required: false
+    default: ''
+
+outputs:
+  version:
+    description: 'The version that was created or retrieved'
+    value: ${{ steps.version-action.outputs.version }}
+  previous_version:
+    description: 'The previous version (for comparison)'
+    value: ${{ steps.version-action.outputs.previous_version }}
+  base_version:
+    description: 'The two-component release line used for a hotfix patch'
+    value: ${{ steps.version-action.outputs.base_version }}
+  deployment_tag:
+    description: 'The deployment tracking tag created'
+    value: ${{ steps.version-action.outputs.deployment_tag }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Python Environment
+      if: ${{ inputs.skip_setup != 'true' }}
+      uses: ./.github/actions/setup_python
+      with:
+        # Without this the standalone path cannot install a consumer pinned to
+        # the private toolkit. Every shipped template passes skip_setup: true
+        # and never reaches here, which is why it went unnoticed.
+        github_token: ${{ inputs.dependency_token }}
+
+    - name: Version Management Action
+      id: version-action
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        ACTION: ${{ inputs.action }}
+        DATA_PRODUCT_ID: ${{ inputs.data_product_id }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        VERSION: ${{ inputs.version }}
+        REF: ${{ inputs.ref }}
+      run: |
+        cmd=(gd-version --action "$ACTION")
+
+        if [[ -n "$DATA_PRODUCT_ID" ]]; then
+          cmd+=(--data-product-id "$DATA_PRODUCT_ID")
+        fi
+
+        if [[ -n "$ENVIRONMENT" ]]; then
+          cmd+=(--environment "$ENVIRONMENT")
+        fi
+
+        if [[ -n "$VERSION" ]]; then
+          cmd+=(--version "$VERSION")
+        fi
+
+        if [[ -n "$REF" ]]; then
+          cmd+=(--ref "$REF")
+        fi
+
+        "${cmd[@]}"

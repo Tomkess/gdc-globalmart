@@ -1,0 +1,63 @@
+name: 'Trigger Version Comparison'
+description: 'Triggers the version comparison report workflow (Workflow 6)'
+
+inputs:
+  data_product_id:
+    description: 'Data product ID'
+    required: true
+  environment:
+    description: 'Environment that triggered the report (e.g., dev, test, prod)'
+    required: false
+    default: ''
+  trigger_reason:
+    description: 'Reason for triggering the report'
+    required: true
+  show_detailed_history:
+    description: 'Show detailed version history'
+    required: false
+    default: 'false'
+  github_token:
+    description: 'GitHub token for API calls'
+    required: true
+  default_branch:
+    description: >-
+      Branch to dispatch at. Pass steps.config.outputs.default_branch; see
+      trigger_db_export for why the event payload is only a fallback.
+    required: false
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Trigger Version Comparison Workflow
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+        # Through env, not interpolated into the script body: composite inputs
+        # are free-form strings and callers build trigger_reason from release
+        # and pull-request text. Same shape as trigger_db_export.
+        DATA_PRODUCT_ID: ${{ inputs.data_product_id }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        SHOW_DETAILED_HISTORY: ${{ inputs.show_detailed_history }}
+        TRIGGER_REASON: ${{ inputs.trigger_reason }}
+        # Dispatch by FILENAME at the default branch, never display name at
+        # github.ref — rationale in trigger_db_export/action.yml.
+        DISPATCH_REF: ${{ inputs.default_branch || github.event.repository.default_branch || 'master' }}
+      run: |
+        set -euo pipefail
+
+        echo "🔄 Triggering version comparison report..."
+        echo "  Data Product: $DATA_PRODUCT_ID"
+        echo "  Reason: $TRIGGER_REASON"
+
+        # ::warning keeps a failed dispatch visible on the run page even when
+        # the caller wraps this action in continue-on-error
+        gh workflow run 6_version_comparison.yml \
+          --ref "$DISPATCH_REF" \
+          -f data_product_id="$DATA_PRODUCT_ID" \
+          -f environment="$ENVIRONMENT" \
+          -f show_detailed_history="$SHOW_DETAILED_HISTORY" \
+          -f trigger_reason="$TRIGGER_REASON" \
+          || { echo "::warning::Version comparison dispatch failed — report will be stale"; exit 1; }
+
+        echo "✅ Version comparison workflow triggered"

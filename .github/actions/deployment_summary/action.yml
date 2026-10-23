@@ -1,0 +1,197 @@
+name: 'Deployment Summary'
+description: 'Renders pre-deployment plan or post-deployment confirmation to GitHub Step Summary'
+
+inputs:
+  phase:
+    description: 'Summary phase: pre (deployment plan) or post (deployment confirmation)'
+    required: true
+  environment:
+    description: 'Target environment (dev/test/preprod/prod)'
+    required: true
+  data_product_id:
+    description: 'Data product being deployed'
+    required: true
+  version:
+    description: 'Version being deployed'
+    required: true
+  version_predicted:
+    description: >-
+      'true' when version is a prediction, not yet minted (the preprod hotfix
+      leg): the patch counter is shared across DPs on a release line, so a
+      concurrent hotfix can claim the predicted number first. Labels the plan
+      so nobody copies it into a prod promotion.
+    required: false
+    default: ''
+  branch:
+    description: 'Source branch (pre phase)'
+    required: false
+    default: ''
+  triggered_by:
+    description: 'User who triggered the deployment (pre phase)'
+    required: false
+    default: ''
+  previous_version:
+    description: 'Previous version before this deployment (pre phase)'
+    required: false
+    default: ''
+  deployment_type:
+    description: 'Deployment type: latest / specific / hotfix (pre phase)'
+    required: false
+    default: ''
+  validation_status:
+    description: 'Pre-formatted validation status string with emoji (pre phase)'
+    required: false
+    default: ''
+  changes_link:
+    description: 'URL to view changes, e.g. hotfix diff (pre phase)'
+    required: false
+    default: ''
+  deployment_tag:
+    description: 'Deployment tracking tag (post phase)'
+    required: false
+    default: ''
+  repo_url:
+    description: 'Repository URL for changelog links (pre phase)'
+    required: false
+    default: ''
+  hotfix_ref:
+    description: 'Fetched candidate ref used for a hotfix changelog before its tag exists'
+    required: false
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Render Summary
+      shell: bash
+      env:
+        PHASE: ${{ inputs.phase }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        DATA_PRODUCT_ID: ${{ inputs.data_product_id }}
+        VERSION: ${{ inputs.version }}
+        VERSION_PREDICTED: ${{ inputs.version_predicted }}
+        BRANCH: ${{ inputs.branch }}
+        TRIGGERED_BY: ${{ inputs.triggered_by }}
+        PREVIOUS_VERSION: ${{ inputs.previous_version }}
+        DEPLOYMENT_TYPE: ${{ inputs.deployment_type }}
+        HOTFIX_REF: ${{ inputs.hotfix_ref }}
+        VALIDATION_STATUS: ${{ inputs.validation_status }}
+        CHANGES_LINK: ${{ inputs.changes_link }}
+        DEPLOYMENT_TAG: ${{ inputs.deployment_tag }}
+      run: |
+        # Environment label with emoji
+        case "$ENVIRONMENT" in
+          dev)     ENV_LABEL="🟢 DEV" ;;
+          test)    ENV_LABEL="🟡 TEST" ;;
+          preprod) ENV_LABEL="🟠 PREPROD" ;;
+          prod)    ENV_LABEL="🔴 PRODUCTION" ;;
+          *)       ENV_LABEL="$ENVIRONMENT" ;;
+        esac
+
+        if [[ "$PHASE" == "pre" ]]; then
+          # Deployment type label
+          TYPE_LABEL=""
+          if [[ -n "$DEPLOYMENT_TYPE" ]]; then
+            case "$DEPLOYMENT_TYPE" in
+              latest)   TYPE_LABEL="🚀 Latest Version" ;;
+              specific) TYPE_LABEL="🎯 Specific Version" ;;
+              hotfix)   TYPE_LABEL="🔧 **HOTFIX** (from hotfix branch)" ;;
+              *)        TYPE_LABEL="$DEPLOYMENT_TYPE" ;;
+            esac
+          fi
+
+          # The plan is written before the tag is minted, so on the hotfix leg
+          # the number can still be taken by a concurrent hotfix on the same
+          # release line — say so rather than presenting it as final.
+          VERSION_CELL="$VERSION"
+          [[ "$VERSION_PREDICTED" == "true" ]] && VERSION_CELL="$VERSION (predicted)"
+
+          {
+            echo "## 📋 Deployment Plan"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| **Environment** | $ENV_LABEL |"
+            echo "| **Data Product** | $DATA_PRODUCT_ID |"
+            echo "| **Version** | $VERSION_CELL |"
+            [[ -n "$PREVIOUS_VERSION" ]] && echo "| **Previous Version** | $PREVIOUS_VERSION |"
+            [[ -n "$BRANCH" ]]           && echo "| **Source Branch** | $BRANCH |"
+            [[ -n "$TRIGGERED_BY" ]]     && echo "| **Triggered by** | $TRIGGERED_BY |"
+            [[ -n "$TYPE_LABEL" ]]       && echo "| **Type** | $TYPE_LABEL |"
+            [[ -n "$CHANGES_LINK" ]]     && echo "| **Changes** | [View diff]($CHANGES_LINK) |"
+            [[ -n "$VALIDATION_STATUS" ]] && echo "| **Validation** | $VALIDATION_STATUS |"
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          echo "📋 Deployment plan written to step summary"
+
+        elif [[ "$PHASE" == "post" ]]; then
+          {
+            echo "## ✅ Deployment Complete"
+            echo ""
+            echo "- **Deployed Version:** $VERSION"
+            [[ -n "$DEPLOYMENT_TAG" ]] && echo "- **Deployment Tag:** \`$DEPLOYMENT_TAG\`"
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          echo "Deployment completed successfully!"
+        else
+          echo "::error::Invalid phase '$PHASE' — must be 'pre' or 'post'"
+          exit 1
+        fi
+
+    - name: Changelog (PRs since last deployment)
+      if: ${{ inputs.phase == 'pre' }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        DATA_PRODUCT_ID: ${{ inputs.data_product_id }}
+        VERSION: ${{ inputs.version }}
+        REPO_URL: ${{ inputs.repo_url }}
+        DEPLOYMENT_TYPE: ${{ inputs.deployment_type }}
+        HOTFIX_REF: ${{ inputs.hotfix_ref }}
+      run: |
+        # Find current deployed version in target environment. Hotfix content
+        # is defined against the DP's PROD release regardless of leg — the
+        # preprod rehearsal would otherwise anchor on preprod's last version.
+        TAG_ENV="$ENVIRONMENT"
+        [[ "$DEPLOYMENT_TYPE" == "hotfix" ]] && TAG_ENV="prod"
+        DEPLOY_PATTERN="deploy-${TAG_ENV}-${DATA_PRODUCT_ID}-v*"
+        # Sort by the tag's embedded deploy timestamp (fields 5-6), matching
+        # VersionManager.get_deployed_version — version:refname would pick the
+        # HIGHEST version ever deployed, mislabeling changelogs after rollbacks
+        DEPLOYED_TAG=$(git tag -l "$DEPLOY_PATTERN" | sort -t- -k5,5 -k6,6 | tail -1 || true)
+
+        if [[ -z "$DEPLOYED_TAG" ]]; then
+          echo "ℹ️ First ${ENVIRONMENT} deployment for ${DATA_PRODUCT_ID} — all merged PRs will be included"
+          echo "### 📝 First Deployment" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "> ℹ️ This is the first **${ENVIRONMENT}** deployment for **${DATA_PRODUCT_ID}** — all merged PRs are included in this release." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+
+        # Extract version from deployment tag
+        # || true: composite bash runs -eo pipefail, so a tag without a vN.N
+        # substring would abort the step and never reach the -z guard below.
+        FROM_VERSION=$(echo "$DEPLOYED_TAG" | grep -oP 'v\d+\.\d+(\.\d+)?' || true)
+
+        if [[ -z "$FROM_VERSION" || "$FROM_VERSION" == "$VERSION" ]]; then
+          echo "Same version already deployed — skipping changelog"
+          exit 0
+        fi
+
+        # --hotfix switches the source to fetched hotfix-candidate history
+        # (gd-version write_changelog docstring has the why)
+        EXTRA=()
+        if [[ "$DEPLOYMENT_TYPE" == "hotfix" ]]; then
+          EXTRA=(--hotfix)
+          [[ -n "$HOTFIX_REF" ]] && EXTRA+=(--ref "$HOTFIX_REF")
+        fi
+        gd-version \
+          --data-product-id "$DATA_PRODUCT_ID" \
+          --changelog "$FROM_VERSION" \
+          --version "$VERSION" \
+          --repo-url "$REPO_URL" \
+          "${EXTRA[@]}"
