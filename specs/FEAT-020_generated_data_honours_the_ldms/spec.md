@@ -17,7 +17,7 @@ name: 'Generated data honours the LDM''s foreign keys: the generator takes table
   of 184 references (19%, 32 datasets — channel, country, city, company entity) stop
   pointing at keys that do not exist'
 sources: []
-status: draft
+status: done
 tags: []
 updated: '2026-10-23'
 ---
@@ -112,3 +112,14 @@ silently empty"). That fix corrected the *order*; this one corrects the *target*
 ## Open Questions
 - Should nullable references (optional relationships) be filled at a realistic rate, or always?
   The current generator fills always; keep that unless the LDM marks a column optional
+
+## Outcome (2026-10-23)
+- PR #8: the LDM decides foreign keys. Naming inference covers only what the LDM does not name.
+  All 174 references plan correctly, and generated rows have no dangling keys (tests).
+- Forced reload through `data-currency` (`force`, `apply`) on `gdcloud-dev`: 215 tables and
+  174,372 rows over 2024-10-23 .. 2026-10-23. Both orgs' caches were invalidated (demo.cloud by
+  `ensure`, AI Usecases by `notify-ai-usecases`).
+- Warehouse check: 0 of 174 references have orphan keys. All 35,872 orders now join to the 6
+  channels (5,875–6,074 each); before the fix, none of them did.
+- `globalmart verify --target gdcloud-dev --fail-on-empty`: 384/384 visualizations ok, 0 empty.
+
