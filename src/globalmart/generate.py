@@ -29,7 +29,7 @@ import io
 import json
 import math
 import random
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 from enum import StrEnum
@@ -49,6 +49,7 @@ from globalmart.registry import (
     foreign_key_target,
     own_key_column,
 )
+from globalmart.vocabulary import TableNamer, TableVocabulary, Vocabulary
 
 #: Used for a table the manifest has never seen, so a new DDL table generates rather than
 #: failing. Small on purpose: an unknown table is more likely reference data than a fact.
@@ -113,6 +114,12 @@ class KeySpace:
     #: rather than drawing its own. This is what stops a fact disagreeing with the entity
     #: it belongs to — the coherence a workspace data filter depends on.
     filters: dict[str, dict[str, str]] = field(default_factory=dict)
+    #: Each minted row's references and text values, so a later table can follow a reference to
+    #: the row behind it — for coherence (a city's country is its region's) and for names
+    #: (a city named within its region). FEAT-021.
+    rows: dict[str, dict[str, str]] = field(default_factory=dict)
+    #: `column -> referenced table` for the table that minted this space.
+    references: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -451,6 +458,54 @@ def _assign_filters(
     }
 
 
+def _derivations(
+    foreign_plans: tuple[ColumnPlan, ...], keyspaces: dict[str, KeySpace]
+) -> tuple[tuple[str, str, str, str], ...]:
+    """`(derived column, source column, source table, source's column)`, in a usable order.
+
+    A reference is *derivable* if another reference on this row points at a table that itself
+    references the same target — a store's region is its city's region. A reference nothing can
+    derive is an *anchor* and keeps its drawn value; derivations then flow outward from anchors,
+    first source in plan order winning, so the result is deterministic. A cycle with no anchor
+    derives nothing and keeps the drawn values.
+    """
+    candidates: dict[str, list[tuple[str, str, str]]] = {}
+    for derived in foreign_plans:
+        for source in foreign_plans:
+            space = keyspaces.get(source.target or "")
+            if source is derived or space is None:
+                continue
+            for via, via_target in space.references.items():
+                if via_target == derived.target:
+                    candidates.setdefault(derived.column, []).append(
+                        (source.column, source.target or "", via)
+                    )
+    resolved = {p.column for p in foreign_plans if p.column not in candidates}
+    order: list[tuple[str, str, str, str]] = []
+    progress = True
+    while progress:
+        progress = False
+        for derived in foreign_plans:
+            if derived.column in resolved:
+                continue
+            found = next((c for c in candidates.get(derived.column, []) if c[0] in resolved), None)
+            if found is not None:
+                order.append((derived.column, *found))
+                resolved.add(derived.column)
+                progress = True
+    return tuple(order)
+
+
+def _pinned_key(space: KeySpace | None, pin: Mapping[str, str]) -> str | None:
+    """The referenced row whose values match the pin (`{currency_code: USD}`), if one exists."""
+    if space is None:
+        return None
+    return next(
+        (key for key, row in space.rows.items() if all(row.get(c) == v for c, v in pin.items())),
+        None,
+    )
+
+
 def _pick(vocabulary: tuple[str, ...], key: str) -> str:
     """A stable choice from a fixed vocabulary. blake2b, because `hash()` is salted."""
     digest = hashlib.blake2b(key.encode("utf-8"), digest_size=8).digest()
@@ -482,11 +537,18 @@ def generate_table(
     seed: int,
     window: tuple[date, date],
     unresolved: set[str] | None = None,
+    vocabulary: TableVocabulary | None = None,
+    coherent: bool = False,
 ) -> tuple[bytes, KeySpace | None]:
     """Generate one table's CSV bytes and the key space it mints.
 
     `unresolved` collects the columns whose reference could not be filled, so the caller can
     report them rather than shipping empty foreign keys in silence.
+
+    `coherent` derives references transitively (FEAT-021): if this row references A, and A's row
+    references B, this row's reference to B is A's. On only when the references come from the
+    LDM, so generation without a model stays byte-identical. `vocabulary` replaces text values
+    with realistic ones from `config/vocabulary.yaml`.
     """
     unresolved = unresolved if unresolved is not None else set()
     rng = random.Random(table_seed(seed, table.name))
@@ -501,10 +563,13 @@ def generate_table(
     # Numeric columns are shaped, not drawn. Classified once per table rather than per row,
     # and only the numeric strategies qualify: a key or a code is structural and must not
     # be touched by anything that cares how the number *looks*.
+    # A column the vocabulary writes is a stated fact (USD trades at 1.0), so shaping never
+    # touches it: the vocabulary is applied before shaping and would otherwise be overwritten.
+    stated = vocabulary.columns() if vocabulary is not None else frozenset()
     numeric = {
         plan.column: family_of(plan.column)
         for plan in plans
-        if plan.strategy in (ColumnStrategy.INTEGER, ColumnStrategy.DECIMAL)
+        if plan.strategy in (ColumnStrategy.INTEGER, ColumnStrategy.DECIMAL) and plan.column not in stated
     }
     date_columns = [plan.column for plan in plans if plan.strategy is ColumnStrategy.DATE]
     # The DDL decides how a number is written. Shaping changes what a value *means*, never
@@ -513,6 +578,24 @@ def generate_table(
     filter_columns = [plan.column for plan in plans if plan.strategy is ColumnStrategy.FILTER]
     foreign_plans = tuple(p for p in plans if p.strategy is ColumnStrategy.FOREIGN_KEY)
     minted_filters: dict[str, dict[str, str]] = {}
+    targets = {p.column: p.target or "" for p in foreign_plans}
+    derivations = _derivations(foreign_plans, keyspaces) if coherent else ()
+    namer = TableNamer(vocabulary) if vocabulary is not None else None
+    tracked = [
+        p.column
+        for p in plans
+        if p.strategy in (ColumnStrategy.FOREIGN_KEY, ColumnStrategy.NAME, ColumnStrategy.CODE)
+        or (vocabulary is not None and p.column in vocabulary.columns())
+    ]
+    minted_rows: dict[str, dict[str, str]] = {}
+
+    def parent_of(values: dict[str, str]) -> Callable[[str, str], str]:
+        def lookup(fk: str, column: str) -> str:
+            space = keyspaces.get(targets.get(fk, ""))
+            return "" if space is None else space.rows.get(values.get(fk, ""), {}).get(column, "")
+
+        return lookup
+
     shape = TimeShape(start=window[0], end=window[1])
     scale = TableScale.draw(rng)
 
@@ -529,6 +612,18 @@ def generate_table(
             )
             for plan in plans
         }
+
+        if namer is not None:
+            for fk, pin in namer.pins(index).items():
+                pinned = _pinned_key(keyspaces.get(targets.get(fk, "")), pin)
+                if pinned is not None:
+                    values[fk] = pinned
+        for derived, source, source_target, via in derivations:
+            parent_row = keyspaces[source_target].rows.get(values[source], {})
+            if parent_row.get(via):
+                values[derived] = parent_row[via]
+        if namer is not None:
+            namer.apply(index, values, parent_of(values))
 
         if filter_columns:
             assigned = _assign_filters(
@@ -556,6 +651,7 @@ def generate_table(
         row = [values[plan.column] for plan in plans]
         if key_plan is not None:
             minted.append(values[key_plan.column])
+            minted_rows[values[key_plan.column]] = {column: values[column] for column in tracked}
         writer.writerow(row)
 
     space = (
@@ -564,6 +660,8 @@ def generate_table(
             column=key_plan.column,
             values=tuple(minted),
             filters=minted_filters,
+            rows=minted_rows,
+            references={p.column: p.target or "" for p in foreign_plans},
         )
         if key_plan is not None
         else None
@@ -582,6 +680,7 @@ def generate_dataset(
     scale: float = 1.0,
     base_counts: dict[str, int] | None = None,
     window: tuple[date, date] | None = None,
+    vocabulary: Vocabulary | None = None,
 ) -> GenerationReport:
     """Generate every table in load order, writing FEAT-005's exact format."""
     out_dir = Path(out_dir).resolve()
@@ -621,6 +720,8 @@ def generate_dataset(
             seed=seed,
             window=effective_window,
             unresolved=missing,
+            vocabulary=vocabulary.for_table(name) if vocabulary is not None else None,
+            coherent=bool(registry.foreign_keys),
         )
         for column in sorted(missing):
             target = next(

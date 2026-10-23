@@ -90,6 +90,7 @@ from globalmart.sdk_client import make_sdk
 from globalmart.split import split_all
 from globalmart.sqlcheck import check_sql_datasets
 from globalmart.verification import VerifyOptions, empty_warnings, verify_target
+from globalmart.vocabulary import DEFAULT_VOCABULARY_PATH, load_vocabulary
 
 DEFAULT_LAYOUT_PATH = Path("layouts/workspaces/globalmart")
 DEFAULT_DOMAINS_PATH = Path("config/domains.yaml")
@@ -450,6 +451,7 @@ def cmd_data_generate(args: argparse.Namespace) -> int:
         scale=args.scale,
         base_counts=counts,
         window=window,
+        vocabulary=load_vocabulary(Path(args.vocabulary)),
     )
 
     _print_report("Generate", report.summary_lines())
@@ -617,6 +619,7 @@ def cmd_data_ensure(args: argparse.Namespace) -> int:
             scale=args.scale,
             base_counts=base_row_counts(Path(args.manifest)),
             window=window,
+            vocabulary=load_vocabulary(Path(args.vocabulary)),
         )
         _print_report("\nGenerate", generated.summary_lines())
         print(f"window            : {window[0]} .. {window[1]}")
@@ -1350,6 +1353,11 @@ def build_parser() -> argparse.ArgumentParser:
     data_generate.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     data_generate.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
     data_generate.add_argument(
+        "--vocabulary",
+        default=str(DEFAULT_VOCABULARY_PATH),
+        help="realistic values for text columns; a missing file leaves the defaults (FEAT-021)",
+    )
+    data_generate.add_argument(
         "--start-date",
         help="first date in the generated window (default: --end-date minus two years)",
     )
@@ -1390,6 +1398,11 @@ def build_parser() -> argparse.ArgumentParser:
     data_ensure.add_argument("--ddl", default=str(DEFAULT_DDL_PATH))
     data_ensure.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     data_ensure.add_argument("--manifest", default=str(DEFAULT_MANIFEST_PATH))
+    data_ensure.add_argument(
+        "--vocabulary",
+        default=str(DEFAULT_VOCABULARY_PATH),
+        help="realistic values for text columns; a missing file leaves the defaults (FEAT-021)",
+    )
     data_ensure.set_defaults(func=cmd_data_ensure)
 
     data_notify = data_actions.add_parser(
