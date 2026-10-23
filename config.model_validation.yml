@@ -8,8 +8,7 @@
 
 
 data_sources:
-  # GlobalMart's one data source (ADR 011). It exists on demo.cloud (dev, test) today; preprod/prod
-  # join when `globalmart gdcloud bootstrap` creates it on the AI Usecases org (FEAT-019 task 41).
+  # GlobalMart's one data source (ADR 011), created on both orgs by `globalmart gdcloud bootstrap`.
   gdc_ds_globalmart_motherduck:
-    environments: [dev, test]
+    environments: [dev, test, preprod, prod]
     scan_sql: true
