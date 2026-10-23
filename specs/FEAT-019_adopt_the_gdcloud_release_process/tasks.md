@@ -152,10 +152,10 @@ The following decisions were settled on 2026-10-22:
        Pre: task 42 complete
        AC: #8
        DONE 2026-10-23: compared directly (verify equivalence assumes one workspace id on both sides): globalmart_test (demo.cloud) and globalmart_preprod (AI Usecases) differ only in server-set createdAt/createdBy
-- [ ] 44. Integration: `gd-hotfix` cuts `hotfix/*` from the last prod tag and ships `v1.N.1` to prod through `production`, without unreleased `main` changes
+- [x] 44. Integration: `gd-hotfix` cuts `hotfix/*` from the last prod tag and ships `v1.N.1` to prod through `production`, without unreleased `main` changes
        Pre: task 42 complete
        AC: #11
-       BLOCKED UPSTREAM 2026-10-23: `gd-hotfix` (gdcloud v0.51.0 and v0.52.0) fetches `origin master` by literal name, ignoring config.yml `default_git_branch: main` (hotfix.py lines 254, 768), so it cannot run on this repo. Workflow 5 itself deploys from main fine. Retry after the upstream fix
+       UNBLOCKED + DONE (dry run) 2026-10-23: both repos renamed main → master (MIC parity); `gd-hotfix --dry-run` then planned `hotfix/globalmart-v1.0` from prod v1.0 and predicted v1.0.1. Previously BLOCKED 2026-10-23: `gd-hotfix` (gdcloud v0.51.0 and v0.52.0) fetches `origin master` by literal name, ignoring config.yml `default_git_branch: main` (hotfix.py lines 254, 768), so it cannot run on this repo. Workflow 5 itself deploys from main fine. Retry after the upstream fix
 - [x] 45. Update the README with a release section: the environment ↔ org ↔ workspace table, the `GM`/`TOOLING` label rules, promotion and hotfix how-to, a note that org-level objects are owned by the org repo, that domains are local-only (with `publish domains --target <t> --apply`), and that the A2A/MCP demo needs those domains redeployed. Merge the gdcloud-seeded `AGENTS.md`
        Pre: task 42 complete
        AC: #3, #10
