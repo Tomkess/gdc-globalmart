@@ -101,13 +101,14 @@ The following decisions were settled on 2026-10-22:
 - [ ] 29. Live: `gd-upload --environment dev`, then `globalmart verify --target gdcloud-dev --workspace globalmart_dev`. Every visualization executes and none is empty
        Pre: task 28 complete
        AC: #5
-- [ ] 30. Create GitHub Environments `develop`, `staging`, `preprod`, `production` (required reviewers; branches `main` and `hotfix/*`), and `production-post` (`main` only, no reviewers), each with `TOKEN_GOODDATA` and `MOTHERDUCK_TOKEN`. Create repo secrets `TOKEN_GITHUB_GDCLOUD`, `TOKEN_GITHUB_ADMIN`, and `MOTHERDUCK_TOKEN_RO`, and labels `GM` and `TOOLING`
+- [x] 30. Create GitHub Environments `develop`, `staging`, `preprod`, `production` (required reviewers; branches `main` and `hotfix/*`), and `production-post` (`main` only, no reviewers), each with `TOKEN_GOODDATA` and `MOTHERDUCK_TOKEN`. Create repo secrets `TOKEN_GITHUB_GDCLOUD`, `TOKEN_GITHUB_ADMIN`, and `MOTHERDUCK_TOKEN_RO`, and labels `GM` and `TOOLING`
+       DONE 2026-10-23: `TOKEN_GITHUB_GDCLOUD`/`TOKEN_GITHUB_ADMIN` are the user's gh CLI token (their choice — re-login rotates it, CI then needs both secrets re-set). No read-only MotherDuck token exists yet, so `MOTHERDUCK_TOKEN_RO` is not created; task 32 uses `MOTHERDUCK_TOKEN` until it is
        Pre: task 7 complete
        AC: #7, #8
 - [ ] 31. Run `uv run gd-workflows adopt .`. Confirm the 1/1b/2a/2b/3/4/5/6, `check_*`, and `auto_*` payload is present, with no 4a, 5a, `org_release.yml`, or `auto_org_snapshot.yml`, and that `check_ci_payload.yml` shows no drift
        Pre: tasks 22, 30 complete
        AC: #6
-- [ ] 32. Extend `ci.yml`: add `globalmart gdcloud project --check` after `split --check` (keep `split --check` and `domains validate --strict`), and add a `data-current` job running `data ensure --target gdcloud-dev --check` with `MOTHERDUCK_TOKEN_RO`
+- [ ] 32. Extend `ci.yml`: add `globalmart gdcloud project --check` after `split --check` (keep `split --check` and `domains validate --strict`), and add a `data-current` job running `data ensure --target gdcloud-dev --check` with `MOTHERDUCK_TOKEN` (swap to a read-only `MOTHERDUCK_TOKEN_RO` once one exists)
        Pre: tasks 16, 17 complete
        AC: #9, #10
 - [ ] 33. Create `globalmart_post_deploy.yml`. It triggers on `workflow_run` of the generated 3, 4, and 5, and runs only on success. `gdcloud scope` yields the environment and version, and the job exits 0 when there is no scope. It maps the environment to its GitHub Environment (prod → `production-post`), then runs `knowledge-docs publish` followed by `verify --target gdcloud-<env> --parent-only --workspace-id globalmart_<suffix> --apply`
