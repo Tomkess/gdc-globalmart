@@ -24,6 +24,15 @@ are pinned there and are binding. Read it instead of reading other features' `sp
 - **Domain workspaces are derived, never authored.** They are generated from the parent by the
   splitter and committed as declarative JSON under `generated/workspaces/`. Hand-editing a
   generated file is a defect; fix the parent or `domains.yaml` and regenerate.
+- **Domain workspaces are local-only (ADR 011).** They stay derived, committed and gated, but no
+  release path deploys them: they are published on demand (`publish domains --apply`) and never
+  spend a slot of the orgs' workspace cap by default.
+- **gdcloud releases the parent, and only the parent (ADR 011).** `gd_data_product/globalmart/` is
+  derived from `layouts/workspaces/globalmart/` by `globalmart gdcloud project`; never edit it, never
+  `gd-store` into it. `config.yml` declares exactly one data product.
+- **This repo never releases or snapshots org-level objects.** `automation.org_release` and
+  `automation.organization_snapshot` stay `false`; both orgs are shared, and a separate org repo owns
+  agents, themes and the like (gd-ecommerce-demo ADR 002). The `org_scope` gd-ci check enforces it.
 - **Commit what a human reviews, not what a machine consumes.** `generated/workspaces/*.json` is
   committed because its diffs carry meaning. Warehouse rows are not: they are fetched from a
   project-owned archive and verified against the committed `data/archive-manifest.json`, with the
@@ -81,7 +90,8 @@ The committed layout must carry no trace of the org it was captured from
 
 ## Coding Standards
 
-- Python 3.11+, `uv` as package manager, type hints on public functions.
+- Python 3.14+ (gdcloud's floor), `uv` as package manager, type hints on public functions. `ruff check`
+  and `ruff format` both gate PRs.
 - Prefer `gooddata-python-sdk` APIs over raw REST. Raw REST only where the SDK has no coverage, and
   the gap must be noted in a comment.
 - Mutations of object references (datasource ids, schema names) are structured traversals, never
@@ -91,6 +101,8 @@ The committed layout must carry no trace of the org it was captured from
 ## Naming Conventions
 
 - Parent workspace id: `globalmart`. Child ids: `globalmart-<domain>` (kebab-case).
+- Release workspace ids (gdcloud): `globalmart_dev`, `globalmart_test`, `globalmart_preprod`,
+  `globalmart_master` (prod). Data source on the release orgs: `gdc_ds_globalmart_motherduck`.
 - Domain keys in `domains.yaml`: snake_case. Generated files: `generated/workspaces/globalmart-<domain>.json`.
 - Feature IDs: `feat-NNN` in frontmatter, `FEAT-NNN` in display.
 
