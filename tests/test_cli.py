@@ -542,3 +542,21 @@ def test_gdcloud_scope_is_read_only() -> None:
 
 def test_data_ensure_check_is_the_ci_form() -> None:
     assert {"apply", "check"} <= _dests("data ensure")
+
+
+def test_data_notify_writes_only_under_apply(monkeypatch: pytest.MonkeyPatch) -> None:
+    from globalmart import cli as cli_module
+
+    assert "apply" in _dests("data notify") and "dry_run" not in _dests("data notify")
+    sent: list[str] = []
+    monkeypatch.setattr(
+        cli_module, "load_profile", lambda name: type("P", (), {"datasource_id": "ds", "host": "h"})()
+    )
+    monkeypatch.setattr(cli_module, "make_sdk", lambda profile: object())
+    monkeypatch.setattr(cli_module, "check_organization", lambda sdk, profile: None)
+    monkeypatch.setattr(cli_module, "notify_upload", lambda sdk, profile: sent.append(profile.datasource_id))
+
+    assert main(["data", "notify", "--target", "gdcloud-prod"]) == 0
+    assert sent == []
+    assert main(["data", "notify", "--target", "gdcloud-prod", "--apply"]) == 0
+    assert sent == ["ds"]

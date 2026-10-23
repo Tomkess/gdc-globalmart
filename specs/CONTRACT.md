@@ -262,6 +262,7 @@ Single entry point `globalmart`, subcommands registered in `cli.py` (registratio
 | `globalmart data load` | `--target` (req), `--ddl`, `--layout`, `--only`, `--tables-dir`, `--manifest`, `--recreate-drifted`, `--apply` | `dataload.py`, `loaders/` | live `--apply` | FEAT-005 |
 | `globalmart data generate` | `--out` (req), `--seed`, `--scale`, `--ddl`, `--layout`, `--manifest`, `--start-date`, `--end-date` | `generate.py` | local | FEAT-007 (+013) |
 | `globalmart data ensure` | `--target` (req), `--apply` \| `--check` (exclusive; `--check` exits 3 when a write is planned — the PR gate), `--max-age-days`, `--force`, `--recreate-drifted`, `--seed`, `--scale`, `--start-date`, `--end-date`, `--ddl`, `--layout`, `--manifest` | `dataload.py`, `generate.py` | live `--apply` | FEAT-013 (+019) |
+| `globalmart data notify` | `--target` (req), `--apply` | `datasource.py`, `preflight.py` | live `--apply` | FEAT-019 |
 | `globalmart publish parent` | `--target` (req), `--source`, `--workspace-id`, `--workspace-name`, `--apply`, `--no-backup`, `--standalone-copy` | `publish.py` | live `--apply` | FEAT-002 |
 | `globalmart publish domains` | `--target` (req), `--domains-file`, `--source`, `--only`, `--apply`, `--no-backup`, `--standalone-copy`, `--keep-going` | `publish.py` | live `--apply` | FEAT-004 |
 | `globalmart verify` | `--target`, `--domains-file`, `--layout`, `--generated`, `--workspace`, `--max-workers`, `--viz-timeout`, `--max-retries`, `--fail-on-empty`, `--list-only`, `--output-dir` | `verification.py`, `execute.py` | read-only (live) | FEAT-006 |
