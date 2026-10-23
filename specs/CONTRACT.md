@@ -60,6 +60,7 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `gdcloud_bridge.py` | FEAT-019 | The only module that reads gdcloud's `config.yml`: `ReleaseConfig`, `load_release_config`, `master_workspace_id`, `parse_deploy_tag`, `release_scope_from_tags`. Refuses any catalog but exactly one data product (ADR 011) |
 | `gdcloud_project.py` | FEAT-019 | `project_parent`, `write_projection`, `diff_projection` — the parent layout projected into `gd_data_product/globalmart/`, byte-identical to `gd-store`. The one module that imports `gdcloud` (its YAML normalizers, lazily) |
 | `gdcloud_bootstrap.py` | FEAT-019 | `bootstrap_environment`, `fetch_capacity` — workspace-cap check, collision audit, data source, env-titled master, before an environment's first deploy |
+| `vocabulary.py` | FEAT-021 | `Vocabulary`, `load_vocabulary`, `TableNamer`, `composed` — realistic values for generated text columns from `config/vocabulary.yaml`; no table or column named in code |
 | `cli.py` | all | Subcommand registration only; no logic |
 
 FEAT-005 (sole owner), **as built 2026-09-18**: `registry.py`, `dataload.py`, `sqlcheck.py`
@@ -260,8 +261,8 @@ Single entry point `globalmart`, subcommands registered in `cli.py` (registratio
 | `globalmart split` | `--domains-file`, `--source` (`--from` is an alias — `dest="source"`), `--out`, `--only`, `--metric-policy {reachable,dataset-fit}`, `--dry-run`, `--check` | `split.py`, `closure.py`, `prune.py`, `verify.py` | local | FEAT-004 |
 | `globalmart data verify` | `--ddl`, `--layout`, `--schema` | `sqlcheck.py` | read-only | FEAT-005 |
 | `globalmart data load` | `--target` (req), `--ddl`, `--layout`, `--only`, `--tables-dir`, `--manifest`, `--recreate-drifted`, `--apply` | `dataload.py`, `loaders/` | live `--apply` | FEAT-005 |
-| `globalmart data generate` | `--out` (req), `--seed`, `--scale`, `--ddl`, `--layout`, `--manifest`, `--start-date`, `--end-date` | `generate.py` | local | FEAT-007 (+013) |
-| `globalmart data ensure` | `--target` (req), `--apply` \| `--check` (exclusive; `--check` exits 3 when a write is planned — the PR gate), `--max-age-days`, `--force`, `--recreate-drifted`, `--seed`, `--scale`, `--start-date`, `--end-date`, `--ddl`, `--layout`, `--manifest` | `dataload.py`, `generate.py` | live `--apply` | FEAT-013 (+019) |
+| `globalmart data generate` | `--out` (req), `--seed`, `--scale`, `--ddl`, `--layout`, `--manifest`, `--vocabulary`, `--start-date`, `--end-date` | `generate.py`, `vocabulary.py` | local | FEAT-007 (+013, +021) |
+| `globalmart data ensure` | `--target` (req), `--apply` \| `--check` (exclusive; `--check` exits 3 when a write is planned — the PR gate), `--max-age-days`, `--force`, `--recreate-drifted`, `--seed`, `--scale`, `--start-date`, `--end-date`, `--ddl`, `--layout`, `--manifest`, `--vocabulary` | `dataload.py`, `generate.py` | live `--apply` | FEAT-013 (+019, +021) |
 | `globalmart data notify` | `--target` (req), `--apply` | `datasource.py`, `preflight.py` | live `--apply` | FEAT-019 |
 | `globalmart publish parent` | `--target` (req), `--source`, `--workspace-id`, `--workspace-name`, `--apply`, `--no-backup`, `--standalone-copy` | `publish.py` | live `--apply` | FEAT-002 |
 | `globalmart publish domains` | `--target` (req), `--domains-file`, `--source`, `--only`, `--apply`, `--no-backup`, `--standalone-copy`, `--keep-going` | `publish.py` | live `--apply` | FEAT-004 |
@@ -311,6 +312,7 @@ the token, never the token itself; `gd-agents profile` defaults it to
 | `data/tables/<table>.csv.gz` | The rows themselves, one gzipped CSV per table — 215 files. **Not in the repository** (ADR 008 supersedes ADR 007): generated on demand by `globalmart data generate` / `data ensure`, verified against `data/table-manifest.json` | no (ADR 008) |
 | `config/targets.yaml` | Publish target profiles. Zero secrets | yes |
 | `config/domains.yaml` | Domain membership manifest | yes |
+| `config/vocabulary.yaml` | Realistic values for generated text columns (FEAT-021): records, parent-scoped names, templates, composition. Demo content; change it and force a reload | yes |
 | `data/ddl/globalmart.sql` | **215**-table DDL, schema-only, `{schema_name}` templated (214 inherited + `fact_search_event`) | yes |
 | `data/table-manifest.json` | Per table: row count, columns, sha256 of the **uncompressed** CSV, byte size | yes |
 | `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge per the target's `knowledge_scope`: in **every** workspace by default (no GoodData hierarchy exists, so nothing is inherited — ADR 009), or once at organization level for a dedicated org (ADR 010). **Not** part of the layout tree | yes |

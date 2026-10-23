@@ -1,0 +1,918 @@
+# Realistic values for generated text columns (FEAT-021). Read by `globalmart data generate` and
+# `data ensure`; a column not listed here keeps the generator's default (`<Column> <index>`).
+#
+# This is demo content, not schema: change it freely, then force a reload (`data-currency` with
+# force + apply). Rule kinds and their semantics are documented in src/globalmart/vocabulary.py.
+#
+# Geography is coherent by construction: a region is named from *its* country's list and a city
+# from *its* region's, and the generator keeps every row's references consistent with the rows
+# they point at (a city's country is its region's country).
+version: 1
+tables:
+  dim_currency:
+    records:
+    - currency_code: USD
+      currency_name: US Dollar
+      exchange_rate_to_usd: '1.0000'
+    - currency_code: CAD
+      currency_name: Canadian Dollar
+      exchange_rate_to_usd: '0.7300'
+    - currency_code: EUR
+      currency_name: Euro
+      exchange_rate_to_usd: '1.0800'
+    - currency_code: GBP
+      currency_name: British Pound
+      exchange_rate_to_usd: '1.2700'
+    - currency_code: MXN
+      currency_name: Mexican Peso
+      exchange_rate_to_usd: '0.0550'
+    - currency_code: JPY
+      currency_name: Japanese Yen
+      exchange_rate_to_usd: '0.0067'
+    - currency_code: CNY
+      currency_name: Chinese Yuan
+      exchange_rate_to_usd: '0.1400'
+    - currency_code: AUD
+      currency_name: Australian Dollar
+      exchange_rate_to_usd: '0.6600'
+    - currency_code: CHF
+      currency_name: Swiss Franc
+      exchange_rate_to_usd: '1.1300'
+    - currency_code: SEK
+      currency_name: Swedish Krona
+      exchange_rate_to_usd: '0.0950'
+  dim_geography_country:
+    records:
+    - country_name: United States
+      ref:
+        currency_id:
+          currency_code: USD
+    - country_name: Canada
+      ref:
+        currency_id:
+          currency_code: CAD
+  dim_geography_region:
+    by_parent:
+    - column: region_name
+      via: country_id
+      key: country_name
+      values:
+        United States:
+        - Northeast
+        - Southeast
+        - Midwest
+        - Southwest
+        - West Coast
+        - Mountain West
+        - Great Lakes
+        - Mid-Atlantic
+        Canada:
+        - Ontario
+        - Quebec
+        - Western Canada
+        - Atlantic Canada
+        - Prairies
+        - Northern Canada
+  dim_geography_city:
+    by_parent:
+    - column: city_name
+      via: region_id
+      key: region_name
+      values:
+        Northeast:
+        - Boston
+        - New
+        - York
+        - Philadelphia
+        - Pittsburgh
+        - Hartford
+        - Providence
+        - Buffalo
+        - Newark
+        - Albany
+        - Portland ME
+        - Burlington
+        - Rochester
+        - Syracuse
+        - Worcester
+        - Manchester
+        - Allentown
+        - Trenton
+        - Scranton
+        - Bridgeport
+        - Stamford
+        Southeast:
+        - Atlanta
+        - Miami
+        - Charlotte
+        - Orlando
+        - Tampa
+        - Nashville
+        - Raleigh
+        - Jacksonville
+        - Memphis
+        - Richmond
+        - Charleston
+        - Savannah
+        - Birmingham
+        - Louisville
+        - Greenville
+        - Knoxville
+        - Chattanooga
+        - Durham
+        - Norfolk
+        - Columbia
+        Midwest:
+        - Chicago
+        - Detroit
+        - Minneapolis
+        - Columbus
+        - Indianapolis
+        - Milwaukee
+        - Cleveland
+        - Cincinnati
+        - Kansas City
+        - St. Louis
+        - Omaha
+        - Madison
+        - Des Moines
+        - Grand Rapids
+        - Toledo
+        - Fort Wayne
+        - Wichita
+        - Lincoln
+        - Akron
+        - Dayton
+        Southwest:
+        - Houston
+        - Dallas
+        - Phoenix
+        - San Antonio
+        - Austin
+        - Fort Worth
+        - El Paso
+        - Albuquerque
+        - Tucson
+        - Oklahoma City
+        - Tulsa
+        - Mesa
+        - Plano
+        - Arlington TX
+        - Corpus Christi
+        - Lubbock
+        - Scottsdale
+        - Santa Fe
+        - Laredo
+        - Irving
+        West Coast:
+        - Los Angeles
+        - San Francisco
+        - Seattle
+        - San Diego
+        - Portland
+        - San Jose
+        - Sacramento
+        - Oakland
+        - Fresno
+        - Long Beach
+        - Tacoma
+        - Spokane
+        - Irvine
+        - Bakersfield
+        - Anaheim
+        - Santa Barbara
+        - Eugene
+        - Riverside
+        - Stockton
+        - Pasadena
+        Mountain West:
+        - Denver
+        - Salt Lake City
+        - Las Vegas
+        - Boise
+        - Colorado Springs
+        - Reno
+        - Billings
+        - Cheyenne
+        - Fort Collins
+        - Provo
+        - Missoula
+        - Bozeman
+        - Henderson
+        - Aurora
+        - Boulder
+        - Ogden
+        - Rapid City
+        - Flagstaff
+        - Pueblo
+        - Casper
+        Great Lakes:
+        - Ann Arbor
+        - Lansing
+        - Erie
+        - Green Bay
+        - Rockford
+        - Peoria
+        - South Bend
+        - Kalamazoo
+        - Flint
+        - Duluth
+        - Saginaw
+        - Evansville
+        - Springfield IL
+        - Champaign
+        - Appleton
+        - Oshkosh
+        - Gary
+        - Muskegon
+        - Traverse City
+        - Youngstown
+        Mid-Atlantic:
+        - Baltimore
+        - Washington
+        - Wilmington
+        - Annapolis
+        - Arlington VA
+        - Alexandria
+        - Frederick
+        - Harrisburg
+        - Lancaster
+        - Reading
+        - Dover
+        - Silver Spring
+        - Rockville
+        - Columbia MD
+        - Hagerstown
+        - Fairfax
+        - Roanoke
+        - Charlottesville
+        - Lynchburg
+        - York
+        Ontario:
+        - Toronto
+        - Ottawa
+        - Mississauga
+        - Hamilton
+        - London ON
+        - Markham
+        - Kitchener
+        - Windsor
+        - Brampton
+        - Oakville
+        - Barrie
+        - Kingston
+        - Guelph
+        - Sudbury
+        - Thunder Bay
+        - Waterloo
+        - Oshawa
+        - Burlington ON
+        - Vaughan
+        - Sarnia
+        Quebec:
+        - Montreal
+        - Quebec City
+        - Laval
+        - Gatineau
+        - Longueuil
+        - Sherbrooke
+        - Saguenay
+        - Levis
+        - Trois Rivieres
+        - Terrebonne
+        - Repentigny
+        - Brossard
+        - Drummondville
+        - Granby
+        - Saint Jerome
+        - Blainville
+        - Rimouski
+        - Chateauguay
+        - Mirabel
+        - Joliette
+        Western Canada:
+        - Vancouver
+        - Calgary
+        - Edmonton
+        - Victoria
+        - Surrey
+        - Burnaby
+        - Richmond BC
+        - Kelowna
+        - Saskatoon
+        - Regina
+        - Winnipeg
+        - Red Deer
+        - Lethbridge
+        - Kamloops
+        - Nanaimo
+        - Abbotsford
+        - Coquitlam
+        - Prince George
+        - Brandon
+        - Medicine Hat
+        Atlantic Canada:
+        - Halifax
+        - St. Johns
+        - Moncton
+        - Saint John
+        - Fredericton
+        - Charlottetown
+        - Dartmouth
+        - Sydney
+        - Truro
+        - Corner Brook
+        - Summerside
+        - Bathurst
+        - Miramichi
+        - Edmundston
+        - Gander
+        - Antigonish
+        - Yarmouth
+        - Kentville
+        - Bridgewater
+        - Grand Falls
+        Prairies:
+        - Brandon MB
+        - Steinbach
+        - Swift Current
+        - Moose Jaw
+        - Prince Albert
+        - Yorkton
+        - Portage la Prairie
+        - Thompson
+        - Selkirk
+        - Estevan
+        - Weyburn
+        - Lloydminster
+        - North Battleford
+        - Dauphin
+        - Morden
+        - Winkler
+        - Camrose
+        - Wetaskiwin
+        - Lacombe
+        - Brooks
+        Northern Canada:
+        - Whitehorse
+        - Yellowknife
+        - Iqaluit
+        - Dawson City
+        - Hay River
+        - Inuvik
+        - Fort Smith
+        - Rankin Inlet
+        - Watson Lake
+        - Fort Simpson
+        - Norman Wells
+        - Cambridge Bay
+        - Haines Junction
+        - Carcross
+        - Faro
+        - Tuktoyaktuk
+        - Behchoko
+        - Igloolik
+        - Arviat
+        - Baker Lake
+  dim_company_entity:
+    by_parent:
+    - column: entity_name
+      via: country_id
+      key: country_name
+      values:
+        United States:
+        - GlobalMart Retail US Inc.
+        - GlobalMart E-Commerce LLC
+        - GlobalMart Logistics US LLC
+        - GlobalMart Holdings Inc.
+        - GlobalMart Real Estate LLC
+        - GlobalMart Financial Services LLC
+        Canada:
+        - GlobalMart Canada Ltd.
+        - GlobalMart Canada E-Commerce Inc.
+        - GlobalMart Canada Logistics Ltd.
+        - GlobalMart Canada Holdings Inc.
+  dim_channel_master:
+    records:
+    - channel_type: Online
+      channel_name: Web Store
+    - channel_type: In-Store
+      channel_name: Retail Stores
+    - channel_type: Mobile
+      channel_name: Mobile App
+    - channel_type: Marketplace
+      channel_name: Third-Party Marketplace
+    - channel_type: Phone
+      channel_name: Call Center
+    - channel_type: Wholesale
+      channel_name: B2B Wholesale
+  dim_store:
+    choose:
+      store_format:
+      - Supercenter
+      - Hypermarket
+      - Supermarket
+      - Neighborhood Market
+      - Express
+      - Outlet
+    template:
+      store_name: GlobalMart {city_id.city_name}
+  dim_customer:
+    compose:
+      customer_name:
+      - - Aaron
+        - Abigail
+        - Adam
+        - Alan
+        - Albert
+        - Alexander
+        - Alexis
+        - Alice
+        - Amanda
+        - Amber
+        - Amy
+        - Andrea
+        - Andrew
+        - Angela
+        - Ann
+        - Anna
+        - Anthony
+        - Arthur
+        - Ashley
+        - Austin
+        - Barbara
+        - Benjamin
+        - Betty
+        - Beverly
+        - Billy
+        - Bobby
+        - Bradley
+        - Brandon
+        - Brenda
+        - Brian
+        - Brittany
+        - Bruce
+        - Bryan
+        - Carl
+        - Carol
+        - Carolyn
+        - Catherine
+        - Charles
+        - Charlotte
+        - Cheryl
+        - Christian
+        - Christina
+        - Christine
+        - Christopher
+        - Cynthia
+        - Daniel
+        - Danielle
+        - David
+        - Deborah
+        - Debra
+        - Denise
+        - Dennis
+        - Diana
+        - Diane
+        - Donald
+        - Donna
+        - Doris
+        - Dorothy
+        - Douglas
+        - Dylan
+        - Edward
+        - Elijah
+        - Elizabeth
+        - Emily
+        - Emma
+        - Eric
+        - Ethan
+        - Eugene
+        - Evelyn
+        - Frances
+        - Frank
+        - Gabriel
+        - Gary
+        - George
+        - Gerald
+        - Gloria
+        - Grace
+        - Gregory
+        - Hannah
+        - Harold
+        - Heather
+        - Helen
+        - Henry
+        - Isabella
+        - Jack
+        - Jacob
+        - Jacqueline
+        - James
+        - Janet
+        - Janice
+        - Jason
+        - Jean
+        - Jeffrey
+        - Jennifer
+        - Jeremy
+        - Jerry
+        - Jesse
+        - Jessica
+        - Joan
+        - Joe
+        - John
+        - Jonathan
+        - Jordan
+        - Jose
+        - Joseph
+        - Joshua
+        - Joyce
+        - Juan
+        - Judith
+        - Judy
+        - Julia
+        - Julie
+        - Justin
+        - Karen
+        - Katherine
+        - Kathleen
+        - Kathryn
+        - Kayla
+        - Keith
+        - Kelly
+        - Kenneth
+        - Kevin
+        - Kimberly
+        - Kyle
+        - Larry
+        - Laura
+        - Lauren
+        - Lawrence
+        - Linda
+        - Lisa
+        - Logan
+        - Lori
+        - Madison
+        - Margaret
+        - Maria
+        - Marilyn
+        - Mark
+        - Martha
+        - Mary
+        - Mason
+        - Matthew
+        - Megan
+        - Melissa
+        - Michael
+        - Michelle
+        - Nancy
+        - Natalie
+        - Nathan
+        - Nicholas
+        - Nicole
+        - Noah
+        - Olivia
+        - Pamela
+        - Patricia
+        - Patrick
+        - Paul
+        - Peter
+        - Philip
+        - Rachel
+        - Ralph
+        - Randy
+        - Raymond
+        - Rebecca
+        - Richard
+        - Robert
+        - Roger
+        - Ronald
+        - Roy
+        - Russell
+        - Ruth
+        - Ryan
+        - Samantha
+        - Samuel
+        - Sandra
+        - Sara
+        - Sarah
+        - Scott
+        - Sean
+        - Sharon
+        - Shirley
+        - Sophia
+        - Stephanie
+        - Stephen
+        - Steven
+        - Susan
+        - Teresa
+        - Terry
+        - Theresa
+        - Thomas
+        - Tiffany
+        - Timothy
+        - Tyler
+        - Victoria
+        - Vincent
+        - Virginia
+        - Walter
+        - Wayne
+        - William
+        - Willie
+        - Zachary
+      - - Adams
+        - Aguilar
+        - Alexander
+        - Allen
+        - Alvarado
+        - Alvarez
+        - Anderson
+        - Andrews
+        - Armstrong
+        - Arnold
+        - Bailey
+        - Baker
+        - Barnes
+        - Bell
+        - Bennett
+        - Berry
+        - Black
+        - Boyd
+        - Bradley
+        - Brooks
+        - Brown
+        - Bryant
+        - Burns
+        - Butler
+        - Campbell
+        - Carpenter
+        - Carroll
+        - Carter
+        - Castillo
+        - Castro
+        - Chavez
+        - Chen
+        - Clark
+        - Cole
+        - Coleman
+        - Collins
+        - Contreras
+        - Cook
+        - Cooper
+        - Cox
+        - Crawford
+        - Cruz
+        - Cunningham
+        - Daniels
+        - Davis
+        - Delgado
+        - Diaz
+        - Dixon
+        - Duncan
+        - Dunn
+        - Edwards
+        - Elliott
+        - Ellis
+        - Evans
+        - Ferguson
+        - Fernandez
+        - Fisher
+        - Flores
+        - Ford
+        - Foster
+        - Fox
+        - Freeman
+        - Garcia
+        - Gardner
+        - Garza
+        - Gibson
+        - Gomez
+        - Gonzales
+        - Gonzalez
+        - Gordon
+        - Graham
+        - Grant
+        - Gray
+        - Green
+        - Griffin
+        - Gutierrez
+        - Guzman
+        - Hall
+        - Hamilton
+        - Hansen
+        - Harris
+        - Harrison
+        - Hart
+        - Hawkins
+        - Hayes
+        - Henderson
+        - Henry
+        - Hernandez
+        - Herrera
+        - Hicks
+        - Hill
+        - Hoffman
+        - Holmes
+        - Howard
+        - Hudson
+        - Hughes
+        - Hunt
+        - Hunter
+        - Jackson
+        - James
+        - Jenkins
+        - Jimenez
+        - Johnson
+        - Johnston
+        - Jones
+        - Jordan
+        - Kelley
+        - Kelly
+        - Kennedy
+        - Kim
+        - King
+        - Knight
+        - Lane
+        - Lawrence
+        - Lee
+        - Lewis
+        - Long
+        - Lopez
+        - Marshall
+        - Martin
+        - Martinez
+        - Mason
+        - Matthews
+        - McDonald
+        - Medina
+        - Mendez
+        - Mendoza
+        - Meyer
+        - Miller
+        - Mills
+        - Mitchell
+        - Moore
+        - Morales
+        - Moreno
+        - Morgan
+        - Morris
+        - Munoz
+        - Murphy
+        - Murray
+        - Myers
+        - Nelson
+        - Nguyen
+        - Nichols
+        - Olson
+        - Ortiz
+        - Owens
+        - Palmer
+        - Parker
+        - Patel
+        - Patterson
+        - Payne
+        - Pena
+        - Perez
+        - Perkins
+        - Perry
+        - Peters
+        - Peterson
+        - Phillips
+        - Pierce
+        - Porter
+        - Powell
+        - Price
+        - Ramirez
+        - Ramos
+        - Ray
+        - Reed
+        - Reyes
+        - Reynolds
+        - Rice
+        - Richards
+        - Richardson
+        - Riley
+        - Rivera
+        - Roberts
+        - Robertson
+        - Robinson
+        - Rodriguez
+        - Rogers
+        - Romero
+        - Rose
+        - Ross
+        - Ruiz
+        - Russell
+        - Ryan
+        - Salazar
+        - Sanchez
+        - Sanders
+        - Sandoval
+        - Santos
+        - Schmidt
+        - Scott
+        - Shaw
+        - Silva
+        - Simmons
+        - Simpson
+        - Smith
+        - Snyder
+        - Soto
+        - Spencer
+        - Stephens
+        - Stevens
+        - Stewart
+        - Stone
+        - Sullivan
+        - Taylor
+        - Thomas
+        - Thompson
+        - Torres
+        - Tran
+        - Tucker
+        - Turner
+        - Vargas
+        - Vasquez
+        - Vazquez
+        - Wagner
+        - Walker
+        - Wallace
+        - Ward
+        - Warren
+        - Washington
+        - Watson
+        - Weaver
+        - Webb
+        - Wells
+        - West
+        - White
+        - Williams
+        - Willis
+        - Wilson
+        - Wood
+        - Woods
+        - Wright
+        - Young
+  dim_product:
+    compose:
+      product_name:
+      - - Classic
+        - Premium
+        - Everyday
+        - Organic
+        - Essential
+        - Deluxe
+        - Compact
+        - Ultra
+        - Smart
+        - Eco
+        - Pro
+        - Signature
+        - Original
+        - Heritage
+        - Urban
+        - Outdoor
+        - Family
+        - Travel
+        - Home
+        - Studio
+      - - Cotton
+        - Stainless
+        - Bamboo
+        - Ceramic
+        - Leather
+        - Wool
+        - Glass
+        - Cast-Iron
+        - Linen
+        - Oak
+        - Copper
+        - Recycled
+        - Wireless
+        - Insulated
+        - Waterproof
+        - Foldable
+        - Rechargeable
+        - Ergonomic
+        - Non-Stick
+        - Breathable
+      - - T-Shirt
+        - Water Bottle
+        - Cutting Board
+        - Coffee Mug
+        - Backpack
+        - Blanket
+        - Food Container
+        - Skillet
+        - Pillowcase
+        - Desk Lamp
+        - Cookware Set
+        - Tote Bag
+        - Headphones
+        - Lunch Box
+        - Rain Jacket
+        - Storage Bin
+        - Speaker
+        - Office Chair
+        - Frying Pan
+        - Running Shoes
