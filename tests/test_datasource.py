@@ -75,9 +75,7 @@ def test_postgres_without_its_secret_raises(monkeypatch: pytest.MonkeyPatch) -> 
     monkeypatch.delenv("TEST_WAREHOUSE_SECRET", raising=False)
 
     with pytest.raises(GlobalmartError) as excinfo:
-        build_data_source(
-            _profile(warehouse_type=WarehouseType.POSTGRES, datasource_username="gm")
-        )
+        build_data_source(_profile(warehouse_type=WarehouseType.POSTGRES, datasource_username="gm"))
     assert "TEST_WAREHOUSE_SECRET" in str(excinfo.value)
 
 

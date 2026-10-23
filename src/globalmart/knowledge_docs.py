@@ -261,8 +261,7 @@ class KnowledgeDocsReport:
         if deltas:
             lines.append(f"chunk count moved : {len(deltas)} document(s)")
             lines.extend(
-                f"  {name}: {before} -> {after}"
-                for name, (before, after) in list(deltas.items())[:10]
+                f"  {name}: {before} -> {after}" for name, (before, after) in list(deltas.items())[:10]
             )
         return lines
 
@@ -292,9 +291,7 @@ class KnowledgeApi(Protocol):
     ) -> list[SearchResult]: ...
 
 
-def _multipart(
-    *, filename: str, body: str, title: str, scopes: tuple[str, ...]
-) -> tuple[bytes, str]:
+def _multipart(*, filename: str, body: str, title: str, scopes: tuple[str, ...]) -> tuple[bytes, str]:
     """Encode one `multipart/form-data` body. Returns `(payload, content_type)`.
 
     `scopes` is sent as a **repeated field**, which is what the documented `curl` example
@@ -307,11 +304,7 @@ def _multipart(
 
     def field_part(name: str, value: str) -> None:
         parts.append(
-            (
-                f"--{boundary}\r\n"
-                f'Content-Disposition: form-data; name="{name}"\r\n\r\n'
-                f"{value}\r\n"
-            ).encode()
+            (f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{value}\r\n').encode()
         )
 
     parts.append(
@@ -370,11 +363,7 @@ class HttpKnowledgeApi:
 
     @staticmethod
     def _require_credentials(profile: TargetProfile) -> None:
-        missing = [
-            name
-            for name in ("host", "token")
-            if not getattr(profile, name, None)
-        ]
+        missing = [name for name in ("host", "token") if not getattr(profile, name, None)]
         if missing:
             raise KnowledgeDocsError(
                 f"profile {profile.name!r} is missing {', '.join(missing)} — a knowledge "
@@ -421,9 +410,7 @@ class HttpKnowledgeApi:
         try:
             return json.loads(body)
         except json.JSONDecodeError as error:
-            raise KnowledgeDocsError(
-                f"{method} {path} -> response was not JSON: {body[:200]!r}"
-            ) from error
+            raise KnowledgeDocsError(f"{method} {path} -> response was not JSON: {body[:200]!r}") from error
 
     def list_documents(self) -> list[RemoteDocument]:
         """Every document visible here: local, inherited, and organization level.
@@ -450,9 +437,7 @@ class HttpKnowledgeApi:
 
     def download_document(self, document_id: str) -> str:
         return str(
-            self._request(
-                f"{self.base}/documents/{urllib.parse.quote(document_id)}/download", raw=True
-            )
+            self._request(f"{self.base}/documents/{urllib.parse.quote(document_id)}/download", raw=True)
         )
 
     def upsert_document(
@@ -477,9 +462,7 @@ class HttpKnowledgeApi:
         )
 
     def delete_document(self, document_id: str) -> None:
-        self._request(
-            f"{self.base}/documents/{urllib.parse.quote(document_id)}", method="DELETE"
-        )
+        self._request(f"{self.base}/documents/{urllib.parse.quote(document_id)}", method="DELETE")
 
     def search(
         self, query: str, *, limit: int = DEFAULT_SEARCH_LIMIT, min_score: float = 0.0
@@ -565,9 +548,7 @@ def publish_corpus(
                 current = ""
             if _digest(current) == document.digest:
                 report.results.append(
-                    PublishDocResult(
-                        filename=document.filename, action="unchanged", num_chunks=before
-                    )
+                    PublishDocResult(filename=document.filename, action="unchanged", num_chunks=before)
                 )
                 report.chunk_deltas[document.filename] = (before, before)
                 continue
@@ -600,9 +581,7 @@ def publish_corpus(
         )
         report.chunk_deltas[document.filename] = (before, result.num_chunks)
 
-    report.missing_in_org = tuple(
-        sorted({d.filename for d in documents} - set(ours)) if not apply else ()
-    )
+    report.missing_in_org = tuple(sorted({d.filename for d in documents} - set(ours)) if not apply else ())
     report.orphaned_in_org = tuple(sorted(set(ours) - {d.filename for d in documents}))
     return report
 
@@ -643,9 +622,7 @@ def verify_corpus(
         try:
             current = api.download_document(existing.id)
         except KnowledgeDocsError as error:
-            report.results.append(
-                PublishDocResult(filename=filename, action="failed", error=str(error))
-            )
+            report.results.append(PublishDocResult(filename=filename, action="failed", error=str(error)))
             continue
         drifted = _digest(current) != document.digest
         report.results.append(
@@ -726,9 +703,8 @@ class CleanupReport:
         if self.skipped:
             return f"{label} SKIPPED — {self.skipped}"
         if self.failed:
-            return (
-                f"{label} FAILED  {len(self.failed)} of {len(self.planned)} — still present: "
-                + ", ".join(self.remaining[:5])
+            return f"{label} FAILED  {len(self.failed)} of {len(self.planned)} — still present: " + ", ".join(
+                self.remaining[:5]
             )
         if not self.planned:
             return f"{label} none of ours"
@@ -800,9 +776,7 @@ class ScopedCorpusReport:
 
     @property
     def failed(self) -> tuple[str, ...]:
-        return tuple(
-            f"{level.level_label}: {name}" for level in self.levels for name in level.failed
-        )
+        return tuple(f"{level.level_label}: {name}" for level in self.levels for name in level.failed)
 
     @property
     def cleanup_incomplete(self) -> tuple[str, ...]:
@@ -844,9 +818,7 @@ class ScopedCorpusReport:
         return lines
 
 
-def check_scope_flags(
-    profile: TargetProfile, *, parent_only: bool, workspace_id: str | None
-) -> None:
+def check_scope_flags(profile: TargetProfile, *, parent_only: bool, workspace_id: str | None) -> None:
     """Refuse a flag that has no meaning under the target's scope, before any network call."""
     if profile.knowledge_scope is not KnowledgeScope.ORGANIZATION:
         return
@@ -860,9 +832,7 @@ def check_scope_flags(
     )
 
 
-def _levels(
-    profile: TargetProfile, workspaces: Sequence[str]
-) -> tuple[list[LevelId], list[LevelId]]:
+def _levels(profile: TargetProfile, workspaces: Sequence[str]) -> tuple[list[LevelId], list[LevelId]]:
     """`(levels to write, levels to vacate)` for a target. The one place the scope is read."""
     if profile.knowledge_scope is KnowledgeScope.ORGANIZATION:
         return [None], list(workspaces)
@@ -912,8 +882,7 @@ def publish_for_target(
     if report.failed:
         failed_at = sorted({level.level_label for level in report.levels if level.failed})
         report.cleanup_deferred = (
-            f"write failed at {', '.join(failed_at)} — copies at the other level are left "
-            "as the working ones"
+            f"write failed at {', '.join(failed_at)} — copies at the other level are left as the working ones"
         )
         return report
 
@@ -947,9 +916,7 @@ def verify_for_target(
     """
     factory = _factory(profile, api_factory)
     write, clean = _levels(profile, workspaces)
-    report = ScopedCorpusReport(
-        target=profile.name, scope=profile.knowledge_scope, applied=apply and prune
-    )
+    report = ScopedCorpusReport(target=profile.name, scope=profile.knowledge_scope, applied=apply and prune)
     for level in write:
         report.levels.append(
             verify_corpus(

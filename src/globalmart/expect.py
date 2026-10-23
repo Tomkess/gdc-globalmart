@@ -43,10 +43,7 @@ class CountMismatch:
     actual: int
 
     def __str__(self) -> str:
-        return (
-            f"{self.workspace_id}: {self.object_type} expected {self.expected}, "
-            f"org reports {self.actual}"
-        )
+        return f"{self.workspace_id}: {self.object_type} expected {self.expected}, org reports {self.actual}"
 
 
 @dataclass
@@ -95,9 +92,7 @@ COMPARED_CHANNELS = (
 )
 
 
-def compare_counts(
-    workspace_id: str, expected: ObjectCounts, actual: ObjectCounts
-) -> list[CountMismatch]:
+def compare_counts(workspace_id: str, expected: ObjectCounts, actual: ObjectCounts) -> list[CountMismatch]:
     """Every channel where the org disagrees with the repo."""
     expected_map = expected.as_dict()
     actual_map = actual.as_dict()

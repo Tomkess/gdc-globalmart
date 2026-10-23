@@ -136,10 +136,7 @@ def separate_answers(question: str, answers: Sequence[Answer], checks: CheckRepo
         # is worse than saying nothing — it implies a failure that did not happen.
         opening = "From a single workspace:"
     else:
-        reason = (
-            checks.reasons()
-            or "these answers do not share a dimension that would let them be combined"
-        )
+        reason = checks.reasons() or "these answers do not share a dimension that would let them be combined"
         opening = f"These results could not be combined: {reason}"
     parts = [opening, ""]
     for answer in answers:

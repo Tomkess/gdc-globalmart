@@ -77,6 +77,9 @@ package = true
 [tool.ruff]
 line-length = 110
 src = ["src", "tests", "."]
+# gdcloud-owned: `gd-workflows adopt` vendors these and check_ci_payload compares them byte for byte,
+# so they keep gdcloud's own formatting, never this project's.
+extend-exclude = [".github"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]

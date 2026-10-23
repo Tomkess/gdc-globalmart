@@ -38,9 +38,7 @@ def _profile(**overrides: object) -> TargetProfile:
     return TargetProfile(**base)  # type: ignore[arg-type]
 
 
-def test_missing_url_is_named_and_nothing_is_called(
-    fake_sdk, monkeypatch: pytest.MonkeyPatch
-) -> None:  # type: ignore[no-untyped-def]
+def test_missing_url_is_named_and_nothing_is_called(fake_sdk, monkeypatch: pytest.MonkeyPatch) -> None:  # type: ignore[no-untyped-def]
     """AC #7 asserted structurally: zero calls recorded on the SDK double."""
     monkeypatch.setenv("TEST_WAREHOUSE_SECRET", "s")
     profile = dataclasses.replace(_profile(), datasource_url=None)

@@ -63,9 +63,7 @@ def test_a_missing_question_set_is_not_an_error(tmp_path: Path) -> None:
 
 def test_a_question_with_no_expected_facts_is_not_a_test(tmp_path: Path) -> None:
     path = tmp_path / "q.yaml"
-    path.write_text(
-        "questions:\n  - id: q\n    question: why\n    expect_document: d.md\n", encoding="utf-8"
-    )
+    path.write_text("questions:\n  - id: q\n    question: why\n    expect_document: d.md\n", encoding="utf-8")
     with pytest.raises(RetrievalError, match="not a test"):
         load_questions(path)
 
@@ -205,9 +203,7 @@ def test_an_organization_level_hit_satisfies_a_question() -> None:
 def test_a_question_fails_when_the_document_is_not_returned() -> None:
     api = FakeKnowledgeApi()
     api.search_results = [chunk("gm-corpus__reference__data-model.md", "dimensions and facts")]
-    questions = [
-        RetrievalQuestion(id="q", question="?", expect_document=ANCHOR, expect_facts=("anything",))
-    ]
+    questions = [RetrievalQuestion(id="q", question="?", expect_document=ANCHOR, expect_facts=("anything",))]
 
     report = run_retrieval(api, questions)
 
@@ -276,9 +272,7 @@ def test_facts_are_gathered_across_several_chunks_of_one_document() -> None:
 def test_the_search_limit_is_passed_through() -> None:
     api = FakeKnowledgeApi()
     api.search_results = [chunk(ANCHOR, "x") for _ in range(20)]
-    questions = [
-        RetrievalQuestion(id="q", question="?", expect_document=ANCHOR, expect_facts=("x",))
-    ]
+    questions = [RetrievalQuestion(id="q", question="?", expect_document=ANCHOR, expect_facts=("x",))]
 
     run_retrieval(api, questions, limit=3)
 
@@ -289,9 +283,7 @@ def test_the_report_names_what_failed_and_why() -> None:
     api = FakeKnowledgeApi()
     api.search_results = [chunk("gm-corpus__reference__data-model.md", "unrelated")]
     questions = [
-        RetrievalQuestion(
-            id="q_missing", question="?", expect_document=ANCHOR, expect_facts=("a fact",)
-        )
+        RetrievalQuestion(id="q_missing", question="?", expect_document=ANCHOR, expect_facts=("a fact",))
     ]
 
     lines = "\n".join(run_retrieval(api, questions).summary_lines())

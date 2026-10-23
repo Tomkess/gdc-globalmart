@@ -133,9 +133,7 @@ def test_pass_3_never_strips_the_placeholder(captured: CatalogDeclarativeWorkspa
 def test_pass_3_matches_only_whole_identifiers(captured: CatalogDeclarativeWorkspaceModel) -> None:
     """A column named after the schema must survive untouched."""
     dataset = next(d for d in captured.ldm.datasets if d.sql is not None)
-    dataset.sql.statement = (
-        "SELECT globalmart_id, t.globalmart_flag FROM globalmart.fact_orders t"
-    )
+    dataset.sql.statement = "SELECT globalmart_id, t.globalmart_flag FROM globalmart.fact_orders t"
 
     normalize_workspace(captured, datasource_schema=SOURCE_SCHEMA)
 

@@ -95,9 +95,7 @@ def cmd_route(args: argparse.Namespace) -> int:
     # a question nobody asked: "which of them converted best?" has no antecedent on its own,
     # and the router rightly returns nothing. The history given here is the expectation, not
     # a real reply — which keeps this lane-free while still resolving the references.
-    threads: list[tuple[str, list[tuple[Question, tuple[Prior, ...]]]]] = [
-        ("", [(q, ()) for q in questions])
-    ]
+    threads: list[tuple[str, list[tuple[Question, tuple[Prior, ...]]]]] = [("", [(q, ()) for q in questions])]
     if args.turns:
         for conversation in conversations:
             scored: list[tuple[Question, tuple[Prior, ...]]] = []
@@ -315,8 +313,10 @@ def cmd_rehearse(args: argparse.Namespace) -> int:
     lanes = _lanes(registry, _protocol(args))
     client, model = make_client()
     print(f"model   : {model}")
-    print(f"running : {len(conversations)} conversation(s), "
-          f"{sum(len(c.turns) for c in conversations)} turn(s) — this calls live agents\n")
+    print(
+        f"running : {len(conversations)} conversation(s), "
+        f"{sum(len(c.turns) for c in conversations)} turn(s) — this calls live agents\n"
+    )
 
     misroutes = 0
     broken = 0
@@ -464,9 +464,7 @@ def main(argv: list[str] | None = None) -> int:
     mcp_probe.add_argument("--apply", action="store_true", help="write the findings file")
     mcp_probe.set_defaults(func=cmd_mcp_probe)
 
-    mcp_tools = actions.add_parser(
-        "mcp-tools", help="fetch the MCP tool definitions a sub-agent ships with"
-    )
+    mcp_tools = actions.add_parser("mcp-tools", help="fetch the MCP tool definitions a sub-agent ships with")
     mcp_tools.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
     mcp_tools.add_argument("--workspace", default="", help="which workspace to ask; any will do")
     mcp_tools.add_argument("--out", default="")

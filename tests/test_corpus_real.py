@@ -81,12 +81,7 @@ def test_every_domain_has_a_dashboard_document(documents) -> None:  # type: igno
         pytest.skip("config/domains.yaml is not present")
 
     manifest = load_domains(manifest_path)
-    documented = {
-        key
-        for document in documents
-        if document.scope == "dashboards"
-        for key in document.domains
-    }
+    documented = {key for document in documents if document.scope == "dashboards" for key in document.domains}
     assert documented == set(manifest.keys())
 
 

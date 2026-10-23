@@ -51,9 +51,7 @@ class ChildVerificationError(GlobalmartError):
         self.failures = failures
 
 
-def verify_child(
-    child: Any, domain_key: str, *, closure: DomainClosure | None = None
-) -> None:
+def verify_child(child: Any, domain_key: str, *, closure: DomainClosure | None = None) -> None:
     """Raise unless every reference resolves and every dataset is explained."""
     failures: list[VerificationFailure] = []
 

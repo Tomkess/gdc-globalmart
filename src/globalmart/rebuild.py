@@ -120,9 +120,7 @@ def cold_rebuild(
 ) -> RebuildReport:
     """Run the whole chain. Rehearsal unless ``apply``."""
     opts = options or RebuildOptions()
-    report = RebuildReport(
-        target=profile.name, applied=apply, allow_existing=opts.allow_existing
-    )
+    report = RebuildReport(target=profile.name, applied=apply, allow_existing=opts.allow_existing)
 
     report.started_from_empty_org = probe_empty_org(sdk, profile, manifest)
     report.steps.append(
@@ -170,9 +168,7 @@ def cold_rebuild(
     return report
 
 
-def _plan(
-    profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions
-) -> list[RebuildStep]:
+def _plan(profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions) -> list[RebuildStep]:
     """Every step the chain would run, in order, with the command that reproduces each."""
     steps: list[RebuildStep] = []
 
@@ -257,9 +253,7 @@ def step_runner(name: str) -> Any:
     return runner
 
 
-def _run_verify_data(
-    sdk: Any, profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions
-) -> str:
+def _run_verify_data(sdk: Any, profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions) -> str:
     from globalmart.dataload import verify_data
 
     result = verify_data()
@@ -284,9 +278,7 @@ def _run_publish_parent(
     from globalmart.publish import publish_workspace
 
     model = read_tree(opts.layout_path)
-    result = publish_workspace(
-        sdk, model, profile, workspace_id=manifest.parent_workspace_id, apply=True
-    )
+    result = publish_workspace(sdk, model, profile, workspace_id=manifest.parent_workspace_id, apply=True)
     return f"{result.workspace_id} changed={result.changed}"
 
 
@@ -303,13 +295,10 @@ def _run_publish_knowledge_docs(
     from globalmart.knowledge_docs import corpus_workspaces, publish_for_target
 
     documents = load_corpus(opts.corpus_path)
-    report = publish_for_target(
-        profile, documents, workspaces=corpus_workspaces(manifest), apply=True
-    )
+    report = publish_for_target(profile, documents, workspaces=corpus_workspaces(manifest), apply=True)
     if report.failed:
         raise GlobalmartError(
-            f"{len(report.failed)} knowledge document(s) failed to upsert: "
-            + ", ".join(report.failed)
+            f"{len(report.failed)} knowledge document(s) failed to upsert: " + ", ".join(report.failed)
         )
     if report.cleanup_incomplete:
         # The same "no partial success" rule: a leftover local copy outranks the inherited
@@ -332,15 +321,11 @@ def _run_publish_knowledge_docs(
     )
 
 
-def _run_split(
-    sdk: Any, profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions
-) -> str:
+def _run_split(sdk: Any, profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions) -> str:
     from globalmart.layout_io import read_tree
     from globalmart.split import split_all
 
-    result = split_all(
-        read_tree(opts.layout_path), manifest, out=opts.generated_path, write=True
-    )
+    result = split_all(read_tree(opts.layout_path), manifest, out=opts.generated_path, write=True)
     return f"{len(result.domains)} children"
 
 
@@ -358,18 +343,14 @@ def _run_publish_domains(
     return f"{len(results)} workspaces"
 
 
-def _run_verify(
-    sdk: Any, profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions
-) -> str:
+def _run_verify(sdk: Any, profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions) -> str:
     from globalmart.verification import VerifyOptions, verify_target
 
     run = verify_target(
         sdk,
         profile,
         manifest,
-        options=VerifyOptions(
-            layout_path=opts.layout_path, generated_path=opts.generated_path
-        ),
+        options=VerifyOptions(layout_path=opts.layout_path, generated_path=opts.generated_path),
     )
     if not run.passed:
         raise GlobalmartError("; ".join(run.failure_reasons))

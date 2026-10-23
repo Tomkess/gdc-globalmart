@@ -129,7 +129,7 @@ def test_check_passes_on_fresh_output(projection: Projection, tmp_path: Path) ->
     out = tmp_path / "gd_data_product"
     write_projection(projection, out)
     assert diff_projection(projection, out) == []
-    assert write_projection(projection, out) == []   # a second write changes nothing
+    assert write_projection(projection, out) == []  # a second write changes nothing
 
 
 def test_check_fails_on_a_hand_edit(projection: Projection, tmp_path: Path) -> None:

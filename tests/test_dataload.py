@@ -382,9 +382,7 @@ def test_the_manifest_digests_are_actually_correct(dataset) -> None:
 def test_an_empty_warehouse_is_stale(registry) -> None:  # type: ignore[no-untyped-def]
     from globalmart.dataload import check_freshness
 
-    result = check_freshness(
-        profile(), registry=registry, manifest_path=MANIFEST, loader=FakeLoader()
-    )
+    result = check_freshness(profile(), registry=registry, manifest_path=MANIFEST, loader=FakeLoader())
 
     assert not result.present
     assert result.stale()

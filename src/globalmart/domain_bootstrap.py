@@ -89,9 +89,7 @@ class BootstrapReport:
         return lines
 
 
-def domain_for_visualization_id(
-    viz_id: str, seed: tuple[tuple[str, str], ...] = SEED_DOMAINS
-) -> str | None:
+def domain_for_visualization_id(viz_id: str, seed: tuple[tuple[str, str], ...] = SEED_DOMAINS) -> str | None:
     """``viz_store_ops_0252`` -> ``store_ops``.
 
     Longest key first, so ``store_ops`` wins over a hypothetical ``store`` that is also a

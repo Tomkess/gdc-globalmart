@@ -313,9 +313,7 @@ def serve(
     protocol: str = "a2a",
 ) -> None:
     """Run until interrupted. Threaded, so four lanes are not serialised by the HTTP layer."""
-    orchestrator = Orchestrator(
-        registry=registry, lanes=lanes, client=client, model=model, protocol=protocol
-    )
+    orchestrator = Orchestrator(registry=registry, lanes=lanes, client=client, model=model, protocol=protocol)
     server = ThreadingHTTPServer((host, port), _handler(orchestrator))
     print(f"listening on http://{host}:{port}  [{protocol.upper()}]")
     print(f"workspaces: {', '.join(registry.ids())}")

@@ -53,7 +53,7 @@ class BootstrapError(GlobalmartError):
 
 @dataclass(frozen=True)
 class Capacity:
-    limit: int | None   # None: the org reports no WorkspaceCount entitlement
+    limit: int | None  # None: the org reports no WorkspaceCount entitlement
     used: int
 
     @property
@@ -78,9 +78,7 @@ class BootstrapReport:
     def summary_lines(self) -> list[str]:
         cap = self.capacity
         room = "no cap reported" if cap.limit is None else f"{cap.used}/{cap.limit} used, {cap.free} free"
-        state = (
-            f"exists as {self.existing_title!r}" if self.existing_title is not None else "does not exist"
-        )
+        state = f"exists as {self.existing_title!r}" if self.existing_title is not None else "does not exist"
         lines = [
             f"environment       : {self.environment}",
             f"master            : {self.workspace_id} ({state})",
@@ -102,6 +100,7 @@ def fetch_capacity(profile: TargetProfile) -> Capacity:
 
     Raw REST: the SDK has no entitlement or usage API (gooddata-sdk 1.75.0).
     """
+
     def get(path: str) -> Any:
         request = urllib.request.Request(
             f"{profile.host}{path}", headers={"Authorization": f"Bearer {profile.token}"}

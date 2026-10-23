@@ -190,8 +190,7 @@ def _exclusions(node: Any, path: str) -> tuple[CorpusExclusion, ...]:
         unknown = sorted(set(entry) - {"id", "reason"})
         if unknown:
             raise CorpusManifestError(
-                f"{where}: unknown key(s) {', '.join(repr(k) for k in unknown)}. "
-                "Allowed: id, reason."
+                f"{where}: unknown key(s) {', '.join(repr(k) for k in unknown)}. Allowed: id, reason."
             )
         identifier = entry.get("id")
         reason = entry.get("reason")
@@ -289,9 +288,7 @@ def check_corpus_coverage(
                 if not hits:
                     # Fatal, and the single most useful check here: this is a rename that
                     # left its document behind.
-                    report.unknown_covers.setdefault(
-                        f"{object_class}:{pattern}", document.path.as_posix()
-                    )
+                    report.unknown_covers.setdefault(f"{object_class}:{pattern}", document.path.as_posix())
                     continue
                 for identifier in hits:
                     documented.setdefault(identifier, set()).add(document.filename)

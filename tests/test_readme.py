@@ -91,8 +91,7 @@ def test_every_relative_link_resolves() -> None:
     broken = [
         target
         for target in re.findall(r"\]\(([^)]+)\)", _readme())
-        if not target.startswith(("http://", "https://", "#"))
-        and not (REPO_ROOT / target).exists()
+        if not target.startswith(("http://", "https://", "#")) and not (REPO_ROOT / target).exists()
     ]
     assert not broken, f"README links to paths that do not exist: {broken}"
 

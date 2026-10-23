@@ -239,10 +239,7 @@ class MCPLane:
             # Whatever is in `text` is a mid-loop thought, not a reply. Kept, because it says
             # what the sub-agent was stuck on, but the lane reports failure and the merge
             # treats it as a lane that did not contribute.
-            error = (
-                f"no answer within {self.max_turns} model turns; "
-                f"{mcp.round_trips()} tool call(s) made"
-            )
+            error = f"no answer within {self.max_turns} model turns; {mcp.round_trips()} tool call(s) made"
 
         if context_id:
             self.contexts[context_id] = history

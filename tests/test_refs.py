@@ -44,9 +44,7 @@ def test_finds_a_drill_target() -> None:
                         "items": [
                             {
                                 "widget": {
-                                    "insight": {
-                                        "identifier": {"id": "v1", "type": "visualizationObject"}
-                                    },
+                                    "insight": {"identifier": {"id": "v1", "type": "visualizationObject"}},
                                     "drills": [
                                         {
                                             "target": {
@@ -87,10 +85,12 @@ def test_entity_refs_exclude_metrics() -> None:
     viz = obj(
         {
             "buckets": [
-                {"items": [{"measure": {"definition": {"item": {"identifier": {
-                    "id": "m1", "type": "metric"}}}}}]},
-                {"items": [{"attribute": {"displayForm": {"identifier": {
-                    "id": "d.l", "type": "label"}}}}]},
+                {
+                    "items": [
+                        {"measure": {"definition": {"item": {"identifier": {"id": "m1", "type": "metric"}}}}}
+                    ]
+                },
+                {"items": [{"attribute": {"displayForm": {"identifier": {"id": "d.l", "type": "label"}}}}]},
             ]
         }
     )

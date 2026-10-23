@@ -98,8 +98,7 @@ class Session:
         from gd_agents.orchestrator.plan import Prior
 
         return tuple(
-            Prior(question=turn.question, workspaces=turn.workspaces, reply=turn.reply)
-            for turn in self.turns
+            Prior(question=turn.question, workspaces=turn.workspaces, reply=turn.reply) for turn in self.turns
         )
 
     def held(self) -> tuple[Answer, ...]:

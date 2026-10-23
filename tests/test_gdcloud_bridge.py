@@ -153,7 +153,7 @@ def test_non_deploy_tags_are_ignored(tag: str) -> None:
 SINCE = datetime(2026, 10, 22, 10, 0, 0, tzinfo=UTC)
 TAGS = [
     "v1.6",
-    "deploy-dev-globalmart-v1.6-20261021-120000",   # before `since`
+    "deploy-dev-globalmart-v1.6-20261021-120000",  # before `since`
     "deploy-dev-globalmart-v1.7-20261022-101500",
     "deploy-test-globalmart-v1.7-20261022-111500",
     "deploy-dev-ecommerce_demo-v1.9-20261022-120000",  # another data product

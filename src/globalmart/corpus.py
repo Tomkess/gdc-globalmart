@@ -56,9 +56,7 @@ MAX_DOCUMENT_CHARS = 24_000
 #: with no context. Either give it content or fold it into its neighbour.
 MIN_SECTION_CHARS = 120
 
-_FRONT_MATTER_KEYS = frozenset(
-    {"kind", "title", "scope", "owner", "domains", "covers", "anchor"}
-)
+_FRONT_MATTER_KEYS = frozenset({"kind", "title", "scope", "owner", "domains", "covers", "anchor"})
 _COVERS_KEYS = frozenset({"metrics", "datasets", "visualizations", "dashboards"})
 _REQUIRED_KEYS = ("kind", "title", "scope", "owner")
 
@@ -238,9 +236,7 @@ def _parse_front_matter(text: str, path: Path) -> tuple[dict[str, Any], str]:
     for key in _REQUIRED_KEYS:
         value = raw.get(key)
         if not isinstance(value, str) or not value.strip():
-            raise CorpusError(
-                f"{path}: front-matter key {key!r} is required and must be a non-empty string"
-            )
+            raise CorpusError(f"{path}: front-matter key {key!r} is required and must be a non-empty string")
 
     return raw, text[match.end() :]
 
@@ -289,9 +285,7 @@ def _split_sections(body: str, path: Path) -> tuple[CorpusSection, ...]:
 
     def flush() -> None:
         if heading is not None:
-            sections.append(
-                CorpusSection(heading=heading, level=level, body="\n".join(current).strip())
-            )
+            sections.append(CorpusSection(heading=heading, level=level, body="\n".join(current).strip()))
 
     for line in body.splitlines():
         stripped = line.strip()
@@ -332,9 +326,7 @@ def parse_corpus_document(path: Path) -> CorpusDocument:
         kind = DiataxisKind(raw_kind)
     except ValueError as error:
         valid = ", ".join(k.value for k in DiataxisKind)
-        raise CorpusError(
-            f"{path}: kind {raw_kind!r} is not a Diátaxis kind. One of: {valid}."
-        ) from error
+        raise CorpusError(f"{path}: kind {raw_kind!r} is not a Diátaxis kind. One of: {valid}.") from error
 
     body = body.strip() + "\n"
     sections = _split_sections(body, path)

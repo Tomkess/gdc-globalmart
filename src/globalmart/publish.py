@@ -110,9 +110,7 @@ def publish_domains(
         domain = manifest.by_key(key)  # type: ignore[attr-defined]
         model = models.get(key)
         if model is None:
-            raise GlobalmartError(
-                f"no generated workspace for domain {key!r} — run `globalmart split` first"
-            )
+            raise GlobalmartError(f"no generated workspace for domain {key!r} — run `globalmart split` first")
         try:
             results.append(
                 publish_workspace(
@@ -136,9 +134,7 @@ def publish_domains(
                 ) from error
 
     if failures:
-        raise GlobalmartError(
-            f"{len(failures)} domain(s) failed to publish:\n  " + "\n  ".join(failures)
-        )
+        raise GlobalmartError(f"{len(failures)} domain(s) failed to publish:\n  " + "\n  ".join(failures))
 
     return results
 
@@ -183,9 +179,7 @@ def publish_workspace(
         backup_path = backup_workspace(sdk, profile, target_id)
 
     if apply:
-        sdk.catalog_workspace.create_or_update(
-            CatalogWorkspace(workspace_id=target_id, name=workspace_name)
-        )
+        sdk.catalog_workspace.create_or_update(CatalogWorkspace(workspace_id=target_id, name=workspace_name))
         sdk.catalog_workspace.put_declarative_workspace(target_id, model, standalone_copy)
 
     return PublishResult(

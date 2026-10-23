@@ -167,9 +167,7 @@ def test_a_placeholder_reason_passes_plain_and_fails_strict(model, documents) ->
         metrics=(
             CorpusExclusion(id="average_l1_bonus_cost_duplicate", reason="TODO"),
             CorpusExclusion(id="average_total_bonus_cost_variant", reason="Variant fixture."),
-            CorpusExclusion(
-                id="average_total_sales_amount_daily_store_sales_copy", reason="Copy fixture."
-            ),
+            CorpusExclusion(id="average_total_sales_amount_daily_store_sales_copy", reason="Copy fixture."),
         ),
         visualizations=(CorpusExclusion(id="viz_orphan_0001", reason="On no dashboard."),),
     )
@@ -188,9 +186,7 @@ def test_one_object_documented_twice_reports_both_documents(model, manifest, tmp
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(
             "---\nkind: reference\ntitle: T\nscope: metrics\nowner: o\n"
-            "covers:\n  metrics: [average_total_nps_score]\n---\n\n# T\n\n## S\n\n"
-            + "x" * 400
-            + "\n",
+            "covers:\n  metrics: [average_total_nps_score]\n---\n\n# T\n\n## S\n\n" + "x" * 400 + "\n",
             encoding="utf-8",
         )
     report = check_corpus_coverage(model, load_corpus(tmp_path), manifest)
@@ -207,9 +203,7 @@ def test_documentation_wins_over_an_exclusion(model, documents) -> None:  # type
             CorpusExclusion(id="average_total_nps_score", reason="Excluded, then documented anyway."),
             CorpusExclusion(id="average_l1_bonus_cost_duplicate", reason="Duplicate fixture."),
             CorpusExclusion(id="average_total_bonus_cost_variant", reason="Variant fixture."),
-            CorpusExclusion(
-                id="average_total_sales_amount_daily_store_sales_copy", reason="Copy fixture."
-            ),
+            CorpusExclusion(id="average_total_sales_amount_daily_store_sales_copy", reason="Copy fixture."),
         ),
         visualizations=(CorpusExclusion(id="viz_orphan_0001", reason="On no dashboard."),),
     )

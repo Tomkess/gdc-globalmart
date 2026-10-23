@@ -239,14 +239,10 @@ def verify_target(
 
     with ThreadPoolExecutor(max_workers=max(opts.max_workers, 1)) as pool:
         for workspace_id, role, domain_key in plan:
-            entry = WorkspaceVerification(
-                workspace_id=workspace_id, role=role, domain_key=domain_key
-            )
+            entry = WorkspaceVerification(workspace_id=workspace_id, role=role, domain_key=domain_key)
             workspace_started = time.monotonic()
 
-            expected_model = (
-                parent_model if role == "parent" else children.get(workspace_id)
-            )
+            expected_model = parent_model if role == "parent" else children.get(workspace_id)
             if expected_model is not None:
                 entry.counts_expected = count_objects(expected_model)
 
@@ -277,9 +273,7 @@ def verify_target(
                 )
                 _summarise(entry, results)
 
-            entry.throttle_events = [
-                event for event in throttle.events if event.workspace_id == workspace_id
-            ]
+            entry.throttle_events = [event for event in throttle.events if event.workspace_id == workspace_id]
             entry.duration_s = time.monotonic() - workspace_started
             run.workspaces.append(entry)
 
@@ -306,22 +300,18 @@ def _failure_reasons(run: VerificationRun, opts: VerifyOptions) -> list[str]:
     missing = [entry.workspace_id for entry in run.workspaces if not entry.present]
     if missing:
         reasons.append(
-            f"{len(missing)} workspace(s) the repo expects are not in the org: "
-            + ", ".join(missing)
+            f"{len(missing)} workspace(s) the repo expects are not in the org: " + ", ".join(missing)
         )
 
     broken = [entry for entry in run.workspaces if entry.viz_broken]
     if broken:
         reasons.append(
-            f"{run.total_broken} visualization(s) failed to execute across "
-            f"{len(broken)} workspace(s)"
+            f"{run.total_broken} visualization(s) failed to execute across {len(broken)} workspace(s)"
         )
 
     mismatched = [entry for entry in run.workspaces if entry.count_mismatches]
     if mismatched:
-        detail = "; ".join(
-            str(mismatch) for entry in mismatched for mismatch in entry.count_mismatches[:3]
-        )
+        detail = "; ".join(str(mismatch) for entry in mismatched for mismatch in entry.count_mismatches[:3])
         reasons.append(f"object counts differ from the repo: {detail}")
 
     if not run.coverage.passed:

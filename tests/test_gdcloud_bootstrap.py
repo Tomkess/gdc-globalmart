@@ -41,7 +41,7 @@ class FakeSdk:
 
         class _DataSources:
             def get_data_source(self, data_source_id: str) -> Any:
-                raise LookupError(data_source_id)   # absent: a first bootstrap
+                raise LookupError(data_source_id)  # absent: a first bootstrap
 
             def create_or_update_data_source(self, data_source: Any) -> None:
                 outer.calls.append(("create_or_update_data_source", data_source.id))

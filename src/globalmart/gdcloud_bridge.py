@@ -49,23 +49,23 @@ class ReleaseConfigError(GlobalmartError):
 @dataclass(frozen=True)
 class ReleaseConfig:
     path: Path
-    dp_id: str                            # "globalmart", the primary and only data product
-    label: str                            # "GM"
-    datasource_id: str                    # canonical id the projection resolves to
-    datasource_schema: str                # canonical warehouse schema
-    masters: dict[str, str]               # environment -> master workspace id
-    hosts: dict[str, str]                 # environment -> host
-    github_environments: dict[str, str]   # environment -> GitHub Environment name
+    dp_id: str  # "globalmart", the primary and only data product
+    label: str  # "GM"
+    datasource_id: str  # canonical id the projection resolves to
+    datasource_schema: str  # canonical warehouse schema
+    masters: dict[str, str]  # environment -> master workspace id
+    hosts: dict[str, str]  # environment -> host
+    github_environments: dict[str, str]  # environment -> GitHub Environment name
 
 
 @dataclass(frozen=True)
 class ReleaseScope:
     """One deploy, read back from the tag gdcloud wrote for it."""
 
-    environment: str                      # "dev" | "test" | "preprod" | "prod"
-    version: str                          # "v1.N" or hotfix "v1.N.M"
-    workspace_id: str                     # that environment's master
-    deployed_at: datetime                 # UTC, from the tag
+    environment: str  # "dev" | "test" | "preprod" | "prod"
+    version: str  # "v1.N" or hotfix "v1.N.M"
+    workspace_id: str  # that environment's master
+    deployed_at: datetime  # UTC, from the tag
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:

@@ -58,8 +58,7 @@ class Aligned:
             "grain": self.grain,
             "columns": [{"workspace": c.workspace, "name": c.name} for c in self.columns],
             "rows": [
-                {"key": key, "cells": [c.values.get(key, "") for c in self.columns]}
-                for key in self.keys
+                {"key": key, "cells": [c.values.get(key, "") for c in self.columns]} for key in self.keys
             ],
         }
 

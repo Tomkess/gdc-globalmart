@@ -64,9 +64,7 @@ _DOMAIN_KEYS = frozenset(
         "ldm_include",
     }
 )
-_AI_KEYS = frozenset(
-    {"memory_item_ids", "memory_item_tags", "parameter_ids", "agent_ids", "knowledge_ids"}
-)
+_AI_KEYS = frozenset({"memory_item_ids", "memory_item_tags", "parameter_ids", "agent_ids", "knowledge_ids"})
 _SHARED_KEYS = frozenset({"dashboards", "visualizations", "ai"})
 _UNASSIGNED_KEYS = frozenset({"dashboards", "visualizations", "ai"})
 _EXCLUSION_KEYS = frozenset({"id", "reason"})
@@ -183,9 +181,7 @@ class DomainManifest:
         for domain in self.domains:
             if domain.key == key:
                 return domain
-        raise DomainManifestError(
-            f"No domain {key!r} in the manifest. Known keys: {', '.join(self.keys())}"
-        )
+        raise DomainManifestError(f"No domain {key!r} in the manifest. Known keys: {', '.join(self.keys())}")
 
     def keys(self) -> tuple[str, ...]:
         """Domain keys in canonical (sorted) order, so consumers iterate deterministically."""
@@ -247,9 +243,7 @@ def _str_tuple(node: Any, path: str, *, sort: bool = True) -> tuple[str, ...]:
     values: list[str] = []
     for index, item in enumerate(node):
         if not isinstance(item, str):
-            raise DomainManifestError(
-                f"{path}[{index}]: expected a string, got {type(item).__name__}"
-            )
+            raise DomainManifestError(f"{path}[{index}]: expected a string, got {type(item).__name__}")
         values.append(item)
     duplicates = sorted({v for v in values if values.count(v) > 1})
     if duplicates:
@@ -308,14 +302,10 @@ def _parse_domain(node: Any, path: str) -> Domain:
 
     key = _required_str(mapping, "key", path)
     if not _KEY_PATTERN.match(key):
-        raise DomainManifestError(
-            f"{path}.key: {key!r} must be snake_case matching {_KEY_PATTERN.pattern}"
-        )
+        raise DomainManifestError(f"{path}.key: {key!r} must be snake_case matching {_KEY_PATTERN.pattern}")
 
     workspace_name = mapping.get("workspace_name")
-    if workspace_name is not None and (
-        not isinstance(workspace_name, str) or not workspace_name.strip()
-    ):
+    if workspace_name is not None and (not isinstance(workspace_name, str) or not workspace_name.strip()):
         raise DomainManifestError(f"{path}.workspace_name: must be a non-empty string when present")
 
     return Domain(
@@ -383,8 +373,7 @@ def load_domains(path: Path) -> DomainManifest:
     version = document.get("version")
     if version != SCHEMA_VERSION:
         raise DomainManifestError(
-            f"{path}: version {version!r} is not supported (this loader understands "
-            f"version {SCHEMA_VERSION})"
+            f"{path}: version {version!r} is not supported (this loader understands version {SCHEMA_VERSION})"
         )
 
     domains_node = document.get("domains")
@@ -427,12 +416,8 @@ def load_domains(path: Path) -> DomainManifest:
     manifest = DomainManifest(
         version=version,
         parent_workspace_id=_required_str(document, "parent_workspace_id", str(path)),
-        workspace_id_template=document.get(
-            "workspace_id_template", DEFAULT_WORKSPACE_ID_TEMPLATE
-        ),
-        workspace_name_template=document.get(
-            "workspace_name_template", DEFAULT_WORKSPACE_NAME_TEMPLATE
-        ),
+        workspace_id_template=document.get("workspace_id_template", DEFAULT_WORKSPACE_ID_TEMPLATE),
+        workspace_name_template=document.get("workspace_name_template", DEFAULT_WORKSPACE_NAME_TEMPLATE),
         domains=domains,
         shared=shared,
         unassigned=unassigned,

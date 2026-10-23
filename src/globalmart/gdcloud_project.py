@@ -61,7 +61,7 @@ class ProjectionError(GlobalmartError):
 @dataclass(frozen=True)
 class Projection:
     dp_id: str
-    files: dict[Path, bytes]   # path relative to gd_data_product/<dp_id>/ -> exact content
+    files: dict[Path, bytes]  # path relative to gd_data_product/<dp_id>/ -> exact content
 
     def owns(self, relative: Path) -> bool:
         """Whether a file at this path inside the DP folder is the projection's to manage."""
@@ -73,9 +73,7 @@ def project_parent(config: ReleaseConfig, layout: Path = DEFAULT_LAYOUT_PATH) ->
     if not layout.is_dir():
         raise ProjectionError(f"Parent layout not found: {layout}")
     model = read_tree(layout)
-    resolve_and_assert(
-        model, datasource_id=config.datasource_id, datasource_schema=config.datasource_schema
-    )
+    resolve_and_assert(model, datasource_id=config.datasource_id, datasource_schema=config.datasource_schema)
     _assert_portable(model)
     # The API omits an empty list here and gd-store writes no key; the captured layout carries
     # `[]`. Without this, every dataset file would differ from what gd-store writes back.

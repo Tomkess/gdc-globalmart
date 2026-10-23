@@ -92,9 +92,7 @@ def test_bootstrap_dry_run_writes_nothing(
     assert "REHEARSAL" in capsys.readouterr().out
 
 
-def test_bootstrap_writes_a_normalized_tree(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_bootstrap_writes_a_normalized_tree(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     import globalmart.cli as cli
 
     monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
@@ -175,17 +173,13 @@ def test_publish_apply_writes(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -
     monkeypatch.setattr(cli, "make_sdk", lambda profile: sdk)
 
     tree = _normalized_tree(tmp_path / "tree")
-    exit_code = main(
-        ["publish", "parent", "--target", "demo-cloud", "--source", str(tree), "--apply"]
-    )
+    exit_code = main(["publish", "parent", "--target", "demo-cloud", "--source", str(tree), "--apply"])
 
     assert exit_code == 0
     assert "put_declarative_workspace" in sdk.writes()
 
 
-def test_no_backup_without_apply_is_rejected(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_no_backup_without_apply_is_rejected(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Meaningless in a rehearsal — and a real foot-gun if silently accepted."""
     monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
     tree = _normalized_tree(tmp_path / "tree")
@@ -209,9 +203,12 @@ DOMAIN_FIXTURES = Path(__file__).parent / "fixtures" / "domains"
 def test_domains_validate_passes_and_prints_the_table(capsys: pytest.CaptureFixture[str]) -> None:
     exit_code = main(
         [
-            "domains", "validate",
-            "--manifest", str(DOMAIN_FIXTURES / "valid.yaml"),
-            "--layout", str(FIXTURE),
+            "domains",
+            "validate",
+            "--manifest",
+            str(DOMAIN_FIXTURES / "valid.yaml"),
+            "--layout",
+            str(FIXTURE),
             "--strict",
         ]
     )
@@ -227,9 +224,12 @@ def test_domains_validate_names_the_uncovered_dashboard(
 ) -> None:
     exit_code = main(
         [
-            "domains", "validate",
-            "--manifest", str(DOMAIN_FIXTURES / "missing_coverage.yaml"),
-            "--layout", str(FIXTURE),
+            "domains",
+            "validate",
+            "--manifest",
+            str(DOMAIN_FIXTURES / "missing_coverage.yaml"),
+            "--layout",
+            str(FIXTURE),
         ]
     )
 
@@ -242,10 +242,14 @@ def test_domains_validate_json_is_parseable(capsys: pytest.CaptureFixture[str]) 
 
     main(
         [
-            "domains", "validate",
-            "--manifest", str(DOMAIN_FIXTURES / "valid.yaml"),
-            "--layout", str(FIXTURE),
-            "--format", "json",
+            "domains",
+            "validate",
+            "--manifest",
+            str(DOMAIN_FIXTURES / "valid.yaml"),
+            "--layout",
+            str(FIXTURE),
+            "--format",
+            "json",
         ]
     )
 
@@ -254,9 +258,7 @@ def test_domains_validate_json_is_parseable(capsys: pytest.CaptureFixture[str]) 
     assert report["per_domain"]["sales"]["ldm_include"] == 1
 
 
-def test_domains_bootstrap_dry_run_writes_nothing(
-    tmp_path: Path, capsys: pytest.CaptureFixture[str]
-) -> None:
+def test_domains_bootstrap_dry_run_writes_nothing(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     destination = tmp_path / "domains.yaml"
 
     exit_code = main(
@@ -273,9 +275,7 @@ def test_domains_bootstrap_refuses_to_overwrite_a_reviewed_manifest(tmp_path: Pa
     destination = tmp_path / "domains.yaml"
     destination.write_text("version: 1\n", encoding="utf-8")
 
-    exit_code = main(
-        ["domains", "bootstrap", "--layout", str(FIXTURE), "--out", str(destination)]
-    )
+    exit_code = main(["domains", "bootstrap", "--layout", str(FIXTURE), "--out", str(destination)])
 
     assert exit_code == 1
     assert destination.read_text(encoding="utf-8") == "version: 1\n"
@@ -285,9 +285,7 @@ def test_domains_bootstrap_force_overwrites(tmp_path: Path) -> None:
     destination = tmp_path / "domains.yaml"
     destination.write_text("version: 1\n", encoding="utf-8")
 
-    exit_code = main(
-        ["domains", "bootstrap", "--layout", str(FIXTURE), "--out", str(destination), "--force"]
-    )
+    exit_code = main(["domains", "bootstrap", "--layout", str(FIXTURE), "--out", str(destination), "--force"])
 
     assert exit_code == 0
     assert "parent_workspace_id" in destination.read_text(encoding="utf-8")

@@ -78,8 +78,30 @@ _FRONT_MATTER_KEYS = frozenset({"domains", "keywords", "strategy", "split_level"
 #: list silently removes the term someone would actually search for.
 _STOP_WORDS = frozenset(
     {
-        "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "how", "in", "is",
-        "it", "of", "on", "or", "that", "the", "to", "what", "when", "which", "with",
+        "a",
+        "an",
+        "and",
+        "are",
+        "as",
+        "at",
+        "be",
+        "by",
+        "for",
+        "from",
+        "how",
+        "in",
+        "is",
+        "it",
+        "of",
+        "on",
+        "or",
+        "that",
+        "the",
+        "to",
+        "what",
+        "when",
+        "which",
+        "with",
     }
 )
 
@@ -200,9 +222,7 @@ def _split_sections(body: str, level: int) -> tuple[str | None, list[KnowledgeSe
     def flush() -> None:
         if current_heading is not None:
             sections.append(
-                KnowledgeSection(
-                    heading=current_heading, body="\n".join(current).strip(), level=level
-                )
+                KnowledgeSection(heading=current_heading, body="\n".join(current).strip(), level=level)
             )
 
     for line in lines:
@@ -253,9 +273,7 @@ def parse_document(path: Path) -> KnowledgeDocument:
         strategy = MemoryStrategy(raw_strategy)
     except ValueError as error:
         supported = ", ".join(s.value for s in MemoryStrategy)
-        raise KnowledgeError(
-            f"{path}: strategy {raw_strategy!r} is not one of {supported}"
-        ) from error
+        raise KnowledgeError(f"{path}: strategy {raw_strategy!r} is not one of {supported}") from error
 
     split_level = int(front_matter.get("split_level", 2))
     if not 1 <= split_level <= 6:
@@ -351,16 +369,12 @@ def compile_documents(paths: list[Path]) -> list[Any]:
                 )
                 # description carries provenance (10000 chars available), so someone reading
                 # the item in the org can find the Markdown that produced it.
-                description = (
-                    f"{document.title} › {section.heading}" if section.heading else document.title
-                )
+                description = f"{document.title} › {section.heading}" if section.heading else document.title
                 items[identifier] = CatalogDeclarativeMemoryItem(
                     id=identifier,
                     title=(section.heading or document.title)[:MAX_INSTRUCTION_CHARS],
                     instruction=paragraph,
-                    description=f"{description} (compiled from {path.as_posix()})"[
-                        :MAX_DESCRIPTION_CHARS
-                    ],
+                    description=f"{description} (compiled from {path.as_posix()})"[:MAX_DESCRIPTION_CHARS],
                     strategy=document.strategy.value,
                     keywords=list(derive_keywords(section.heading, document.keywords)),
                     tags=sorted(tags),
@@ -415,9 +429,7 @@ def apply_to_tree(model: Any, items: list[Any]) -> KnowledgeReport:
             report.unchanged.append(identifier)
     report.removed = sorted(set(owned_before) - set(compiled))
 
-    analytics.memory_items = sorted(
-        [*foreign, *compiled.values()], key=lambda item: str(item.id)
-    )
+    analytics.memory_items = sorted([*foreign, *compiled.values()], key=lambda item: str(item.id))
     return report
 
 

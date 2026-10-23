@@ -116,9 +116,7 @@ def test_second_publish_reports_no_change(tmp_path: Path) -> None:
 def test_backup_is_none_when_the_workspace_does_not_exist(tmp_path: Path) -> None:
     sdk = FakeSdk()
 
-    result = publish_workspace(
-        sdk, _model(), _profile(tmp_path), workspace_id="globalmart", apply=True
-    )
+    result = publish_workspace(sdk, _model(), _profile(tmp_path), workspace_id="globalmart", apply=True)
 
     assert result.backup_path is None
 
@@ -127,9 +125,7 @@ def test_backup_is_written_when_content_exists(tmp_path: Path) -> None:
     """The layout a publish replaces exists nowhere else, so it is captured first."""
     sdk = FakeSdk(existing_workspace=_model())
 
-    result = publish_workspace(
-        sdk, _model(), _profile(tmp_path), workspace_id="globalmart", apply=True
-    )
+    result = publish_workspace(sdk, _model(), _profile(tmp_path), workspace_id="globalmart", apply=True)
 
     assert result.backup_path is not None
     assert list(result.backup_path.rglob("*.yaml")), "backup tree should not be empty"

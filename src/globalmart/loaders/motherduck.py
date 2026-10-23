@@ -58,10 +58,14 @@ class MotherDuckLoader:
         self._require().execute(ddl)
 
     def existing_tables(self, schema: str) -> set[str]:
-        rows = self._require().execute(
-            "SELECT table_name FROM information_schema.tables WHERE table_schema = ?",
-            [schema],
-        ).fetchall()
+        rows = (
+            self._require()
+            .execute(
+                "SELECT table_name FROM information_schema.tables WHERE table_schema = ?",
+                [schema],
+            )
+            .fetchall()
+        )
         return {row[0] for row in rows}
 
     def row_count(self, schema: str, table: str) -> int:
@@ -75,11 +79,15 @@ class MotherDuckLoader:
         return None if value is None else str(value)
 
     def columns(self, schema: str, table: str) -> tuple[str, ...]:
-        rows = self._require().execute(
-            "SELECT column_name FROM information_schema.columns "
-            "WHERE table_schema = ? AND table_name = ? ORDER BY ordinal_position",
-            [schema, table],
-        ).fetchall()
+        rows = (
+            self._require()
+            .execute(
+                "SELECT column_name FROM information_schema.columns "
+                "WHERE table_schema = ? AND table_name = ? ORDER BY ordinal_position",
+                [schema, table],
+            )
+            .fetchall()
+        )
         return tuple(row[0] for row in rows)
 
     def truncate(self, schema: str, table: str) -> None:

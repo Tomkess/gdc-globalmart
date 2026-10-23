@@ -217,9 +217,7 @@ def load_questions(path: Path = DEFAULT_QUESTIONS) -> list[RetrievalQuestion]:
     return questions
 
 
-def assert_questions_grounded(
-    questions: list[RetrievalQuestion], documents: list[CorpusDocument]
-) -> None:
+def assert_questions_grounded(questions: list[RetrievalQuestion], documents: list[CorpusDocument]) -> None:
     """The offline coupling guard. Runs inside ``knowledge-docs build``.
 
     Three failures, all local, all naming the question id:
@@ -273,9 +271,7 @@ def run_retrieval(
     min_score: float = 0.0,
 ) -> RetrievalReport:
     """Ask each question of the live search index and judge the chunks that come back."""
-    report = RetrievalReport(
-        target=target, workspace_id=workspace_id, limit=limit, min_score=min_score
-    )
+    report = RetrievalReport(target=target, workspace_id=workspace_id, limit=limit, min_score=min_score)
 
     for question in questions:
         results = api.search(question.question, limit=limit, min_score=min_score)
@@ -296,9 +292,7 @@ def _judge(question: RetrievalQuestion, results: list[SearchResult]) -> Retrieva
 
     # Facts are matched against the chunks of the expected document only. Finding the
     # sentence in some other document is not evidence that this one answers the question.
-    haystack = "\n".join(
-        result.content for result in ranked if result.filename == question.expect_document
-    )
+    haystack = "\n".join(result.content for result in ranked if result.filename == question.expect_document)
     matched = tuple(fact for fact in question.expect_facts if contains_fact(haystack, fact))
     missing = tuple(fact for fact in question.expect_facts if fact not in matched)
 

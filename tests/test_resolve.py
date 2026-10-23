@@ -62,9 +62,7 @@ def test_schema_is_substituted_not_stripped(
     """Stripping the placeholder produced SQL querying an unqualified table name."""
     before = {s.dataset_id: s.get() for s in iter_sql_statements(normalized)}
 
-    resolve_placeholders(
-        normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA
-    )
+    resolve_placeholders(normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA)
 
     for slot in iter_sql_statements(normalized):
         statement = slot.get()
@@ -83,9 +81,7 @@ def test_round_trip_restores_the_source_values(
     original = read_tree(FIXTURE)
     expected = {s.dataset_id: s.get() for s in iter_sql_statements(original)}
 
-    resolve_placeholders(
-        normalized, datasource_id="globalmart-motherduck", datasource_schema=SOURCE_SCHEMA
-    )
+    resolve_placeholders(normalized, datasource_id="globalmart-motherduck", datasource_schema=SOURCE_SCHEMA)
 
     assert {s.dataset_id: s.get() for s in iter_sql_statements(normalized)} == expected
 
@@ -114,9 +110,7 @@ def test_unresolved_token_in_an_unenumerated_field_is_caught(
     """The safety net: a placeholder somewhere no generator looks at."""
     normalized.analytics.metrics[0].description = "See {{ datasource_schema }} for details"
 
-    resolve_placeholders(
-        normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA
-    )
+    resolve_placeholders(normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA)
 
     with pytest.raises(UnresolvedLayoutError) as excinfo:
         assert_fully_resolved(normalized, datasource_id=TARGET_DATASOURCE)
@@ -129,9 +123,7 @@ def test_unknown_placeholder_shape_is_still_caught(
     """A future token nobody has defined yet must not slip through."""
     normalized.analytics.metrics[0].description = "{{ some_future_token }}"
 
-    resolve_placeholders(
-        normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA
-    )
+    resolve_placeholders(normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA)
 
     with pytest.raises(UnresolvedLayoutError):
         assert_fully_resolved(normalized, datasource_id=TARGET_DATASOURCE)
@@ -140,9 +132,7 @@ def test_unknown_placeholder_shape_is_still_caught(
 def test_clean_resolution_passes_the_assertion(
     normalized: CatalogDeclarativeWorkspaceModel,
 ) -> None:
-    result = resolve_and_assert(
-        normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA
-    )
+    result = resolve_and_assert(normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA)
 
     assert result.datasource_refs_resolved > 0
     assert result.unresolved_paths == []
@@ -158,13 +148,9 @@ def test_audit_reports_without_raising(normalized: CatalogDeclarativeWorkspaceMo
 
 
 def test_resolution_is_idempotent(normalized: CatalogDeclarativeWorkspaceModel) -> None:
-    resolve_and_assert(
-        normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA
-    )
+    resolve_and_assert(normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA)
     snapshot = blob(normalized)
 
-    resolve_placeholders(
-        normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA
-    )
+    resolve_placeholders(normalized, datasource_id=TARGET_DATASOURCE, datasource_schema=TARGET_SCHEMA)
 
     assert blob(normalized) == snapshot

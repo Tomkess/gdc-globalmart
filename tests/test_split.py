@@ -179,9 +179,17 @@ def test_generated_json_round_trips(model, manifest, tmp_path: Path) -> None:  #
     split_all(model, manifest, out=tmp_path, write=True)
     reloaded = read_model_json(tmp_path / "globalmart-hr.json")
 
-    assert {d.id for d in reloaded.ldm.datasets} == {"dim_customer", "dim_employee", "dim_geo",
-                                                     "dim_product", "dim_region", "dim_store",
-                                                     "fact_headcount", "fact_orders", "sql_basket"}
+    assert {d.id for d in reloaded.ldm.datasets} == {
+        "dim_customer",
+        "dim_employee",
+        "dim_geo",
+        "dim_product",
+        "dim_region",
+        "dim_store",
+        "fact_headcount",
+        "fact_orders",
+        "sql_basket",
+    }
 
 
 # --- all-or-nothing and coverage ----------------------------------------------
@@ -268,8 +276,7 @@ def test_committed_children_match_a_fresh_split() -> None:
     import tempfile
 
     with tempfile.TemporaryDirectory() as scratch:
-        split_all(model, manifest, out=Path(scratch), write=True,
-                  metric_policy=MetricPolicy.DATASET_FIT)
+        split_all(model, manifest, out=Path(scratch), write=True, metric_policy=MetricPolicy.DATASET_FIT)
         for path in sorted(Path(scratch).glob("*.json")):
             committed = GENERATED / path.name
             assert committed.exists(), f"{path.name} is not committed"

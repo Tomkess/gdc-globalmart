@@ -185,9 +185,7 @@ def execute_visualization(
         while True:
             attempts += 1
             try:
-                table = sdk.tables.for_visualization(
-                    workspace_id, viz, always_two_dimensional=True
-                )
+                table = sdk.tables.for_visualization(workspace_id, viz, always_two_dimensional=True)
             except Exception as exc:  # noqa: BLE001 - recorded, never propagated
                 status = extract_status(exc)
                 failure = classify(str(exc), status)
@@ -286,9 +284,7 @@ def execute_workspace(
     def one(viz: Any) -> VizResult:
         budget.acquire()
         try:
-            return execute_visualization(
-                sdk, workspace_id, viz, options=opts, throttle=budget
-            )
+            return execute_visualization(sdk, workspace_id, viz, options=opts, throttle=budget)
         finally:
             budget.release()
 

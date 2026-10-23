@@ -159,8 +159,7 @@ def _resolve_token(profile_name: str) -> str:
     token = os.environ.get(specific) or os.environ.get(GENERIC_TOKEN_ENV)
     if not token:
         raise MissingTokenError(
-            f"No API token for profile {profile_name!r}. "
-            f"Set {specific} (preferred) or {GENERIC_TOKEN_ENV}."
+            f"No API token for profile {profile_name!r}. Set {specific} (preferred) or {GENERIC_TOKEN_ENV}."
         )
     return token
 
@@ -206,9 +205,7 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
         if not value
     ]
     if missing:
-        raise GlobalmartError(
-            f"Profile {name!r} is missing required key(s): {', '.join(missing)}"
-        )
+        raise GlobalmartError(f"Profile {name!r} is missing required key(s): {', '.join(missing)}")
 
     raw_warehouse = field("warehouse_type", "GLOBALMART_WAREHOUSE_TYPE")
     try:
@@ -216,8 +213,7 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
     except ValueError as error:
         supported = ", ".join(w.value for w in WarehouseType)
         raise GlobalmartError(
-            f"Profile {name!r} has unsupported warehouse_type {raw_warehouse!r}. "
-            f"Supported: {supported}."
+            f"Profile {name!r} has unsupported warehouse_type {raw_warehouse!r}. Supported: {supported}."
         ) from error
 
     raw_scope = str(entry.get("knowledge_scope") or KnowledgeScope.WORKSPACES.value)
@@ -226,8 +222,7 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
     except ValueError as error:
         supported = ", ".join(s.value for s in KnowledgeScope)
         raise GlobalmartError(
-            f"Profile {name!r} has unsupported knowledge_scope {raw_scope!r}. "
-            f"Supported: {supported}."
+            f"Profile {name!r} has unsupported knowledge_scope {raw_scope!r}. Supported: {supported}."
         ) from error
 
     backup_dir = field("backup_dir", "GLOBALMART_BACKUP_DIR") or "backups"

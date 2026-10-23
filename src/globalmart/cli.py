@@ -1014,12 +1014,16 @@ def cmd_gdcloud_scope(args: argparse.Namespace) -> int:
     scope = release_scope_from_tags(config, since, environment=args.environment)
 
     if args.format == "json":
-        payload = {} if scope is None else {
-            "environment": scope.environment,
-            "version": scope.version,
-            "workspace_id": scope.workspace_id,
-            "github_environment": config.github_environments[scope.environment],
-        }
+        payload = (
+            {}
+            if scope is None
+            else {
+                "environment": scope.environment,
+                "version": scope.version,
+                "workspace_id": scope.workspace_id,
+                "github_environment": config.github_environments[scope.environment],
+            }
+        )
         print(json.dumps(payload))
         return 0
 
@@ -1274,9 +1278,7 @@ def build_parser() -> argparse.ArgumentParser:
     kd_verify.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
     kd_verify.add_argument("--workspace-id", default=None)
     kd_verify.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
-    kd_verify.add_argument(
-        "--parent-only", action="store_true", help="check only the parent workspace"
-    )
+    kd_verify.add_argument("--parent-only", action="store_true", help="check only the parent workspace")
     kd_verify.add_argument(
         "--prune", action="store_true", help="delete our orphaned documents (requires --apply)"
     )
@@ -1338,9 +1340,7 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_MAX_AGE_DAYS,
         help="how stale the loaded data may be before it is regenerated",
     )
-    data_ensure.add_argument(
-        "--force", action="store_true", help="regenerate even when the data is current"
-    )
+    data_ensure.add_argument("--force", action="store_true", help="regenerate even when the data is current")
     data_ensure.add_argument(
         "--recreate-drifted",
         action="store_true",
@@ -1361,9 +1361,7 @@ def build_parser() -> argparse.ArgumentParser:
     datefilters_actions = datefilters.add_subparsers(dest="action", required=True)
     df_bind = datefilters_actions.add_parser("bind", help="write dataSet into every date filter")
     df_bind.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
-    df_bind.add_argument(
-        "--check", action="store_true", help="exit 1 if anything would change (the CI gate)"
-    )
+    df_bind.add_argument("--check", action="store_true", help="exit 1 if anything would change (the CI gate)")
     df_bind.add_argument(
         "--overrides",
         help="dashboard=dataset pairs for dashboards that resolve to more than one date",
