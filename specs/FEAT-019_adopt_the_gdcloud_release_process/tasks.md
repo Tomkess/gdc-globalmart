@@ -95,10 +95,10 @@ The following decisions were settled on 2026-10-22:
 - [x] 27. Update `specs/CONTRACT.md`. Add module rows for `gdcloud_bridge.py`, `gdcloud_project.py`, and `gdcloud_bootstrap.py`, and the `TargetProfile.gdcloud_environment` row. Add CLI rows for `gdcloud project`, `gdcloud bootstrap`, `gdcloud scope`, and `data ensure --check`. Add path rows for `config.yml`, `gd_data_product/globalmart/`, and `gd_plugin/`. Extend `tests/test_cli.py` (new rows parse; no command has both `--apply` and `--dry-run`)
        Pre: tasks 14, 17, 21, 25 complete
        AC: none directly — STEERING requires CONTRACT to change in the same commit
-- [ ] 28. Live: run `gdcloud bootstrap --environment dev` and `--environment test` as a rehearsal, then with `--apply`. Expect `GlobalMart (DEV)` / `(TEST)` to exist, the data source to be present, and demo.cloud at 16/25 [DECISION NEEDED: live write — confirm with the user before `--apply`]
+- [x] 28. Live: run `gdcloud bootstrap --environment dev` and `--environment test` as a rehearsal, then with `--apply`. Expect `GlobalMart (DEV)` / `(TEST)` to exist, the data source to be present, and demo.cloud at 16/25 [DECISION NEEDED: live write — confirm with the user before `--apply`]
        Pre: tasks 26, 27 complete; `MOTHERDUCK_TOKEN` set in `.env`
        AC: #2, #8
-- [ ] 29. Live: `gd-upload --environment dev`, then `globalmart verify --target gdcloud-dev --workspace globalmart_dev`. Every visualization executes and none is empty
+- [x] 29. Live: `gd-upload --environment dev`, then `globalmart verify --target gdcloud-dev --workspace globalmart_dev`. Every visualization executes and none is empty
        Pre: task 28 complete
        AC: #5
 - [x] 30. Create GitHub Environments `develop`, `staging`, `preprod`, `production` (required reviewers; branches `main` and `hotfix/*`), and `production-post` (`main` only, no reviewers), each with `TOKEN_GOODDATA` and `MOTHERDUCK_TOKEN`. Create repo secrets `TOKEN_GITHUB_GDCLOUD`, `TOKEN_GITHUB_ADMIN`, and `MOTHERDUCK_TOKEN_RO`, and labels `GM` and `TOOLING`

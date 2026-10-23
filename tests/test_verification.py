@@ -287,3 +287,39 @@ def test_the_run_records_its_own_options(manifest) -> None:  # type: ignore[no-u
         "fail_on_empty": False,
     }
     assert run.schema_version == 1
+
+
+# --- FEAT-019: a gdcloud release target, and a filter that would verify nothing ------------
+
+
+def release_profile() -> TargetProfile:
+    return TargetProfile(
+        name="gdcloud-dev",
+        host="https://example.invalid",
+        token="tok",
+        organization_id="org",
+        datasource_id="ds",
+        datasource_schema="globalmart",
+        parent_workspace_id="globalmart_dev",
+        gdcloud_environment="dev",
+    )
+
+
+def test_a_release_target_is_verified_as_its_master_alone(manifest) -> None:  # type: ignore[no-untyped-def]
+    # The domains are local-only (ADR 011): their absence on a release org is not a finding.
+    run = verify_target(
+        VerifySdk({}), release_profile(), manifest,
+        options=VerifyOptions(layout_path=LAYOUT, generated_path=GENERATED),
+    )
+    assert [(w.workspace_id, w.role) for w in run.workspaces] == [("globalmart_dev", "parent")]
+
+
+def test_a_filter_matching_nothing_is_refused(manifest) -> None:  # type: ignore[no-untyped-def]
+    # It used to verify zero workspaces and report a pass.
+    from globalmart.config import GlobalmartError
+
+    with pytest.raises(GlobalmartError, match="not planned"):
+        verify_target(
+            VerifySdk({}), release_profile(), manifest,
+            options=VerifyOptions(layout_path=LAYOUT, generated_path=GENERATED, workspaces=("globalmart",)),
+        )

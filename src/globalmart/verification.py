@@ -209,7 +209,16 @@ def verify_target(
 
     parent_model = read_tree(opts.layout_path)
     plan = planned_workspaces(manifest)
+    if profile.gdcloud_environment is not None:
+        # A gdcloud release target holds the parent alone, under its own id (ADR 011); the
+        # domain workspaces are local-only and are never expected there.
+        plan = [(profile.parent_workspace_id, "parent", None)]
     if opts.workspaces:
+        unknown = sorted(set(opts.workspaces) - {entry[0] for entry in plan})
+        if unknown:
+            # Filtering down to nothing would verify nothing and report a pass.
+            known = ", ".join(entry[0] for entry in plan)
+            raise GlobalmartError(f"--workspace {unknown} is not planned for {profile.name!r}: {known}")
         plan = [entry for entry in plan if entry[0] in opts.workspaces]
 
     throttle = Throttle(opts.max_workers)
