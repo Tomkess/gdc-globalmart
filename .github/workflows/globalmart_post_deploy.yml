@@ -1,0 +1,119 @@
+# Publishes the AI Knowledge corpus into a workspace gdcloud has just deployed (FEAT-019, ADR 011).
+#
+# gdcloud releases workspace content; the corpus is not part of it (ADR 009: the documents live
+# outside the layout and have their own API). So after every successful deploy — workflow 3 (dev),
+# 4 (test), 5 (preprod or prod) — this publishes the corpus into that environment's master, and
+# verifies it. Data before workspace before knowledge (FEAT-018): data is gated before the merge,
+# the workspace is deployed by 3/4/5, and this runs only once that deploy has succeeded.
+#
+# What was deployed is read back from the deploy tag the run wrote (`globalmart gdcloud scope`),
+# not guessed from the workflow name. A TOOLING-only merge writes no tag, so there is nothing to do.
+#
+# `workflow_run` executes this file as it is on the default branch, so a pull request cannot alter
+# it before it runs with deploy credentials. tests/test_release_wiring.py pins the names below to
+# the generated workflows', so a gdcloud pin bump that renames one fails CI instead of silently
+# skipping this.
+name: GlobalMart - publish knowledge after deploy
+
+on:
+  workflow_run:
+    workflows:
+      - "3 - Automated deployment to Master (on merge)"
+      - "4 - Manual deployment of master branch to test environment"
+      - "5 - Manual deployment to preprod/prod environment"
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  scope:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.scope.outputs.environment }}
+      workspace_id: ${{ steps.scope.outputs.workspace_id }}
+      version: ${{ steps.scope.outputs.version }}
+      github_environment: ${{ steps.scope.outputs.github_environment }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        env:
+          GH_DEP_TOKEN: ${{ secrets.TOKEN_GITHUB_GDCLOUD }}
+        run: |
+          dep_url="url.https://x-access-token:${GH_DEP_TOKEN}@github.com/gooddata/"
+          trap 'git config --global --remove-section "$dep_url" 2>/dev/null || true' EXIT
+          git config --global "${dep_url}.insteadOf" "https://github.com/gooddata/"
+          uv sync --locked --all-extras --dev
+
+      # prod's knowledge step runs in `production-post`: the deploy was approved in `production`,
+      # and a second approval for the follow-up would only add a gate nobody can reason about (D8).
+      - name: What did the deploy ship?
+        id: scope
+        env:
+          SINCE: ${{ github.event.workflow_run.run_started_at }}
+        run: |
+          scope=$(uv run globalmart gdcloud scope --since "$SINCE" --format json)
+          echo "deploy scope: ${scope}"
+          env=$(jq -r '.environment // empty' <<<"$scope")
+          gh_env=$(jq -r '.github_environment // empty' <<<"$scope")
+          [ "$env" = "prod" ] && gh_env=production-post
+          {
+            echo "environment=${env}"
+            echo "workspace_id=$(jq -r '.workspace_id // empty' <<<"$scope")"
+            echo "version=$(jq -r '.version // empty' <<<"$scope")"
+            echo "github_environment=${gh_env}"
+          } >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: scope
+    if: needs.scope.outputs.environment != ''
+    runs-on: ubuntu-latest
+    environment: ${{ needs.scope.outputs.github_environment }}
+    concurrency:
+      group: knowledge-${{ needs.scope.outputs.environment }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        env:
+          GH_DEP_TOKEN: ${{ secrets.TOKEN_GITHUB_GDCLOUD }}
+        run: |
+          dep_url="url.https://x-access-token:${GH_DEP_TOKEN}@github.com/gooddata/"
+          trap 'git config --global --remove-section "$dep_url" 2>/dev/null || true' EXIT
+          git config --global "${dep_url}.insteadOf" "https://github.com/gooddata/"
+          uv sync --locked --all-extras --dev
+
+      # A gdcloud-<env> profile reaches its master only (ADR 011), so no --parent-only is needed;
+      # --workspace-id restates it and fails if the tag and the profile ever disagree.
+      - name: Publish the corpus into ${{ needs.scope.outputs.workspace_id }} (${{ needs.scope.outputs.version }})
+        env:
+          GLOBALMART_TOKEN: ${{ secrets.TOKEN_GOODDATA }}
+        run: |
+          uv run globalmart knowledge-docs publish \
+            --target "gdcloud-${{ needs.scope.outputs.environment }}" \
+            --workspace-id "${{ needs.scope.outputs.workspace_id }}" \
+            --apply
+
+      - name: Verify the published corpus
+        env:
+          GLOBALMART_TOKEN: ${{ secrets.TOKEN_GOODDATA }}
+        run: |
+          uv run globalmart knowledge-docs verify \
+            --target "gdcloud-${{ needs.scope.outputs.environment }}" \
+            --workspace-id "${{ needs.scope.outputs.workspace_id }}"

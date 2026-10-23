@@ -55,6 +55,12 @@ jobs:
       - name: Domain children are current
         run: uv run globalmart split --check
 
+      # The tree gdcloud releases is derived from the parent layout (ADR 011). A layout change
+      # nobody re-projected, a hand edit, or a gd-store into gd_data_product/globalmart/ fails
+      # here. gd-ci's projection_current runs the same comparison inside gdcloud's own gates.
+      - name: Release projection is current
+        run: uv run globalmart gdcloud project --check
+
       # ADR 008 moved the rows out of the repo, so there are no bytes to hash. What is
       # committed is the contract — which tables exist, their row counts and their columns —
       # and it must agree with the DDL. Every SQL-backed dataset must also reference a table
@@ -91,3 +97,34 @@ jobs:
       # tree and never a live host.
       - name: Documentation covers the workspace
         run: uv run globalmart knowledge-docs coverage --strict
+
+  # Data before workspace before knowledge (FEAT-018 order, ADR 011). Workflow 3 deploys on merge,
+  # so a stale warehouse must stop the merge, not the deploy. One MotherDuck schema backs all four
+  # environments, so dev's view of it is everyone's. Read-only: --check never generates or loads.
+  data-current:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        env:
+          GH_DEP_TOKEN: ${{ secrets.TOKEN_GITHUB_GDCLOUD }}
+        run: |
+          dep_url="url.https://x-access-token:${GH_DEP_TOKEN}@github.com/gooddata/"
+          trap 'git config --global --remove-section "$dep_url" 2>/dev/null || true' EXIT
+          git config --global "${dep_url}.insteadOf" "https://github.com/gooddata/"
+          uv sync --locked --all-extras --dev
+
+      # The freshness check reads the warehouse only. Loading the profile still requires a
+      # GoodData token, which this job never uses, so it gets a placeholder rather than a
+      # secret. MOTHERDUCK_TOKEN is the read-write one until a read-only token exists.
+      - name: Warehouse is current
+        env:
+          GLOBALMART_TOKEN__GDCLOUD_DEV: unused-by-the-freshness-check
+          MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+        run: uv run globalmart data ensure --target gdcloud-dev --max-age-days 31 --check

@@ -105,19 +105,19 @@ The following decisions were settled on 2026-10-22:
        DONE 2026-10-23: `TOKEN_GITHUB_GDCLOUD`/`TOKEN_GITHUB_ADMIN` are the user's gh CLI token (their choice — re-login rotates it, CI then needs both secrets re-set). No read-only MotherDuck token exists yet, so `MOTHERDUCK_TOKEN_RO` is not created; task 32 uses `MOTHERDUCK_TOKEN` until it is
        Pre: task 7 complete
        AC: #7, #8
-- [ ] 31. Run `uv run gd-workflows adopt .`. Confirm the 1/1b/2a/2b/3/4/5/6, `check_*`, and `auto_*` payload is present, with no 4a, 5a, `org_release.yml`, or `auto_org_snapshot.yml`, and that `check_ci_payload.yml` shows no drift
+- [x] 31. Run `uv run gd-workflows adopt .`. Confirm the 1/1b/2a/2b/3/4/5/6, `check_*`, and `auto_*` payload is present, with no 4a, 5a, `org_release.yml`, or `auto_org_snapshot.yml`, and that `check_ci_payload.yml` shows no drift
        Pre: tasks 22, 30 complete
        AC: #6
-- [ ] 32. Extend `ci.yml`: add `globalmart gdcloud project --check` after `split --check` (keep `split --check` and `domains validate --strict`), and add a `data-current` job running `data ensure --target gdcloud-dev --check` with `MOTHERDUCK_TOKEN` (swap to a read-only `MOTHERDUCK_TOKEN_RO` once one exists)
+- [x] 32. Extend `ci.yml`: add `globalmart gdcloud project --check` after `split --check` (keep `split --check` and `domains validate --strict`), and add a `data-current` job running `data ensure --target gdcloud-dev --check` with `MOTHERDUCK_TOKEN` (swap to a read-only `MOTHERDUCK_TOKEN_RO` once one exists)
        Pre: tasks 16, 17 complete
        AC: #9, #10
-- [ ] 33. Create `globalmart_post_deploy.yml`. It triggers on `workflow_run` of the generated 3, 4, and 5, and runs only on success. `gdcloud scope` yields the environment and version, and the job exits 0 when there is no scope. It maps the environment to its GitHub Environment (prod → `production-post`), then runs `knowledge-docs publish` followed by `verify --target gdcloud-<env> --parent-only --workspace-id globalmart_<suffix> --apply`
+- [x] 33. Create `globalmart_post_deploy.yml`. It triggers on `workflow_run` of the generated 3, 4, and 5, and runs only on success. `gdcloud scope` yields the environment and version, and the job exits 0 when there is no scope. It maps the environment to its GitHub Environment (prod → `production-post`), then runs `knowledge-docs publish` followed by `verify --target gdcloud-<env> --parent-only --workspace-id globalmart_<suffix> --apply`
        Pre: tasks 17, 21, 31 complete
        AC: #9
-- [ ] 34. Retarget `data-currency.yml` to `gdcloud-dev --apply`, with GoodData cache invalidation covering `gdc_ds_globalmart_motherduck` on both orgs (a matrix over `gdcloud-dev` and `gdcloud-prod`)
+- [x] 34. Retarget `data-currency.yml` to `gdcloud-dev --apply`, with GoodData cache invalidation covering `gdc_ds_globalmart_motherduck` on both orgs (a matrix over `gdcloud-dev` and `gdcloud-prod`)
        Pre: task 20 complete
        AC: #9
-- [ ] 35. Write `tests/test_release_wiring.py`. Assert: the `name:` values of generated workflows 3, 4, and 5 are a subset of the post-deploy `workflow_run.workflows`; no 4a, 5a, `org_release`, or `auto_org_snapshot` workflow exists; `ci.yml` runs `split --check`, `domains validate --strict`, and `gdcloud project --check`; the post-deploy environment mapping equals `config.yml`
+- [x] 35. Write `tests/test_release_wiring.py`. Assert: the `name:` values of generated workflows 3, 4, and 5 are a subset of the post-deploy `workflow_run.workflows`; no 4a, 5a, `org_release`, or `auto_org_snapshot` workflow exists; `ci.yml` runs `split --check`, `domains validate --strict`, and `gdcloud project --check`; the post-deploy environment mapping equals `config.yml`
        Pre: tasks 32, 33 complete
        AC: #6, #9, #10
 - [ ] 36. Turn on branch protection on `main` with the required checks: PR label, CI checks, AFM, YAML formatting, yamllint, `CI / check`, and `CI / data-current`
@@ -135,7 +135,7 @@ The following decisions were settled on 2026-10-22:
 - [ ] 40. Integration: simulate a stale schema with a scratch profile so that `data-current` goes red, and confirm the merge is blocked
        Pre: task 36 complete
        AC: #9
-- [ ] 41. Live, AI Usecases: once `GLOBALMART_TOKEN__GDCLOUD_PREPROD` and `_PROD` are in `.env`, run `gdcloud bootstrap --environment preprod` and `--environment prod` as a rehearsal (the capacity check shows the org's cap and usage), then with `--apply` [DECISION NEEDED: live write on the second org — confirm before `--apply`]
+- [ ] 41. (Also: extend data-currency.yml's cache invalidation to the AI Usecases org's `gdc_ds_globalmart_motherduck` — task 34 covers demo.cloud only, because no command invalidates another org's cache without a reload.) Live, AI Usecases: once `GLOBALMART_TOKEN__GDCLOUD_PREPROD` and `_PROD` are in `.env`, run `gdcloud bootstrap --environment preprod` and `--environment prod` as a rehearsal (the capacity check shows the org's cap and usage), then with `--apply` [DECISION NEEDED: live write on the second org — confirm before `--apply`]
        Pre: tasks 26, 30 complete; AI Usecases token supplied
        AC: #2, #8
 - [ ] 42. Integration: workflow 5 to preprod (no approval), then prod (waits for the `production` approval). Expect deploy tags, post-deploy to run in `production-post`, and preprod to stay unchanged by the prod deploy

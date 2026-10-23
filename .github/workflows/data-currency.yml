@@ -18,7 +18,7 @@ on:
       target:
         description: "Target profile to ensure"
         required: true
-        default: demo-cloud-rebuild
+        default: gdcloud-dev
       force:
         description: "Regenerate even if the data is current"
         type: boolean
@@ -30,12 +30,15 @@ on:
 
 # One at a time: two concurrent loads would truncate the same schema underneath each other.
 concurrency:
-  group: data-currency-${{ github.event.inputs.target || 'demo-cloud-rebuild' }}
+  group: data-currency-${{ github.event.inputs.target || 'gdcloud-dev' }}
   cancel-in-progress: false
 
 jobs:
   ensure:
     runs-on: ubuntu-latest
+    # gdcloud-dev's GoodData token lives in the `develop` Environment; the load ends with a cache
+    # invalidation on that org (FEAT-019). Schema `globalmart` backs all four gdcloud environments.
+    environment: develop
     steps:
       - uses: actions/checkout@v4
 
@@ -68,10 +71,11 @@ jobs:
       - name: Ensure the warehouse is current
         env:
           GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD }}
+          GLOBALMART_TOKEN__GDCLOUD_DEV: ${{ secrets.TOKEN_GOODDATA }}
           MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
         run: |
           uv run globalmart data ensure \
-            --target "${{ github.event.inputs.target || 'demo-cloud-rebuild' }}" \
+            --target "${{ github.event.inputs.target || 'gdcloud-dev' }}" \
             --max-age-days 31 \
             --recreate-drifted \
             ${{ github.event_name == 'schedule' && '--apply' || (github.event.inputs.apply == 'true' && '--apply' || '') }} \
