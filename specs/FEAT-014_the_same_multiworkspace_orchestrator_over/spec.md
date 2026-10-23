@@ -15,9 +15,9 @@ id: feat-014
 name: The same multi-workspace orchestrator over MCP instead of A2A, flat and nested,
   so the protocol comparison is measured on identical questions rather than argued
 sources: []
-status: draft
+status: in-progress
 tags: []
-updated: '2026-09-21'
+updated: '2026-09-23'
 ---
 
 ## Summary
