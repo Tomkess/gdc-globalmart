@@ -31,6 +31,10 @@ on:
       limit:
         description: "How many search results to consider per question"
         default: "10"
+      include_domains:
+        description: "Also cover the 12 domain workspaces (only once `publish domains` deployed them)"
+        type: boolean
+        default: false
 
 concurrency:
   group: knowledge-retrieval-${{ github.event.inputs.target || 'demo-cloud' }}
@@ -71,7 +75,8 @@ jobs:
           GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
         run: |
           uv run globalmart knowledge-docs publish \
-            --target "${{ github.event.inputs.target || 'demo-cloud' }}" --apply
+            --target "${{ github.event.inputs.target || 'demo-cloud' }}" --apply \
+            ${{ github.event.inputs.include_domains == 'true' && '--include-domains' || '' }}
 
       # Read-only: reconciles the repo against the org and reports drift. Does not prune.
       - name: Published corpus matches the repo
@@ -79,7 +84,8 @@ jobs:
           GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
         run: |
           uv run globalmart knowledge-docs verify \
-            --target "${{ github.event.inputs.target || 'demo-cloud' }}"
+            --target "${{ github.event.inputs.target || 'demo-cloud' }}" \
+            ${{ github.event.inputs.include_domains == 'true' && '--include-domains' || '' }}
 
       - name: Questions retrieve their documents
         env:
@@ -92,8 +98,10 @@ jobs:
       # And from a domain workspace, which is where an assistant or an A2A lane actually
       # asks. There is no workspace hierarchy here, so a domain workspace inherits nothing
       # from the parent (ADR 009) — if a publish ever silently skipped the children, the
-      # parent-only check above would still pass and this one would not.
+      # parent-only check above would still pass and this one would not. The domains are
+      # local-only (ADR 011), so this runs only when they have been deployed.
       - name: Questions retrieve from a domain workspace too
+        if: github.event.inputs.include_domains == 'true'
         env:
           GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
         run: |

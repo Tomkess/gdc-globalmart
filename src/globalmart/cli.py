@@ -30,7 +30,7 @@ from pathlib import Path
 
 from globalmart.capture import capture_workspace
 from globalmart.closure import MetricPolicy
-from globalmart.config import GlobalmartError, TargetProfile, load_profile
+from globalmart.config import GlobalmartError, KnowledgeScope, TargetProfile, load_profile
 from globalmart.corpus import (
     DEFAULT_CORPUS_DIR,
     DEFAULT_MANIFEST,
@@ -827,13 +827,19 @@ def cmd_knowledge_docs_coverage(args: argparse.Namespace) -> int:
 
 
 def _corpus_workspaces(args: argparse.Namespace, profile: TargetProfile) -> tuple[list[str], bool]:
-    """`(workspaces, narrowed)`: the parent **and every domain workspace**, unless narrowed.
+    """`(workspaces, narrowed)`: the workspaces this publish or verify addresses.
 
     GlobalMart has no GoodData workspace hierarchy (all 13 report `parent=None`, probed
     2026-09-21), so each workspace is its own level. Under `knowledge_scope: workspaces` these
     are written; under `organization` they are the levels our old copies are removed from
     (ADR 010). `--workspace-id` / `--parent-only` narrow a `workspaces` publish to one, and
     `check_scope_flags` has already refused them under `organization`.
+
+    The domain workspaces are local-only (ADR 011): deployed on demand, not by default. So the
+    configured set is the parent alone unless `--include-domains` says the domains are there —
+    a deleted domain was a 404 that failed every publish, rehearsal included. Not inferred from
+    what the org holds: a typo'd workspace must still fail loudly. Organization scope keeps all
+    thirteen, because there they are only places to clean, and an absent one is already fine.
     """
     parent = args.workspace_id or profile.parent_workspace_id
     if profile.gdcloud_environment is not None:
@@ -847,7 +853,9 @@ def _corpus_workspaces(args: argparse.Namespace, profile: TargetProfile) -> tupl
         return [profile.parent_workspace_id], True
     if args.workspace_id or getattr(args, "parent_only", False):
         return [parent], True
-    return corpus_workspaces(load_domains(Path(args.domains_file))), False
+    if getattr(args, "include_domains", False) or profile.knowledge_scope is KnowledgeScope.ORGANIZATION:
+        return corpus_workspaces(load_domains(Path(args.domains_file))), False
+    return [profile.parent_workspace_id], False
 
 
 def _print_scoped(report: ScopedCorpusReport) -> None:
@@ -1279,6 +1287,11 @@ def build_parser() -> argparse.ArgumentParser:
     kd_publish.add_argument("--workspace-id", default=None)
     kd_publish.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
     kd_publish.add_argument(
+        "--include-domains",
+        action="store_true",
+        help="also write to the 12 domain workspaces (only once `publish domains` has deployed them)",
+    )
+    kd_publish.add_argument(
         "--parent-only",
         action="store_true",
         help="write only to the parent; the domain workspaces then carry no documentation",
@@ -1298,6 +1311,11 @@ def build_parser() -> argparse.ArgumentParser:
     kd_verify.add_argument("--workspace-id", default=None)
     kd_verify.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
     kd_verify.add_argument("--parent-only", action="store_true", help="check only the parent workspace")
+    kd_verify.add_argument(
+        "--include-domains",
+        action="store_true",
+        help="also check the 12 domain workspaces (only once `publish domains` has deployed them)",
+    )
     kd_verify.add_argument(
         "--prune", action="store_true", help="delete our orphaned documents (requires --apply)"
     )

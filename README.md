@@ -164,7 +164,8 @@ make ci                 # gdcloud's offline gates, plus ours
   a separate org repo owns them (gd-ecommerce-demo ADR 002). `org_scope` enforces it.
 - **The 12 domain workspaces are local-only** — derived, gated, never released, so they spend none
   of the orgs' workspace cap. Deploy them when you need them (the orchestrator below does):
-  `globalmart publish domains --target demo-cloud --apply`.
+  `globalmart publish domains --target demo-cloud --apply`, then give them their documentation with
+  `globalmart knowledge-docs publish --target demo-cloud --include-domains --apply`.
 - First deploy to a new org: `globalmart gdcloud bootstrap --environment <env>` (rehearsal, then
   `--apply`) checks the workspace cap, creates the data source and the titled master.
 

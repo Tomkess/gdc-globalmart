@@ -95,8 +95,14 @@ def test_release_target_refuses_another_workspace() -> None:
         _corpus_workspaces(_args(workspace_id="globalmart-sales"), profile)
 
 
-def test_legacy_target_still_reaches_every_workspace() -> None:
+def test_legacy_target_addresses_the_parent_by_default() -> None:
+    """The domains are local-only (ADR 011); a deleted one used to 404 every publish."""
     profile = load_profile("demo-cloud", targets_path=TARGETS)
-    workspaces, narrowed = _corpus_workspaces(_args(), profile)
+    assert _corpus_workspaces(_args(), profile) == (["globalmart"], False)
+
+
+def test_legacy_target_reaches_every_domain_when_asked() -> None:
+    profile = load_profile("demo-cloud", targets_path=TARGETS)
+    workspaces, narrowed = _corpus_workspaces(_args(include_domains=True), profile)
     assert not narrowed
     assert workspaces[0] == "globalmart" and len(workspaces) == 13
