@@ -271,8 +271,8 @@ Single entry point `globalmart`, subcommands registered in `cli.py` (registratio
 | `globalmart knowledge build` | `--source`, `--layout`, `--check` | `knowledge.py` | local | FEAT-008 |
 | `globalmart knowledge-docs build` | `--corpus`, `--manifest`, `--questions` | `corpus.py` | local | FEAT-015 |
 | `globalmart knowledge-docs coverage` | `--corpus`, `--manifest`, `--layout`, `--strict`, `--report-only`, `--format {text,json}` | `corpus_coverage.py` | read-only | FEAT-015 |
-| `globalmart knowledge-docs publish` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--apply` | `knowledge_docs.py` | live `--apply` | FEAT-015 (+017) |
-| `globalmart knowledge-docs verify` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--prune`, `--apply` | `knowledge_docs.py` | live `--apply` (`--prune` deletes) | FEAT-015 (+017) |
+| `globalmart knowledge-docs publish` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--include-domains` (the 12 domains are local-only and addressed only on request, ADR 011), `--apply` | `knowledge_docs.py` | live `--apply` | FEAT-015 (+017, +019) |
+| `globalmart knowledge-docs verify` | `--target` (req), `--corpus`, `--workspace-id`, `--domains-file`, `--parent-only`, `--include-domains` (the 12 domains are local-only and addressed only on request, ADR 011), `--prune`, `--apply` | `knowledge_docs.py` | live `--apply` (`--prune` deletes) | FEAT-015 (+017, +019) |
 | `globalmart knowledge-docs retrieval` | `--target` (req), `--corpus`, `--questions`, `--workspace-id`, `--limit`, `--min-score` | `retrieval.py` | read-only (live) | FEAT-015 |
 | `globalmart datefilters bind` | `--layout`, `--check`, `--overrides` | `datefilters.py` | local | FEAT-011 |
 | `globalmart targets inspect` | `--target` (req) | `config.py`, `sdk_client.py` | read-only (live) | FEAT-002 |
