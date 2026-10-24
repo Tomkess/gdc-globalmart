@@ -4,7 +4,7 @@ Every other feature owns one link. This chains them, in order, in one process:
 
     probe the org -> verify the committed data -> load the warehouse
       -> publish the parent -> split into 12 children -> publish each child
-      -> verify the result
+      -> publish the knowledge corpus -> verify the result
 
 **In-process calls, not subprocesses.** Each step calls the owning feature's public
 function, so `--apply` and exceptions propagate as values rather than as exit codes, and the
@@ -209,7 +209,6 @@ def _plan(profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions
     elif not Path(opts.corpus_path).exists():
         corpus_step.status = StepStatus.SKIPPED
         corpus_step.detail = f"no {opts.corpus_path} — nothing to publish"
-    steps.append(corpus_step)
 
     steps.append(
         RebuildStep(
@@ -223,6 +222,11 @@ def _plan(profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions
             cli_equivalent=f"globalmart publish domains --target {profile.name} --apply",
         )
     )
+    # The ordering is deliberate (FEAT-018): the corpus step writes into every workspace in
+    # `corpus_workspaces(manifest)`, and `publish_corpus` starts with `list_documents()`, which
+    # does not tolerate a 404. On a fresh org the children exist only after `publish-domains`,
+    # so do not move this step earlier.
+    steps.append(corpus_step)
     if opts.verify:
         steps.append(
             RebuildStep(
@@ -243,9 +247,9 @@ def step_runner(name: str) -> Any:
         "verify-data": _run_verify_data,
         "load-warehouse": _run_load_warehouse,
         "publish-parent": _run_publish_parent,
-        "publish-knowledge-docs": _run_publish_knowledge_docs,
         "split": _run_split,
         "publish-domains": _run_publish_domains,
+        "publish-knowledge-docs": _run_publish_knowledge_docs,
         "verify": _run_verify,
     }
     runner = runners.get(name)
