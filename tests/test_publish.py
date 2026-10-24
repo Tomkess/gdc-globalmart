@@ -12,16 +12,21 @@ from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import
 
 from globalmart.config import TargetProfile, WarehouseType
 from globalmart.layout_io import read_tree
-from globalmart.normalize import normalize_workspace
 from globalmart.publish import (
     PARENT_WORKSPACE_NAME,
-    publish_workspace,
     resolved_workspace_id,
 )
+from globalmart.publish import publish_workspace as _publish_workspace
 
-from .conftest import FakeSdk
+from .conftest import MINI, MINI_CANONICAL, FakeSdk, committed_mini
 
-FIXTURE = Path(__file__).parent / "fixtures" / "mini_globalmart"
+FIXTURE = MINI
+
+
+def publish_workspace(*args: object, **kwargs: object):  # type: ignore[no-untyped-def]
+    """The real publish, with the mini fixture's canonical data source unless a test says otherwise."""
+    kwargs.setdefault("canonical", MINI_CANONICAL)
+    return _publish_workspace(*args, **kwargs)  # type: ignore[arg-type]
 
 
 @pytest.fixture(autouse=True)
@@ -48,9 +53,7 @@ def _profile(tmp_path: Path, **overrides: object) -> TargetProfile:
 
 
 def _model() -> CatalogDeclarativeWorkspaceModel:
-    model = read_tree(FIXTURE)
-    normalize_workspace(model, datasource_schema="globalmart")
-    return model
+    return committed_mini()
 
 
 # --- the safety gate --------------------------------------------------------
@@ -58,7 +61,7 @@ def _model() -> CatalogDeclarativeWorkspaceModel:
 
 def test_apply_defaults_to_false() -> None:
     """Pinned so the safe default cannot be flipped by a later refactor."""
-    assert inspect.signature(publish_workspace).parameters["apply"].default is False
+    assert inspect.signature(_publish_workspace).parameters["apply"].default is False
 
 
 def test_rehearsal_records_zero_writes(tmp_path: Path) -> None:
@@ -186,24 +189,85 @@ def test_display_name_can_be_overridden_per_call(tmp_path: Path) -> None:
     assert names == ["GlobalMart — Sales"]
 
 
-# --- resolution happens on the way out --------------------------------------
+# --- the data source rewrite happens on the way out ---------------------------
 
 
 def test_published_model_carries_the_target_datasource(tmp_path: Path) -> None:
+    """A matching profile publishes the tree unchanged: the rewrite is a no-op."""
     sdk = FakeSdk()
     model = _model()
 
-    publish_workspace(sdk, model, _profile(tmp_path), workspace_id="globalmart", apply=True)
+    result = publish_workspace(sdk, model, _profile(tmp_path), workspace_id="globalmart", apply=True)
 
     import json
 
     blob = json.dumps(model.to_dict(camel_case=True))
-    assert "{{ datasource_id }}" not in blob
+    assert "{{" not in blob
     assert "globalmart-motherduck" in blob
+    assert result.resolve is not None and result.resolve.is_noop
 
 
-def test_unnormalized_model_is_refused(tmp_path: Path) -> None:
-    """Publishing a model with audit fields would be rejected by the target with a 400."""
+def test_a_non_canonical_profile_gets_its_own_data_source(tmp_path: Path) -> None:
+    """ADR 011 Stage B: canonical id and schema are rewritten to the profile's on the way out."""
+    import json
+
+    from globalmart.traversal import iter_sql_statements, iter_table_schema_slots
+
+    sdk = FakeSdk()
+    model = _model()
+    profile = _profile(
+        tmp_path,
+        name="demo-cloud-rebuild",
+        datasource_id="globalmart-rebuild",
+        datasource_schema="gm_rebuild",
+    )
+
+    result = publish_workspace(sdk, model, profile, workspace_id="globalmart", apply=True)
+
+    blob = json.dumps(model.to_dict(camel_case=True))
+    assert MINI_CANONICAL.datasource_id not in blob
+    assert "globalmart-rebuild" in blob
+    assert {slot.get() for slot in iter_table_schema_slots(model)} == {"gm_rebuild"}
+    assert all("gm_rebuild." in slot.get() for slot in iter_sql_statements(model))
+    assert result.resolve is not None and not result.resolve.is_noop
+    assert result.resolve.datasource_refs_rewritten > 0
+    plan = "\n".join(result.summary_lines())
+    assert "globalmart-motherduck / globalmart -> globalmart-rebuild / gm_rebuild" in plan
+
+
+def test_the_rewrite_shows_in_a_rehearsal_and_writes_nothing(tmp_path: Path) -> None:
+    sdk = FakeSdk()
+    profile = _profile(tmp_path, datasource_id="globalmart-rebuild", datasource_schema="gm_rebuild")
+
+    result = publish_workspace(sdk, _model(), profile, workspace_id="globalmart")
+
+    assert sdk.writes() == []
+    assert any("->" in line for line in result.summary_lines() if "data source rewrite" in line)
+
+
+def test_a_foreign_data_source_is_refused_before_any_write(tmp_path: Path) -> None:
+    """The canonical pair is the only one the rewrite touches; anything else stops the publish."""
+    from globalmart.gdcloud_bridge import CanonicalDataSource
+    from globalmart.resolve import UnresolvedLayoutError
+
+    sdk = FakeSdk()
+    wrong = CanonicalDataSource(datasource_id="not-what-the-tree-carries", datasource_schema="globalmart")
+
+    with pytest.raises(UnresolvedLayoutError):
+        publish_workspace(
+            sdk,
+            _model(),
+            _profile(tmp_path, datasource_id="globalmart-rebuild"),
+            workspace_id="globalmart",
+            canonical=wrong,
+            apply=True,
+        )
+
+    assert "put_declarative_workspace" not in sdk.writes()
+
+
+def test_a_raw_capture_is_refused(tmp_path: Path) -> None:
+    """A model with audit fields (not gd-store's form) would be rejected by the target with a 400."""
     from globalmart.preflight import PortabilityError
 
     sdk = FakeSdk()

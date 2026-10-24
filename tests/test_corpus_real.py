@@ -26,7 +26,7 @@ from globalmart.layout_io import read_tree
 from globalmart.retrieval import assert_questions_grounded, load_questions
 
 REPO = Path(__file__).resolve().parents[1]
-LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
+LAYOUT = REPO / "gd_data_product" / "globalmart"
 CORPUS = REPO / "docs" / "knowledge-corpus"
 MANIFEST = REPO / "config" / "corpus.yaml"
 QUESTIONS = REPO / "config" / "corpus-questions.yaml"

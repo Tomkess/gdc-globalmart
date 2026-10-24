@@ -1,13 +1,14 @@
 """Shared fixtures.
 
-``synthetic_model`` is a hand-built workspace model used to prove the writer, the pruner
-and the normalizer without a live host. It is deliberately *not* the FEAT-001 mini fixture
+``synthetic_model`` is a hand-built workspace model used to prove the writer and the pruner
+without a live host. It is deliberately *not* the FEAT-001 mini fixture
 (task 11), which is a trimmed real capture — this one exists so the offline tests can run
 before that capture has happened, and so a shape can be constructed on demand.
 """
 
 from __future__ import annotations
 
+from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
@@ -16,13 +17,61 @@ from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import
     CatalogDeclarativeWorkspaceModel,
 )
 
+from globalmart.gdcloud_bridge import CanonicalDataSource
+from globalmart.layout_io import read_tree
+
+REPO = Path(__file__).resolve().parents[1]
+FIXTURES = Path(__file__).parent / "fixtures"
+
+#: The parent's only authoring tree (ADR 011 Stage B). Every test that reads "the real parent"
+#: reads this, so retiring a tree can never leave a test silently skipping on a missing path.
+PARENT_TREE = REPO / "gd_data_product" / "globalmart"
+ENV_CONFIG = REPO / "gd_data_product" / "config.env.yml"
+
+#: A trimmed real capture: it still carries audit fields, as a raw declarative dump does.
+MINI = FIXTURES / "mini_globalmart"
+
+#: The data source the mini capture carries — its canonical pair, in the Stage B sense.
+MINI_CANONICAL = CanonicalDataSource(datasource_id="globalmart-motherduck", datasource_schema="globalmart")
+
+#: Audit fields a raw capture carries and ``gd-store`` never writes (it excludes ACTIVITY_INFO).
+_AUDIT_FIELDS = ("created_by", "modified_by", "created_at", "modified_at")
+
+
+def strip_activity_info(model: CatalogDeclarativeWorkspaceModel) -> CatalogDeclarativeWorkspaceModel:
+    """What ``gd-store``'s ``exclude=["ACTIVITY_INFO"]`` leaves out of a capture, in place."""
+    analytics = model.analytics
+    if analytics is not None:
+        for collection in (
+            "metrics",
+            "visualization_objects",
+            "analytical_dashboards",
+            "analytical_dashboard_extensions",
+            "filter_contexts",
+            "dashboard_plugins",
+            "attribute_hierarchies",
+            "export_definitions",
+            "memory_items",
+            "parameters",
+        ):
+            for obj in getattr(analytics, collection, None) or []:
+                for attribute in _AUDIT_FIELDS:
+                    if getattr(obj, attribute, None) is not None:
+                        setattr(obj, attribute, None)
+    return model
+
+
+def committed_mini() -> CatalogDeclarativeWorkspaceModel:
+    """The mini capture as it would be committed: gd-store form, carrying ``MINI_CANONICAL``."""
+    return strip_activity_info(read_tree(MINI))
+
 
 def workspace_payload(*, metric_ids: tuple[str, ...] = ("m_revenue", "m_orders")) -> dict[str, Any]:
     """A minimal but structurally real declarative workspace payload (camelCase, as the API returns).
 
-    Carries the shapes the normalizer has to handle: a table-backed dataset, a SQL-backed
-    dataset with a schema placeholder, nested labels, a grain, a dataset reference, and
-    audit fields on the analytics objects.
+    Carries the shapes the writer has to handle: a table-backed dataset, a SQL-backed
+    dataset naming its schema, nested labels, a grain, a dataset reference, and audit fields
+    on the analytics objects.
     """
     return {
         "ldm": {
@@ -112,10 +161,7 @@ def workspace_payload(*, metric_ids: tuple[str, ...] = ("m_revenue", "m_orders")
                     "references": [],
                     "sql": {
                         "dataSourceId": "globalmart-motherduck",
-                        "statement": (
-                            "SELECT channel, count(*) AS n "
-                            "FROM {{ datasource_schema }}.fact_orders GROUP BY 1"
-                        ),
+                        "statement": ("SELECT channel, count(*) AS n FROM globalmart.fact_orders GROUP BY 1"),
                     },
                 },
             ],

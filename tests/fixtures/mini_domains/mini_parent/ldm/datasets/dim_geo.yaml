@@ -1,27 +1,27 @@
 aggregatedFacts: []
 attributes:
-- description: ''
-  id: dim_geo.geo_id
-  labels: []
-  sourceColumn: geo_id
-  sourceColumnDataType: STRING
-  tags:
-  - dim_geo
-  title: geo_id
-- description: ''
-  id: dim_geo.country
-  labels: []
-  sourceColumn: country
-  sourceColumnDataType: STRING
-  tags:
-  - dim_geo
-  title: country
+  - description: ''
+    id: dim_geo.country
+    labels: []
+    sourceColumn: country
+    sourceColumnDataType: STRING
+    tags:
+      - dim_geo
+    title: country
+  - description: ''
+    id: dim_geo.geo_id
+    labels: []
+    sourceColumn: geo_id
+    sourceColumnDataType: STRING
+    tags:
+      - dim_geo
+    title: geo_id
 dataSourceTableId:
-  dataSourceId: '{{ datasource_id }}'
+  dataSourceId: gdc_ds_globalmart_motherduck
   id: dim_geo
   path:
-  - globalmart
-  - dim_geo
+    - globalmart
+    - dim_geo
   type: dataSource
 description: ''
 facts: []
@@ -29,6 +29,5 @@ grain: []
 id: dim_geo
 references: []
 tags:
-- dim_geo
+  - dim_geo
 title: Dim Geo
-workspaceDataFilterReferences: []

@@ -12,11 +12,18 @@ import json
 from pathlib import Path
 
 import pytest
+from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import (
+    CatalogDeclarativeWorkspaceModel,
+)
 
 from globalmart.closure import MetricPolicy
 from globalmart.domains import load_domains
-from globalmart.layout_io import read_model_json, read_tree
+from globalmart.gdcloud_bridge import load_canonical_data_source
+from globalmart.layout_io import read_model_json, read_tree, write_tree
 from globalmart.split import SplitCoverageError, SplitFailedError, split_all
+from globalmart.traversal import iter_datasource_slots
+
+from .conftest import ENV_CONFIG
 
 BASE = Path(__file__).parent / "fixtures" / "mini_domains"
 REPO = Path(__file__).resolve().parents[1]
@@ -163,16 +170,41 @@ def test_emission_is_byte_stable(model, manifest, tmp_path: Path) -> None:  # ty
         assert path.read_bytes() == (second / path.name).read_bytes()
 
 
-def test_placeholders_survive_into_the_generated_json(model, manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
-    """Substitution is publish-time work (FEAT-002's resolve.py), never done here."""
+def test_children_carry_the_canonical_data_source(model, manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    """ADR 011 Stage B: the parent carries the canonical data source, and so does every child.
+
+    Rewriting it to a profile's is publish-time work (``resolve.rewrite_data_source``), never
+    done here — so the committed children are the same for every target.
+    """
+    canonical = load_canonical_data_source(ENV_CONFIG)
     split_all(model, manifest, out=tmp_path, write=True)
 
     for path in sorted(tmp_path.glob("*.json")):
         text = path.read_text(encoding="utf-8")
-        assert "{{ datasource_id }}" in text
-        assert "globalmart-motherduck" not in text
+        assert "{{" not in text
+        assert f'"dataSourceId": "{canonical.datasource_id}"' in text
     sales = (tmp_path / "globalmart-sales.json").read_text(encoding="utf-8")
-    assert "{{ datasource_schema }}" in sales
+    assert f"{canonical.datasource_schema}." in sales
+
+
+def test_gd_store_form_round_trips_through_split(model, manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    """A tree as gd-store writes it splits exactly as the model it was written from.
+
+    The point of Stage B: a gd-store from a dev workspace (gdcloud workflow 2a) is a legitimate
+    edit, and the children derived from it must not depend on who wrote the bytes.
+    """
+    tree = tmp_path / "gd_data_product" / "globalmart"
+    write_tree(model, tree)
+
+    direct = tmp_path / "direct"
+    via_disk = tmp_path / "via_disk"
+    split_all(model, manifest, out=direct, write=True)
+    split_all(read_tree(tree), manifest, out=via_disk, write=True)
+
+    produced = sorted(p.name for p in direct.glob("*.json"))
+    assert produced
+    for name in produced:
+        assert (direct / name).read_bytes() == (via_disk / name).read_bytes(), name
 
 
 def test_generated_json_round_trips(model, manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
@@ -260,18 +292,20 @@ def test_no_committed_child_carries_the_whole_parent_ldm() -> None:
 
 
 @pytest.mark.skipif(not GENERATED.exists(), reason="children not generated yet")
-def test_committed_children_carry_no_resolved_datasource() -> None:
+def test_committed_children_carry_only_the_canonical_data_source() -> None:
+    canonical = load_canonical_data_source(ENV_CONFIG)
     for path in sorted(GENERATED.glob("*.json")):
-        text = path.read_text(encoding="utf-8")
-        assert "{{ datasource_id }}" in text
-        assert "globalmart-motherduck" not in text
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        model = CatalogDeclarativeWorkspaceModel.from_dict(payload, camel_case=True)
+        assert {slot.get() for slot in iter_datasource_slots(model)} == {canonical.datasource_id}, path.name
+        assert "{{" not in path.read_text(encoding="utf-8"), path.name
 
 
 @pytest.mark.skipif(not GENERATED.exists(), reason="children not generated yet")
 def test_committed_children_match_a_fresh_split() -> None:
     """`split --check` as a test, so a parent edit without a re-split fails here too."""
     manifest = load_domains(REPO / "config" / "domains.yaml")
-    model = read_tree(REPO / "layouts" / "workspaces" / "globalmart")
+    model = read_tree(REPO / "gd_data_product" / "globalmart")
 
     import tempfile
 

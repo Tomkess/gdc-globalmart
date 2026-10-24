@@ -13,7 +13,7 @@ from globalmart.layout_io import read_tree
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = Path(__file__).parent / "fixtures" / "mini_globalmart"
 PROVENANCE = REPO_ROOT / "docs" / "bootstrap-provenance.md"
-LAYOUT = REPO_ROOT / "layouts" / "workspaces" / "globalmart"
+LAYOUT = REPO_ROOT / "gd_data_product" / "globalmart"
 
 
 def test_fixture_counts_are_known() -> None:

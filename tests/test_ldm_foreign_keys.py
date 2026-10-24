@@ -22,7 +22,7 @@ from globalmart.registry import build_registry
 
 REPO = Path(__file__).resolve().parents[1]
 DDL = REPO / "data" / "ddl" / "globalmart.sql"
-LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
+LAYOUT = REPO / "gd_data_product" / "globalmart"
 MANIFEST = REPO / "data" / "table-manifest.json"
 
 pytestmark = pytest.mark.skipif(not (DDL.exists() and LAYOUT.exists()), reason="artifacts not present")

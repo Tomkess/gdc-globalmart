@@ -6,7 +6,7 @@ gdcloud deploys workspace *content*. Three things it does not do have to exist f
    demo.cloud, child workspaces included). A deploy that cannot create its master fails halfway
    through a workflow. The cap is checked up front instead, and a missing master on a full org
    stops here, not in CI.
-2. **The data source** the projection points at, ``gdc_ds_globalmart_motherduck``. gdcloud never
+2. **The data source** the committed tree names, ``gdc_ds_globalmart_motherduck``. gdcloud never
    releases data sources.
 3. **A titled master.** gdcloud names a master it creates after the bare data product id, so dev
    and test would both read "globalmart" on a shared org. The master is created here, before

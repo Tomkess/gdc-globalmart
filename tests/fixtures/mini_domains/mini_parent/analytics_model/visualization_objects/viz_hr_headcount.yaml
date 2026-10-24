@@ -1,22 +1,22 @@
 content:
   buckets:
-  - items:
-    - measure:
-        definition:
-          measureDefinition:
-            filters: []
-            item:
+    - items:
+        - measure:
+            definition:
+              measureDefinition:
+                filters: []
+                item:
+                  identifier:
+                    id: m_headcount_by_hire
+                    type: metric
+            localIdentifier: m_m_headcount_by_hire
+        - attribute:
+            displayForm:
               identifier:
-                id: m_headcount_by_hire
-                type: metric
-        localIdentifier: m_m_headcount_by_hire
-    - attribute:
-        displayForm:
-          identifier:
-            id: dim_employee.employee_name
-            type: label
-        localIdentifier: a_dim_employee.employee_name
-    localIdentifier: measures
+                id: dim_employee.employee_name
+                type: label
+            localIdentifier: a_dim_employee.employee_name
+      localIdentifier: measures
   filters: []
   properties: {}
   sorts: []
@@ -24,5 +24,4 @@ content:
   visualizationUrl: local:column
 description: ''
 id: viz_hr_headcount
-tags: []
 title: viz_hr_headcount

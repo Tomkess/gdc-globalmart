@@ -1,9 +1,9 @@
 """The one place that knows *where* datasource ids and schema references live.
 
-Both directions consume these generators: ``normalize`` replaces real values with
-placeholders on capture, ``resolve`` replaces placeholders with real values on publish. If
-the two enumerated slots separately they could drift, and a slot one side missed would be
-silently left carrying the wrong org's identifier.
+Every consumer goes through these generators: ``resolve`` rewrites the committed tree's
+canonical data source to a target's on publish, and audits the result; ``sqlcheck`` reads the
+SQL statements. If each enumerated slots separately they could drift, and a slot one side
+missed would be silently left carrying the wrong org's identifier.
 
 That is exactly how the predecessor failed. It rewrote the datasource with
 ``json.dumps(model).replace('"globalmart-postgres"', ...)`` over serialized JSON — a no-op,

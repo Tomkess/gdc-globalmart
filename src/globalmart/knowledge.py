@@ -47,6 +47,7 @@ from typing import Any
 import yaml
 
 from globalmart.config import GlobalmartError
+from globalmart.layout_io import DEFAULT_LAYOUT_PATH
 
 #: The reserved tag that marks an item as compiled by this feature. A memory item without it
 #: is someone else's and is never touched.
@@ -436,7 +437,7 @@ def apply_to_tree(model: Any, items: list[Any]) -> KnowledgeReport:
 def build_knowledge(
     *,
     source_dir: Path = DEFAULT_SOURCE_DIR,
-    layout_path: Path = Path("layouts/workspaces/globalmart"),
+    layout_path: Path = DEFAULT_LAYOUT_PATH,
     check: bool = False,
 ) -> KnowledgeReport:
     """Compile the documents into the layout tree. Writes nothing under ``check``."""

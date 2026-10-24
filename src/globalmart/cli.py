@@ -1,19 +1,16 @@
 """Command line entry point.
 
-``globalmart --help`` lists every subcommand; these three set the flag conventions the rest follow:
+``globalmart --help`` lists every subcommand; these two set the flag conventions the rest follow:
 
-``globalmart bootstrap --target <name>``
-    Capture the parent workspace from a live host, normalize it, and write the YAML tree.
-    Writes only local files, so per ADR 002's convention it takes ``--dry-run``, never
-    ``--apply`` — that flag is reserved for commands that write to a live org.
-
-``globalmart normalize [--check]``
-    Re-normalize an existing tree in place. ``--check`` writes nothing and exits 1 if
-    normalization would change anything: the CI gate that stops a hand-edited layout file
-    from being committed in a non-canonical form.
+``globalmart split [--check]``
+    Derive the 12 domain workspaces from ``gd_data_product/globalmart/``, the parent's only
+    authoring tree (ADR 011 Stage B). Writes only local files, so per ADR 002's convention it
+    takes ``--dry-run`` / ``--check``, never ``--apply`` — that flag is reserved for commands
+    that write to a live org. Capturing a live workspace into the tree is gdcloud's ``gd-store``.
 
 ``globalmart publish parent --target <name> [--apply]``
-    Publish the committed tree into a live org. Writes to a **remote** org, so per ADR 002
+    Publish the committed tree into a live org, its canonical data source rewritten to the
+    profile's. Writes to a **remote** org, so per ADR 002
     it is a read-only rehearsal by default and ``--apply`` is the only path to a write.
     Never takes ``--dry-run``; no command has both.
 """
@@ -28,7 +25,6 @@ from collections.abc import Sequence
 from datetime import date, datetime
 from pathlib import Path
 
-from globalmart.capture import capture_workspace
 from globalmart.closure import MetricPolicy
 from globalmart.config import GlobalmartError, TargetProfile, load_profile
 from globalmart.corpus import (
@@ -54,12 +50,13 @@ from globalmart.domains import dump_domains, load_domains
 from globalmart.equivalence import compare_orgs
 from globalmart.gdcloud_bootstrap import bootstrap_environment
 from globalmart.gdcloud_bridge import (
+    DEFAULT_ENV_CONFIG_PATH,
     DEFAULT_RELEASE_CONFIG_PATH,
     ReleaseConfigError,
+    load_canonical_data_source,
     load_release_config,
     release_scope_from_tags,
 )
-from globalmart.gdcloud_project import DEFAULT_OUT_PATH, diff_projection, project_parent, write_projection
 from globalmart.generate import base_row_counts, generate_dataset, resolve_window
 from globalmart.knowledge import DEFAULT_SOURCE_DIR, build_knowledge
 from globalmart.knowledge_docs import (
@@ -69,8 +66,7 @@ from globalmart.knowledge_docs import (
     publish_for_target,
     verify_for_target,
 )
-from globalmart.layout_io import read_model_json, read_tree, write_tree
-from globalmart.normalize import WdfPolicy, normalize_workspace
+from globalmart.layout_io import DEFAULT_LAYOUT_PATH, read_model_json, read_tree, write_tree
 from globalmart.preflight import check_organization
 from globalmart.publish import PARENT_WORKSPACE_NAME, publish_domains, publish_workspace
 from globalmart.rebuild import RebuildOptions, cold_rebuild
@@ -92,7 +88,6 @@ from globalmart.sqlcheck import check_sql_datasets
 from globalmart.verification import VerifyOptions, empty_warnings, verify_target
 from globalmart.vocabulary import DEFAULT_VOCABULARY_PATH, load_vocabulary
 
-DEFAULT_LAYOUT_PATH = Path("layouts/workspaces/globalmart")
 DEFAULT_DOMAINS_PATH = Path("config/domains.yaml")
 DEFAULT_GENERATED_PATH = Path("generated/workspaces")
 
@@ -108,91 +103,11 @@ def _counts_lines(model: object) -> list[str]:
     return [f"{name:32s} {value}" for name, value in counts.non_zero().items()]
 
 
-def cmd_bootstrap(args: argparse.Namespace) -> int:
-    profile = load_profile(args.target)
-    workspace_id = args.workspace_id or profile.parent_workspace_id
-    destination = Path(args.out)
-
-    print(f"Capturing {workspace_id!r} from {profile.host} (org {profile.organization_id})")
-    model = capture_workspace(make_sdk(profile), workspace_id)
-
-    result = normalize_workspace(
-        model,
-        datasource_schema=profile.datasource_schema,
-        wdf_policy=WdfPolicy(args.wdf_policy),
-        strict=not args.allow_unparameterized_sql,
-    )
-
-    _print_report("\nNormalization", result.summary_lines())
-    _print_report("\nObject counts", _counts_lines(result.model))
-
-    if args.dry_run:
-        print(f"\nREHEARSAL — nothing written. Re-run without --dry-run to write {destination}.")
-        return 0
-
-    written = write_tree(result.model, destination)
-    print(f"\nWrote {len(written)} files to {destination}")
-    return 0
-
-
-def cmd_normalize(args: argparse.Namespace) -> int:
-    source = Path(args.path)
-    if not source.exists():
-        raise GlobalmartError(f"No layout tree at {source}")
-
-    before = {path: path.read_text(encoding="utf-8") for path in sorted(source.rglob("*.yaml"))}
-
-    model = read_tree(source)
-    result = normalize_workspace(
-        model,
-        datasource_schema=args.datasource_schema,
-        wdf_policy=WdfPolicy(args.wdf_policy),
-        strict=not args.allow_unparameterized_sql,
-    )
-
-    if args.check:
-        # Normalize into a scratch tree so --check never mutates what it inspects.
-        with tempfile.TemporaryDirectory(prefix="globalmart-check-") as scratch:
-            candidate = Path(scratch) / "tree"
-            write_tree(result.model, candidate)
-            expected = {
-                str(path.relative_to(candidate)): path.read_text(encoding="utf-8")
-                for path in sorted(candidate.rglob("*.yaml"))
-            }
-
-        actual = {str(path.relative_to(source)): text for path, text in before.items()}
-
-        changed = sorted(k for k in expected.keys() & actual.keys() if expected[k] != actual[k])
-        added = sorted(expected.keys() - actual.keys())
-        removed = sorted(actual.keys() - expected.keys())
-
-        if changed or added or removed:
-            print(f"Layout tree at {source} is NOT canonical:")
-            for path in changed:
-                print(f"  would change: {path}")
-            for path in added:
-                print(f"  would add   : {path}")
-            for path in removed:
-                print(f"  would remove: {path}")
-            print("\nRun `globalmart normalize` to fix, then commit the result.")
-            return 1
-
-        print(f"Layout tree at {source} is canonical ({len(actual)} files).")
-        return 0
-
-    written = write_tree(result.model, source)
-    _print_report("Normalization", result.summary_lines())
-    print(f"\nRewrote {len(written)} files in {source}")
-    return 0
-
-
 def cmd_publish_parent(args: argparse.Namespace) -> int:
     profile = load_profile(args.target)
     source = Path(args.source)
     if not source.exists():
-        raise GlobalmartError(
-            f"No layout tree at {source}. Run `globalmart bootstrap --target <name>` first."
-        )
+        raise GlobalmartError(f"No layout tree at {source}. Capture one with `gd-store` (`make store`).")
 
     model = read_tree(source)
     workspace_id = args.workspace_id or profile.parent_workspace_id
@@ -203,6 +118,7 @@ def cmd_publish_parent(args: argparse.Namespace) -> int:
         profile,
         workspace_id=workspace_id,
         workspace_name=args.workspace_name,
+        canonical=load_canonical_data_source(Path(args.env_config)),
         apply=args.apply,
         standalone_copy=args.standalone_copy,
         take_backup=not args.no_backup,
@@ -401,6 +317,7 @@ def cmd_publish_domains(args: argparse.Namespace) -> int:
         manifest,
         profile,
         models=models,
+        canonical=load_canonical_data_source(Path(args.env_config)),
         only=only,
         apply=args.apply,
         take_backup=not args.no_backup,
@@ -431,7 +348,8 @@ def cmd_data_verify(args: argparse.Namespace) -> int:
     print(f"\nDDL               : {len(registry.tables)} tables in {args.ddl}")
 
     if model is not None:
-        report = check_sql_datasets(model, registry, schema=args.schema)
+        schema = args.schema or load_canonical_data_source(Path(args.env_config)).datasource_schema
+        report = check_sql_datasets(model, registry, schema=schema)
         _print_report("\nSQL datasets", report.summary_lines())
         if not report.ok():
             print("\nerror: SQL-backed datasets reference tables that do not exist", file=sys.stderr)
@@ -777,6 +695,7 @@ def cmd_rebuild(args: argparse.Namespace) -> int:
             skip_data=args.skip_data,
             allow_existing=args.allow_existing,
             skip_knowledge_docs=args.skip_knowledge_docs,
+            env_config_path=Path(args.env_config),
         ),
     )
 
@@ -797,8 +716,8 @@ def cmd_knowledge_build(args: argparse.Namespace) -> int:
     """Compile docs/knowledge/*.md into memory items in the layout tree.
 
     Writes local files only, so per ADR 002 it takes --check (the CI-gate form) and never
-    --apply. Run it *after* `bootstrap`: both write the tree, and a capture reflects the
-    org, so a build before a capture is a build the capture discards.
+    --apply. Run it *after* a `gd-store`: both write the tree, and a capture reflects the
+    workspace, so a build before a capture is a build the capture discards.
     """
     report = build_knowledge(
         source_dir=Path(args.source),
@@ -1032,31 +951,6 @@ def cmd_targets_inspect(args: argparse.Namespace) -> int:
     return 0
 
 
-def cmd_gdcloud_project(args: argparse.Namespace) -> int:
-    """Project the parent layout into gd_data_product/<dp>/, the tree gdcloud releases (ADR 011)."""
-    config = load_release_config(Path(args.config))
-    projection = project_parent(config, Path(args.layout))
-    out = Path(args.out)
-
-    if args.check:
-        problems = diff_projection(projection, out)
-        if problems:
-            print(f"{out / projection.dp_id} is NOT current with {args.layout}:")
-            for problem in problems[:50]:
-                print(f"  {problem}")
-            if len(problems) > 50:
-                print(f"  … and {len(problems) - 50} more")
-            print("\nRun `globalmart gdcloud project` (or `make project`) and commit the result.")
-            return 1
-        print(f"{out / projection.dp_id} is current ({len(projection.files)} files).")
-        return 0
-
-    changed = write_projection(projection, out, dry_run=args.dry_run)
-    verb = "Would write or remove" if args.dry_run else "Wrote or removed"
-    print(f"{verb} {len(changed)} of {len(projection.files)} files in {out / projection.dp_id}")
-    return 0
-
-
 def cmd_gdcloud_bootstrap(args: argparse.Namespace) -> int:
     """Room, ownership, data source and a titled master, before an environment's first deploy."""
     profile = load_profile(f"gdcloud-{args.environment}")
@@ -1100,39 +994,6 @@ def cmd_gdcloud_scope(args: argparse.Namespace) -> int:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="globalmart", description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
-
-    bootstrap = subparsers.add_parser(
-        "bootstrap", help="capture the parent workspace from a live host into the repo"
-    )
-    bootstrap.add_argument("--target", required=True, help="profile name from config/targets.yaml")
-    bootstrap.add_argument("--workspace-id", default=None, help="override the profile's workspace id")
-    bootstrap.add_argument("--out", default=str(DEFAULT_LAYOUT_PATH), help="destination tree")
-    bootstrap.add_argument("--dry-run", action="store_true", help="capture and report, write nothing locally")
-    bootstrap.add_argument("--wdf-policy", choices=[p.value for p in WdfPolicy], default=WdfPolicy.DROP.value)
-    bootstrap.add_argument(
-        "--allow-unparameterized-sql",
-        action="store_true",
-        help="report rather than fail when a SQL dataset's schema cannot be parameterised",
-    )
-    bootstrap.set_defaults(func=cmd_bootstrap)
-
-    normalize = subparsers.add_parser(
-        "normalize", help="re-normalize an existing tree, or check that it is canonical"
-    )
-    normalize.add_argument("--path", default=str(DEFAULT_LAYOUT_PATH))
-    normalize.add_argument(
-        "--datasource-schema",
-        default="globalmart",
-        help="the literal schema to parameterise, if any statement still carries one",
-    )
-    normalize.add_argument(
-        "--check",
-        action="store_true",
-        help="exit 1 if normalization would change the tree; writes nothing (the CI gate)",
-    )
-    normalize.add_argument("--wdf-policy", choices=[p.value for p in WdfPolicy], default=WdfPolicy.DROP.value)
-    normalize.add_argument("--allow-unparameterized-sql", action="store_true")
-    normalize.set_defaults(func=cmd_normalize)
 
     domains = subparsers.add_parser("domains", help="the domain membership manifest")
     domains_actions = domains.add_subparsers(dest="action", required=True)
@@ -1190,7 +1051,14 @@ def build_parser() -> argparse.ArgumentParser:
     data_verify.add_argument("--ddl", default=str(DEFAULT_DDL_PATH))
     data_verify.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
     data_verify.add_argument(
-        "--schema", default="globalmart", help="the schema SQL statements are checked against"
+        "--env-config",
+        default=str(DEFAULT_ENV_CONFIG_PATH),
+        help="gdcloud's config.env.yml, which names the data source the committed tree carries",
+    )
+    data_verify.add_argument(
+        "--schema",
+        default=None,
+        help="the schema SQL statements are checked against (default: the tree's canonical schema)",
     )
     data_verify.set_defaults(func=cmd_data_verify)
 
@@ -1249,6 +1117,11 @@ def build_parser() -> argparse.ArgumentParser:
     rebuild.add_argument("--target", required=True)
     rebuild.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
     rebuild.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
+    rebuild.add_argument(
+        "--env-config",
+        default=str(DEFAULT_ENV_CONFIG_PATH),
+        help="gdcloud's config.env.yml, which names the data source the committed tree carries",
+    )
     rebuild.add_argument("--generated", default=str(DEFAULT_GENERATED_PATH))
     rebuild.add_argument("--skip-data", action="store_true")
     rebuild.add_argument("--corpus", default=str(DEFAULT_CORPUS_DIR))
@@ -1492,18 +1365,6 @@ def build_parser() -> argparse.ArgumentParser:
     gdcloud = subparsers.add_parser("gdcloud", help="the gdcloud release of the parent (FEAT-019)")
     gdcloud_actions = gdcloud.add_subparsers(dest="action", required=True)
 
-    gc_project = gdcloud_actions.add_parser(
-        "project", help="derive gd_data_product/globalmart/ from the parent layout (local)"
-    )
-    gc_project.add_argument("--config", default=str(DEFAULT_RELEASE_CONFIG_PATH))
-    gc_project.add_argument("--layout", default=str(DEFAULT_LAYOUT_PATH))
-    gc_project.add_argument("--out", default=str(DEFAULT_OUT_PATH))
-    gc_project.add_argument("--dry-run", action="store_true", help="report what would change")
-    gc_project.add_argument(
-        "--check", action="store_true", help="exit 1 if the committed projection is stale (the CI gate)"
-    )
-    gc_project.set_defaults(func=cmd_gdcloud_project)
-
     gc_bootstrap = gdcloud_actions.add_parser(
         "bootstrap", help="prepare an environment before its first deploy (live; --apply to write)"
     )
@@ -1534,6 +1395,11 @@ def build_parser() -> argparse.ArgumentParser:
     parent = publish_targets.add_parser("parent", help="publish the parent workspace")
     parent.add_argument("--target", required=True, help="profile name from config/targets.yaml")
     parent.add_argument("--source", default=str(DEFAULT_LAYOUT_PATH), help="layout tree to publish")
+    parent.add_argument(
+        "--env-config",
+        default=str(DEFAULT_ENV_CONFIG_PATH),
+        help="gdcloud's config.env.yml, which names the data source the committed tree carries",
+    )
     parent.add_argument("--workspace-id", default=None)
     parent.add_argument("--workspace-name", default=PARENT_WORKSPACE_NAME)
     parent.add_argument(
@@ -1553,6 +1419,11 @@ def build_parser() -> argparse.ArgumentParser:
     domains_publish.add_argument("--target", required=True)
     domains_publish.add_argument("--domains-file", default=str(DEFAULT_DOMAINS_PATH))
     domains_publish.add_argument("--source", "--in", dest="source", default=str(DEFAULT_GENERATED_PATH))
+    domains_publish.add_argument(
+        "--env-config",
+        default=str(DEFAULT_ENV_CONFIG_PATH),
+        help="gdcloud's config.env.yml, which names the data source the committed tree carries",
+    )
     domains_publish.add_argument("--only", default=None, help="comma-separated domain keys")
     domains_publish.add_argument(
         "--apply",

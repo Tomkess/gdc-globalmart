@@ -1,8 +1,8 @@
 description: ''
 granularities:
-- DAY
-- MONTH
-- YEAR
+  - DAY
+  - MONTH
+  - YEAR
 granularitiesFormatting:
   titleBase: ''
   titlePattern: '%granularityTitle'

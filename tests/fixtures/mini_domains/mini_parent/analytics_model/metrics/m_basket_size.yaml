@@ -4,5 +4,5 @@ content:
 description: ''
 id: m_basket_size
 tags:
-- metric
+  - metric
 title: m_basket_size

@@ -7,19 +7,15 @@ disagree about what "except for the parameterized values" means.
 from __future__ import annotations
 
 import copy
-from pathlib import Path
 from typing import Any
 
 import pytest
 
 from globalmart.config import TargetProfile
 from globalmart.equivalence import compare_orgs, dict_diff
-from globalmart.layout_io import read_tree
-from globalmart.normalize import normalize_workspace
 from globalmart.resolve import resolve_and_assert
 
-FIXTURE = Path(__file__).parent / "fixtures" / "mini_globalmart"
-SOURCE_SCHEMA = "globalmart"
+from .conftest import MINI_CANONICAL, committed_mini
 
 
 def profile(name: str, datasource_id: str, schema: str) -> TargetProfile:
@@ -46,9 +42,8 @@ class OneWorkspaceSdk:
 
 
 def published(datasource_id: str, schema: str) -> Any:
-    model = read_tree(FIXTURE)
-    normalize_workspace(model, datasource_schema=SOURCE_SCHEMA)
-    resolve_and_assert(model, datasource_id=datasource_id, datasource_schema=schema)
+    model = committed_mini()
+    resolve_and_assert(model, canonical=MINI_CANONICAL, datasource_id=datasource_id, datasource_schema=schema)
     return model
 
 

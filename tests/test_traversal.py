@@ -1,4 +1,4 @@
-"""Task 3 — the shared enumeration both normalize and resolve depend on."""
+"""Task 3 — the shared enumeration resolve and sqlcheck depend on."""
 
 from __future__ import annotations
 

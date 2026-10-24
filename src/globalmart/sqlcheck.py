@@ -1,7 +1,7 @@
 """Do the 11 SQL-backed datasets actually run against the loaded schema?
 
 This is the check that would have caught `sql_channel_attribution` years ago. It selects
-`FROM {{ datasource_schema }}.fact_search_event`, a table for which no DDL and no CSV has
+`FROM globalmart.fact_search_event`, a table for which no DDL and no CSV has
 ever existed — so the dataset was broken from the day it was written, and nothing in the
 pipeline noticed, because a layout publishes fine whether or not its SQL can run.
 
@@ -25,12 +25,11 @@ from pathlib import Path
 from typing import Any
 
 from globalmart.config import GlobalmartError
-from globalmart.normalize import DATASOURCE_SCHEMA_TOKEN
 from globalmart.registry import TableRegistry
 from globalmart.traversal import iter_sql_statements
 
 #: `FROM <schema>.<table>` and `JOIN <schema>.<table>`, the only two ways these statements
-#: name a table. Matched after the schema placeholder has been substituted.
+#: name a table. The committed tree carries the canonical schema concretely (ADR 011 Stage B).
 _TABLE_REF_RE = re.compile(r"\b(?:FROM|JOIN)\s+([A-Za-z_][\w]*)\.([A-Za-z_][\w]*)", re.IGNORECASE)
 
 
@@ -79,10 +78,9 @@ class SqlCheckReport:
 
 def referenced_tables(statement: str, schema: str) -> tuple[str, ...]:
     """Every `<schema>.<table>` the statement names, unqualified and deduplicated."""
-    resolved = statement.replace(DATASOURCE_SCHEMA_TOKEN, schema)
     found = {
         table
-        for found_schema, table in _TABLE_REF_RE.findall(resolved)
+        for found_schema, table in _TABLE_REF_RE.findall(statement)
         if found_schema.lower() == schema.lower()
     }
     return tuple(sorted(found))
@@ -108,10 +106,9 @@ def check_sql_datasets(
         )
 
         if loader is not None and not check.missing_tables:
-            resolved = statement.replace(DATASOURCE_SCHEMA_TOKEN, schema)
             try:
                 # LIMIT 0: the planner resolves every column and join without moving rows.
-                loader.execute(f"SELECT * FROM ({resolved}) AS _check LIMIT 0")
+                loader.execute(f"SELECT * FROM ({statement}) AS _check LIMIT 0")
                 check.executed = True
             except Exception as error:  # noqa: BLE001 - reported per dataset
                 check.error = str(error)

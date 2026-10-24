@@ -4,7 +4,7 @@ The sequence, in order, with every write gated on ``apply``:
 
     preflight (profile, org identity, portability)
       -> ensure datasource
-      -> resolve placeholders
+      -> rewrite the canonical data source to the profile's (a no-op when they match)
       -> assert fully resolved
       -> backup the target's current layout
       -> create or update the workspace
@@ -34,6 +34,7 @@ from globalmart.compare import model_diff, model_digest
 from globalmart.config import GlobalmartError, TargetProfile
 from globalmart.counts import ObjectCounts, count_objects
 from globalmart.datasource import DataSourceOutcome, ensure_data_source
+from globalmart.gdcloud_bridge import CanonicalDataSource
 from globalmart.preflight import check_organization, check_portability, check_profile
 from globalmart.resolve import ResolveResult, resolve_and_assert
 
@@ -87,6 +88,7 @@ def publish_domains(
     profile: TargetProfile,
     *,
     models: dict[str, CatalogDeclarativeWorkspaceModel],
+    canonical: CanonicalDataSource,
     only: set[str] | None = None,
     apply: bool = False,
     take_backup: bool = True,
@@ -96,7 +98,7 @@ def publish_domains(
     """Publish each domain child through the **unchanged** ``publish_workspace``.
 
     A loop, deliberately: every guard FEAT-002 built — preflight, org identity pin,
-    datasource upsert, placeholder resolution, backup, the ``--apply`` gate — applies per
+    datasource upsert, data source rewrite, backup, the ``--apply`` gate — applies per
     child for free, and this feature adds no SDK call site of its own.
 
     Stops at the first failure unless ``keep_going``, because twelve workspaces replaced
@@ -119,6 +121,7 @@ def publish_domains(
                     profile,
                     workspace_id=domain.workspace_id,
                     workspace_name=manifest.resolve_workspace_name(domain),  # type: ignore[attr-defined]
+                    canonical=canonical,
                     apply=apply,
                     standalone_copy=standalone_copy,
                     take_backup=take_backup,
@@ -145,12 +148,17 @@ def publish_workspace(
     profile: TargetProfile,
     *,
     workspace_id: str,
+    canonical: CanonicalDataSource,
     workspace_name: str = PARENT_WORKSPACE_NAME,
     apply: bool = False,
     standalone_copy: bool = False,
     take_backup: bool = True,
 ) -> PublishResult:
-    """Publish one workspace. Rehearsal unless ``apply=True``."""
+    """Publish one workspace. Rehearsal unless ``apply=True``.
+
+    ``canonical`` is the data source the model carries as committed
+    (``gdcloud_bridge.load_canonical_data_source``); it is rewritten to the profile's.
+    """
     check_profile(profile)
     check_organization(sdk, profile)
     check_portability(model)
@@ -161,6 +169,7 @@ def publish_workspace(
 
     resolve_result = resolve_and_assert(
         model,
+        canonical=canonical,
         datasource_id=profile.datasource_id,
         datasource_schema=profile.datasource_schema,
     )

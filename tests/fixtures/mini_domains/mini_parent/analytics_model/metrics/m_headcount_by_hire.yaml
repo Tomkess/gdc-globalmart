@@ -4,5 +4,5 @@ content:
 description: ''
 id: m_headcount_by_hire
 tags:
-- metric
+  - metric
 title: m_headcount_by_hire

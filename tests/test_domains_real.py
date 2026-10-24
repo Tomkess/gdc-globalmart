@@ -19,7 +19,7 @@ from globalmart.domains import load_domains
 from globalmart.layout_io import read_tree
 
 REPO = Path(__file__).resolve().parents[1]
-LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
+LAYOUT = REPO / "gd_data_product" / "globalmart"
 MANIFEST = REPO / "config" / "domains.yaml"
 
 pytestmark = pytest.mark.skipif(

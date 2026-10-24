@@ -19,7 +19,25 @@ from globalmart.config import (
     TargetProfile,
     validate_for_publish,
 )
-from globalmart.normalize import _ANALYTICS_COLLECTIONS, _AUDIT_FIELDS
+
+#: Audit fields present on analytics objects in a live capture. They name a user in the source
+#: org, so a target org rejects them. ``gd-store`` never writes them (it captures with
+#: ``exclude=["ACTIVITY_INFO"]``); this gate makes sure nothing else smuggles them in.
+_AUDIT_FIELDS = ("created_by", "modified_by", "created_at", "modified_at")
+
+#: Analytics collections carrying audit metadata.
+_ANALYTICS_COLLECTIONS = (
+    "metrics",
+    "visualization_objects",
+    "analytical_dashboards",
+    "analytical_dashboard_extensions",
+    "filter_contexts",
+    "dashboard_plugins",
+    "attribute_hierarchies",
+    "export_definitions",
+    "memory_items",
+    "parameters",
+)
 
 
 class OrganizationMismatchError(GlobalmartError):
@@ -77,7 +95,7 @@ def check_portability(model: CatalogDeclarativeWorkspaceModel) -> None:
         more = f" (+{len(offenders) - 5} more)" if len(offenders) > 5 else ""
         raise PortabilityError(
             f"{len(offenders)} user reference(s) survive in the model: {shown}{more}. "
-            "Run `globalmart normalize` before publishing."
+            "Capture with `gd-store` (it excludes activity info), never a raw declarative dump."
         )
 
 

@@ -1,19 +1,19 @@
 aggregatedFacts: []
 attributes:
-- description: ''
-  id: dim_supplier.supplier_id
-  labels: []
-  sourceColumn: supplier_id
-  sourceColumnDataType: STRING
-  tags:
-  - dim_supplier
-  title: supplier_id
+  - description: ''
+    id: dim_supplier.supplier_id
+    labels: []
+    sourceColumn: supplier_id
+    sourceColumnDataType: STRING
+    tags:
+      - dim_supplier
+    title: supplier_id
 dataSourceTableId:
-  dataSourceId: '{{ datasource_id }}'
+  dataSourceId: gdc_ds_globalmart_motherduck
   id: dim_supplier
   path:
-  - globalmart
-  - dim_supplier
+    - globalmart
+    - dim_supplier
   type: dataSource
 description: Reached by no domain — the fixture's proof that pruning removes something.
 facts: []
@@ -21,6 +21,5 @@ grain: []
 id: dim_supplier
 references: []
 tags:
-- dim_supplier
+  - dim_supplier
 title: Dim Supplier
-workspaceDataFilterReferences: []

@@ -22,7 +22,7 @@ from globalmart.verification import (
 )
 
 REPO = Path(__file__).resolve().parents[1]
-LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
+LAYOUT = REPO / "gd_data_product" / "globalmart"
 GENERATED = REPO / "generated" / "workspaces"
 MANIFEST = REPO / "config" / "domains.yaml"
 

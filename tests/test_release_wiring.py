@@ -65,9 +65,24 @@ def test_ci_gates_the_derived_trees_in_order() -> None:
     steps = [step.get("run", "") for step in _load(WORKFLOWS / "ci.yml")["jobs"]["check"]["steps"]]
     split = next(i for i, run in enumerate(steps) if "globalmart split --check" in run)
     domains = next(i for i, run in enumerate(steps) if "domains validate --strict" in run)
-    project = next(i for i, run in enumerate(steps) if "gdcloud project --check" in run)
-    # The domains stay gated though they are local-only; the projection is checked after them.
-    assert domains < split < project
+    # The domains stay gated though they are local-only.
+    assert domains < split
+
+
+def test_stage_b_retired_the_layout_gates() -> None:
+    """ADR 011 Stage B: no layouts/ tree to normalize, no projection to compare."""
+    runs = " ".join(step.get("run", "") for step in _load(WORKFLOWS / "ci.yml")["jobs"]["check"]["steps"])
+    assert "normalize --check" not in runs
+    assert "gdcloud project" not in runs
+
+
+def test_gdcloud_formatting_check_gates_the_tree() -> None:
+    """gd-format-yaml --check is the formatting gate for gd_data_product/, in CI and in make."""
+    workflow = _load(WORKFLOWS / "check_gd_formatting_yaml.yml")
+    assert workflow["name"] == "GoodData YAML Formatting Check"
+    assert "gd-format-yaml" in (WORKFLOWS / "check_gd_formatting_yaml.yml").read_text()
+    makefile = (REPO_ROOT / ".github" / "gdcloud.mk").read_text()
+    assert "gd-format-yaml --data-product-id $(DP) --check" in makefile
 
 
 def test_ci_blocks_a_merge_onto_a_stale_warehouse() -> None:
