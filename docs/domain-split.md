@@ -9,8 +9,8 @@ globalmart split                       # write generated/workspaces/*.json
 globalmart split --dry-run             # report only
 globalmart split --check               # CI gate: committed children match a fresh split
 globalmart split --only sales,hr       # one or two domains
-globalmart publish domains --target demo-cloud          # rehearsal
-globalmart publish domains --target demo-cloud --apply  # write to the org
+globalmart publish domains --target usecases-ai --only <keys>          # rehearsal
+globalmart publish domains --target usecases-ai --only <keys> --apply  # write to the org
 ```
 
 Generated files live in `generated/workspaces/globalmart-<domain>.json` and are committed,

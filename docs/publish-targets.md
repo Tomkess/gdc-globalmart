@@ -29,10 +29,10 @@ per-target variables once you have more than one org: with a shared token, a mis
 
 ```bash
 # Rehearsal — reads, resolves, asserts, diffs. Writes nothing.
-globalmart publish parent --target demo-cloud
+globalmart publish parent --target <profile>
 
 # The same command, for real.
-globalmart publish parent --target demo-cloud --apply
+globalmart publish parent --target <profile> --apply
 ```
 
 **Targets are owned by this repo.** `put_declarative_workspace` has REPLACE semantics: it

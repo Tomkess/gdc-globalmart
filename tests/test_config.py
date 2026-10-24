@@ -28,7 +28,7 @@ def test_loads_demo_cloud_profile(monkeypatch: pytest.MonkeyPatch) -> None:
     assert profile.name == "demo-cloud"
     assert profile.host == "https://petertomko.demo.cloud.gooddata.com"
     assert profile.organization_id == "gm-ddebmti"
-    assert profile.datasource_id == "globalmart-motherduck"
+    assert profile.datasource_id == "gdc_ds_globalmart_motherduck"  # one per database
     assert profile.datasource_schema == "globalmart"
     assert profile.parent_workspace_id == "globalmart"
     assert profile.token == "tok-specific"

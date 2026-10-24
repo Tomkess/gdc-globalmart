@@ -23,7 +23,7 @@ on:
       target:
         description: "Target profile to query"
         required: true
-        default: demo-cloud
+        default: gdcloud-dev
       publish:
         description: "Publish the corpus first (writes to the org)"
         type: boolean
@@ -37,12 +37,16 @@ on:
         default: false
 
 concurrency:
-  group: knowledge-retrieval-${{ github.event.inputs.target || 'demo-cloud' }}
+  group: knowledge-retrieval-${{ github.event.inputs.target || 'gdcloud-dev' }}
   cancel-in-progress: false
 
 jobs:
   retrieval:
     runs-on: ubuntu-latest
+    # TOKEN_GOODDATA is an Environment secret; `develop` holds the dev org's token. The default
+    # target was demo-cloud's legacy `globalmart` workspace, deleted 2026-10-24 (ADR 011), and its
+    # token secret never existed in this repo, so this job had failed every week since.
+    environment: develop
     steps:
       - uses: actions/checkout@v4
 
@@ -72,27 +76,27 @@ jobs:
       - name: Publish the corpus
         if: github.event.inputs.publish == 'true'
         env:
-          GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
+          GLOBALMART_TOKEN__GDCLOUD_DEV: ${{ secrets.TOKEN_GOODDATA }}
         run: |
           uv run globalmart knowledge-docs publish \
-            --target "${{ github.event.inputs.target || 'demo-cloud' }}" --apply \
+            --target "${{ github.event.inputs.target || 'gdcloud-dev' }}" --apply \
             ${{ github.event.inputs.include_domains == 'true' && '--include-domains' || '' }}
 
       # Read-only: reconciles the repo against the org and reports drift. Does not prune.
       - name: Published corpus matches the repo
         env:
-          GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
+          GLOBALMART_TOKEN__GDCLOUD_DEV: ${{ secrets.TOKEN_GOODDATA }}
         run: |
           uv run globalmart knowledge-docs verify \
-            --target "${{ github.event.inputs.target || 'demo-cloud' }}" \
+            --target "${{ github.event.inputs.target || 'gdcloud-dev' }}" \
             ${{ github.event.inputs.include_domains == 'true' && '--include-domains' || '' }}
 
       - name: Questions retrieve their documents
         env:
-          GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
+          GLOBALMART_TOKEN__GDCLOUD_DEV: ${{ secrets.TOKEN_GOODDATA }}
         run: |
           uv run globalmart knowledge-docs retrieval \
-            --target "${{ github.event.inputs.target || 'demo-cloud' }}" \
+            --target "${{ github.event.inputs.target || 'gdcloud-dev' }}" \
             --limit "${{ github.event.inputs.limit || '10' }}"
 
       # And from a domain workspace, which is where an assistant or an A2A lane actually
@@ -103,9 +107,9 @@ jobs:
       - name: Questions retrieve from a domain workspace too
         if: github.event.inputs.include_domains == 'true'
         env:
-          GLOBALMART_TOKEN__DEMO_CLOUD: ${{ secrets.GLOBALMART_TOKEN__DEMO_CLOUD }}
+          GLOBALMART_TOKEN__GDCLOUD_DEV: ${{ secrets.TOKEN_GOODDATA }}
         run: |
           uv run globalmart knowledge-docs retrieval \
-            --target "${{ github.event.inputs.target || 'demo-cloud' }}" \
+            --target "${{ github.event.inputs.target || 'gdcloud-dev' }}" \
             --workspace-id globalmart-finance \
             --limit "${{ github.event.inputs.limit || '10' }}"
