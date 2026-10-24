@@ -43,8 +43,8 @@ taken" had in effect already happened. And MotherDuck is the better source anywa
 what the published workspaces actually query, so it is data known to work rather than an
 artifact believed to have produced it.
 
-`scripts/take_custody.py` is the one-shot that did it. It is not part of the CLI; it is kept
-so the provenance is auditable and the transfer repeatable.
+`scripts/take_custody.py` was the one-shot that did it. It was deleted on 2026-10-24, once ADR 008
+had removed the rows it produced; `git log --all -- scripts/take_custody.py` recovers it.
 
 ## What is committed
 
