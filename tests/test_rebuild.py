@@ -12,7 +12,7 @@ from typing import Any
 
 import pytest
 
-from globalmart.config import TargetProfile
+from globalmart.config import GlobalmartError, TargetProfile
 from globalmart.domains import load_domains
 from globalmart.rebuild import (
     RebuildAbortedError,
@@ -125,9 +125,9 @@ def test_a_rehearsal_plans_every_step_and_runs_none(manifest, tmp_path: Path) ->
         "verify-data",
         "load-warehouse",
         "publish-parent",
-        "publish-knowledge-docs",
         "split",
         "publish-domains",
+        "publish-knowledge-docs",
         "verify",
     ]
     # Only the probe actually ran; everything else is planned.
@@ -217,9 +217,9 @@ def test_a_successful_chain_runs_every_step_in_order(
         "verify-data",
         "load-warehouse",
         "publish-parent",
-        "publish-knowledge-docs",
         "split",
         "publish-domains",
+        "publish-knowledge-docs",
         "verify",
     ]
     assert report.passed
@@ -230,13 +230,96 @@ def test_a_successful_chain_runs_every_step_in_order(
 # --- the documentation corpus step (FEAT-015) ---------------------------------
 
 
-def test_the_corpus_is_published_right_after_the_parent(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
-    """It writes to the parent workspace and children inherit at read time, so it does not
-    wait on `split`."""
+def test_the_corpus_is_published_only_after_the_domain_workspaces_exist(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    """FEAT-018: the step writes into every child, and `publish_corpus` does not tolerate a
+    404, so on a fresh org it must wait until `publish-domains` has created them."""
     report = cold_rebuild(ProbeSdk([]), profile(), manifest, apply=False, options=with_corpus(tmp_path))
 
     names = [step.name for step in report.steps]
-    assert names.index("publish-knowledge-docs") == names.index("publish-parent") + 1
+    assert names.index("split") < names.index("publish-domains") < names.index("publish-knowledge-docs")
+    assert names[names.index("publish-knowledge-docs") + 1] == "verify"
+
+
+def test_skip_data_keeps_the_corpus_after_the_domains(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    report = cold_rebuild(
+        ProbeSdk([]), profile(), manifest, apply=False, options=with_corpus(tmp_path, skip_data=True)
+    )
+
+    assert [step.name for step in report.steps] == [
+        "probe-org",
+        "publish-parent",
+        "split",
+        "publish-domains",
+        "publish-knowledge-docs",
+        "verify",
+    ]
+
+
+def test_a_skipped_corpus_step_keeps_its_place_in_the_report(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    report = cold_rebuild(
+        ProbeSdk([]),
+        profile(),
+        manifest,
+        apply=False,
+        options=with_corpus(tmp_path, skip_knowledge_docs=True),
+    )
+
+    names = [step.name for step in report.steps]
+    assert names.index("publish-knowledge-docs") == names.index("publish-domains") + 1
+
+
+def test_every_corpus_workspace_exists_before_the_corpus_step_runs(
+    manifest, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:  # type: ignore[no-untyped-def]
+    """The cold-org case as a fake: a write into a workspace not yet created is the 404."""
+    import globalmart.rebuild as rebuild_module
+    from globalmart.knowledge_docs import corpus_workspaces
+
+    created: set[str] = set()
+
+    def runner_for(name: str) -> Any:
+        def run(sdk: Any, profile_: Any, manifest_: Any, opts: Any) -> str:
+            if name == "publish-parent":
+                created.add(manifest_.parent_workspace_id)
+            elif name == "publish-domains":
+                created.update(manifest_.by_key(k).workspace_id for k in manifest_.keys())  # noqa: SIM118
+            elif name == "publish-knowledge-docs":
+                missing = set(corpus_workspaces(manifest_)) - created
+                if missing:
+                    raise RuntimeError(f"404: {sorted(missing)}")
+            return "ok"
+
+        return run
+
+    monkeypatch.setattr(rebuild_module, "step_runner", runner_for)
+
+    report = cold_rebuild(ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path))
+    assert report.passed
+
+
+def test_a_failed_domain_publish_never_reaches_the_corpus_step(
+    manifest, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:  # type: ignore[no-untyped-def]
+    """No corpus write into workspaces that were never created."""
+    import globalmart.rebuild as rebuild_module
+
+    calls: list[str] = []
+
+    def runner_for(name: str) -> Any:
+        def run(sdk: Any, profile_: Any, manifest_: Any, opts: Any) -> str:
+            calls.append(name)
+            if name == "publish-domains":
+                raise GlobalmartError("publishing domain 'sales' failed: 503")
+            return "ok"
+
+        return run
+
+    monkeypatch.setattr(rebuild_module, "step_runner", runner_for)
+
+    with pytest.raises(RebuildAbortedError, match="publish-domains"):
+        cold_rebuild(ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path))
+    assert calls[-1] == "publish-domains"
+    assert "publish-knowledge-docs" not in calls
 
 
 def test_an_absent_corpus_is_a_named_skip_not_an_omission(manifest, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
@@ -303,8 +386,11 @@ def test_a_failed_corpus_publish_stops_the_chain(
     is the kind of "done" this repo exists to stop."""
     import globalmart.rebuild as rebuild_module
 
+    calls: list[str] = []
+
     def runner_for(name: str) -> Any:
         def run(sdk: Any, profile_: Any, manifest_: Any, opts: Any) -> str:
+            calls.append(name)
             if name == "publish-knowledge-docs":
                 raise RuntimeError("2 knowledge document(s) failed to upsert")
             return "ok"
@@ -315,6 +401,7 @@ def test_a_failed_corpus_publish_stops_the_chain(
 
     with pytest.raises(RebuildAbortedError, match="publish-knowledge-docs"):
         cold_rebuild(ProbeSdk([]), profile(), manifest, apply=True, options=with_corpus(tmp_path))
+    assert "verify" not in calls
 
 
 # --- the corpus step: every deployed workspace, never the org level -----------

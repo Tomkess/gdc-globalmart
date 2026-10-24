@@ -52,6 +52,18 @@ tables:
         currency_id:
           currency_code: CAD
   dim_geography_region:
+    # Which country each region belongs to, in row order. Left to chance, 5 of the 8 regions
+    # fell in Canada, and with them ~70% of cities, stores and orders. A US-headquartered
+    # retailer reads better at roughly three US regions to one Canadian.
+    records:
+    - ref: {country_id: {country_name: United States}}
+    - ref: {country_id: {country_name: Canada}}
+    - ref: {country_id: {country_name: United States}}
+    - ref: {country_id: {country_name: United States}}
+    - ref: {country_id: {country_name: United States}}
+    - ref: {country_id: {country_name: Canada}}
+    - ref: {country_id: {country_name: United States}}
+    - ref: {country_id: {country_name: United States}}
     by_parent:
     - column: region_name
       via: country_id
@@ -81,8 +93,7 @@ tables:
       values:
         Northeast:
         - Boston
-        - New
-        - York
+        - New York
         - Philadelphia
         - Pittsburgh
         - Hartford
@@ -418,6 +429,12 @@ tables:
     template:
       store_name: GlobalMart {city_id.city_name}
   dim_customer:
+    # Home country, cycling in row order: the same three-to-one split as the regions.
+    records:
+    - ref: {country_id: {country_name: United States}}
+    - ref: {country_id: {country_name: United States}}
+    - ref: {country_id: {country_name: Canada}}
+    - ref: {country_id: {country_name: United States}}
     compose:
       customer_name:
       - - Aaron

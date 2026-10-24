@@ -178,6 +178,15 @@ def test_paired_columns_agree_and_countries_pay_in_their_currency(generated) -> 
     assert paid == {"United States": "USD", "Canada": "CAD"}
 
 
+def test_the_us_carries_most_of_the_business(generated) -> None:  # type: ignore[no-untyped-def]
+    """Left to chance, 5 of 8 regions fell in Canada and ~70% of orders with them."""
+    countries = {r["country_id"]: r["country_name"] for r in _rows(generated, "dim_geography_country")}
+    for table in ("dim_geography_region", "dim_store", "dim_customer"):
+        rows = _rows(generated, table)
+        us = sum(countries[r["country_id"]] == "United States" for r in rows)
+        assert us / len(rows) >= 0.6, (table, us, len(rows))
+
+
 def test_dimension_names_are_distinct(generated) -> None:  # type: ignore[no-untyped-def]
     for table, column in [
         ("dim_customer", "customer_name"),
