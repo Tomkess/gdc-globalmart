@@ -26,6 +26,7 @@ from __future__ import annotations
 import re
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
+from datetime import date, timedelta
 from enum import StrEnum
 
 from gd_agents.lane import Answer
@@ -86,17 +87,83 @@ def _lane_completeness(answers: Sequence[Answer]) -> Result:
     return Result("lane_completeness", Verdict.PASS, "every lane answered with data")
 
 
+def _today() -> date:
+    """The date relative windows are resolved against. A function so a test can pin it."""
+    return date.today()
+
+
+_WINDOW = re.compile(r"^\s*(.+?)\.\.(.+?)(?:\s+([A-Za-z]+))?\s*$")
+_ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}")
+
+
+def _shift_months(day: date, months: int) -> date:
+    index = day.year * 12 + day.month - 1 + months
+    return date(index // 12, index % 12 + 1, 1)
+
+
+def _period(granularity: str, offset: int, today: date) -> tuple[date, date] | None:
+    """The first and last day of the period `offset` whole periods from the current one."""
+    unit = granularity.upper()
+    if unit == "DAY":
+        day = today + timedelta(days=offset)
+        return day, day
+    if unit == "WEEK":
+        start = today - timedelta(days=today.weekday()) + timedelta(weeks=offset)
+        return start, start + timedelta(days=6)
+    months = {"MONTH": 1, "QUARTER": 3, "YEAR": 12}.get(unit)
+    if months is None:
+        return None
+    first = date(today.year, 1, 1) if months == 12 else date(today.year, today.month, 1)
+    if months == 3:
+        first = date(today.year, (today.month - 1) // 3 * 3 + 1, 1)
+    start = _shift_months(first, offset * months)
+    return start, _shift_months(start, months) - timedelta(days=1)
+
+
+def normalise_window(window: str, today: date | None = None) -> str:
+    """One window as an absolute `YYYY-MM-DD..YYYY-MM-DD` range, where it can be resolved.
+
+    Found live 2026-10-24: marketing's sub-agent filtered `2026-07-01..2026-09-30` and
+    customer's `-1..-1 QUARTER`. Both meant last quarter, and `time_window_match` refused the
+    pair because the strings differed. Lanes express a period however their query did, so the
+    check has to compare periods, not spellings.
+
+    Relative bounds are whole periods back from the current one (GoodData's `from`/`to`
+    integers): `-1..-1 QUARTER` is the previous calendar quarter, `-5..0 MONTH` the last six
+    months including this one. Anything not recognisable is returned unchanged, so it can
+    still match itself but never matches by accident.
+    """
+    match = _WINDOW.match(window or "")
+    if not match:
+        return window
+    low, high, granularity = match.group(1), match.group(2), match.group(3) or ""
+    if _ISO_DATE.match(low) and _ISO_DATE.match(high):
+        return f"{low[:10]}..{high[:10]}"
+    try:
+        first, last = int(low), int(high)
+    except ValueError:
+        return window
+    reference = today or _today()
+    start, end = _period(granularity, first, reference), _period(granularity, last, reference)
+    if start is None or end is None:
+        return window
+    return f"{start[0].isoformat()}..{end[1].isoformat()}"
+
+
 def _windows_of(answer: Answer) -> set[str]:
-    """Every period the lane covered, as it expressed them.
+    """Every period the lane covered, resolved to absolute dates so spellings compare.
 
     `time_from` and `time_to` are one window's two ends, so they collapse to a single
     string. Reading them as two separate values would let a lane covering April–September
     "share" a window with one covering April–June, on the strength of the start date alone.
     """
     if answer.shape.windows:
-        return set(answer.shape.windows)
+        return {normalise_window(window) for window in answer.shape.windows}
+    if answer.shape.time_from and answer.shape.time_from == answer.shape.time_to:
+        # One string standing for the whole window — how a lane reports `-1..-1 QUARTER`.
+        return {normalise_window(answer.shape.time_from)}
     if answer.shape.time_from or answer.shape.time_to:
-        return {f"{answer.shape.time_from or '?'}..{answer.shape.time_to or '?'}"}
+        return {normalise_window(f"{answer.shape.time_from or '?'}..{answer.shape.time_to or '?'}")}
     return set()
 
 

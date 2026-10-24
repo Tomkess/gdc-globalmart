@@ -19,6 +19,25 @@ from gd_agents.transport import Host, TransportError
 
 FINDINGS_PATH = Path("docs/a2a-gaps.md")
 
+#: Used only when there is no registry to read a token variable from.
+FALLBACK_TOKEN_ENV = "GLOBALMART_TOKEN__DEMO_CLOUD"
+
+
+def default_token_env(registry_path: Path = DEFAULT_REGISTRY_PATH) -> str:
+    """The token variable the existing registry already names, else the old default.
+
+    Re-profiling an org with a different org's token is the mistake this prevents: the
+    registry says which org it describes, so its `token_env` is the right default.
+    """
+    import yaml
+
+    try:
+        raw = yaml.safe_load(Path(registry_path).read_text(encoding="utf-8")) or {}
+    except OSError, yaml.YAMLError:
+        return FALLBACK_TOKEN_ENV
+    token_env = raw.get("token_env") if isinstance(raw, dict) else None
+    return str(token_env) if token_env else FALLBACK_TOKEN_ENV
+
 
 def _host(args: argparse.Namespace) -> Host:
     token = os.environ.get(args.token_env)
@@ -40,6 +59,7 @@ def cmd_profile(args: argparse.Namespace) -> int:
     if not workspaces:
         print("error: --workspaces is empty", file=sys.stderr)
         return 1
+    args.token_env = args.token_env or default_token_env(Path(args.out))
 
     registry, probes = build_registry(_host(args), workspaces, token_env=args.token_env)
 
@@ -184,7 +204,26 @@ def _lanes(registry: Registry, protocol: str = "a2a") -> dict[str, object]:
             for entry in registry.entries
         }
 
-    raise RegistryError(f"unknown protocol {protocol!r}: expected 'a2a' or 'mcp'")
+    raise RegistryError(
+        f"unknown protocol {protocol!r}: expected 'a2a' or 'mcp' "
+        "('mcp-flat' has no lanes — it is one host, see `_flat_host`)"
+    )
+
+
+def _flat_host(registry: Registry) -> object:
+    """FEAT-014's flat arm: one host context holding every workspace's tools.
+
+    Not a set of lanes, because flat routes by tool choice rather than through the router —
+    see `mcp/flat.py` for exactly which orchestrator stages it shares and which it cannot.
+    """
+    from gd_agents.mcp.flat import FlatHost
+    from gd_agents.mcp.tools import load_definitions
+
+    token = os.environ.get(registry.token_env)
+    if not token:
+        raise RegistryError(f"No token in ${registry.token_env}.")
+    host = Host(url=registry.host, token=token)
+    return FlatHost(host=host, registry=registry, definitions=load_definitions())
 
 
 def _protocol(args: argparse.Namespace) -> str:
@@ -200,12 +239,15 @@ def cmd_ask(args: argparse.Namespace) -> int:
     from gd_agents.orchestrator.run import ask
 
     registry = Registry.load(Path(args.registry))
-    run = ask(
-        args.question,
-        registry,
-        _lanes(registry, _protocol(args)),  # type: ignore[arg-type]
-        inject_failure=args.inject_failure,
-    )
+    if _protocol(args) == "mcp-flat":
+        run = _flat_host(registry).ask(args.question)  # type: ignore[attr-defined]
+    else:
+        run = ask(
+            args.question,
+            registry,
+            _lanes(registry, _protocol(args)),  # type: ignore[arg-type]
+            inject_failure=args.inject_failure,
+        )
 
     if args.json:
         print(json.dumps(run.payload(), indent=2))
@@ -385,6 +427,91 @@ def cmd_rehearse(args: argparse.Namespace) -> int:
     return 0 if not broken else 1
 
 
+def cmd_compare(args: argparse.Namespace) -> int:
+    """FEAT-014 AC 11: the script over every protocol arm, one report.
+
+    Single-turn questions only. Conversations need a session per arm, which `rehearse` runs
+    for a2a and mcp; flat has no session and is measured on single questions. Entries that
+    exist to demonstrate a lane failure or a retry are skipped — they measure the demo, not
+    the protocol.
+    """
+    from gd_agents.compare import VARIANTS, Row, load_prices, measure, run_compare, write_report
+    from gd_agents.orchestrator.plan import make_client
+    from gd_agents.orchestrator.run import ask
+    from gd_agents.script import Question, load_script
+
+    registry = Registry.load(Path(args.registry))
+    questions, _ = load_script(Path(args.script))
+    wanted = [q.strip() for q in (args.only or "").split(",") if q.strip()]
+    if wanted:
+        unknown = sorted(set(wanted) - {q.id for q in questions})
+        if unknown:
+            print(f"error: no question {', '.join(unknown)} in {args.script}", file=sys.stderr)
+            return 1
+        questions = tuple(q for q in questions if q.id in wanted)
+    questions = tuple(
+        q for q in questions if not (q.inject_failure or q.enrich or q.reply_to or q.from_memory)
+    )
+    if args.limit:
+        questions = questions[: args.limit]
+    variants = [v.strip() for v in args.variants.split(",") if v.strip()]
+    bad = sorted(set(variants) - set(VARIANTS))
+    if bad or not questions:
+        problem = f"unknown variant {', '.join(bad)}" if bad else "no questions selected"
+        print(f"error: {problem}", file=sys.stderr)
+        return 1
+
+    client, model = make_client()
+    prices = load_prices(Path(args.prices))
+    runners = {}
+    if "a2a" in variants:
+        a2a_lanes = _lanes(registry, "a2a")
+        runners["a2a"] = lambda q: measure(
+            ask(q.question, registry, a2a_lanes, client=client, model=model),  # type: ignore[arg-type]
+            q,
+            "a2a",
+            model=model,
+            prices=prices,
+        )
+    if "mcp" in variants:
+        mcp_lanes = _lanes(registry, "mcp")
+        runners["mcp"] = lambda q: measure(
+            ask(q.question, registry, mcp_lanes, client=client, model=model),  # type: ignore[arg-type]
+            q,
+            "mcp",
+            model=model,
+            prices=prices,
+        )
+    if "mcp-flat" in variants:
+        from gd_agents.mcp.flat import FlatHost
+
+        flat = _flat_host(registry)
+        assert isinstance(flat, FlatHost)
+        flat.client, flat.model = client, model
+
+        def run_flat(q: Question) -> Row:
+            run = flat.ask(q.question)
+            return measure(
+                run,
+                q,
+                "mcp-flat",
+                model=model,
+                prices=prices,
+                host_turns=flat.last.turns,
+                host_text=flat.last.text,
+                cross_workspace=flat.last.cross_workspace,
+            )
+
+        runners["mcp-flat"] = run_flat
+
+    print(f"model    : {model}")
+    print(f"running  : {len(questions)} question(s) x {len(runners)} variant(s) — this calls live agents\n")
+    rows = run_compare(questions, runners, progress=print)
+    md_path, json_path = write_report(rows, model=model, script=args.script, out_dir=Path(args.out))
+    print(f"\nWrote {md_path} and {json_path}")
+    return 0 if not any(row.error for row in rows) else 1
+
+
 def cmd_serve(args: argparse.Namespace) -> int:
     """Serve the minimal viewer.
 
@@ -423,8 +550,9 @@ def main(argv: list[str] | None = None) -> int:
     profile.add_argument("--host", required=True, help="GoodData org base url")
     profile.add_argument(
         "--token-env",
-        default="GLOBALMART_TOKEN__DEMO_CLOUD",
-        help="name of the env var holding the API token — never the token itself",
+        default=None,
+        help="name of the env var holding the API token — never the token itself. Defaults to "
+        f"the existing registry's token_env, else {FALLBACK_TOKEN_ENV}",
     )
     profile.add_argument("--workspaces", required=True, help="comma-separated workspace ids")
     profile.add_argument("--out", default=str(DEFAULT_REGISTRY_PATH))
@@ -479,10 +607,23 @@ def main(argv: list[str] | None = None) -> int:
     ask_cmd.add_argument(
         "--protocol",
         default="a2a",
-        choices=("a2a", "mcp"),
-        help="which lane implementation to use; everything above the lane is identical",
+        choices=("a2a", "mcp", "mcp-flat"),
+        help="a2a / mcp (nested): which lane implementation; everything above the lane is "
+        "identical. mcp-flat: one host with every workspace's tools, routing by tool choice",
     )
     ask_cmd.set_defaults(func=cmd_ask)
+
+    compare = actions.add_parser(
+        "compare", help="run the script over a2a, mcp and mcp-flat and write the comparison to reports/"
+    )
+    compare.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
+    compare.add_argument("--script", default="config/questions.yaml")
+    compare.add_argument("--only", default="", help="comma-separated question ids")
+    compare.add_argument("--limit", type=int, default=0, help="at most N questions — the spend cap")
+    compare.add_argument("--variants", default="a2a,mcp,mcp-flat")
+    compare.add_argument("--prices", default="config/prices.yaml")
+    compare.add_argument("--out", default="reports")
+    compare.set_defaults(func=cmd_compare)
 
     serve_cmd = actions.add_parser("serve", help="serve the minimal viewer")
     serve_cmd.add_argument("--registry", default=str(DEFAULT_REGISTRY_PATH))
