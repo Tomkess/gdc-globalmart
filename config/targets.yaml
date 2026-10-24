@@ -7,14 +7,19 @@
 # Adding a target is an entry here, never a code change (STEERING § Portability Contract).
 
 targets:
+  # LEGACY. Its parent `globalmart` and data source `globalmart-motherduck` were deleted from
+  # demo.cloud on 2026-10-24 (backups under backups/demo-cloud/): gdcloud's globalmart_dev/_test
+  # replaced them, and a second data source on the same MotherDuck database made DuckDB refuse
+  # connections. Kept so old commands resolve; it points at gdcloud's data source so a publish
+  # through it can never recreate the conflict. Release through gdcloud, not this profile.
   demo-cloud:
     host: https://petertomko.demo.cloud.gooddata.com
     organization_id: gm-ddebmti
-    datasource_id: globalmart-motherduck
+    datasource_id: gdc_ds_globalmart_motherduck
     datasource_schema: globalmart
     parent_workspace_id: globalmart
     warehouse_type: motherduck
-    datasource_name: GlobalMart MotherDuck
+    datasource_name: GlobalMart MotherDuck (gdcloud)
     datasource_url: jdbc:duckdb:md:gd_demo
     datasource_database: gd_demo
     # The NAME of the env var holding the token — never the value.
@@ -40,6 +45,10 @@ targets:
   # touching the `globalmart` schema the live workspaces read. It is the only profile in
   # this file with data_owned: true, and that is the point of the flag (ADR 004). Since
   # 2026-09-21 demo-cloud is owned too — see the note above and ADR 004's reverse trigger.
+  #
+  # Use it for `data load` / `data ensure` only. Its data source names a different schema, so it
+  # must never share gdcloud's data source id, and publishing through it would recreate a second
+  # data source on the same database on this org (see demo-cloud above).
   demo-cloud-rebuild:
     host: https://petertomko.demo.cloud.gooddata.com
     organization_id: gm-ddebmti

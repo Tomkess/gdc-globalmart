@@ -5,10 +5,10 @@ visualization executing successfully and no manual step". This is the harness th
 whether that sentence is true today.
 
 ```bash
-globalmart verify --target demo-cloud                    # the four axes
-globalmart verify --target demo-cloud --list-only        # check structure, execute nothing
-globalmart verify --target demo-cloud --fail-on-empty    # treat zero rows as a failure
-globalmart verify equivalence --target-a demo-cloud --target-b usecases-ai
+globalmart verify --target gdcloud-dev                   # the four axes
+globalmart verify --target gdcloud-dev --list-only       # check structure, execute nothing
+globalmart verify --target gdcloud-dev --fail-on-empty   # treat zero rows as a failure
+globalmart verify equivalence --target-a gdcloud-test --target-b gdcloud-preprod
 globalmart rebuild --target <profile>                    # the whole chain, rehearsal
 globalmart rebuild --target <profile> --apply
 ```

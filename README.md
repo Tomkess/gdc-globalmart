@@ -100,7 +100,7 @@ uv sync --extra data
 # 1. Credentials: a profile in config/targets.yaml, its token in the environment.
 #    Tokens are env-only and never live in YAML.
 export GLOBALMART_TOKEN__DEMO_CLOUD=...
-globalmart targets inspect --target demo-cloud     # org id + datasources, read from the host
+globalmart targets inspect --target gdcloud-dev    # org id + datasources, read from the host
 
 # 2. Check the committed artifacts before touching anything remote.
 globalmart data verify                              # DDL agrees with the SQL datasets
