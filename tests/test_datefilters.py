@@ -91,3 +91,46 @@ def test_an_override_wins_over_the_derivation(model) -> None:  # type: ignore[no
 
     assert report.bound[dashboard.id] == "fiscal_date"
     assert "fiscal_date" in json.dumps(context.content)
+
+
+# --- AC 7: the two facts without a date column are decided, not left open -----------------
+
+
+def test_no_fact_is_undecided_about_dates(model) -> None:  # type: ignore[no-untyped-def]
+    """Every fact reaches a date, or is allowlisted with a reason. The bind gate enforces it."""
+    from globalmart.datefilters import undecided_facts
+
+    assert undecided_facts(model) == {}
+    assert bind_date_filters(model).undecided_facts == {}
+
+
+def test_aged_inventory_is_allowlisted_with_a_reason_and_is_the_only_entry() -> None:
+    from globalmart.datefilters import UNDATED_FACTS
+
+    assert set(UNDATED_FACTS) == {"fact_aged_inventory"}
+    assert "snapshot" in UNDATED_FACTS["fact_aged_inventory"]
+
+
+def test_purchase_order_lines_are_dated_through_their_header(model) -> None:  # type: ignore[no-untyped-def]
+    """No date column of its own, but `po_id` joins the header, whose `po_date` is the date."""
+    from globalmart.datefilters import UNDATED_FACTS, _dates_reached_transitively
+    from globalmart.prune import build_entity_index
+
+    index = build_entity_index(model.ldm)
+    assert "transaction_date" not in index.references["fact_purchase_order_line"]
+    assert "fact_purchase_order_header" in index.references["fact_purchase_order_line"]
+    assert _dates_reached_transitively(index, "fact_purchase_order_line") == {"transaction_date"}
+    assert "fact_purchase_order_line" not in UNDATED_FACTS
+
+
+def test_a_new_dateless_fact_or_a_stale_entry_fails_the_bind(model) -> None:  # type: ignore[no-untyped-def]
+    from globalmart.datefilters import undecided_facts
+
+    without_entry = undecided_facts(model, allowlist={})
+    assert set(without_entry) == {"fact_aged_inventory"}
+
+    stale = undecided_facts(model, allowlist={"fact_aged_inventory": "x", "fact_sales_gone": "y"})
+    assert set(stale) == {"fact_sales_gone"}
+
+    dated = undecided_facts(model, allowlist={"fact_aged_inventory": "x", "fact_purchase_order_line": "y"})
+    assert "fact_purchase_order_line" in dated

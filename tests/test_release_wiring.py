@@ -101,3 +101,15 @@ def test_a_refresh_also_invalidates_the_other_orgs_cache() -> None:
     runs = " ".join(step.get("run", "") for step in notify["steps"])
     assert "data notify --target gdcloud-prod --apply" in runs
     assert jobs["ensure"]["outputs"]["loaded"] == "${{ steps.ensure.outputs.loaded }}"
+
+
+def test_post_deploy_gates_date_filters_on_the_deployed_master() -> None:
+    """FEAT-011 AC 6: the live two-window gate runs on what was just deployed, read-only."""
+    job = _load(POST_DEPLOY)["jobs"]["datefilters"]
+    assert job["needs"] == "scope"
+    assert job["environment"] == "${{ needs.scope.outputs.github_environment }}"
+    runs = " ".join(step.get("run", "") for step in job["steps"])
+    assert "globalmart datefilters gate" in runs
+    assert '--target "gdcloud-${{ needs.scope.outputs.environment }}"' in runs
+    assert '--workspace-id "${{ needs.scope.outputs.workspace_id }}"' in runs
+    assert "--apply" not in runs

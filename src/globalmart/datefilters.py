@@ -45,6 +45,62 @@ class DateFilterError(GlobalmartError):
     """A dashboard's date filter cannot be bound without guessing."""
 
 
+#: Fact datasets that reach no date instance at all, each decided rather than overlooked
+#: (FEAT-011 AC 7). A date filter cannot touch these, by design; a tile built on one shows
+#: the same number under every window, and the live gate skips it for that reason.
+#:
+#: `fact_purchase_order_line` is deliberately NOT here. It has no date column of its own, but
+#: it references `fact_purchase_order_header`, whose `po_date` is `transaction_date`, so a
+#: date filter reaches its lines through the header. `undecided_facts` walks references
+#: transitively and finds that; `tests/test_datefilters.py` pins it.
+UNDATED_FACTS: dict[str, str] = {
+    "fact_aged_inventory": (
+        "a point-in-time snapshot of stock by age: `age_days` is its time axis, and no event "
+        "date exists to filter on (aged_id, product_id, store_id, age_days, quantity)"
+    ),
+}
+
+
+def _dates_reached_transitively(index: Any, dataset_id: str) -> set[str]:
+    """Date instances reachable from a dataset along references, any number of hops."""
+    reached: set[str] = set()
+    seen: set[str] = set()
+    pending = [dataset_id]
+    while pending:
+        current = pending.pop()
+        if current in seen:
+            continue
+        seen.add(current)
+        for target in index.references.get(current, ()):
+            if target in index.date_instance_ids:
+                reached.add(target)
+            else:
+                pending.append(target)
+    return reached
+
+
+def undecided_facts(model: Any, *, allowlist: dict[str, str] | None = None) -> dict[str, str]:
+    """Fact datasets whose relation to dates is undecided: fact id -> why it is a finding.
+
+    Two ways to be undecided: a `fact_*` dataset that reaches no date and is not in the
+    allowlist, or an allowlist entry that no longer matches the model (it reaches a date
+    now, or it is gone) — a stale entry would hide the next dateless fact behind its name.
+    """
+    allowed = UNDATED_FACTS if allowlist is None else allowlist
+    index = build_entity_index(model.ldm)
+    facts = sorted(dataset_id for dataset_id in index.dataset_ids if dataset_id.startswith("fact_"))
+    findings: dict[str, str] = {}
+    for fact in facts:
+        dated = bool(_dates_reached_transitively(index, fact))
+        if not dated and fact not in allowed:
+            findings[fact] = "reaches no date and is not in UNDATED_FACTS"
+        elif dated and fact in allowed:
+            findings[fact] = "is in UNDATED_FACTS but reaches a date — remove the entry"
+    for fact in sorted(set(allowed) - set(facts)):
+        findings[fact] = "is in UNDATED_FACTS but no longer exists — remove the entry"
+    return findings
+
+
 @dataclass
 class BindReport:
     dashboards: int = 0
@@ -53,9 +109,11 @@ class BindReport:
     no_date_filter: tuple[str, ...] = ()
     unresolved: dict[str, tuple[str, ...]] = field(default_factory=dict)
     """Dashboard id -> the date instances it reached. Empty tuple means none at all."""
+    undecided_facts: dict[str, str] = field(default_factory=dict)
+    """Fact id -> why its relation to dates is undecided (AC 7). Must be empty."""
 
     def ok(self) -> bool:
-        return not self.unresolved
+        return not self.unresolved and not self.undecided_facts
 
     def summary_lines(self) -> list[str]:
         lines = [
@@ -74,6 +132,10 @@ class BindReport:
             for dashboard, reached in sorted(self.unresolved.items())[:10]:
                 found = ", ".join(reached) if reached else "none"
                 lines.append(f"  {dashboard}: reached {found}")
+        if self.undecided_facts:
+            lines.append(f"UNDECIDED FACTS   : {len(self.undecided_facts)}")
+            for fact, reason in sorted(self.undecided_facts.items()):
+                lines.append(f"  {fact}: {reason}")
         return lines
 
 
@@ -92,75 +154,87 @@ def _identifiers_in(obj: Any) -> set[str]:
     return {ref.id for ref in iter_entity_refs(obj)}
 
 
-def date_instances_for(model: Any, dashboard: Any) -> tuple[str, ...]:
-    """Which date instances one dashboard's content actually depends on.
+class DateReach:
+    """Which date instances a visualization's content reaches. Index built once per model.
 
-    Walks visualizations, then the metrics they use and the metrics *those* use, down to the
+    Walks a visualization, then the metrics it uses and the metrics *those* use, down to the
     facts and labels that resolve to datasets, then out along dataset references to any date
-    instance. Returns them sorted, so the caller decides what to do with none or several
-    rather than being handed a guess.
+    instance. The dashboard derivation and the live gate both ask this one question, so they
+    cannot disagree about what a date filter can reach.
     """
-    index = build_entity_index(model.ldm)
-    analytics = model.analytics
 
-    metrics_by_id = {metric.id: metric for metric in analytics.metrics}
-    visualizations = {viz.id: viz for viz in analytics.visualization_objects}
+    def __init__(self, model: Any) -> None:
+        self.index = build_entity_index(model.ldm)
+        analytics = model.analytics
+        self.metrics_by_id = {metric.id: metric for metric in analytics.metrics or []}
+        self.visualizations = {viz.id: viz for viz in analytics.visualization_objects or []}
 
-    seen_metrics: set[str] = set()
-    identifiers: set[str] = set()
-
-    def absorb_metric(metric_id: str) -> None:
-        if metric_id in seen_metrics:
+    def _metric_identifiers(self, metric_id: str, seen: set[str], identifiers: set[str]) -> None:
+        if metric_id in seen:
             return
-        seen_metrics.add(metric_id)
-        metric = metrics_by_id.get(metric_id)
+        seen.add(metric_id)
+        metric = self.metrics_by_id.get(metric_id)
         if metric is None:
             return
         maql = (metric.content or {}).get("maql")
         for ref in iter_maql_refs(maql):
             if ref.kind == "metric":
-                absorb_metric(ref.id)
+                self._metric_identifiers(ref.id, seen, identifiers)
             else:
                 identifiers.add(ref.id)
 
-    for viz_id in _visualization_ids(dashboard):
-        viz = visualizations.get(viz_id)
-        if viz is None:
-            continue
-        identifiers |= _identifiers_in(viz)
-        # A measure names a metric, or carries raw MAQL inline. Both are how a
-        # visualization reaches a fact, and therefore a dataset, and therefore a date.
-        for ref in iter_metric_refs(viz):
-            absorb_metric(ref.id)
-        for _, maql in iter_inline_maql(viz):
-            for inline in iter_maql_refs(maql):
-                if inline.kind == "metric":
-                    absorb_metric(inline.id)
-                else:
-                    identifiers.add(inline.id)
-
-    reached: set[str] = set()
-    for identifier in identifiers:
-        # A label or fact id carries its owner as a prefix — `transaction_date.month`
-        # resolves to the date instance directly, which is the common case here.
-        head = identifier.split(".", 1)[0]
-        for candidate in (identifier, head):
-            if candidate in index.date_instance_ids:
-                reached.add(candidate)
-                break
-        else:
-            owner = index.owner_of(identifier) or index.owner_of(head)
-            if owner is None:
+    def identifiers_of(self, viz_ids: set[str] | list[str] | tuple[str, ...]) -> set[str]:
+        seen_metrics: set[str] = set()
+        identifiers: set[str] = set()
+        for viz_id in viz_ids:
+            viz = self.visualizations.get(viz_id)
+            if viz is None:
                 continue
-            _, owner_id = owner
-            if owner_id in index.date_instance_ids:
-                reached.add(owner_id)
-                continue
-            for target in index.references.get(owner_id, ()):
-                if target in index.date_instance_ids:
-                    reached.add(target)
+            identifiers |= _identifiers_in(viz)
+            # A measure names a metric, or carries raw MAQL inline. Both are how a
+            # visualization reaches a fact, and therefore a dataset, and therefore a date.
+            for ref in iter_metric_refs(viz):
+                self._metric_identifiers(ref.id, seen_metrics, identifiers)
+            for _, maql in iter_inline_maql(viz):
+                for inline in iter_maql_refs(maql):
+                    if inline.kind == "metric":
+                        self._metric_identifiers(inline.id, seen_metrics, identifiers)
+                    else:
+                        identifiers.add(inline.id)
+        return identifiers
 
-    return tuple(sorted(reached))
+    def dates_of_identifiers(self, identifiers: set[str]) -> set[str]:
+        index = self.index
+        reached: set[str] = set()
+        for identifier in identifiers:
+            # A label or fact id carries its owner as a prefix — `transaction_date.month`
+            # resolves to the date instance directly, which is the common case here.
+            head = identifier.split(".", 1)[0]
+            for candidate in (identifier, head):
+                if candidate in index.date_instance_ids:
+                    reached.add(candidate)
+                    break
+            else:
+                owner = index.owner_of(identifier) or index.owner_of(head)
+                if owner is None:
+                    continue
+                _, owner_id = owner
+                if owner_id in index.date_instance_ids:
+                    reached.add(owner_id)
+                    continue
+                for target in index.references.get(owner_id, ()):
+                    if target in index.date_instance_ids:
+                        reached.add(target)
+        return reached
+
+    def for_visualizations(self, viz_ids: set[str] | list[str] | tuple[str, ...]) -> tuple[str, ...]:
+        """Sorted, so the caller decides what to do with none or several — never a guess."""
+        return tuple(sorted(self.dates_of_identifiers(self.identifiers_of(viz_ids))))
+
+
+def date_instances_for(model: Any, dashboard: Any) -> tuple[str, ...]:
+    """Which date instances one dashboard's content actually depends on."""
+    return DateReach(model).for_visualizations(sorted(_visualization_ids(dashboard)))
 
 
 def bind_date_filters(model: Any, *, overrides: dict[str, str] | None = None) -> BindReport:
@@ -206,4 +280,5 @@ def bind_date_filters(model: Any, *, overrides: dict[str, str] | None = None) ->
 
     report.already_bound = tuple(sorted(already))
     report.no_date_filter = tuple(sorted(missing))
+    report.undecided_facts = undecided_facts(model)
     return report

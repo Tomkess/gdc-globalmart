@@ -6,6 +6,11 @@
 # verifies it. Data before workspace before knowledge (FEAT-018): data is gated before the merge,
 # the workspace is deployed by 3/4/5, and this runs only once that deploy has succeeded.
 #
+# It also runs the live date-filter gate (FEAT-011 AC 5/6) against the deployed master: per
+# dashboard, one visualization under the shipped window and the one before it must differ, with
+# the recent one non-empty. A filter that binds to nothing, or data that has gone stale, turns
+# the deploy's follow-up red with the dashboard named. Read-only, so it needs no --apply.
+#
 # What was deployed is read back from the deploy tag the run wrote (`globalmart gdcloud scope`),
 # not guessed from the workflow name. A TOOLING-only merge writes no tag, so there is nothing to do.
 #
@@ -117,3 +122,36 @@ jobs:
           uv run globalmart knowledge-docs verify \
             --target "gdcloud-${{ needs.scope.outputs.environment }}" \
             --workspace-id "${{ needs.scope.outputs.workspace_id }}"
+
+  # Independent of the knowledge publish: a corpus failure must not hide a date-filter failure,
+  # nor the other way round.
+  datefilters:
+    needs: scope
+    if: needs.scope.outputs.environment != ''
+    runs-on: ubuntu-latest
+    environment: ${{ needs.scope.outputs.github_environment }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        env:
+          GH_DEP_TOKEN: ${{ secrets.TOKEN_GITHUB_GDCLOUD }}
+        run: |
+          dep_url="url.https://x-access-token:${GH_DEP_TOKEN}@github.com/gooddata/"
+          trap 'git config --global --remove-section "$dep_url" 2>/dev/null || true' EXIT
+          git config --global "${dep_url}.insteadOf" "https://github.com/gooddata/"
+          uv sync --locked --all-extras --dev
+
+      - name: Date filters filter in ${{ needs.scope.outputs.workspace_id }} (${{ needs.scope.outputs.version }})
+        env:
+          GLOBALMART_TOKEN: ${{ secrets.TOKEN_GOODDATA }}
+        run: |
+          uv run globalmart datefilters gate \
+            --target "gdcloud-${{ needs.scope.outputs.environment }}" \
+            --workspace-id "${{ needs.scope.outputs.workspace_id }}" \
+            --verbose
