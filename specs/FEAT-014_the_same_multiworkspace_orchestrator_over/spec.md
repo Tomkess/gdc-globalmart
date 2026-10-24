@@ -15,9 +15,9 @@ id: feat-014
 name: The same multi-workspace orchestrator over MCP instead of A2A, flat and nested,
   so the protocol comparison is measured on identical questions rather than argued
 sources: []
-status: draft
+status: done
 tags: []
-updated: '2026-09-21'
+updated: '2026-10-24'
 ---
 
 ## Summary
@@ -199,3 +199,104 @@ variants, and the measurement harness.
   unfiltered? Filtered is what a careful integrator does and reduces the payload; unfiltered is
   what happens when nobody tunes it. Measuring both would isolate how much of MCP's cost is
   inherent and how much is integration quality.
+
+## Outcome — 2026-10-24
+
+Judged against the code in `src/gd_agents/` (commits b5ea749, f4a0fb2, 6478c57, 4b07c7c,
+637ff6d, eed232f) and one paired live measurement taken today for this review.
+
+**Built:** the nested MCP arm. There is one `MCPLane` per workspace, sitting behind the same
+`Lane` interface as A2A, and `--protocol a2a|mcp` is available on `ask`, `serve` and `rehearse`.
+**Not built:** the flat arm, the comparison harness and report, disambiguation counting and the
+written recommendation. The spec's core thesis, that MCP has to rebuild what A2A provides, is
+demonstrated and measured on single questions. The protocol *comparison* is not built yet.
+
+| AC | Verdict | Evidence |
+|---|---|---|
+| 1. Same script over both MCP variants | **Partly met** | `--protocol` on `rehearse`/`route`/`serve` reads `config/questions.yaml` unchanged (`cli.py:287`, `_protocol`). Holds for nested only, because flat does not exist. Test `test_the_protocol_swaps_the_lane_and_nothing_else` (added today). |
+| 2. Router, decomposition, checks and merge are the same code | **Met** | `cli.py:149` `_lanes()` is the only branch point. `lane.py` holds the shared interface. Test `test_the_protocol_swaps_the_lane_and_nothing_else`, plus `test_the_shape_comes_from_the_query_the_sub_agent_actually_ran` and `test_rows_become_the_same_artifacts_the_a2a_lane_returns`. |
+| 3. Four tools; a fifth only with a recorded reason | **Met** | Five tools in `mcp/client.py:50` `DEFAULT_TOOLS`. `ai_search` is the fifth, with its reason recorded there and in `docs/mcp-findings.md`: about 1.4k tokens against about 70k for unfiltered listing, roughly 52x cheaper. The whitelist is enforced client-side (`test_a_tool_outside_the_set_is_refused`). Drift guard: `test_the_mcp_tool_set_is_the_recorded_five_and_nothing_drifts` (added today). Finding: the endpoint is a 3-tool gateway (`create_visualization`, `search_tools`, `call_tool`), not 17 tools. |
+| 4. Flat variant (all tools in one context) | **Not met** | Nothing implements it; `grep flat src/gd_agents` finds only a docstring. |
+| 5. Nested variant | **Met** | `mcp/lane.py:120` `MCPLane`: a per-workspace sub-agent with its own system prompt, five tools, up to 16 turns and its own context. Tests: `test_the_sub_agent_resolves_then_queries_then_answers`, `test_running_out_of_turns_is_a_failure_not_an_answer`, `test_a_tool_error_does_not_end_the_loop`, xtab parsing tests. |
+| 6. Per question/variant: tokens, latency, workspaces, correctness, cost | **Partly met** | `Answer` carries tokens, latency and workspace, and `ask` prints them (`fanout.py` `summary_lines`). `rehearse` prints routing and latency but not tokens. Nothing records correctness or cost, and nothing writes them to a per-variant table. |
+| 7. Round-trips per lane | **Met (data), not reported** | `Answer.round_trips` = model turns (`mcp/lane.py`). It goes into the payload (`run.py:118`) and the `lane_done` event. `test_the_sub_agent_resolves_then_queries_then_answers` asserts 3. It appears in `ask` output but not in `rehearse` output or any report. |
+| 8. Catalog payload measured | **Partly met** | Per tool and per workspace by `gd-agents mcp-probe` (`docs/mcp-findings.md`): unfiltered metrics listing about 43k tokens on customer and about 70k across all four. Tool definitions cost about 4k tokens per question (`gd-agents mcp-tools`). Per-question context goes to the event stream only (`MCPClient.chars_in`) and is not recorded per question in a harness. |
+| 9. Metric-disambiguation errors counted | **Not met** | Not counted anywhere. Today's run produced one by hand: marketing's sub-agent swapped *Total Campaign Spend* for *Total Spend (Campaign ROI)* for the ranking and said so. |
+| 10. Written recommendation | **Not met** | No recommendation document. `docs/a2a-federation.md` and `docs/a2a-gaps.md` record the asymmetry and two MCP product asks (date-filter examples, union validation errors), but not a verdict or the conditions that would flip it. |
+| 11. One reproducible command, three paths, report | **Not met** | There is no compare command and nothing writes to `reports/`. `rehearse --protocol X` must be run once per arm and read by eye. |
+
+**Recorded measurements**
+
+- 2026-09-23, `single-customer`: A2A ~24 s, 1 round trip, 0 lane tokens. MCP 46 s, 8 turns,
+  118,058 in / 1,387 out. Same answer.
+- 2026-09-23, a marketing single question: MCP 11 turns, 10 tool calls, 45.6 s, 180,983 in. Its
+  rows matched A2A's exactly.
+- 2026-10-24, `pair-campaign-satisfaction`, one `ask` per protocol, live:
+
+  | | A2A | MCP (nested) |
+  |---|---:|---:|
+  | routed to | marketing, customer | marketing, customer |
+  | lane round trips | 2 | 19 |
+  | lane tokens in / out | 0 / 0 (the workspace pays) | 357,140 / 5,470 |
+  | slowest lane | 61.8 s | 64.8 s |
+  | total | 78.1 s | 70.8 s |
+  | merged? | yes, on month | **no**: `time_window_match` failed |
+  | correct? | no: lanes returned charts with no readable numbers (provenance 0/1) | no merged answer; lanes correct individually (marketing Q3 by month: 13,615.75 / 15,772.28 / 10,173.54) |
+
+  On this question the cost is in tokens and turns, not latency: wall-clock was close. The MCP
+  arm's refusal was a false negative. Marketing reported an absolute window
+  (2026-07-01..2026-09-30) and customer a relative one (-1..-1 QUARTER). Both mean last
+  quarter, but the check cannot equate them. One run each, so this is not evidence of spread.
+
+**Recommendation:** do not close. The minimum left is AC 4, 9, 10 and 11:
+
+- a flat variant;
+- a `compare` command that runs the script over a2a / mcp-flat / mcp-nested and writes
+  tokens, turns, catalog tokens, latency, routing, correctness and cost to `reports/`;
+- a disambiguation count;
+- the written recommendation.
+
+Alternatively, re-scope AC 4/9/11 out explicitly and close on nested plus a written
+recommendation built from the numbers above.
+
+## Outcome — 2026-10-24 (final)
+
+This builds on the review above. Added: the flat arm (`src/gd_agents/mcp/flat.py`, `ask
+--protocol mcp-flat`), the comparison harness (`src/gd_agents/compare.py`, `gd-agents compare`,
+with prices in `config/prices.yaml`), a time-window check that compares resolved dates
+rather than spellings (`checks.normalise_window`), `Answer.catalog_chars`, a
+`profile --token-env` that defaults to the registry's variable, and the recommendation in
+`docs/mcp-vs-a2a.md`. One live comparison was run: `compare --limit 3` over
+`single-ecommerce`, `single-marketing` and `pair-campaign-satisfaction`, with the report at
+`reports/protocol-compare-2026-10-24.{md,json}`.
+
+| AC | Verdict | Evidence |
+|---|---|---|
+| 1. Same script over both MCP variants | **Met for questions; conversations nested only** | `compare` reads `config/questions.yaml` unchanged and runs every single-turn question over a2a/mcp/mcp-flat. Conversations run over a2a and mcp via `rehearse --protocol`. Flat has no session, so multi-turn conversations are not run over it. |
+| 2. Same router, decomposition, checks, merge | **Met for nested; flat differs where its definition requires** | Nested: unchanged, with `_lanes()` as the only branch. Flat routes by tool choice, so it **cannot** call `plan()`. Its host writes the answer, so there is no `merge()` model call. It shares `tool_loop`, `build_answer`, `run_checks`, `check_provenance`, `separate_answers` and `Run`, and the table in `mcp/flat.py` lists each stage. Test: `test_flat_routes_by_tool_choice_and_shares_the_loop_and_the_gates`, which asserts function identity. |
+| 3. Four tools; a fifth recorded | **Met** (unchanged) | Five tools, `ai_search` with its reason. Flat uses the same `DEFAULT_TOOLS`, namespaced per workspace. |
+| 4. Flat variant | **Met** | `FlatHost`: 5 tools × N workspaces in one context (20 here), named `<workspace>__<tool>`. Routing is whichever workspace the host runs `execute_query` on. Tests: `test_flat_holds_every_workspaces_tools_namespaced`, `test_flat_cannot_assert_a_number_no_workspace_returned`. |
+| 5. Nested variant | **Met** (unchanged) | The loop is now `mcp.lane.tool_loop`, shared with flat, and the existing nested tests pass unchanged. |
+| 6. Tokens, latency, workspaces, correctness, cost per question/variant | **Met, correctness unscored** | The `compare` table has all of these columns. Cost comes from `config/prices.yaml` and is `—` for an unlisted model. Correctness is recorded as `unscored` because the script carries routing expectations, not answers. Routing exactness against `expect` is reported separately (3/3 in all three arms). |
+| 7. Round trips per lane | **Met** | `round_trips` per row, and `lane_round_trips` per workspace in the JSON. Live: A2A 5, nested 53, flat 38. |
+| 8. Catalogue payload per question | **Met** | `Answer.catalog_chars` holds the output of the discovery tools, per lane. Live: 0 / 37,130 / 29,508 tokens. |
+| 9. Disambiguation counted | **Met, with a heuristic recorded as such** | Three counts: `substituted` (prose admits another metric), `off_named` (returned metric titles do not include the one the router named, an upper bound) and `cross_workspace` (flat used a metric id discovered in another workspace). Tests: `test_a_row_carries_every_measured_column`, `test_flat_counts_a_metric_borrowed_from_another_workspace`. Live: one real event, A2A on `single-marketing`, missed by the first regex and corrected by hand in the report. The regex is now widened, with a test. |
+| 10. Written recommendation | **Met** | `docs/mcp-vs-a2a.md`, linked from `docs/mcp-findings.md`: A2A to federate, MCP nested when the host speaks only MCP or needs rows, flat not beyond one or two workspaces. It states the flip conditions: A2A values that stay unreadable, a workspace-side bill, prompt caching on the MCP loop, and more workspaces. |
+| 11. One reproducible command | **Met** | `gd-agents compare [--limit N] [--only ids] [--variants ...]` writes the md and json reports. |
+
+**Time-window false negative (from the review above):** fixed. Relative and absolute windows
+are resolved to calendar dates before comparison. Test:
+`test_last_quarter_written_two_ways_is_one_window`, the exact pair seen live. It was not
+re-exercised live, because the backend failed first.
+
+**What the live run does not show:** answer quality. The org's query backend returned
+`SQLException: Connection Error` on every `execute_query` during the run, and A2A returned
+charts without values. Cost, turns and catalogue payload are real. Correctness and spread
+are not established. The spec's own risk ("one run of ten questions is not evidence")
+stands, and this was one run of three.
+
+**Recommendation:** close as built, with two follow-ups outside this spec:
+
+- re-run `compare` once the backend is healthy, ideally with expected answers added to the
+  script;
+- measure prompt caching on the MCP loop, the most likely thing to change the cost verdict.

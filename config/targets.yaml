@@ -65,15 +65,17 @@ targets:
   usecases-ai:
     host: https://usecases-ai.demo.cloud.gooddata.com
     organization_id: w2r-kigdm6
-    # This org has no GlobalMart datasource yet — its existing motherduck-ds points at
-    # the demo_data_git database. Publishing with --apply creates this one, aimed at the
-    # same shared MotherDuck database the demo-cloud org reads, so both orgs serve the
-    # same rows and the cross-org comparison is meaningful.
-    datasource_id: globalmart-motherduck
+    # The same data source gdcloud-preprod/prod use, deliberately. Two data sources on one org
+    # pointing at the same MotherDuck database with different configurations make DuckDB refuse
+    # whichever connection opens second ("Can't open a connection to same database file with a
+    # different configuration") — it broke the agent demo's MCP lane on 2026-10-24. One org, one
+    # data source per database.
+    datasource_id: gdc_ds_globalmart_motherduck
     datasource_schema: globalmart
     parent_workspace_id: globalmart
     warehouse_type: motherduck
-    datasource_name: GlobalMart MotherDuck
+    datasource_name: GlobalMart MotherDuck (gdcloud)
+    warehouse_database: gd_demo
     datasource_url: jdbc:duckdb:md:gd_demo
     datasource_database: gd_demo
     datasource_secret_env: MOTHERDUCK_TOKEN

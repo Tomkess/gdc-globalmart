@@ -97,6 +97,11 @@ class Answer:
 
     tokens_in: int = 0
     tokens_out: int = 0
+    catalog_chars: int = 0
+    """Characters of metric and attribute catalogue that entered the caller's context to
+    produce this answer. Zero for A2A by construction: the catalogue never leaves the
+    workspace. FEAT-014 AC 8."""
+
     context_id: str | None = None
     """The conversation this lane ended on, so a follow-up resumes it rather than starting
     cold. Per lane: each workspace runs its own A2A conversation."""

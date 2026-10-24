@@ -46,12 +46,13 @@ from __future__ import annotations
 import json
 import os
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
 from gd_agents.artifacts import grain_of, window_of
 from gd_agents.lane import Answer, Shape
-from gd_agents.mcp.client import DEFAULT_TOOLS, MCPClient, MCPError
+from gd_agents.mcp.client import DEFAULT_TOOLS, MCPClient, MCPError, ToolCall
 from gd_agents.mcp.tools import anthropic_tools, load_definitions
 from gd_agents.orchestrator.events import Observer, emit
 from gd_agents.orchestrator.plan import DEFAULT_MODEL, MODEL_ENV, make_client
@@ -163,79 +164,29 @@ class MCPLane:
         history = list(self.contexts.get(context_id or "", [])) if context_id else []
         history.append({"role": "user", "content": question})
 
-        tokens_in = tokens_out = 0
-        turns = 0
-        text = ""
-        settled = False
-        """Whether the loop ended because the model stopped asking for tools — the only way
-        a turn is finished. Running out of turns leaves `text` holding whatever the model was
-        thinking mid-way, which reads like an answer and is not one. That is the same mistake
-        the A2A lane makes if it reads `history` instead of `status.message`."""
-
-        error: str | None = None
-        # Query and result together, appended in the same breath. Keeping two lists and
-        # indexing across them is what produced the first version of this bug: a query that
-        # failed still landed in `queries`, every later result paired with the wrong query,
-        # and the answer's grain came from a query that returned nothing.
-        runs: list[tuple[dict[str, Any], dict[str, Any]]] = []
+        def dispatch(name: str, arguments: dict[str, Any]) -> tuple[str, str, str]:
+            try:
+                output = mcp.call(name, **arguments)
+            except MCPError as failure:
+                # Including a tool outside the set, which is refused before any request is
+                # made — so there may be no recorded call to read a latency from.
+                output = f"ERROR: {failure}"
+            last = mcp.calls[-1] if mcp.calls else None
+            self._step(name, f"{len(output):,} chars", latency_ms=last.latency_ms if last else 0)
+            return self.workspace, name, output
 
         self._step("mcp/loop", f"{len(self.tools)} tools, up to {self.max_turns} turns")
-
-        while turns < self.max_turns:
-            turns += 1
-            try:
-                response = caller.messages.create(
-                    model=model,
-                    max_tokens=MAX_TOKENS,
-                    system=SYSTEM_PROMPT,
-                    tools=anthropic_tools(definitions, self.tools),
-                    messages=history,
-                )
-            except Exception as failure:  # noqa: BLE001 - a lane never raises upward
-                error = f"{type(failure).__name__}: {failure}"[:300]
-                break
-
-            usage = getattr(response, "usage", None)
-            tokens_in += int(getattr(usage, "input_tokens", 0) or 0)
-            tokens_out += int(getattr(usage, "output_tokens", 0) or 0)
-
-            blocks = list(response.content)
-            text = "".join(b.text for b in blocks if getattr(b, "type", "") == "text").strip() or text
-            requests = [b for b in blocks if getattr(b, "type", "") == "tool_use"]
-            if not requests:
-                settled = True
-                break
-
-            history.append({"role": "assistant", "content": [_as_dict(b) for b in blocks]})
-            results = []
-            for request in requests:
-                arguments = dict(request.input or {})
-                try:
-                    output = mcp.call(request.name, **arguments)
-                    if request.name == "execute_query" and isinstance(arguments.get("query"), dict):
-                        parsed = _parse_rows(output)
-                        if "error" not in parsed:
-                            runs.append((arguments["query"], parsed))
-                except MCPError as failure:
-                    # Including a tool outside the set, which is refused before any request
-                    # is made — so there may be no recorded call to read a latency from.
-                    output = f"ERROR: {failure}"
-                last = mcp.calls[-1] if mcp.calls else None
-                self._step(
-                    request.name,
-                    f"{len(output):,} chars",
-                    latency_ms=last.latency_ms if last else 0,
-                )
-                results.append(
-                    {
-                        "type": "tool_result",
-                        "tool_use_id": request.id,
-                        "content": _tool_text(output)[:60_000],
-                    }
-                )
-            history.append({"role": "user", "content": results})
-
-        if not settled and error is None:
+        loop = tool_loop(
+            caller=caller,
+            model=model,
+            system=SYSTEM_PROMPT,
+            tools=anthropic_tools(definitions, self.tools),
+            history=history,
+            dispatch=dispatch,
+            max_turns=self.max_turns,
+        )
+        error = loop.error
+        if not loop.settled and error is None:
             # Whatever is in `text` is a mid-loop thought, not a reply. Kept, because it says
             # what the sub-agent was stuck on, but the lane reports failure and the merge
             # treats it as a lane that did not contribute.
@@ -245,39 +196,168 @@ class MCPLane:
             self.contexts[context_id] = history
 
         elapsed = int((time.monotonic() - started) * 1000)
-        artifacts = _artifacts(runs, question)
-        shape = _shape([query for query, _ in runs])
+        runs = [(query, result) for _, query, result in loop.runs]
         self._step(
             "read",
             f"{mcp.round_trips()} tool call(s), {mcp.chars_in() // 4:,} tok of context",
             latency_ms=elapsed,
         )
-
-        from gd_agents.a2a.client import numbers_from_artifacts, numbers_in
-
-        return Answer(
+        return build_answer(
             workspace=self.workspace,
             question=question,
-            text=text,
-            shape=Shape(
-                grain=shape.grain,
-                grains=shape.grains,
-                time_from=shape.time_from,
-                time_to=shape.time_to,
-                windows=shape.windows,
-                filters=shape.filters,
-                population=f"mcp: {mcp.round_trips()} tool call(s), {turns} model turn(s)",
-                returned_data=settled and bool(text) and bool(runs),
-            ),
-            numbers=tuple(dict.fromkeys(numbers_from_artifacts(artifacts) + numbers_in(text))),
-            artifacts=artifacts,
+            text=loop.text,
+            runs=runs,
+            settled=loop.settled,
+            population=f"mcp: {mcp.round_trips()} tool call(s), {loop.turns} model turn(s)",
             latency_ms=elapsed,
-            round_trips=turns,
-            tokens_in=tokens_in,
-            tokens_out=tokens_out,
+            round_trips=loop.turns,
+            tokens=(loop.tokens_in, loop.tokens_out),
+            catalog_chars=catalog_chars(mcp.calls),
             context_id=context_id,
             error=error,
         )
+
+
+#: The discovery tools: what they return is catalogue, and catalogue is what AC 8 measures.
+#: `execute_query`'s rows are the answer, not the catalogue, so they are not counted.
+CATALOG_TOOLS: frozenset[str] = frozenset(
+    {"get_workspace_info", "ai_search", "list_workspace_metrics", "list_workspace_attributes"}
+)
+
+
+def catalog_chars(calls: list[ToolCall]) -> int:
+    """Characters of metric/attribute catalogue that entered the model's context."""
+    return sum(call.chars for call in calls if call.tool in CATALOG_TOOLS)
+
+
+Dispatch = Callable[[str, dict[str, Any]], tuple[str, str, str]]
+"""`(tool name as the model saw it, arguments) -> (workspace, tool, text output)`. Never
+raises: a refused or failed tool comes back as text the model can read and act on."""
+
+
+@dataclass
+class Loop:
+    """What one tool loop did. Shared by the nested lane and the flat host."""
+
+    text: str = ""
+    settled: bool = False
+    """Ended because the model stopped asking for tools — the only way a turn is finished."""
+
+    error: str | None = None
+    turns: int = 0
+    tokens_in: int = 0
+    tokens_out: int = 0
+    runs: list[tuple[str, dict[str, Any], dict[str, Any]]] = field(default_factory=list)
+    """`(workspace, query, parsed rows)` for every `execute_query` that returned rows.
+
+    Query and result together, appended in the same breath. Keeping two lists and indexing
+    across them is what produced the first version of a bug here: a query that failed still
+    landed in the query list, every later result paired with the wrong query, and the
+    answer's grain came from a query that returned nothing."""
+
+
+def tool_loop(
+    *,
+    caller: Any,
+    model: str,
+    system: str,
+    tools: list[dict[str, Any]],
+    history: list[dict[str, Any]],
+    dispatch: Dispatch,
+    max_turns: int,
+) -> Loop:
+    """Ask, run the tools asked for, repeat until the model answers or the turns run out.
+
+    One loop for both MCP arms, so flat and nested differ in what the model is *given* —
+    one workspace's tools or every workspace's — and not in how it is driven. `history` is
+    extended in place, so a caller that keeps conversations keeps this one.
+    """
+    loop = Loop()
+    while loop.turns < max_turns:
+        loop.turns += 1
+        try:
+            response = caller.messages.create(
+                model=model,
+                max_tokens=MAX_TOKENS,
+                system=system,
+                tools=tools,
+                messages=history,
+            )
+        except Exception as failure:  # noqa: BLE001 - a lane never raises upward
+            loop.error = f"{type(failure).__name__}: {failure}"[:300]
+            break
+
+        usage = getattr(response, "usage", None)
+        loop.tokens_in += int(getattr(usage, "input_tokens", 0) or 0)
+        loop.tokens_out += int(getattr(usage, "output_tokens", 0) or 0)
+
+        blocks = list(response.content)
+        loop.text = "".join(b.text for b in blocks if getattr(b, "type", "") == "text").strip() or loop.text
+        requests = [b for b in blocks if getattr(b, "type", "") == "tool_use"]
+        if not requests:
+            loop.settled = True
+            break
+
+        history.append({"role": "assistant", "content": [_as_dict(b) for b in blocks]})
+        results = []
+        for request in requests:
+            arguments = dict(request.input or {})
+            workspace, tool, output = dispatch(request.name, arguments)
+            if tool == "execute_query" and isinstance(arguments.get("query"), dict):
+                parsed = _parse_rows(output)
+                if "error" not in parsed:
+                    loop.runs.append((workspace, arguments["query"], parsed))
+            results.append(
+                {"type": "tool_result", "tool_use_id": request.id, "content": _tool_text(output)[:60_000]}
+            )
+        history.append({"role": "user", "content": results})
+    return loop
+
+
+def build_answer(
+    *,
+    workspace: str,
+    question: str,
+    text: str,
+    runs: list[tuple[dict[str, Any], dict[str, Any]]],
+    settled: bool,
+    population: str,
+    latency_ms: int,
+    round_trips: int,
+    tokens: tuple[int, int],
+    catalog_chars: int,
+    context_id: str | None = None,
+    error: str | None = None,
+) -> Answer:
+    """An `Answer` from the queries a loop ran: shape and artifacts read from the AAC query."""
+    from gd_agents.a2a.client import numbers_from_artifacts, numbers_in
+
+    artifacts = _artifacts(runs, question)
+    shape = _shape([query for query, _ in runs])
+    return Answer(
+        workspace=workspace,
+        question=question,
+        text=text,
+        shape=Shape(
+            grain=shape.grain,
+            grains=shape.grains,
+            time_from=shape.time_from,
+            time_to=shape.time_to,
+            windows=shape.windows,
+            filters=shape.filters,
+            population=population,
+            returned_data=settled and bool(text) and bool(runs),
+        ),
+        numbers=tuple(dict.fromkeys(numbers_from_artifacts(artifacts) + numbers_in(text))),
+        artifacts=artifacts,
+        latency_ms=latency_ms,
+        round_trips=round_trips,
+        tokens_in=tokens[0],
+        tokens_out=tokens[1],
+        catalog_chars=catalog_chars,
+        context_id=context_id,
+        error=error,
+    )
 
 
 def _as_dict(block: Any) -> dict[str, Any]:

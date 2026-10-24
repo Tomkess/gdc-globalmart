@@ -1,0 +1,20 @@
+# Model list prices, USD per million tokens, used by `gd-agents compare` to estimate cost.
+#
+# Anthropic first-party API rates (checked 2026-10-24). Bedrock and Vertex price separately;
+# if the comparison runs there, change these rather than trusting them. An estimate from a
+# stale table is worse than none, so a model missing from this file is reported as
+# "no price" instead of being guessed.
+#
+# What the estimate covers: orchestrator tokens (router + merge, or the flat host) plus the
+# MCP sub-agents' tokens. Under A2A the workspace agent's own model spend is not reported by
+# the protocol, so the A2A figure is a floor — the workspace pays the rest.
+
+currency: USD
+per_million_tokens:
+  claude-opus-4-7: {input: 5.00, output: 25.00}
+  claude-opus-4-8: {input: 5.00, output: 25.00}
+  claude-opus-5: {input: 5.00, output: 25.00}
+  claude-opus-5-5: {input: 4.00, output: 20.00}
+  claude-sonnet-5-5: {input: 2.00, output: 10.00}
+  claude-sonnet-4-6: {input: 3.00, output: 15.00}
+  claude-haiku-4-5: {input: 1.00, output: 5.00}

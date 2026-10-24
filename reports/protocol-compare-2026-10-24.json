@@ -1,0 +1,348 @@
+{
+  "generated": "2026-10-24",
+  "model": "claude-opus-4-7",
+  "script": "config/questions.yaml",
+  "summary": [
+    {
+      "variant": "a2a",
+      "questions": 3,
+      "errored": 0,
+      "tokens_in": 11132,
+      "tokens_out": 1430,
+      "median_latency_s": 82.2,
+      "round_trips": 5,
+      "catalog_tokens": 0,
+      "disambiguation": 0,
+      "routing_exact": 3,
+      "merge_ok": 3,
+      "cost_usd": 0.0914
+    },
+    {
+      "variant": "mcp",
+      "questions": 3,
+      "errored": 0,
+      "tokens_in": 1265693,
+      "tokens_out": 15345,
+      "median_latency_s": 64.2,
+      "round_trips": 53,
+      "catalog_tokens": 37130,
+      "disambiguation": 0,
+      "routing_exact": 3,
+      "merge_ok": 0,
+      "cost_usd": 6.7121
+    },
+    {
+      "variant": "mcp-flat",
+      "questions": 3,
+      "errored": 0,
+      "tokens_in": 1768667,
+      "tokens_out": 11332,
+      "median_latency_s": 44.6,
+      "round_trips": 38,
+      "catalog_tokens": 29508,
+      "disambiguation": 0,
+      "routing_exact": 3,
+      "merge_ok": 0,
+      "cost_usd": 9.1267
+    }
+  ],
+  "rows": [
+    {
+      "question": "single-ecommerce",
+      "variant": "a2a",
+      "tokens_in": 3449,
+      "tokens_out": 295,
+      "latency_ms": 40393,
+      "workspaces": [
+        "globalmart-ecommerce"
+      ],
+      "expected": [
+        "globalmart-ecommerce"
+      ],
+      "routing_exact": true,
+      "round_trips": 1,
+      "lane_round_trips": {
+        "globalmart-ecommerce": 1
+      },
+      "catalog_tokens": 0,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "single",
+      "merge_ok": true,
+      "merge_note": "",
+      "cost_usd": 0.0246,
+      "correct": "unscored",
+      "reply": "The globalmart-ecommerce workspace was asked for the Total Order Count for last month, but it didn't return a numeric value \u2014 it only produced a visualization without exposing the figure. So I can't tell you the count. You'll need to open the visualization in that workspace to see the number, or re-run the query in a way that surfaces the value directly.\n\nOne caveat worth flagging: the metric used was \"Total Order Count,\" which isn't necessarily restricted to online orders. If your business also takes orders through other channels, that metric may need a channel filter to actually answer what you asked.",
+      "error": null
+    },
+    {
+      "question": "single-ecommerce",
+      "variant": "mcp",
+      "tokens_in": 147861,
+      "tokens_out": 1783,
+      "latency_ms": 44731,
+      "workspaces": [
+        "globalmart-ecommerce"
+      ],
+      "expected": [
+        "globalmart-ecommerce"
+      ],
+      "routing_exact": true,
+      "round_trips": 9,
+      "lane_round_trips": {
+        "globalmart-ecommerce": 9
+      },
+      "catalog_tokens": 4860,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "single",
+      "merge_ok": false,
+      "merge_note": "",
+      "cost_usd": 0.7839,
+      "correct": "unscored",
+      "reply": "From a single workspace:\n\n**globalmart-ecommerce** \u2014 asked: What was the Total Order Count for last month?\n  answered, but returned no data for this question.",
+      "error": null
+    },
+    {
+      "question": "single-ecommerce",
+      "variant": "mcp-flat",
+      "tokens_in": 398404,
+      "tokens_out": 2018,
+      "latency_ms": 42262,
+      "workspaces": [
+        "globalmart-ecommerce"
+      ],
+      "expected": [
+        "globalmart-ecommerce"
+      ],
+      "routing_exact": true,
+      "round_trips": 10,
+      "lane_round_trips": {
+        "globalmart-ecommerce": 9
+      },
+      "catalog_tokens": 5705,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "rejected",
+      "merge_ok": false,
+      "merge_note": "the host returned no rows from any workspace",
+      "cost_usd": 2.0425,
+      "correct": "unscored",
+      "reply": "The E-commerce workspace is returning a backend connection error on every execution attempt. The identifiers resolved cleanly (`metric/metric_l1_total_order_count`, `dataset/transaction_date`, `label/transaction_date.month`), but the query engine is failing with a database connection error \u2014 I retried three times with varying query shapes and got the same `java.sql.SQLException: Connection Error` each time.\n\nI can't give you a number without inventing one. The number of online orders last month is in the GlobalMart \u2014 E-commerce workspace as the **Total Order Count** metric (sourced from the Online Order dataset, filtered by `transaction_date`), but the workspace's execution backend is currently returning errors. Please retry in a few minutes, or let me know if you'd like me to try a different time window (e.g. a specific month like \"October 2026\") in case the issue is specifically with the relative-month filter.",
+      "error": null
+    },
+    {
+      "question": "single-marketing",
+      "variant": "a2a",
+      "tokens_in": 3621,
+      "tokens_out": 290,
+      "latency_ms": 106240,
+      "workspaces": [
+        "globalmart-marketing"
+      ],
+      "expected": [
+        "globalmart-marketing"
+      ],
+      "routing_exact": true,
+      "round_trips": 2,
+      "lane_round_trips": {
+        "globalmart-marketing": 2
+      },
+      "catalog_tokens": 0,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "single",
+      "merge_ok": true,
+      "merge_note": "",
+      "cost_usd": 0.0254,
+      "correct": "unscored",
+      "reply": "I don't have a usable answer to your question. In the globalmart-marketing workspace, the impressions metric couldn't be ranked by campaign because the two aren't connected in the model, so the lane fell back to ranking campaigns by total spend instead \u2014 which is a different question. No campaign was identified as the impressions leader for last month.\n\nIf you can confirm which field ties display impressions to campaigns in that workspace, or point to a different workspace where the two live together, I can try again.",
+      "error": null
+    },
+    {
+      "question": "single-marketing",
+      "variant": "mcp",
+      "tokens_in": 293430,
+      "tokens_out": 2665,
+      "latency_ms": 64233,
+      "workspaces": [
+        "globalmart-marketing"
+      ],
+      "expected": [
+        "globalmart-marketing"
+      ],
+      "routing_exact": true,
+      "round_trips": 13,
+      "lane_round_trips": {
+        "globalmart-marketing": 13
+      },
+      "catalog_tokens": 11163,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "single",
+      "merge_ok": false,
+      "merge_note": "",
+      "cost_usd": 1.5338,
+      "correct": "unscored",
+      "reply": "From a single workspace:\n\n**globalmart-marketing** \u2014 asked: Which campaign had the highest Total Impression Count (Display Impression) last month? Rank campaigns by Total Impression Count for last month.\n  answered, but returned no data for this question.",
+      "error": null
+    },
+    {
+      "question": "single-marketing",
+      "variant": "mcp-flat",
+      "tokens_in": 388638,
+      "tokens_out": 2419,
+      "latency_ms": 44581,
+      "workspaces": [
+        "globalmart-marketing"
+      ],
+      "expected": [
+        "globalmart-marketing"
+      ],
+      "routing_exact": true,
+      "round_trips": 10,
+      "lane_round_trips": {
+        "globalmart-marketing": 11
+      },
+      "catalog_tokens": 7346,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "rejected",
+      "merge_ok": false,
+      "merge_note": "the host returned no rows from any workspace",
+      "cost_usd": 2.0037,
+      "correct": "unscored",
+      "reply": "Confirmed \u2014 Display Impression cannot be sliced by Campaign ID in this model.\n\n---\n\n**Answer**\n\nI can't answer this one from the data as-modeled in the **GlobalMart \u2014 Marketing** workspace.\n\n- There is a metric **Total Impression Count (Display Impression)** that counts display ad impressions.\n- There is one campaign-identifying attribute, **Campaign ID (Campaign ROI)**, in the Campaign ROI dataset.\n- But Display Impression and Campaign ROI are not joined in the model \u2014 attempting to break Total Impression Count down by Campaign ID returns an error (\"Aggregation dimension `sql_campaign_roi.campaign_id` is not comparable to the dimensionality `fact_display_impression.impression_id`\").\n\nIn other words, impressions in this workspace are tracked per impression record (with Impression ID), not attributed to a Campaign ID that we can group by. There's no other campaign-name/campaign-key attribute reachable from the Display Impression fact.\n\nWhat would unblock this:\n- a campaign-key attribute on the Display Impression dataset (e.g., `fact_display_impression.campaign_id`), or\n- a modeled link between Display Impression and Campaign ROI so Campaign ID becomes a valid breakdown.\n\nIf \"impressions\" here is meant more loosely \u2014 e.g., email sends/opens or paid search clicks \u2014 say the word and I can run those by campaign if the model allows it. I did not touch the Customers, Store Ops, or E-commerce workspaces: none of them carry impression data.",
+      "error": null
+    },
+    {
+      "question": "pair-campaign-satisfaction",
+      "variant": "a2a",
+      "tokens_in": 4062,
+      "tokens_out": 845,
+      "latency_ms": 82178,
+      "workspaces": [
+        "globalmart-marketing",
+        "globalmart-customer"
+      ],
+      "expected": [
+        "globalmart-marketing",
+        "globalmart-customer"
+      ],
+      "routing_exact": true,
+      "round_trips": 2,
+      "lane_round_trips": {
+        "globalmart-marketing": 1,
+        "globalmart-customer": 1
+      },
+      "catalog_tokens": 0,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "combined",
+      "merge_ok": true,
+      "merge_note": "",
+      "cost_usd": 0.0414,
+      "correct": "unscored",
+      "reply": "Here's what we can and can't say.\n\nFrom the globalmart-marketing workspace, we have last quarter's campaigns ranked by total campaign spend (highest first), plus a six-month trend of that spend by month. From the globalmart-customer workspace, we have average NPS and total customer-feedback sentiment score by month for the last six months. Both lanes returned data on a monthly grain, so in principle they share a timeline you can read side by side.\n\nBut neither lane actually surfaced values to me \u2014 both workspaces returned visualizations only, with the numbers withheld. So I cannot tell you whether satisfaction moved in the months where spend was highest, nor which campaigns topped the spending list. The structural pieces line up; the evidence does not.\n\nTwo cautions even once the numbers are visible. First, metric identity: \"customer satisfaction\" here is being proxied by two different measures (NPS and a sentiment score from feedback), and neither is the same thing as satisfaction itself \u2014 a move in one need not mean a move in the other. Second, population parity: campaign spend is attributed to specific campaigns and, presumably, their targeted audiences, while NPS and sentiment are measured across whoever responded to surveys or left feedback that month \u2014 not necessarily the people exposed to those campaigns. A monthly correlation between the two would be suggestive at best, not causal.\n\nIf you want a real answer, the cleanest next step is to pull the actual monthly spend ",
+      "error": null
+    },
+    {
+      "question": "pair-campaign-satisfaction",
+      "variant": "mcp",
+      "tokens_in": 824402,
+      "tokens_out": 10897,
+      "latency_ms": 121506,
+      "workspaces": [
+        "globalmart-marketing",
+        "globalmart-customer"
+      ],
+      "expected": [
+        "globalmart-marketing",
+        "globalmart-customer"
+      ],
+      "routing_exact": true,
+      "round_trips": 31,
+      "lane_round_trips": {
+        "globalmart-marketing": 16,
+        "globalmart-customer": 15
+      },
+      "catalog_tokens": 21107,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "separate",
+      "merge_ok": false,
+      "merge_note": "failed: globalmart-marketing; returned no data: globalmart-customer. Synthesise only from what answered, and say what did not.",
+      "cost_usd": 4.3944,
+      "correct": "unscored",
+      "reply": "These results could not be combined: failed: globalmart-marketing; returned no data: globalmart-customer. Synthesise only from what answered, and say what did not.\n\n**globalmart-marketing** \u2014 asked: For last quarter, rank campaigns by Total Campaign Spend (highest first), and also provide Total Campaign Spend by month for the last 6 months.\n  did not answer: no answer within 16 model turns; 28 tool call(s) made\n\n**globalmart-customer** \u2014 asked: Provide Average Total NPS Score and Total Sentiment Score (Customer Feedback) by month for the last 6 months.\n  answered, but returned no data for this question.",
+      "error": null
+    },
+    {
+      "question": "pair-campaign-satisfaction",
+      "variant": "mcp-flat",
+      "tokens_in": 981625,
+      "tokens_out": 6895,
+      "latency_ms": 145161,
+      "workspaces": [
+        "globalmart-customer",
+        "globalmart-marketing"
+      ],
+      "expected": [
+        "globalmart-marketing",
+        "globalmart-customer"
+      ],
+      "routing_exact": true,
+      "round_trips": 18,
+      "lane_round_trips": {
+        "globalmart-customer": 15,
+        "globalmart-marketing": 20
+      },
+      "catalog_tokens": 16457,
+      "disambiguation": {
+        "substituted": 0,
+        "off_named": 0,
+        "cross_workspace": 0,
+        "total": 0
+      },
+      "merge": "rejected",
+      "merge_ok": false,
+      "merge_note": "the host returned no rows from any workspace",
+      "cost_usd": 5.0805,
+      "correct": "unscored",
+      "reply": "The backend database is currently unavailable in both workspaces. I need to tell the user this honestly.\n\nI attempted to answer your question but hit a backend data-execution problem. Here's where things stand.\n\n## What I was going to do\n\n- **globalmart-marketing**: rank campaigns by `Total Spend (Campaign ROI)` (metric `metric_l1_sql_campaign_roi_total_spend`), broken down by `Campaign ID (Campaign ROI)` (label `sql_campaign_roi.campaign_id`), filtered to last quarter. There is also a daily-grain `Total Campaign Spend` (`metric_l1_total_campaign_spend`) off the Daily Campaign Spend dataset.\n- **globalmart-customer**: trend `Average Total NPS Score` (metric `average_total_nps_score`) and `Total NPS Score (NPS Response)` by `Quarter/Year`, so you could see whether satisfaction moved around the quarter in which the big campaigns ran.\n\n## What stopped me\n\nEvery `execute_query` call I made against both workspaces came back with:\n\n> `java.sql.SQLException: Connection Error: Can't open a connection to same database file with a different configuration than existing connections`\n\nThat is an infrastructure error from the analytics engine (DuckDB connection pool), not a problem with the metric or attribute identifiers. It happened consistently across several different queries using different metrics, attributes, and date dimensions, so no rows were ever returned.\n\n## What you should know even if the engine were working\n\nEven in the best case, I would not have been able to prove causati",
+      "error": null
+    }
+  ]
+}

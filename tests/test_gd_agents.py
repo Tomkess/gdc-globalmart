@@ -2794,3 +2794,307 @@ def test_a_failed_query_does_not_shift_every_later_result_onto_the_wrong_query()
     assert answer.shape.grain == "month", "the failed query's grain must not describe the answer"
     assert answer.shape.grains == ("month",)
     assert len(answer.artifacts) == 2, "one chart, from the one query that returned rows"
+
+
+# --- FEAT-014: the protocol is the only variable ------------------------------
+
+
+def test_the_protocol_swaps_the_lane_and_nothing_else(monkeypatch: pytest.MonkeyPatch) -> None:
+    """AC 1 and 2: `--protocol` changes which `Lane` is built and nothing above it. Same
+    workspaces, same descriptions for the router, both conforming to the one interface."""
+    from gd_agents import cli
+    from gd_agents.a2a.client import A2ALane
+    from gd_agents.mcp import tools
+    from gd_agents.mcp.lane import MCPLane
+
+    monkeypatch.setenv("TOKEN", "not-a-real-token")
+    monkeypatch.setattr(tools, "load_definitions", lambda *a, **k: TOOL_DEFS)
+
+    a2a = cli._lanes(registry(), "a2a")
+    mcp = cli._lanes(registry(), "mcp")
+
+    assert list(a2a) == list(mcp) == ["a", "b"]
+    assert all(isinstance(lane, A2ALane) for lane in a2a.values())
+    assert all(isinstance(lane, MCPLane) for lane in mcp.values())
+    assert all(isinstance(lane, Lane) for lane in (*a2a.values(), *mcp.values()))
+    assert [lane.describe() for lane in a2a.values()] == [lane.describe() for lane in mcp.values()]  # type: ignore[attr-defined]
+
+    with pytest.raises(RegistryError):
+        cli._lanes(registry(), "grpc")
+
+
+def test_the_mcp_tool_set_is_the_recorded_five_and_nothing_drifts() -> None:
+    """AC 3: four tools plus `ai_search`, the fifth added with a measured reason. A sixth
+    must be a deliberate edit here, in `DEFAULT_TOOLS` and in the committed definitions,
+    not something that arrives because the gateway started offering it."""
+    from gd_agents.mcp.client import DEFAULT_TOOLS
+
+    assert DEFAULT_TOOLS == (
+        "get_workspace_info",
+        "ai_search",
+        "list_workspace_metrics",
+        "list_workspace_attributes",
+        "execute_query",
+    )
+    committed = json.loads(Path("config/mcp-tools.json").read_text(encoding="utf-8"))
+    assert sorted(committed) == sorted(DEFAULT_TOOLS)
+
+
+# --- FEAT-014: a relative and an absolute window for the same period agree -----
+
+
+def test_a_relative_window_resolves_to_the_calendar_period() -> None:
+    from datetime import date
+
+    from gd_agents.orchestrator.checks import normalise_window
+
+    today = date(2026, 10, 24)
+    assert normalise_window("-1..-1 QUARTER", today) == "2026-07-01..2026-09-30"
+    assert normalise_window("-5..0 MONTH", today) == "2026-05-01..2026-10-31"
+    assert normalise_window("-1..-1 YEAR", today) == "2025-01-01..2025-12-31"
+    assert normalise_window("-1..-1 WEEK", today) == "2026-10-12..2026-10-18"
+    assert normalise_window("0..0 DAY", today) == "2026-10-24..2026-10-24"
+    assert normalise_window("2026-07-01..2026-09-30", today) == "2026-07-01..2026-09-30"
+    assert normalise_window("2026-07-01 00:00..2026-09-30 23:59", today) == "2026-07-01..2026-09-30"
+    assert normalise_window("-1..-1 FORTNIGHT", today) == "-1..-1 FORTNIGHT", "unknown stays as written"
+
+
+def test_last_quarter_written_two_ways_is_one_window(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Found live 2026-10-24 on `pair-campaign-satisfaction` over MCP: marketing filtered
+    2026-07-01..2026-09-30, customer -1..-1 QUARTER. Both are last quarter, and the check
+    refused the pair because it compared spellings."""
+    from datetime import date
+
+    from gd_agents.orchestrator import checks
+
+    monkeypatch.setattr(checks, "_today", lambda: date(2026, 10, 24))
+    absolute = Answer(
+        workspace="mkt",
+        question="q",
+        text="t",
+        shape=Shape(grain="month", windows=("2026-07-01..2026-09-30",)),
+    )
+    relative = Answer(
+        workspace="cust",
+        question="q",
+        text="t",
+        shape=Shape(grain="month", time_from="-1..-1 QUARTER", time_to="-1..-1 QUARTER"),
+    )
+    assert checks._time_window_match([absolute, relative]).verdict is checks.Verdict.PASS
+
+    earlier = replace(relative, shape=Shape(grain="month", windows=("-2..-2 QUARTER",)))
+    result = checks._time_window_match([absolute, earlier])
+    assert result.verdict is checks.Verdict.FAIL, "a different quarter must still be refused"
+    assert "2026-04-01..2026-06-30" in result.reason, "the reason names the resolved periods"
+
+
+# --- profile: the token variable defaults to the registry's -------------------
+
+
+def test_profile_defaults_to_the_registrys_token_variable(tmp_path: Path) -> None:
+    from gd_agents import cli
+
+    registry().write(tmp_path / "agents.yaml")
+    assert cli.default_token_env(tmp_path / "agents.yaml") == "TOKEN"
+    assert cli.default_token_env(tmp_path / "missing.yaml") == cli.FALLBACK_TOKEN_ENV
+    (tmp_path / "bare.yaml").write_text("host: h\n", encoding="utf-8")
+    assert cli.default_token_env(tmp_path / "bare.yaml") == cli.FALLBACK_TOKEN_ENV
+
+
+def test_profile_uses_the_registry_default_when_no_flag_is_given(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from gd_agents import cli
+
+    registry().write(tmp_path / "agents.yaml")
+    seen: dict[str, str] = {}
+
+    def fake_build(host: object, workspaces: list[str], *, token_env: str) -> tuple[Registry, list]:
+        seen["token_env"] = token_env
+        return registry(), []
+
+    monkeypatch.setenv("TOKEN", "not-a-real-token")
+    monkeypatch.setattr(cli, "build_registry", fake_build)
+    out = str(tmp_path / "agents.yaml")
+    code = cli.main(["profile", "--host", "https://x.invalid", "--workspaces", "a", "--out", out])
+    assert code == 0
+    assert seen["token_env"] == "TOKEN"
+
+
+# --- FEAT-014 AC 4: the flat arm ------------------------------------------------
+
+
+class RoutedMCPHost:
+    """MCP endpoint per workspace, answering by tool name."""
+
+    def __init__(self, outputs: dict[tuple[str, str], str]) -> None:
+        self.outputs = outputs
+        self.dispatched: list[tuple[str, str]] = []
+
+    def post(self, path: str, body: dict, **kwargs: object) -> dict:
+        workspace = path.split("/workspaces/")[1].split("/")[0]
+        tool = str(body["params"]["arguments"]["name"])
+        self.dispatched.append((workspace, tool))
+        text = self.outputs.get((workspace, tool), "{}")
+        return {"result": {"content": [{"type": "text", "text": text}]}}
+
+
+def flat_host(model: ScriptedModel, host: RoutedMCPHost) -> Any:
+    from gd_agents.mcp.flat import FlatHost
+
+    return FlatHost(host=host, registry=registry(), definitions=TOOL_DEFS, client=model, model="m")  # type: ignore[arg-type]
+
+
+def test_flat_holds_every_workspaces_tools_namespaced() -> None:
+    from gd_agents.mcp.client import DEFAULT_TOOLS
+
+    tools, route = flat_host(ScriptedModel([a_text("x")]), RoutedMCPHost({})).toolset()
+
+    assert len(tools) == len(DEFAULT_TOOLS) * 2
+    assert route["a__execute_query"] == ("a", "execute_query")
+    assert route["b__ai_search"] == ("b", "ai_search")
+
+
+def test_flat_routes_by_tool_choice_and_shares_the_loop_and_the_gates() -> None:
+    """AC 2/4: no router call; the host's tool choice is the route. Same loop, same
+    Answer builder, same checks and provenance as nested."""
+    from gd_agents.mcp import flat, lane
+
+    host = RoutedMCPHost({("a", "execute_query"): json.dumps(xtab_result())})
+    model = ScriptedModel(
+        [a_tool_use("a__ai_search", {"question": "spend"})],
+        [a_tool_use("a__execute_query", {"query": SPEND_QUERY}, "t2")],
+        [a_text("From workspace a, Total Campaign Spend was 11,944.45 in April.")],
+    )
+    run = flat_host(model, host).ask("spend by month")
+
+    assert flat.tool_loop is lane.tool_loop and flat.build_answer is lane.build_answer
+    assert host.dispatched == [("a", "ai_search"), ("a", "execute_query")]
+    assert run.plan.workspaces() == ("a",)
+    assert run.lanes.answers[0].shape.grain == "month"
+    assert run.merged.ok() and "11,944.45" in run.reply()
+    assert run.merged.tokens_in == 3000, "the host's tokens are orchestrator tokens"
+
+
+def test_flat_cannot_assert_a_number_no_workspace_returned() -> None:
+    host = RoutedMCPHost({("a", "execute_query"): json.dumps(xtab_result())})
+    model = ScriptedModel(
+        [a_tool_use("a__execute_query", {"query": SPEND_QUERY})],
+        [a_text("Spend per point was 441.73.")],
+    )
+    run = flat_host(model, host).ask("q")
+
+    assert run.merged.rejected and "441.73" in run.merged.rejected
+    assert "441.73" not in run.reply()
+
+
+def test_flat_counts_a_metric_borrowed_from_another_workspace() -> None:
+    """AC 9: in nested a sub-agent never sees another workspace's catalogue. Flat does."""
+    host = RoutedMCPHost(
+        {
+            ("b", "ai_search"): '{"results": [{"id": "metric/metric_l1_total_campaign_spend"}]}',
+            ("a", "execute_query"): json.dumps(xtab_result()),
+        }
+    )
+    model = ScriptedModel(
+        [a_tool_use("b__ai_search", {"question": "spend"})],
+        [a_tool_use("a__execute_query", {"query": SPEND_QUERY}, "t2")],
+        [a_text("Spend was 11,944.45.")],
+    )
+    host_agent = flat_host(model, host)
+    run = host_agent.ask("q")
+
+    assert host_agent.last.cross_workspace == 1
+    assert run.plan.workspaces() == ("a",), "b was searched, not queried: considered, not used"
+
+
+# --- FEAT-014 AC 6-11: the comparison harness ----------------------------------
+
+
+def a_measured_run(question: str, answers: tuple[Answer, ...], *, combinable: bool = True) -> Any:
+    from gd_agents.orchestrator.fanout import FanoutReport
+    from gd_agents.orchestrator.merge import Merged
+    from gd_agents.orchestrator.plan import Plan
+    from gd_agents.orchestrator.run import Run
+
+    run = Run(question=question, plan=Plan(question=question, tokens_in=100, tokens_out=10))
+    run.lanes = FanoutReport(answers=answers)
+    run.merged = Merged(text="merged", combinable=combinable, answers=answers, tokens_in=200, tokens_out=20)
+    run.total_ms = 12_000
+    return run
+
+
+def test_a_row_carries_every_measured_column() -> None:
+    from gd_agents.compare import measure
+    from gd_agents.script import Question
+
+    lane_answer = Answer(
+        workspace="a",
+        question="Show Total Spend by month",
+        text="I used Total Click Cost instead of Total Spend.",
+        artifacts=(
+            {"name": "visualization", "data": {"id": "v"}},
+            {
+                "name": "visualization-data",
+                "data": {"visualizationId": "v", "columns": [{"name": "Total Click Cost", "type": "metric"}]},
+            },
+        ),
+        round_trips=7,
+        tokens_in=5000,
+        tokens_out=500,
+        catalog_chars=4000,
+    )
+    question = Question(id="q1", question="spend?", expect=("a",))
+    row = measure(
+        a_measured_run("spend?", (lane_answer,)),
+        question,
+        "mcp",
+        model="claude-opus-4-7",
+        prices={"claude-opus-4-7": (5.0, 25.0)},
+    )
+
+    assert (row.tokens_in, row.tokens_out) == (5300, 530)
+    assert row.round_trips == 7 and row.catalog_tokens == 1000
+    assert row.routing_exact and row.workspaces == ["a"]
+    assert row.disambiguation == {"substituted": 1, "off_named": 1, "cross_workspace": 0, "total": 2}
+    assert row.merge == "single" and row.merge_ok
+    assert row.cost_usd == round((5300 * 5 + 530 * 25) / 1e6, 4)
+    assert row.correct == "unscored", "no expected answers in the script means no correctness figure"
+
+
+def test_an_unpriced_model_has_no_cost_rather_than_a_guess() -> None:
+    from gd_agents.compare import cost
+
+    assert cost(1000, 100, "some-model", {}) is None
+
+
+def test_one_broken_arm_costs_its_row_and_the_report_is_written(tmp_path: Path) -> None:
+    from gd_agents.compare import Row, run_compare, write_report
+    from gd_agents.script import Question
+
+    def broken(question: Question) -> Row:
+        raise RuntimeError("lane exploded")
+
+    questions = (Question(id="q1", question="x", expect=("a",)),)
+    rows = run_compare(questions, {"a2a": lambda q: Row(question=q.id, variant="a2a"), "mcp": broken})
+
+    assert [row.variant for row in rows] == ["a2a", "mcp"]
+    assert rows[1].error and "lane exploded" in rows[1].error
+    md_path, json_path = write_report(rows, model="m", script="s", out_dir=tmp_path, when="2026-10-24")
+    assert "| q1 | a2a |" in md_path.read_text(encoding="utf-8")
+    assert json.loads(json_path.read_text(encoding="utf-8"))["summary"][1]["errored"] == 1
+
+
+def test_the_compare_command_refuses_an_unknown_question(monkeypatch: pytest.MonkeyPatch) -> None:
+    from gd_agents import cli
+
+    assert cli.main(["compare", "--only", "no-such-question"]) == 1
+
+
+def test_falling_back_to_another_metric_counts_as_a_substitution() -> None:
+    """Missed by the first regex on the 2026-10-24 run: marketing's A2A lane "fell back to
+    ranking campaigns by total spend instead" of impressions."""
+    from gd_agents.compare import SUBSTITUTION
+
+    assert SUBSTITUTION.search("so the lane fell back to ranking campaigns by total spend")
+    assert not SUBSTITUTION.search("I report each workspace separately rather than guessing.")
