@@ -89,7 +89,7 @@ flowchart TB
 | [`src/gd_agents/`](src/gd_agents) | The A2A/MCP orchestrator: registry, router, lanes, merge checks, viewer | yes |
 | [`docs/`](docs) | How each part works, and what was measured | yes |
 | [`specs/`](specs) | Vision, goals, steering, the interface contract, ADRs, per-feature specs | yes |
-| [`tests/`](tests), [`scripts/`](scripts) | Test suite and one-shot utilities | yes |
+| [`tests/`](tests) | Test suite | yes |
 | `backups/`, `reports/` | Runtime output | no |
 
 ## Rebuild GlobalMart into an org

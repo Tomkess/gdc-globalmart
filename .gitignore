@@ -45,3 +45,6 @@ __pycache__/
 
 # gdcloud's local scratch output (FEAT-019)
 gd_output/
+
+# graphify knowledge-graph output (local tool, never committed)
+graphify-out/

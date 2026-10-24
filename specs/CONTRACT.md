@@ -65,7 +65,7 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 
 FEAT-005 (sole owner), **as built 2026-09-18**: `registry.py`, `dataload.py`, `sqlcheck.py`
 and the `loaders/` submodule (`base.py`, `motherduck.py`, `postgres.py`), plus the one-shot
-`scripts/take_custody.py`, which is not part of the runtime CLI. `archive.py` and
+`scripts/take_custody.py`, which was never part of the runtime CLI (deleted 2026-10-24; in git history). `archive.py` and
 `search_event.py` were planned and do not exist: there is no archive to fetch from, and the one
 synthesised table is generated inside the custody script rather than at runtime. The rows
 themselves are no longer committed either — ADR 008 superseded ADR 007 on 2026-09-20 and
