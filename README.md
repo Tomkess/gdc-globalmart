@@ -33,7 +33,7 @@ flowchart TB
     GEN["generated/workspaces/<br/>globalmart-&lt;domain&gt;.json<br/><i>12 derived children</i>"]
     DDL["data/ddl/globalmart.sql<br/>data/table-manifest.json<br/><i>215 tables, 174,372 rows</i>"]
     DL["globalmart data ensure<br/><i>generate → load</i>"]
-    WH[("warehouse<br/>MotherDuck / Postgres")]
+    WH[("warehouse<br/>MotherDuck")]
     TG["config/targets.yaml<br/><i>TargetProfile, zero secrets</i>"]
     PUB["globalmart publish<br/>parent · domains"]
     VER["globalmart verify"]
@@ -107,25 +107,44 @@ globalmart data verify                              # DDL agrees with the SQL da
 globalmart split --check                            # generated/workspaces is current
 globalmart domains validate --strict                # every dashboard lands in a domain
 
-# 3. The whole chain — rehearsal first. Without --apply nothing is written to the org.
-globalmart rebuild --target demo-cloud
-globalmart rebuild --target demo-cloud --apply
+# 3. The whole chain, into an EMPTY org — rehearsal first. Without --apply nothing is written.
+#    Over an org that already holds GlobalMart it aborts unless --allow-existing.
+globalmart rebuild --target <fresh-org>
+globalmart rebuild --target <fresh-org> --apply
 ```
 
-`rebuild` is the four steps run in order; break it open when a step needs attention:
+`rebuild` is the cold-start proof: the steps below, then the knowledge corpus
+(`--skip-knowledge-docs` to leave it out). It publishes all 12 domains, so it is not for the
+shared orgs. Break it open when a step needs attention:
 
 ```bash
-globalmart data ensure   --target demo-cloud --apply   # generate rows, load the warehouse
-globalmart publish parent  --target demo-cloud --apply # the parent workspace
-globalmart split                                       # derive the 12 children
-globalmart publish domains --target demo-cloud --apply # publish them
-globalmart verify --target demo-cloud                  # execute every visualization
+globalmart data ensure   --target <fresh-org> --apply   # generate rows, load the warehouse
+globalmart publish parent  --target <fresh-org> --apply # the parent workspace
+globalmart split                                        # derive the 12 children
+globalmart publish domains --target <fresh-org> --apply # publish them
+globalmart verify --target <fresh-org>                  # execute every visualization
 ```
 
 `--apply` gates every write to a live org; `--dry-run` belongs to commands whose writes are local
 files, and no command has both. Details: [publish targets](docs/publish-targets.md) ·
 [verification](docs/verification.md) · [the data](docs/data-custody.md) ·
 [the domain split](docs/domain-split.md).
+
+Commands assume the venv is active (`source .venv/bin/activate`); otherwise prefix `uv run`.
+
+## Keep the data current
+
+The rows are generated, not stored (ADR 008), over a two-year window ending today. One MotherDuck
+schema, `gd_demo.globalmart`, backs all four gdcloud environments.
+
+```bash
+globalmart data ensure --target gdcloud-dev --check   # read-only; exits 3 when a load is due
+globalmart data ensure --target gdcloud-dev --apply   # generate + load only if empty or stale
+globalmart data ensure --target gdcloud-dev --apply --force   # regenerate anyway
+```
+
+`data-currency.yml` runs it weekly (or *Actions → Run workflow*, with force + apply after a
+`config/vocabulary.yaml` change); CI fails a PR once the data is more than 45 days old.
 
 ## Release GlobalMart (gdcloud)
 
@@ -143,7 +162,7 @@ one data product, `globalmart`, promoted by version tag through four environment
 ```
 edit layouts/workspaces/globalmart/ ─► globalmart split ─► globalmart gdcloud project ─► PR (label GM)
    CI: split/project --check, warehouse current, gdcloud gates ─► merge ─► v1.N ─► dev
-   ─► workflow 4 ─► test ─► workflow 5 ─► preprod ─► prod (approval)
+   ─► workflow 4 ─► test ─► workflow 5 (preprod) ─► workflow 5 again (prod, approval)
    after every deploy: globalmart_post_deploy publishes + verifies the knowledge corpus there
 ```
 
@@ -153,6 +172,7 @@ make project-check      # what CI checks
 make ci                 # gdcloud's offline gates, plus ours
 ```
 
+- **The default branch is `master`**; PRs target it.
 - **Labels decide what ships.** `GM` deploys the data product; `TOOLING` (docs, CI, code) deploys
   nothing. A PR that changes `gd_data_product/` without `GM` cannot merge.
 - **Promote** with *Actions → 4 / 5 → Run workflow*. Leave the version empty for the latest, or name
@@ -162,11 +182,12 @@ make ci                 # gdcloud's offline gates, plus ours
   `projection_current` fails the build otherwise.
 - **Org-level objects** (agents, themes, org-level AI Knowledge documents) are not released, read or
   written from this repo: both orgs are shared, and a separate org repo owns them (gd-ecommerce-demo
-  ADR 002). The knowledge corpus goes into workspaces only. `org_scope` enforces it.
-- **The 12 domain workspaces are local-only** — derived, gated, never released, so they spend none
-  of the orgs' workspace cap. Deploy them when you need them (the orchestrator below does):
-  `globalmart publish domains --target demo-cloud --apply`, then give them their documentation with
-  `globalmart knowledge-docs publish --target demo-cloud --include-domains --apply`.
+  ADR 002). The knowledge corpus goes into workspaces only. `org_scope` enforces it. That repo does
+  not exist yet; org changes made by hand are recorded in [org-repo-handoff.md](docs/org-repo-handoff.md).
+- **The 12 domain workspaces are local-only** — derived, gated, never released. The exception is the
+  4 the orchestrator reads, deployed on usecases-ai. Deploy any on demand with `--only`:
+  `globalmart publish domains --target usecases-ai --only customer,marketing,store_ops,ecommerce --apply`,
+  then `globalmart knowledge-docs publish --target usecases-ai --workspace-id <id> --apply` for each.
 - First deploy to a new org: `globalmart gdcloud bootstrap --environment <env>` (rehearsal, then
   `--apply`) checks the workspace cap, creates the data source and the titled master.
 
@@ -175,18 +196,19 @@ make ci                 # gdcloud's offline gates, plus ours
 One GoodData agent is scoped to one workspace. Every customer with more than one hits that wall, so
 `gd-agents` federates: route the question, fan out to the workspaces that can answer it, merge one
 attributed answer. Same questions run over A2A or MCP, which is how the two are compared rather
-than argued about. It reads the domain workspaces, which are not deployed by default — run
-`globalmart publish domains --target demo-cloud --apply` first.
+than argued about. It reads 4 domain workspaces on usecases-ai, already deployed; the committed
+`config/agents.yaml` points there.
 
 ```bash
 uv sync --extra agents
-export GLOBALMART_TOKEN__DEMO_CLOUD=...
+export GLOBALMART_TOKEN__USECASES_AI=...
 export ANTHROPIC_API_KEY=...
 
-# 1. Describe the workspaces for the router, by querying them.
-gd-agents profile --host https://<org>.cloud.gooddata.com \
+# 1. Optional — only after the workspaces change. Re-describes them; overwrites config/agents.yaml.
+gd-agents profile --host https://usecases-ai.demo.cloud.gooddata.com \
+  --token-env GLOBALMART_TOKEN__USECASES_AI \
   --workspaces globalmart-customer,globalmart-marketing,globalmart-store-ops,globalmart-ecommerce \
-  --apply                                   # writes config/agents.yaml
+  --apply
 
 gd-agents registry                          # what the router sees
 
@@ -218,5 +240,6 @@ from GoodData is in [the gap list](docs/a2a-gaps.md).
 | [publish-targets.md](docs/publish-targets.md) | Adding a target, and what publishing rewrites |
 | [verification.md](docs/verification.md) | The cold-rebuild proof and the failure taxonomy |
 | [data-custody.md](docs/data-custody.md) | Where the rows come from and how they are checked |
+| [org-repo-handoff.md](docs/org-repo-handoff.md) | Org-level changes made by hand, for the org repo to adopt |
 | [knowledge.md](docs/knowledge.md) | AI memory items and the knowledge corpus |
 | [bootstrap-provenance.md](docs/bootstrap-provenance.md) | What the parent workspace contained at capture |

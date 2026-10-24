@@ -1,8 +1,21 @@
 # The data
 
-GlobalMart's rows live in this repo. All 215 tables, 174,372 rows, 2.3 MB gzipped under
-`data/tables/`. A clone is the data — there is nothing to download and no credentials
-needed to have it.
+> **Current state (ADR 008, FEAT-013).** The rows are no longer committed: `data/tables/` is
+> gone, and the generator described under "The generator (FEAT-007)" is the only source. It
+> writes a two-year window ending today, using `config/vocabulary.yaml` for realistic labels,
+> and `data ensure` loads it only when the warehouse is empty or stale:
+>
+> ```bash
+> globalmart data ensure --target gdcloud-dev --check          # read-only; exit 3 = load due
+> globalmart data ensure --target gdcloud-dev --apply [--force]
+> ```
+>
+> The sections below are kept as the record of how custody worked while the rows were committed;
+> the archive they describe no longer exists. `data load` still works on generated output with an
+> explicit `--tables-dir` and `--manifest` (`globalmart data generate --out <dir>` prints the command).
+
+GlobalMart's rows lived in this repo: all 215 tables, 174,372 rows, 2.3 MB gzipped under
+`data/tables/`.
 
 ```bash
 globalmart data verify                                  # offline: data + SQL datasets

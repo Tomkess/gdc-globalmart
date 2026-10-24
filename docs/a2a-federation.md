@@ -86,14 +86,15 @@ comparable, and that is precisely the claim the checks exist to gate.
 uv sync --extra agents
 
 # credentials: an API token for the org, named per the registry
-export GLOBALMART_TOKEN__DEMO_CLOUD=...      # GoodData API token
+export GLOBALMART_TOKEN__USECASES_AI=...      # GoodData API token (the 4 workspaces live on usecases-ai)
 export ANTHROPIC_API_KEY=...                  # the router and the merge
 # or, for Bedrock instead:
 # export ANTHROPIC_BEDROCK_MODEL=...
 
 # 1. profile the workspaces — writes config/agents.yaml and the discovery findings
 uv run gd-agents profile \
-  --host https://petertomko.demo.cloud.gooddata.com \
+  --host https://usecases-ai.demo.cloud.gooddata.com \
+  --token-env GLOBALMART_TOKEN__USECASES_AI \
   --workspaces globalmart-customer,globalmart-marketing,globalmart-store-ops,globalmart-ecommerce \
   --apply
 
@@ -114,6 +115,8 @@ Other commands:
 | `gd-agents ask --json` | the payload a host would receive |
 | `gd-agents ask --inject-failure <workspace>` | force a lane to fail, to show degradation |
 | `--protocol a2a\|mcp` | on `ask`, `serve` and `rehearse` — which lane implementation to use |
+| `--protocol mcp-flat` | on `ask` only — one host model holding every workspace's MCP tools, routing by tool choice |
+| `gd-agents compare [--limit N] [--only ids]` | the script over a2a, mcp and mcp-flat; writes `reports/protocol-compare-<date>.{md,json}` |
 
 Expect **30–120 seconds** for a two-lane question. That is agent-side latency, not
 orchestration — see [`a2a-gaps.md`](a2a-gaps.md).
@@ -394,7 +397,8 @@ src/gd_agents/
   profile.py               builds the descriptions by querying the workspaces
   script.py                loads the question script, scores routing
   a2a/client.py            one workspace over A2A
-  mcp/                     empty — FEAT-014
+  mcp/                     FEAT-014: client.py, lane.py (nested sub-agent), flat.py (one host)
+  compare.py               FEAT-014's three-arm measurement and report
   orchestrator/
     align.py               the lanes' rows, side by side on the shared grain
     plan.py                route + decompose, one model call

@@ -16,9 +16,9 @@ name: 'Refresh the README into a comprehensive, technical, digestible entry poin
   few words, diagrams over prose, covering what GlobalMart is, how the repo rebuilds
   it, and how the A2A/MCP orchestrator runs'
 sources: []
-status: in-progress
+status: done
 tags: []
-updated: '2026-09-24'
+updated: '2026-10-24'
 ---
 
 ## Summary
@@ -120,3 +120,27 @@ reading the repo directly rather than an external source:
 - Should the README eventually be assembled from `domains.yaml` / the registry to prevent drift, or
   is manual upkeep acceptable at this repo's size? Left as a future idea rather than blocking this
   one (see Out of Scope).
+
+## Outcome — 2026-10-24
+
+**Task 18, the second-reader test, was run by a fresh agent with no context**, not by a person.
+It read only the README and the files it links to. It answered all five comprehension questions:
+- what the repo is;
+- how a release reaches prod;
+- how data is loaded and kept current;
+- what the repo does not own;
+- how to run the agent demo.
+
+It also verified that every link, command, flag and count resolves against the tree.
+
+The gaps it found were drift since the README was written, not structure, and were fixed in the same change:
+- The orchestrator section and `gd-agents profile` pointed at demo-cloud. The demo now runs on usecases-ai.
+- There was no "keep the data current" section.
+- The rebuild example targeted a shared, non-empty org.
+- The default branch, `master`, was not stated.
+- Promotion through workflow 5 read as automatic.
+- `docs/org-repo-handoff.md` was unlinked.
+- `docs/data-custody.md` still described committed rows that ADR 008 removed.
+
+AC #1 is met on that evidence. A human cold read is still worth doing at the next onboarding; it
+can only find more.

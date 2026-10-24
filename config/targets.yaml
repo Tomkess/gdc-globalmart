@@ -78,6 +78,12 @@ targets:
     datasource_database: gd_demo
     datasource_secret_env: MOTHERDUCK_TOKEN
     # No knowledge_scope: this profile keeps the default (workspaces) exercised by a real entry.
+    #
+    # Since 2026-10-24 this profile only addresses the 4 agent-demo domain workspaces listed in
+    # config/agents.yaml (`publish domains --only <their keys>`). Its parent, the legacy
+    # cross-org-proof `globalmart`, was deleted to free a workspace slot (backup under
+    # backups/usecases-ai/globalmart/). The GlobalMart parent on this org is now gdcloud's
+    # `globalmart_preprod` / `globalmart_master`; never `publish parent` through this profile.
 
   # --- gdcloud release targets (FEAT-019, ADR 011) -------------------------------------------
   #

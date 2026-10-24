@@ -53,6 +53,6 @@
 - [x] 17. Write `tests/test_readme.py`: assert every relative link resolves, the count table matches `config/domains.yaml` / `generated/workspaces/` / `data/table-manifest.json`, every `globalmart …`/`gd-agents …` fenced-block line parses against the real argparse parsers, and the prose line count stays under budget with slack. Wire into the existing pytest job in `.github/workflows/ci.yml`.
        Pre: task 16 complete
        AC: #2, #3, #4 (regression guard against drift)
-- [ ] 18. Run the second-reader comprehension test: hand the finished README to someone with no prior context and confirm, without them opening a second file, they can state what GlobalMart is, what the parent/domain split is, and where to run the A2A demo. Any gap sends the specific section back to its task, not the whole file.
+- [x] 18. Run the second-reader comprehension test: hand the finished README to someone with no prior context and confirm, without them opening a second file, they can state what GlobalMart is, what the parent/domain split is, and where to run the A2A demo. Any gap sends the specific section back to its task, not the whole file.
        Pre: task 16 complete
        AC: #1
