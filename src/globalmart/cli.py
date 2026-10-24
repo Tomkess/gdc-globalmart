@@ -295,6 +295,18 @@ def cmd_domains_bootstrap(args: argparse.Namespace) -> int:
     return 0
 
 
+def _only_domains(args: argparse.Namespace, manifest: object) -> set[str] | None:
+    """`--only` as domain keys. An unknown key fails rather than silently selecting less."""
+    if not args.only:
+        return None
+    only = set(args.only.split(","))
+    known = set(manifest.keys())  # type: ignore[attr-defined]
+    unknown = only - known
+    if unknown:
+        raise GlobalmartError(f"--only names unknown domain(s) {sorted(unknown)}; known: {sorted(known)}")
+    return only
+
+
 def _load_for_split(args: argparse.Namespace) -> tuple[object, object]:
     source = Path(args.source)
     if not source.exists():
@@ -309,7 +321,7 @@ def _split_report(result: object) -> list[str]:
 def cmd_split(args: argparse.Namespace) -> int:
     """Derive every domain child from the parent. Writes local files only (ADR 002)."""
     model, manifest = _load_for_split(args)
-    only = set(args.only.split(",")) if args.only else None
+    only = _only_domains(args, manifest)
     out = Path(args.out)
 
     result = split_all(
@@ -372,7 +384,7 @@ def cmd_publish_domains(args: argparse.Namespace) -> int:
     profile = load_profile(args.target)
     manifest = load_domains(Path(args.domains_file))
     source = Path(args.source)
-    only = set(args.only.split(",")) if args.only else None
+    only = _only_domains(args, manifest)
 
     models = {}
     for key in manifest.keys():  # noqa: SIM118 - DomainManifest.keys() is a method, not a mapping

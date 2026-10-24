@@ -517,3 +517,17 @@ def test_data_notify_writes_only_under_apply(monkeypatch: pytest.MonkeyPatch) ->
     assert sent == []
     assert main(["data", "notify", "--target", "gdcloud-prod", "--apply"]) == 0
     assert sent == ["ds"]
+
+
+def test_an_unknown_only_domain_fails_rather_than_selecting_less() -> None:
+    """`--only store-ops` (the key is `store_ops`) used to publish the other three and exit 0."""
+    from globalmart.cli import _only_domains
+    from globalmart.config import GlobalmartError
+    from globalmart.domains import load_domains
+
+    manifest = load_domains(Path("config/domains.yaml"))
+    args = argparse.Namespace(only="customer,store-ops")
+    with pytest.raises(GlobalmartError, match="store-ops"):
+        _only_domains(args, manifest)
+    assert _only_domains(argparse.Namespace(only="customer,store_ops"), manifest) == {"customer", "store_ops"}
+    assert _only_domains(argparse.Namespace(only=None), manifest) is None
