@@ -1,5 +1,5 @@
-host: https://petertomko.demo.cloud.gooddata.com
-token_env: GLOBALMART_TOKEN__DEMO_CLOUD
+host: https://usecases-ai.demo.cloud.gooddata.com
+token_env: GLOBALMART_TOKEN__USECASES_AI
 workspaces:
 - id: globalmart-customer
   title: GlobalMart — Customers
