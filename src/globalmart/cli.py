@@ -1,6 +1,6 @@
 """Command line entry point.
 
-Two subcommands today:
+``globalmart --help`` lists every subcommand; these three set the flag conventions the rest follow:
 
 ``globalmart bootstrap --target <name>``
     Capture the parent workspace from a live host, normalize it, and write the YAML tree.
@@ -47,6 +47,7 @@ from globalmart.counts import count_objects
 from globalmart.coverage import check_coverage, raise_for_report
 from globalmart.dataload import DEFAULT_MAX_AGE_DAYS, check_freshness, load_data, verify_contract
 from globalmart.datasource import notify_upload
+from globalmart.datefilter_gate import GateOptions, GateRun, gate_workspace
 from globalmart.datefilters import bind_date_filters
 from globalmart.domain_bootstrap import bootstrap_manifest
 from globalmart.domains import dump_domains, load_domains
@@ -546,6 +547,44 @@ def cmd_datefilters_bind(args: argparse.Namespace) -> int:
     else:
         print("\nNothing to do.")
     return 0
+
+
+def cmd_datefilters_gate(args: argparse.Namespace) -> int:
+    """Prove, live, that every dashboard's date filter changes its numbers (FEAT-011 AC 5).
+
+    Read-only, so no --apply. Defaults to the profile's parent; --workspace-id gates any
+    other workspace on the same host, the domain workspaces included.
+    """
+    profile = load_profile(args.target)
+    sdk = make_sdk(profile)
+    check_organization(sdk, profile)
+
+    workspace_ids = _unique_ids(args.workspace_id or [profile.parent_workspace_id])
+    options = GateOptions(max_candidates=args.max_candidates, max_workers=args.max_workers)
+    run = GateRun(target=profile.name, host=profile.host)
+    for workspace_id in workspace_ids:
+        run.workspaces.append(gate_workspace(sdk, workspace_id, options=options))
+
+    _print_report("Date-filter gate", run.summary_lines(verbose=args.verbose))
+
+    if not run.passed:
+        print("\nerror: a dashboard date filter does not filter, or the data is stale:", file=sys.stderr)
+        for gate in run.workspaces:
+            if gate.error is not None:
+                print(f"  - {gate.workspace_id}: unreadable ({gate.error})", file=sys.stderr)
+            elif not gate.dashboards:
+                print(f"  - {gate.workspace_id}: no dashboard carries a date filter", file=sys.stderr)
+            for dashboard in gate.failures:
+                print(f"  - {gate.workspace_id}/{dashboard.describe()}", file=sys.stderr)
+        return 1
+
+    gated = sum(len(gate.dashboards) for gate in run.workspaces)
+    print(f"\nEvery date filter filters: {gated} dashboard(s) across {len(run.workspaces)} workspace(s).")
+    return 0
+
+
+def _unique_ids(ids: Sequence[str]) -> list[str]:
+    return list(dict.fromkeys(ids))
 
 
 def _date_overrides(raw: str | None) -> dict[str, str]:
@@ -1422,6 +1461,25 @@ def build_parser() -> argparse.ArgumentParser:
         help="dashboard=dataset pairs for dashboards that resolve to more than one date",
     )
     df_bind.set_defaults(func=cmd_datefilters_bind)
+
+    df_gate = datefilters_actions.add_parser(
+        "gate", help="live, read-only: each dashboard's date filter must change its numbers"
+    )
+    df_gate.add_argument("--target", required=True)
+    df_gate.add_argument(
+        "--workspace-id",
+        action="append",
+        help="gate this workspace (repeatable); defaults to the profile's parent",
+    )
+    df_gate.add_argument(
+        "--max-candidates",
+        type=int,
+        default=3,
+        help="visualizations tried per dashboard before it fails (the first that passes decides)",
+    )
+    df_gate.add_argument("--max-workers", type=int, default=4)
+    df_gate.add_argument("--verbose", action="store_true", help="print every dashboard's two numbers")
+    df_gate.set_defaults(func=cmd_datefilters_gate)
 
     targets = subparsers.add_parser("targets", help="inspect configured targets")
     targets_actions = targets.add_subparsers(dest="action", required=True)

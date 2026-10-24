@@ -20,9 +20,9 @@ id: feat-011
 name: 'Dashboard date filters actually filter: bind every filter context to its date
   dataset, bring the data window to the present, and gate the regression'
 sources: []
-status: in-progress
+status: done
 tags: []
-updated: '2026-09-23'
+updated: '2026-10-24'
 ---
 
 ## Summary
@@ -263,3 +263,119 @@ gate that would keep it fixed has not been built.
 - Decide `fact_aged_inventory` and `fact_purchase_order_line`: a date column from the
   generator, or a named allowlist with the reason they are snapshots (AC 7).
 - Confirm no workspace still carries the investigation hand-patch (AC 8).
+
+## Outcome — 2026-10-24
+
+The three open criteria are met and AC 8 is now checked. All eight acceptance criteria hold.
+Two criteria were read against how the repo works today rather than as first written. AC 6's
+"parent and all 12 domain workspaces" now means: every deployed gdcloud environment, plus any
+workspace on demand. Since ADR 011 the repo releases one data product through gdcloud, and the
+12 domain workspaces are local-only.
+
+### AC 5 — met: the live two-window gate
+
+`globalmart datefilters gate --target <profile> [--workspace-id <id> ...] [--verbose]`
+(`src/globalmart/datefilter_gate.py`). It is read-only, so it takes no `--apply`. For every
+dashboard whose live filter context carries a `dateFilter`, it does the following:
+
+- It reads the binding from the **live** filter context: the dataset and the relative window
+  (`-11..0` months as shipped). The same window length immediately before it (`-23..-12`) is
+  the comparison window.
+- It picks one visualization **whose content reaches the bound date**. This uses the same LDM
+  walk that `datefilters bind` derives from, now shared as `datefilters.DateReach`. It runs
+  that visualization's metrics as totals (one row) under both windows. The visualization's own
+  attribute filters are kept. Its own date filter on the same dataset is replaced, as the UI
+  does.
+- **Fails** when the recent window is empty (stale data), when both windows return identical
+  numbers (the filter binds to nothing), on an execution error, when the filter is unbound, or
+  when no tile can reach the date. **Passes** only when the numbers differ and the recent one
+  is non-empty. A workspace that cannot be read, or that has nothing to gate, also fails. Every
+  failure names the workspace, the dashboard, each tried visualization and its two numbers.
+- Cost is bounded: at most `--max-candidates` (default 3) visualizations per dashboard, and the
+  first pass stops. In practice that is 2 executions per dashboard, about 15 s for 32 dashboards.
+
+The snapshot-tile skip came from a real finding on the first live run. `dashboard_017` *Customer
+Feedback & NPS* leads with three tiles on `sql_customer_ltv_snapshot` / `sql_rfm_segments`.
+These return the same number under every window (1.06984e9 / 2.99505e8 / 50000), because no
+date can reach them. Blaming them would be a false failure. Choosing them blindly would hide a
+genuinely dead dashboard. The gate selects by LDM reach, and a dashboard with no date-reaching
+tile fails as `NO_DATED_VISUALIZATION`.
+
+The decision logic is unit-tested against behaving fakes in `tests/test_datefilter_gate.py` (22
+tests). The cases covered: pass, same, stale, all-empty, error, unbound live filter, a snapshot
+tile skipped, a dashboard with no dated tile, candidate bound, retry on 503 but not on 400, an
+unreadable workspace, a workspace with nothing to gate, and filter construction in
+`measure_window`.
+
+### AC 6 — met (as adapted)
+
+- **CI, post-deploy:** a new `datefilters` job in `.github/workflows/globalmart_post_deploy.yml`
+  is the project-owned workflow and not gdcloud-generated. It runs after every successful deploy
+  by workflow 3, 4 or 5, against the environment and master that `globalmart gdcloud scope`
+  reads back from the deploy tag. It uses the same `gdcloud-<env>` profile, `TOKEN_GOODDATA`
+  secret and GitHub Environment as the knowledge publish. It is a separate job, so a corpus
+  failure and a date-filter failure cannot mask each other.
+  `tests/test_release_wiring.py::test_post_deploy_gates_date_filters_on_the_deployed_master`
+  pins the wiring.
+- **On demand:** any profile and any workspace, domains included, through `--workspace-id`.
+- The offline `datefilters bind --check` in `ci.yml` still guards the binding at PR time.
+
+Live results, 2026-10-24, all exit 0:
+
+| Target | Workspace | Dashboards gated | Pass |
+|---|---|---|---|
+| gdcloud-dev | `globalmart_dev` | 32 | 32 |
+| gdcloud-test | `globalmart_test` | 32 | 32 |
+| gdcloud-preprod | `globalmart_preprod` | 32 | 32 |
+| gdcloud-prod | `globalmart_master` | 32 | 32 |
+| demo-cloud | `globalmart` (legacy parent) | 32 | 32 |
+| usecases-ai | `globalmart-customer` | 3 | 3 |
+| usecases-ai | `globalmart-marketing` | 3 | 3 |
+| usecases-ai | `globalmart-store-ops` | 3 | 3 |
+| usecases-ai | `globalmart-ecommerce` | 2 | 2 |
+
+Sample numbers from `globalmart_dev` (recent vs earlier): `dashboard_000` 42,454 vs 39,641;
+`dashboard_001` 4.35M vs 5.04M; `dashboard_012` 1.45M vs 1.07M; `dashboard_017` 26,542 vs
+25,229. Run `--verbose` to see every dashboard. As a negative check, a workspace that is not
+deployed (`globalmart-sales` on usecases-ai) exits 1 as UNREADABLE.
+
+### AC 7 — met: both facts decided
+
+- **`fact_aged_inventory` is allowlisted** in `datefilters.UNDATED_FACTS`, with the reason that
+  it is a point-in-time snapshot of stock by age. `age_days` is its time axis, and no event date
+  exists (`aged_id, product_id, store_id, age_days, quantity`).
+- **`fact_purchase_order_line` is not dateless, and so is not allowlisted.** It has no date
+  column of its own. But it references `fact_purchase_order_header` via `po_id`, and the
+  header's `po_date` maps to `transaction_date`, so a date filter reaches PO lines through the
+  header. The answer to the open question is that the generator was right not to emit a line
+  date.
+- **Enforced:** `datefilters.undecided_facts()` walks references transitively and flags two
+  things: any `fact_*` dataset that reaches no date and is not allowlisted, and any allowlist
+  entry that has gone stale (now dated, or gone). The result is part of `bind_date_filters`'
+  report, so `datefilters bind --check` in CI fails on a new undecided fact. Against today's
+  layout it is empty. With an empty allowlist it flags exactly `fact_aged_inventory`. Tests are
+  in `tests/test_datefilters.py`.
+
+### AC 8 — met: no workspace carries the hand-patch
+
+A read-only scan on 2026-10-24 covered every `globalmart*` workspace on both orgs. On demo.cloud
+those are `globalmart`, `globalmart_dev` and `globalmart_test`. On usecases-ai they are
+`globalmart_preprod`, `globalmart_master` and the four domains. Every `dateFilter` in every
+filter context is the shipped relative `-11..0` `GDC.time.month` bound to `transaction_date`.
+There is no absolute filter anywhere. `globalmart-ecommerce` no longer exists on demo.cloud,
+where the patch was applied. On usecases-ai its `filter_context_002` matches the committed
+layout. The gate keeps this checked: any live date filter that is not relative is printed as a
+`NOTE` against its dashboard.
+
+### Files
+
+- `src/globalmart/datefilter_gate.py` (new): the gate.
+- `src/globalmart/datefilters.py`: `DateReach` extracted with no behaviour change, plus
+  `UNDATED_FACTS`, `undecided_facts` and `BindReport.undecided_facts`.
+- `src/globalmart/cli.py`: `datefilters gate`.
+- `.github/workflows/globalmart_post_deploy.yml`: the `datefilters` job.
+- `tests/test_datefilter_gate.py` (new), `tests/test_datefilters.py`,
+  `tests/test_release_wiring.py`.
+
+Gate run on this change: `pytest` (925 passed, 2 skipped), `ruff check`, `ruff format --check`,
+`mypy src` and `yamllint .`, all clean.
