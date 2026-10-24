@@ -1,6 +1,8 @@
 ---
-abandoned_at: null
-abandoned_reason: null
+abandoned_at: '2026-10-24'
+abandoned_reason: 'Superseded 2026-10-23 by ADR 011 + gd-ecommerce-demo ADR 002: organization-level
+  knowledge belongs to the separate org repo. The organization scope was removed;
+  workspace-level publishing remains.'
 appetite: s
 blocked_at: null
 blocked_by: null
@@ -18,9 +20,9 @@ name: 'Per-target knowledge_scope for the AI Knowledge corpus: publish into ever
   to GlobalMart, set per profile in targets.yaml, with cross-level cleanup on a scope
   switch — implements ADR 010'
 sources: []
-status: in-progress
+status: abandoned
 tags: []
-updated: '2026-09-25'
+updated: '2026-10-24'
 ---
 
 ## Summary

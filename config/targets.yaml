@@ -29,8 +29,8 @@ targets:
     # the duration and leaves it empty if the load fails halfway, and the live workspaces
     # read it. That is minutes on a demo org, and the fix is to run the load again.
     data_owned: true
-    # Shared org — it hosts content that is not GlobalMart, so the corpus is written into each
-    # GlobalMart workspace and never at organization level (ADR 009, ADR 010).
+    # The corpus is written into each GlobalMart workspace and never at organization level:
+    # org-level objects belong to the separate org repo (ADR 009, ADR 011).
     knowledge_scope: workspaces
 
   # The load target: same host, same MotherDuck database, a schema of its own.
@@ -53,8 +53,8 @@ targets:
     warehouse_database: gd_demo
     datasource_secret_env: MOTHERDUCK_TOKEN
     data_owned: true
-    # Shared org — it hosts content that is not GlobalMart, so the corpus is written into each
-    # GlobalMart workspace and never at organization level (ADR 009, ADR 010).
+    # The corpus is written into each GlobalMart workspace and never at organization level:
+    # org-level objects belong to the separate org repo (ADR 009, ADR 011).
     knowledge_scope: workspaces
 
   # Second demo org — the cross-org proof target. Publishing the same repo state
@@ -169,6 +169,6 @@ targets:
   #   datasource_id: globalmart-motherduck
   #   datasource_schema: main
   #   parent_workspace_id: globalmart
-  #   # Only for an org that holds nothing but GlobalMart: one upsert at organization level,
-  #   # visible from every workspace in the org, replaces thirteen (ADR 010).
-  #   knowledge_scope: organization
+  #   # knowledge_scope: organization is not supported here — organization-level knowledge
+  #   # belongs to the separate org repo (ADR 011); this repo publishes into workspaces only.
+  #   knowledge_scope: workspaces

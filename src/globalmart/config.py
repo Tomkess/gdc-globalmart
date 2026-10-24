@@ -80,14 +80,18 @@ class WarehouseType(StrEnum):
 
 
 class KnowledgeScope(StrEnum):
-    """Where the AI Knowledge corpus is published for a target (ADR 010).
+    """Where the AI Knowledge corpus is published for a target: into workspaces, only.
 
-    ``ORGANIZATION`` reaches every workspace in the org, GlobalMart or not, so it is only for
-    an org that holds nothing but GlobalMart. It is never inferred from what the org contains.
+    ``organization`` (ADR 010) is no longer a value. Organization-level objects, AI Knowledge
+    documents included, are owned by the separate org repo (org-repo ADR 002, ADR
+    011); this repo never reads or writes them. A profile still naming it is refused at load.
     """
 
     WORKSPACES = "workspaces"
-    ORGANIZATION = "organization"
+
+
+#: The retired value, refused at profile-load with a pointer to the org repo.
+_RETIRED_ORGANIZATION_SCOPE = "organization"
 
 
 def token_env_var(profile_name: str) -> str:
@@ -137,8 +141,7 @@ class TargetProfile:
 
     # --- knowledge-document fields (FEAT-017) -----------------------------
     #: Read from the YAML entry only, never from the environment, as `data_owned` is.
-    #: Widening a publish to every workspace in an org is a reviewed, committed decision,
-    #: not something a stray exported variable should be able to make.
+    #: Only `workspaces` exists: organization-level knowledge belongs to the org repo.
     knowledge_scope: KnowledgeScope = KnowledgeScope.WORKSPACES
 
     # --- gdcloud release fields (FEAT-019) --------------------------------
@@ -217,6 +220,12 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
         ) from error
 
     raw_scope = str(entry.get("knowledge_scope") or KnowledgeScope.WORKSPACES.value)
+    if raw_scope == _RETIRED_ORGANIZATION_SCOPE:
+        raise GlobalmartError(
+            f"Profile {name!r} has knowledge_scope: organization. Organization-level knowledge "
+            "belongs to the separate org repo (org-repo ADR 002, ADR 011); this repo "
+            "publishes into workspaces only. Set knowledge_scope: workspaces or remove the key."
+        )
     try:
         knowledge_scope = KnowledgeScope(raw_scope)
     except ValueError as error:
@@ -229,7 +238,7 @@ def load_profile(name: str, targets_path: Path | None = None) -> TargetProfile:
 
     gdcloud_environment = str(entry.get("gdcloud_environment") or "") or None
     if gdcloud_environment is not None:
-        _check_release_target(name, gdcloud_environment, parent_workspace_id, knowledge_scope, path)
+        _check_release_target(name, gdcloud_environment, parent_workspace_id, path)
 
     return TargetProfile(
         name=name,
@@ -258,25 +267,17 @@ def _check_release_target(
     name: str,
     environment: str,
     parent_workspace_id: str,
-    knowledge_scope: KnowledgeScope,
     targets_path: Path,
 ) -> None:
     """A profile naming a gdcloud environment must agree with config.yml (FEAT-019, ADR 011).
 
-    Raised at profile-load, before any network call, like every other profile error. Both orgs
-    the release uses are shared with other demos, so organization-level knowledge is refused
-    outright (ADR 010).
+    Raised at profile-load, before any network call, like every other profile error.
     """
     from globalmart.gdcloud_bridge import (  # here, not at module top: the bridge imports this module
         load_release_config,
         master_workspace_id,
     )
 
-    if knowledge_scope is KnowledgeScope.ORGANIZATION:
-        raise GlobalmartError(
-            f"Profile {name!r}: knowledge_scope: organization cannot be combined with "
-            "gdcloud_environment — the release orgs are shared (ADR 010)."
-        )
     release = load_release_config(targets_path.parent.parent / "config.yml")
     expected = master_workspace_id(release, environment)
     if parent_workspace_id != expected:

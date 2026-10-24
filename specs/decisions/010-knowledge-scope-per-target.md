@@ -1,6 +1,6 @@
 # 010 — Where the knowledge corpus is published is a per-target setting
 
-**Status:** Accepted (2026-09-28, after the probe below)
+**Status:** Superseded (2026-10-23) by ADR 011 and gd-ecommerce-demo ADR 002 — organization-level objects, knowledge documents included, are owned by the separate org repo; this repo publishes into workspaces only
 **Date:** 2026-09-25
 **Context:** FEAT-015, FEAT-017; `knowledge_docs.py`, `rebuild.py`, `retrieval.py`, `config/targets.yaml`.
 **Builds on** [ADR 009](009-two-ai-knowledge-channels.md), and revisits the one alternative it
@@ -97,3 +97,19 @@ was deleted in a `finally` both times.
   not change the rule for a shared org: the corpus itself never goes to organization level there.
 - **Partial cleanup** exits non-zero with a full per-level report (CONTRACT § Errors: no partial
   success reported as success). It is not a softer "partial success" state.
+
+## Superseded
+
+Every org this repo publishes to is shared: several data products, released from different
+repos, live side by side in it. An organization-level knowledge release from any one of them
+would fight the others — each repo's publish would reconcile the org level to its own view and
+delete or shadow the rest — and so would the "vacate the other level" cleanup this ADR added,
+which listed the organization level on every publish. Org-level objects therefore get a single
+owner, the separate org repo (gd-ecommerce-demo ADR 002, ADR 011).
+
+In this repo, `knowledge_scope` keeps only `workspaces`; a profile naming `organization` is
+refused at profile-load with a pointer to the org repo, and the `org_scope` gd-ci check rejects it
+in `config/targets.yaml`. `knowledge_docs.py` has no organization endpoint, no cross-level
+cleanup (`remove_ours`, `CleanupReport`, `check_scope_flags` are gone), and never prunes a
+`workspaceId: null` document. `scripts/probe_org_knowledge.py`, which could write at org level,
+was deleted; its findings (P1–P5 above) stay recorded here.

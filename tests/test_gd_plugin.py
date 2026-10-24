@@ -58,6 +58,25 @@ def test_an_org_tree_fails(repo: Path, folder: str) -> None:
     assert find_violations(repo) == [f"{folder}/ exists"]
 
 
+def test_a_target_with_organization_knowledge_scope_fails(repo: Path) -> None:
+    (repo / "config").mkdir()
+    (repo / "config" / "targets.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "targets": {
+                    "fine": {"knowledge_scope": "workspaces"},
+                    "default": {"host": "https://x"},
+                    "org-wide": {"knowledge_scope": "organization"},
+                }
+            }
+        )
+    )
+    assert find_violations(repo) == [
+        "config/targets.yaml target 'org-wide' sets knowledge_scope: organization — "
+        "org-level knowledge is owned by the org repo"
+    ]
+
+
 # --- projection_current --------------------------------------------------------------------
 
 

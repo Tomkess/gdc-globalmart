@@ -110,10 +110,18 @@ def test_knowledge_scope_defaults_to_workspaces_when_absent(
     assert profile.knowledge_scope is KnowledgeScope.WORKSPACES
 
 
-def test_knowledge_scope_organization_is_parsed(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_knowledge_scope_organization_is_refused_with_a_pointer_to_the_org_repo(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Org-level knowledge belongs to the separate org repo (ecommerce ADR 002, ADR 011)."""
     monkeypatch.setenv("GLOBALMART_TOKEN", "tok")
     path = _scoped_targets(tmp_path, "    knowledge_scope: organization\n")
-    assert load_profile("dedicated", targets_path=path).knowledge_scope is KnowledgeScope.ORGANIZATION
+    with pytest.raises(GlobalmartError) as excinfo:
+        load_profile("dedicated", targets_path=path)
+    message = str(excinfo.value)
+    assert "'dedicated'" in message
+    assert "org repo" in message
+    assert "workspaces only" in message
 
 
 def test_an_unknown_knowledge_scope_raises_at_profile_load(
@@ -125,7 +133,7 @@ def test_an_unknown_knowledge_scope_raises_at_profile_load(
         load_profile("dedicated", targets_path=path)
     message = str(excinfo.value)
     assert "'org'" in message
-    assert "workspaces" in message and "organization" in message
+    assert "Supported: workspaces." in message
 
 
 def test_knowledge_scope_ignores_the_environment(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
