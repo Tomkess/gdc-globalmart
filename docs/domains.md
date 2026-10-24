@@ -17,7 +17,7 @@ globalmart domains validate --format json     # the same report, machine-readabl
 globalmart domains bootstrap --dry-run        # regenerate from prefixes (one-time; refuses to overwrite)
 ```
 
-`validate` is offline. It reads `layouts/workspaces/globalmart/` and this file, contacts no
+`validate` is offline. It reads `gd_data_product/globalmart/` and this file, contacts no
 host and writes nothing.
 
 ## Schema (version 1)

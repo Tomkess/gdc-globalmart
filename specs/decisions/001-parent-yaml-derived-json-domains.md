@@ -1,6 +1,6 @@
 # 001 — Parent workspace as SDK YAML; domain workspaces derived as JSON
 
-**Status:** Accepted
+**Status:** Accepted; amended 2026-10-24 (ADR 011 Stage B — where the parent YAML lives and in which form)
 **Date:** 2026-09-18
 **Context:** goal-01; all workspace authoring, splitting and publishing features
 
@@ -40,3 +40,20 @@ metrics and visualizations.
 If YAML authoring proves too slow for the rate of content change, revisit the hybrid: keep code as
 truth but add a proven round-trip (`store_declarative_workspace` → normalize → diff) so UI edits can
 be pulled back safely.
+
+## Amendment (2026-10-24): ADR 011 Stage B
+
+The decision stands — the parent is a YAML tree in the repo, one file per object, and the 12
+domains are derived JSON — but where the tree lives and who may write it changed:
+
+- **The tree is `gd_data_product/globalmart/`, in gdcloud's `gd-store` form**, not
+  `layouts/workspaces/globalmart/` in placeholder form. `layouts/` and the normalizer retired. It
+  still never carries an org id in its path.
+- **It carries the canonical data source concretely** (`gd_data_product/config.env.yml`), and a
+  publish rewrites it to the target's. The placeholders (`{{ datasource_id }}`,
+  `{{ datasource_schema }}`) are gone from the tree and from `generated/workspaces/`.
+- **"Edited only in the repo — no UI authoring" is relaxed to the revisit trigger's hybrid**, with
+  the round trip it asked for now proven: build in a dev workspace and `gd-store` it back (gdcloud
+  workflows 1/2a/2b), or edit the YAML. Either way the change lands as a reviewed PR, and the repo
+  stays the source of truth; a live org never is.
+

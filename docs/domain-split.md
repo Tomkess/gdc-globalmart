@@ -117,18 +117,20 @@ hr               16 datasets (16 by closure, 0 declared)     39 metrics    36 vi
 There is no `dropped_*` column anywhere, deliberately. An object nothing references is not a
 loss, and an unsatisfiable dependency is an error rather than a report line.
 
-## Placeholders
+## The data source
 
-Generated children carry `{{ datasource_id }}` and `{{ datasource_schema }}` verbatim.
-Substitution happens at publish time, in `resolve.py`, per target. No code path in the split
+Generated children carry the parent's canonical data source verbatim
+(`gdc_ds_globalmart_motherduck` / `globalmart`, from `gd_data_product/config.env.yml`), exactly as
+the parent does since ADR 011 Stage B. Rewriting it to a target's happens at publish time, in
+`resolve.py`, per target — a no-op where they match. No code path in the split
 does string replacement over serialized JSON — that was the predecessor's method, and it
 replaced a literal that was not in the file, silently doing nothing.
 
 ## Publishing
 
 `publish domains` is a loop over FEAT-002's unchanged `publish_workspace`, so every guard
-comes along per child: preflight, the org-identity pin, the datasource upsert, placeholder
-resolution, a backup before each write, and the `--apply` gate. The workspace display name is
+comes along per child: preflight, the org-identity pin, the datasource upsert, the data source
+rewrite, a backup before each write, and the `--apply` gate. The workspace display name is
 `manifest.resolve_workspace_name(domain)` — the per-domain override if there is one,
 otherwise `workspace_name_template` rendered with the label. Nothing concatenates that string
 by hand.

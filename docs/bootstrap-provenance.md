@@ -1,6 +1,8 @@
 # Bootstrap provenance
 
-Where the committed parent layout came from, and when. This file exists so a future reader
+Where the committed parent layout came from, and when. (Historical: the tree has lived in
+`gd_data_product/globalmart/` since 2026-10-24, and `globalmart bootstrap` is retired — see the
+last section.) This file exists so a future reader
 never has to guess whether the tree is current, or which org it was taken from.
 
 `tests/test_counts.py` parses the table below and asserts it matches the committed tree, so
@@ -72,3 +74,22 @@ They carry the reserved tag `knowledge`, which is what distinguishes them from a
 capture pulls back. A re-`bootstrap` against an org that lacks them will remove them from
 the tree — correct, since the tree mirrors the org — so the ordering is **bootstrap, then
 knowledge build, then publish**. See `docs/knowledge.md`.
+
+## Amended 2026-10-24 — ADR 011 Stage B
+
+The tree moved from `layouts/workspaces/globalmart/` to `gd_data_product/globalmart/`, the folder
+gdcloud releases, and is now authored there directly. The capture above is still its origin; the
+object counts are unchanged and still pinned by `tests/test_counts.py`, against the new path.
+
+- **`globalmart bootstrap` and `globalmart normalize` are retired.** A capture is gdcloud's
+  `gd-store` (`make store`, or workflow 2a from a dev workspace). It excludes activity info, so no
+  user references reach the tree, and it writes gdcloud's exact YAML form; `gd-format-yaml --check`
+  is the formatting gate.
+- **No placeholders any more.** The tree carries the canonical data source concretely
+  (`gdc_ds_globalmart_motherduck` / `globalmart`, from `gd_data_product/config.env.yml`); a publish
+  rewrites it to the target's. The SQL datasets' `globalmart.` prefixes are therefore literal again
+  — on purpose this time.
+- The ordering for memory items becomes **gd-store, then knowledge build, then publish**: a
+  `gd-store` from a workspace that lacks the compiled items removes them, and `knowledge build
+  --check` in CI catches it.
+

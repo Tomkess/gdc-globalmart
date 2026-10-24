@@ -26,7 +26,7 @@ on the LDM, the warehouse and the data, none of which the layout knows about. Ru
 the only way to find out.
 
 **2. The right objects arrived.** Each workspace's live object counts are compared against
-counts derived from the repo: the parent against `layouts/workspaces/globalmart/`, each
+counts derived from the repo: the parent against `gd_data_product/globalmart/`, each
 child against **its own** `generated/workspaces/globalmart-<domain>.json`. A child is never
 compared against the parent's numbers.
 

@@ -25,6 +25,22 @@ A generic `GLOBALMART_TOKEN` exists as a fallback for a single-host setup. Prefe
 per-target variables once you have more than one org: with a shared token, a mistyped
 `--target` authenticates successfully against the wrong org instead of failing.
 
+## The data source a target gets
+
+The committed tree carries one canonical data source, `globalmart_canonical` in
+`gd_data_product/config.env.yml` (`gdc_ds_globalmart_motherduck` / `globalmart` today). A publish
+rewrites it to the profile's `datasource_id` / `datasource_schema` — dataset ids, table-path
+schemas and SQL `<schema>.` prefixes — and the plan says what it rewrote:
+
+```
+data source rewrite        : gdc_ds_globalmart_motherduck / globalmart -> globalmart-motherduck / globalmart_rebuild
+datasource refs rewritten  : 225
+```
+
+For every gdcloud environment the profile matches the canonical pair and the line reads `none`.
+After the rewrite, any other data source id or schema, or a leftover `{{ … }}` placeholder, fails
+the publish before a byte is written (ADR 011 Stage B).
+
 ## Publishing
 
 ```bash
@@ -37,7 +53,8 @@ globalmart publish parent --target <profile> --apply
 
 **Targets are owned by this repo.** `put_declarative_workspace` has REPLACE semantics: it
 overwrites the workspace's entire content in one call. Anything authored in the UI and not
-represented in `layouts/workspaces/globalmart/` is destroyed by a publish.
+represented in `gd_data_product/globalmart/` is destroyed by a publish. (A change built in a
+gdcloud dev workspace is brought back with `gd-store` first; then it is represented.)
 
 Three guards stand between a typo and that outcome (ADR 002):
 

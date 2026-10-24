@@ -4,7 +4,7 @@ Guidance for AI agents working in this project. Read by `/spec`, `/breakdown`, `
 before producing any output — treat these as hard constraints, not suggestions.
 
 **Interfaces live in [`CONTRACT.md`](CONTRACT.md), not here.** Module ownership, shared types
-(`TargetProfile`, `DomainManifest`, the placeholder tokens), the CLI surface and the on-disk paths
+(`TargetProfile`, `DomainManifest`, `CanonicalDataSource`), the CLI surface and the on-disk paths
 are pinned there and are binding. Read it instead of reading other features' `spec.md` /
 `breakdown.md` to find out what something is called. This file holds *principles*; that file holds
 *names*.
@@ -16,9 +16,10 @@ are pinned there and are binding. Read it instead of reading other features' `sp
 - **The repo is the source of truth, never a live org.** Nothing may require reading a live
   GoodData workspace in order to rebuild GlobalMart.
 - **Parent workspace** is stored as the gooddata-python-sdk native layout tree (YAML, one file per
-  object) under `layouts/workspaces/globalmart/` — a neutral path with no org id. Reads/writes go
-  through `get_declarative_workspace(...).store_to_disk(workspace_folder=...)` and
-  `CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=...)`, never through
+  object) under `gd_data_product/globalmart/`, in exactly the bytes gdcloud's `gd-store` and
+  `gd-format-yaml` write — a neutral path with no org id (ADR 011 Stage B). Reads go through
+  `CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=...)` and writes through
+  `layout_io.write_tree` (the SDK's `store_to_disk` plus gdcloud's normalizers), never through
   `store_declarative_workspace` / `load_declarative_workspace`, which route through
   `layout_organization_folder()` and bake the org id into the path.
 - **Domain workspaces are derived, never authored.** They are generated from the parent by the
@@ -28,8 +29,8 @@ are pinned there and are binding. Read it instead of reading other features' `sp
   release path deploys them: they are published on demand (`publish domains --apply`) and never
   spend a slot of the orgs' workspace cap by default.
 - **gdcloud releases the parent, and only the parent (ADR 011).** `gd_data_product/globalmart/` is
-  derived from `layouts/workspaces/globalmart/` by `globalmart gdcloud project`; never edit it, never
-  `gd-store` into it. `config.yml` declares exactly one data product.
+  the parent's only authoring tree: edit it, or `gd-store` into it from a dev workspace (gdcloud
+  workflows 1/2a/2b). `config.yml` declares exactly one data product.
 - **This repo never releases or snapshots org-level objects, and never reads or writes
   organization-level knowledge documents.** `automation.org_release` and
   `automation.organization_snapshot` stay `false`, and every target's `knowledge_scope` is
@@ -39,8 +40,9 @@ are pinned there and are binding. Read it instead of reading other features' `sp
   committed because its diffs carry meaning. Warehouse rows are not: they are fetched from a
   project-owned archive and verified against the committed `data/archive-manifest.json`, with the
   local cache gitignored. See ADR 003.
-- **No UI authoring.** Changes are made in the repo and published. An export-from-live step is not
-  part of any routine workflow (only a one-time bootstrap).
+- **The repo, not the UI, is where a change lands.** A change is either a YAML edit or a dev-workspace
+  build brought back by `gd-store`; either way it reaches an org only as a reviewed, merged PR.
+  Capturing from a shared or released workspace is not a routine step.
 - **Domain membership is explicit** — declared in `domains.yaml`, not inferred from object-id
   naming conventions. Prefix conventions may only be used to bootstrap that file once.
 - **Every child workspace gets a pruned LDM** — only the datasets that domain actually needs: those
@@ -72,12 +74,16 @@ The committed layout must carry no trace of the org it was captured from
   parent under a neutral folder and loads it with
   `CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=...)`, which takes an explicit
   path and never consults the org id.
-- **No user references.** `createdBy` / `modifiedBy` are stripped on capture — a foreign user id
-  makes the target org reject the layout. (Current export carries 420 + 1490 of them.)
-- **Datasource is a parameter.** All 225 dataset `dataSourceId` references are rewritten at publish
-  time by structured traversal from a single config value, not by string replacement.
-- **Schema is a parameter.** SQL datasets must have `{{ datasource_schema }}` substituted with the
-  target schema, never stripped or left templated.
+- **No user references.** `createdBy` / `modifiedBy` never reach the tree — `gd-store` captures
+  with activity info excluded, and every publish refuses a model that carries them — a foreign user
+  id makes the target org reject the layout. (A raw export carries 420 + 1490 of them.)
+- **Datasource is a parameter.** The tree carries one canonical data source id
+  (`gd_data_product/config.env.yml`); all 225 dataset `dataSourceId` references are rewritten to the
+  target's at publish time by structured traversal, not by string replacement, and a no-op when they
+  match.
+- **Schema is a parameter.** Likewise the canonical schema: every table path's schema and every SQL
+  dataset's `<schema>.` prefix is rewritten to the target's, never stripped. A publish fails if any
+  other data source id or schema, or any leftover `{{ … }}` placeholder, survives.
 - **Workspace data filters** (4 present) are resolved or explicitly removed per target, since they
   reference org-scoped filter ids.
 - **AI context travels.** `memoryItems`, parameters, agent personalities and AI knowledge are
@@ -88,7 +94,7 @@ The committed layout must carry no trace of the org it was captured from
   profiles — one profile per target (demo cloud, local inference, a fresh org). Adding a target is
   a config entry, never a code change.
 - **Acceptance:** publishing the same repo state into two different orgs yields workspaces whose
-  normalized layouts are identical except for the parameterized values.
+  layouts are identical except for the parameterized values.
 
 ## Coding Standards
 
@@ -110,7 +116,8 @@ The committed layout must carry no trace of the org it was captured from
 
 ## Domain Glossary
 
-- **parent** = the single `globalmart` workspace holding the whole model; the editing surface.
+- **parent** = the single `globalmart` workspace holding the whole model; the editing surface
+  (`gd_data_product/globalmart/`).
 - **domain workspace** / **child** = one of the derived per-domain workspaces.
 - **split** = the deterministic derivation of children from the parent.
 - **prune** = removing LDM datasets a child neither reaches nor declares; whole datasets only, never

@@ -65,7 +65,7 @@ dependency entirely, which is what the feature was actually for.
 
 ## `fact_search_event`, the 215th table
 
-`sql_channel_attribution` selects `FROM {{ datasource_schema }}.fact_search_event`. No DDL
+`sql_channel_attribution` selects `FROM globalmart.fact_search_event`. No DDL
 and no CSV for that table has ever existed — the dataset was broken from the day it was
 written, and nothing noticed, because a layout publishes fine whether or not its SQL can
 run.
