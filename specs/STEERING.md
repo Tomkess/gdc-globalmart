@@ -30,9 +30,11 @@ are pinned there and are binding. Read it instead of reading other features' `sp
 - **gdcloud releases the parent, and only the parent (ADR 011).** `gd_data_product/globalmart/` is
   derived from `layouts/workspaces/globalmart/` by `globalmart gdcloud project`; never edit it, never
   `gd-store` into it. `config.yml` declares exactly one data product.
-- **This repo never releases or snapshots org-level objects.** `automation.org_release` and
-  `automation.organization_snapshot` stay `false`; both orgs are shared, and a separate org repo owns
-  agents, themes and the like (gd-ecommerce-demo ADR 002). The `org_scope` gd-ci check enforces it.
+- **This repo never releases or snapshots org-level objects, and never reads or writes
+  organization-level knowledge documents.** `automation.org_release` and
+  `automation.organization_snapshot` stay `false`, and every target's `knowledge_scope` is
+  `workspaces`; both orgs are shared, and a separate org repo owns agents, themes, org-level AI
+  Knowledge and the like (gd-ecommerce-demo ADR 002, ADR 011). The `org_scope` gd-ci check enforces it.
 - **Commit what a human reviews, not what a machine consumes.** `generated/workspaces/*.json` is
   committed because its diffs carry meaning. Warehouse rows are not: they are fetched from a
   project-owned archive and verified against the committed `data/archive-manifest.json`, with the

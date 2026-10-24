@@ -30,7 +30,7 @@ from pathlib import Path
 
 from globalmart.capture import capture_workspace
 from globalmart.closure import MetricPolicy
-from globalmart.config import GlobalmartError, KnowledgeScope, TargetProfile, load_profile
+from globalmart.config import GlobalmartError, TargetProfile, load_profile
 from globalmart.corpus import (
     DEFAULT_CORPUS_DIR,
     DEFAULT_MANIFEST,
@@ -64,7 +64,6 @@ from globalmart.knowledge import DEFAULT_SOURCE_DIR, build_knowledge
 from globalmart.knowledge_docs import (
     HttpKnowledgeApi,
     ScopedCorpusReport,
-    check_scope_flags,
     corpus_workspaces,
     publish_for_target,
     verify_for_target,
@@ -829,20 +828,18 @@ def cmd_knowledge_docs_coverage(args: argparse.Namespace) -> int:
     return 0
 
 
-def _corpus_workspaces(args: argparse.Namespace, profile: TargetProfile) -> tuple[list[str], bool]:
-    """`(workspaces, narrowed)`: the workspaces this publish or verify addresses.
+def _corpus_workspaces(args: argparse.Namespace, profile: TargetProfile) -> list[str]:
+    """The workspaces this publish or verify addresses — and the only places it touches.
 
     GlobalMart has no GoodData workspace hierarchy (all 13 report `parent=None`, probed
-    2026-09-21), so each workspace is its own level. Under `knowledge_scope: workspaces` these
-    are written; under `organization` they are the levels our old copies are removed from
-    (ADR 010). `--workspace-id` / `--parent-only` narrow a `workspaces` publish to one, and
-    `check_scope_flags` has already refused them under `organization`.
+    2026-09-21), so each workspace is written directly. Never the organization level: that
+    belongs to the separate org repo (org-repo ADR 002, ADR 011).
+    `--workspace-id` / `--parent-only` narrow a publish to one workspace.
 
     The domain workspaces are local-only (ADR 011): deployed on demand, not by default. So the
     configured set is the parent alone unless `--include-domains` says the domains are there —
     a deleted domain was a 404 that failed every publish, rehearsal included. Not inferred from
-    what the org holds: a typo'd workspace must still fail loudly. Organization scope keeps all
-    thirteen, because there they are only places to clean, and an absent one is already fine.
+    what the org holds: a typo'd workspace must still fail loudly.
     """
     parent = args.workspace_id or profile.parent_workspace_id
     if profile.gdcloud_environment is not None:
@@ -853,60 +850,46 @@ def _corpus_workspaces(args: argparse.Namespace, profile: TargetProfile) -> tupl
                 f"Profile {profile.name!r} releases {profile.parent_workspace_id!r} only; "
                 f"--workspace-id {args.workspace_id!r} is not it."
             )
-        return [profile.parent_workspace_id], True
+        return [profile.parent_workspace_id]
     if args.workspace_id or getattr(args, "parent_only", False):
-        return [parent], True
-    if getattr(args, "include_domains", False) or profile.knowledge_scope is KnowledgeScope.ORGANIZATION:
-        return corpus_workspaces(load_domains(Path(args.domains_file))), False
-    return [profile.parent_workspace_id], False
+        return [parent]
+    if getattr(args, "include_domains", False):
+        return corpus_workspaces(load_domains(Path(args.domains_file)))
+    return [profile.parent_workspace_id]
 
 
 def _print_scoped(report: ScopedCorpusReport) -> None:
     _print_report("Knowledge documents", report.header_lines())
     for level in report.levels:
-        _print_report(f"Knowledge documents — {level.level_label}", level.summary_lines())
-    cleanup = report.cleanup_lines()
-    if cleanup:
-        _print_report("Other level", cleanup)
+        _print_report(f"Knowledge documents — {level.workspace_id}", level.summary_lines())
 
 
 def cmd_knowledge_docs_publish(args: argparse.Namespace) -> int:
-    """Upsert the corpus into AI Knowledge at the target's scope. Rehearsal unless --apply."""
+    """Upsert the corpus into AI Knowledge in the target's workspaces. Rehearsal unless --apply."""
     profile = load_profile(args.target)
-    check_scope_flags(profile, parent_only=args.parent_only, workspace_id=args.workspace_id)
     documents = load_corpus(Path(args.corpus))
-    workspaces, narrowed = _corpus_workspaces(args, profile)
+    workspaces = _corpus_workspaces(args, profile)
 
     if not args.apply:
         print("REHEARSAL — no writes, no deletes. Re-run with --apply to publish.\n")
-    report = publish_for_target(
-        profile, documents, workspaces=workspaces, narrowed=narrowed, apply=args.apply
-    )
+    report = publish_for_target(profile, documents, workspaces=workspaces, apply=args.apply)
     _print_scoped(report)
 
     if report.failed:
         print(f"\n{len(report.failed)} document(s) failed to upsert.", file=sys.stderr)
-    if report.cleanup_incomplete:
-        print(
-            f"\ncleanup incomplete: {', '.join(report.cleanup_incomplete)} — run "
-            f"`globalmart knowledge-docs publish --target {profile.name} --apply` again.",
-            file=sys.stderr,
-        )
     return 0 if report.ok else 1
 
 
 def cmd_knowledge_docs_verify(args: argparse.Namespace) -> int:
     """Reconcile the repo against the org, and optionally prune our orphans.
 
-    Checks every level the publish writes to, because a corpus that is current in the parent
-    and stale in the twelve domain workspaces is exactly the drift this feature is supposed
-    to catch — and reads the other level too, where a leftover copy of ours would shadow or
-    duplicate the published one (ADR 010).
+    Checks every workspace the publish writes to, because a corpus that is current in the
+    parent and stale in the twelve domain workspaces is exactly the drift this feature is
+    supposed to catch. Prune deletes only our own documents local to each workspace.
     """
     profile = load_profile(args.target)
-    check_scope_flags(profile, parent_only=args.parent_only, workspace_id=args.workspace_id)
     documents = load_corpus(Path(args.corpus))
-    workspaces, narrowed = _corpus_workspaces(args, profile)
+    workspaces = _corpus_workspaces(args, profile)
 
     if args.prune and not args.apply:
         print("REHEARSAL — nothing deleted. Re-run with --prune --apply to remove orphans.\n")
@@ -915,7 +898,6 @@ def cmd_knowledge_docs_verify(args: argparse.Namespace) -> int:
         profile,
         documents,
         workspaces=workspaces,
-        narrowed=narrowed,
         prune=args.prune,
         apply=args.apply,
     )
@@ -923,7 +905,7 @@ def cmd_knowledge_docs_verify(args: argparse.Namespace) -> int:
 
     if report.stale:
         print(
-            f"\n{len(report.stale)} level(s) do not match the repo: {', '.join(report.stale)}. "
+            f"\n{len(report.stale)} workspace(s) do not match the repo: {', '.join(report.stale)}. "
             f"Run `globalmart knowledge-docs publish --target {profile.name} --apply`.",
             file=sys.stderr,
         )

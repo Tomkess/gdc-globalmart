@@ -55,7 +55,7 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `report.py` | FEAT-006 | The only module that knows about presentation |
 | `corpus.py` | FEAT-015 | `CorpusDocument`, `DiataxisKind`, `parse_corpus_document`, `load_corpus`, `published_filename` — the offline authoring model |
 | `corpus_coverage.py` | FEAT-015 | `CorpusManifest` + its strict loader, `check_corpus_coverage`, `raise_for_corpus_report` |
-| `knowledge_docs.py` | FEAT-015 (+017) | The only module that touches `/api/v1/ai/{workspaces/{id}\|organization}/knowledge/documents`; `publish_corpus`, `verify_corpus`, `remove_ours`, `publish_for_target`, `verify_for_target`, `check_scope_flags`, `corpus_workspaces`. A level is a workspace id or `None` (organization) |
+| `knowledge_docs.py` | FEAT-015 (+017) | The only module that touches `/api/v1/ai/workspaces/{id}/knowledge/documents`; `publish_corpus`, `verify_corpus`, `publish_for_target`, `verify_for_target`, `corpus_workspaces`. A level is a workspace id. No organization endpoint: it never reads, writes or deletes org-level knowledge, and a `workspaceId: null` (org-level) document is never local, so never pruned — org level belongs to the separate org repo (ADR 011) |
 | `retrieval.py` | FEAT-015 | `RetrievalQuestion`, `run_retrieval` — answer-level validation over the published corpus |
 | `gdcloud_bridge.py` | FEAT-019 | The only module that reads gdcloud's `config.yml`: `ReleaseConfig`, `load_release_config`, `master_workspace_id`, `parse_deploy_tag`, `release_scope_from_tags`. Refuses any catalog but exactly one data product (ADR 011) |
 | `gdcloud_project.py` | FEAT-019 | `project_parent`, `write_projection`, `diff_projection` — the parent layout projected into `gd_data_product/globalmart/`, byte-identical to `gd-store`. The one module that imports `gdcloud` (its YAML normalizers, lazily) |
@@ -109,8 +109,8 @@ One entry in `config/targets.yaml`. Tokens and secrets are **env-only**, never i
 | `workspace_id_prefix`, `backup_dir` | `str` | FEAT-002 |
 | `warehouse_database` | `str \| None` (MotherDuck `gd_demo`) | FEAT-005 |
 | `data_owned` | `bool`, default `False` — opt-in before any truncate (ADR 004) | FEAT-005 |
-| `knowledge_scope` | `KnowledgeScope`, default `WORKSPACES`. YAML only, **no env override**. Unknown value raises at profile-load (ADR 010) | FEAT-017 |
-| `gdcloud_environment` | `str \| None`, default `None`. YAML only. Set, the profile is a gdcloud release target (`gdcloud-dev` …): it must name an environment in `config.yml`, `parent_workspace_id` must be that environment's master, and `knowledge_scope: organization` is refused — all at profile-load. Knowledge publish/verify then reach that master only (ADR 011) | FEAT-019 |
+| `knowledge_scope` | `KnowledgeScope`, default `WORKSPACES` (its only value). YAML only, **no env override**. `organization` raises at profile-load naming the org repo (ADR 010 superseded by ADR 011); any other unknown value raises too | FEAT-017 |
+| `gdcloud_environment` | `str \| None`, default `None`. YAML only. Set, the profile is a gdcloud release target (`gdcloud-dev` …): it must name an environment in `config.yml`, and `parent_workspace_id` must be that environment's master — both at profile-load. Knowledge publish/verify then reach that master only (ADR 011) | FEAT-019 |
 
 `load_profile(name: str) -> TargetProfile` keeps its FEAT-001 signature; only the dataclass grows.
 `validate_for_publish(profile) -> list[str]` returns the names of missing publish-required keys,
@@ -119,10 +119,10 @@ including an unresolved secret env var.
 `WarehouseType` (`StrEnum`): `MOTHERDUCK = "motherduck"`, `POSTGRES = "postgres"`. Any other value
 raises at **profile-load** time, not at publish time.
 
-`KnowledgeScope` (`StrEnum`): `WORKSPACES = "workspaces"` (the corpus is upserted into every
-GlobalMart workspace), `ORGANIZATION = "organization"` (upserted once at organization level, where
-every workspace in the org sees it — only for an org holding nothing but GlobalMart). Same
-profile-load validation as `WarehouseType`. Never inferred from what the org contains (ADR 010).
+`KnowledgeScope` (`StrEnum`): `WORKSPACES = "workspaces"` only (the corpus is upserted into each
+GlobalMart workspace addressed). The former `organization` value (ADR 010) is refused at
+profile-load: organization-level objects, knowledge documents included, are owned by the separate
+org repo (gd-ecommerce-demo ADR 002, ADR 011). Same profile-load validation as `WarehouseType`.
 
 `organization_id`, `datasource_id` and `datasource_schema` are read in both directions — what to
 scrub out on capture, what to substitute back in on publish. That symmetry is what makes the
@@ -208,8 +208,8 @@ class DomainManifestError(GlobalmartError): ...
 (FEAT-015, 2026-09-21).** They model an *in-layout* knowledge object — one the splitter copies
 into each child and `check_coverage` demands membership for. The AI Knowledge documents FEAT-015
 publishes are the opposite on both counts: they live outside the layout tree, are written by
-their own REST call, and are upserted into every workspace directly — or once at organization
-level, per the target's `knowledge_scope` (ADR 010) — rather than being copied by the splitter — there is no GoodData workspace hierarchy to inherit through (all thirteen report
+their own REST call, and are upserted into every workspace directly — never at organization level, which the org repo
+owns (ADR 011) — rather than being copied by the splitter — there is no GoodData workspace hierarchy to inherit through (all thirteen report
 `parent=None`; ADR 009).
 Wiring them here would make `domains validate` demand coverage of objects that are not in the
 layout at all. Per-domain grouping is expressed instead as `scopes` derived from a document's
@@ -315,7 +315,7 @@ the token, never the token itself; `gd-agents profile` defaults it to
 | `config/vocabulary.yaml` | Realistic values for generated text columns (FEAT-021): records, parent-scoped names, templates, composition. Demo content; change it and force a reload | yes |
 | `data/ddl/globalmart.sql` | **215**-table DDL, schema-only, `{schema_name}` templated (214 inherited + `fact_search_event`) | yes |
 | `data/table-manifest.json` | Per table: row count, columns, sha256 of the **uncompressed** CSV, byte size | yes |
-| `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge per the target's `knowledge_scope`: in **every** workspace by default (no GoodData hierarchy exists, so nothing is inherited — ADR 009), or once at organization level for a dedicated org (ADR 010). **Not** part of the layout tree | yes |
+| `docs/knowledge-corpus/<kind>/<slug>.md` | FEAT-015's authored documentation corpus, one Diátaxis kind per directory. Published to AI Knowledge per the target's `knowledge_scope`: in **every** workspace addressed (no GoodData hierarchy exists, so nothing is inherited — ADR 009), never at organization level (owned by the separate org repo, ADR 011). **Not** part of the layout tree | yes |
 | `config/corpus.yaml` | Corpus exclusion manifest — what is deliberately undocumented, with a reason | yes |
 | `config/corpus-questions.yaml` | The fixed answer-level retrieval question set | yes |
 | `config.yml` | gdcloud project config: one data product `globalmart`, four environments on two orgs, `org_release`/`organization_snapshot` off (ADR 011, ecommerce ADR 002). No secrets | yes |

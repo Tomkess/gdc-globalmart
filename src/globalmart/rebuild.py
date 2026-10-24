@@ -195,9 +195,10 @@ def _plan(profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions
     # The documentation corpus is not part of the layout tree, so `publish parent` does not
     # carry it — it is written by its own API call. That makes it a real step in the chain
     # rather than a footnote: goal-01's "no manual step" bar has to be met literally, or the
-    # omission has to be named. Where it is written — every GlobalMart workspace, or once at
-    # organization level — is the profile's `knowledge_scope` (ADR 010). There is no
-    # workspace hierarchy to inherit through (ADR 009), so nothing reaches a child for free.
+    # omission has to be named. It is written into every GlobalMart workspace the rebuild
+    # deploys — never at organization level, which the separate org repo owns (ADR 011).
+    # There is no workspace hierarchy to inherit through (ADR 009), so nothing reaches a
+    # child for free.
     corpus_step = RebuildStep(
         name="publish-knowledge-docs",
         cli_equivalent=f"globalmart knowledge-docs publish --target {profile.name} --apply",
@@ -300,25 +301,9 @@ def _run_publish_knowledge_docs(
         raise GlobalmartError(
             f"{len(report.failed)} knowledge document(s) failed to upsert: " + ", ".join(report.failed)
         )
-    if report.cleanup_incomplete:
-        # The same "no partial success" rule: a leftover local copy outranks the inherited
-        # one, so an unfinished cleanup can leave the assistant answering from stale text.
-        raise GlobalmartError(
-            "knowledge corpus published, but our copies could not be removed from "
-            + ", ".join(report.cleanup_incomplete)
-        )
 
     written = sum(len(level.results) for level in report.levels)
-    removed = sum(len(c.deleted) for c in report.cleanup)
-    where = (
-        "organization level"
-        if len(report.levels) == 1 and report.levels[0].workspace_id is None
-        else f"{len(report.levels)} workspaces"
-    )
-    return (
-        f"scope={report.scope.value}: {len(documents)} documents into {where} "
-        f"({written} upserts); other level {len(report.cleanup)} checked, {removed} removed"
-    )
+    return f"{len(documents)} documents into {len(report.levels)} workspaces ({written} upserts)"
 
 
 def _run_split(sdk: Any, profile: TargetProfile, manifest: DomainManifest, opts: RebuildOptions) -> str:

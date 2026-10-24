@@ -160,8 +160,9 @@ make ci                 # gdcloud's offline gates, plus ours
   the last prod release and ships `v1.N.1`.
 - **Never edit `gd_data_product/globalmart/`** — it is derived. Change the layout and re-project;
   `projection_current` fails the build otherwise.
-- **Org-level objects** (agents, themes) are not released from this repo: both orgs are shared, and
-  a separate org repo owns them (gd-ecommerce-demo ADR 002). `org_scope` enforces it.
+- **Org-level objects** (agents, themes, org-level AI Knowledge documents) are not released, read or
+  written from this repo: both orgs are shared, and a separate org repo owns them (gd-ecommerce-demo
+  ADR 002). The knowledge corpus goes into workspaces only. `org_scope` enforces it.
 - **The 12 domain workspaces are local-only** — derived, gated, never released, so they spend none
   of the orgs' workspace cap. Deploy them when you need them (the orchestrator below does):
   `globalmart publish domains --target demo-cloud --apply`, then give them their documentation with

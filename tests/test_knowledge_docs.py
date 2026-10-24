@@ -22,20 +22,16 @@ from globalmart.corpus import CorpusDocument, load_corpus
 from globalmart.domains import load_domains
 from globalmart.knowledge_docs import (
     DEFAULT_SEARCH_LIMIT,
-    ORGANIZATION_BASE,
     OWNER_SCOPE,
     HttpKnowledgeApi,
     KnowledgeDocsError,
-    KnowledgeScopeError,
     RemoteDocument,
     SearchResult,
     UpsertResult,
     _multipart,
-    check_scope_flags,
     corpus_workspaces,
     publish_corpus,
     publish_for_target,
-    remove_ours,
     verify_corpus,
     verify_for_target,
 )
@@ -58,8 +54,8 @@ class FakeKnowledgeApi:
     search_results: list[SearchResult] = field(default_factory=list)
     pages: int = 1
     fail_download: bool = False
-    #: The level this fake answers for: a workspace id, or None for the organization.
-    level: str | None = WORKSPACE
+    #: The workspace this fake answers for.
+    level: str = WORKSPACE
     #: Raised by `list_documents`, e.g. a 404 for a workspace that does not exist yet.
     list_error: KnowledgeDocsError | None = None
     fail_upsert: bool = False
@@ -432,12 +428,12 @@ def test_the_body_uploaded_is_the_body_digested(documents: list[CorpusDocument])
     assert hashlib.sha256(stored.encode()).hexdigest() == document.digest
 
 
-# --- the organization level and knowledge_scope (FEAT-017, ADR 010) -----------
+# --- per target: the given workspaces, and no other level ---------------------
 
 WORKSPACES = ("globalmart", "globalmart-finance", "globalmart-risk")
 
 
-def scoped_profile(scope: KnowledgeScope = KnowledgeScope.WORKSPACES) -> TargetProfile:
+def scoped_profile() -> TargetProfile:
     return TargetProfile(
         name="dedicated",
         host="https://example.gooddata.com",
@@ -445,40 +441,38 @@ def scoped_profile(scope: KnowledgeScope = KnowledgeScope.WORKSPACES) -> TargetP
         organization_id="org",
         datasource_id="ds",
         datasource_schema="globalmart",
-        knowledge_scope=scope,
+        knowledge_scope=KnowledgeScope.WORKSPACES,
     )
 
 
 @dataclass
 class FakeOrg:
-    """One `FakeKnowledgeApi` per level; calling it is the `api_factory`."""
+    """One `FakeKnowledgeApi` per workspace; calling it is the `api_factory`.
 
-    levels: dict[str | None, FakeKnowledgeApi] = field(default_factory=dict)
+    Records every level the factory is asked for, so a test can prove the organization level
+    (anything that is not one of the given workspaces) is never addressed.
+    """
 
-    def __call__(self, level: str | None) -> FakeKnowledgeApi:
+    levels: dict[str, FakeKnowledgeApi] = field(default_factory=dict)
+    requested: list[object] = field(default_factory=list)
+
+    def __call__(self, level: str) -> FakeKnowledgeApi:
+        self.requested.append(level)
         return self.at(level)
 
-    def at(self, level: str | None) -> FakeKnowledgeApi:
+    def at(self, level: str) -> FakeKnowledgeApi:
         return self.levels.setdefault(level, FakeKnowledgeApi(level=level))
 
-    def seed_corpus(self, level: str | None, documents: list[CorpusDocument]) -> None:
+    def seed_corpus(self, level: str, documents: list[CorpusDocument]) -> None:
         for document in documents:
             self.at(level).seed(document.filename, document.body, workspace_id=level)
 
 
-def test_the_organization_level_addresses_the_organization_endpoint() -> None:
-    api = HttpKnowledgeApi.for_organization(scoped_profile())
-    assert api.workspace_id is None
-    assert api.base == ORGANIZATION_BASE
-    assert HttpKnowledgeApi.for_level(scoped_profile(), None) == api
-    assert HttpKnowledgeApi.for_level(scoped_profile(), "globalmart-risk").base == (
-        "/api/v1/ai/workspaces/globalmart-risk/knowledge"
-    )
-
-
-def test_search_from_the_organization_level_is_refused() -> None:
-    with pytest.raises(KnowledgeDocsError, match="from a workspace"):
-        HttpKnowledgeApi.for_organization(scoped_profile()).search("anything")
+def test_the_live_api_addresses_only_a_workspace_endpoint() -> None:
+    api = HttpKnowledgeApi.for_profile(scoped_profile(), "globalmart-risk")
+    assert api.base == "/api/v1/ai/workspaces/globalmart-risk/knowledge"
+    assert HttpKnowledgeApi.for_profile(scoped_profile()).workspace_id == "globalmart"
+    assert not hasattr(HttpKnowledgeApi, "for_organization")
 
 
 def test_corpus_workspaces_is_the_parent_and_every_domain() -> None:
@@ -489,324 +483,88 @@ def test_corpus_workspaces_is_the_parent_and_every_domain() -> None:
     assert len(set(workspaces)) == 13
 
 
-def test_publish_at_organization_level_treats_null_workspace_documents_as_local(
-    documents: list[CorpusDocument],
-) -> None:
-    api = FakeKnowledgeApi(level=None)
-    publish_corpus(api, documents, workspace_id=None, apply=True)
-    orphan = api.seed("gm-corpus__reference__orphan.md", "stale", workspace_id=None)
-
-    report = publish_corpus(api, documents, workspace_id=None, apply=True)
-
-    assert {r.action for r in report.results} == {"unchanged"}
-    assert report.orphaned_in_org == (orphan.filename,)
-    assert report.level_label == "organization"
-
-
-# --- remove_ours --------------------------------------------------------------
-
-
-def test_cleanup_never_touches_a_foreign_document(documents: list[CorpusDocument]) -> None:
-    api = FakeKnowledgeApi(level=None)
-    for document in documents:
-        api.seed(document.filename, document.body, workspace_id=None)
-    handbook = api.seed("handbook.pdf", "a colleague's upload", scopes=(), workspace_id=None)
-    lookalike = api.seed("net-revenue.md", "no prefix, no scope", scopes=(), workspace_id=None)
-
-    report = remove_ours(api, workspace_id=None, apply=True)
-
-    assert set(report.deleted) == {d.filename for d in documents}
-    assert set(api.documents) == {handbook.filename, lookalike.filename}
-    assert report.foreign_left_alone == ("handbook.pdf", "net-revenue.md")
-
-
-def test_cleanup_leaves_a_document_inherited_from_another_level(
-    documents: list[CorpusDocument],
-) -> None:
-    api = FakeKnowledgeApi()
-    inherited = api.seed(documents[0].filename, documents[0].body, workspace_id=None)
-
-    report = remove_ours(api, workspace_id=WORKSPACE, apply=True)
-
-    assert report.planned == ()
-    assert inherited.filename in api.documents
-
-
-def test_an_absent_level_is_a_clean_no_op() -> None:
-    api = FakeKnowledgeApi(list_error=KnowledgeDocsError("no such workspace", status=404))
-    report = remove_ours(api, workspace_id="globalmart-risk", apply=True)
-    assert report.absent
-    assert not report.incomplete
-
-
-def test_a_forbidden_level_is_incomplete_unless_tolerated() -> None:
-    forbidden = KnowledgeDocsError("forbidden", status=403)
-
-    strict = remove_ours(FakeKnowledgeApi(list_error=forbidden), workspace_id=None, apply=True)
-    tolerated = remove_ours(
-        FakeKnowledgeApi(list_error=forbidden), workspace_id=None, apply=True, tolerate_forbidden=True
-    )
-
-    assert strict.incomplete
-    assert not tolerated.incomplete
-    assert tolerated.skipped and "HTTP 403" in tolerated.skipped
-
-
-def test_a_cleanup_rehearsal_lists_planned_deletions_and_issues_none(
-    documents: list[CorpusDocument],
-) -> None:
-    api = FakeKnowledgeApi(level=None)
-    for document in documents:
-        api.seed(document.filename, document.body, workspace_id=None)
-
-    report = remove_ours(api, workspace_id=None, apply=False)
-
-    assert api.deletes == []
-    assert len(report.planned) == len(documents)
-    assert report.remaining == report.planned
-
-
-# --- publish_for_target -------------------------------------------------------
-
-
-def test_the_default_scope_writes_every_workspace_and_nothing_at_org_level(
-    documents: list[CorpusDocument],
-) -> None:
+def test_publish_for_target_writes_every_given_workspace(documents: list[CorpusDocument]) -> None:
     org = FakeOrg()
     report = publish_for_target(
         scoped_profile(), documents, workspaces=WORKSPACES, apply=True, api_factory=org
     )
 
     assert report.ok
+    assert [level.workspace_id for level in report.levels] == list(WORKSPACES)
     for workspace in WORKSPACES:
         assert len(org.at(workspace).upserts) == len(documents)
-    assert org.at(None).upserts == []
-    assert org.at(None).deletes == []
 
 
-def test_under_organization_scope_exactly_one_level_is_written(
-    documents: list[CorpusDocument],
+@pytest.mark.parametrize("apply", [False, True])
+def test_publish_for_target_never_addresses_the_organization_level(
+    documents: list[CorpusDocument], apply: bool
 ) -> None:
-    org = FakeOrg()
-    report = publish_for_target(
-        scoped_profile(KnowledgeScope.ORGANIZATION),
-        documents,
-        workspaces=WORKSPACES,
-        apply=True,
-        api_factory=org,
-    )
-
-    assert report.ok
-    assert [level.level_label for level in report.levels] == ["organization"]
-    assert len(org.at(None).upserts) == len(documents)
-    for workspace in WORKSPACES:
-        assert org.at(workspace).upserts == []
-
-
-def test_moving_to_organization_removes_our_workspace_copies_in_the_same_run(
-    documents: list[CorpusDocument],
-) -> None:
+    """Org level belongs to the org repo: no call, no listing, no cleanup — ever."""
     org = FakeOrg()
     for workspace in WORKSPACES:
         org.seed_corpus(workspace, documents)
-    foreign = org.at("globalmart-finance").seed(
-        "handbook.pdf", "x", scopes=(), workspace_id="globalmart-finance"
-    )
 
     report = publish_for_target(
-        scoped_profile(KnowledgeScope.ORGANIZATION),
-        documents,
-        workspaces=WORKSPACES,
-        apply=True,
-        api_factory=org,
+        scoped_profile(), documents, workspaces=WORKSPACES, apply=apply, api_factory=org
     )
 
-    assert report.ok
-    for workspace in WORKSPACES:
-        assert len(org.at(workspace).deletes) == len(documents)
-    assert set(org.at("globalmart-finance").documents) == {foreign.filename}
-    assert len(org.at(None).documents) == len(documents)
+    assert org.requested == list(WORKSPACES)
+    assert None not in org.levels
+    assert all(api.deletes == [] for api in org.levels.values())
+    assert not hasattr(report, "cleanup")
+    assert not any("cleanup" in line or "organization" in line for line in report.header_lines())
 
 
-def test_moving_to_workspaces_removes_our_organization_copy_in_the_same_run(
+def test_a_narrowed_publish_addresses_only_that_workspace(documents: list[CorpusDocument]) -> None:
+    org = FakeOrg()
+    publish_for_target(scoped_profile(), documents, workspaces=["globalmart"], apply=True, api_factory=org)
+    assert org.requested == ["globalmart"]
+
+
+def test_verify_prune_never_deletes_an_org_level_or_another_workspaces_document(
     documents: list[CorpusDocument],
 ) -> None:
+    """A `workspaceId: null` document is org level, owned by the org repo; never ours to delete."""
     org = FakeOrg()
-    org.seed_corpus(None, documents)
+    org.seed_corpus("globalmart", documents)
+    here = org.at("globalmart")
+    orphan = here.seed("gm-corpus__reference__orphan.md", "stale")
+    org_level = here.seed("gm-corpus__reference__org-copy.md", "org repo's", workspace_id=None)
+    elsewhere = here.seed("gm-corpus__reference__elsewhere.md", "upstream", workspace_id="other")
 
-    report = publish_for_target(
-        scoped_profile(), documents, workspaces=WORKSPACES, apply=True, api_factory=org
-    )
-
-    assert report.ok
-    assert len(org.at(None).deletes) == len(documents)
-    assert org.at(None).documents == {}
-    for workspace in WORKSPACES:
-        assert len(org.at(workspace).documents) == len(documents)
-
-
-def test_cleanup_is_skipped_when_the_write_failed(documents: list[CorpusDocument]) -> None:
-    org = FakeOrg()
-    for workspace in WORKSPACES:
-        org.seed_corpus(workspace, documents)
-    org.at(None).fail_upsert = True
-
-    report = publish_for_target(
-        scoped_profile(KnowledgeScope.ORGANIZATION),
-        documents,
-        workspaces=WORKSPACES,
-        apply=True,
-        api_factory=org,
-    )
-
-    assert not report.ok
-    assert report.cleanup == []
-    assert report.cleanup_deferred and "organization" in report.cleanup_deferred
-    for workspace in WORKSPACES:
-        assert org.at(workspace).deletes == []
-
-
-def test_a_partial_cleanup_fails_loudly_and_names_what_remains(
-    documents: list[CorpusDocument],
-) -> None:
-    org = FakeOrg()
-    for workspace in WORKSPACES:
-        org.seed_corpus(workspace, documents)
-    stuck = documents[0].filename
-    org.at("globalmart-risk").fail_delete = {stuck}
-
-    report = publish_for_target(
-        scoped_profile(KnowledgeScope.ORGANIZATION),
-        documents,
-        workspaces=WORKSPACES,
-        apply=True,
-        api_factory=org,
-    )
-
-    assert not report.ok
-    assert report.cleanup_incomplete == ("globalmart-risk",)
-    assert report.other_level_ours == {"globalmart-risk": (stuck,)}
-    assert len(org.at("globalmart-finance").deletes) == len(documents)
-    assert any("still present" in line for line in report.cleanup_lines())
-
-
-def test_a_narrowed_publish_never_cleans_the_organization_level(
-    documents: list[CorpusDocument],
-) -> None:
-    org = FakeOrg()
-    org.seed_corpus(None, documents)
-
-    report = publish_for_target(
+    report = verify_for_target(
         scoped_profile(),
         documents,
         workspaces=["globalmart"],
-        narrowed=True,
-        apply=True,
-        api_factory=org,
-    )
-
-    assert report.ok
-    assert org.at(None).deletes == []
-    assert report.cleanup_deferred and "narrowed" in report.cleanup_deferred
-
-
-def test_an_unreadable_org_level_does_not_fail_a_default_scope_publish(
-    documents: list[CorpusDocument],
-) -> None:
-    """D1: a token that cannot read the org level cannot have written our copy there."""
-    org = FakeOrg()
-    org.at(None).list_error = KnowledgeDocsError("forbidden", status=403)
-
-    report = publish_for_target(
-        scoped_profile(), documents, workspaces=WORKSPACES, apply=True, api_factory=org
-    )
-
-    assert report.ok
-    assert any("SKIPPED" in line and "HTTP 403" in line for line in report.cleanup_lines())
-
-
-def test_a_publish_rehearsal_plans_the_migration_and_writes_nothing(
-    documents: list[CorpusDocument],
-) -> None:
-    org = FakeOrg()
-    for workspace in WORKSPACES:
-        org.seed_corpus(workspace, documents)
-
-    report = publish_for_target(
-        scoped_profile(KnowledgeScope.ORGANIZATION),
-        documents,
-        workspaces=WORKSPACES,
-        apply=False,
-        api_factory=org,
-    )
-
-    assert all(api.upserts == [] and api.deletes == [] for api in org.levels.values())
-    assert all(len(c.planned) == len(documents) for c in report.cleanup)
-
-
-# --- verify_for_target --------------------------------------------------------
-
-
-def test_verify_prune_under_organization_deletes_only_org_level_orphans(
-    documents: list[CorpusDocument],
-) -> None:
-    org = FakeOrg()
-    org.seed_corpus(None, documents)
-    orphan = org.at(None).seed("gm-corpus__reference__orphan.md", "stale", workspace_id=None)
-    foreign = org.at(None).seed("handbook.pdf", "x", scopes=(), workspace_id=None)
-    leftover = org.at("globalmart-risk").seed(
-        documents[0].filename, documents[0].body, workspace_id="globalmart-risk"
-    )
-
-    report = verify_for_target(
-        scoped_profile(KnowledgeScope.ORGANIZATION),
-        documents,
-        workspaces=WORKSPACES,
         prune=True,
         apply=True,
         api_factory=org,
     )
 
-    assert org.at(None).deletes == [orphan.id]
-    assert foreign.filename in org.at(None).documents
-    assert leftover.filename in org.at("globalmart-risk").documents
-    assert report.other_level_ours == {"globalmart-risk": (leftover.filename,)}
-    assert "globalmart-risk" in report.stale
+    assert here.deletes == [orphan.id]
+    assert org_level.filename in here.documents
+    assert elsewhere.filename in here.documents
+    assert report.levels[0].pruned == (orphan.filename,)
+    assert set(report.levels[0].inherited_ours) == {org_level.filename, elsewhere.filename}
+    assert org.requested == ["globalmart"]
 
 
 def test_verify_on_a_matching_target_is_clean(documents: list[CorpusDocument]) -> None:
     org = FakeOrg()
-    org.seed_corpus(None, documents)
+    for workspace in WORKSPACES:
+        org.seed_corpus(workspace, documents)
 
-    report = verify_for_target(
-        scoped_profile(KnowledgeScope.ORGANIZATION),
-        documents,
-        workspaces=WORKSPACES,
-        api_factory=org,
-    )
+    report = verify_for_target(scoped_profile(), documents, workspaces=WORKSPACES, api_factory=org)
 
     assert report.stale == ()
+    assert report.ok
+    assert org.requested == list(WORKSPACES)
 
 
-# --- check_scope_flags --------------------------------------------------------
+def test_verify_names_the_stale_workspace(documents: list[CorpusDocument]) -> None:
+    org = FakeOrg()
+    org.seed_corpus("globalmart", documents)
 
+    report = verify_for_target(scoped_profile(), documents, workspaces=WORKSPACES, api_factory=org)
 
-@pytest.mark.parametrize(
-    ("parent_only", "workspace_id", "flag"),
-    [(True, None, "--parent-only"), (False, "globalmart-risk", "--workspace-id")],
-)
-def test_check_scope_flags_rejects_one_workspace_flags_under_organization(
-    parent_only: bool, workspace_id: str | None, flag: str
-) -> None:
-    with pytest.raises(KnowledgeScopeError) as excinfo:
-        check_scope_flags(
-            scoped_profile(KnowledgeScope.ORGANIZATION),
-            parent_only=parent_only,
-            workspace_id=workspace_id,
-        )
-    message = str(excinfo.value)
-    assert "'dedicated'" in message
-    assert "knowledge_scope: organization" in message
-    assert flag in message
-
-    check_scope_flags(scoped_profile(), parent_only=parent_only, workspace_id=workspace_id)
+    assert report.stale == ("globalmart-finance", "globalmart-risk")

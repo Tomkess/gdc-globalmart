@@ -65,8 +65,9 @@ def test_parent_must_be_the_environments_master(tmp_path: Path) -> None:
 
 
 def test_organization_scope_is_refused(tmp_path: Path) -> None:
+    """Refused for every profile, release targets included: the org repo owns org level."""
     targets = _repo_with(tmp_path, {"knowledge_scope": "organization"})
-    with pytest.raises(GlobalmartError, match="release orgs are shared"):
+    with pytest.raises(GlobalmartError, match="belongs to the separate org repo"):
         load_profile("probe", targets_path=targets)
 
 
@@ -86,7 +87,7 @@ def _args(**overrides: object) -> argparse.Namespace:
 def test_release_target_publishes_to_its_master_only() -> None:
     profile = load_profile("gdcloud-test", targets_path=TARGETS)
     # No --parent-only, a domains file at hand: still one workspace. Domains are local-only.
-    assert _corpus_workspaces(_args(), profile) == (["globalmart_test"], True)
+    assert _corpus_workspaces(_args(), profile) == ["globalmart_test"]
 
 
 def test_release_target_refuses_another_workspace() -> None:
@@ -98,11 +99,10 @@ def test_release_target_refuses_another_workspace() -> None:
 def test_legacy_target_addresses_the_parent_by_default() -> None:
     """The domains are local-only (ADR 011); a deleted one used to 404 every publish."""
     profile = load_profile("demo-cloud", targets_path=TARGETS)
-    assert _corpus_workspaces(_args(), profile) == (["globalmart"], False)
+    assert _corpus_workspaces(_args(), profile) == ["globalmart"]
 
 
 def test_legacy_target_reaches_every_domain_when_asked() -> None:
     profile = load_profile("demo-cloud", targets_path=TARGETS)
-    workspaces, narrowed = _corpus_workspaces(_args(include_domains=True), profile)
-    assert not narrowed
+    workspaces = _corpus_workspaces(_args(include_domains=True), profile)
     assert workspaces[0] == "globalmart" and len(workspaces) == 13
