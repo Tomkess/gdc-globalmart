@@ -1,6 +1,6 @@
 """Do the SQL-backed datasets resolve against the schema the DDL describes?
 
-The headline case: `sql_channel_attribution` selects `FROM {{ datasource_schema }}.fact_search_event`,
+The headline case: `sql_channel_attribution` selects `FROM globalmart.fact_search_event`,
 a table that had no DDL and no CSV. The dataset was broken from the day it was written and
 nothing noticed, because a layout publishes fine whether or not its SQL can run. This module
 is the check that would have caught it — offline, no warehouse, no credentials.
@@ -23,7 +23,7 @@ from globalmart.sqlcheck import (
 
 REPO = Path(__file__).resolve().parents[1]
 DDL = REPO / "data" / "ddl" / "globalmart.sql"
-LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
+LAYOUT = REPO / "gd_data_product" / "globalmart"
 
 pytestmark = pytest.mark.skipif(not (DDL.exists() and LAYOUT.exists()), reason="DDL or layout not present")
 
@@ -40,16 +40,16 @@ def registry(model):  # type: ignore[no-untyped-def]
 
 def test_reference_extraction() -> None:
     statement = (
-        "SELECT * FROM {{ datasource_schema }}.fact_a a "
-        "JOIN {{ datasource_schema }}.dim_b b ON a.id = b.id "
-        "JOIN {{ datasource_schema }}.dim_b b2 ON a.id2 = b2.id"
+        "SELECT * FROM globalmart.fact_a a "
+        "JOIN globalmart.dim_b b ON a.id = b.id "
+        "JOIN globalmart.dim_b b2 ON a.id2 = b2.id"
     )
     assert referenced_tables(statement, "globalmart") == ("dim_b", "fact_a")
 
 
 def test_a_reference_to_another_schema_is_ignored() -> None:
     """Only tables in the target schema are this repo's to account for."""
-    statement = "SELECT * FROM {{ datasource_schema }}.fact_a JOIN other.thing t ON 1=1"
+    statement = "SELECT * FROM globalmart.fact_a JOIN other.thing t ON 1=1"
     assert referenced_tables(statement, "globalmart") == ("fact_a",)
 
 
@@ -113,7 +113,7 @@ def test_live_execution_is_reported_when_a_loader_is_supplied(model, registry) -
     assert len(executor.statements) == 11
     # LIMIT 0: the planner resolves columns without moving rows.
     assert all(s.endswith("LIMIT 0") for s in executor.statements)
-    assert all("{{ datasource_schema }}" not in s for s in executor.statements)
+    assert all("{{" not in s and "globalmart." in s for s in executor.statements)
 
 
 def test_a_failing_statement_is_reported_not_raised(model, registry) -> None:  # type: ignore[no-untyped-def]

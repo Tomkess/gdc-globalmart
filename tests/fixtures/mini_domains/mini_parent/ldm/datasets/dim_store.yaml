@@ -1,27 +1,27 @@
 aggregatedFacts: []
 attributes:
-- description: ''
-  id: dim_store.store_id
-  labels: []
-  sourceColumn: store_id
-  sourceColumnDataType: STRING
-  tags:
-  - dim_store
-  title: store_id
-- description: ''
-  id: dim_store.store_name
-  labels: []
-  sourceColumn: store_name
-  sourceColumnDataType: STRING
-  tags:
-  - dim_store
-  title: store_name
+  - description: ''
+    id: dim_store.store_id
+    labels: []
+    sourceColumn: store_id
+    sourceColumnDataType: STRING
+    tags:
+      - dim_store
+    title: store_id
+  - description: ''
+    id: dim_store.store_name
+    labels: []
+    sourceColumn: store_name
+    sourceColumnDataType: STRING
+    tags:
+      - dim_store
+    title: store_name
 dataSourceTableId:
-  dataSourceId: '{{ datasource_id }}'
+  dataSourceId: gdc_ds_globalmart_motherduck
   id: dim_store
   path:
-  - globalmart
-  - dim_store
+    - globalmart
+    - dim_store
   type: dataSource
 description: ''
 facts: []
@@ -29,6 +29,5 @@ grain: []
 id: dim_store
 references: []
 tags:
-- dim_store
+  - dim_store
 title: Dim Store
-workspaceDataFilterReferences: []

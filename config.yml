@@ -46,10 +46,10 @@ workflows:
     slack_notify_pr_ready.yml:
       reason: "no Slack workspace for this demo repo; it could only ever fail"
       since: v0.51.0
-  # A parent-only change must still run gd-ci: the projection under gd_data_product/ is derived
-  # from layouts/, so a layouts/ edit is a content change.
+  # gd-ci must also run when GlobalMart's own checks, the release config or the canonical data
+  # source (config.env.yml) change, not only when gd_data_product/ content does.
   check_ci_checks:
-    additional_paths: '^gd_plugin/|^config\.yml$|^pyproject\.toml$|^layouts/workspaces/globalmart/|^gd_data_product/([^/]+/)?config\.env\.yml$'
+    additional_paths: '^gd_plugin/|^config\.yml$|^pyproject\.toml$|^gd_data_product/([^/]+/)?config\.env\.yml$'
 
 primary_data_product: "globalmart"
 

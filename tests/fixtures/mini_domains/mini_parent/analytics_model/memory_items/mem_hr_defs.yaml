@@ -2,5 +2,5 @@ id: mem_hr_defs
 instruction: Headcount is measured at month end.
 strategy: ALWAYS
 tags:
-- area/hr
+  - area/hr
 title: HR definitions

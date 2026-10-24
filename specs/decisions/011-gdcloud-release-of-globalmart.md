@@ -1,7 +1,7 @@
 # 011 — GlobalMart is released by gdcloud, as one data product
 
-**Status:** Accepted (2026-10-22)
-**Date:** 2026-10-22
+**Status:** Accepted (2026-10-22); Stage B taken (2026-10-24)
+**Date:** 2026-10-22, amended 2026-10-24
 **Context:** FEAT-019; `config.yml`, `gd_data_product/`, `gd_plugin/`, `gdcloud_*.py`,
 `config/targets.yaml`. Aligns with gd-ecommerce-demo's ADR 001 (gdcloud, four environments on two
 orgs) and ADR 002 (a separate org repo owns org-level objects). **Revises** how ADR 001 and ADR
@@ -28,10 +28,12 @@ demo repos run one release process.
   --target <t> --apply` redeploys the domains on demand, and no gdcloud workflow ever creates
   one. The live copies on demo.cloud were backed up (`backups/demo-cloud/<id>/20261022T1205*Z/`)
   and deleted on 2026-10-22.
-- **Stage A: the layout stays the source.** `layouts/workspaces/globalmart/` (placeholder form,
-  ADR 001) is still where changes are made. `gd_data_product/globalmart/` is *derived* from it by
-  `globalmart gdcloud project`, byte-identical to what `gd-store` writes back. It is gated by
+- **Stage A (2026-10-22 → 2026-10-24, superseded): the layout stayed the source.**
+  `layouts/workspaces/globalmart/` (placeholder form, ADR 001) was where changes were made, and
+  `gd_data_product/globalmart/` was *derived* from it by `globalmart gdcloud project`, gated by
   `--check` in `ci.yml` and by the `projection_current` gd-ci check.
+- **Stage B (2026-10-24): `gd_data_product/globalmart/` is the only authoring tree.** See
+  [Stage B](#stage-b-2026-10-24) below.
 - **A data source of its own.** `gdc_ds_globalmart_motherduck` on both orgs (ecommerce ADR 002
   naming). It reads the same MotherDuck schema the legacy `globalmart-motherduck` reads.
 - **No org-level release from this repo.** `automation.org_release` and `organization_snapshot` are
@@ -62,7 +64,7 @@ deployed.
 | gdcloud, 13 data products (the first FEAT-019 design) | Every domain versioned and promoted | 52 workspaces across two capped orgs; 13 labels; a projector per domain |
 | Raise the org's workspace cap and keep 13 | No design change | Depends on a plan change for a demo org; the split was a one-time demo anyway |
 | Keep the bespoke `globalmart publish` path | Nothing to build | No versions, no promotion gate, no staging, and diverges from ecommerce on the same orgs |
-| Stage B now: make `gd_data_product/globalmart/` the authoring tree | gdcloud's feature-branch workflows (1/2a/2b) become usable | Retires `layouts/` and `normalize.py`, amends ADR 001 and STEERING, and is a separate change from adopting the release |
+| Stage B now: make `gd_data_product/globalmart/` the authoring tree | gdcloud's feature-branch workflows (1/2a/2b) become usable | Retires `layouts/` and `normalize.py`, amends ADR 001 and STEERING, and is a separate change from adopting the release. **Deferred at first, taken 2026-10-24** |
 
 ## Spike findings (FEAT-019 `spike.md`)
 
@@ -89,12 +91,60 @@ deployed.
   1781 committed files. Two project-owned workflows sit beside gdcloud's generated ones, and a pin
   bump that renames workflows 3/4/5 must not silently stop the post-deploy step. A test pins those
   names.
-- **Neutral:** gdcloud's workflows 1/1b/2a/2b are adopted but are not part of the routine path
-  under Stage A. A `gd-store` into the derived tree is drift, and `projection_current` reports it.
+- **Neutral:** gdcloud's workflows 1/1b/2a/2b were adopted but not part of the routine path under
+  Stage A, where a `gd-store` into the derived tree was drift. Stage B made them the routine path.
 
 ## Revisit Trigger
 
 - gdcloud gains a pre/post-deploy hook. The post-deploy workflow would move into it.
 - gdcloud titles masters per environment. The bootstrap's pre-creation step would retire.
-- Stage B is taken up: ADR 001 is amended and `layouts/` retires.
+- ~~Stage B is taken up: ADR 001 is amended and `layouts/` retires.~~ Taken 2026-10-24.
+- A target needs a data source the rewrite cannot express (a different table layout, not just a
+  different id and schema). gdcloud's env overrides would then be the place, not `resolve.py`.
 - A domain needs to be live permanently, which would make the workspace cap the question again.
+
+## Stage B (2026-10-24)
+
+`gd_data_product/globalmart/` became the parent's only authoring tree, and `layouts/` retired. The
+point is Services-MIC-Cloud parity: gdcloud's feature-branch workflows — create a dev workspace (1),
+`gd-store` it back into the branch (2a), push the branch to it (2b) — are now legitimate edits
+instead of drift.
+
+- **One tree, in gdcloud's form.** It is the SDK's standard `store_to_disk` layout, so
+  `layout_io.read_tree` is the SDK's own `load_from_disk`. `layout_io.write_tree` (used by
+  `datefilters bind`, `knowledge build` and the pre-publish backup) stages the model and runs
+  gdcloud's own `gd-format-yaml` normalizers over it, so a local write and a `gd-store` produce the
+  same bytes; `read → write_tree` of the committed tree is byte-identical (a test pins it). Every
+  reader — split, domains, publish, verify, rebuild, datefilters, knowledge, the generator's LDM
+  foreign keys, data verify/load/ensure — defaults to it (`layout_io.DEFAULT_LAYOUT_PATH`).
+- **The tree carries the canonical data source concretely** (`gd_data_product/config.env.yml`,
+  `globalmart_canonical`: `gdc_ds_globalmart_motherduck` / `globalmart`). Publishing to a profile
+  rewrites canonical id and schema to the profile's — dataset data source ids, table-path schemas,
+  and SQL schema prefixes matched as whole dotted identifiers — and is a no-op when they match, as
+  for every gdcloud environment. `demo-cloud-rebuild` (`globalmart-motherduck` / `globalmart_rebuild`)
+  is the profile that exercises it. The safety stays: after the rewrite, any `{{ … }}` placeholder,
+  any data source id other than the profile's, or any table schema other than the profile's fails
+  the publish, rehearsal included.
+- **The domain children carry the canonical data source too.** Regenerating
+  `generated/workspaces/*.json` from the new source changed only form: 218 `{{ datasource_id }}` →
+  `gdc_ds_globalmart_motherduck`, 248 `{{ datasource_schema }}` → `globalmart` (table paths and
+  SQL), and 218 empty `workspaceDataFilterReferences: []` keys dropped, as gd-store drops them.
+  Object sets and list order are unchanged; `publish domains` applies the same rewrite.
+- **Capture is `gd-store`; `globalmart bootstrap` retired.** gd-store captures with
+  `exclude=["ACTIVITY_INFO"]` (no user references), reverts gdcloud's env remaps, and writes the
+  release form directly. A second capture path in this package would only be a second, drifting
+  copy of it. `preflight.check_portability` still refuses audit fields on every publish.
+- **`normalize.py` and `globalmart normalize` retired.** Nothing needs placeholders any more, and
+  gdcloud's `gd-format-yaml --check` is the formatting gate: the "GoodData YAML Formatting Check"
+  workflow in CI, `make lint` locally. The audit-field constants moved into `preflight.py`;
+  `compare.mask_parameters` keeps its own mask strings for the cross-org proof.
+- **The projection retired:** `gdcloud_project.py`, `globalmart gdcloud project`, `make project` /
+  `project-check`, the `ci.yml` step and the `projection_current` gd-ci check. The
+  `gdcloud.ci_checks` entry point stays, for `org_scope`.
+- **`analytics_model/analytical_dashboard_extensions/` carried nothing.** The folder under
+  `layouts/` was empty and untracked: the SDK's `load_from_disk` creates a folder for every
+  collection it looks for (`parameters/`, `dashboard_plugins/`, `attribute_hierarchy_objects/`,
+  `export_definitions/` too). The parent has 0 dashboard extensions, so nothing was lost and
+  nothing was added to `gd_data_product/`. `read_tree` now removes those empty folders again.
+- `gd_data_product/globalmart/` was left byte-identical by the change, so it needed no `GM` deploy.
+

@@ -77,7 +77,7 @@ def test_the_join_graph_puts_dimensions_before_their_dependants() -> None:
     """Ordering is derived from the LDM, since the DDL declares no constraints at all."""
     from globalmart.layout_io import read_tree
 
-    layout = REPO / "layouts" / "workspaces" / "globalmart"
+    layout = REPO / "gd_data_product" / "globalmart"
     if not layout.exists():
         pytest.skip("real layout tree not present")
 

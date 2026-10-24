@@ -10,7 +10,7 @@ from globalmart.datefilters import bind_date_filters, date_instances_for
 from globalmart.layout_io import read_tree
 
 REPO = Path(__file__).resolve().parents[1]
-LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
+LAYOUT = REPO / "gd_data_product" / "globalmart"
 
 pytestmark = pytest.mark.skipif(not LAYOUT.exists(), reason="layout tree not present")
 

@@ -14,7 +14,7 @@ import yaml
 from globalmart.maql import RefKind, iter_maql_refs, maql_metric_ids
 
 REPO = Path(__file__).resolve().parents[1]
-PARENT_METRICS = REPO / "layouts" / "workspaces" / "globalmart" / "analytics_model" / "metrics"
+PARENT_METRICS = REPO / "gd_data_product" / "globalmart" / "analytics_model" / "metrics"
 
 
 def test_extracts_every_kind() -> None:
@@ -80,7 +80,7 @@ def test_every_reference_in_the_real_parent_resolves() -> None:
     from globalmart.layout_io import read_tree
     from globalmart.prune import build_entity_index
 
-    model = read_tree(REPO / "layouts" / "workspaces" / "globalmart")
+    model = read_tree(REPO / "gd_data_product" / "globalmart")
     index = build_entity_index(model.ldm)
     metric_ids = {str(metric.id) for metric in model.analytics.metrics}
 

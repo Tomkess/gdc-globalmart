@@ -13,10 +13,18 @@ import pytest
 
 from globalmart.config import GlobalmartError, load_profile
 from globalmart.domains import load_domains
+from globalmart.gdcloud_bridge import load_canonical_data_source
 from globalmart.layout_io import read_tree
-from globalmart.publish import publish_domains
+from globalmart.publish import publish_domains as _publish_domains
 
-from .conftest import FakeSdk
+from .conftest import ENV_CONFIG, FakeSdk
+
+
+def publish_domains(*args: object, **kwargs: object):  # type: ignore[no-untyped-def]
+    """The real loop; the fixture parent carries the repo's canonical data source."""
+    kwargs.setdefault("canonical", load_canonical_data_source(ENV_CONFIG))
+    return _publish_domains(*args, **kwargs)  # type: ignore[arg-type]
+
 
 BASE = Path(__file__).parent / "fixtures" / "mini_domains"
 

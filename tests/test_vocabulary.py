@@ -28,7 +28,7 @@ from globalmart.vocabulary import (
 
 REPO = Path(__file__).resolve().parents[1]
 DDL = REPO / "data" / "ddl" / "globalmart.sql"
-LAYOUT = REPO / "layouts" / "workspaces" / "globalmart"
+LAYOUT = REPO / "gd_data_product" / "globalmart"
 MANIFEST = REPO / "data" / "table-manifest.json"
 VOCABULARY = REPO / DEFAULT_VOCABULARY_PATH
 

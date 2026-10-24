@@ -3,10 +3,9 @@ extends: default
 
 # Machine-written YAML takes its shape from a serializer, not from this style config. A
 # style finding there would fail a PR over a file no human wrote. Each one has its own
-# gate instead: `normalize --check` (layouts/), `split --check` (generated/),
-# `gdcloud project --check` + gd-format-yaml (gd_data_product/).
+# gate instead: `split --check` (generated/), and gdcloud's gd-format-yaml check
+# (`make lint`, the "GoodData YAML Formatting Check" workflow) for gd_data_product/.
 ignore: |
-  layouts/
   generated/
   gd_data_product/*/analytics_model/
   gd_data_product/*/ldm/

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import shutil
 from pathlib import Path
 from typing import Any
@@ -10,118 +11,34 @@ from typing import Any
 import pytest
 
 from globalmart.cli import build_parser, main
-from globalmart.layout_io import read_tree, write_tree
-from globalmart.normalize import normalize_workspace
+from globalmart.gdcloud_bridge import load_canonical_data_source
+from globalmart.layout_io import write_tree
+from globalmart.resolve import rewrite_data_source
 
-FIXTURE = Path(__file__).parent / "fixtures" / "mini_globalmart"
-SCHEMA = "globalmart"
+from .conftest import ENV_CONFIG, MINI, MINI_CANONICAL, committed_mini
+
+FIXTURE = MINI
 
 
-def _normalized_tree(destination: Path) -> Path:
-    model = read_tree(FIXTURE)
-    normalize_workspace(model, datasource_schema=SCHEMA)
+def _committed_tree(destination: Path) -> Path:
+    """The mini capture as gd_data_product holds a tree: gd-store form, the repo's canonical data source."""
+    model = committed_mini()
+    rewrite_data_source(model, source=MINI_CANONICAL, target=load_canonical_data_source(ENV_CONFIG))
     write_tree(model, destination)
     return destination
 
 
-def test_check_passes_on_a_normalized_tree(tmp_path: Path) -> None:
-    tree = _normalized_tree(tmp_path / "tree")
-    assert main(["normalize", "--path", str(tree), "--check", "--datasource-schema", SCHEMA]) == 0
-
-
-def test_check_fails_on_the_raw_fixture(tmp_path: Path) -> None:
-    """The committed fixture keeps its audit fields on purpose, so it is not canonical."""
-    copy = tmp_path / "raw"
-    shutil.copytree(FIXTURE, copy)
-    assert main(["normalize", "--path", str(copy), "--check", "--datasource-schema", SCHEMA]) == 1
-
-
-def test_check_writes_nothing(tmp_path: Path) -> None:
-    """--check must never mutate the tree it inspects, even when it reports differences."""
-    copy = tmp_path / "raw"
-    shutil.copytree(FIXTURE, copy)
-    before = {p: p.read_text(encoding="utf-8") for p in sorted(copy.rglob("*.yaml"))}
-
-    main(["normalize", "--path", str(copy), "--check", "--datasource-schema", SCHEMA])
-
-    after = {p: p.read_text(encoding="utf-8") for p in sorted(copy.rglob("*.yaml"))}
-    assert after == before
-
-
-def test_check_detects_a_hand_edited_file(tmp_path: Path) -> None:
-    """The reason the gate exists: STEERING calls hand-editing a generated file a defect."""
-    tree = _normalized_tree(tmp_path / "tree")
-    victim = next(iter(sorted(tree.rglob("analytics_model/metrics/*.yaml"))))
-    victim.write_text(victim.read_text(encoding="utf-8") + "\nhandEdited: true\n", encoding="utf-8")
-
-    assert main(["normalize", "--path", str(tree), "--check", "--datasource-schema", SCHEMA]) == 1
-
-
-def test_check_detects_a_reintroduced_user_reference(tmp_path: Path) -> None:
-    tree = _normalized_tree(tmp_path / "tree")
-    victim = next(iter(sorted(tree.rglob("analytics_model/metrics/*.yaml"))))
-    text = victim.read_text(encoding="utf-8")
-    victim.write_text("createdBy:\n  id: someone\n  type: user\n" + text, encoding="utf-8")
-
-    assert main(["normalize", "--path", str(tree), "--check", "--datasource-schema", SCHEMA]) == 1
-
-
-def test_normalize_without_check_rewrites_in_place(tmp_path: Path) -> None:
-    copy = tmp_path / "raw"
-    shutil.copytree(FIXTURE, copy)
-
-    assert main(["normalize", "--path", str(copy), "--datasource-schema", SCHEMA]) == 0
-    assert main(["normalize", "--path", str(copy), "--check", "--datasource-schema", SCHEMA]) == 0
-
-
-def test_bootstrap_dry_run_writes_nothing(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
-) -> None:
-    """A rehearsal must reach the host but leave the filesystem untouched."""
-    import globalmart.cli as cli
-
-    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
-    monkeypatch.setattr(cli, "make_sdk", lambda profile: object())
-    monkeypatch.setattr(cli, "capture_workspace", lambda sdk, workspace_id: read_tree(FIXTURE))
-
-    destination = tmp_path / "out"
-    exit_code = main(["bootstrap", "--target", "demo-cloud", "--out", str(destination), "--dry-run"])
-
-    assert exit_code == 0
-    assert not destination.exists()
-    assert "REHEARSAL" in capsys.readouterr().out
-
-
-def test_bootstrap_writes_a_normalized_tree(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    import globalmart.cli as cli
-
-    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
-    monkeypatch.setattr(cli, "make_sdk", lambda profile: object())
-    monkeypatch.setattr(cli, "capture_workspace", lambda sdk, workspace_id: read_tree(FIXTURE))
-
-    destination = tmp_path / "out"
-    assert main(["bootstrap", "--target", "demo-cloud", "--out", str(destination)]) == 0
-
-    blob = "\n".join(p.read_text(encoding="utf-8") for p in destination.rglob("*.yaml"))
-    assert "createdBy" not in blob
-    assert "globalmart-motherduck" not in blob
-    assert main(["normalize", "--path", str(destination), "--check", "--datasource-schema", SCHEMA]) == 0
-
-
-def test_bootstrap_has_no_apply_flag() -> None:
-    """ADR 002's convention: --apply gates remote writes; bootstrap writes local files only."""
-    actions = {a.dest for a in build_parser()._subparsers._group_actions[0].choices["bootstrap"]._actions}  # type: ignore[union-attr]
-    assert "apply" not in actions
-    assert "dry_run" in actions
-
-
-def test_normalize_has_no_apply_flag() -> None:
-    actions = {a.dest for a in build_parser()._subparsers._group_actions[0].choices["normalize"]._actions}  # type: ignore[union-attr]
-    assert "apply" not in actions
+def test_retired_commands_are_gone() -> None:
+    """ADR 011 Stage B: capture is gd-store, formatting is gd-format-yaml, there is no projection."""
+    choices = build_parser()._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    assert "bootstrap" not in choices
+    assert "normalize" not in choices
+    gdcloud = choices["gdcloud"]._subparsers._group_actions[0].choices  # type: ignore[union-attr]
+    assert "project" not in gdcloud
 
 
 def test_unknown_profile_exits_one(capsys: pytest.CaptureFixture[str]) -> None:
-    assert main(["bootstrap", "--target", "does-not-exist"]) == 1
+    assert main(["targets", "inspect", "--target", "does-not-exist"]) == 1
     assert "error:" in capsys.readouterr().err
 
 
@@ -154,7 +71,7 @@ def test_publish_rehearsal_writes_nothing(
     monkeypatch.setenv("MOTHERDUCK_TOKEN", "s")
     monkeypatch.setattr(cli, "make_sdk", lambda profile: sdk)
 
-    tree = _normalized_tree(tmp_path / "tree")
+    tree = _committed_tree(tmp_path / "tree")
     exit_code = main(["publish", "parent", "--target", "demo-cloud", "--source", str(tree)])
 
     assert exit_code == 0
@@ -172,7 +89,7 @@ def test_publish_apply_writes(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -
     monkeypatch.setenv("MOTHERDUCK_TOKEN", "s")
     monkeypatch.setattr(cli, "make_sdk", lambda profile: sdk)
 
-    tree = _normalized_tree(tmp_path / "tree")
+    tree = _committed_tree(tmp_path / "tree")
     exit_code = main(["publish", "parent", "--target", "demo-cloud", "--source", str(tree), "--apply"])
 
     assert exit_code == 0
@@ -182,7 +99,7 @@ def test_publish_apply_writes(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -
 def test_no_backup_without_apply_is_rejected(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Meaningless in a rehearsal — and a real foot-gun if silently accepted."""
     monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD", "tok")
-    tree = _normalized_tree(tmp_path / "tree")
+    tree = _committed_tree(tmp_path / "tree")
 
     with pytest.raises(SystemExit) as excinfo:
         main(["publish", "parent", "--target", "demo-cloud", "--source", str(tree), "--no-backup"])
@@ -386,7 +303,6 @@ def test_knowledge_build_has_check_and_no_apply() -> None:
 
 
 def test_knowledge_build_writes_items(tmp_path: Path) -> None:
-    import shutil
 
     tree = tmp_path / "tree"
     shutil.copytree(FIXTURE, tree)
@@ -398,7 +314,6 @@ def test_knowledge_build_writes_items(tmp_path: Path) -> None:
 
 
 def test_knowledge_check_exits_one_on_drift(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    import shutil
 
     tree = tmp_path / "tree"
     shutil.copytree(FIXTURE, tree)
@@ -412,7 +327,6 @@ def test_knowledge_check_exits_one_on_drift(tmp_path: Path, capsys: pytest.Captu
 
 
 def test_knowledge_check_exits_zero_once_current(tmp_path: Path) -> None:
-    import shutil
 
     tree = tmp_path / "tree"
     shutil.copytree(FIXTURE, tree)
@@ -457,7 +371,7 @@ def test_data_generate_has_no_apply() -> None:
 def _leaf_parsers(
     parser: argparse.ArgumentParser, path: tuple[str, ...] = ()
 ) -> dict[str, argparse.ArgumentParser]:
-    """Every runnable command in the tree, keyed by its words, e.g. "gdcloud project"."""
+    """Every runnable command in the tree, keyed by its words, e.g. "gdcloud scope"."""
     subparsers = [a for a in parser._actions if isinstance(a, argparse._SubParsersAction)]
     if not subparsers:
         return {" ".join(path): parser}
@@ -481,11 +395,6 @@ def test_no_command_has_both_apply_and_dry_run() -> None:
         if {"apply", "dry_run"} <= {a.dest for a in parser._actions}
     ]
     assert both == []
-
-
-def test_gdcloud_project_is_local() -> None:
-    assert {"dry_run", "check"} <= _dests("gdcloud project")
-    assert "apply" not in _dests("gdcloud project")
 
 
 def test_gdcloud_bootstrap_writes_only_under_apply() -> None:
@@ -531,3 +440,84 @@ def test_an_unknown_only_domain_fails_rather_than_selecting_less() -> None:
         _only_domains(args, manifest)
     assert _only_domains(argparse.Namespace(only="customer,store_ops"), manifest) == {"customer", "store_ops"}
     assert _only_domains(argparse.Namespace(only=None), manifest) is None
+
+
+# --- ADR 011 Stage B: one authoring tree -------------------------------------
+
+
+def test_every_reader_defaults_to_the_gd_data_product_tree() -> None:
+    """Every command that reads the parent reads gd_data_product/globalmart/ unless told otherwise."""
+    import inspect
+
+    from globalmart.knowledge import build_knowledge
+    from globalmart.layout_io import DEFAULT_LAYOUT_PATH
+    from globalmart.rebuild import RebuildOptions
+    from globalmart.verification import VerifyOptions
+
+    assert Path("gd_data_product/globalmart") == DEFAULT_LAYOUT_PATH
+
+    readers = {
+        name: {a.dest: a.default for a in parser._actions}
+        for name, parser in _leaf_parsers(build_parser()).items()
+    }
+    layout_readers = {name for name, defaults in readers.items() if "layout" in defaults}
+    assert {
+        "domains validate",
+        "domains bootstrap",
+        "data verify",
+        "data generate",
+        "data load",
+        "data ensure",
+        "verify",
+        "rebuild",
+        "knowledge build",
+        "knowledge-docs coverage",
+        "datefilters bind",
+    } <= layout_readers
+    for name in layout_readers:
+        assert readers[name]["layout"] == str(DEFAULT_LAYOUT_PATH), name
+    assert readers["split"]["source"] == str(DEFAULT_LAYOUT_PATH)
+    assert readers["publish parent"]["source"] == str(DEFAULT_LAYOUT_PATH)
+
+    assert RebuildOptions().layout_path == DEFAULT_LAYOUT_PATH
+    assert VerifyOptions().layout_path == DEFAULT_LAYOUT_PATH
+    assert inspect.signature(build_knowledge).parameters["layout_path"].default == DEFAULT_LAYOUT_PATH
+
+    stale = [
+        f"{name} {dest}"
+        for name, defaults in readers.items()
+        for dest, default in defaults.items()
+        if isinstance(default, str) and default.startswith("layouts/")
+    ]
+    assert stale == []
+
+
+def test_publish_rehearsal_shows_the_data_source_rewrite(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """demo-cloud-rebuild has a data source of its own; the plan must say what it rewrites to."""
+    import globalmart.cli as cli
+
+    from .conftest import FakeSdk
+
+    sdk = FakeSdk(organization_id="gm-ddebmti")
+    monkeypatch.setenv("GLOBALMART_TOKEN__DEMO_CLOUD_REBUILD", "tok")
+    monkeypatch.setenv("MOTHERDUCK_TOKEN", "s")
+    monkeypatch.setattr(cli, "make_sdk", lambda profile: sdk)
+    monkeypatch.setattr(cli, "load_profile", lambda name: _rebuild_profile(name))
+
+    tree = _committed_tree(tmp_path / "tree")
+    assert main(["publish", "parent", "--target", "demo-cloud-rebuild", "--source", str(tree)]) == 0
+
+    out = capsys.readouterr().out
+    canonical = load_canonical_data_source(ENV_CONFIG)
+    rewrite = f"{canonical.datasource_id} / {canonical.datasource_schema}"
+    assert f"{rewrite} -> globalmart-motherduck / globalmart_rebuild" in out
+    assert sdk.writes() == []
+
+
+def _rebuild_profile(name: str):  # type: ignore[no-untyped-def]
+    from globalmart.config import load_profile
+
+    profile = load_profile(name)
+    return dataclasses.replace(profile, organization_id="gm-ddebmti")

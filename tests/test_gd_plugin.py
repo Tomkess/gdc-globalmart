@@ -11,7 +11,6 @@ import yaml
 
 from gd_plugin.checks import CHECKS
 from gd_plugin.checks.org_scope import find_violations
-from gd_plugin.checks.projection_current import LAYOUT, find_problems
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,7 +18,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 def test_checks_are_registered_through_the_entry_point() -> None:
     targets = {e.value for e in entry_points(group="gdcloud.ci_checks")}
     assert "gd_plugin.checks:CHECKS" in targets
-    assert {spec.name for spec in CHECKS} == {"org_scope", "projection_current"}
+    # projection_current retired with ADR 011 Stage B: there is no projection left to check.
+    assert {spec.name for spec in CHECKS} == {"org_scope"}
     assert all(spec.source == "gd_plugin" and spec.blocking for spec in CHECKS)
 
 
@@ -75,37 +75,3 @@ def test_a_target_with_organization_knowledge_scope_fails(repo: Path) -> None:
         "config/targets.yaml target 'org-wide' sets knowledge_scope: organization — "
         "org-level knowledge is owned by the org repo"
     ]
-
-
-# --- projection_current --------------------------------------------------------------------
-
-
-@pytest.fixture
-def project_copy(tmp_path: Path) -> Path:
-    """The committed layout, config and projection, copied so they can be damaged."""
-    for relative in ("config.yml", "gd_data_product", LAYOUT):
-        source = REPO_ROOT / relative
-        target = tmp_path / relative
-        if source.is_dir():
-            shutil.copytree(source, target)
-        else:
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy(source, target)
-    return tmp_path
-
-
-def test_committed_projection_is_current() -> None:
-    assert find_problems(REPO_ROOT) == []
-
-
-def test_a_hand_edit_to_the_projection_fails(project_copy: Path) -> None:
-    metrics = project_copy / "gd_data_product" / "globalmart" / "analytics_model" / "metrics"
-    metric = sorted(metrics.glob("*.yaml"))[0]
-    metric.write_text(metric.read_text().replace("title:", "title: EDITED", 1))
-    assert find_problems(project_copy) == [f"differs: analytics_model/metrics/{metric.name}"]
-
-
-def test_a_layout_change_nobody_projected_fails(project_copy: Path) -> None:
-    dataset = sorted((project_copy / LAYOUT / "ldm" / "datasets").glob("*.yaml"))[0]
-    dataset.write_text(dataset.read_text().replace("title:", "title: Renamed", 1))
-    assert find_problems(project_copy) == [f"differs: ldm/datasets/{dataset.name}"]

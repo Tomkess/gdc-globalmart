@@ -101,12 +101,14 @@ objects* would delete them the first time it ran.
 
 ## Run it after capture, not before
 
-`bootstrap` and `knowledge build` both write the same tree, and the writer prunes orphans.
+`gd-store` (gdcloud's capture into `gd_data_product/globalmart/`, which replaced `globalmart
+bootstrap` in ADR 011 Stage B) and `knowledge build` both write the same tree, and both prune
+orphans.
 
-- **bootstrap → knowledge build → publish.** This is the order.
-- A `bootstrap` *after* a build, against an org that lacks the items, removes them from the
-  tree. That is correct — the tree mirrors the org — but it surprises, so it is worth
-  saying out loud.
+- **gd-store → knowledge build → publish.** This is the order.
+- A `gd-store` *after* a build, from a workspace that lacks the items, removes them from the
+  tree. That is correct — the tree mirrors the workspace — but it surprises, so it is worth
+  saying out loud; `knowledge build --check` in CI fails until the build is rerun.
 - Once the items have been published, the cycle converges: a capture returns them and the
   next build re-emits them identically. `test_the_capture_then_build_cycle_converges` proves
   that without a host.

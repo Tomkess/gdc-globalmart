@@ -4349,10 +4349,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_brand",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_brand"
           ],
           "type": "dataSource"
@@ -4370,8 +4370,7 @@
         "tags": [
           "Brand"
         ],
-        "title": "Brand",
-        "workspaceDataFilterReferences": []
+        "title": "Brand"
       },
       {
         "aggregatedFacts": [],
@@ -4400,10 +4399,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_category_l1",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_category_l1"
           ],
           "type": "dataSource"
@@ -4421,8 +4420,7 @@
         "tags": [
           "Product Category Level 1"
         ],
-        "title": "Product Category Level 1",
-        "workspaceDataFilterReferences": []
+        "title": "Product Category Level 1"
       },
       {
         "aggregatedFacts": [],
@@ -4462,10 +4460,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_channel_master",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_channel_master"
           ],
           "type": "dataSource"
@@ -4483,8 +4481,7 @@
         "tags": [
           "Sales Channel"
         ],
-        "title": "Sales Channel",
-        "workspaceDataFilterReferences": []
+        "title": "Sales Channel"
       },
       {
         "aggregatedFacts": [],
@@ -4535,10 +4532,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_currency",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_currency"
           ],
           "type": "dataSource"
@@ -4556,8 +4553,7 @@
         "tags": [
           "Currency"
         ],
-        "title": "Currency",
-        "workspaceDataFilterReferences": []
+        "title": "Currency"
       },
       {
         "aggregatedFacts": [],
@@ -4586,10 +4582,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_geography_city",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_geography_city"
           ],
           "type": "dataSource"
@@ -4642,8 +4638,7 @@
         "tags": [
           "City"
         ],
-        "title": "City",
-        "workspaceDataFilterReferences": []
+        "title": "City"
       },
       {
         "aggregatedFacts": [],
@@ -4672,10 +4667,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_geography_country",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_geography_country"
           ],
           "type": "dataSource"
@@ -4711,8 +4706,7 @@
         "tags": [
           "Country"
         ],
-        "title": "Country",
-        "workspaceDataFilterReferences": []
+        "title": "Country"
       },
       {
         "aggregatedFacts": [],
@@ -4741,10 +4735,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_geography_region",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_geography_region"
           ],
           "type": "dataSource"
@@ -4780,8 +4774,7 @@
         "tags": [
           "Region"
         ],
-        "title": "Region",
-        "workspaceDataFilterReferences": []
+        "title": "Region"
       },
       {
         "aggregatedFacts": [],
@@ -4832,10 +4825,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_product",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_product"
           ],
           "type": "dataSource"
@@ -4905,8 +4898,7 @@
         "tags": [
           "Product"
         ],
-        "title": "Product",
-        "workspaceDataFilterReferences": []
+        "title": "Product"
       },
       {
         "aggregatedFacts": [],
@@ -4946,10 +4938,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_supplier",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_supplier"
           ],
           "type": "dataSource"
@@ -4985,8 +4977,7 @@
         "tags": [
           "Supplier"
         ],
-        "title": "Supplier",
-        "workspaceDataFilterReferences": []
+        "title": "Supplier"
       },
       {
         "aggregatedFacts": [],
@@ -5026,10 +5017,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_warehouse",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_warehouse"
           ],
           "type": "dataSource"
@@ -5065,8 +5056,7 @@
         "tags": [
           "Warehouse"
         ],
-        "title": "Warehouse",
-        "workspaceDataFilterReferences": []
+        "title": "Warehouse"
       },
       {
         "aggregatedFacts": [],
@@ -5084,10 +5074,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_goods_receipt",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_goods_receipt"
           ],
           "type": "dataSource"
@@ -5161,8 +5151,7 @@
         "tags": [
           "Goods Receipt"
         ],
-        "title": "Goods Receipt",
-        "workspaceDataFilterReferences": []
+        "title": "Goods Receipt"
       },
       {
         "aggregatedFacts": [],
@@ -5180,10 +5169,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_inventory_snapshot_daily",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_inventory_snapshot_daily"
           ],
           "type": "dataSource"
@@ -5274,8 +5263,7 @@
         "tags": [
           "Daily Inventory Snapshot"
         ],
-        "title": "Daily Inventory Snapshot",
-        "workspaceDataFilterReferences": []
+        "title": "Daily Inventory Snapshot"
       },
       {
         "aggregatedFacts": [],
@@ -5293,10 +5281,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_purchase_order_header",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_purchase_order_header"
           ],
           "type": "dataSource"
@@ -5370,8 +5358,7 @@
         "tags": [
           "Purchase Order"
         ],
-        "title": "Purchase Order",
-        "workspaceDataFilterReferences": []
+        "title": "Purchase Order"
       },
       {
         "aggregatedFacts": [],
@@ -5389,10 +5376,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_purchase_order_line",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_purchase_order_line"
           ],
           "type": "dataSource"
@@ -5466,8 +5453,7 @@
         "tags": [
           "Purchase Order Line Items"
         ],
-        "title": "Purchase Order Line Items",
-        "workspaceDataFilterReferences": []
+        "title": "Purchase Order Line Items"
       },
       {
         "aggregatedFacts": [],
@@ -5485,10 +5471,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_stock_movement",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_stock_movement"
           ],
           "type": "dataSource"
@@ -5569,8 +5555,7 @@
         "tags": [
           "Stock Movement"
         ],
-        "title": "Stock Movement",
-        "workspaceDataFilterReferences": []
+        "title": "Stock Movement"
       },
       {
         "aggregatedFacts": [],
@@ -5588,10 +5573,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_supplier_scorecard",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_supplier_scorecard"
           ],
           "type": "dataSource"
@@ -5675,8 +5660,7 @@
         "tags": [
           "Supplier Scorecard"
         ],
-        "title": "Supplier Scorecard",
-        "workspaceDataFilterReferences": []
+        "title": "Supplier Scorecard"
       },
       {
         "aggregatedFacts": [],
@@ -5716,10 +5700,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_transfer_order",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_transfer_order"
           ],
           "type": "dataSource"
@@ -5783,8 +5767,7 @@
         "tags": [
           "Transfer Order"
         ],
-        "title": "Transfer Order",
-        "workspaceDataFilterReferences": []
+        "title": "Transfer Order"
       },
       {
         "aggregatedFacts": [],
@@ -5802,10 +5785,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_write_off",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_write_off"
           ],
           "type": "dataSource"
@@ -5896,8 +5879,7 @@
         "tags": [
           "Write Off"
         ],
-        "title": "Write Off",
-        "workspaceDataFilterReferences": []
+        "title": "Write Off"
       },
       {
         "aggregatedFacts": [],
@@ -5981,14 +5963,13 @@
           }
         ],
         "sql": {
-          "dataSourceId": "{{ datasource_id }}",
-          "statement": "\nSELECT\n    inv.product_id,\n    inv.warehouse_id,\n    SUM(inv.on_hand_units) AS current_stock,\n    SUM(COALESCE(sales.daily_sales, 0)) * 30 AS units_30_day,\n    SUM(inv.on_hand_units) / NULLIF(SUM(COALESCE(sales.daily_sales, 0)), 0) AS days_of_cover\nFROM {{ datasource_schema }}.fact_inventory_snapshot_daily inv\nLEFT JOIN (\n    SELECT ol.product_id, oh.order_date, SUM(ol.quantity) AS daily_sales\n    FROM {{ datasource_schema }}.fact_order_line ol\n    JOIN {{ datasource_schema }}.fact_order_header oh ON ol.order_id = oh.order_id\n    GROUP BY 1, 2\n) sales ON inv.product_id = sales.product_id\nGROUP BY 1, 2\n"
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
+          "statement": "\nSELECT\n    inv.product_id,\n    inv.warehouse_id,\n    SUM(inv.on_hand_units) AS current_stock,\n    SUM(COALESCE(sales.daily_sales, 0)) * 30 AS units_30_day,\n    SUM(inv.on_hand_units) / NULLIF(SUM(COALESCE(sales.daily_sales, 0)), 0) AS days_of_cover\nFROM globalmart.fact_inventory_snapshot_daily inv\nLEFT JOIN (\n    SELECT ol.product_id, oh.order_date, SUM(ol.quantity) AS daily_sales\n    FROM globalmart.fact_order_line ol\n    JOIN globalmart.fact_order_header oh ON ol.order_id = oh.order_id\n    GROUP BY 1, 2\n) sales ON inv.product_id = sales.product_id\nGROUP BY 1, 2\n"
         },
         "tags": [
           "Inventory Health"
         ],
-        "title": "Inventory Health",
-        "workspaceDataFilterReferences": []
+        "title": "Inventory Health"
       }
     ],
     "dateInstances": [

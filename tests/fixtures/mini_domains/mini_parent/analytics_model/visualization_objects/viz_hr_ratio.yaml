@@ -1,16 +1,16 @@
 content:
   buckets:
-  - items:
-    - measure:
-        definition:
-          measureDefinition:
-            filters: []
-            item:
-              identifier:
-                id: m_headcount
-                type: metric
-        localIdentifier: m_m_headcount
-    localIdentifier: measures
+    - items:
+        - measure:
+            definition:
+              measureDefinition:
+                filters: []
+                item:
+                  identifier:
+                    id: m_headcount
+                    type: metric
+            localIdentifier: m_m_headcount
+      localIdentifier: measures
   filters: []
   properties: {}
   sorts: []
@@ -18,5 +18,4 @@ content:
   visualizationUrl: local:column
 description: ''
 id: viz_hr_ratio
-tags: []
 title: viz_hr_ratio

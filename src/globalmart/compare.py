@@ -15,10 +15,13 @@ from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import
     CatalogDeclarativeWorkspaceModel,
 )
 
-from globalmart.normalize import DATASOURCE_ID_TOKEN, DATASOURCE_SCHEMA_TOKEN
+#: What ``mask_parameters`` writes over a target's own data source id and schema, so two orgs'
+#: layouts compare equal exactly when they differ only in those values.
+DATASOURCE_ID_MASK = "{{ datasource_id }}"
+DATASOURCE_SCHEMA_MASK = "{{ datasource_schema }}"
 
 #: Fields the *server* owns. It stamps them on every write, so they always differ between
-#: a normalized local model (which strips them) and a live workspace. Comparing them makes
+#: a local model (gd-store never writes them) and a live workspace. Comparing them makes
 #: `changed` permanently True and buries a real difference in thousands of lines of noise —
 #: measured against the live parent: 6849 diff lines, all audit, zero real differences.
 SERVER_OWNED_FIELDS = frozenset({"createdAt", "modifiedAt", "createdBy", "modifiedBy"})
@@ -34,8 +37,8 @@ UNORDERED_FIELDS = frozenset({"keywords"})
 def _strip_server_owned(node: Any) -> Any:
     """Drop server-stamped fields, and treat absent and empty as the same thing.
 
-    The API omits some empty collections and returns others as ``[]``; the normalizer
-    canonicalises them to ``[]``. Neither form means anything different, so comparing them
+    The API omits some empty collections and returns others as ``[]``; a model built in memory
+    may carry either. Neither form means anything different, so comparing them
     would report a difference that no one can act on. Dropping an empty collection entirely
     still detects a real change — a list going from ``[x]`` to empty shows up as the key
     disappearing.
@@ -122,12 +125,12 @@ def _flatten(node: Any, path: str = "") -> list[tuple[str, Any]]:
 def mask_parameters(
     model: CatalogDeclarativeWorkspaceModel, *, datasource_id: str, datasource_schema: str
 ) -> Any:
-    """Return the model with this target's values replaced by the placeholders again.
+    """Return the model with this target's data source id and schema masked.
 
     Two orgs' published layouts, masked this way, must be byte-identical — that is the
     portability contract, expressed as an assertion rather than a hope.
     """
     payload = json.dumps(_canonical(model))
-    payload = payload.replace(json.dumps(datasource_id)[1:-1], DATASOURCE_ID_TOKEN)
-    payload = payload.replace(json.dumps(datasource_schema)[1:-1], DATASOURCE_SCHEMA_TOKEN)
+    payload = payload.replace(json.dumps(datasource_id)[1:-1], DATASOURCE_ID_MASK)
+    payload = payload.replace(json.dumps(datasource_schema)[1:-1], DATASOURCE_SCHEMA_MASK)
     return json.loads(payload)

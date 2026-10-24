@@ -50,7 +50,7 @@ from globalmart.expect import (
     check_pruning,
     compare_counts,
 )
-from globalmart.layout_io import read_model_json, read_tree
+from globalmart.layout_io import DEFAULT_LAYOUT_PATH, read_model_json, read_tree
 from globalmart.preflight import check_wdf_values
 
 SCHEMA_VERSION = 1
@@ -152,7 +152,7 @@ class VerifyOptions:
     max_retries: int = 2
     fail_on_empty: bool = False
     list_only: bool = False
-    layout_path: Path = Path("layouts/workspaces/globalmart")
+    layout_path: Path = DEFAULT_LAYOUT_PATH
     generated_path: Path = Path("generated/workspaces")
     workspaces: tuple[str, ...] = ()
 

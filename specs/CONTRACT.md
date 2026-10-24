@@ -25,16 +25,15 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 |---|---|---|
 | `config.py` | FEAT-001 (+002, +005, +017, +019) | `TargetProfile`, `WarehouseType`, `KnowledgeScope`, `load_profile`, `validate_for_publish` |
 | `sdk_client.py` | FEAT-001 | `make_sdk(profile) -> GoodDataSdk` — the only place touching credentials |
-| `capture.py` | FEAT-001 | `capture_workspace(sdk, workspace_id) -> CatalogDeclarativeWorkspaceModel` |
-| `normalize.py` | FEAT-001 | Six-pass in-memory scrub; owns the placeholder tokens |
-| `layout_io.py` | FEAT-001 (+004) | `write_tree` / `read_tree` (YAML), plus the JSON side for children |
+| `capture.py` | FEAT-001 | `capture_workspace(sdk, workspace_id) -> CatalogDeclarativeWorkspaceModel` — serves the pre-publish backup only; the committed tree is captured by gdcloud's `gd-store` (ADR 011 Stage B) |
+| `layout_io.py` | FEAT-001 (+004, +019) | `DEFAULT_LAYOUT_PATH` (`gd_data_product/globalmart`), `read_tree` (the SDK's `load_from_disk`), `write_tree` (gd-store's exact bytes, via gdcloud's `gd-format-yaml` normalizers, imported lazily — the one module that imports `gdcloud`), plus the JSON side for children. `normalize.py` retired 2026-10-24 (ADR 011 Stage B) |
 | `counts.py` | FEAT-001 | `count_objects(model) -> ObjectCounts` |
 | `traversal.py` | FEAT-002 (+003) | The only module that knows *where* refs live in the model |
-| `resolve.py` | FEAT-002 | `resolve_placeholders`, `assert_fully_resolved` — inverse of normalize |
+| `resolve.py` | FEAT-002 (+019) | `rewrite_data_source` (canonical id/schema → the target's; a no-op when they match), `assert_fully_resolved` (no `{{ … }}` placeholder, no foreign data source id or table schema), `resolve_and_assert` — the only entry point a publish uses |
 | `datasource.py` | FEAT-002 | `build_data_source`, `ensure_data_source` — warehouse adapters |
-| `preflight.py` | FEAT-002 (+006) | Everything that can fail before a byte is written |
+| `preflight.py` | FEAT-002 (+006) | Everything that can fail before a byte is written; owns the audit-field list `check_portability` refuses |
 | `backup.py` | FEAT-002 | `backup_workspace(sdk, profile, workspace_id) -> Path \| None` |
-| `publish.py` | FEAT-002 (+004) | `publish_workspace`, `publish_domains` |
+| `publish.py` | FEAT-002 (+004) | `publish_workspace`, `publish_domains` — both take `canonical: CanonicalDataSource` |
 | `compare.py` | FEAT-002 | Idempotency and cross-org equivalence |
 | `domains.py` | FEAT-003 | Manifest schema, strict loader, canonical dumper |
 | `coverage.py` | FEAT-003 | `check_coverage(model, manifest) -> CoverageReport`, `raise_for_report` |
@@ -57,8 +56,7 @@ Python package under `src/globalmart/`, flat except the `data/` submodule. One m
 | `corpus_coverage.py` | FEAT-015 | `CorpusManifest` + its strict loader, `check_corpus_coverage`, `raise_for_corpus_report` |
 | `knowledge_docs.py` | FEAT-015 (+017) | The only module that touches `/api/v1/ai/workspaces/{id}/knowledge/documents`; `publish_corpus`, `verify_corpus`, `publish_for_target`, `verify_for_target`, `corpus_workspaces`. A level is a workspace id. No organization endpoint: it never reads, writes or deletes org-level knowledge, and a `workspaceId: null` (org-level) document is never local, so never pruned — org level belongs to the separate org repo (ADR 011) |
 | `retrieval.py` | FEAT-015 | `RetrievalQuestion`, `run_retrieval` — answer-level validation over the published corpus |
-| `gdcloud_bridge.py` | FEAT-019 | The only module that reads gdcloud's `config.yml`: `ReleaseConfig`, `load_release_config`, `master_workspace_id`, `parse_deploy_tag`, `release_scope_from_tags`. Refuses any catalog but exactly one data product (ADR 011) |
-| `gdcloud_project.py` | FEAT-019 | `project_parent`, `write_projection`, `diff_projection` — the parent layout projected into `gd_data_product/globalmart/`, byte-identical to `gd-store`. The one module that imports `gdcloud` (its YAML normalizers, lazily) |
+| `gdcloud_bridge.py` | FEAT-019 | The only module that reads gdcloud's `config.yml` / `config.env.yml`: `ReleaseConfig`, `load_release_config`, `CanonicalDataSource`, `load_canonical_data_source`, `master_workspace_id`, `parse_deploy_tag`, `release_scope_from_tags`. Refuses any catalog but exactly one data product (ADR 011). `gdcloud_project.py` retired 2026-10-24 (ADR 011 Stage B) |
 | `gdcloud_bootstrap.py` | FEAT-019 | `bootstrap_environment`, `fetch_capacity` — workspace-cap check, collision audit, data source, env-titled master, before an environment's first deploy |
 | `vocabulary.py` | FEAT-021 | `Vocabulary`, `load_vocabulary`, `TableNamer`, `composed` — realistic values for generated text columns from `config/vocabulary.yaml`; no table or column named in code |
 | `cli.py` | all | Subcommand registration only; no logic |
@@ -124,21 +122,27 @@ GlobalMart workspace addressed). The former `organization` value (ADR 010) is re
 profile-load: organization-level objects, knowledge documents included, are owned by the separate
 org repo (gd-ecommerce-demo ADR 002, ADR 011). Same profile-load validation as `WarehouseType`.
 
-`organization_id`, `datasource_id` and `datasource_schema` are read in both directions — what to
-scrub out on capture, what to substitute back in on publish. That symmetry is what makes the
-portability contract testable; do not split them into separate fields.
+`datasource_id` and `datasource_schema` are what a publish rewrites the tree's canonical data
+source to, and what `compare.mask_parameters` masks for the cross-org proof. Do not split them into
+separate fields.
 
-### Placeholder tokens — `normalize.py` module constants
+### Canonical data source — `gdcloud_bridge.py` (ADR 011 Stage B, 2026-10-24)
 
 ```python
-DATASOURCE_ID_TOKEN     = "{{ datasource_id }}"
-DATASOURCE_SCHEMA_TOKEN = "{{ datasource_schema }}"
+@dataclass(frozen=True)
+class CanonicalDataSource:
+    datasource_id: str      # gdc_ds_globalmart_motherduck today
+    datasource_schema: str  # globalmart today
+
+def load_canonical_data_source(env_config_path: Path = Path("gd_data_product/config.env.yml")) -> CanonicalDataSource
 ```
 
-Import these; never re-declare the literals. `{{ datasource_schema }}` is **substituted** at
-publish time, never stripped and never left templated — that is a known predecessor defect class.
-All rewriting is structured field assignment on the SDK attrs model, never string replacement on
-YAML text.
+The committed tree carries this pair concretely; the value lives in `config.env.yml`'s
+`globalmart_canonical`, never in code. The placeholder tokens (`{{ datasource_id }}`,
+`{{ datasource_schema }}`, formerly `normalize.py` constants) retired with Stage B; a surviving
+`{{ … }}` anywhere fails a publish. The schema is **rewritten** at publish time, never stripped —
+a known predecessor defect class. All rewriting is structured field assignment on the SDK attrs
+model; inside SQL text the schema is matched only as a whole dotted identifier.
 
 ### Domain manifest types — `domains.py` (owned by FEAT-003)
 
@@ -254,21 +258,19 @@ Single entry point `globalmart`, subcommands registered in `cli.py` (registratio
 
 | Command | Flags | Module | Writes | Feature |
 |---|---|---|---|---|
-| `globalmart bootstrap` | `--target` (req), `--workspace-id`, `--out`, `--dry-run`, `--wdf-policy {drop,keep}`, `--allow-unparameterized-sql` | `capture.py`, `normalize.py` | local | FEAT-001 |
-| `globalmart normalize` | `--path`, `--datasource-schema`, `--check`, `--wdf-policy {drop,keep}`, `--allow-unparameterized-sql` | `normalize.py` | local | FEAT-001 |
 | `globalmart domains validate` | `--manifest`, `--layout`, `--strict`, `--format {table,json}` | `domains.py`, `coverage.py` | read-only | FEAT-003 |
 | `globalmart domains bootstrap` | `--layout`, `--out`, `--dry-run`, `--force` | `domain_bootstrap.py` | local | FEAT-003 |
 | `globalmart split` | `--domains-file`, `--source` (`--from` is an alias — `dest="source"`), `--out`, `--only`, `--metric-policy {reachable,dataset-fit}`, `--dry-run`, `--check` | `split.py`, `closure.py`, `prune.py`, `verify.py` | local | FEAT-004 |
-| `globalmart data verify` | `--ddl`, `--layout`, `--schema` | `sqlcheck.py` | read-only | FEAT-005 |
+| `globalmart data verify` | `--ddl`, `--layout`, `--env-config`, `--schema` (default: the canonical schema) | `sqlcheck.py` | read-only | FEAT-005 |
 | `globalmart data load` | `--target` (req), `--ddl`, `--layout`, `--only`, `--tables-dir`, `--manifest`, `--recreate-drifted`, `--apply` | `dataload.py`, `loaders/` | live `--apply` | FEAT-005 |
 | `globalmart data generate` | `--out` (req), `--seed`, `--scale`, `--ddl`, `--layout`, `--manifest`, `--vocabulary`, `--start-date`, `--end-date` | `generate.py`, `vocabulary.py` | local | FEAT-007 (+013, +021) |
 | `globalmart data ensure` | `--target` (req), `--apply` \| `--check` (exclusive; `--check` exits 3 when a write is planned — the PR gate), `--max-age-days`, `--force`, `--recreate-drifted`, `--seed`, `--scale`, `--start-date`, `--end-date`, `--ddl`, `--layout`, `--manifest`, `--vocabulary` | `dataload.py`, `generate.py` | live `--apply` | FEAT-013 (+019, +021) |
 | `globalmart data notify` | `--target` (req), `--apply` | `datasource.py`, `preflight.py` | live `--apply` | FEAT-019 |
-| `globalmart publish parent` | `--target` (req), `--source`, `--workspace-id`, `--workspace-name`, `--apply`, `--no-backup`, `--standalone-copy` | `publish.py` | live `--apply` | FEAT-002 |
-| `globalmart publish domains` | `--target` (req), `--domains-file`, `--source`, `--only`, `--apply`, `--no-backup`, `--standalone-copy`, `--keep-going` | `publish.py` | live `--apply` | FEAT-004 |
+| `globalmart publish parent` | `--target` (req), `--source`, `--env-config`, `--workspace-id`, `--workspace-name`, `--apply`, `--no-backup`, `--standalone-copy` | `publish.py` | live `--apply` | FEAT-002 |
+| `globalmart publish domains` | `--target` (req), `--domains-file`, `--source`, `--env-config`, `--only`, `--apply`, `--no-backup`, `--standalone-copy`, `--keep-going` | `publish.py` | live `--apply` | FEAT-004 |
 | `globalmart verify` | `--target`, `--domains-file`, `--layout`, `--generated`, `--workspace`, `--max-workers`, `--viz-timeout`, `--max-retries`, `--fail-on-empty`, `--list-only`, `--output-dir` | `verification.py`, `execute.py` | read-only (live) | FEAT-006 |
 | `globalmart verify equivalence` | `--target-a` (req), `--target-b` (req), `--workspace-id` | `equivalence.py` | read-only (live) | FEAT-006 |
-| `globalmart rebuild` | `--target` (req), `--domains-file`, `--layout`, `--generated`, `--skip-data`, `--corpus`, `--skip-knowledge-docs`, `--allow-existing`, `--apply` | `rebuild.py` | live `--apply` | FEAT-006 (+013, +015, +017) |
+| `globalmart rebuild` | `--target` (req), `--domains-file`, `--layout`, `--env-config`, `--generated`, `--skip-data`, `--corpus`, `--skip-knowledge-docs`, `--allow-existing`, `--apply` | `rebuild.py` | live `--apply` | FEAT-006 (+013, +015, +017) |
 | `globalmart knowledge build` | `--source`, `--layout`, `--check` | `knowledge.py` | local | FEAT-008 |
 | `globalmart knowledge-docs build` | `--corpus`, `--manifest`, `--questions` | `corpus.py` | local | FEAT-015 |
 | `globalmart knowledge-docs coverage` | `--corpus`, `--manifest`, `--layout`, `--strict`, `--report-only`, `--format {text,json}` | `corpus_coverage.py` | read-only | FEAT-015 |
@@ -277,7 +279,6 @@ Single entry point `globalmart`, subcommands registered in `cli.py` (registratio
 | `globalmart knowledge-docs retrieval` | `--target` (req), `--corpus`, `--questions`, `--workspace-id`, `--limit`, `--min-score` | `retrieval.py` | read-only (live) | FEAT-015 |
 | `globalmart datefilters bind` | `--layout`, `--check`, `--overrides` | `datefilters.py` | local | FEAT-011 |
 | `globalmart targets inspect` | `--target` (req) | `config.py`, `sdk_client.py` | read-only (live) | FEAT-002 |
-| `globalmart gdcloud project` | `--config`, `--layout`, `--out`, `--dry-run`, `--check` | `gdcloud_project.py` | local | FEAT-019 |
 | `globalmart gdcloud bootstrap` | `--environment {dev,test,preprod,prod}` (req), `--config`, `--apply`, `--no-backup` | `gdcloud_bootstrap.py` | live `--apply` | FEAT-019 |
 | `globalmart gdcloud scope` | `--since` (req, tz-aware ISO), `--environment`, `--config`, `--format {text,json}` | `gdcloud_bridge.py` | read-only (git tags) | FEAT-019 |
 
@@ -307,7 +308,7 @@ the token, never the token itself; `gd-agents profile` defaults it to
 
 | Path | What | Committed? |
 |---|---|---|
-| `layouts/workspaces/globalmart/` | Parent workspace, SDK native YAML tree, one file per object. Neutral path — **no org id** | yes |
+| `gd_data_product/globalmart/` | The parent workspace and what gdcloud releases: SDK-native YAML tree in `gd-store`'s exact form, one file per object, carrying the canonical data source. **The only authoring tree** (ADR 011 Stage B): edit it, or `gd-store` into it. Neutral path — **no org id**. `layouts/` retired 2026-10-24 | yes |
 | `generated/workspaces/globalmart-<domain>.json` | The 12 derived children, declarative JSON. **Local-only since 2026-10-22** (ADR 011): never released by gdcloud, redeployed on demand with `publish domains` | yes (ADR 003) |
 | `data/tables/<table>.csv.gz` | The rows themselves, one gzipped CSV per table — 215 files. **Not in the repository** (ADR 008 supersedes ADR 007): generated on demand by `globalmart data generate` / `data ensure`, verified against `data/table-manifest.json` | no (ADR 008) |
 | `config/targets.yaml` | Publish target profiles. Zero secrets | yes |
@@ -319,9 +320,8 @@ the token, never the token itself; `gd-agents profile` defaults it to
 | `config/corpus.yaml` | Corpus exclusion manifest — what is deliberately undocumented, with a reason | yes |
 | `config/corpus-questions.yaml` | The fixed answer-level retrieval question set | yes |
 | `config.yml` | gdcloud project config: one data product `globalmart`, four environments on two orgs, `org_release`/`organization_snapshot` off (ADR 011, ecommerce ADR 002). No secrets | yes |
-| `gd_data_product/config.env.yml` | gdcloud env overrides (none) plus `globalmart_canonical`, the data source the projection resolves to | yes |
-| `gd_data_product/globalmart/` | **Derived** from `layouts/workspaces/globalmart/` by `globalmart gdcloud project`; what gdcloud releases. Hand edits fail `--check` and the `projection_current` gd-ci check | yes |
-| `gd_plugin/checks/` | GlobalMart's gd-ci checks (`org_scope`, `projection_current`), registered via the `gdcloud.ci_checks` entry point | yes |
+| `gd_data_product/config.env.yml` | gdcloud env overrides (none) plus `globalmart_canonical`, the data source the committed tree carries | yes |
+| `gd_plugin/checks/` | GlobalMart's gd-ci check (`org_scope`), registered via the `gdcloud.ci_checks` entry point. `projection_current` retired 2026-10-24 | yes |
 | `backups/`, `reports/` | Runtime output | no |
 
 **JSON side (FEAT-004, added 2026-09-18):** `layout_io.write_model_json(model, path)` /
@@ -330,12 +330,12 @@ the token, never the token itself; `gd-agents profile` defaults it to
 breaks the publish. Determinism comes from sorted-id emission in `prune_ldm` and
 `split._retain`.
 
-**Placeholder coverage (FEAT-004, added 2026-09-18):** `traversal.iter_table_schema_slots`
-yields `dataSourceTableId.path[0]` for every table-backed dataset. `normalize` parameterises it
-and `resolve` substitutes it, exactly as for SQL statements. Without it all 214 table-backed
-datasets carried the source org's literal schema.
+**Schema coverage (FEAT-004, added 2026-09-18):** `traversal.iter_table_schema_slots`
+yields `dataSourceTableId.path[0]` for every table-backed dataset. `resolve` rewrites it (and
+audits it), exactly as for SQL statements. Without it all 214 table-backed datasets would carry the
+canonical schema into a target whose schema differs.
 
-Layout I/O goes through `get_declarative_workspace(...).store_to_disk(workspace_folder=...)` and
+Layout I/O goes through `store_to_disk(workspace_folder=...)` (inside `layout_io.write_tree`) and
 `CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=...)` — **never**
 `store_declarative_workspace` / `load_declarative_workspace`, which route through
 `layout_organization_folder()` and bake the org id into the path.
@@ -350,7 +350,7 @@ the parent or `domains.yaml` and regenerate.
 | `tests/fixtures/mini_globalmart/` | FEAT-001 | FEAT-002 (unchanged), FEAT-003 (extended: second dashboard spanning two domains) |
 | `tests/fixtures/published_layouts/` | FEAT-002 | — |
 | `tests/fixtures/domains/` | FEAT-003 | — |
-| `tests/fixtures/mini_domains/` | FEAT-004 | FEAT-006 (2-domain miniature of FEAT-004 output) |
+| `tests/fixtures/mini_domains/` | FEAT-004 | FEAT-006 (2-domain miniature of FEAT-004 output). Its `mini_parent/` is in gd-store form with the canonical data source since 2026-10-24 (ADR 011 Stage B) |
 | `tests/fixtures/expected_children/` | FEAT-004 | — |
 | `tests/fixtures/data_manifest_scale_0_01.json` | FEAT-005 | determinism oracle |
 | `tests/fixtures/verification/` | FEAT-006 | — |

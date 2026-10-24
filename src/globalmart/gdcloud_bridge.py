@@ -1,12 +1,12 @@
 """What gdcloud's ``config.yml`` says about GlobalMart's release, for this package's own commands.
 
 gdcloud owns the release (FEAT-019, ADR 011): versions, promotion, the generated CI. The steps it
-has no concept of — projecting the parent into ``gd_data_product/``, publishing the knowledge
-corpus after a deploy — still need to know which workspace each environment deploys to and which
-data source the projection resolves to. This is the only module in the package that reads
-``config.yml``, and it reads the YAML directly rather than through gdcloud's config loader. The
-one place the package imports ``gdcloud`` is ``gdcloud_project``, for byte parity with its YAML
-normalizers.
+has no concept of — publishing the knowledge corpus after a deploy, publishing the parent or the
+domains to an ad hoc profile — still need to know which workspace each environment deploys to and
+which data source the committed tree carries. This is the only module in the package that reads
+``config.yml`` / ``config.env.yml``, and it reads the YAML directly rather than through gdcloud's
+config loader. The one place the package imports ``gdcloud`` is ``layout_io``, for byte parity with
+its YAML normalizers.
 
 GlobalMart releases exactly one data product, the parent. The 12 domain workspaces are local
 artifacts redeployed on demand with ``publish domains``, so a second catalog entry is a defect
@@ -47,11 +47,23 @@ class ReleaseConfigError(GlobalmartError):
 
 
 @dataclass(frozen=True)
+class CanonicalDataSource:
+    """The data source ``gd_data_product/globalmart/`` carries, as committed (ADR 011 Stage B).
+
+    Every dataset in the tree names this id, and every table path and SQL statement this schema.
+    Publishing to a profile rewrites both to the profile's own (``resolve.rewrite_data_source``).
+    """
+
+    datasource_id: str
+    datasource_schema: str
+
+
+@dataclass(frozen=True)
 class ReleaseConfig:
     path: Path
     dp_id: str  # "globalmart", the primary and only data product
     label: str  # "GM"
-    datasource_id: str  # canonical id the projection resolves to
+    datasource_id: str  # canonical id the committed tree carries
     datasource_schema: str  # canonical warehouse schema
     masters: dict[str, str]  # environment -> master workspace id
     hosts: dict[str, str]  # environment -> host
@@ -134,8 +146,16 @@ def load_release_config(
     )
 
 
+def load_canonical_data_source(env_config_path: Path = DEFAULT_ENV_CONFIG_PATH) -> CanonicalDataSource:
+    """The data source the committed tree carries, from ``config.env.yml``. No network."""
+    canonical = _load_canonical(Path(env_config_path))
+    return CanonicalDataSource(
+        datasource_id=canonical["datasource_id"], datasource_schema=canonical["datasource_schema"]
+    )
+
+
 def _load_canonical(path: Path) -> dict[str, str]:
-    """The data source the projection resolves to, from ``config.env.yml``'s ``globalmart_canonical``.
+    """The data source the committed tree carries, from ``config.env.yml``'s ``globalmart_canonical``.
 
     It is config rather than a code constant (STEERING § "Config, not code"). gdcloud ignores the
     key; gdcloud's own settings live under ``env_config``.

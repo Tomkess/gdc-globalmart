@@ -27,7 +27,7 @@ workspace to rebuild GlobalMart. Two packages, two jobs: `src/globalmart/` build
 flowchart TB
   subgraph build["src/globalmart/ — build the workspaces"]
     direction TB
-    L["layouts/workspaces/globalmart/<br/><i>parent, SDK-native YAML, one file per object</i>"]
+    L["gd_data_product/globalmart/<br/><i>parent, gd-store YAML, one file per object</i>"]
     DM["config/domains.yaml<br/><i>explicit domain membership</i>"]
     SP["globalmart split<br/><i>closure → prune → verify</i>"]
     GEN["generated/workspaces/<br/>globalmart-&lt;domain&gt;.json<br/><i>12 derived children</i>"]
@@ -78,14 +78,13 @@ flowchart TB
 
 | Path | What | Committed? |
 |---|---|---|
-| [`layouts/workspaces/globalmart/`](layouts/workspaces/globalmart) | Parent workspace, SDK-native YAML, one file per object. No org id in the path | yes |
+| [`gd_data_product/globalmart/`](gd_data_product/globalmart) | The parent workspace, and what gdcloud releases: gd-store's YAML, one file per object, carrying the canonical data source. The only authoring tree — edit it, or `gd-store` into it from a dev workspace ([ADR 011](specs/decisions/011-gdcloud-release-of-globalmart.md) Stage B) | yes |
 | [`generated/workspaces/`](generated/workspaces) | The 12 derived children, declarative JSON. Derived, never authored — fix the parent and regenerate. Local-only: deployed on demand, never released ([ADR 011](specs/decisions/011-gdcloud-release-of-globalmart.md)) | yes ([ADR 003](specs/decisions/003-generated-artifacts-committed-vs-regenerated.md)) |
 | [`data/`](data) | `ddl/globalmart.sql` (215 tables) and `table-manifest.json`. The rows themselves are generated on demand, not stored | DDL + manifest yes; rows no ([ADR 008](specs/decisions/008-data-generated-not-committed.md)) |
 | [`config.yml`](config.yml) | gdcloud release config: one data product, four environments on two orgs | yes |
-| [`gd_data_product/globalmart/`](gd_data_product/globalmart) | What gdcloud releases. Derived from the parent layout by `globalmart gdcloud project` — never edited | yes |
-| [`gd_plugin/`](gd_plugin) | GlobalMart's own gd-ci checks (`org_scope`, `projection_current`) | yes |
+| [`gd_plugin/`](gd_plugin) | GlobalMart's own gd-ci check (`org_scope`) | yes |
 | [`config/`](config) | `targets.yaml` (publish targets, zero secrets), `domains.yaml` (domain membership), `agents.yaml` (orchestrator registry), corpus manifests | yes |
-| [`src/globalmart/`](src/globalmart) | Capture, normalize, split, publish, verify, data generation, knowledge compilation | yes |
+| [`src/globalmart/`](src/globalmart) | Split, publish, verify, data generation, knowledge compilation | yes |
 | [`src/gd_agents/`](src/gd_agents) | The A2A/MCP orchestrator: registry, router, lanes, merge checks, viewer | yes |
 | [`docs/`](docs) | How each part works, and what was measured | yes |
 | [`specs/`](specs) | Vision, goals, steering, the interface contract, ADRs, per-feature specs | yes |
@@ -160,15 +159,16 @@ one data product, `globalmart`, promoted by version tag through four environment
 | prod | usecases-ai.demo.cloud | `globalmart_master` | workflow 5, after approval | `production` |
 
 ```
-edit layouts/workspaces/globalmart/ ─► globalmart split ─► globalmart gdcloud project ─► PR (label GM)
-   CI: split/project --check, warehouse current, gdcloud gates ─► merge ─► v1.N ─► dev
+edit gd_data_product/globalmart/, or gd-store from a dev workspace ─► globalmart split ─► PR (label GM)
+   CI: split --check, gd-format-yaml --check, warehouse current, gdcloud gates ─► merge ─► v1.N ─► dev
    ─► workflow 4 ─► test ─► workflow 5 (preprod) ─► workflow 5 again (prod, approval)
    after every deploy: globalmart_post_deploy publishes + verifies the knowledge corpus there
 ```
 
 ```bash
-make project            # regenerate gd_data_product/globalmart/ after a parent change; commit both
-make project-check      # what CI checks
+make store              # gd-store the dev workspace (GD_ENV=dev) into gd_data_product/globalmart/
+make format             # gd-format-yaml after a hand edit; `make lint` is what CI checks
+globalmart split        # re-derive the 12 domain children; commit them with the parent
 make ci                 # gdcloud's offline gates, plus ours
 ```
 
@@ -178,8 +178,10 @@ make ci                 # gdcloud's offline gates, plus ours
 - **Promote** with *Actions → 4 / 5 → Run workflow*. Leave the version empty for the latest, or name
   one (`v1.4`) to roll back. **Hotfix** a prod defect with `gd-hotfix`, which cuts `hotfix/*` from
   the last prod release and ships `v1.N.1`.
-- **Never edit `gd_data_product/globalmart/`** — it is derived. Change the layout and re-project;
-  `projection_current` fails the build otherwise.
+- **`gd_data_product/globalmart/` is the parent's only authoring tree.** Edit it by hand, or build in
+  a dev workspace and bring it back with `gd-store` (gdcloud workflows 1 / 2a / 2b, or `make store`).
+  It carries the canonical data source from `gd_data_product/config.env.yml`; publishing to any
+  other profile rewrites it on the way out.
 - **Org-level objects** (agents, themes, org-level AI Knowledge documents) are not released, read or
   written from this repo: both orgs are shared, and a separate org repo owns them (gd-ecommerce-demo
   ADR 002). The knowledge corpus goes into workspaces only. `org_scope` enforces it. That repo does

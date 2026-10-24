@@ -38,7 +38,7 @@ jobs:
         ^gd_data_product/([^/]+/(analytics_model/(metrics|analytical_dashboards|visualization_objects|filter_contexts)|ldm/datasets)/[^/]+\.yaml|([^/]+/)?config\.(ci_checks|shared)\.yml)$
         ${{ 'gd_data_product_shared' != '' && format('^{0}/', 'gd_data_product_shared') || '' }}
         ^\.github/workflows/(gdcloud__)?check_ci_checks\.yml$
-        ${{ '^gd_plugin/|^config\.yml$|^pyproject\.toml$|^layouts/workspaces/globalmart/|^gd_data_product/([^/]+/)?config\.env\.yml$' }}
+        ${{ '^gd_plugin/|^config\.yml$|^pyproject\.toml$|^gd_data_product/([^/]+/)?config\.env\.yml$' }}
 
   ci-checks:
     needs: gate

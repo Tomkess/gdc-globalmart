@@ -7,7 +7,8 @@ requires-python = ">=3.14"
 dependencies = [
     # Release toolkit (FEAT-019, ADR 011). Same pin as gd-ecommerce-demo, so both demo repos
     # on the shared orgs run one release process. `auto_gdcloud_pin.yml` bumps it by PR.
-    # Only `gd_plugin/` and the CI use it; the `globalmart` package never imports it.
+    # `gd_plugin/` and the CI use it; the `globalmart` package imports it only in `layout_io`,
+    # for gd-store's exact YAML bytes.
     "gdcloud @ git+https://github.com/gooddata/gd-cloud-tooling.git@v0.51.0",
     # Pinned exactly: FEAT-001's byte-stability guarantee depends on the SDK's
     # on-disk layout format, which is not covered by semver.
@@ -97,7 +98,7 @@ files = ["src/globalmart", "src/gd_agents", "gd_plugin"]
 module = ["gooddata_sdk.*"]
 ignore_missing_imports = true
 
-# gdcloud ships no type information (no py.typed). Only gd_plugin/ and gdcloud_project import it.
+# gdcloud ships no type information (no py.typed). Only gd_plugin/ and layout_io import it.
 [[tool.mypy.overrides]]
 module = ["gdcloud.*"]
 ignore_missing_imports = true

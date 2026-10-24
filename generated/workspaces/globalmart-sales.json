@@ -7064,10 +7064,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_acquisition_channel",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_acquisition_channel"
           ],
           "type": "dataSource"
@@ -7085,8 +7085,7 @@
         "tags": [
           "Acquisition Channel"
         ],
-        "title": "Acquisition Channel",
-        "workspaceDataFilterReferences": []
+        "title": "Acquisition Channel"
       },
       {
         "aggregatedFacts": [],
@@ -7126,10 +7125,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_brand",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_brand"
           ],
           "type": "dataSource"
@@ -7147,8 +7146,7 @@
         "tags": [
           "Brand"
         ],
-        "title": "Brand",
-        "workspaceDataFilterReferences": []
+        "title": "Brand"
       },
       {
         "aggregatedFacts": [],
@@ -7177,10 +7175,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_category_l1",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_category_l1"
           ],
           "type": "dataSource"
@@ -7198,8 +7196,7 @@
         "tags": [
           "Product Category Level 1"
         ],
-        "title": "Product Category Level 1",
-        "workspaceDataFilterReferences": []
+        "title": "Product Category Level 1"
       },
       {
         "aggregatedFacts": [],
@@ -7239,10 +7236,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_channel_master",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_channel_master"
           ],
           "type": "dataSource"
@@ -7260,8 +7257,7 @@
         "tags": [
           "Sales Channel"
         ],
-        "title": "Sales Channel",
-        "workspaceDataFilterReferences": []
+        "title": "Sales Channel"
       },
       {
         "aggregatedFacts": [],
@@ -7290,10 +7286,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_company_entity",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_company_entity"
           ],
           "type": "dataSource"
@@ -7329,8 +7325,7 @@
         "tags": [
           "Company Entity"
         ],
-        "title": "Company Entity",
-        "workspaceDataFilterReferences": []
+        "title": "Company Entity"
       },
       {
         "aggregatedFacts": [],
@@ -7381,10 +7376,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_currency",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_currency"
           ],
           "type": "dataSource"
@@ -7402,8 +7397,7 @@
         "tags": [
           "Currency"
         ],
-        "title": "Currency",
-        "workspaceDataFilterReferences": []
+        "title": "Currency"
       },
       {
         "aggregatedFacts": [],
@@ -7465,10 +7459,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_customer",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_customer"
           ],
           "type": "dataSource"
@@ -7572,8 +7566,7 @@
         "tags": [
           "Customer"
         ],
-        "title": "Customer",
-        "workspaceDataFilterReferences": []
+        "title": "Customer"
       },
       {
         "aggregatedFacts": [],
@@ -7613,10 +7606,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_customer_segment",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_customer_segment"
           ],
           "type": "dataSource"
@@ -7634,8 +7627,7 @@
         "tags": [
           "Customer Segment"
         ],
-        "title": "Customer Segment",
-        "workspaceDataFilterReferences": []
+        "title": "Customer Segment"
       },
       {
         "aggregatedFacts": [],
@@ -7664,10 +7656,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_geography_city",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_geography_city"
           ],
           "type": "dataSource"
@@ -7720,8 +7712,7 @@
         "tags": [
           "City"
         ],
-        "title": "City",
-        "workspaceDataFilterReferences": []
+        "title": "City"
       },
       {
         "aggregatedFacts": [],
@@ -7750,10 +7741,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_geography_country",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_geography_country"
           ],
           "type": "dataSource"
@@ -7789,8 +7780,7 @@
         "tags": [
           "Country"
         ],
-        "title": "Country",
-        "workspaceDataFilterReferences": []
+        "title": "Country"
       },
       {
         "aggregatedFacts": [],
@@ -7819,10 +7809,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_geography_region",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_geography_region"
           ],
           "type": "dataSource"
@@ -7858,8 +7848,7 @@
         "tags": [
           "Region"
         ],
-        "title": "Region",
-        "workspaceDataFilterReferences": []
+        "title": "Region"
       },
       {
         "aggregatedFacts": [],
@@ -7899,10 +7888,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_lifecycle_stage",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_lifecycle_stage"
           ],
           "type": "dataSource"
@@ -7920,8 +7909,7 @@
         "tags": [
           "Lifecycle Stage"
         ],
-        "title": "Lifecycle Stage",
-        "workspaceDataFilterReferences": []
+        "title": "Lifecycle Stage"
       },
       {
         "aggregatedFacts": [],
@@ -7972,10 +7960,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_loyalty_tier",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_loyalty_tier"
           ],
           "type": "dataSource"
@@ -7993,8 +7981,7 @@
         "tags": [
           "Loyalty Tier"
         ],
-        "title": "Loyalty Tier",
-        "workspaceDataFilterReferences": []
+        "title": "Loyalty Tier"
       },
       {
         "aggregatedFacts": [],
@@ -8045,10 +8032,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_product",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_product"
           ],
           "type": "dataSource"
@@ -8118,8 +8105,7 @@
         "tags": [
           "Product"
         ],
-        "title": "Product",
-        "workspaceDataFilterReferences": []
+        "title": "Product"
       },
       {
         "aggregatedFacts": [],
@@ -8181,10 +8167,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_store",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_store"
           ],
           "type": "dataSource"
@@ -8254,8 +8240,7 @@
         "tags": [
           "Store"
         ],
-        "title": "Store",
-        "workspaceDataFilterReferences": []
+        "title": "Store"
       },
       {
         "aggregatedFacts": [],
@@ -8295,10 +8280,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_supplier",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_supplier"
           ],
           "type": "dataSource"
@@ -8334,8 +8319,7 @@
         "tags": [
           "Supplier"
         ],
-        "title": "Supplier",
-        "workspaceDataFilterReferences": []
+        "title": "Supplier"
       },
       {
         "aggregatedFacts": [],
@@ -8353,10 +8337,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_aged_inventory",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_aged_inventory"
           ],
           "type": "dataSource"
@@ -8430,8 +8414,7 @@
         "tags": [
           "Aged Inventory"
         ],
-        "title": "Aged Inventory",
-        "workspaceDataFilterReferences": []
+        "title": "Aged Inventory"
       },
       {
         "aggregatedFacts": [],
@@ -8449,10 +8432,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_checkout_time",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_checkout_time"
           ],
           "type": "dataSource"
@@ -8516,8 +8499,7 @@
         "tags": [
           "Checkout Time"
         ],
-        "title": "Checkout Time",
-        "workspaceDataFilterReferences": []
+        "title": "Checkout Time"
       },
       {
         "aggregatedFacts": [],
@@ -8535,10 +8517,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_competitor_pricing",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_competitor_pricing"
           ],
           "type": "dataSource"
@@ -8619,8 +8601,7 @@
         "tags": [
           "Competitor Pricing"
         ],
-        "title": "Competitor Pricing",
-        "workspaceDataFilterReferences": []
+        "title": "Competitor Pricing"
       },
       {
         "aggregatedFacts": [],
@@ -8638,10 +8619,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_compliment_complaint",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_compliment_complaint"
           ],
           "type": "dataSource"
@@ -8705,8 +8686,7 @@
         "tags": [
           "Compliment Complaint"
         ],
-        "title": "Compliment Complaint",
-        "workspaceDataFilterReferences": []
+        "title": "Compliment Complaint"
       },
       {
         "aggregatedFacts": [],
@@ -8724,10 +8704,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_daily_pnl",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_daily_pnl"
           ],
           "type": "dataSource"
@@ -8811,8 +8791,7 @@
         "tags": [
           "Daily Profit & Loss"
         ],
-        "title": "Daily Profit & Loss",
-        "workspaceDataFilterReferences": []
+        "title": "Daily Profit & Loss"
       },
       {
         "aggregatedFacts": [],
@@ -8841,10 +8820,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_daily_store_sales",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_daily_store_sales"
           ],
           "type": "dataSource"
@@ -8934,8 +8913,7 @@
             "dataType": "STRING",
             "name": "region_id"
           }
-        ],
-        "workspaceDataFilterReferences": []
+        ]
       },
       {
         "aggregatedFacts": [],
@@ -8953,10 +8931,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_energy_consumption",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_energy_consumption"
           ],
           "type": "dataSource"
@@ -9030,8 +9008,7 @@
         "tags": [
           "Energy Consumption"
         ],
-        "title": "Energy Consumption",
-        "workspaceDataFilterReferences": []
+        "title": "Energy Consumption"
       },
       {
         "aggregatedFacts": [],
@@ -9049,10 +9026,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_gift_card_txn",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_gift_card_txn"
           ],
           "type": "dataSource"
@@ -9126,8 +9103,7 @@
         "tags": [
           "Gift Card Transaction"
         ],
-        "title": "Gift Card Transaction",
-        "workspaceDataFilterReferences": []
+        "title": "Gift Card Transaction"
       },
       {
         "aggregatedFacts": [],
@@ -9145,10 +9121,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_loyalty_points_redeemed",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_loyalty_points_redeemed"
           ],
           "type": "dataSource"
@@ -9222,8 +9198,7 @@
         "tags": [
           "Loyalty Points Redeemed"
         ],
-        "title": "Loyalty Points Redeemed",
-        "workspaceDataFilterReferences": []
+        "title": "Loyalty Points Redeemed"
       },
       {
         "aggregatedFacts": [],
@@ -9241,10 +9216,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_loyalty_redemption_at_pos",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_loyalty_redemption_at_pos"
           ],
           "type": "dataSource"
@@ -9318,8 +9293,7 @@
         "tags": [
           "Loyalty Redemption at POS"
         ],
-        "title": "Loyalty Redemption at POS",
-        "workspaceDataFilterReferences": []
+        "title": "Loyalty Redemption at POS"
       },
       {
         "aggregatedFacts": [],
@@ -9337,10 +9311,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_opex_transaction",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_opex_transaction"
           ],
           "type": "dataSource"
@@ -9387,8 +9361,7 @@
         "tags": [
           "Operating Expense Transaction"
         ],
-        "title": "Operating Expense Transaction",
-        "workspaceDataFilterReferences": []
+        "title": "Operating Expense Transaction"
       },
       {
         "aggregatedFacts": [],
@@ -9417,10 +9390,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_order_header",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_order_header"
           ],
           "type": "dataSource"
@@ -9544,8 +9517,7 @@
             "dataType": "STRING",
             "name": "region_id"
           }
-        ],
-        "workspaceDataFilterReferences": []
+        ]
       },
       {
         "aggregatedFacts": [],
@@ -9563,10 +9535,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_price_adjustment",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_price_adjustment"
           ],
           "type": "dataSource"
@@ -9647,8 +9619,7 @@
         "tags": [
           "Price Adjustment"
         ],
-        "title": "Price Adjustment",
-        "workspaceDataFilterReferences": []
+        "title": "Price Adjustment"
       },
       {
         "aggregatedFacts": [],
@@ -9666,10 +9637,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_purchase_order_header",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_purchase_order_header"
           ],
           "type": "dataSource"
@@ -9743,8 +9714,7 @@
         "tags": [
           "Purchase Order"
         ],
-        "title": "Purchase Order",
-        "workspaceDataFilterReferences": []
+        "title": "Purchase Order"
       },
       {
         "aggregatedFacts": [],
@@ -9762,10 +9732,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_purchase_order_line",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_purchase_order_line"
           ],
           "type": "dataSource"
@@ -9839,8 +9809,7 @@
         "tags": [
           "Purchase Order Line Items"
         ],
-        "title": "Purchase Order Line Items",
-        "workspaceDataFilterReferences": []
+        "title": "Purchase Order Line Items"
       },
       {
         "aggregatedFacts": [],
@@ -9869,10 +9838,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_returns",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_returns"
           ],
           "type": "dataSource"
@@ -9946,8 +9915,7 @@
         "tags": [
           "Returns"
         ],
-        "title": "Returns",
-        "workspaceDataFilterReferences": []
+        "title": "Returns"
       },
       {
         "aggregatedFacts": [],
@@ -9965,10 +9933,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_till_reconciliation",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_till_reconciliation"
           ],
           "type": "dataSource"
@@ -10032,8 +10000,7 @@
         "tags": [
           "Till Reconciliation"
         ],
-        "title": "Till Reconciliation",
-        "workspaceDataFilterReferences": []
+        "title": "Till Reconciliation"
       },
       {
         "aggregatedFacts": [],
@@ -10051,10 +10018,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_web_order_header",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_web_order_header"
           ],
           "type": "dataSource"
@@ -10128,8 +10095,7 @@
         "tags": [
           "Online Order"
         ],
-        "title": "Online Order",
-        "workspaceDataFilterReferences": []
+        "title": "Online Order"
       },
       {
         "aggregatedFacts": [],
@@ -10241,14 +10207,13 @@
           }
         ],
         "sql": {
-          "dataSourceId": "{{ datasource_id }}",
-          "statement": "\nSELECT\n    COALESCE(oh.order_date, woh.order_date) AS order_date,\n    oh.store_id AS store_id,\n    oh.channel_id AS channel_id,\n    cm.channel_type,\n    SUM(COALESCE(ol.revenue, wol.revenue)) AS total_revenue,\n    COUNT(DISTINCT COALESCE(oh.order_id, woh.order_id)) AS order_count\nFROM {{ datasource_schema }}.fact_order_header oh\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN {{ datasource_schema }}.dim_channel_master cm ON oh.channel_id = cm.channel_id\nFULL OUTER JOIN {{ datasource_schema }}.fact_web_order_header woh ON oh.order_date = woh.order_date\nLEFT JOIN {{ datasource_schema }}.fact_web_order_line wol ON woh.order_id = wol.order_id\nWHERE COALESCE(oh.order_date, woh.order_date) IS NOT NULL\nGROUP BY 1, 2, 3, 4\n"
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
+          "statement": "\nSELECT\n    COALESCE(oh.order_date, woh.order_date) AS order_date,\n    oh.store_id AS store_id,\n    oh.channel_id AS channel_id,\n    cm.channel_type,\n    SUM(COALESCE(ol.revenue, wol.revenue)) AS total_revenue,\n    COUNT(DISTINCT COALESCE(oh.order_id, woh.order_id)) AS order_count\nFROM globalmart.fact_order_header oh\nLEFT JOIN globalmart.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN globalmart.dim_channel_master cm ON oh.channel_id = cm.channel_id\nFULL OUTER JOIN globalmart.fact_web_order_header woh ON oh.order_date = woh.order_date\nLEFT JOIN globalmart.fact_web_order_line wol ON woh.order_id = wol.order_id\nWHERE COALESCE(oh.order_date, woh.order_date) IS NOT NULL\nGROUP BY 1, 2, 3, 4\n"
         },
         "tags": [
           "Blended Daily Revenue"
         ],
-        "title": "Blended Daily Revenue",
-        "workspaceDataFilterReferences": []
+        "title": "Blended Daily Revenue"
       },
       {
         "aggregatedFacts": [],
@@ -10315,14 +10280,13 @@
           }
         ],
         "sql": {
-          "dataSourceId": "{{ datasource_id }}",
-          "statement": "\nSELECT\n    lp.enrollment_id AS loyalty_program_id,\n    lp.enrollment_date AS program_date,\n    SUM(lpe.points) * 0.01 AS points_cost,\n    SUM(COALESCE(ol.revenue, 0)) AS attributed_revenue\nFROM {{ datasource_schema }}.fact_loyalty_points_earned lpe\nJOIN {{ datasource_schema }}.fact_loyalty_enrollment lp ON lpe.customer_id = lp.customer_id\nLEFT JOIN {{ datasource_schema }}.fact_order_header oh ON lpe.customer_id = oh.customer_id\nLEFT JOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nGROUP BY 1, 2\n"
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
+          "statement": "\nSELECT\n    lp.enrollment_id AS loyalty_program_id,\n    lp.enrollment_date AS program_date,\n    SUM(lpe.points) * 0.01 AS points_cost,\n    SUM(COALESCE(ol.revenue, 0)) AS attributed_revenue\nFROM globalmart.fact_loyalty_points_earned lpe\nJOIN globalmart.fact_loyalty_enrollment lp ON lpe.customer_id = lp.customer_id\nLEFT JOIN globalmart.fact_order_header oh ON lpe.customer_id = oh.customer_id\nLEFT JOIN globalmart.fact_order_line ol ON oh.order_id = ol.order_id\nGROUP BY 1, 2\n"
         },
         "tags": [
           "Loyalty Program ROI"
         ],
-        "title": "Loyalty Program ROI",
-        "workspaceDataFilterReferences": []
+        "title": "Loyalty Program ROI"
       },
       {
         "aggregatedFacts": [],
@@ -10406,14 +10370,13 @@
           }
         ],
         "sql": {
-          "dataSourceId": "{{ datasource_id }}",
-          "statement": "\nSELECT\n    oh.order_date,\n    oh.store_id,\n    SUM(ol.revenue) - SUM(COALESCE(ret.return_amount, 0)) - SUM(COALESCE(md.markdown_amount, 0)) AS net_revenue,\n    COUNT(DISTINCT oh.order_id) AS order_count\nFROM {{ datasource_schema }}.fact_order_header oh\nJOIN {{ datasource_schema }}.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN {{ datasource_schema }}.fact_returns ret ON ol.order_id = ret.order_id\nLEFT JOIN {{ datasource_schema }}.fact_markdown_event md ON ol.product_id = md.product_id\nGROUP BY 1, 2\n"
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
+          "statement": "\nSELECT\n    oh.order_date,\n    oh.store_id,\n    SUM(ol.revenue) - SUM(COALESCE(ret.return_amount, 0)) - SUM(COALESCE(md.markdown_amount, 0)) AS net_revenue,\n    COUNT(DISTINCT oh.order_id) AS order_count\nFROM globalmart.fact_order_header oh\nJOIN globalmart.fact_order_line ol ON oh.order_id = ol.order_id\nLEFT JOIN globalmart.fact_returns ret ON ol.order_id = ret.order_id\nLEFT JOIN globalmart.fact_markdown_event md ON ol.product_id = md.product_id\nGROUP BY 1, 2\n"
         },
         "tags": [
           "Net Sales Summary"
         ],
-        "title": "Net Sales Summary",
-        "workspaceDataFilterReferences": []
+        "title": "Net Sales Summary"
       }
     ],
     "dateInstances": [

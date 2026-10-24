@@ -4,5 +4,5 @@ content:
 description: ''
 id: m_revenue_by_month
 tags:
-- metric
+  - metric
 title: m_revenue_by_month

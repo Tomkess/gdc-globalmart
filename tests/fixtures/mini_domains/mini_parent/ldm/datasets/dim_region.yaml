@@ -1,27 +1,27 @@
 aggregatedFacts: []
 attributes:
-- description: ''
-  id: dim_region.region_id
-  labels: []
-  sourceColumn: region_id
-  sourceColumnDataType: STRING
-  tags:
-  - dim_region
-  title: region_id
-- description: ''
-  id: dim_region.region_name
-  labels: []
-  sourceColumn: region_name
-  sourceColumnDataType: STRING
-  tags:
-  - dim_region
-  title: region_name
+  - description: ''
+    id: dim_region.region_id
+    labels: []
+    sourceColumn: region_id
+    sourceColumnDataType: STRING
+    tags:
+      - dim_region
+    title: region_id
+  - description: ''
+    id: dim_region.region_name
+    labels: []
+    sourceColumn: region_name
+    sourceColumnDataType: STRING
+    tags:
+      - dim_region
+    title: region_name
 dataSourceTableId:
-  dataSourceId: '{{ datasource_id }}'
+  dataSourceId: gdc_ds_globalmart_motherduck
   id: dim_region
   path:
-  - globalmart
-  - dim_region
+    - globalmart
+    - dim_region
   type: dataSource
 description: ''
 facts: []
@@ -29,6 +29,5 @@ grain: []
 id: dim_region
 references: []
 tags:
-- dim_region
+  - dim_region
 title: Dim Region
-workspaceDataFilterReferences: []

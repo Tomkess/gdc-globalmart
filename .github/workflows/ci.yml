@@ -36,12 +36,6 @@ jobs:
       - name: Test
         run: uv run pytest tests/ -q
 
-      # The gate that keeps the committed layout canonical. A hand-edited layout file,
-      # or one written by a different SDK version, fails the PR that introduced it.
-      # Offline: reads the committed tree, never a live host.
-      - name: Layout tree is canonical
-        run: uv run globalmart normalize --check
-
       # Coverage: every dashboard and visualization in the parent belongs to a domain, is
       # declared shared, or is excluded with a written reason. A PR that adds a dashboard
       # without assigning it fails here. --strict also rejects placeholder reasons, so a
@@ -51,15 +45,10 @@ jobs:
 
       # The derived children must match what the parent plus the manifest produce. A
       # hand-edited generated file, or a parent change nobody re-split, fails the PR.
-      # Offline: reads the committed tree, never a live host.
+      # Offline: reads gd_data_product/globalmart/, never a live host. Its formatting is gated by
+      # gdcloud's "GoodData YAML Formatting Check" workflow (gd-format-yaml --check).
       - name: Domain children are current
         run: uv run globalmart split --check
-
-      # The tree gdcloud releases is derived from the parent layout (ADR 011). A layout change
-      # nobody re-projected, a hand edit, or a gd-store into gd_data_product/globalmart/ fails
-      # here. gd-ci's projection_current runs the same comparison inside gdcloud's own gates.
-      - name: Release projection is current
-        run: uv run globalmart gdcloud project --check
 
       # ADR 008 moved the rows out of the repo, so there are no bytes to hash. What is
       # committed is the contract — which tables exist, their row counts and their columns —

@@ -1,17 +1,23 @@
-"""Deterministic reading and writing of the parent workspace's YAML tree.
+"""Reading and writing the parent workspace's YAML tree, in the form gdcloud releases.
 
-Two things the SDK does not give us, both load-bearing for FEAT-001's acceptance criteria:
+The parent lives in ``gd_data_product/globalmart/`` (ADR 011 Stage B): one file per object, in
+exactly the bytes ``gd-store`` and ``gd-format-yaml`` produce. That makes every writer in this
+package — ``datefilters bind``, ``knowledge build``, a backup — interchangeable with a ``gd-store``
+from a dev workspace: whichever wrote the tree, the next one leaves an unchanged object unchanged.
 
-1. **Byte stability.** ``store_to_disk(sort=True)`` sorts mapping keys but leaves the YAML
-   dumper's own formatting choices (width, flow style, unicode escaping) up to defaults
-   that can shift between releases. ``write_tree`` re-dumps every emitted file through one
-   fixed configuration so a re-capture of an unchanged workspace produces an empty
-   ``git diff``.
+Two things the SDK does not give us:
 
-2. **Orphan pruning.** The SDK writes with ``create_directory`` (``utils.py:168``), not
-   ``recreate_directory``, so a file for an object that has since been deleted is left
-   behind forever. ``write_tree`` diffs what it wrote against what is on disk and removes
-   the remainder.
+1. **gdcloud's byte form.** ``store_to_disk(sort=True)`` sorts mapping keys only. gdcloud also
+   sorts LDM lists by id and drops empty ``tags`` / ``keywords`` before storing. Rather than
+   re-implement those rules and drift from them, ``write_tree`` runs gdcloud's own normalizers over
+   a staged tree. They are imported lazily, from a module gdcloud does not declare public, so a pin
+   bump that moves them fails this module's tests rather than silently changing the bytes.
+
+2. **Orphan pruning.** The SDK writes with ``create_directory``, not ``recreate_directory``, so a
+   file for an object that has since been deleted is left behind forever. ``write_tree`` diffs
+   what it wrote against what is on disk under ``ldm/`` and ``analytics_model/`` and removes the
+   remainder. Anything else in the folder (``workspace_data_filters.json``) is gdcloud's and is
+   never touched.
 
 Paths never contain an org id: the folder is passed explicitly, never derived from
 ``layout_organization_folder()``. See ``capture.py`` for why.
@@ -19,80 +25,125 @@ Paths never contain an org id: the folder is passed explicitly, never derived fr
 
 from __future__ import annotations
 
+import contextlib
+import io
 import json
-import shutil
 import tempfile
 from pathlib import Path
 from typing import Any
 
-import yaml
 from gooddata_sdk.catalog.workspace.declarative_model.workspace.workspace import (
     CatalogDeclarativeWorkspaceModel,
 )
 
+from globalmart.config import GlobalmartError
 
-def _canonicalise(path: Path) -> None:
-    """Re-dump one YAML file through one fixed configuration, with a trailing newline.
+#: The parent workspace's tree: gdcloud's data-product folder, and the only authoring surface
+#: (ADR 011 Stage B). Every reader defaults to it.
+DEFAULT_LAYOUT_PATH = Path("gd_data_product/globalmart")
 
-    The configuration is spelled out at the call site rather than held in a dict so the
-    type checker sees the real overload — and so a future change to any of these knobs is
-    visible as a diff on the line that produces the bytes.
+#: The folders a workspace model owns inside a tree. Everything else is left alone.
+CONTENT_FOLDERS = ("ldm", "analytics_model")
+
+
+class LayoutWriteError(GlobalmartError):
+    """gdcloud's normalizers could not format a staged tree."""
+
+
+def read_tree(workspace_folder: Path) -> CatalogDeclarativeWorkspaceModel:
+    """Load a workspace model from a tree.
+
+    ``gd_data_product/<dp>/`` is the SDK's standard ``store_to_disk`` layout (``ldm/`` and
+    ``analytics_model/``), so the SDK's own ``load_from_disk`` reads it; gdcloud's
+    ``workspace_data_filters.json`` beside them is ignored. Takes an explicit folder — the
+    org-agnostic read path, and the reason ``load_declarative_workspace`` is never used.
+
+    The SDK's loader creates a folder for every collection it looks for, empty ones included
+    (``analytical_dashboard_extensions/``, ``parameters/``, …). git cannot hold an empty folder
+    and gd-store never writes one, so they are removed again rather than left as clutter.
     """
-    content = yaml.safe_load(path.read_text(encoding="utf-8"))
-    text = yaml.safe_dump(
-        content,
-        sort_keys=True,
-        default_flow_style=False,
-        allow_unicode=True,
-        width=120,
-        indent=2,
-    )
-    if not text.endswith("\n"):
-        text += "\n"
-    path.write_text(text, encoding="utf-8")
+    workspace_folder = Path(workspace_folder)
+    model = CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=workspace_folder)
+    for folder in CONTENT_FOLDERS:
+        if (workspace_folder / folder).exists():
+            _prune_empty_dirs(workspace_folder / folder)
+    return model
 
 
 def write_tree(model: CatalogDeclarativeWorkspaceModel, workspace_folder: Path) -> set[Path]:
-    """Write a workspace model as a YAML tree, deterministically, pruning orphans.
+    """Write a workspace model as gdcloud's YAML tree, deterministically, pruning orphans.
 
     The model is staged into a temporary directory first, so the set of files *this* write
-    produced is known exactly. Writing straight into the target cannot tell a freshly
-    written file from a stale one left by an earlier write — both are simply present — and
-    the orphan diff would always come out empty.
+    produced is known exactly. Writing straight into the target cannot tell a freshly written
+    file from a stale one left by an earlier write — both are simply present — and the orphan
+    diff would always come out empty.
 
-    Returns the set of paths written, so a caller (or a test) can assert exactly what
-    landed on disk.
+    Returns the set of paths written, so a caller (or a test) can assert exactly what landed.
     """
     workspace_folder = Path(workspace_folder)
+    _drop_empty_wdf_references(model)
 
     with tempfile.TemporaryDirectory(prefix="globalmart-layout-") as staging_root:
         staging = Path(staging_root) / "workspace"
         staging.mkdir(parents=True)
         model.store_to_disk(workspace_folder=staging, sort=True)
+        _format_like_gdcloud(staging)
 
-        staged = sorted(staging.rglob("*.yaml"))
-        for path in staged:
-            _canonicalise(path)
-
-        relative = {path.relative_to(staging) for path in staged}
-
-        existing = set(workspace_folder.rglob("*.yaml")) if workspace_folder.exists() else set()
+        relative = {path.relative_to(staging) for path in staging.rglob("*.yaml")}
+        existing = {
+            path
+            for folder in CONTENT_FOLDERS
+            if (workspace_folder / folder).exists()
+            for path in (workspace_folder / folder).rglob("*.yaml")
+        }
 
         written: set[Path] = set()
         for rel in sorted(relative):
             destination = workspace_folder / rel
             destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(staging / rel, destination)
+            content = (staging / rel).read_bytes()
+            if not destination.exists() or destination.read_bytes() != content:
+                destination.write_bytes(content)
             written.add(destination)
 
     # Files that survive from an earlier write but were not produced by this one belong to
-    # objects that no longer exist. The SDK never removes them (it uses create_directory,
-    # not recreate_directory), so a deleted object would otherwise be republished forever.
+    # objects that no longer exist. Left behind, a deleted object would be released forever.
     for orphan in sorted(existing - written):
         orphan.unlink()
 
-    _prune_empty_dirs(workspace_folder)
+    for folder in CONTENT_FOLDERS:
+        if (workspace_folder / folder).exists():
+            _prune_empty_dirs(workspace_folder / folder)
     return written
+
+
+def _drop_empty_wdf_references(model: CatalogDeclarativeWorkspaceModel) -> None:
+    """The API omits an empty list here and ``gd-store`` writes no key; a model built in memory
+    may carry ``[]``. Without this, every dataset file would differ from what gd-store writes."""
+    for dataset in (model.ldm.datasets if model.ldm else None) or []:
+        if not dataset.workspace_data_filter_references:
+            dataset.workspace_data_filter_references = None
+
+
+def _format_like_gdcloud(folder: Path) -> None:
+    """Run gdcloud's own normalizers over a staged tree, so the bytes match gd-store's."""
+    from gdcloud.formatting_yaml import (  # lazily: see the module docstring
+        normalize_analytics_model,
+        normalize_ldm,
+    )
+    from gooddata_sdk import GoodDataSdk
+
+    # The normalizers only load from and store to disk; the SDK instance never connects.
+    sdk = GoodDataSdk.create(host_="http://localhost", token_="offline")
+    chatter = io.StringIO()
+    with contextlib.redirect_stdout(chatter), contextlib.redirect_stderr(chatter):
+        succeeded = True
+        if (folder / "analytics_model").exists():
+            succeeded = normalize_analytics_model(sdk, folder) and succeeded
+        if (folder / "ldm").exists():
+            succeeded = normalize_ldm(sdk, folder) and succeeded
+    if not succeeded:
+        raise LayoutWriteError(f"gdcloud normalization failed:\n{chatter.getvalue()}")
 
 
 def _prune_empty_dirs(root: Path) -> None:
@@ -100,15 +151,6 @@ def _prune_empty_dirs(root: Path) -> None:
     for directory in sorted((p for p in root.rglob("*") if p.is_dir()), reverse=True):
         if not any(directory.iterdir()):
             directory.rmdir()
-
-
-def read_tree(workspace_folder: Path) -> CatalogDeclarativeWorkspaceModel:
-    """Load a workspace model from a YAML tree.
-
-    Takes an explicit folder — this is the org-agnostic read path, and the reason
-    ``load_declarative_workspace`` is never used.
-    """
-    return CatalogDeclarativeWorkspaceModel.load_from_disk(workspace_folder=Path(workspace_folder))
 
 
 # --- the JSON side (ADR 001: derived children are committed declarative JSON) -------------
@@ -122,9 +164,9 @@ def model_to_dict(model: CatalogDeclarativeWorkspaceModel) -> dict[str, Any]:
 
     Sorting every list looks like the way to make emission deterministic, and it corrupts
     the document: ``dataSourceTableId.path`` is ``[schema, table]`` positionally, so sorting
-    it put the schema second and the publish failed on an unresolved placeholder — and it
-    would equally have reordered a visualization's ``buckets``, its ``sorts``, and a date
-    instance's ``granularities``, none of which announce that they are ordered.
+    it put the schema second and the publish failed — and it would equally have reordered a
+    visualization's ``buckets``, its ``sorts``, and a date instance's ``granularities``, none
+    of which announce that they are ordered.
 
     Determinism comes from the producer instead: ``prune_ldm`` sorts datasets and date
     instances by id, ``split._retain`` emits each analytics channel in sorted-id order, and

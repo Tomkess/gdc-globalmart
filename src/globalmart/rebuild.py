@@ -32,6 +32,8 @@ from typing import Any
 
 from globalmart.config import GlobalmartError, TargetProfile
 from globalmart.domains import DomainManifest
+from globalmart.gdcloud_bridge import DEFAULT_ENV_CONFIG_PATH, load_canonical_data_source
+from globalmart.layout_io import DEFAULT_LAYOUT_PATH
 
 
 class StepStatus(StrEnum):
@@ -87,7 +89,7 @@ class RebuildReport:
 
 @dataclass
 class RebuildOptions:
-    layout_path: Path = Path("layouts/workspaces/globalmart")
+    layout_path: Path = DEFAULT_LAYOUT_PATH
     generated_path: Path = Path("generated/workspaces")
     domains_path: Path = Path("config/domains.yaml")
     corpus_path: Path = Path("docs/knowledge-corpus")
@@ -95,6 +97,7 @@ class RebuildOptions:
     allow_existing: bool = False
     skip_knowledge_docs: bool = False
     verify: bool = True
+    env_config_path: Path = DEFAULT_ENV_CONFIG_PATH
 
 
 def probe_empty_org(sdk: Any, profile: TargetProfile, manifest: DomainManifest) -> bool:
@@ -283,7 +286,14 @@ def _run_publish_parent(
     from globalmart.publish import publish_workspace
 
     model = read_tree(opts.layout_path)
-    result = publish_workspace(sdk, model, profile, workspace_id=manifest.parent_workspace_id, apply=True)
+    result = publish_workspace(
+        sdk,
+        model,
+        profile,
+        workspace_id=manifest.parent_workspace_id,
+        canonical=load_canonical_data_source(opts.env_config_path),
+        apply=True,
+    )
     return f"{result.workspace_id} changed={result.changed}"
 
 
@@ -328,7 +338,14 @@ def _run_publish_domains(
         key: read_model_json(opts.generated_path / f"{manifest.by_key(key).workspace_id}.json")
         for key in manifest.keys()  # noqa: SIM118 - DomainManifest.keys() is a method
     }
-    results = publish_domains(sdk, manifest, profile, models=models, apply=True)
+    results = publish_domains(
+        sdk,
+        manifest,
+        profile,
+        models=models,
+        canonical=load_canonical_data_source(opts.env_config_path),
+        apply=True,
+    )
     return f"{len(results)} workspaces"
 
 

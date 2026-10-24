@@ -1,4 +1,4 @@
-"""Task 10 — determinism, orphan pruning, and the org-agnostic path guarantee."""
+"""Task 10 — determinism, orphan pruning, gdcloud's byte form, and the org-agnostic path guarantee."""
 
 from __future__ import annotations
 
@@ -98,7 +98,7 @@ def test_no_path_segment_carries_an_org_id(
     synthetic_model: CatalogDeclarativeWorkspaceModel, tmp_path: Path
 ) -> None:
     """STEERING § Portability Contract: the tree must not name the org it came from."""
-    folder = tmp_path / "layouts" / "workspaces" / "globalmart"
+    folder = tmp_path / "gd_data_product" / "globalmart"
     written = write_tree(synthetic_model, folder)
 
     assert written, "expected files to be written"
@@ -117,12 +117,38 @@ def test_round_trip_preserves_every_channel(
     assert count_objects(read_tree(folder)) == count_objects(synthetic_model)
 
 
-def test_sql_schema_placeholder_is_preserved_verbatim(
+def test_sql_statement_is_preserved_verbatim(
     synthetic_model: CatalogDeclarativeWorkspaceModel, tmp_path: Path
 ) -> None:
-    """Stripping this placeholder was a real predecessor defect — assert it survives I/O."""
+    """Stripping a schema qualifier was a real predecessor defect — assert SQL survives I/O."""
     folder = tmp_path / "ws"
     write_tree(synthetic_model, folder)
 
-    text = (folder / "ldm" / "datasets" / "sql_channel_summary.yaml").read_text(encoding="utf-8")
-    assert "{{ datasource_schema }}" in text
+    reread = {d.id: d for d in read_tree(folder).ldm.datasets}
+    assert reread["sql_channel_summary"].sql.statement == (
+        "SELECT channel, count(*) AS n FROM globalmart.fact_orders GROUP BY 1"
+    )
+
+
+def test_writes_in_gdcloud_form(synthetic_model: CatalogDeclarativeWorkspaceModel, tmp_path: Path) -> None:
+    """gd-store and gd-format-yaml drop empty tags and sort LDM lists; so must write_tree."""
+    folder = tmp_path / "ws"
+    synthetic_model.ldm.datasets[0].tags = []
+    synthetic_model.ldm.datasets[0].workspace_data_filter_references = []
+    write_tree(synthetic_model, folder)
+
+    text = (folder / "ldm" / "datasets" / "dim_customer.yaml").read_text(encoding="utf-8")
+    assert "tags:" not in text
+    assert "workspaceDataFilterReferences" not in text
+
+
+def test_reading_leaves_no_empty_folders(
+    synthetic_model: CatalogDeclarativeWorkspaceModel, tmp_path: Path
+) -> None:
+    """The SDK's loader creates a folder per collection; git cannot hold them and gd-store writes none."""
+    folder = tmp_path / "ws"
+    write_tree(synthetic_model, folder)
+
+    read_tree(folder)
+
+    assert [p for p in folder.rglob("*") if p.is_dir() and not any(p.iterdir())] == []

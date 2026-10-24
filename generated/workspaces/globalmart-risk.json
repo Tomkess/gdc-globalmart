@@ -3568,10 +3568,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_channel_master",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_channel_master"
           ],
           "type": "dataSource"
@@ -3589,8 +3589,7 @@
         "tags": [
           "Sales Channel"
         ],
-        "title": "Sales Channel",
-        "workspaceDataFilterReferences": []
+        "title": "Sales Channel"
       },
       {
         "aggregatedFacts": [],
@@ -3619,10 +3618,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_company_entity",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_company_entity"
           ],
           "type": "dataSource"
@@ -3658,8 +3657,7 @@
         "tags": [
           "Company Entity"
         ],
-        "title": "Company Entity",
-        "workspaceDataFilterReferences": []
+        "title": "Company Entity"
       },
       {
         "aggregatedFacts": [],
@@ -3710,10 +3708,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_currency",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_currency"
           ],
           "type": "dataSource"
@@ -3731,8 +3729,7 @@
         "tags": [
           "Currency"
         ],
-        "title": "Currency",
-        "workspaceDataFilterReferences": []
+        "title": "Currency"
       },
       {
         "aggregatedFacts": [],
@@ -3761,10 +3758,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_geography_country",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_geography_country"
           ],
           "type": "dataSource"
@@ -3800,8 +3797,7 @@
         "tags": [
           "Country"
         ],
-        "title": "Country",
-        "workspaceDataFilterReferences": []
+        "title": "Country"
       },
       {
         "aggregatedFacts": [],
@@ -3830,10 +3826,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "dim_geography_region",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "dim_geography_region"
           ],
           "type": "dataSource"
@@ -3869,8 +3865,7 @@
         "tags": [
           "Region"
         ],
-        "title": "Region",
-        "workspaceDataFilterReferences": []
+        "title": "Region"
       },
       {
         "aggregatedFacts": [],
@@ -3888,10 +3883,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_audit_finding",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_audit_finding"
           ],
           "type": "dataSource"
@@ -3938,8 +3933,7 @@
         "tags": [
           "Audit Finding"
         ],
-        "title": "Audit Finding",
-        "workspaceDataFilterReferences": []
+        "title": "Audit Finding"
       },
       {
         "aggregatedFacts": [],
@@ -3957,10 +3951,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_chargeback",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_chargeback"
           ],
           "type": "dataSource"
@@ -4017,8 +4011,7 @@
         "tags": [
           "Chargeback"
         ],
-        "title": "Chargeback",
-        "workspaceDataFilterReferences": []
+        "title": "Chargeback"
       },
       {
         "aggregatedFacts": [],
@@ -4036,10 +4029,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_fraud_alert",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_fraud_alert"
           ],
           "type": "dataSource"
@@ -4096,8 +4089,7 @@
         "tags": [
           "Fraud Alert"
         ],
-        "title": "Fraud Alert",
-        "workspaceDataFilterReferences": []
+        "title": "Fraud Alert"
       },
       {
         "aggregatedFacts": [],
@@ -4115,10 +4107,10 @@
           }
         ],
         "dataSourceTableId": {
-          "dataSourceId": "{{ datasource_id }}",
+          "dataSourceId": "gdc_ds_globalmart_motherduck",
           "id": "fact_risk_attr_01",
           "path": [
-            "{{ datasource_schema }}",
+            "globalmart",
             "fact_risk_attr_01"
           ],
           "type": "dataSource"
@@ -4165,8 +4157,7 @@
         "tags": [
           "Compliance Adherence Score"
         ],
-        "title": "Compliance Adherence Score",
-        "workspaceDataFilterReferences": []
+        "title": "Compliance Adherence Score"
       }
     ],
     "dateInstances": [

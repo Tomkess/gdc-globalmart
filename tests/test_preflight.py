@@ -9,7 +9,6 @@ import pytest
 
 from globalmart.config import MissingProfileKeyError, TargetProfile, WarehouseType
 from globalmart.layout_io import read_tree
-from globalmart.normalize import normalize_workspace
 from globalmart.preflight import (
     OrganizationMismatchError,
     PortabilityError,
@@ -95,14 +94,15 @@ def test_matching_organization_passes(fake_sdk) -> None:  # type: ignore[no-unty
 
 def test_surviving_user_reference_is_caught_before_publish() -> None:
     """A foreign createdBy makes the target reject the whole layout with a generic 400."""
-    model = read_tree(FIXTURE)  # un-normalized: still carries audit fields
+    model = read_tree(FIXTURE)  # a raw capture: still carries audit fields
 
     with pytest.raises(PortabilityError) as excinfo:
         check_portability(model)
     assert "created_by" in str(excinfo.value) or "modified_by" in str(excinfo.value)
 
 
-def test_normalized_model_passes_portability() -> None:
-    model = read_tree(FIXTURE)
-    normalize_workspace(model, datasource_schema="globalmart")
-    check_portability(model)
+def test_gd_store_form_passes_portability() -> None:
+    """gd-store captures with ACTIVITY_INFO excluded, so its tree carries no audit fields."""
+    from .conftest import committed_mini
+
+    check_portability(committed_mini())
